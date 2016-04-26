@@ -7,7 +7,7 @@ export default (config) => ({
     enabled: true,
     options: {
       // koa-proxy options
-      host: 'https://api.github.com',
+      host: 'http://172.19.6.131:8081/',
       match: /^\/api\/.*/,
       hook: (opt) => {
         opt.url = opt.url.replace(/(api\/)/g, '');
