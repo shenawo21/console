@@ -23,7 +23,7 @@ export default ({login})=> {
             </div>
             <h3 className="font-size-24">登陆</h3>
             <p>欢迎登陆翌商云平台</p>
-            <form method="post" action="">
+            <form method="post" action="/">
               <div className="form-group">
                 <label className="sr-only" htmlFor="inputEmail">Email</label>
                 <input type="email" className="form-control" id="inputEmail" name="email" placeholder="Email" />
@@ -37,12 +37,12 @@ export default ({login})=> {
                   <input type="checkbox" id="remember" name="checkbox" />
                   <label htmlFor="inputCheckbox">记住密码</label>
                 </div>
-                <a className="pull-right" href="forgot-password.html">忘记密码？</a>
+                <a className="pull-right" href="forgot-password">忘记密码？</a>
               </div>
-              <button type="button" onClick={login} className="btn btn-primary btn-block">登陆</button>
+              <button type="submit" onClick={login} className="btn btn-primary btn-block">登陆</button>
             </form>
 
-            <p>还没注册?<a href="">立即注册</a></p>
+            <p>还没注册?<a href="/register">立即注册</a></p>
             <footer className="page-copyright">
               <p>WEBSITE BY SUNEEE</p>
               <p>© 2016. All RIGHT RESERVED.</p>

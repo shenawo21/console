@@ -68,7 +68,7 @@ function CoreLayout({ children }) {
             <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
               <span className="icon wb-eye-close" aria-hidden="true" />
             </a>
-            <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+            <a href="/login" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
               <span className="icon wb-power" aria-hidden="true" />
             </a>
           </div>

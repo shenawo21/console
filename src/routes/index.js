@@ -46,7 +46,8 @@ export const createRoutes = (store) => {
     path: '/',
     component: CoreLayout,
     indexRoute: Home,
-    onEnter: requireLogin,
+    // 取消注释开启登录检查
+    // onEnter: requireLogin,
     getChildRoutes(location, next) {
       require.ensure([], (require) => {
         next(null, [
