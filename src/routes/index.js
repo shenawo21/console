@@ -2,13 +2,20 @@
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
 import {load, isAuthed} from '../store/auth'
-import Login from '../layouts/LoginLayout'
+import Login from './Login'
 import NotFound from './NotFound'
+import React from 'react'
+
 export const createRoutes = (store) => {
   /*  Note: Instead of using JSX, we are using react-router PlainRoute,
       a simple javascript object to provide route definitions.
       When creating a new async route, pass the instantiated store!   */
   const requireLogin = (nextState, replace, cb) => {
+    /**
+     * 权限检查
+     * 从 state 里面获取 auth 数据,如果有 user 数据则说明已经登录
+     * 未登录的 统一 定向到 login 页面
+     */
     function checkAuth() {
       const {auth: {user}} = store.getState()
       if (!user) {
@@ -18,7 +25,12 @@ export const createRoutes = (store) => {
       cb();
     }
 
+    /**
+     * 检查是否已经登录
+     *
+     **/
     if (!isAuthed(store.getState())) {
+      // 如果没有登录则执行 load 方法 然后检测权限
       store.dispatch(load()).then(checkAuth)
     } else {
       checkAuth()
@@ -34,7 +46,7 @@ export const createRoutes = (store) => {
     path: '/',
     component: CoreLayout,
     indexRoute: Home,
-    // onEnter: requireLogin,
+    onEnter: requireLogin,
     getChildRoutes(location, next) {
       require.ensure([], (require) => {
         next(null, [
@@ -50,17 +62,19 @@ export const createRoutes = (store) => {
    * these pages don't need login so we should split them
    */
   const otherRoutes = [
-    {
-      path: 'login',
-      component: Login
-    },
+    Login(store),
     NotFound
   ]
 
-
+  /**
+   * root component
+   */
+  const rootComponent = ({children}) => {
+    return <div style={{ height: '100%' }}>{children}</div>
+  }
   /** final routes */
   const routes = {
-    component: 'div',
+    component: rootComponent,
     childRoutes: [
       requireLoginRoutes,
       ...otherRoutes

@@ -1,0 +1,2 @@
+const LOAD_SUCCESS = 'Login/LOAD_SUCCESS';
+
