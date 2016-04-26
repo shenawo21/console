@@ -27,13 +27,11 @@ function CoreLayout({ children }) {
   return (
     <div className={classes.corelayout}>
       <div className={classes['header']}>
-        <div className={classes['wrapper']}>
           <div className={classes['logo']}>
             <Link to="/">
               <img src={logo} height="46"/>
             </Link>
           </div>
-        </div>
       </div>
       <div className={classes['aside']}>
         <aside className={classes['sider']}>
