@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
-import reducers from './reducers'
+import reducers, {injectReducer} from './reducers'
 import clientMiddleware from '../middleware/client'
 import client from '../common/apiClient'
 
@@ -22,7 +22,7 @@ export default (initialState = {}, history) => {
   const store = createStore(reducers(), initialState, middleware)
 
   store.asyncReducers = {}
-
+  store.injectReducer = injectReducer
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       const reducers = require('./reducers').default
