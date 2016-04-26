@@ -2,13 +2,18 @@ import axios from 'axios'
 
 
 // https://github.com/mzabriskie/axios#creating-an-instance
-const instance = axios.create({
-  baseURL: '/api',
+const axiosOptions = {
   timeout: 8000,
   params: {
     access_token: 'eb97d2e8cf0821814ebc731796440bc629b1f0bd'
   },
-})
+};
+
+if (__DEV__) {
+  axiosOptions.baseURL = '/api'
+}
+
+const instance = axios.create(axiosOptions)
 
 // github token
 // eb97d2e8cf0821814ebc731796440bc629b1f0bd
