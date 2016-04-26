@@ -50,7 +50,7 @@ Features
   * Vanilla HMR using `module.hot` and `webpack-dev-middleware`
   * Code-splitting using `react-router` route configuration
   * Bundle splitting and CSS extraction
-  * Sass w/ CSS modules, autoprefixer, and minification
+  * Less w/ CSS modules, autoprefixer, and minification
 * [Koa](https://github.com/koajs/koa) (`^2.0.0-alpha`)
 * [Karma](https://github.com/karma-runner/karma)
   * Mocha w/ chai, sinon-chai, and chai-as-promised, and [chai-enzyme](https://github.com/producthunt/chai-enzyme)
@@ -324,27 +324,8 @@ This starter kit comes packaged with an Koa server. It's important to note that 
 Styles
 ------
 
-Both `.scss` and `.css` file extensions are supported out of the box and are configured to use [CSS Modules](https://github.com/css-modules/css-modules). After being imported, styles will be processed with [PostCSS](https://github.com/postcss/postcss) for minification and autoprefixing, and will be extracted to a `.css` file during production builds.
+Both `.less` and `.css` file extensions are supported out of the box and are configured to use [CSS Modules](https://github.com/css-modules/css-modules). After being imported, styles will be processed with [PostCSS](https://github.com/postcss/postcss) for minification and autoprefixing, and will be extracted to a `.css` file during production builds.
 
-**NOTE:** If you're importing styles from a base styles directory (useful for generic, app-wide styles), you can make use of the `styles` alias, e.g.:
-
-```js
-// current file: ~/src/components/some/nested/component/index.jsx
-import 'styles/core.scss' // this imports ~/src/styles/core.scss
-```
-
-Furthermore, this `styles` directory is aliased for sass imports, which further eliminates manual directory traversing; this is especially useful for importing variables/mixins.
-
-Here's an example:
-
-```scss
-// current file: ~/src/styles/some/nested/style.scss
-// what used to be this (where base is ~/src/styles/_base.scss):
-@import '../../base';
-
-// can now be this:
-@import 'base';
-```
 
 Testing
 -------
