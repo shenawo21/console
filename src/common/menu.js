@@ -7,7 +7,7 @@ export default [
     children: [
       {
         title: '企业列表',
-        url: '/app',
+        url: '/repo',
         icon: 'wb-dashboard',
         when: '',
       }, {
