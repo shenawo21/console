@@ -26,7 +26,7 @@ let render = (key = null) => {
   const routes = require('./routes/index').default(store)
   const App = (
     <Provider store={store}>
-        <Router history={history} children={routes} key={key} />
+        <Router history={history} routes={routes} key={key} />
     </Provider>
   )
   ReactDOM.render(App, MOUNT_ELEMENT)

@@ -23,8 +23,9 @@ var logo = require('./logo.png')
 // CoreLayout is a pure function of its props, so we can
 // define it with a plain javascript function...
 function CoreLayout({ children }) {
+      console.log(children);
+
   return (
-    console.log(children);
     <div>
       <div className={classes['header']}>
         <div className={classes['wrapper']}>
