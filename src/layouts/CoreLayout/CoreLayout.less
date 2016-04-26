@@ -1,4 +1,7 @@
 @menu-bar-width: 224px;
+.wrapper{
+border-bottom: 1px solid #e4eaec;
+}
 .logo {
   width: @menu-bar-width;
   height: 67px;
@@ -8,9 +11,12 @@
   float: left;
   background-color: #62a8ea
 }
-
+.corelayout{
+    height: calc( ~"100%");
+}
 .aside {
   padding-top: 66px;
+  height: calc( ~"100%" - 66px);
 }
 
 .sider {
@@ -40,7 +46,7 @@
 .container {
   margin-left: 224px;
   position: relative;
-  min-height: calc(100% - 44px);
+  min-height: calc(~'100%' - 44px);
   background: #f1f4f5;
 }
 

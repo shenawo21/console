@@ -23,10 +23,9 @@ var logo = require('./logo.png')
 // CoreLayout is a pure function of its props, so we can
 // define it with a plain javascript function...
 function CoreLayout({ children }) {
-      console.log(children);
 
   return (
-    <div>
+    <div className={classes.corelayout}>
       <div className={classes['header']}>
         <div className={classes['wrapper']}>
           <div className={classes['logo']}>
@@ -34,13 +33,6 @@ function CoreLayout({ children }) {
               <img src={logo} height="46"/>
             </Link>
           </div>
-          <Menu mode="horizontal"
-            defaultSelectedKeys={['2']} style={{ lineHeight: '64px' }}>
-            <Menu.Item key="2">
-              <Link to="repo">仓库</Link>
-            </Menu.Item>
-            <Menu.Item key="3">导航三</Menu.Item>
-          </Menu>
         </div>
       </div>
       <div className={classes['aside']}>
