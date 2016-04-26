@@ -24,6 +24,7 @@ var logo = require('./logo.png')
 // define it with a plain javascript function...
 function CoreLayout({ children }) {
   return (
+    console.log(children);
     <div>
       <div className={classes['header']}>
         <div className={classes['wrapper']}>

@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
+import authReducer from './auth';
 
 export const reducers = (asyncReducers) => {
   return combineReducers({
     // Add sync reducers here
     router,
+    auth: authReducer,
     ...asyncReducers })
 }
 
