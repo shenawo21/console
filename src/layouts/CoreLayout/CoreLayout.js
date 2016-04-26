@@ -9,7 +9,7 @@ const MenuItem = Menu.Item;
 
 import Page from '../../components/Page'
 import menus from '../../common/menu'
-
+import NavBar from '../../components/NavBar'
 
 var logo = require('./logo.png')
 
@@ -26,15 +26,16 @@ function CoreLayout({ children }) {
 
   return (
     <div className={classes.corelayout}>
-      <div className={classes['header']}>
-          <div className={classes['logo']}>
+      <div className={classes.header + ' site-navbar navbar navbar-default navbar-fixed-top navbar-mega'}>
+          <div className={classes.logo}>
             <Link to="/">
               <img src={logo} height="46"/>
             </Link>
           </div>
+          <NavBar/>
       </div>
-      <div className={classes['aside']}>
-        <aside className={classes['sider']}>
+      <div className={classes.aside}>
+        <aside className={classes.sider}>
           <Menu mode="inline" theme="dark" defaultOpenKeys={['sub0']}>
             {
               menus.map((menu, index) => {
