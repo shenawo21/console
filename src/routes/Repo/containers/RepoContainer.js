@@ -52,7 +52,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => ({
-  repos: state.repo.repo,
+  repos: state.repo.repo || [],
   deleted: state.deleted
 })
 
