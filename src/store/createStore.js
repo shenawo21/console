@@ -22,7 +22,14 @@ export default (initialState = {}, history) => {
   const store = createStore(reducers(), initialState, middleware)
 
   store.asyncReducers = {}
-  store.injectReducer = injectReducer
+  /**
+   * inject reducer
+   * @param  {key:string,reducer:function} reducer
+   */
+  store.injectReducer = function (reducer) {
+    return injectReducer(store, reducer)
+  }
+
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       const reducers = require('./reducers').default

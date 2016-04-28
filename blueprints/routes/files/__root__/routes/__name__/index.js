@@ -8,7 +8,7 @@
       const <%= camelEntityName %> = require('./containers/<%= pascalEntityName %>Container').default
       const reducer = require('./modules/<%= pascalEntityName %>Reducer').default
 
-      store.injectReducer(store, { key: '<%= camelEntityName %>', reducer })
+      store.injectReducer({ key: '<%= camelEntityName %>', reducer })
 
       next(null, <%= camelEntityName %>)
     })

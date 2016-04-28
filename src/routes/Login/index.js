@@ -8,7 +8,7 @@
       const login = require('./containers/LoginContainer').default
       const reducer = require('./modules/LoginReducer').default
 
-      store.injectReducer(store, { key: 'login', reducer })
+      store.injectReducer({ key: 'login', reducer })
 
       next(null, login)
     })

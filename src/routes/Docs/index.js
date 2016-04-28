@@ -8,7 +8,7 @@ export default (store) => ({
       const Docs = require('./containers/Docs').default
       const reducer = require('./modules/docs').default
 
-      store.injectReducer(store, { key: 'docs', reducer })
+      store.injectReducer({ key: 'docs', reducer })
 
       next(null, Docs)
     })

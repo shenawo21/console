@@ -8,7 +8,7 @@
       const Repo = require('./containers/RepoContainer').default
       const reducer = require('./modules/repo').default
 
-      store.injectReducer(store, { key: 'repo', reducer })
+      store.injectReducer({ key: 'repo', reducer })
 
       next(null, Repo)
     })
