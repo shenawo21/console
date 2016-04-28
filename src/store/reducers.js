@@ -9,7 +9,11 @@ export const reducers = (asyncReducers) => {
     auth: authReducer,
     ...asyncReducers })
 }
-
+/**
+ * @param  {Object} store
+ * @param  {string} {key
+ * @param  {Function} reducer}
+ */
 export const injectReducer = (store, { key, reducer }) => {
   store.asyncReducers[key] = reducer
   store.replaceReducer(reducers(store.asyncReducers))
