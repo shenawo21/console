@@ -172,19 +172,11 @@ class Docs extends Component{
 
     return config;
   }
-  /**
-   * handle submit
-   * @param  {any} formData
-   * @param  {any} e
-   */
-    _handleSubmit(value){
-        console.log("=====校验通过=====", value);
-        message.success(' =====校验通过=====   ' + value);
-    }
 
   render() {
+        const {handleSubmit} =this.props;
         return (
-            <Form horizontal items={this._getFormItems()} onSubmit={this._handleSubmit} />
+            <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit} />
         );
   }
 

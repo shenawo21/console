@@ -38,7 +38,7 @@ class Forms extends Component {
         const {form, onSubmit, resetNumber} = this.props;
         form.validateFields((errors, values) => {
             if (!!errors) {
-                if (__DEVELOPMENT__) {
+                if (__DEV__) {
                     console.log('Errors in form!!!', errors, form.getFieldsValue());
                 }
                 return;
@@ -113,9 +113,9 @@ class Forms extends Component {
 
         return (<Col span={searchSpan || "8"} className="btn-bottom">
             <FormItem wrapperCol={cols}>
-                <Button type="primary" onClick={this.handleSubmit}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button>
+                <Button type="primary" onClick={this.handleSubmit.bind(this)}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button>
                 {
-                    cancel ? <Button htmlType="reset" onClick={this.handleReset}>{calIcon ? <Icon type={calIcon} /> : '' }{cal || '重置'}</Button> : ''
+                    cancel ? <Button htmlType="reset" onClick={this.handleReset.bind(this)}>{calIcon ? <Icon type={calIcon} /> : '' }{cal || '重置'}</Button> : ''
                 }
 
             </FormItem>

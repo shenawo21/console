@@ -13,14 +13,36 @@ import Panel from 'components/Panel'
 class Docs extends Component {
     constructor(props) {
         super(props);
+        this.state = {count: props.initialCount};  //定义初始状态
     }
     componentDidMount() {
         
     }
-    render() {
-        console.log(this.props);
-        return <Panel title="FormNext 表单实例"> <DocsComponent /></Panel> 
+      /**
+   * handle submit
+   * @param  {any} formData
+   * @param  {any} e
+   */
+    handleSubmit(value){
+        console.log("=====校验通过=====", value);
+        message.success(' =====校验通过=====   ' + value);
     }
+    
+    render() {
+        console.log('======props=====',this.props);
+        console.log('======state=====',this.state.count);
+        return <Panel title="FormNext 表单实例"> <DocsComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
+    }
+}
+
+//数据限制类型
+Docs.propTypes = {
+    
+}
+
+//默认初始状态
+Docs.defaultProps = {
+    initialCount: 0
 }
 
 /*  Object of action creators (can also be function that returns object).

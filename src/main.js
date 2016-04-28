@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import createHashHistory from 'history/lib/createHashHistory'
 import { Router, useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
@@ -9,8 +9,9 @@ import { Provider } from 'react-redux'
 const MOUNT_ELEMENT = document.getElementById('root')
 
 // Configure history for react-router
-const browserHistory = useRouterHistory(createBrowserHistory)({
-  basename: __BASENAME__
+const browserHistory = useRouterHistory(createHashHistory)({
+  basename: __BASENAME__,
+  querykey : true
 })
 
 // Create redux store and sync with react-router-redux. We have installed the
