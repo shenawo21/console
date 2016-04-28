@@ -35,5 +35,19 @@ export default [
         when: '',
       }
     ]
+  },
+  {
+    title: 'docs',
+    url: '/docs',
+    icon: 'user',
+    when: '',
+    children: [
+      {
+        title: 'docs',
+        url: '/docs',
+        icon: 'wb-dashboard',
+        when: '',
+      }
+    ]
   }
 ]
