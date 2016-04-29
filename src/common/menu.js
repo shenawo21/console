@@ -14,7 +14,7 @@ export default [
         title: '企业申请入驻',
         url: '/p2',
         icon: 'wb-dashboard',
-        when: '',
+        when: ''
       }
     ]
   }, {

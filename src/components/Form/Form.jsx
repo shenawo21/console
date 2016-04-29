@@ -223,7 +223,7 @@ renderForm(){
 
 
     return <div className={formClassName}>
-        <Form inline={inline}  horizontal={horizontal} onSubmit={this._handleSubmit} form={form}>
+        <Form inline={inline}  horizontal={horizontal} form={form}>
             <Row>
                 {
                     children

@@ -6,7 +6,7 @@ const axiosOptions = {
   timeout: 8000,
   params: {
     access_token: 'eb97d2e8cf0821814ebc731796440bc629b1f0bd'
-  },
+  }
 };
 
 if (__DEV__) {

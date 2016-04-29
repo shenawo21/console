@@ -7,6 +7,7 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 // import {  } from '../modules/docs'
+import {Link} from 'react-router';
 import DocsComponent from '../components/Docs'
 import Panel from 'components/Panel'
 
@@ -31,7 +32,8 @@ class Docs extends Component {
     render() {
         console.log('======props=====',this.props);
         console.log('======state=====',this.state.count);
-        return <Panel title="FormNext 表单实例"> <DocsComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
+        
+        return <Panel title="FormNext 表单实例"><Link to='/docs/table'>table</Link><DocsComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
     }
 }
 

@@ -1,4 +1,4 @@
-import React,{Component, Proptype} from 'react';
+import React,{Component, PropTypes} from 'react';
 
 import {Link} from 'react-router';
 import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
@@ -176,7 +176,10 @@ class Docs extends Component{
   render() {
         const {handleSubmit} =this.props;
         return (
-            <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit} />
+            <div>
+                
+                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit} />
+            </div>
         );
   }
 

@@ -1,0 +1,3 @@
+const REQ_TABLE = 'REQ_TABLE';
+const SUC_TABLE = 'SUC_TABLE';
+const ERR_TABLE = 'ERR_TABLE';

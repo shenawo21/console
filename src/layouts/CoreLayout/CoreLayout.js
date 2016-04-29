@@ -22,7 +22,19 @@ var logo = require('./logo.png')
 //
 // CoreLayout is a pure function of its props, so we can
 // define it with a plain javascript function...
-function CoreLayout({ children }) {
+function CoreLayout(props) {
+  let result = null;
+  
+  let findNestedProp = (props)=>{
+      let previousChildren = props.children;
+
+      if(null !== props.children){
+          result = props.children;
+          findNestedProp(props.children.props)
+      }
+  }
+
+  findNestedProp(props);
 
   return (
     <div className={classes.corelayout}>
@@ -67,7 +79,7 @@ function CoreLayout({ children }) {
 
         <div className={classes['container']}>
           <Page>
-            {children}
+            {result ? result : props.children}
           </Page>
         </div>
         <div className={classes['footer']}>

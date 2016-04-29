@@ -1,7 +1,16 @@
 export default (store) => ({
   breadcrumbName: "Docs",
   path: 'docs',
-  getComponent(nextState, next) {
+  getChildRoutes(location, next) {
+      require.ensure([], (require) => {
+        next(null, [
+          // Provide store for async reducers and middleware
+          require('./routes/Table').default(store)
+        ])
+      })
+  },
+  
+  getComponents(nextState, next) {
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and
           will not loaded until the router invokes this callback. */
