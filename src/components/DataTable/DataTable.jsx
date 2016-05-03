@@ -3,7 +3,6 @@ import { Table, Icon, message } from 'hen';
 import history from 'common/history';
 import fetch from 'common/apiClient';
 import {isEqual} from 'common/utils';
-import isArray from 'lodash.isarray';
 
 /**
  * (description)
@@ -73,7 +72,7 @@ class DataTable extends Component {
             if (!this.ignoreLastFetch) {
                 if (res.status === 1) {
                     let resData = res.data;
-                    if (resData && !isArray(resData)) {
+                    if (resData && !Array.isArray(resData)) {
                         resData = resData.items;
                     }
                     this.setState({
