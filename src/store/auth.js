@@ -1,3 +1,5 @@
+import immutable from 'immutable'
+
 const LOAD_AUTH_REQUEST = 'LOAD_AUTH_REQUEST'
 const LOAD_AUTH_SUCCESS = 'LOAD_AUTH_SUCCESS'
 const LOAD_AUTH_FAILURE = 'LOAD_AUTH_FAILURE'
