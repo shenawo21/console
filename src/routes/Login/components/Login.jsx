@@ -8,51 +8,51 @@ const createForm = Form.create
 const logo = require('../assets/logo-small.png');
 
 function noop() {
-    return false;
+  return false;
 }
 
-class Login extends Component{
-  
-    doReset(e){
-      const {form, handleReset} = this.props;
-      handleReset(e,form);
+class Login extends Component {
+
+  doReset(e) {
+    const {form, handleReset} = this.props;
+    handleReset(e, form);
+  }
+
+  doSubmit(e) {
+    const {form, handleSubmit} = this.props;
+    handleSubmit(e, form)
+  }
+
+  render() {
+    const {form, isLoading} = this.props;
+    const { getFieldProps, getFieldError, isFieldValidating } = form;
+    let namePropsOptions = {
+      rules: [
+        { required: true, min: 5, message: '用户名至少为 5 个字符' }
+      ]
     }
-    
-    doSubmit(e){
-      const {form, handleSubmit} = this.props;
-      handleSubmit(e,form)
+    let passwdPropsOptions = {
+      rules: [
+        { required: true, min: 5, whitespace: true, message: '请填写密码' }
+      ]
+    };
+    // 正式的时候此代码会被干掉
+    if (__DEV__) {
+      namePropsOptions.initialValue = '1394800667@qq.com'
+      passwdPropsOptions.initialValue = '123456'
     }
-    
-    render(){
-      const {form, isLoading, doSubmit, doReset} = this.props;
-      const { getFieldProps, getFieldError, isFieldValidating } = form;
-      let namePropsOptions = {
-        rules: [
-          { required: true, min: 5, message: '用户名至少为 5 个字符' }
-        ]
-      }
-      let passwdPropsOptions = {
-        rules: [
-          { required: true, min: 5, whitespace: true, message: '请填写密码' }
-        ]
-      };
-      // 正式的时候此代码会被干掉
-      if (__DEV__) {
-        namePropsOptions.initialValue = '1394800667@qq.com'
-        passwdPropsOptions.initialValue = '123456'
-      }
 
-      const nameProps = getFieldProps('account', namePropsOptions);
+    const nameProps = getFieldProps('account', namePropsOptions);
 
-      const passwdProps = getFieldProps('password', passwdPropsOptions);
+    const passwdProps = getFieldProps('password', passwdPropsOptions);
 
-      const formItemLayout = {
-        //labelCol: { span: 7 },
-        //wrapperCol: { span: 12 },
-      };
+    const formItemLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 20 },
+    };
 
-      return <div className="page-login-v2 layout-full page-dark">
-        <div className="page animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
+    return <div className="page-login-v2 layout-full page-dark">
+      <div className="page animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
         <div className="page-content">
           <div className="page-brand-info">
             <div className="brand">
@@ -68,45 +68,40 @@ class Login extends Component{
             </div>
             <h3 className="font-size-24">登陆</h3>
             <p>欢迎登陆翌商云平台</p>
-            
-            
-            <div className="form-group">
-            <Form horizontal form={form} ref='login'>
-              <FormItem
-                {...formItemLayout}
-                label="邮箱："
-                prefixCls='form-control'
-                hasFeedback>
-                <Input {...nameProps} />
-              </FormItem>
 
-              <FormItem
-                {...formItemLayout}
-                label="密码："
-                prefixCls='form-control'
-                hasFeedback>
-                <Input {...passwdProps} type="password" autoComplete="off"
-                  onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop} />
-              </FormItem>
-              <FormItem wrapperCol={{ span: 12, offset: 7 }}
-                label="记住密码：">
-                 <div className="checkbox-custom checkbox-inline checkbox-primary pull-left">
-                     <Checkbox type="checkbox" id="remember" name="checkbox" />
-                 </div>
-              </FormItem>
-                
-              <FormItem wrapperCol={{ span: 12, offset: 7 }}>
-                <Button type="primary" loading={isLoading} onClick={this.doSubmit.bind(this)}>确定</Button>
-                &nbsp;&nbsp;&nbsp;
-                <Button type="ghost" onClick={this.doReset.bind(this)}>重置</Button>
-              </FormItem>
-              <FormItem wrapperCol={{ span: 12, offset: 7 }}>
-                <a className="pull-right" href="forgot-password">忘记密码？</a>
-              </FormItem>
-            </Form>
+
+            <div className="form-group">
+              <Form horizontal form={form} ref='login'>
+                <FormItem
+                  {...formItemLayout}
+                  label="邮箱："
+                  hasFeedback>
+                  <Input {...nameProps} />
+                </FormItem>
+
+                <FormItem
+                  {...formItemLayout}
+                  label="密码："
+                  hasFeedback  style={{ marginBottom: '8px' }}>
+                  <Input {...passwdProps} type="password" autoComplete="off"
+                    onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop} />
+                </FormItem>
+                <FormItem wrapperCol={{ span: 21, offset: 3 }} style={{ marginBottom: '20px' }} >
+                  <label className="checkbox-inline" style={{ paddingLeft: '16px' }}>
+                    <Checkbox type="checkbox" name="checkbox" />&nbsp; &nbsp; 记住密码
+                  </label>
+                  <a className="pull-right" href="forgot-password">忘记密码？</a>
+                </FormItem>
+                <FormItem wrapperCol={{ span: 23, offset: 1 }}>
+                  <div className="form-group">
+                    <Button type="primary" className="btn btn-primary btn-block" loading={isLoading} onClick={this.doSubmit.bind(this) }>确定</Button>
+                  </div>
+                </FormItem>
+
+              </Form>
             </div>
-            
-            
+
+
             <p>还没注册?<a href="/register">立即注册</a></p>
             <footer className="page-copyright">
               <p>WEBSITE BY SUNEEE</p>
@@ -117,9 +112,16 @@ class Login extends Component{
           </div>
         </div>
       </div>
-      </div>
-    }
-    
+    </div>
   }
-  
+
+}
+Login.propsTypes = {
+  form: React.PropTypes.object.isRequired,
+  isLoading: React.PropTypes.bool.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired,
+  handleReset: React.PropTypes.func.isRequired
+}
+
+
 export default createForm()(Login);

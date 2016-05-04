@@ -19,7 +19,7 @@ export default function reducer(state = {data : {}, isLoggedIn : false}, action)
     case LOAD_SUC:
       return {
         ...state,
-        data: action.data,
+        result: action.result.data,
         loading: false,
         isLoggedIn : true
       }

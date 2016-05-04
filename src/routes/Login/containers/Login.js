@@ -2,12 +2,11 @@ import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import LoginComponent from '../components/Login'
 import {doLoad} from '../modules/login'
-import {Cookie} from 'js-cookie';
+import Cookie from 'js-cookie';
 
 export class Login extends Component {
   constructor(props) {
     super(props)
-    console.log(this, props)
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
@@ -23,12 +22,12 @@ export class Login extends Component {
     }
   }
 
-  handleReset(e,form) {
+  handleReset(e, form) {
     e.preventDefault();
     form.resetFields();
   }
 
-  handleSubmit(e,form) {
+  handleSubmit(e, form) {
     e.preventDefault();
     form.validateFields((errors, values) => {
       if (!!errors) {
@@ -48,50 +47,50 @@ export class Login extends Component {
           break;
       }
     }
-    this._checkAuth();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isLoggedIn === true && nextProps.result !== undefined) {
+      let pathname = '/';
+      this.context.router.replace(pathname);
+    }
   }
 
   componentWillUnmount() {
     document.onkeydown = () => { }
   }
 
-  _checkAuth() {
-    if (this.props.isLoggedIn) {
-      const {location} = this.props;
-      let prevState = null;
-      let pathname = '/';
-      // 跳转到指定页面
-      //console.log(this.props);
-
-      // this.context.router.replaceState(prevState, pathname);
-      this.context.router.replace(pathname);
-    }
-  }
-
   render() {
+    const {loading} = this.props;
     return (
-      <LoginComponent handleSubmit={this.handleSubmit} handleReset={this.handleReset} {...this.props} />
+      <LoginComponent handleSubmit={this.handleSubmit} handleReset={this.handleReset}  isLoading={loading}/>
     )
   }
 }
 
+Login.propsTypes = {
+  result: React.PropTypes.object.isRequired,
+  loading: React.PropTypes.bool.isRequired,
+  isLoggedIn: React.PropTypes.bool.isRequired
+};
+
 Login.contextTypes = {
-  router: React.PropTypes.object.isRequired
-}
+  router: React.PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => {
   const {login} = state;
-  const {data, loading, isLoggedIn} = login;
-  console.log(data)
-  // if(data.sessionId){
-  //     Cookie.set(token, data.sessionId)
-  // }
+  const {result, loading, isLoggedIn} = login;
+  if (result && result.data.sessionId) {
+    Cookie.set('sessionId', result.data.sessionId)
+  }
   return {
-    data,
+    result,
     loading,
     isLoggedIn
   }
 }
+
 const mapDispatchToProps = {
   doLoad
 }
