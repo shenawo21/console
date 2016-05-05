@@ -8,10 +8,10 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import {Link} from 'react-router';
-import AddView from '../components/Add';
+import ListView from '../components/List';
 import Panel from 'components/Panel'
 
-class Add extends Component {
+class List extends Component {
   constructor(props) {
     super(props);
   }
@@ -20,7 +20,7 @@ class Add extends Component {
   }
 
   render() {
-    return <Panel title="我的App列表"><AddView /></Panel>
+    return <Panel><ListView /></Panel>
   }
 }
 
@@ -37,4 +37,4 @@ const mapStateToProps = (state) => ({
 
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Add)
+export default connect(mapStateToProps, mapActionCreators)(List)

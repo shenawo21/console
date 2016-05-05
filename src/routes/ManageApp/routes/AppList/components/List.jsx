@@ -8,7 +8,6 @@ class Add extends Component{
     return (
       <div>
         <h2>我的App列表</h2>
-        <Link to='/docs/table'>table</Link>
       </div>
     );
   }
