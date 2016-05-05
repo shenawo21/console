@@ -12,7 +12,7 @@ class Page extends Component {
         <Helmet {...config.app} title={pageTitle}/>
 
         <div className="page-header">
-          <h1 className="page-title">{pageTitle}</h1>
+          {/*<h1 className="page-title">{pageTitle}</h1>*/}
           <div className="breadcrumb">
             <Breadcrumb {...children.props}/>
           </div>
