@@ -1,5 +1,5 @@
 /**
- * manage.js
+ * add.js
  * @date Created on 2016/5/5
  * @author ShenXing(慎行)<shenxing@suneee.com>
  *
@@ -8,10 +8,10 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import {Link} from 'react-router';
-import ManageView from '../components/Manage';
+import AddView from '../components/Add';
 import Panel from 'components/Panel'
 
-class Manage extends Component {
+class Add extends Component {
   constructor(props) {
     super(props);
   }
@@ -20,12 +20,12 @@ class Manage extends Component {
   }
 
   render() {
-    return <Panel><ManageView /></Panel>
+    return <Panel title="我的App列表"><AddView /></Panel>
   }
 }
 
 //数据限制类型
-Manage.propTypes = {
+Add.propTypes = {
 
 }
 
@@ -37,4 +37,4 @@ const mapStateToProps = (state) => ({
 
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Manage)
+export default connect(mapStateToProps, mapActionCreators)(Add)
