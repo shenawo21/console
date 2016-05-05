@@ -5,15 +5,15 @@
  *
  */
 export default (store) => ({
-  breadcrumbName: "我的应用",
-  path: 'myapp',
+  breadcrumbName: "我的应用列表",
+  path: 'myapplist',
 
   getComponents(nextState, next) {
     require.ensure([], (require) => {
-      const Add = require('./containers/AppList').default;
-      //const reducer = require('./Add/modules/add').default;
-      //store.injectReducer({ key: 'add', reducer });
-      next(null, Add)
+      const AppList = require('./containers/AppList').default;
+      //const reducer = require('./AppList/modules/list').default;
+      //store.injectReducer({ key: 'list', reducer });
+      next(null, AppList)
     })
   },
   getChildRoutes(location, next) {
