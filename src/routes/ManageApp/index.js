@@ -19,7 +19,8 @@ export default (store) => ({
   getChildRoutes(location, next) {
     require.ensure([], (require) => {
       next(null, [
-        require('./routes/Edit').default(store)
+        require('./routes/Edit').default(store),
+        require('./routes/Add').default(store)
       ])
     })
   }
