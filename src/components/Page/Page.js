@@ -6,7 +6,7 @@ class Page extends Component {
   render() {
     const {children, title} = this.props;
     const {route} = children.props;
-    const pageTitle = title || route.breadcrumbName;
+    //const pageTitle = title || route.breadcrumbName;
     return (
       <div className="page">
         <Helmet {...config.app} title={pageTitle}/>
