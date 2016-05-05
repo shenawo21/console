@@ -10,7 +10,7 @@ export default (store) => ({
 
   getComponents(nextState, next) {
     require.ensure([], (require) => {
-      const Add = require('./Add/containers/Add').default;
+      //const Add = require('./Add/containers/Add').default;
       //const reducer = require('./Add/modules/add').default;
       //store.injectReducer({ key: 'add', reducer });
       next(null, Add)

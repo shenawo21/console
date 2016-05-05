@@ -10,8 +10,8 @@ export default (store) => ({
 
   getComponents(nextState, next) {
     require.ensure([], (require) => {
-      const Edit = require('./Edit/containers/Edit').default
-      const reducer = require('./Edit/modules/edit').default
+      //const Edit = require('./Edit/containers/Edit').default
+      //const reducer = require('./Edit/modules/edit').default
       store.injectReducer({ key: 'edit', reducer })
       next(null, Edit)
     })

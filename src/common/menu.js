@@ -52,7 +52,7 @@ export default [
   },
   {
     title: '应用管理',
-    url: '',
+    url: '/manage',
     icon: 'user',
     when: '',
     children: [
