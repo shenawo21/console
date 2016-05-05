@@ -5,15 +5,15 @@
  *
  */
 export default (store) => ({
-  breadcrumbName: "应用编辑",
-  path: 'edit(/:id)',
+  breadcrumbName: "应用创建",
+  path: 'add(/:id)',
 
   getComponents(nextState, next) {
     require.ensure([], (require) => {
-      const Edit = require('./containers/Edit').default
-      const reducer = require('./modules/edit').default
-      store.injectReducer({ key: 'edit', reducer })
-      next(null, Edit)
+      const Add = require('./Add/containers/Add').default;
+      const reducer = require('./Add/modules/add').default;
+      store.injectReducer({ key: 'add', reducer });
+      next(null, Add)
     })
   },
   getChildRoutes(location, next) {
