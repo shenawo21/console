@@ -20,7 +20,7 @@ class Add extends Component {
   }
 
   render() {
-    return <Panel title="APP创建"><AddView /></Panel>
+    return <Panel title=""><AddView /></Panel>
   }
 }
 
