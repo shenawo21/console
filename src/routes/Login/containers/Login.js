@@ -50,7 +50,7 @@ export class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loggingIn === true && nextProps.user !== undefined) {
+    if (nextProps.isloaded === true && nextProps.user !== undefined) {
       let pathname = '/';
       this.context.router.replace(pathname);
     }
@@ -71,7 +71,7 @@ export class Login extends Component {
 Login.propsTypes = {
   user: React.PropTypes.object.isRequired,
   loading: React.PropTypes.bool.isRequired,
-  loggingIn: React.PropTypes.bool.isRequired
+  isloaded: React.PropTypes.bool.isRequired
 };
 
 Login.contextTypes = {
@@ -80,14 +80,14 @@ Login.contextTypes = {
 
 const mapStateToProps = (state) => {
   const {auth} = state;
-  const {user, loading, loggingIn} = auth;
+  const {user, loading, isloaded} = auth;
   if (user && user.data.sessionId) {
     Cookie.set('sessionId', user.data.sessionId)
   }
   return {
     user,
     loading,
-    loggingIn
+    isloaded
   }
 }
 

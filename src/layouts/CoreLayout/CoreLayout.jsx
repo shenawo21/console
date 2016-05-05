@@ -83,9 +83,9 @@ function CoreLayout(props) {
             <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
               <span className="icon wb-eye-close" aria-hidden="true" />
             </a>
-            <Link to="/login">
+            <a href="javascript: void(0);" onClick={props.handleLogout} >
               <span className="icon wb-power" aria-hidden="true" />
-            </Link>
+            </a>
           </div>
         </aside>
 

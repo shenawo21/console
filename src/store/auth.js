@@ -10,6 +10,7 @@ const LOGOUT = 'auth/LOGOUT';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
+const TIMEOUT_SESSION = 'auth/TIMEOUT_SESSION';
 
 export function load() {
   return {
@@ -28,7 +29,7 @@ export function login(params) {
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE],
-    promise: (client) => client.post('logout')
+    promise: (client) => client.post('api-user.logout')
   }
 }
 /**
@@ -40,69 +41,64 @@ export function isAuthed(globalState) {
 }
 
 const initialState = {
-  loaded: false,
-  loggingIn: false,
-  loggingOut: false,
-  loading: false
+  isloaded: false
 };
 
 export default function reducer(state = initialState, action = {}) {
+  state = {...state, loading : action.loading};
   switch (action.type) {
     case LOAD:
       return {
-        ...state,
-        loading: true
+        ...state
       };
     case LOAD_SUCCESS:
       return {
         ...state,
-        loading: false,
-        loaded: true,
+        isloaded: true,
         user: action.result
       };
     case LOAD_FAILURE:
       return {
         ...state,
-        loading: false,
         error: action.error
       };
     case LOGIN:
       return {
-        ...state,
-        loading: true,
+        ...state
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         user: action.result.data,
-        loading: false,
-        loggingIn : true
+        isloaded: true
       };
     case LOGIN_FAILURE:
       return {
         ...state,
-        loading: false,
         user: null,
         loginError: action.error
       };
     case LOGOUT:
       return {
         ...state,
-        loading: true
+        isloaded: true
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        loggingOut: true,
-        loading: false,
-        user: null
+        isloaded: false,
+        logoutResult: true
       };
     case LOGOUT_FAILURE:
       return {
         ...state,
-        loading: false,
+        isloaded: true,
         logoutError: action.error
       };
+    case TIMEOUT_SESSION:
+      return {
+         TIMEOUT_SESSION : action.result
+      }
     default:
       return state;
   }
