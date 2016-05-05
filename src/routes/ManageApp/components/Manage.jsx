@@ -1,10 +1,12 @@
 import React,{Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
-import { Tabs, Button } from 'hen';
+import { Tabs, Button,Icon } from 'hen';
 
 const TabPane = Tabs.TabPane;
-const operations = <Button>我要制作应用</Button>;
+const operations = <Button type="primary" outline>
+<Icon type="plus-circle-o" />  我要制作应用
+</Button>;
 
 class Manage extends Component{
 
