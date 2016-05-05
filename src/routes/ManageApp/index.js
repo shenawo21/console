@@ -11,8 +11,8 @@ export default (store) => ({
   getComponents(nextState, next) {
     require.ensure([], (require) => {
       const Manage = require('./containers/Manage').default;
-      const reducer = require('./modules/manage').default;
-      store.injectReducer({ key: 'manage', reducer });
+      //const reducer = require('./modules/manage').default;
+      //store.injectReducer({ key: 'manage', reducer });
       next(null, Manage)
     })
   },
