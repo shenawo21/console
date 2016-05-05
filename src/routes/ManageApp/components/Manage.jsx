@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import { Tabs, Button,Icon } from 'hen';
 
 const TabPane = Tabs.TabPane;
-const operations = <Button type="primary" outline><Link to="manage/add"></Link>
+const operations = <Button type="primary" outline><Link to='/manage/add'></Link>
 <Icon type="plus-circle-o" />  我要制作应用
 </Button>;
 
