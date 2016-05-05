@@ -6,13 +6,13 @@
  */
 export default (store) => ({
   breadcrumbName: "应用编辑",
-  path: 'edit(/:id)',
+  path: 'edit',
 
   getComponents(nextState, next) {
     require.ensure([], (require) => {
-      //const Edit = require('./Edit/containers/Edit').default
-      //const reducer = require('./Edit/modules/edit').default
-      store.injectReducer({ key: 'edit', reducer })
+      const Edit = require('./containers/Edit').default
+      //const reducer = require('./modules/edit').default
+      //store.injectReducer({ key: 'edit', reducer })
       next(null, Edit)
     })
   },

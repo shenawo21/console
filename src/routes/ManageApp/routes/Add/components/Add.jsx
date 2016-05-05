@@ -18,10 +18,10 @@ class Add extends Component{
         <h3>选择应用类别</h3>
         <Row>
           <Col span="5">
-            <Link className={classes.hoverShadow} to='/'><img className={classes.Appcate} src={AppcateImage1}/></Link>
+            <Link className={classes.hoverShadow} to='/manage/edit'><img className={classes.Appcate} src={AppcateImage1}/></Link>
           </Col>
           <Col span="5">
-            <Link className={classes.hoverShadow} to='/'><img className={classes.Appcate} src={AppcateImage2}/></Link>
+            <Link className={classes.hoverShadow} to='/manage/edit'><img className={classes.Appcate} src={AppcateImage2}/></Link>
           </Col>
         </Row>
       </div>

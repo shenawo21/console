@@ -7,8 +7,21 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import EditView from '../components/Edit';
-import Panel from 'components/Panel'
+import Panel from 'components/Panel';
 
+const steps = [{
+  status: 'finish',
+  title: '已完成'
+}, {
+  status: 'process',
+  title: '进行中'
+}, {
+  status: 'wait',
+  title: '待运行'
+}, {
+  status: 'wait',
+  title: '待运行'
+}];
 class Edit extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +31,7 @@ class Edit extends Component {
   }
 
   render() {
-    return <Panel title=""><EditView /></Panel>
+    return <Panel title=""><EditView steps={steps} /></Panel>
   }
 }
 

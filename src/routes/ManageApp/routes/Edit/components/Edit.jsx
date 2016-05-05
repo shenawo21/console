@@ -1,18 +1,10 @@
 import React,{Component, PropTypes} from 'react';
-import {Row, Col,Steps} from 'hen';
-
-export default ({repo, remove}) => {
-  return <li className="list-group-item">
-    {repo.name}
-    <Popconfirm onConfirm={remove} title={`你确定要删除 ${repo.name} 吗?`}>
-      <Button type="danger" outline>delete </Button>
-    </Popconfirm>
-  </li>
+import {Steps} from 'hen';
+const Step = Steps.Step;
+export default ({steps}) => {
+  return <div>
+      steps.map((s, i) =><Step key={i} title={s.title} description={s.description} />
+  </div>
 }
 
-Edit.propsTypes = {
-
-}
-
-export default Edit;
 
