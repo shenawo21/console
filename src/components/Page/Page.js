@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import {Breadcrumb} from 'hen';
 import Helmet from "react-helmet";
 import config from '../../common/config';
-import './Page.less';
 
 class Page extends Component {
   render() {
