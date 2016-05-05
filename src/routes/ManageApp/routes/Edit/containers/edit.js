@@ -1,16 +1,15 @@
 /**
- * add.js
+ * edit.js.js
  * @date Created on 2016/5/5
  * @author ShenXing(慎行)<shenxing@suneee.com>
  *
  */
-
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import AddView from '../components/Add';
+import EditView from '../components/Edit';
 import Panel from 'components/Panel'
 
-class Add extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,12 +18,12 @@ class Add extends Component {
   }
 
   render() {
-    return <Panel title=""><AddView /></Panel>
+    return <Panel title=""><EditView /></Panel>
   }
 }
 
 //数据限制类型
-Add.propTypes = {
+Edit.propTypes = {
 
 }
 
@@ -36,4 +35,4 @@ const mapStateToProps = (state) => ({
 
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Add)
+export default connect(mapStateToProps, mapActionCreators)(Edit)

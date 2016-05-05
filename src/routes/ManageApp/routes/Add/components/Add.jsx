@@ -4,7 +4,7 @@ import BusiImage from '../assets/BusiImage.png'
 import AppcateImage1 from '../assets/AppcateImage1.png'
 import AppcateImage2 from '../assets/AppcateImage2.png'
 import classes from '../assets/App.less'
-import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
+import {Row, Col} from 'hen';
 
 class Add extends Component{
 
