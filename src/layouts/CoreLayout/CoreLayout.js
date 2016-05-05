@@ -24,7 +24,7 @@ var logo = require('./logo.png')
 // define it with a plain javascript function...
 function CoreLayout(props) {
   let result = null;
-  
+
   let findNestedProp = (props)=>{
       let previousChildren = props.children;
 
@@ -38,7 +38,7 @@ function CoreLayout(props) {
 
   return (
     <div className={classes.corelayout}>
-      <div className={classes.header + ' site-navbar navbar navbar-default navbar-fixed-top navbar-mega'}>
+      <div className={classes.header + ' site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse'}>
           <div className={classes.logo}>
             <Link to="/">
               <img src={logo} height="46"/>
@@ -47,8 +47,9 @@ function CoreLayout(props) {
           <NavBar/>
       </div>
       <div className={classes.aside}>
-        <aside className={classes.sider}>
-          <Menu mode="inline" theme="dark" defaultOpenKeys={['sub0']}>
+        <aside className={classes.sider + ' site-menu-horizontal'}>
+
+          <Menu mode="horizontal" defaultOpenKeys={['sub0']}>
             {
               menus.map((menu, index) => {
                 return <SubMenu key={`sub${index}`} title={<span><Icon type={menu.icon} />{menu.title}</span>}>
@@ -64,17 +65,7 @@ function CoreLayout(props) {
             }
           </Menu>
 
-          <div className={classes['site-menubar-footer'] + ' site-menubar-footer'}>
-            <a href="javascript: void(0);" className="fold-show" data-placement="top" data-toggle="tooltip" data-original-title="Settings">
-              <span className="icon wb-settings" aria-hidden="true" />
-            </a>
-            <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
-              <span className="icon wb-eye-close" aria-hidden="true" />
-            </a>
-            <Link to="/login">
-              <span className="icon wb-power" aria-hidden="true" />
-            </Link>
-          </div>
+
         </aside>
 
         <div className={classes['container']}>
