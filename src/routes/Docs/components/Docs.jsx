@@ -14,10 +14,10 @@ const PAYMENTTYPE = [
 ];
 
 class Docs extends Component{
-   
+
   /**
    * (form表单生成配置)
-   * 
+   *
    * @returns (description)
    */
   _getFormItems(){
@@ -177,7 +177,7 @@ class Docs extends Component{
         const {handleSubmit} =this.props;
         return (
             <div>
-                
+
                 <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit} />
             </div>
         );
@@ -185,8 +185,8 @@ class Docs extends Component{
 
 }
 
-Docs.proptype = {
-    
+Docs.propsTypes = {
+
 }
 
 export default Docs;

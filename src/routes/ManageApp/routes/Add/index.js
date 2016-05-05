@@ -6,13 +6,13 @@
  */
 export default (store) => ({
   breadcrumbName: "应用创建",
-  path: 'add(/:id)',
+  path: 'add',
 
   getComponents(nextState, next) {
     require.ensure([], (require) => {
       const Add = require('./Add/containers/Add').default;
-      const reducer = require('./Add/modules/add').default;
-      store.injectReducer({ key: 'add', reducer });
+      //const reducer = require('./Add/modules/add').default;
+      //store.injectReducer({ key: 'add', reducer });
       next(null, Add)
     })
   },
