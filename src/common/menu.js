@@ -49,5 +49,19 @@ export default [
         when: '',
       }
     ]
+  },
+  {
+    title: '应用管理',
+    url: '',
+    icon: 'user',
+    when: '',
+    children: [
+      {
+        title: '应用管理',
+        url: '/manage',
+        icon: 'wb-dashboard',
+        when: '',
+      }
+    ]
   }
 ]
