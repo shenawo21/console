@@ -51,12 +51,24 @@ function CoreLayout(props) {
           <Menu mode="inline" theme="dark" defaultOpenKeys={['sub0']}>
             {
               menus.map((menu, index) => {
-                return <SubMenu key={`sub${index}`} title={<span><Icon type={menu.icon} />{menu.title}</span>}>
+                return <SubMenu key={`menu-${index}`} title={<span><Icon type={menu.icon} />{menu.title}</span>}>
                   {
                     menu.children.map((subMenu, subIndex) => {
-                      return <MenuItem key={`item${subMenu.url}`}>
-                        <Link to={subMenu.url}>{subMenu.title}</Link>
-                      </MenuItem>
+                      if(subMenu.children){
+                          return <SubMenu key={`sub-${subIndex}`} title={<span><Icon type={subMenu.icon} />{subMenu.title}</span>}>
+                          {
+                            subMenu.children.map((subChildMenu, subChildIndex) => {
+                                return <MenuItem key={`${subChildMenu.url}`}>
+                                   <Link to={subChildMenu.url}>{subChildMenu.title}</Link>
+                                </MenuItem>
+                            })
+                          }
+                          </SubMenu>
+                      }else{
+                        return <MenuItem key={`${subMenu.url}`}>
+                          <Link to={subMenu.url}>{subMenu.title}</Link>
+                        </MenuItem>
+                      }
                     })
                   }
                 </SubMenu>

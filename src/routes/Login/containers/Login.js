@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import LoginComponent from '../components/Login'
-import {doLoad} from '../modules/login'
+import {login} from 'store/auth'
 import Cookie from 'js-cookie';
 
 export class Login extends Component {
@@ -33,7 +33,7 @@ export class Login extends Component {
       if (!!errors) {
         return;
       }
-      this.props.doLoad(values);
+      this.props.login(values);
     });
   }
 
@@ -50,7 +50,7 @@ export class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isLoggedIn === true && nextProps.result !== undefined) {
+    if (nextProps.loggingIn === true && nextProps.user !== undefined) {
       let pathname = '/';
       this.context.router.replace(pathname);
     }
@@ -69,9 +69,9 @@ export class Login extends Component {
 }
 
 Login.propsTypes = {
-  result: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object.isRequired,
   loading: React.PropTypes.bool.isRequired,
-  isLoggedIn: React.PropTypes.bool.isRequired
+  loggingIn: React.PropTypes.bool.isRequired
 };
 
 Login.contextTypes = {
@@ -79,20 +79,20 @@ Login.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {login} = state;
-  const {result, loading, isLoggedIn} = login;
-  if (result && result.data.sessionId) {
-    Cookie.set('sessionId', result.data.sessionId)
+  const {auth} = state;
+  const {user, loading, loggingIn} = auth;
+  if (user && user.data.sessionId) {
+    Cookie.set('sessionId', user.data.sessionId)
   }
   return {
-    result,
+    user,
     loading,
-    isLoggedIn
+    loggingIn
   }
 }
 
 const mapDispatchToProps = {
-  doLoad
+  login
 }
 
 export default connect(

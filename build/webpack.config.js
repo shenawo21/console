@@ -19,7 +19,8 @@ const webpackConfig = {
     extensions: ['', '.js', '.jsx', '.json'],
     alias : {
          'components': paths.client()+'/components',
-         'common': paths.client()+'/common'
+         'common': paths.client()+'/common',
+         'store': paths.client()+'/store'
     }
   },
   module: {}
