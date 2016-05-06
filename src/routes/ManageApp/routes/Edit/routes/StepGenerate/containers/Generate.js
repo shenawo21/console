@@ -1,12 +1,12 @@
 /**
- * edit.js.js
- * @date Created on 2016/5/5
+ * generate.js.js
+ * @date Created on 2016/5/6
  * @author ShenXing(慎行)<shenxing@suneee.com>
  *
  */
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import EditView from '../components/Edit';
+import GenerateView from '../components/Generate';
 import Panel from 'components/Panel';
 
 const steps = [{
@@ -34,7 +34,7 @@ class Edit extends Component {
   }
 
   render() {
-    return <Panel title=""><EditView steps={steps} /></Panel>
+    return <Panel title=""><GenerateView steps={steps} /></Panel>
   }
 }
 
