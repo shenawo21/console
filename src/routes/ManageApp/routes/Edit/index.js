@@ -19,11 +19,11 @@ export default (store) => ({
   getChildRoutes(location, next) {
     require.ensure([], (require) => {
       next(null, [
-        require('./routes/StepChoose').default(store),
+        /*require('./routes/StepChoose').default(store),
         require('./routes/StepBasic').default(store),
         require('./routes/StepStart').default(store),
         require('./routes/StepFunc').default(store),
-        require('./routes/StepGenerate').default(store)
+        require('./routes/StepGenerate').default(store)*/
       ])
     })
   }

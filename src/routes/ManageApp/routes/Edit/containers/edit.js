@@ -28,13 +28,27 @@ const steps = [{
 class Edit extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      step:0
+    };
+    this.onNext = this.onNext.bind(this);
   }
   componentDidMount() {
 
   }
-
+  onNext(){
+    let s = this.state.step + 1;
+    if (s === steps.length) {
+      s = 0;
+    }
+    this.setState({
+      step: s
+    });
+  }
   render() {
-    return <Panel title=""><EditView steps={steps} /></Panel>
+    return <Panel title="">
+      <EditView steps={steps} step={this.state.step} next={this.onNext}/>
+    </Panel>
   }
 }
 
