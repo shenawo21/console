@@ -28,7 +28,7 @@ const getComponent = (step)=>{
 export default ({steps,step,next}) => {
    return <div>
     <Steps current={step}>
-      {steps.map((s, i) => <Step key={i} title={s.title} description={s.description} />)}
+      {steps.map((s, i) => <Step key={i} title={s.title} />)}
     </Steps>
     {getComponent(step)}
     <Button onClick={next} type="ghost">下一步</Button>

@@ -10,20 +10,15 @@ import EditView from '../components/Edit';
 import Panel from 'components/Panel';
 
 const steps = [{
-  title: '选择模板',
-  description: '选择模板'
+  title: '选择模板'
 }, {
-  title: '基本信息',
-  description: '基本信息'
+  title: '基本信息'
 }, {
-  title: '启动画面',
-  description: '启动画面'
+  title: '启动画面'
 }, {
-  title: '功能设置',
-  description: '功能设置'
+  title: '功能设置'
 }, {
-  title: '生成应用',
-  description: '生成应用'
+  title: '生成应用'
 }];
 class Edit extends Component {
   constructor(props) {
