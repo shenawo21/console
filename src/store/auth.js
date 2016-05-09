@@ -70,7 +70,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         user: action.result.data,
-        isloaded: true
+        isloaded: true,
+        logoutResult : false
       };
     case LOGIN_FAILURE:
       return {

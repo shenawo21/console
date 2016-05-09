@@ -13,7 +13,8 @@ const reducers = (asyncReducers) => {
 
 
 export const rootReducer = (state, action) => {
-  if (action.type === 'auth/LOGOUT_SUCCESS' || action.type === 'auth/LOGIN') {
+    
+  if (action.type === 'auth/LOGOUT_SUCCESS') {
       state = undefined
   }
   if(action.type === 'auth/TIMEOUT_SESSION'){
@@ -21,7 +22,7 @@ export const rootReducer = (state, action) => {
          TIMEOUT_SESSION : true
       }
   }
-
+  
   return reducers()(state, action)
 }
 

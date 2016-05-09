@@ -15,7 +15,7 @@ export default (initialState = {}, history) => {
     const devToolsExtension = window.devToolsExtension
 
     if (typeof devToolsExtension === 'function') {
-      middleware = compose(middleware, devToolsExtension())
+      //npmmiddleware = compose(middleware, devToolsExtension())
     }
   }
 

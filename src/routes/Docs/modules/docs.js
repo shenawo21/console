@@ -16,22 +16,20 @@ export function load() {
 }
 
 export default function reducer(state = {item:[]}, action) {
+  state = {...state, loading : action.loading};
   switch (action.type) {
     case REQ_DOCS:
       return {
         ...state,
-        loading: true
       }
     case SUC_DOCS:
       return {
         ...state,
         item: action.result.data,
-        loading: false
       }
     case ERR_DOCS:
       return {
         ...state,
-        loading: false
       }
 
     default:

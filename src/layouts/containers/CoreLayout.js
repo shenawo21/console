@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CoreLayoutView from '../CoreLayout';
 import {logout} from '../../store/auth';
 import {Modal} from 'hen';
+import Cookie from 'js-cookie';
 
 class CoreLayout extends Component {
     
@@ -25,6 +26,7 @@ class CoreLayout extends Component {
     }
     
     goToLogin(){
+        Cookie.remove('sessionId');
         let pathname = '/login';
         this.context.router.replace(pathname);
     }
