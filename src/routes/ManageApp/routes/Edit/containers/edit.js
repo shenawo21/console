@@ -10,9 +10,9 @@ import EditView from '../components/Edit';
 import Panel from 'components/Panel';
 
 const steps = [{
-  title: '选择模板'
-}, {
   title: '基本信息'
+}, {
+  title: '选择模板'
 }, {
   title: '启动画面'
 }, {
@@ -40,9 +40,18 @@ class Edit extends Component {
       step: s
     });
   }
+  onPrev(){
+    let s = this.state.step - 1;
+    /*if (s === steps.length) {
+      s = 0;
+    }*/
+    this.setState({
+      step: s
+    });
+  }
   render() {
     return <Panel title="">
-      <EditView steps={steps} step={this.state.step} next={this.onNext}/>
+      <EditView steps={steps} step={this.state.step} next={this.onNext} prev={this.onPrev.bind(this)}/>
     </Panel>
   }
 }
