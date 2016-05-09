@@ -14,14 +14,14 @@ const reducers = (asyncReducers) => {
 
 export const rootReducer = (state, action) => {
     
-  if (action.type === 'auth/LOGOUT_SUCCESS') {
-      state = undefined
-  }
-  if(action.type === 'auth/TIMEOUT_SESSION'){
-      state = {
-         TIMEOUT_SESSION : true
-      }
-  }
+  // if (action.type === 'auth/LOGOUT_SUCCESS') {
+  //     state = undefined
+  // }
+  // if(action.type === 'auth/TIMEOUT_SESSION'){
+  //     state = {
+  //        logoutResult : true,
+  //     }
+  // }
   
   return reducers()(state, action)
 }

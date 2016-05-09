@@ -8,20 +8,21 @@ import Cookie from 'js-cookie';
 class CoreLayout extends Component {
     
     componentWillReceiveProps(nextProps) {
-        //登录超时
-        if (nextProps.TIMEOUT_SESSION) {
+        
+        if (nextProps.logoutResult) {
             const _context = this;
-            Modal.info({
-                title: '警告!!!',
-                content : nextProps.TIMEOUT_SESSION.message,
-                onOk(){
-                    _context.goToLogin();
-                }
-            });
-        }
-        //正常登出
-        if(nextProps.logoutResult){
-            this.goToLogin();
+            //正常登出
+            if(nextProps.logoutResult === true){
+                this.goToLogin();
+            }else{ //登录超时
+                Modal.info({
+                    title: '警告!!!',
+                    content : nextProps.logoutResult.message,
+                    onOk(){
+                        _context.goToLogin();
+                    }
+                });
+            }
         }
     }
     
@@ -50,15 +51,13 @@ CoreLayout.contextTypes = {
 }
 
 const mapStateToProps = (state) => {
-    const {TIMEOUT_SESSION, logoutResult} = state.auth;
-    if(TIMEOUT_SESSION && TIMEOUT_SESSION.data){
+    const {logoutResult} = state.auth;
+    if(logoutResult && typeof logoutResult === 'object' && logoutResult.data){
         return {
-            TIMEOUT_SESSION : TIMEOUT_SESSION.data
+            logoutResult : logoutResult.data
         }
     }
-    
     return {
-        TIMEOUT_SESSION,
         logoutResult
     }
 }

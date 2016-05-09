@@ -86,9 +86,9 @@ export default function reducer(state = initialState, action = {}) {
       };
     case LOGOUT_SUCCESS:
       return {
-        ...state,
         isloaded: false,
-        logoutResult: true
+        logoutResult: true,
+        user : null
       };
     case LOGOUT_FAILURE:
       return {
@@ -98,7 +98,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     case TIMEOUT_SESSION:
       return {
-         TIMEOUT_SESSION : action.result
+         logoutResult : action.result
       }
     default:
       return state;
