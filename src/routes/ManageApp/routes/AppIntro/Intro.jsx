@@ -10,7 +10,7 @@ class Add extends Component{
     return (
         <Row>
           <Col span="15">
-            <dl>
+            <dl className={classes.info}>
               <dd>
                   <img src="" width="120px" height="120px" />
               </dd>
