@@ -5,9 +5,8 @@ import TrashList from '../routes/TrashList/components/List'
 import { Tabs, Button,Icon } from 'hen';
 
 const TabPane = Tabs.TabPane;
-const operations = <Button type="primary" outline><Link to='/manage/add'>
-<Icon type="plus-circle-o" />  我要制作应用</Link>
-</Button>;
+const operations = <Link to='/manage/add' className="ant-btn ant-btn-primary">
+<Icon type="plus-circle-o" />  我要制作应用</Link>;
 
 class Manage extends Component{
 
