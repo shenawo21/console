@@ -26,6 +26,11 @@ class CoreLayout extends Component {
         }
     }
     
+    getChildContext(){
+        const {location} = this.props;
+        return {props: {location, router : this.context.router}};
+    }
+    
     goToLogin(){
         Cookie.remove('sessionId');
         let pathname = '/login';
@@ -48,6 +53,10 @@ CoreLayout.propTypes = {
 
 CoreLayout.contextTypes = {
     router : React.PropTypes.object.isRequired
+}
+
+CoreLayout.childContextTypes = {
+    props: React.PropTypes.object
 }
 
 const mapStateToProps = (state) => {

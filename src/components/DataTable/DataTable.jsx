@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import { Table, Icon, message } from 'hen';
-import history from 'common/history';
 import fetch from 'common/apiClient';
 import {isEqual} from 'common/utils';
 
@@ -20,9 +19,6 @@ class DataTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
-            loading: false,
-            total: 0,
             current: 1,
             selectedRowKeys: []
         }
@@ -43,10 +39,7 @@ class DataTable extends Component {
     getCurrentPage() {
         const {location} = this.context.props;
         const {p} = location.query;
-
-        const {disablePush} = this.props;
-
-        return disablePush ? this.state.current : Number(p) || 1
+        return Number(p) || 1;
     }
     /**
      * (description)
@@ -55,49 +48,25 @@ class DataTable extends Component {
      * @param current (description)
      */
     requestData(param, current) {
-        const {fetch, location} = this.context.props;
-        const {url, params} = this.props;
+        const {location} = this.context.props;
+        const {action, params} = this.props;
         if (current) {
             params && params.pageNumber && delete params.pageNumber;
         }
         let data = Object.assign({
             pageNumber: current || this.getCurrentPage()
         }, param || params);
-
-        this.setState({
-            loading: true
-        });
-
-        fetch.post(url, data).then(res => {
-            if (!this.ignoreLastFetch) {
-                if (res.status === 1) {
-                    let resData = res.data;
-                    if (resData && !Array.isArray(resData)) {
-                        resData = resData.items;
-                    }
-                    this.setState({
-                        data: resData,
-                        total: res.data.totalItems,
-                        loading: false,
-                        selectedRowKeys: []
-                    });
-                } else {
-                    message.error(res.message);
-                }
-            }
-        }, err => {
-            message.error(err);
-        })
+        
+        action(data);
+        
     }
 
     componentDidMount() {
         this.setState({ current: this.getCurrentPage() })
-        this.requestData();
     }
 
     componentWillUnmount() {
-
-        this.ignoreLastFetch = true
+        
     }
 
 
@@ -106,15 +75,16 @@ class DataTable extends Component {
     * @param  {any} nextProps
     */
     componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps.pagination, this.props.pagination) || !isEqual(nextProps.params, this.props.params)) {
+        // console.log(nextProps, this.props);
+        if (!isEqual(nextProps.params, this.props.params)) {
             //if(!isEqual(nextProps,this.props)){
             if ((nextProps.params && nextProps.params.pageNumber)) {
                 let pageNumber = nextProps.params.pageNumber;
-                const {location} = this.context.props
+                const {location,router} = this.context.props
                 this.setState({
                     current: pageNumber
                 });
-                history.push({...location, query : { p: pageNumber }});
+                router.push({...location, query : { p: pageNumber }});
             }
             this.requestData(nextProps.params);
         }
@@ -136,13 +106,11 @@ class DataTable extends Component {
     */
     _onPaginationChange(pagination, filters, sorter) {
 
-        const {location} = this.context.props;
+        const {location, router} = this.context.props;
 
         const {current} = pagination;
 
-        const {disablePush} = this.props;
-
-        !disablePush && history.push({...location, query:{ p: current }});
+        router.push({...location, query:{ p: current }});
 
         this.requestData(null, current);
 
@@ -152,9 +120,9 @@ class DataTable extends Component {
     }
 
     render(){
-        let tableProps = this.props;
-        let {selectedRowKeys, total} = this.state;
-        let {rowSelection,...other} = this.props;
+        let tableProps;
+        let {selectedRowKeys} = this.state;
+        let {rowSelection, pagination, action, ...other} = this.props;
         if (rowSelection) {
             tableProps = {
                 rowSelection: {
@@ -168,26 +136,25 @@ class DataTable extends Component {
                 },
                     ...other
             }
+        }else{
+            tableProps = {
+                ...other
+            }
         }
-        let pagination = Object.assign(this.props.pagination, {
-            //hack
+        pagination = {
             current: this.getCurrentPage(),
-            total: total
-        });
-
-        return <Table  rowKey={this._rowKey}  pagination={pagination} loading={this.state.loading} {...tableProps} dataSource={this.state.data}  onChange={this._onPaginationChange.bind(this) } />
+            pageSize: 10,
+            showTotal : () => `共 ${pagination.total} 条`,
+            ...pagination
+        };
+        
+        return <Table  rowKey={this._rowKey} pagination={pagination} {...tableProps} onChange={this._onPaginationChange.bind(this) } />
 
     }
 }
 
-DataTable.propTypes = {
+DataTable.contextTypes = {
     props: React.PropTypes.object
-}
-
-DataTable.defaultProps = {
-    pagination: {
-        pageSize: 10
-    }
 }
 
 export default DataTable;

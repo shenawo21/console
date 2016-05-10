@@ -149,116 +149,109 @@ class Forms extends Component {
         }
     }
 
-let fieldProps = name ? getCustomFieldProps(name) : {};
+    let fieldProps = name ? getCustomFieldProps(name) : {};
+
+    //input输入框
+    if (item.input) {
+        return <Input  {...item.input} {...fieldProps} />
+    }
+    //下拉选择
+    if (item.select) {
+        let {optionValue, tipValue, defaultValue, placeholder} = item.select;
+        let options = Object.assign([], optionValue);//防止直接修改引用类型数据
+        !placeholder && tipValue && options.unshift({
+            value: null, title: tipValue
+        })
+        return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...item.select} {...fieldProps}>
+            {
+                options.map((val, i) => {
+                    return <Option key={i} {...val}>{val.title}</Option>
+                })
+            }
+        </Select>
+    }
+    //单选框元素
+    if (item.radio) {
+        let {radioValue} = item.radio;
+        return <RadioGroup {...item.radio} {...fieldProps}>
+            {
+                radioValue.map((val, i) => {
+                    return <Radio key={i} disabled={disabled} {...val}>{val.title}</Radio>
+                })
+            }
+        </RadioGroup>
+    }
+
+    //   复选框
+    if (item.checkbox) {
+        let {className, title = ''} = item.checkbox;
+        let boxClassName = className || "ant-checkbox-inline"
+        return <label className={boxClassName} htmlFor={`fm-${name}`}>
+            <Checkbox  {...item.checkbox}  {...fieldProps}/> {title}
+        </label>
+    }
+    //数值文本框
+    if (item.inputNumber) {
+        return <InputNumber min={1} max={10} {...item.inputNumber} {...fieldProps}/>
+    }
+    //日期元素
+    if (item.datepicker) {
+        return <DatePicker {...item.datepicker} {...fieldProps}/>
+    }
+    //业务传入自定义元素
+    return item.custom && item.custom(getCustomFieldProps, this, disabled);
+    }
+    /**
+     * 渲染form
+     */
+    renderForm(){
+        const {prefixCls, horizontal = false, items, button, children, component, form} = this.props;
+
+        // 配置项开始
+        const inline = horizontal ? false : true;
+        const formClassName = prefixCls || 'form';
+
+        const span6 = inline ? '6' : '';
+        const span8 = horizontal ? 3 : 8;
+
+        const {formItems} = items;
+
+        const {getFieldProps, getFieldError, isFieldValidating} = form;
 
 
-//input输入框
-if (item.input) {
-    return <Input  {...item.input} {...fieldProps} />
-}
-//下拉选择
-if (item.select) {
-    let {optionValue, tipValue, defaultValue, placeholder} = item.select;
-    let options = Object.assign([], optionValue);//防止直接修改引用类型数据
-    !placeholder && tipValue && options.unshift({
-        value: null, title: tipValue
-    })
-    return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...item.select} {...fieldProps}>
-        {
-            options.map((val, i) => {
-                return <Option key={i} {...val}>{val.title}</Option>
-            })
-        }
-    </Select>
-}
-//单选框元素
-if (item.radio) {
-    let {radioValue} = item.radio;
-    return <RadioGroup {...item.radio} {...fieldProps}>
-        {
-            radioValue.map((val, i) => {
-                return <Radio key={i} disabled={disabled} {...val}>{val.title}</Radio>
-            })
-        }
-    </RadioGroup>
-}
+        return <div className={formClassName}>
+            <Form inline={inline}  horizontal={horizontal} form={form}>
+                <Row>
+                    {
+                        children
+                    }
+                    {
+                        formItems.map((item, index) => {
+                            let {name} = item;
 
-//   复选框
-if (item.checkbox) {
-    let {className, title = ''} = item.checkbox;
-    let boxClassName = className || "ant-checkbox-inline"
-    return <label className={boxClassName} htmlFor={`fm-${name}`}>
-        <Checkbox  {...item.checkbox}  {...fieldProps}/> {title}
-    </label>
-}
-//数值文本框
-if (item.inputNumber) {
-    return <InputNumber min={1} max={10} {...item.inputNumber} {...fieldProps}/>
-}
-//日期元素
-if (item.datepicker) {
-    return <DatePicker {...item.datepicker} {...fieldProps}/>
-}
-//业务传入自定义元素
-return item.custom && item.custom(getCustomFieldProps, this, disabled);
-  }
-/**
- * 渲染form
- */
-renderForm(){
-    const {prefixCls, horizontal = false, items, button, children, component, form} = this.props;
+                            return <Col key={index} span={span6} {...item}>
+                                <FormItem id={`fm-${item.name}`} 
+                                    labelCol={{ span: span8 }}
+                                    wrapperCol={{ span: 6 }}
+                                    help={isFieldValidating(item.name) ? '校验中...' : (getFieldError(item.name) || []).join(', ')}
+                                    {...item} >
+                                    {
+                                        this.renderFormItem(item)
+                                    }
+                                </FormItem>
+                            </Col>
 
-    // 配置项开始
-    const inline = horizontal ? false : true;
-    const formClassName = prefixCls || 'form';
-
-
-
-    const span6 = inline ? '6' : '';
-    const span8 = horizontal ? 3 : 8;
-
-    const {formItems} = items;
-
-    const {getFieldProps, getFieldError, isFieldValidating} = form;
-
-
-    return <div className={formClassName}>
-        <Form inline={inline}  horizontal={horizontal} form={form}>
-            <Row>
-                {
-                    children
-                }
-                {
-                    formItems.map((item, index) => {
-                        let {name} = item,
-                            initValidateStatus = "",
-                            initHasFeedback = false,
-                            initHelp = "";
-
-
-                        return <Col key={index} span={span6} {...item}>
-                            <FormItem id={`fm-${item.name}`} labelCol={{ span: span8 }}
-                                wrapperCol={{ span: 6 }}
-                                hasFeedback = {initHasFeedback}
-                                help={isFieldValidating(item.name) ? '校验中...' : (getFieldError(item.name) || []).join(', ') }
-                                {...item} >
-                                {
-                                    this.renderFormItem(item)
-                                }
-                            </FormItem>
-                        </Col>
-
-                    })
-                }
-                {component}
-                {button ? button : this.renderButton() }
-            </Row>
-        </Form>
-    </div>
-}
-render() {
-    return this.renderForm();
-}
+                        })
+                    }
+                    {component}
+                    {button ? button : this.renderButton() }
+                </Row>
+            </Form>
+        </div>
+    }
+    render() {
+        return this.renderForm();
+    }
 }
 
 Forms.propTypes = {
@@ -271,8 +264,16 @@ Forms.propTypes = {
     })
 };
 
+const onFieldsChange = (props) => {
+   // console.log(props)
+}
+
+const mapPropsToFields = (props) => {
+   // console.log(props)
+}
+
 /**
  * 使用High Order Component 创建form
  * @param  {any} (Forms)
  */
-export default createForm()(Forms)
+export default createForm({onFieldsChange, mapPropsToFields})(Forms)

@@ -3,35 +3,43 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import TableComponent from '../components/Table'
 import Panel from 'components/Panel'
-import {getBrand} from '../modules/table'
+import {queryItemList} from '../modules/table'
 
 class Table extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
     }
-    
-    componentDidMount(){
-        const {getBrand} = this.props;
-        getBrand({id: 2464});
+
+    componentDidMount() {
+        const {queryItemList, location} = this.props;
+        const {query} = location;
+        let pageNumber = query.p ? Number(query.p) : 1;
+        queryItemList({ pageNumber });
     }
-    
+
     render() {
-        console.log(this.props);
-        return <Panel title="DataTable 表格实例"><TableComponent /></Panel> 
+        const {items, queryItemList, totalItems, loading} = this.props;
+
+        return <Panel title="DataTable 表格实例"><TableComponent dataSource={items} action={queryItemList} total={totalItems} loading={loading} /></Panel>
     }
 }
 
+
 Table.propTypes = {
-    
+    items: React.PropTypes.array.isRequired,
+    queryItemList: React.PropTypes.func.isRequired,
+    totalItems: React.PropTypes.number.isRequired,
+    loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    getBrand
+    queryItemList
 }
 
-const mapStateToProps = (state) => ({
-    item: state.table
-})
+const mapStateToProps = (state) => {
+    const {result, loading} = state.table;
+    const {items = [], pageNumber = 1, pageSize = 10, totalItems = 0, totalPages = 1} = result.data || {};
+    return { items, totalItems, loading };
+}
 
-export default connect(mapStateToProps,mapActionCreators)(Table)
+export default connect(mapStateToProps, mapActionCreators)(Table)

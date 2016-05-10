@@ -23,9 +23,9 @@ export default function clientMiddleware(client) {
                 (result) => {
                     console.log(result)
                     if (result.data && result.data.status === 1) {
-                         return next({...rest, result, type: SUCCESS, loading:false})
+                         return next({...rest, result : result.data, type: SUCCESS, loading:false})
                     }
-                    if(result.data.code === "TIMEOUT_SESSION"){
+                    if(result.data && result.data.code === "TIMEOUT_SESSION"){
                         return next({...rest, result, type: 'auth/TIMEOUT_SESSION', loading:false})
                     }
                     return next({...rest, result, type: FAILURE, loading:false})
