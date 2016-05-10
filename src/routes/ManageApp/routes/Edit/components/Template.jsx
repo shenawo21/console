@@ -1,5 +1,10 @@
 import React from 'react';
 import {Row, Col} from 'hen';
+import classes from '../assets/Edit.less';
+import coolImage from '../assets/cool.png';
+import metalImage from '../assets/metal.png';
+import tempImage from '../assets/tempImg.png'
+
 const tplArr={
   navId: 0,
   title: '导航方式',
@@ -9,37 +14,48 @@ const tplArr={
     children: [{
       tplId: 0,
       title: '炫酷',
-      thumb: '111',
+      thumb: coolImage,
       image: '1111'
     },{
       tplId: 1,
       title: '金属',
-      thumb: '222',
+      thumb: metalImage,
       image: '2222'
     }]
   }]
 };
 
 export default () => {
-  return <Row>
-    <Col span="12" >
-      <h3>选择模板</h3>
-      <dl>
-        <dt>导航方式</dt>
+  return <Row className={classes.edit}>
+    <Col span="11">
+      <h4>导航方式</h4>
+      <Row>
         {
-          tplArr.children.map((s,i) =><dd key={i}>{s.title}</dd>)
+          tplArr.children.map((s) =><Col span="4" key={s.navId}>
+            <div className={classes.navTitle+' '+classes.navHover}>
+              {s.name}
+            </div>
+          </Col>)
         }
-        <dd>底部导航</dd>
-      </dl>
-      <dl>
-        <dt>模板样式</dt>
+      </Row>
+      <h4>模板样式</h4>
+      <Row>
         {
-          tplArr.children.map((s,i) =>s.children.map((m,n) =><dd key={n}>{m.title}</dd> ))
+          tplArr.children.map((s,i) =>s.children.map((m) =><Col span="3" key={m.tplId}>
+            <div className={m.tplId == 0?classes.styleTitle+' '+classes.hover:classes.styleTitle}>
+              <img src={m.thumb} width="65" height="65" />
+              <p>{m.title}</p>
+            </div>
+          </Col>))
         }
-      </dl>
+      </Row>
     </Col>
-    <Col span="12" >
-      手机大屏
+    <Col span="13" >
+      <div className={classes.mobShell}>
+        <div className={classes.mobScreen}>
+          <img src={tempImage} width="240" height="427" />
+        </div>
+      </div>
     </Col>
   </Row>
 }

@@ -76,7 +76,7 @@ export default () => {
     }
     ];
     config.initValue = {
-      appName : null,
+      appName : '象翌微链',
       appIcon : 0,
       appVer: '1.0.001',
       appCode : 'xxxx160426000001',
@@ -85,10 +85,10 @@ export default () => {
     return config;
   };
   return <Row className={classes.edit}>
-    <Col span="16">
+    <Col span="11">
       <Form horizontal items={_getBasicItems()} button={<span></span>} />
     </Col>
-    <Col span="8" >
+    <Col span="13" >
       <div className={classes.mobShell}>
         <div className={classes.mobScreen}>
           <div className={classes.appIcon}>
