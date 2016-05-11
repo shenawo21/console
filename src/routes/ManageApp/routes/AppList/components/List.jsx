@@ -5,9 +5,12 @@ import AppIntro from '../../AppIntro/Intro';
 
 import classes from './List.less'
 
-class List extends Component{
+const handleDel = (i) => {
+  return 1;
+};
 
-  render() {
+
+export default ({handleDel}) => {
     return (
       <div>
         <div className={classes.item}>
@@ -46,11 +49,4 @@ class List extends Component{
     );
   }
  
-}
-
-List.propsTypes = {
-
-}
-
-export default List;
 
