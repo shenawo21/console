@@ -1,15 +1,14 @@
 import React,{Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import { Button, Row, Col, Input, InputNumber, Pagination, message, Checkbox} from 'hen';
-import AppIntro from '../../AppIntro/Intro';
 
+import AppIntro from '../../AppIntro/Intro';
 import classes from './List.less'
 
-class List extends Component{
 
-  render() {
-    return (
-      <div>
+export default ({delet}) => {
+  console.log(delet);
+    return <div>
         <div className={classes.item}>
           <div className={classes.info}>   
             <AppIntro />
@@ -17,11 +16,11 @@ class List extends Component{
           <ul className={classes.qrcode}>
             <li>
               <img src="" alt="" width="116px" height="116px" />
-              <p><Button type="ghost">安卓下载及推广 </Button></p>
+              <p><Button type="ghost" onClick={delet}>安卓下载及推广 </Button></p>
             </li>
             <li>
               <img src="" alt="" width="116px" height="116px" />
-              <p><Button type="ghost">IOS下载及推广</Button></p>
+              <p><Button type="ghost">IOS下 载及推广</Button></p>
             </li>
           </ul>
         </div>
@@ -32,7 +31,7 @@ class List extends Component{
           <ul className={classes.qrcode}>
             <li>
               <img src="" alt="" width="116px" height="116px" />
-              <p><Button type="ghost">安卓下载及推广 </Button></p>
+              <p><Button type="ghost">安卓下载及推广</Button></p>
             </li>
             <li>
               <img src="" alt="" width="116px" height="116px" />
@@ -40,17 +39,8 @@ class List extends Component{
             </li>
           </ul>
         </div>
-        
         <Pagination className={classes.fr} showSizeChanger defaultCurrent={3} total={500} />
       </div>
-    );
   }
  
-}
-
-List.propsTypes = {
-
-}
-
-export default List;
 
