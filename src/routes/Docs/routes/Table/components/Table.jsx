@@ -1,8 +1,31 @@
 import React, {Component, PropTypes} from 'react';
 import DataTable from 'components/DataTable';
 import {Link} from 'react-router';
+import Search from 'components/Search';
 
 class Table extends Component {
+    
+    
+    _getFormItems(){
+        let config = {
+            formItems: [{
+                label: "商品名称：",
+                name: "name",
+                input: {}
+            }, {
+                label: "SPU：",
+                name: "multiple_spuId",
+                input: {}
+            }],
+            initValue: {
+                name: null,
+                multiple_spuId: null,
+                categoryId: null
+            }
+        }
+        
+        return config;
+    }
 
     _getColumns(){
         const context = this;
@@ -62,7 +85,7 @@ class Table extends Component {
     }
 
     render() {
-        const {total, ...other} = this.props;
+        const {total, handleSubmit, handleReset, ...other} = this.props;
         const pagination = {
             total,
             showQuickJumper : true
@@ -71,6 +94,7 @@ class Table extends Component {
         return (
             <div>
                 <h1>131313133</h1>
+                <Search items={this._getFormItems()} onSubmit={handleSubmit} onReset={handleReset}></Search>
                 <DataTable bordered={true} pagination={pagination} params={{channelId : 0}} {...other} columns={this._getColumns()} />
             </div>
         )

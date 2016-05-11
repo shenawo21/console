@@ -8,8 +8,22 @@ import {queryItemList} from '../modules/table'
 class Table extends Component {
     constructor(props) {
         super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleReset = this.handleReset.bind(this);
+        this.state = {
+            params : {}
+        }
     }
-
+    
+    handleSubmit(value){
+       this.setState({
+           params : value
+       })
+    }
+    
+    handleReset(){
+    }
+    
     componentDidMount() {
         const {queryItemList, location} = this.props;
         const {query} = location;
@@ -19,8 +33,9 @@ class Table extends Component {
 
     render() {
         const {items, queryItemList, totalItems, loading} = this.props;
+        const {params} = this.state;
 
-        return <Panel title="DataTable 表格实例"><TableComponent dataSource={items} action={queryItemList} total={totalItems} loading={loading} /></Panel>
+        return <Panel title="DataTable 表格实例"><TableComponent dataSource={items} action={queryItemList} total={totalItems} loading={loading} handleReset={this.handleReset} handleSubmit={this.handleSubmit} params={params} /></Panel>
     }
 }
 
@@ -29,7 +44,9 @@ Table.propTypes = {
     items: React.PropTypes.array.isRequired,
     queryItemList: React.PropTypes.func.isRequired,
     totalItems: React.PropTypes.number.isRequired,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    handleSubmit : React.PropTypes.func,
+    handleReset : React.PropTypes.func
 }
 
 const mapActionCreators = {

@@ -141,12 +141,14 @@ class DataTable extends Component {
                 ...other
             }
         }
-        pagination = {
-            current: this.getCurrentPage(),
-            pageSize: 10,
-            showTotal : () => `共 ${pagination.total} 条`,
-            ...pagination
-        };
+        if(pagination !== false){
+            pagination =  {
+                current: this.getCurrentPage(),
+                pageSize: 10,
+                showTotal : () => `共 ${pagination.total} 条`,
+                ...pagination
+            };
+        }
         
         return <Table  rowKey={this._rowKey} pagination={pagination} {...tableProps} onChange={this._onPaginationChange.bind(this) } />
 
