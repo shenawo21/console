@@ -144,6 +144,7 @@ class DataTable extends Component {
         if(pagination !== false){
             pagination =  {
                 current: this.getCurrentPage(),
+                showQuickJumper : true,
                 pageSize: 10,
                 showTotal : () => `共 ${pagination.total} 条`,
                 ...pagination

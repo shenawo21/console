@@ -87,15 +87,14 @@ class Table extends Component {
     render() {
         const {total, handleSubmit, handleReset, ...other} = this.props;
         const pagination = {
-            total,
-            showQuickJumper : true
+            total
         }
         
         return (
             <div>
                 <h1>131313133</h1>
                 <Search items={this._getFormItems()} onSubmit={handleSubmit} onReset={handleReset}></Search>
-                <DataTable bordered={true} pagination={pagination} params={{channelId : 0}} {...other} columns={this._getColumns()} />
+                <DataTable bordered={true} pagination={pagination} {...other} columns={this._getColumns()} />
             </div>
         )
     }
@@ -103,7 +102,13 @@ class Table extends Component {
 
 
 Table.propTypes = {
-    
+    total : React.PropTypes.number.isRequired,
+    handleSubmit : React.PropTypes.func,
+    handleReset : React.PropTypes.func,
+    dataSource : React.PropTypes.array.isRequired,
+    action : React.PropTypes.func.isRequired,
+    loading : React.PropTypes.bool,
+    params : React.PropTypes.object.isRequired
 }
 
 export default Table;
