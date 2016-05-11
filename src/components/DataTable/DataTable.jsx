@@ -59,6 +59,9 @@ class DataTable extends Component {
         
         action(data);
         
+        this.setState({
+            selectedRowKeys: []
+        })
     }
 
     componentDidMount() {
@@ -118,11 +121,15 @@ class DataTable extends Component {
             current
         })
     }
+    
+    getQuickButton(quickButton){
+       return  <div style={{paddingBottom:15}}>{quickButton}</div>
+    }
 
     render(){
         let tableProps;
         let {selectedRowKeys} = this.state;
-        let {rowSelection, pagination, action, ...other} = this.props;
+        let {rowSelection, pagination, action, quickButton, ...other} = this.props;
         if (rowSelection) {
             tableProps = {
                 rowSelection: {
@@ -141,7 +148,7 @@ class DataTable extends Component {
                 ...other
             }
         }
-        if(pagination !== false){
+        if(pagination){
             pagination =  {
                 current: this.getCurrentPage(),
                 showQuickJumper : true,
@@ -149,11 +156,24 @@ class DataTable extends Component {
                 showTotal : () => `共 ${pagination.total} 条`,
                 ...pagination
             };
+        }else{
+            pagination = false;
         }
         
-        return <Table  rowKey={this._rowKey} pagination={pagination} {...tableProps} onChange={this._onPaginationChange.bind(this) } />
-
+        return <div>
+            {quickButton ? this.getQuickButton(quickButton) : ''}
+            <Table  rowKey={this._rowKey} pagination={pagination} {...tableProps} onChange={this._onPaginationChange.bind(this) } />
+        </div>
     }
+}
+
+DataTable.propTypes = {
+    action : React.PropTypes.func,
+    params : React.PropTypes.object,
+    pagination: React.PropTypes.oneOfType([
+      React.PropTypes.bool,
+      React.PropTypes.object
+    ])
 }
 
 DataTable.contextTypes = {

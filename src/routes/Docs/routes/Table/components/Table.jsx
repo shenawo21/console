@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import DataTable from 'components/DataTable';
 import {Link} from 'react-router';
 import Search from 'components/Search';
+import {Row, Col, Button, Icon} from 'hen';
 
 class Table extends Component {
     
@@ -83,18 +84,25 @@ class Table extends Component {
         }];
         return columns;
     }
+    
+    quickButton(quickOptions){
+        return <Row>
+                <Col span='2'>
+                    <Button onClick={quickOptions.doUp} ><Icon type="arrow-up" />批量上架</Button>
+                </Col>
+                <Col span='2'>
+                    <Button onClick={quickOptions.doDown} ><Icon type="arrow-down" />批量下架</Button>
+                </Col>
+        </Row>
+    }
 
     render() {
-        const {total, handleSubmit, handleReset, ...other} = this.props;
-        const pagination = {
-            total
-        }
+        const {formOptions, quickOptions, ...other} = this.props;
         
         return (
             <div>
-                <h1>131313133</h1>
-                <Search items={this._getFormItems()} onSubmit={handleSubmit} onReset={handleReset}></Search>
-                <DataTable bordered={true} pagination={pagination} {...other} columns={this._getColumns()} />
+                <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}></Search>
+                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
             </div>
         )
     }
@@ -102,13 +110,13 @@ class Table extends Component {
 
 
 Table.propTypes = {
-    total : React.PropTypes.number.isRequired,
-    handleSubmit : React.PropTypes.func,
-    handleReset : React.PropTypes.func,
     dataSource : React.PropTypes.array.isRequired,
     action : React.PropTypes.func.isRequired,
     loading : React.PropTypes.bool,
-    params : React.PropTypes.object.isRequired
+    params : React.PropTypes.object,
+    getQuickOptions: React.PropTypes.object,
+    getFormOptions: React.PropTypes.object,
+    
 }
 
 export default Table;
