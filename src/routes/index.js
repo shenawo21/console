@@ -53,7 +53,8 @@ export const createRoutes = (store) => {
         next(null, [
           // Provide store for async reducers and middleware
           require('./Repo').default(store),
-          require('./Docs').default(store)
+          require('./Docs').default(store),
+          //require('./Product').default(store)
         ])
       })
     }

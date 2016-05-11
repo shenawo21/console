@@ -3,7 +3,9 @@ module.exports = {
     console.log(options);
     var option = options.entity.options;
     return {
-      type: option.type || 'table'
+      type: option.type || 'table',
+      hasSearch : option.search || true,
+      hasQuickButton : option.quick || false
     }
   },
   description() {

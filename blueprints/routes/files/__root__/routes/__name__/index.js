@@ -5,7 +5,7 @@
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and
           will not loaded until the router invokes this callback. */
-      const <%= camelEntityName %> = require('./containers/<%= pascalEntityName %>Container').default
+      const <%= camelEntityName %> = require('./containers/<%= pascalEntityName %>').default
       const reducer = require('./modules/<%= pascalEntityName %>Reducer').default
 
       store.injectReducer({ key: '<%= camelEntityName %>', reducer })

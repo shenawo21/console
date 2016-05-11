@@ -49,5 +49,19 @@ export default [
         when: '',
       }
     ]
-  }
+  },
+  // {
+  //   title: 'product',
+  //   url: '/product',
+  //   icon: 'user',
+  //   when: '',
+  //   children: [
+  //     {
+  //       title: 'product',
+  //       url: '/product',
+  //       icon: 'wb-dashboard',
+  //       when: '',
+  //     }
+  //   ]
+  // }
 ]
