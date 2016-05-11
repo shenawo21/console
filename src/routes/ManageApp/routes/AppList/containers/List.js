@@ -1,7 +1,7 @@
 /**
- * add.js
+ * list.js
  * @date Created on 2016/5/5
- * @author ShenXing(慎行)<shenxing@suneee.com>
+ * @author Tity(泽钰)<zeyu@suneee.com>
  *
  */
 
@@ -14,17 +14,21 @@ import Panel from 'components/Panel'
 class List extends Component {
   constructor(props) {
     super(props);
+    //this.onDel = this.onDel.bind(this);
   }
   componentDidMount() {
 
   }
+  onDel(){
+    alert(1);
+  }
 
   render() {
-    return <Panel><ListView /></Panel>
+    return <Panel><ListView delet={this.onDel.bind(this)} /></Panel>
   }
 }
 
-//数据限制类型
+//数据限制 类型
 Add.propTypes = {
 
 }
