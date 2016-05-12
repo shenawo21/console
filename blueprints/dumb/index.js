@@ -2,7 +2,7 @@ module.exports = {
   locals: function (options) {
     var option = options.entity.options;
     return {
-      type: option.type
+      type: option.t
     }
   },
   description () {

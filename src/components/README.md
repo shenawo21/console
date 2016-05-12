@@ -7,6 +7,6 @@
 
 - 创建无状态组件 
 ```
-    redux g dumb xxx --type=less
+    redux g dumb xxx --t=less
 ```
 

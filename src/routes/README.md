@@ -3,17 +3,17 @@
 > 创建名称为`product`含有`table、search`路由组件
 
 ```
-redux g routes product --type=table --search=true --quick=true
+redux g routes product --t=table --s=true --q=true
 ```
 
-- 不需要search检索时，`--search=false`
-- 不需要表格快捷按钮时，`--quick=false`
+- 不需要search检索时，`--s=false`
+- 不需要表格快捷按钮时，`--q=false`
 
 
 > 创建名称为`product`含有的`form`路由组件
 
 ```
-redux g routes product --type=form 
+redux g routes product --t=form 
 ```
 
 > 注意
