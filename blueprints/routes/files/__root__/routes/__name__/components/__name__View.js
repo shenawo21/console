@@ -98,7 +98,7 @@ class <%= pascalEntityName %> extends Component {
 <%= pascalEntityName %>.propTypes = {
     <% if (type === 'table') { %>
     dataSource : React.PropTypes.array.isRequired,
-    action : React.PropTypes.func.isRequired
+    action : React.PropTypes.func.isRequired,
     <% } %>
     loading : React.PropTypes.bool,
     params : React.PropTypes.object

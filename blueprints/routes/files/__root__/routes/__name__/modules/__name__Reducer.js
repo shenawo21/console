@@ -71,7 +71,7 @@ export function modifyItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('api-iteminfo.queryItemList', params)
+    promise: (client) => client.post('/', params)
   }
 }
 
