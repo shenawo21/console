@@ -103,17 +103,17 @@ export default function reducer(state = {result:{}}, action) {
         }
     case ADD_SUCCESS:
         return {
-            ...state,
+            //...state,
+            loading : action.loading,
             result: action.result
         }
     case ADD_FAILURE:
         return {
             ...state
         }
-    
     case MODIFY_SUCCESS:
         return {
-            ...state,
+            //...state,
             result: action.result
         }
     case MODIFY_FAILURE:
@@ -122,7 +122,7 @@ export default function reducer(state = {result:{}}, action) {
         }
     case DELETE_SUCCESS:
         return {
-            ...state,
+            //...state,
             result: action.result
         }
     case DELETE_FAILURE:
@@ -140,7 +140,7 @@ export default function reducer(state = {result:{}}, action) {
         }
     case VIEW_SUCCESS:
         return {
-            ...state,
+            //...state,
             result: action.result
         }
     case VIEW_FAILURE:

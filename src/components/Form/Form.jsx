@@ -6,7 +6,7 @@ const Option = Select.Option;
 const RadioGroup = Radio.Group;
 const createForm = Form.create;
 const FormItem = Form.Item;
-import './Form.less';
+import formless from './Form.less';
 
 class Forms extends Component {
     /**
@@ -110,10 +110,9 @@ class Forms extends Component {
 
         const {col = true, ok, cal, okIcon, calIcon, searchSpan, cancel = true} = buttonOption;
         let cols = col ? (horizontal ? { span: 24, offset: 6 } : { span: 8, offset: 5 }) : null;
-
-        return (<Col span={searchSpan || "8"} className="btn-bottom">
+        return (<Col span={searchSpan || "8"} >
             <FormItem wrapperCol={cols}>
-                <Button type="primary" onClick={this.handleSubmit.bind(this)}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button>
+                <Button className={formless.btn} type="primary" onClick={this.handleSubmit.bind(this)}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button>
                 {
                     cancel ? <Button htmlType="reset" onClick={this.handleReset.bind(this)}>{calIcon ? <Icon type={calIcon} /> : '' }{cal || '重置'}</Button> : ''
                 }
@@ -145,7 +144,7 @@ class Forms extends Component {
                 initialValue: initValue[name],
                 valuePropName: item.checkbox ? 'checked': 'value',
 			  ...options
-            }),name, disabled
+            }), name, disabled
         }
     }
 
@@ -212,7 +211,7 @@ class Forms extends Component {
         const formClassName = prefixCls || 'form';
 
         const span6 = inline ? '6' : '';
-        const span8 = horizontal ? 3 : 8;
+        const span8 = horizontal ? 2 : 8;
 
         const {formItems} = items;
 
