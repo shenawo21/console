@@ -6,7 +6,7 @@ const Option = Select.Option;
 const RadioGroup = Radio.Group;
 const createForm = Form.create;
 const FormItem = Form.Item;
-import formless from './Form.less';
+import formless from './form.less';
 
 class Forms extends Component {
     /**

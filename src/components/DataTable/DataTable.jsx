@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Table, Icon, message } from 'hen';
-import fetch from 'common/apiClient';
+import {Table} from 'hen';
 import {isEqual} from 'common/utils';
 
 /**
