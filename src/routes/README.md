@@ -1,7 +1,7 @@
 ### 通过`redux-cli` 创建路由一级路由文件
 
 - 执行redux g 需要全局安装npm install -g redux-cli
-- 执行npm run create 需要项目安装 npm install   （项目默认安装）
+- 执行npm run create 需要项目安装 npm install   （项目默认安装,暂不支持参数配置，比如--t=table,不生效）
 
 > 创建名称为`product`含有`table、search`路由组件
 
