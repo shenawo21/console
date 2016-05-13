@@ -1,0 +1,41 @@
+:global{
+    .category-tab-content{
+    position: relative;
+    width:600px;
+    }
+
+    .category-item{
+    display: block;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition-duration: .5s;
+    &:hover,&.selected{
+        color: tint(#2db7f5, 10%);
+    }
+    }
+
+    .category-select{
+        width: 180px;
+        text-align: left;
+        .anticon{
+            font-style: normal;
+            vertical-align: baseline;
+            text-align: center;
+            text-transform: none;
+            text-rendering: auto;
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            line-height: 1;
+            margin-top: -5px;
+            display: inline-block;
+            font-size: 14px;
+            font-size: 8px \9;
+            transform: scale(0.57142857) rotate(0deg);
+            filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1);
+            zoom: 1;
+        }
+
+    }
+}
