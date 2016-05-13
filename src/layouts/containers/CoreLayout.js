@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import CoreLayoutView from '../CoreLayout';
+import CoreLayoutView from '../components/CoreLayout';
 import {logout} from '../../store/auth';
 import {Modal} from 'hen';
 import Cookie from 'js-cookie';
