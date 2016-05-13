@@ -1,18 +1,18 @@
-let menuLists = [
+export default [
   {
     title: '企业管理',
-    url: '/test',
+    url: '/',
     icon: 'home',
     when: '',
     children: [
       {
         title: '企业列表',
-        url: '/repo',
+        url: '/enterprise',
         icon: 'wb-dashboard',
         when: '',
       }, {
         title: '企业申请入驻',
-        url: '/p2',
+        url: '/',
         icon: 'wb-dashboard',
         when: ''
       }
@@ -35,26 +35,19 @@ let menuLists = [
         when: '',
       }
     ]
-  } 
+  },
+  {
+    title: 'docs',
+    url: '/docs',
+    icon: 'user',
+    when: '',
+    children: [
+      {
+        title: 'docs',
+        url: '/docs',
+        icon: 'wb-dashboard',
+        when: '',
+      }
+    ]
+  }
 ]
-
-if(__DEV__){
-   menuLists.push(
-     {
-      title: 'docs',
-      url: '/docs',
-      icon: 'user',
-      when: '',
-      children: [
-        {
-          title: 'docs',
-          url: '/docs',
-          icon: 'wb-dashboard',
-          when: '',
-        }
-      ]
-    } 
-   )
-}
-
-export default menuLists;

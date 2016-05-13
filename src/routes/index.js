@@ -37,8 +37,6 @@ export const createRoutes = (store) => {
     }
 
   }
-  
-  
 
   /**
    * routes that need auth
@@ -52,14 +50,12 @@ export const createRoutes = (store) => {
     // onEnter: requireLogin,
     getChildRoutes(location, next) {
       require.ensure([], (require) => {
-        // Provide store for async reducers and middleware
-        let asyncComponents = [
-            require('./Repo').default(store),
-        ];
-        if(__DEV__){
-            asyncComponents.push(require('./Docs').default(store))
-        }
-        next(null, asyncComponents)
+        next(null, [
+          // Provide store for async reducers and middleware
+          require('./Enterprise').default(store),
+          require('./Docs').default(store),
+          //require('./Product').default(store)
+        ])
       })
     }
   }

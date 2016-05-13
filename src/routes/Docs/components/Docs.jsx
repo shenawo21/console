@@ -187,7 +187,7 @@ class Docs extends Component {
         const {handleSubmit} = this.props;
         return (
             <div>
-                <Form horizontal items={this._getFormItems() } onSubmit={handleSubmit} />
+                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit} />
             </div>
         );
     }
