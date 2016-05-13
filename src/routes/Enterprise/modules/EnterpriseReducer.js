@@ -21,7 +21,7 @@ const VIEW_FAILURE = 'enterprise/VIEW_FAILURE';
 
 /**
  * 新增
- * 
+ *
  * @export
  * @param params (description)
  * @returns (description)
@@ -35,7 +35,7 @@ export function addItem(params) {
 
 /**
  * 删除
- * 
+ *
  * @export
  * @param params (description)
  * @returns (description)
@@ -49,7 +49,7 @@ export function deleteItem(params) {
 
 /**
  * 修改
- * 
+ *
  * @export
  * @param params (description)
  * @returns (description)
@@ -63,7 +63,7 @@ export function modifyItem(params) {
 
 /**
  * 列表查询
- * 
+ *
  * @export
  * @param params (description)
  * @returns (description)
@@ -71,13 +71,13 @@ export function modifyItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('/company/page/list', params)
   }
 }
 
 /**
  * 单条查看
- * 
+ *
  * @export
  * @param params (description)
  * @returns (description)

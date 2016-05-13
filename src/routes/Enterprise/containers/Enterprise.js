@@ -94,7 +94,7 @@ class Enterprise extends Component {
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : queryList,                         //表格翻页时触发的action
-            pagination : {                              //表格页码陪着，如果为false，则不展示页码
+            pagination : {                              //表格页码配置，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
