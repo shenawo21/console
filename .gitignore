@@ -8,4 +8,4 @@ coverage
 
 .idea
 #
-config
+config/_base.js
