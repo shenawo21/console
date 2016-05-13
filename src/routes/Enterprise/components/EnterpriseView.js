@@ -82,7 +82,7 @@ class Enterprise extends Component {
           dataIndex: 'createTime'
         },{
             title: '操作',
-            dataIndex: 'guid',
+            dataIndex: 'enterpriseCode',
             render(id,row){
                 return <span>
                   <Link to={`/enterprise/detail/${id}`}>查看</Link> |
