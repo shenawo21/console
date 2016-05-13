@@ -1,7 +1,7 @@
 import React,{Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-import MyAppList from '../routes/AppList/components/List'
-import TrashList from '../routes/TrashList/components/List'
+import MyAppList from '../routes/AppList/containers/List'
+import TrashList from '../routes/TrashList/containers/List'
 import { Tabs, Button,Icon } from 'hen';
 
 const TabPane = Tabs.TabPane;

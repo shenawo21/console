@@ -8,6 +8,10 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import {Link} from 'react-router';
+
+import { Modal} from 'hen';
+
+
 import ListView from '../components/List';
 import Panel from 'components/Panel'
 
@@ -20,7 +24,12 @@ class List extends Component {
 
   }
   onDel(){
-    alert(1);
+    Modal.confirm({
+      title: 'Confirm',
+      content: 'Bla bla ...',
+      okText: 'OK',
+      cancelText: 'Cancel'
+    });
   }
 
   render() {
@@ -29,7 +38,7 @@ class List extends Component {
 }
 
 //数据限制 类型
-Add.propTypes = {
+List.propTypes = {
 
 }
 

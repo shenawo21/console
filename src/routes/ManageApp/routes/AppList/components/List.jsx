@@ -7,7 +7,6 @@ import classes from './List.less'
 
 
 export default ({delet}) => {
-  console.log(delet);
     return <div>
         <div className={classes.item}>
           <div className={classes.info}>   
@@ -16,7 +15,7 @@ export default ({delet}) => {
           <ul className={classes.qrcode}>
             <li>
               <img src="" alt="" width="116px" height="116px" />
-              <p><Button type="ghost" onClick={delet}>安卓下载及推广 </Button></p>
+              <p><Button type="ghost" onClick={delet}>安卓下载及推广</Button></p>
             </li>
             <li>
               <img src="" alt="" width="116px" height="116px" />

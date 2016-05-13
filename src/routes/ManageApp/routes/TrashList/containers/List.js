@@ -25,7 +25,7 @@ class List extends Component {
 }
 
 //数据限制类型
-Add.propTypes = {
+List.propTypes = {
 
 }
 
