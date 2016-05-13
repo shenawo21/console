@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import {Link} from 'react-router';
 import DocsComponent from '../components/Docs'
 import Panel from 'components/Panel'
+import {message} from 'hen';
 
 class Docs extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Docs extends Component {
         console.log('======props=====',this.props);
         console.log('======state=====',this.state.count);
         
-        return <Panel title="FormNext 表单实例"><Link to='/docs/table'>table</Link><DocsComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
+        return <Panel title="Form 表单"><Link to='/docs/table'>table</Link><DocsComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
     }
 }
 
