@@ -28,10 +28,12 @@ export const rootReducer = (state, action) => {
 
 
 /**
+ *
  * 异步添加reducer
+ *
  * @param  {Object} store
- * @param  {string} {key
- * @param  {Function} reducer}
+ * @param  {Object} key,reducer
+ *
  */
 export const injectReducer = (store, { key, reducer }) => {
   store.asyncReducers[key] = reducer
