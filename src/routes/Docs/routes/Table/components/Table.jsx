@@ -87,10 +87,10 @@ class Table extends Component {
     
     quickButton(quickOptions){
         return <Row>
-                <Col span='2'>
+                <Col span='3'>
                     <Button onClick={quickOptions.doUp} ><Icon type="arrow-up" />批量上架</Button>
                 </Col>
-                <Col span='2'>
+                <Col span='3'>
                     <Button onClick={quickOptions.doDown} ><Icon type="arrow-down" />批量下架</Button>
                 </Col>
         </Row>
