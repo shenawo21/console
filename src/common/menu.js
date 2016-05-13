@@ -1,18 +1,18 @@
 export default [
   {
     title: '企业管理',
-    url: '/test',
+    url: '/',
     icon: 'home',
     when: '',
     children: [
       {
         title: '企业列表',
-        url: '/repo',
+        url: '/enterprise',
         icon: 'wb-dashboard',
         when: '',
       }, {
         title: '企业申请入驻',
-        url: '/p2',
+        url: '/',
         icon: 'wb-dashboard',
         when: ''
       }
@@ -45,20 +45,6 @@ export default [
       {
         title: 'docs',
         url: '/docs',
-        icon: 'wb-dashboard',
-        when: '',
-      }
-    ]
-  },
-  {
-    title: 'product',
-    url: '/product',
-    icon: 'user',
-    when: '',
-    children: [
-      {
-        title: 'product',
-        url: '/product',
         icon: 'wb-dashboard',
         when: '',
       }
