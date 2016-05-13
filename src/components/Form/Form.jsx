@@ -8,6 +8,8 @@ const createForm = Form.create;
 const FormItem = Form.Item;
 import formless from './form.less';
 
+import Panel from 'components/Panel'
+
 class Forms extends Component {
     /**
      * 重置表单
@@ -204,7 +206,7 @@ class Forms extends Component {
      * 渲染form
      */
     renderForm(){
-        const {prefixCls, horizontal = false, items, button, children, component, form} = this.props;
+        const {prefixCls, horizontal = false, items, button, children, form} = this.props;
 
         // 配置项开始
         const inline = horizontal ? false : true;
@@ -213,17 +215,12 @@ class Forms extends Component {
         const span6 = inline ? '6' : '';
         const span8 = horizontal ? 2 : 8;
 
-        const {formItems} = items;
+        const {panels} = items;
 
         const {getFieldProps, getFieldError, isFieldValidating} = form;
 
-
-        return <div className={formClassName}>
-            <Form inline={inline}  horizontal={horizontal} form={form}>
-                <Row>
-                    {
-                        children
-                    }
+        const setFormPanel = (formItems) => {
+            return <Row>
                     {
                         formItems.map((item, index) => {
                             let {name} = item;
@@ -239,12 +236,29 @@ class Forms extends Component {
                                     }
                                 </FormItem>
                             </Col>
-
                         })
                     }
-                    {component}
-                    {button ? button : this.renderButton() }
                 </Row>
+        }
+        
+        let showItems = null;
+        
+        if (panels.length) {
+            showItems = panels.map(function(items, idx) {
+                    const {formItems, ...other} = items;
+                    return <Panel key={`panel-${idx}`} {...other}>
+                                {setFormPanel(formItems)}
+                        </Panel>
+            });
+        } else {
+            showItems = setFormPanel(items.formItems);
+        } 
+
+        return <div className={formClassName}>
+            <Form inline={inline}  horizontal={horizontal} form={form}>
+                {showItems}
+                {children}
+                {button ? button : this.renderButton()}
             </Form>
         </div>
     }
@@ -257,6 +271,7 @@ Forms.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     prefixCls: PropTypes.string,
     button: PropTypes.object,
+    panels : PropTypes.array,
     items: PropTypes.shape({
         initValue: PropTypes.object,
         formItems: PropTypes.array
