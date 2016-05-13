@@ -2,11 +2,11 @@
 
 - 创建正常组件 
 ```
-    redux g dumb xxx
+    redux generate dumb xxx
 ```
 
 - 创建无状态组件 
 ```
-    redux g dumb xxx --t=less
+    redux generate dumb xxx --t=less
 ```
 

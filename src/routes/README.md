@@ -1,14 +1,12 @@
 ### 通过`redux-cli` 创建路由一级路由文件
 
-- 执行redux g 需要全局安装npm install -g redux-cli
-- 执行npm run create 需要项目安装 npm install   （项目默认安装,暂不支持参数配置，比如--t=table,不生效）
+- 执行redux generate 需要全局安装npm install -g redux-cli
 
 > 创建名称为`product`含有`table、search`路由组件
 
 ```
-redux g routes product --t=table --s=true --q=true
-或
-npm run create routes product --t=table --s=true --q=true
+redux generate routes product --t=table --s=true --q=true
+
 ```
 
 - 不需要search检索时，`--s=false`
@@ -18,9 +16,8 @@ npm run create routes product --t=table --s=true --q=true
 > 创建名称为`product`含有的`form`路由组件
 
 ```
-redux g routes product --t=form 
-或
-npm run create routes product --t=form
+redux generate routes product --t=form 
+
 ```
 
 > 注意
@@ -60,5 +57,5 @@ npm run create routes product --t=form
 ### 查看帮助
 
 ```
-redux g -h
+redux -h
 ```
