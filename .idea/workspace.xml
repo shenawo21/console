@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js" afterPath="$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js" />
-    </list>
+    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="" />
     <ignored path="console.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -721,12 +719,12 @@
       <workItem from="1462929464646" duration="10099000" />
       <workItem from="1463015579621" duration="33000" />
       <workItem from="1463015701910" duration="8554000" />
-      <workItem from="1463102218901" duration="15254000" />
+      <workItem from="1463102218901" duration="15292000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125067000" />
+    <option name="totallyTimeSpent" value="125105000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
