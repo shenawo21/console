@@ -1,13 +1,13 @@
 export default [
   {
     title: '企业管理',
-    url: '/test',
+    url: '/enterprise',
     icon: 'home',
     when: '',
     children: [
       {
         title: '企业列表',
-        url: '/repo',
+        url: '/enterprise',
         icon: 'wb-dashboard',
         when: '',
       }, {
