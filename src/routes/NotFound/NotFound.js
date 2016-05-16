@@ -14,12 +14,11 @@ export const NotFound = () => (
               <h1 className="animation-slide-top">404</h1>
               <p>页面没有找到!</p>
             </header>
-            <p className="error-advise">YOU SEEM TO BE TRYING TO FIND HIS WAY HOME</p>
+            <p className="error-advise">请检查页面访问地址！</p>
             <a className="btn btn-primary btn-round" href="#"  onClick={goBack}>GO BACK</a>
             <footer className="page-copyright">
-              <p>WEBSITE BY amazingSurge</p>
+              <p>WEBSITE BY SUNEEE</p>
               <p>© 2015. All RIGHT RESERVED.</p>
-
             </footer>
           </div>
         </div>

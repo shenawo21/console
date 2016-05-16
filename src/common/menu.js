@@ -1,4 +1,4 @@
-export default [
+let menuLists = [
   {
     title: '企业管理',
     url: '/enterprise',
@@ -37,20 +37,6 @@ export default [
     ]
   },
   {
-    title: 'docs',
-    url: '/docs',
-    icon: 'user',
-    when: '',
-    children: [
-      {
-        title: 'docs',
-        url: '/docs',
-        icon: 'wb-dashboard',
-        when: '',
-      }
-    ]
-  },
-  {
     title: '应用管理',
     url: '/manage',
     icon: 'user',
@@ -65,3 +51,24 @@ export default [
     ]
   }
 ]
+
+if(__DEV__){
+   menuLists.push(
+     {
+      title: 'docs',
+      url: '/docs',
+      icon: 'user',
+      when: '',
+      children: [
+        {
+          title: 'docs',
+          url: '/docs',
+          icon: 'wb-dashboard',
+          when: '',
+        }
+      ]
+    } 
+   )
+}
+
+export default menuLists;

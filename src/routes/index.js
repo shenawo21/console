@@ -1,5 +1,5 @@
 // We only need to import the modules necessary for initial render
-import CoreLayout from '../layouts/CoreLayout/CoreLayout'
+import CoreLayout from '../layouts/containers/CoreLayout'
 import Home from './Home'
 import {load, isAuthed} from '../store/auth'
 import Login from './Login'
@@ -37,6 +37,8 @@ export const createRoutes = (store) => {
     }
 
   }
+  
+  
 
   /**
    * routes that need auth
@@ -50,13 +52,16 @@ export const createRoutes = (store) => {
     // onEnter: requireLogin,
     getChildRoutes(location, next) {
       require.ensure([], (require) => {
-        next(null, [
-          // Provide store for async reducers and middleware
-          require('./Enterprise').default(store),
-          require('./Repo').default(store),
-          require('./Docs').default(store),
-          require('./ManageApp').default(store),
-        ])
+        // Provide store for async reducers and middleware
+        let asyncComponents = [
+            require('./Repo').default(store),
+            require('./ManageApp').default(store),
+            require('./ManageApp').default(store),
+        ];
+        if(__DEV__){
+            asyncComponents.push(require('./Docs').default(store))
+        }
+        next(null, asyncComponents)
       })
     }
   }

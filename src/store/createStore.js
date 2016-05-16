@@ -15,11 +15,11 @@ export default (initialState = {}, history) => {
     const devToolsExtension = window.devToolsExtension
 
     if (typeof devToolsExtension === 'function') {
-      middleware = compose(middleware, devToolsExtension())
+      //npmmiddleware = compose(middleware, devToolsExtension())
     }
   }
 
-  const store = createStore(reducers(), initialState, middleware)
+  const store = createStore(reducers, initialState, middleware)
 
   store.asyncReducers = {}
   /**
