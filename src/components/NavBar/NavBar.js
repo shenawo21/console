@@ -1,5 +1,10 @@
-import React from 'react'
-import avatar from './avatar.png'
+import React from 'react';
+import avatar from './avatar.png';
+import {Menu} from 'hen';
+
+const MenuItem = Menu.Item;
+const SubMenu = Menu.SubMenu;
+
 
 export default () => {
 
@@ -13,26 +18,13 @@ export default () => {
         </li>
         <li className="dropdown">
           <a className="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
+            
             <span className="avatar avatar-online">
               <img src={avatar} alt="..." />
               <i />
             </span>
           </a>
-          <ul className="dropdown-menu" role="menu">
-            <li role="presentation">
-              <a href="javascript:void(0)" role="menuitem"><i className="icon wb-user" aria-hidden="true" /> Profile</a>
-            </li>
-            <li role="presentation">
-              <a href="javascript:void(0)" role="menuitem"><i className="icon wb-payment" aria-hidden="true" /> Billing</a>
-            </li>
-            <li role="presentation">
-              <a href="javascript:void(0)" role="menuitem"><i className="icon wb-settings" aria-hidden="true" /> Settings</a>
-            </li>
-            <li className="divider" role="presentation" />
-            <li role="presentation">
-              <a href="javascript:void(0)" role="menuitem"><i className="icon wb-power" aria-hidden="true" /> Logout</a>
-            </li>
-          </ul>
+          
         </li>
         <li className="dropdown">
           <a data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">
