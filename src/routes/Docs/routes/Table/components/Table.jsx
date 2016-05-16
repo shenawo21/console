@@ -5,8 +5,8 @@ import Search from 'components/Search';
 import {Row, Col, Button, Icon} from 'hen';
 
 class Table extends Component {
-    
-    
+
+
     _getFormItems(){
         let config = {
             formItems: [{
@@ -24,7 +24,7 @@ class Table extends Component {
                 categoryId: null
             }
         }
-        
+
         return config;
     }
 
@@ -78,13 +78,13 @@ class Table extends Component {
         },{
             dataIndex: 'spu_id',
             render(id,row){
-                
+
                 return <span><Link to='docs'>docs</Link></span>
             }
         }];
         return columns;
     }
-    
+
     quickButton(quickOptions){
         return <Row>
                 <Col span='3'>
@@ -98,7 +98,7 @@ class Table extends Component {
 
     render() {
         const {formOptions, quickOptions, ...other} = this.props;
-        
+
         return (
             <div>
                 <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}></Search>
@@ -116,7 +116,7 @@ Table.propTypes = {
     params : React.PropTypes.object,
     getQuickOptions: React.PropTypes.object,
     getFormOptions: React.PropTypes.object,
-    
+
 }
 
 export default Table;
