@@ -19,6 +19,7 @@ class DataTable extends Component {
         super(props);
         this.state = {
             current: 1,
+            pageSize: 10,
             selectedRowKeys: []
         }
     }
@@ -52,15 +53,19 @@ class DataTable extends Component {
         if (current) {
             params && params.pageNumber && delete params.pageNumber;
         }
-        let data = Object.assign({
-            pageNumber: current || this.getCurrentPage()
-        }, param || params);
         
-        action(data);
+        setTimeout(()=>{
+            let data = Object.assign({
+                pageNumber: current || this.getCurrentPage(),
+                pageSize : this.state.pageSize
+            }, param || params);
+            
+            action(data);
         
-        this.setState({
-            selectedRowKeys: []
-        })
+            this.setState({
+                selectedRowKeys: []
+            })
+        },10);
     }
 
     componentDidMount() {
@@ -107,11 +112,11 @@ class DataTable extends Component {
     * @param  {any} currentPage
     */
     _onPaginationChange(pagination, filters, sorter) {
-
+        
         const {location, router} = this.context.props;
-
+        
         const {current} = pagination;
-
+        
         router.push({...location, query:{ p: current }});
 
         this.requestData(null, current);
@@ -123,6 +128,12 @@ class DataTable extends Component {
     
     getQuickButton(quickButton){
        return  <div style={{paddingBottom:15}}>{quickButton}</div>
+    }
+    
+    onShowSizeChange(current, pageSize){
+        this.setState({
+            pageSize
+        });
     }
 
     render(){
@@ -151,8 +162,9 @@ class DataTable extends Component {
             pagination =  {
                 current: this.getCurrentPage(),
                 showQuickJumper : true,
-                pageSize: 10,
+                showSizeChanger : false,
                 showTotal : () => `共 ${pagination.total} 条`,
+                onShowSizeChange : this.onShowSizeChange.bind(this),
                 ...pagination
             };
         }else{

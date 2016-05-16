@@ -220,35 +220,31 @@ class Forms extends Component {
         const {getFieldProps, getFieldError, isFieldValidating} = form;
 
         const setFormPanel = (formItems) => {
-            return <Row>
-                    {
-                        formItems.map((item, index) => {
-                            let {name} = item;
+            return formItems.map((item, index) => {
+                let {name} = item;
 
-                            return <Col key={index} span={span6} {...item}>
-                                <FormItem id={`fm-${item.name}`} 
-                                    labelCol={{ span: span8 }}
-                                    wrapperCol={{ span: 6 }}
-                                    help={isFieldValidating(item.name) ? '校验中...' : (getFieldError(item.name) || []).join(', ')}
-                                    {...item} >
-                                    {
-                                        this.renderFormItem(item)
-                                    }
-                                </FormItem>
-                            </Col>
-                        })
-                    }
-                </Row>
+                return <Col key={index} span={span6} {...item}>
+                    <FormItem id={`fm-${item.name}`} 
+                        labelCol={{ span: span8 }}
+                        wrapperCol={{ span: 6 }}
+                        help={isFieldValidating(item.name) ? '校验中...' : (getFieldError(item.name) || []).join(', ')}
+                        {...item} >
+                        {
+                            this.renderFormItem(item)
+                        }
+                    </FormItem>
+                </Col>
+            })
         }
         
         let showItems = null;
         
-        if (panels.length) {
+        if (panels && panels.length) {
             showItems = panels.map(function(items, idx) {
-                    const {formItems, ...other} = items;
-                    return <Panel key={`panel-${idx}`} {...other}>
+                const {formItems, ...other} = items;
+                return <Panel key={`panel-${idx}`} {...other}>
                                 {setFormPanel(formItems)}
-                        </Panel>
+                       </Panel>
             });
         } else {
             showItems = setFormPanel(items.formItems);
@@ -256,9 +252,11 @@ class Forms extends Component {
 
         return <div className={formClassName}>
             <Form inline={inline}  horizontal={horizontal} form={form}>
-                {showItems}
-                {children}
-                {button ? button : this.renderButton()}
+                <Row>
+                    {showItems}
+                    {children}
+                    {button ? button : this.renderButton()}
+                </Row>
             </Form>
         </div>
     }
