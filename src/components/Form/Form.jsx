@@ -127,7 +127,7 @@ class Forms extends Component {
      * @param  {any} item 配置项
      */
     renderFormItem(item) {
-        const {form, items} = this.props;
+        const {form, items, allDisabled} = this.props;
 
         const { getFieldProps } = form;
         const {initValue} = items;
@@ -146,7 +146,7 @@ class Forms extends Component {
                 initialValue: initValue[name],
                 valuePropName: item.checkbox ? 'checked': 'value',
 			  ...options
-            }), name, disabled
+            }), name, disabled : disabled || allDisabled
         }
     }
 
@@ -154,7 +154,7 @@ class Forms extends Component {
 
     //input输入框
     if (item.input) {
-        return <Input  {...item.input} {...fieldProps} />
+        return <Input {...fieldProps} {...item.input} />
     }
     //下拉选择
     if (item.select) {
@@ -163,7 +163,7 @@ class Forms extends Component {
         !placeholder && tipValue && options.unshift({
             value: null, title: tipValue
         })
-        return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...item.select} {...fieldProps}>
+        return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...fieldProps} {...item.select} >
             {
                 options.map((val, i) => {
                     return <Option key={i} {...val}>{val.title}</Option>
@@ -174,7 +174,7 @@ class Forms extends Component {
     //单选框元素
     if (item.radio) {
         let {radioValue} = item.radio;
-        return <RadioGroup {...item.radio} {...fieldProps}>
+        return <RadioGroup {...fieldProps} {...item.radio} >
             {
                 radioValue.map((val, i) => {
                     return <Radio key={i} disabled={disabled} {...val}>{val.title}</Radio>
@@ -188,19 +188,19 @@ class Forms extends Component {
         let {className, title = ''} = item.checkbox;
         let boxClassName = className || "ant-checkbox-inline"
         return <label className={boxClassName} htmlFor={`fm-${name}`}>
-            <Checkbox  {...item.checkbox}  {...fieldProps}/> {title}
+            <Checkbox  {...fieldProps}  {...item.checkbox} /> {title}
         </label>
     }
     //数值文本框
     if (item.inputNumber) {
-        return <InputNumber min={1} max={10} {...item.inputNumber} {...fieldProps}/>
+        return <InputNumber min={1} max={10} {...fieldProps} {...item.inputNumber} />
     }
     //日期元素
     if (item.datepicker) {
-        return <DatePicker {...item.datepicker} {...fieldProps}/>
+        return <DatePicker  {...fieldProps} {...item.datepicker}/>
     }
     //业务传入自定义元素
-    return item.custom && item.custom(getCustomFieldProps, this, disabled);
+    return item.custom && item.custom(getCustomFieldProps, this);
     }
     /**
      * 渲染form
