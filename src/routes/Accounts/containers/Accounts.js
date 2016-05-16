@@ -66,12 +66,19 @@ class Accounts extends Component {
           const contex = this;
           return {
               /**
-               * 
-               * (description)
+               * 新增账户
+               * ()
                */
               doUp() {
-                  console.log('快捷按钮');
+                  console.log('新增账户');
               },
+              /**
+               * 新增账户
+               * ()
+               */
+              _delAccount(){
+                  console.log("删除账户");
+              }
           }
       }
     
