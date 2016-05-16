@@ -61,6 +61,7 @@ class Docs extends Component {
                     input: {
                         type: "email",
                         placeholder: "请输入订单号",
+                        disabled : false,
                     }
                 }, {
                     label: "支付方式：",
@@ -69,6 +70,7 @@ class Docs extends Component {
                     select: {
                         optionValue: PAYMENTTYPE,
                         searchPlaceholder: "标签模式",
+                        //disabled : false,
                         tags: true
                     }
                 }]
@@ -102,6 +104,7 @@ class Docs extends Component {
                             }
                         ],
                         datepicker: {
+                            disabled : false,
                             format: "yyyy-MM-dd HH:mm:ss",
                             showTime: true
                         }
@@ -130,14 +133,16 @@ class Docs extends Component {
                         rules: [{ required: true, message: '不打算写点什么吗' }],
                         input: {
                             type: "textarea",
-                            placeholder: "随便写",
+                            placeholder: "随便写"
                         }
                     }, {
                         label: "Checkbox：",
                         name: "checkbox",
                         required: true,
                         rules: [{ type: 'boolean', required: true, message: 'I do!' }],
-                        checkbox: {}
+                        checkbox: {
+                            //disabled : false,
+                        }
                     }, { // 目前不支持校验
                         label: "选择多个日期：",
                         labelCol: { span: 2 },
@@ -187,7 +192,7 @@ class Docs extends Component {
         const {handleSubmit} = this.props;
         return (
             <div>
-                <Form horizontal items={this._getFormItems() } onSubmit={handleSubmit} />
+                <Form horizontal items={this._getFormItems() } onSubmit={handleSubmit} allDisabled />
             </div>
         );
     }
