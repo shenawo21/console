@@ -71,7 +71,7 @@ export function modifyItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('suneee-cloud/api-administrator.list', params)
   }
 }
 

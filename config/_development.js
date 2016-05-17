@@ -7,7 +7,7 @@ export default (config) => ({
     enabled: true,
     options: {
       // koa-proxy options
-      host: 'http://172.19.6.131:8081/',
+      host: 'http://172.19.5.96:8080/',
       match: /^\/api|file-service\/.*/,
       hook: (opt) => {
         opt.url = opt.url.replace(/(api\/)/g, '');
