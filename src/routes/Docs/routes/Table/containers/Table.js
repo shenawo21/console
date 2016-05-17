@@ -56,7 +56,7 @@ class Table extends Component {
      * @returns (description)
      */
     getQuickOptions(){
-        const contex = this;
+        const context = this;
         const {queryItemList} = this.props;
         return {
             /**
@@ -65,13 +65,7 @@ class Table extends Component {
              * (description)
              */
             doUp() {
-               
-            },
-            /**
-             * (description)
-             */
-            doDown() {
-                console.log(222);
+               console.log('批量上架', context);
             }
         }
     }

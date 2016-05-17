@@ -81,8 +81,8 @@ Login.contextTypes = {
 const mapStateToProps = (state) => {
   const {auth} = state;
   const {user, loading, isloaded} = auth;
-  if (user && user.data.sessionId) {
-    Cookie.set('sessionId', user.data.sessionId)
+  if (user && user.sessionId) {
+      Cookie.set('sessionId', user.sessionId);
   }
   return {
     user,

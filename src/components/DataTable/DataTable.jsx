@@ -28,7 +28,7 @@ class DataTable extends Component {
      * (description)
      */
     refresh() {
-        this.isMounted() && setTimeout(() => { this.requestData() }, 50);
+        setTimeout(() => { this.requestData() }, 50);
     }
 
     /**

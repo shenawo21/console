@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Icon, Upload, message, Alert} from 'antd';
-import Image from './Image';
+import {Button, Icon, Upload, message, Alert} from 'hen';
+import Image from '../Image';
 import './fileloader.less';
 
 const getImageUrl = Image.getImageUrl;
@@ -16,7 +16,7 @@ const getImageUrl = Image.getImageUrl;
            <DownLoader title='导出映射信息' url=‘/api-channelMapping.exportChannelMapping’ />
 */
 
-const DownLoader = (props) => {
+export const DownLoader = (props) => {
     const {url, bType = 'ghost', iType = 'download', title = '', params, onClick, disabled} = props;
     let curUrl = url;
     if (params) {
@@ -103,7 +103,7 @@ const getFileList = (input, originFile = { status: 'done' }) => {
   @example 默认情况配upConfig的ation和title
       <UpLoader title='导入映射信息' upConfig={{action: '/api-channelMapping.importChannelMapping'}} />
 */
-const UpLoader = (props) => {
+export const UpLoader = (props) => {
     const {upConfig = {}, onChange = () => { }, ...other} = props;
 
     let {action, imgDomain, fileList = [], onChangeFileList, onlyFile = false} = upConfig;
@@ -176,9 +176,9 @@ const UpLoader = (props) => {
 
     const uploadConfig = {...config, ...upConfig };
     return <div className={className} >
-        <Upload {...uploadConfig}fileList={fileList}>
-            {children ? children : uploadConfig.listType == 'picture-card' ? <div><Icon type="plus" /><div className="ant-upload-text">上传照片</div></div> : <Button type={bType}><Icon type={iType}/>{title}</Button>}
-        </Upload>
+            <Upload {...uploadConfig} fileList={fileList}>
+                {children ? children : uploadConfig.listType == 'picture-card' ? <div><Icon type="plus" /><div className="ant-upload-text">上传照片</div></div> : <Button type={bType}><Icon type={iType}/>{title}</Button>}
+            </Upload>
         {!onlyFile ? '' : fileList.length == 0 ? <span style={{ display: 'inline-block' }}><Alert showIcon message='只能上传一个文件' type='warn' /></span> : ''}
     </div>
 }
@@ -234,7 +234,7 @@ const IMADOMAINPATH = {
     'system': 'system'
 };
 
-const UploadImage = (props) => {
+export const UploadImage = (props) => {
     const {upConfig,  ...other} = props;
     let {action, listType, beforeUpload, imgDomain, fileList = [], imgType = 'base', onlyFile = false} = upConfig;
     fileList = fileList || [];
@@ -265,5 +265,4 @@ const UploadImage = (props) => {
     });
 }
 UploadImage.getFileList = getFileList;
-export default { DownLoader, UpLoader, UploadImage };
 

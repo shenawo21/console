@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 import {Link} from 'react-router';
 import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
+import {UploadImage} from 'components/FileLoader'
 
 import Form from 'components/Form';
 
@@ -15,13 +16,25 @@ const PAYMENTTYPE = [
 
 class Docs extends Component {
 
+    constructor(){
+        super();
+        this.state = {
+            upList : ""
+        }
+    }
     /**
      * (form表单生成配置)
      * 
      * @returns (description)
      */
     _getFormItems() {
-        let config = {};
+        const {upList} =  this.state;
+        let config = {}, context = this;
+        let upConfig = {
+            listType: 'picture',
+            showUploadList: true,
+            onlyFile: true
+        };
         config.panels = [
             {
                 title: 'panels1',
@@ -32,7 +45,7 @@ class Docs extends Component {
                     required: true,
                     hasFeedback: true,
                     rules: [
-                        { required: true, min: 4, message: '至少为4个字符' },
+                        { required: false, min: 4, message: '至少为4个字符' },
                         {
                             validator(rule, value, callback) {
                                 if (!value) {
@@ -57,7 +70,7 @@ class Docs extends Component {
                     name: "email",
                     required: true,
                     hasFeedback: true,
-                    rules: [{ required: true, type: 'email', message: '请输入正确的邮箱地址' }],
+                    rules: [{ required: false, type: 'email', message: '请输入正确的邮箱地址' }],
                     input: {
                         type: "email",
                         placeholder: "请输入订单号",
@@ -82,7 +95,7 @@ class Docs extends Component {
                     label: "单选框：",
                     name: "curRadio",
                     required: true,
-                    rules: [{ required: true }],
+                    rules: [{ required: false }],
                     radio: {
                         radioValue: [
                             { value: "0", title: 'A' },
@@ -95,7 +108,7 @@ class Docs extends Component {
                         label: "选择日期：",
                         name: "time",
                         rules: [
-                            { required: true, type: 'date', message: '请选择日期' },
+                            { required: false, type: 'date', message: '请选择日期' },
                             {
                                 validator(rule, value, callback) {
                                     console.log(rule, new Date(value).getTime(), callback);
@@ -112,7 +125,7 @@ class Docs extends Component {
                         label: "数字：",
                         name: "inputName",
                         rules: [
-                            { required: true, type: 'number' },
+                            { required: false, type: 'number' },
                             {
                                 validator(rule, value, callback) {
                                     if (value < 2 || value > 5) {
@@ -167,6 +180,18 @@ class Docs extends Component {
                                 <span name="userName">{getCustomFieldProps('userName').value}</span>
                             </label>
                         }
+                    },
+                    {
+                        label: "上传图片",
+                        required : true,
+                        custom(getCustomFieldProps) {
+                            upConfig.fileList = upList;
+                            return <UploadImage title="选择授权LOGO" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
+                                context.setState({
+                                    upList : files
+                                })
+                            }}} {...getCustomFieldProps('logo')} />
+                        }
                     }
                 ]
             }];
@@ -182,7 +207,8 @@ class Docs extends Component {
             inputName: 0,
             textbeginDate: null,
             textendDate: null,
-            userName: 'test'
+            userName: 'test',
+            logo : null
         };
 
         return config;
@@ -192,7 +218,7 @@ class Docs extends Component {
         const {handleSubmit} = this.props;
         return (
             <div>
-                <Form horizontal items={this._getFormItems() } onSubmit={handleSubmit} allDisabled />
+                <Form horizontal items={this._getFormItems() } onSubmit={handleSubmit} />
             </div>
         );
     }
