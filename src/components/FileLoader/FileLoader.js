@@ -47,9 +47,17 @@ export const DownLoader = (props) => {
 }
 
 /**
- * 获取上传文件列表
+ * 获取上传文件列表，转化成upload需要的格式
  * @param  {string|array} input
  * @param  {object} originFile 原始文件对象
+ * @example
+ *      {
+            uid: 'uid',      // 文件唯一标识，建议设置为负数，防止和内部产生的 id 冲突
+            name: 'xx.png'   // 文件名
+            status: 'done',  // 状态有：uploading done error removed
+            url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',         // 图片链接
+            thumbUrl : 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png'    //点击图片显示链接
+        }
  */
 const getFileList = (input, originFile = { status: 'done' }) => {
 
@@ -127,7 +135,6 @@ export const UpLoader = (props) => {
         action: '/',
         multiple: true,
         onChange(info) {
-            console.log(arguments)
             if (info.file.status !== 'uploading') {
                 if (info.file.status === 'removed') {//删除图片时触发
                     onChangeFileList && onChangeFileList(info.fileList);
@@ -136,22 +143,19 @@ export const UpLoader = (props) => {
             if (info.file.status === 'done') {
                 if (info.file.response.status == '1') {
                     message.success(info.file.name + ' 上传成功。');
+                    let uploadFormItem = '';
                     if (onlyFile) {
                         info.fileList = info.fileList.slice(-1);
                     }
-                    let curFile = null;
-                    let uploadFormItem = '';
-
                     let newFileLists = getFileList(info.fileList, info);
 
-                    onChangeFileList && onChangeFileList(newFileLists);
                     if (onlyFile) {
                         uploadFormItem = newFileLists[0]['name']
                     } else {
                         uploadFormItem = newFileLists.map(f => f.name).join(',')
                     }
-
-                    onChange && onChange(uploadFormItem)
+                    //返回图片显示对象newFileLists，及图片名称uploadFormItem
+                    onChangeFileList && onChangeFileList(newFileLists, uploadFormItem);
                 } else {
                     message.error(info.file.name + info.file.response.message);
                 };
@@ -205,8 +209,8 @@ export const UpLoader = (props) => {
     配置项：
     let upConfig = {
         showUploadList : true,
-        onChangeFileList(files) {
-            console.log(files);
+        onChangeFileList(files, fileName) {
+            console.log(files, fileName);
         },
         fileList: [{
             uid: -1,
