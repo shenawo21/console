@@ -12,7 +12,7 @@ export default [
         when: '',
       }, {
         title: '企业申请入驻',
-        url: '/',
+        url: '/enterprise/edit',
         icon: 'wb-dashboard',
         when: ''
       }

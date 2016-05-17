@@ -65,12 +65,14 @@ class Enterprise extends Component {
   del(id) {
     const {delEnterp} = this.props
     delEnterp(id)
+    this.refs && this.refs.dt.refresh();
   }
 
   //激活 禁用
   handleAction(row, id) {
     const {isAble} = this.props
     isAble(row, id)
+    this.refs && this.refs.dt.refresh();
   }
 
   _getColumns() {
@@ -155,7 +157,7 @@ class Enterprise extends Component {
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
 
 
-        <DataTable bordered={true} columns={this._getColumns()}
+        <DataTable bordered={true} columns={this._getColumns()} ref='dt'
                    quickButton={this.quickButton(quickOptions)} {...other} />
 
       </div>

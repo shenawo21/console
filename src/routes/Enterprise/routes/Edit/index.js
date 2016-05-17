@@ -1,5 +1,5 @@
  export default (store) => ({
-  breadcrumbName: "企业编辑",
+  breadcrumbName: "企业入驻",
   path: 'edit(/:id)',
   getComponent(nextState, next) {
     require.ensure([], (require) => {

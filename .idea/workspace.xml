@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js" />
+    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="表格刷新">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_development.js" afterPath="$PROJECT_DIR$/config/_development.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/menu.js" afterPath="$PROJECT_DIR$/src/common/menu.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js" afterPath="$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js" afterPath="$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js" />
     </list>
     <ignored path="console.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,11 +30,21 @@
       <file leaf-file-name="EnterpriseView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+            <state relative-caret-position="83">
+              <caret line="72" column="31" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/menu.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -47,23 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/Login/containers/Login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#49#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Enterprise.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/containers/Enterprise.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="154" column="1" selection-start-line="154" selection-start-column="1" selection-end-line="154" selection-end-column="1" />
+            <state relative-caret-position="535">
+              <caret line="156" column="70" selection-start-line="156" selection-start-column="70" selection-end-line="156" selection-end-column="70" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -84,7 +84,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditReducer.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="22">
+              <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditReducer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/modules/EditReducer.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-2193">
@@ -94,21 +104,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="table.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/Docs/routes/Table/modules/table.js">
+      <file leaf-file-name="_development.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/_development.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+            <state relative-caret-position="330">
+              <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_development.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/_development.js">
+      <file leaf-file-name="Docs.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="154">
-              <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+              <caret line="130" column="39" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Table.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Docs/routes/Table/components/Table.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="98" column="65" selection-start-line="98" selection-start-column="23" selection-end-line="98" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -166,22 +186,22 @@
         <option value="$PROJECT_DIR$/src/routes/Docs/containers/Docs.js" />
         <option value="$PROJECT_DIR$/src/routes/README.md" />
         <option value="$PROJECT_DIR$/src/routes/index.js" />
-        <option value="$PROJECT_DIR$/src/common/menu.js" />
         <option value="$PROJECT_DIR$/src/components/Panel/Panel.js" />
         <option value="$PROJECT_DIR$/src/components/Page/Page.js" />
         <option value="$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx" />
         <option value="$PROJECT_DIR$/src/components/Form/Form.jsx" />
         <option value="$PROJECT_DIR$/src/routes/Accounts/index.js" />
         <option value="$PROJECT_DIR$/src/routes/Enterprise/index.js" />
-        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js" />
         <option value="$PROJECT_DIR$/src/components/FileLoader/index.js" />
         <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/components/EditView.js" />
         <option value="$PROJECT_DIR$/src/routes/Docs/routes/Table/components/Table.jsx" />
         <option value="$PROJECT_DIR$/src/routes/Login/components/Login.jsx" />
-        <option value="$PROJECT_DIR$/config/_development.js" />
         <option value="$PROJECT_DIR$/src/routes/Enterprise/modules/EnterpriseReducer.js" />
+        <option value="$PROJECT_DIR$/src/common/menu.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js" />
         <option value="$PROJECT_DIR$/src/routes/Enterprise/containers/Enterprise.js" />
         <option value="$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js" />
+        <option value="$PROJECT_DIR$/config/_development.js" />
       </list>
     </option>
   </component>
@@ -857,7 +877,7 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="D:\WWW\console\node_modules\mocha" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="SearchEverywhereHistoryKey" value="men&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;ser&#9;FILE&#9;file://D:/WWW/console/bin/server.js&#10;menu&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js" />
+    <property name="SearchEverywhereHistoryKey" value="menu&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;men&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;ser&#9;FILE&#9;file://D:/WWW/console/bin/server.js" />
     <property name="list.type.of.created.stylesheet" value="Less" />
     <property name="editor.config.accepted" value="true" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="162" />
@@ -909,9 +929,15 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/containers/Edit.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/index.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/config/_development.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/components/DataTable/DataTable.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/components/FileLoader/FileLoader.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/components/FileLoader/index.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/components/Image/Image.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Docs/routes/Table/components/Table.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Docs/routes/Table/containers/Table.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Login/containers/Login.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -919,8 +945,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/components/EditView.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/modules/EditReducer.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -928,8 +952,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/components/Edit.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/modules/edit.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -1091,7 +1113,7 @@
       <workItem from="1463366824655" duration="10000" />
       <workItem from="1463366846065" duration="19586000" />
       <workItem from="1463447855034" duration="778000" />
-      <workItem from="1463449147429" duration="11509000" />
+      <workItem from="1463449147429" duration="13714000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -1107,11 +1129,18 @@
       <option name="project" value="LOCAL" />
       <updated>1463469322900</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update">
+      <created>1463469403403</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1463469403403</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156988000" />
+    <option name="totallyTimeSpent" value="159193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="7" width="1612" height="870" extended-state="0" />
@@ -1121,7 +1150,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2890095" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2890095" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1150,7 +1179,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="格式化" />
     <MESSAGE value="企业列表、激活、禁用" />
-    <option name="LAST_COMMIT_MESSAGE" value="企业列表、激活、禁用" />
+    <MESSAGE value="update" />
+    <MESSAGE value="表格刷新" />
+    <option name="LAST_COMMIT_MESSAGE" value="表格刷新" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1189,13 +1220,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="51" column="3" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -1358,13 +1382,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="130" column="39" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/components/EditView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="579">
@@ -1447,13 +1464,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="94" column="22" selection-start-line="94" selection-start-column="12" selection-end-line="94" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Docs/routes/Table/components/Table.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1342">
-          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1470,6 +1481,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
+            <marker date="1463471220393" expanded="true" signature="2068:2072" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1490,14 +1502,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/_development.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/modules/EnterpriseReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
@@ -1509,38 +1513,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/modules/EditReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2193">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/containers/Enterprise.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="154" column="1" selection-start-line="154" selection-start-column="1" selection-end-line="154" selection-end-column="1" />
+        <state relative-caret-position="535">
+          <caret line="156" column="70" selection-start-line="156" selection-start-column="70" selection-end-line="156" selection-end-column="70" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="130" column="39" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Docs/routes/Table/components/Table.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="98" column="65" selection-start-line="98" selection-start-column="23" selection-end-line="98" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+        <state relative-caret-position="83">
+          <caret line="72" column="31" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/index.js">
+    <entry file="file://$PROJECT_DIR$/config/_development.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/modules/EditReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2193">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="330">
+          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
           <folding />
         </state>
       </provider>
