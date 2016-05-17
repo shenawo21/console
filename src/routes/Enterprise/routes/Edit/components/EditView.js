@@ -1,10 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import {Col, DatePicker} from 'hen';
 import Form from 'components/Form';
+import {UploadImage} from 'components/FileLoader'
+//企业类型
+const TYPE = {
+  'client': "客户",
+  'system': "系统"
+};
 class Edit extends Component {
 
+  constructor(){
+    super();
+    this.state = {
+      upList : ""
+    }
+  }
+
   _getFormItems() {
-    let config = {};
+    let config = {}, context = this;
+    const {upList} =  this.state;
     let upConfig = {
       listType: 'picture',
       showUploadList: true,
@@ -35,54 +49,63 @@ class Edit extends Component {
             placeholder: "请输入企业名称",
           }
         }, {
-          label: "企业账号：",
-          name: "account",
+          label: "企业简称：",
+          name: "shortName",
           required: true,
           hasFeedback: true,
-          rules: [{required: true, message: '企业账号为必填'}],
+          rules: [{required: true, message: '企业简称为必填'}],
           input: {
             type: "text",
-            placeholder: "请输入企业账号",
+            placeholder: "请输入企业简称",
           }
-        }, {
-          label: "营业执照：",
-          name: "address",
+        },{
+          label: "企业类型：",
+          name: "type",
           required: true,
           hasFeedback: true,
-          rules: [{required: true, message: '企业地址为必填'}],
+          rules: [{required: true, message: '企业类型为必填'}],
+          select: {
+            tipValue: "请选择企业类型",
+            optionValue : Object.keys(TYPE).map((key) => {
+              return {'value' : key, 'title' : TYPE[key]}
+            })
+          }
+        }, {
+          label: "地址：",
+          name: "address",
           input: {
             type: "text",
             placeholder: "请输入企业地址",
           }
         }, {
-          label: "企业LOGO：",
-          name: "address",
-          required: true,
-          hasFeedback: true,
-          rules: [{required: true, message: '企业地址为必填'}],
-          input: {
-            type: "text",
-            placeholder: "请输入企业地址",
-          }
-        }, {
-          label: "企业地址：",
-          name: "address",
-          required: true,
-          hasFeedback: true,
-          rules: [{required: true, message: '企业地址为必填'}],
-          input: {
-            type: "text",
-            placeholder: "请输入企业地址",
-          }
-        }, {
-          label: "企业描述：",
+          label: "描述：",
           name: "remark",
-          required: true,
-          hasFeedback: true,
-          rules: [{required: true, message: '企业描述为必填'}],
           input: {
             type: "textarea",
             placeholder: "请输入企业描述",
+          }
+        }, {
+          label: "营业执照：",
+          name: "businessLicense",
+          required: true,
+          custom(getCustomFieldProps) {
+            upConfig.fileList = upList;
+            return <UploadImage title="营业执照" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
+                                context.setState({
+                                    upList : files
+                                })
+                            }}} {...getCustomFieldProps('businessLicense')} />
+          }
+        },{
+          label: "企业LOGO：",
+          name: "logo",
+          custom(getCustomFieldProps) {
+            upConfig.fileList = upList;
+            return <UploadImage title="企业LOGO" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
+                                context.setState({
+                                    upList : files
+                                })
+                            }}} {...getCustomFieldProps('logo')} />
           }
         }]
       },
@@ -91,35 +114,34 @@ class Edit extends Component {
         className: '',
         formItems: [{
           label: "姓名：",
-          name: "userName",
+          name: "lealPerson",
           required: true,
           hasFeedback: true,
-          rules: [{required: true, message: '企业地址为必填'}],
+          rules: [{required: true, message: '法人代表为必填'}],
           input: {
             type: "text",
-            placeholder: "请输入企业地址",
+            placeholder: "请输入法人代表姓名",
           }
         }, {
           label: "联系电话：",
           name: "telephone",
-          required: true,
-          hasFeedback: true,
-          rules: [{required: true, message: '企业地址为必填'}],
           input: {
             type: "text",
-            placeholder: "请输入企业地址",
+            placeholder: "请输入联系电话",
           }
         }]
       }];
 
     config.initValue = {
       enterpriseCode: null,
-      name: null,
-      account: null,
-      userName: null,
+      ame: null,
+      shortName: null,
+      type: null,
       address: null,
       remark: null,
-      userName: null,
+      businessLicense: null,
+      logo: null,
+      lealPerson: null,
       telephone: null,
     };
 
@@ -134,7 +156,10 @@ class Edit extends Component {
       <div>
 
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-              onReset={formOptions.handleReset} allDisabled/>
+              onReset={formOptions.handleReset}/>
+        {
+
+        }
       </div>
     )
   }
