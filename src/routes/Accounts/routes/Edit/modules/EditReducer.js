@@ -2,15 +2,15 @@
 // ------------------------------------
 // Constants
 // ------------------------------------
-const REQ_DOCS = 'REQ_DOCS';
-const SUC_DOCS = 'SUC_DOCS';
-const ERR_DOCS = 'ERR_DOCS';
+const REQ_EDIT = 'REQ_EDIT';
+const SUC_EDIT = 'SUC_EDIT';
+const ERR_EDIT = 'ERR_EDIT';
 
 
 
 export function load() {
   return {
-    types: [REQ_DOCS, SUC_DOCS, ERR_DOCS],
+    types: [REQ_EDIT, SUC_EDIT, ERR_EDIT],
     promise: (client) => client.get('user/repos')
   }
 }
@@ -18,16 +18,16 @@ export function load() {
 export default function reducer(state = {item:[]}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
-    case REQ_DOCS:
+    case REQ_EDIT:
       return {
         ...state,
       }
-    case SUC_DOCS:
+    case SUC_EDIT:
       return {
         ...state,
         item: action.result.data,
       }
-    case ERR_DOCS:
+    case ERR_EDIT:
       return {
         ...state,
       }

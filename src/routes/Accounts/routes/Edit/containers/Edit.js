@@ -6,9 +6,9 @@
 
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-// import {  } from '../modules/docs'
+// import {  } from '../modules/EditReducer'
 import {Link} from 'react-router';
-import EditComponent from '../components/Edit'
+import EditComponent from '../components/EditView'
 import Panel from 'components/Panel'
 import {message} from 'hen';
 
@@ -34,7 +34,7 @@ class Edit extends Component {
         console.log('======props=====',this.props);
         console.log('======state=====',this.state.count);
         
-        return <Panel title="Form 表单"><Link to='/accounts/edit'>table</Link><EditComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
+        return <Panel title="新增帐号"><EditComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
     }
 }
 
@@ -51,4 +51,4 @@ const mapStateToProps = (state) => ({
     
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Docs)
+export default connect(mapStateToProps, mapActionCreators)(Edit)

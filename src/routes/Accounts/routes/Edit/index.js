@@ -6,7 +6,7 @@ export default (store) => ({
       /*  These modules are lazily evaluated using require hook, and
           will not loaded until the router invokes this callback. */
       const Edit = require('./containers/Edit').default
-      const reducer = require('./modules/edit').default
+      const reducer = require('./modules/EditReducer').default
       store.injectReducer({ key: 'edit', reducer })
       
       next(null, Edit)

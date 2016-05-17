@@ -12,5 +12,14 @@
 
       next(null, accounts)
     })
-  }
+  },
+  
+  getChildRoutes(location, next) {
+      require.ensure([], (require) => {
+        next(null, [
+          // Provide store for async reducers and middleware
+          require('./routes/Edit').default(store)
+        ])
+      })
+  },
 })
