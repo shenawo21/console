@@ -3,8 +3,6 @@
   path: 'enterprise',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
-      /*  These modules are lazily evaluated using require hook, and
-          will not loaded until the router invokes this callback. */
       const enterprise = require('./containers/Enterprise').default
       const reducer = require('./modules/EnterpriseReducer').default
 
@@ -12,5 +10,12 @@
 
       next(null, enterprise)
     })
-  }
+  },
+   getChildRoutes(location, next) {
+     require.ensure([], (require) => {
+       next(null, [
+         require('./routes/Edit').default(store)
+       ])
+     })
+   }
 })
