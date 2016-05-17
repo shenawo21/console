@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 
-// 1x1
+let imageServiceUrl = __DEV__ ? 'http://172.19.6.131:8081/file-service/image/' : '';
 
+// 1x1
 const defaultImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=";
 /*
   拼装图片完整链接
@@ -13,7 +14,7 @@ const defaultImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQA
 
 const getImageUrl = (props) => {
     const {domain = 'product', type = 'base', name, thumbnail} = props;
-    const url = IMAGESERVICEURL + domain + '/' + type + '/' + name;
+    const url = imageServiceUrl + domain + '/' + type + '/' + name;
     if(thumbnail){
         return url + '!' + thumbnail;
     }

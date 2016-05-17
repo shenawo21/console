@@ -2,6 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import DataTable from 'components/DataTable';
 import {Link} from 'react-router';
 import Search from 'components/Search';
+import Image from 'components/Image';
+import {UpLoader, DownLoader} from 'components/FileLoader'
+
 import {Row, Col, Button, Icon} from 'hen';
 
 class Table extends Component {
@@ -33,7 +36,10 @@ class Table extends Component {
         let columns = [{
             key: '0',
             title: '缩略图',
-            dataIndex: 'image_group'
+            dataIndex: 'image_group',
+            render(text){
+                return <Image src={ text ? text : null} thumbnail='100x100' />;
+            }
         }, {
             key: '1',
             title: '商品名称',
@@ -86,12 +92,18 @@ class Table extends Component {
     }
 
     quickButton(quickOptions){
+        const context = this;
         return <Row>
                 <Col span='3'>
-                    <Button onClick={quickOptions.doUp} ><Icon type="arrow-up" />批量上架</Button>
+                    <UpLoader upConfig={{action: '/api-brand.importBrands', onChangeFileList(){
+                       context.refs && context.refs.dt.refresh();
+                    }}} title='导入品牌'/>
                 </Col>
-                <Col span='3'>
-                    <Button onClick={quickOptions.doDown} ><Icon type="arrow-down" />批量下架</Button>
+                <Col span="3">
+                    <DownLoader url="/template/file/brand.import.template.xls" iType='exception' title='品牌模板下载'/>
+                </Col>
+                <Col span="3">
+                    <Button type='primary' onClick={quickOptions.doUp} ><Icon type="arrow-up" />批量上架</Button>
                 </Col>
         </Row>
     }
@@ -102,7 +114,7 @@ class Table extends Component {
         return (
             <div>
                 <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}></Search>
-                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
+                <DataTable ref='dt' bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
             </div>
         )
     }
