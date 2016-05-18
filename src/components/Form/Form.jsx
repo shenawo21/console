@@ -224,7 +224,7 @@ class Forms extends Component {
                 let {name} = item;
 
                 return <Col key={index} span={span6} {...item}>
-                    <FormItem id={`fm-${item.name}`} 
+                    <FormItem id={`fm-${item.name}`}
                         labelCol={{ span: span8 }}
                         wrapperCol={{ span: 6 }}
                         help={isFieldValidating(item.name) ? '校验中...' : (getFieldError(item.name) || []).join(', ')}
@@ -236,9 +236,9 @@ class Forms extends Component {
                 </Col>
             })
         }
-        
+
         let showItems = null;
-        
+
         if (panels && panels.length) {
             showItems = panels.map(function(items, idx) {
                 const {formItems, ...other} = items;
@@ -248,7 +248,7 @@ class Forms extends Component {
             });
         } else {
             showItems = setFormPanel(items.formItems);
-        } 
+        }
 
         return <div className={formClassName}>
             <Form inline={inline}  horizontal={horizontal} form={form}>
