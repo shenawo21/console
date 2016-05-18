@@ -29,7 +29,7 @@ const VIEW_FAILURE = 'accounts/VIEW_FAILURE';
 export function addItem(params) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('/suneee-cloud/api-administrator.addAdmin', params)
   }
 }
 
@@ -43,7 +43,7 @@ export function addItem(params) {
 export function deleteItem(params) {
   return {
     types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('/suneee-cloud/administrator.api.deleteAdmin', params)
   }
 }
 
@@ -57,7 +57,7 @@ export function deleteItem(params) {
 export function modifyItem(params) {
   return {
     types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('/suneee-cloud/api-administrator.updateAdmin', params)
   }
 }
 
@@ -71,7 +71,7 @@ export function modifyItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('suneee-cloud/api-administrator.list', params)
+    promise: (client) => client.post('/suneee-cloud/api-administrator.list', params)
   }
 }
 
@@ -85,7 +85,7 @@ export function queryList(params) {
 export function view(params) {
   return {
     types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('/suneee-cloud/api-administrator.getAdministrator', params)
   }
 }
 

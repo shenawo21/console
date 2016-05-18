@@ -9,22 +9,37 @@ import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
+//是否可用
+const STATUS = {
+   'false': "否",
+   'true': "是"
+};
+
 class Accounts extends Component {
     
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "用户姓名:",
-                name: "name",
-                input: {}
-            },{
-                label: "昵称:",
+                label: "账号：",
                 name: "nick",
-                input: {}
+                input: {
+                    placeholder: "请输入昵称"
+                }
+            }, {
+                label: "用户姓名：",
+                name: "name",
+                input: {
+                    placeholder: "请输入用户姓名"
+                }
             },{
-                label: "是否可用:",
+                label: "是否可用：",
                 name: "enabled",
-                select: {}
+                select: {
+                    placeholder: "请选择是否可用",
+                    optionValue: Object.keys(STATUS).map((key) => {
+                        return {'value': key, 'title': STATUS[key]}
+                    })
+                }
             }],
             initValue: {
                 name: null,
@@ -51,68 +66,63 @@ class Accounts extends Component {
             dataIndex: 'name'
         }, {
             key: '3',
-            title: '昵称',
-            dataIndex: 'nick'
-        }, {
-            key: '4',
             title: '是否可用',
             dataIndex: 'enabled',
             render(status){
-                return status ? <span>是</span> : <span>否</span>
+                return status ? <span>可用</span> : <span>不可用</span>
             }
         }, {
-            key: '5',
+            key: '4',
             title: '邮箱',
             dataIndex: 'email'
         }, {
-            key: '6',
+            key: '5',
             title: '手机号码',
             dataIndex: 'mobile'
         }, {
-            key: '7',
+            key: '6',
             title: '注册时间',
             dataIndex: 'rgisterTime'
         }, {
-            key: '8',
-            title: '修改时间',
-            dataIndex: 'updateTime'
-        }, {
-            key: '9',
-            title: '地址',
-            dataIndex: 'address'
-        }, {
-            key: '10',
-            title: '个人签名',
-            dataIndex: 'signature'
-        }, {
-            key: '11',
+            key: '7',
             title: '创建人',
             dataIndex: 'create_person'
         },{
+            key: '8',
             title: '操作',
             dataIndex: 'adminId',
             render(id,row){
-                return <span><Link to={`/accounts/edit/${id}`}>编辑</Link> <Link to={`/account/detail/${id}`}>查看</Link> <Popconfirm title="确定要删除此渠道？" onConfirm={context._delChannel.bind(context,id)}>
-							<Button type="link"><Icon type="delete"/>删除</Button>
-					</Popconfirm></span>
+                return <span><Link to={`/accounts/edit/${id}`}>编辑</Link> <Link to={`/accounts/edit/${id}`}>查看</Link> 
+                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.del.bind(context,id)}>
+                        <Button type="link">删除</Button>
+                    </Popconfirm>
+                </span>
 
             }
         }];
         return columns;
     }
     
+    //删除
+    del(id) {
+        const {del} = this.props
+        del(id)
+        this.refs && this.refs.dt.refresh();
+    }
     
-        quickButton(quickOptions){
-            return <Row>
-                    <Col span='2'>
-                        <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>增加帐号</Link>
-                    </Col>
-            </Row>
-        }
+    
+    // 按钮
+    quickButton(quickOptions){
+        return <Row>
+                <Col span='2'>
+                    <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>增加帐号</Link>
+                </Col>
+        </Row>
+    }
     
     render() {
         const {formOptions,quickOptions,_delAccount, ...other} = this.props;
-
+        
         return (
             <div>
             

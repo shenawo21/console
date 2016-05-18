@@ -6,10 +6,10 @@
 
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-// import {  } from '../modules/EditReducer'
-import {Link} from 'react-router';
 import EditComponent from '../components/EditView'
 import Panel from 'components/Panel'
+import {queryList, addItem, modifyItem, deleteItem} from '../modules/EditReducer'
+
 import {message} from 'hen';
 
 class Edit extends Component {

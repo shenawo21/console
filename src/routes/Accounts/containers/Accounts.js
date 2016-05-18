@@ -19,6 +19,16 @@ class Accounts extends Component {
         }
     }
     
+     /**
+     * (删除账户)
+     * @params id
+     */
+    _delAccount(id){
+        const {deleteItem} = this.props;
+        console.log(id);
+        deleteItem({adminIds: id});
+    }
+    
     componentDidMount() {
         
         const {queryList, location} = this.props;
@@ -66,19 +76,13 @@ class Accounts extends Component {
           const contex = this;
           return {
               /**
-               * 新增账户
-               * ()
+               * (新增账户)
+               * 
                */
               doUp() {
                   console.log('新增账户');
-              },
-              /**
-               * 新增账户
-               * ()
-               */
-              _delAccount(){
-                  console.log("删除账户");
               }
+             
           }
       }
     
@@ -106,6 +110,7 @@ class Accounts extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
+            del: this._delAccount.bind(this),                   //删除账户             
             rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
