@@ -16,7 +16,7 @@ const STATUS = {
 };
 
 class Accounts extends Component {
-    
+
     _getFormItems(){
         let config = {
             formItems: [{
@@ -48,8 +48,8 @@ class Accounts extends Component {
         }
         return config;
     }
-    
-    
+
+
     _getColumns(){
         const context = this;
         let columns = [{
@@ -102,6 +102,7 @@ class Accounts extends Component {
         }];
         return columns;
     }
+
     
     //删除
     del(id) {
@@ -120,16 +121,17 @@ class Accounts extends Component {
         </Row>
     }
     
+
     render() {
         const {formOptions,quickOptions,_delAccount, ...other} = this.props;
         
         return (
             <div>
-            
+
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                 <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
-            
+
             </div>
         )
     }
@@ -137,10 +139,10 @@ class Accounts extends Component {
 
 
 Accounts.propTypes = {
-    
+
     dataSource : React.PropTypes.array.isRequired,
     action : React.PropTypes.func.isRequired,
-    
+
     loading : React.PropTypes.bool,
     params : React.PropTypes.object
 }

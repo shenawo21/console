@@ -50,13 +50,14 @@ export const createRoutes = (store) => {
     // onEnter: requireLogin,
     getChildRoutes(location, next) {
       require.ensure([], (require) => {
-        next(null, [
-          // Provide store for async reducers and middleware
-          require('./Enterprise').default(store),
-          require('./Docs').default(store),
-          require('./Accounts').default(store),
-          //require('./Product').default(store)
-        ])
+        let asyncComponents = [
+             require('./Enterprise').default(store),
+             require('./Accounts').default(store),
+         ];
+         if(__DEV__){
+             asyncComponents.push(require('./Docs').default(store))
+         }
+         next(null, asyncComponents)
       })
     }
   }

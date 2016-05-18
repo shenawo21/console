@@ -22,6 +22,7 @@ class DataTable extends Component {
             pageSize: 10,
             selectedRowKeys: []
         }
+        this.refresh = this.refresh.bind(this);
     }
 
     /**
