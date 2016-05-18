@@ -1,4 +1,4 @@
-### 通过`redux-cli` 创建路由一级路由文件
+### 通过`redux-cli` 创建组件commponent文件
 
 - 执行redux generate 需要全局安装npm install -g redux-cli
 
