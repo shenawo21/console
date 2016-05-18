@@ -9,21 +9,41 @@ const TYPE = {
 };
 class Edit extends Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      upList : ""
+      upList: ""
     }
   }
 
   _getFormItems() {
     let config = {}, context = this;
+    const {item} = context.props;
     const {upList} =  this.state;
     let upConfig = {
       listType: 'picture',
       showUploadList: true,
       onlyFile: true,
     };
+    const review = {
+      title: '备注',
+      className: '',
+      formItems: [{
+        label: "审核描述：",
+        name: "reviewDesctiption",
+        wrapperCol: {span: 10},
+        required: true,
+        hasFeedback: true,
+        rules: [{required: true, message: '审核描述为必填'}],
+        input: {
+          disabled: false,
+          rows: '5',
+          type: "textarea",
+          placeholder: "请输入审核描述",
+        }
+      }]
+    }
+
     config.panels = [
       {
         title: '基本信息',
@@ -42,6 +62,7 @@ class Edit extends Component {
           label: "企业名称：",
           name: "name",
           required: true,
+          wrapperCol: {span: 10},
           hasFeedback: true,
           rules: [{required: true, message: '企业名称为必填'}],
           input: {
@@ -58,7 +79,7 @@ class Edit extends Component {
             type: "text",
             placeholder: "请输入企业简称",
           }
-        },{
+        }, {
           label: "企业类型：",
           name: "type",
           required: true,
@@ -66,13 +87,14 @@ class Edit extends Component {
           rules: [{required: true, message: '企业类型为必填'}],
           select: {
             tipValue: "请选择企业类型",
-            optionValue : Object.keys(TYPE).map((key) => {
-              return {'value' : key, 'title' : TYPE[key]}
+            optionValue: Object.keys(TYPE).map((key) => {
+              return {'value': key, 'title': TYPE[key]}
             })
           }
         }, {
           label: "地址：",
           name: "address",
+          wrapperCol: {span: 10},
           input: {
             type: "text",
             placeholder: "请输入企业地址",
@@ -80,8 +102,10 @@ class Edit extends Component {
         }, {
           label: "描述：",
           name: "remark",
+          wrapperCol: {span: 10},
           input: {
             type: "textarea",
+            rows: 5,
             placeholder: "请输入企业描述",
           }
         }, {
@@ -96,7 +120,7 @@ class Edit extends Component {
                                 })
                             }}} {...getCustomFieldProps('businessLicense')} />
           }
-        },{
+        }, {
           label: "企业LOGO：",
           name: "logo",
           custom(getCustomFieldProps) {
@@ -108,8 +132,7 @@ class Edit extends Component {
                             }}} {...getCustomFieldProps('logo')} />
           }
         }]
-      },
-      {
+      },{
         title: '法定代表人信息',
         className: '',
         formItems: [{
@@ -131,10 +154,10 @@ class Edit extends Component {
           }
         }]
       }];
-
+    item && item.enterpriseCode ? config.panels.push(review) : '';
     config.initValue = {
       enterpriseCode: null,
-      ame: null,
+      name: null,
       shortName: null,
       type: null,
       address: null,
@@ -143,23 +166,22 @@ class Edit extends Component {
       logo: null,
       lealPerson: null,
       telephone: null,
+      reviewDesctiption: null
     };
-
+    if (item) {
+      config.initValue = item;
+    }
     return config;
   }
 
-
   render() {
-    const {formOptions, ...other} = this.props;
-
+    const {formOptions, item, buttonOption, ...other} = this.props;
+    console.log(this.props)
     return (
       <div>
-
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-              onReset={formOptions.handleReset}/>
-        {
-
-        }
+              onReset={formOptions.handleReset} buttonOption={item && item.enterpriseCode?buttonOption:''}
+              allDisabled={item && item.enterpriseCode?true:false}/>
       </div>
     )
   }

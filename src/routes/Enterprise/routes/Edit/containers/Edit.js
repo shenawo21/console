@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {view, audit, addItem} from '../modules/EditReducer'
+import {view, auditS, auditF, addItem} from '../modules/EditReducer'
 
 class Edit extends Component {
 
@@ -13,12 +13,28 @@ class Edit extends Component {
 
 
     this.state = {
-      params: {}   //表格需要的筛选参数
+      params: {},   //表格需要的筛选参数
+      item: {}
     }
   }
 
   componentDidMount() {
+    const {params, view} = this.props;
+    if (params.id) {
+      view({enterpriseCode: params.id})
+    }
+  }
 
+  componentWillReceiveProps(nextProps, preProps) {
+    if (!nextProps.params.id) {
+      this.setState({
+        item: {}
+      })
+    } else {
+      this.setState({
+        item: nextProps.result
+      })
+    }
   }
 
   /**
@@ -35,12 +51,14 @@ class Edit extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        const {addItem} = context.props;
-        console.log(value)
+        const {addItem, params, auditS} = context.props;
         context.setState({
           params: value
         })
-        addItem({...value})
+        params.id ? auditS({
+          enterpriseCode: value.enterpriseCode,
+          reviewDesctiption: value.reviewDesctiption
+        }) : addItem({...value})
       },
 
       /**
@@ -53,9 +71,14 @@ class Edit extends Component {
 
 
   render() {
-    const {params} = this.state;
-
+    const {params, item} = this.state;
     const {loading, result} = this.props;
+    const buttonOption = {
+      col: false,
+      ok: '审核通过',
+      searchSpan: '4',
+      cancel: false
+    };
     const formOptions = {
       loading,
       result,
@@ -63,14 +86,14 @@ class Edit extends Component {
     }
 
 
-    return <Panel title=""><EditView  {...formOptions} /></Panel>
+    return <Panel title=""><EditView item={item}  {...formOptions} buttonOption={buttonOption}/></Panel>
   }
 }
 
 
 Edit.propTypes = {
 
-  result: React.PropTypes.bool,
+  result: React.PropTypes.object,
   addItem: React.PropTypes.func,
   audit: React.PropTypes.func,
   view: React.PropTypes.func,
@@ -79,15 +102,15 @@ Edit.propTypes = {
 }
 
 const mapActionCreators = {
-      view,
-      audit,
-      addItem
+  view,
+  auditS,
+  auditF,
+  addItem
 }
 
 
 const mapStateToProps = (state) => {
   const {result, loading} = state.edit;
-
   return {'result': result.data, loading};
 
 }

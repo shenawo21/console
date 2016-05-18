@@ -3,10 +3,15 @@ const VIEW = 'edit/VIEW';
 const VIEW_SUCCESS = 'edit/VIEW_SUCCESS';
 const VIEW_FAILURE = 'edit/VIEW_FAILURE';
 
-//企业审核
-const AUDIT = 'edit/AUDIT';
-const AUDIT_SUCCESS = 'edit/AUDIT_SUCCESS';
-const AUDIT_FAILURE = 'edit/AUDIT_FAILURE';
+//企业审核-通过
+const AUDITS = 'edit/AUDITS';
+const AUDITS_SUCCESS = 'edit/AUDITS_SUCCESS';
+const AUDITS_FAILURE = 'edit/AUDITS_FAILURE';
+
+//企业审核-不通过
+const AUDITF = 'edit/AUDITF';
+const AUDITF_SUCCESS = 'edit/AUDITF_SUCCESS';
+const AUDITF_FAILURE = 'edit/AUDITF_FAILURE';
 
 //企业入驻
 const ADD = 'edit/ADD';
@@ -29,16 +34,30 @@ export function view(params) {
 }
 
 /**
- * 企业审核
+ * 企业审核-通过
  *
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function audit(params) {
+export function auditS(params) {
   return {
-    types: [AUDIT, AUDIT_SUCCESS, AUDIT_FAILURE],
+    types: [AUDITS, AUDITS_SUCCESS, AUDITS_FAILURE],
     promise: (client) => client.post('/suneee-cloud/api-enterprise.successAudit', params)
+  }
+}
+
+/**
+ * 企业审核-不通过
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function auditF(params) {
+  return {
+    types: [AUDITF, AUDITF_SUCCESS, AUDITF_FAILURE],
+    promise: (client) => client.post('/suneee-cloud/api-enterprise.failureAudit', params)
   }
 }
 
@@ -56,43 +75,53 @@ export function addItem(params) {
   }
 }
 
-export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+export default function reducer(state = {result: {}}, action) {
+  state = {...state, loading: action.loading};
   switch (action.type) {
     case VIEW:
-    case AUDIT:
+    case AUDITS:
+    case AUDITF:
     case ADD:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     case VIEW_SUCCESS:
-        return {
-            //...state,
-            loading : action.loading,
-            result: action.result
-        }
+      return {
+        //...state,
+        loading: action.loading,
+        result: action.result
+      }
     case VIEW_FAILURE:
-        return {
-            ...state
-        }
-    case AUDIT_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case AUDIT_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
+    case AUDITS_SUCCESS:
+      return {
+        //...state,
+        result: action.result
+      }
+    case AUDITS_FAILURE:
+      return {
+        ...state
+      }
+    case AUDITF_SUCCESS:
+      return {
+        //...state,
+        result: action.result
+      }
+    case AUDITF_FAILURE:
+      return {
+        ...state
+      }
     case ADD_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
+      return {
+        //...state,
+        result: action.result
+      }
     case ADD_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     default:
       return state
   }

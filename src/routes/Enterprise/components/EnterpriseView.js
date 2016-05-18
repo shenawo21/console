@@ -38,7 +38,7 @@ class Enterprise extends Component {
         }
       }, {
         label: "企业名称：",
-        name: "shortName",
+        name: "name",
         input: {
           placeholder: "请输入企业名称"
         }
@@ -153,9 +153,7 @@ class Enterprise extends Component {
     console.log(this.props.dataSource);
     return (
       <div>
-
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
-
 
         <DataTable bordered={true} columns={this._getColumns()} ref='dt'
                    quickButton={this.quickButton(quickOptions)} {...other} />
