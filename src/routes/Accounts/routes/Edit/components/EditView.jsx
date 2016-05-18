@@ -7,12 +7,12 @@ import {UploadImage} from 'components/FileLoader'
 import Form from 'components/Form';
 
 const SEX = [
-    { value: "1", title: "女" },
-    { value: "2", title: "男" }
+    { value: "false", title: "女" },
+    { value: "true", title: "男" }
 ];
 const STATUS = [
-    { value: "0", title: "不可用" },
-    { value: "1", title: "可用" }
+    { value: "false", title: "不可用" },
+    { value: "true", title: "可用" }
 ];
 
 class Edit extends Component {
@@ -138,10 +138,11 @@ class Edit extends Component {
     }
 
     render() {
-        const {handleSubmit} = this.props;
+        const {formOptions, ...other} = this.props;
         return (
             <div>
-                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit} />
+                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit} 
+                    onRest={formOptions.handleReset}/>
             </div>
         );
     }
@@ -149,6 +150,9 @@ class Edit extends Component {
 }
 
 Edit.proptype = {
+
+loading: React.PropTypes.bool,
+params: React.PropTypes.object
 
 }
 

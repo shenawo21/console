@@ -6,49 +6,92 @@
 
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import EditComponent from '../components/EditView'
+import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {queryList, addItem, modifyItem, deleteItem} from '../modules/EditReducer'
+import {view, addItem, modifyItem} from '../modules/EditReducer'
 
 import {message} from 'hen';
 
 class Edit extends Component {
+    
     constructor(props) {
         super(props);
+        
+        this.getFormOptions = this.getFormOptions.bind(this);
+        
         this.state = {count: props.initialCount};  //定义初始状态
     }
     componentDidMount() {
         
     }
-      /**
+    
+    /**
    * handle submit
    * @param  {any} formData
    * @param  {any} e
    */
-    handleSubmit(value){
-        console.log("=====校验通过=====", value);
-        message.success(' =====校验通过=====   ' + value);
+    getFormOptions() {
+        const context = this;
+        return {
+       /**
+       * (表单提交)
+       *
+       * @param value (description)
+       */
+      
+        handleSubmit(value) {
+            const {addItem} = context.props;
+            console.log(value);
+            context.setState({
+                params: value
+            })
+            addItem({...value});
+          },
+          
+          /**
+           * (重置)表单
+           */
+          
+          handleReset(){
+              
+          }
+            
+        }
     }
     
+   
+    
+    
     render() {
-        console.log('======props=====',this.props);
-        console.log('======state=====',this.state.count);
+        const {params} = this.state;
+        const {loading, result} = this.props;
+        const formOptions = {
+            loading,
+            result,
+            'formOptions': this.getFormOptions()
+        }
         
-        return <Panel title="新增帐号"><EditComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
+        return <Panel title="新增帐号"><EditView {...formOptions} /></Panel> 
     }
 }
 
 //数据限制类型
 Edit.propTypes = {
-    
+    view: React.PropTypes.func,
+    addItem: React.PropTypes.func,
+    loading: React.PropTypes.bool,
+    result: React.PropTypes.bool,
 }
 
 const mapActionCreators = {
-    
+    view,
+    addItem
 }
 
-const mapStateToProps = (state) => ({
-    
-})
+const mapStateToProps = (state) => {
+  const {result, loading} = state.edit;
 
+  return {'result': result.data, loading};
+
+}
 export default connect(mapStateToProps, mapActionCreators)(Edit)
