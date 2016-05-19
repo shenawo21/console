@@ -175,13 +175,26 @@ class Edit extends Component {
   }
 
   render() {
-    const {formOptions, item, buttonOption, ...other} = this.props;
-    console.log(this.props)
+    const {formOptions, item, ...other} = this.props;
+    const buttonOption = {
+      buttons : [
+        {
+          key : 'reviewS',
+          name :'审核通过',
+          type : 'primary'
+        },
+        {
+          key : 'reviewF',
+          name :'审核不通过',
+          type : 'primary'
+        }
+      ]
+    }
     return (
       <div>
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-              onReset={formOptions.handleReset} buttonOption={item && item.enterpriseCode?buttonOption:''}
-              allDisabled={item && item.enterpriseCode?true:false}/>
+              onReset={formOptions.handleReset} buttonOption={item && item.enterpriseCode ? buttonOption : ''}
+              allDisabled={item && item.enterpriseCode ? true : false}/>
       </div>
     )
   }

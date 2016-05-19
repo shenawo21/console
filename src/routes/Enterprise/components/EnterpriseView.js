@@ -5,9 +5,8 @@ import DataTable from 'components/DataTable';
 
 
 import Search from 'components/Search';
-import Image from 'components/Image';
 
-import {Row, Col, Button, Icon, DatePicker, Popconfirm, message} from 'hen';
+import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
 //是否可用
 const ENABLED = {
@@ -150,7 +149,6 @@ class Enterprise extends Component {
 
   render() {
     const {formOptions, quickOptions, ...other} = this.props;
-    console.log(this.props.dataSource);
     return (
       <div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>

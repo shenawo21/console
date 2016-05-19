@@ -50,12 +50,15 @@ class Edit extends Component {
        *
        * @param value (description)
        */
-      handleSubmit(value) {
-        const {addItem, params, auditS} = context.props;
+      handleSubmit(value,key) {
+        const {addItem, params, auditS,auditF} = context.props;
         context.setState({
           params: value
         })
-        params.id ? auditS({
+        params.id ? key == 'reviewS'? auditS({
+          enterpriseCode: value.enterpriseCode,
+          reviewDesctiption: value.reviewDesctiption
+        }) : auditF({
           enterpriseCode: value.enterpriseCode,
           reviewDesctiption: value.reviewDesctiption
         }) : addItem({...value})
@@ -73,12 +76,6 @@ class Edit extends Component {
   render() {
     const {params, item} = this.state;
     const {loading, result} = this.props;
-    const buttonOption = {
-      col: false,
-      ok: '审核通过',
-      searchSpan: '4',
-      cancel: false
-    };
     const formOptions = {
       loading,
       result,
@@ -86,7 +83,7 @@ class Edit extends Component {
     }
 
 
-    return <Panel title=""><EditView item={item}  {...formOptions} buttonOption={buttonOption}/></Panel>
+    return <Panel title=""><EditView item={item}  {...formOptions}/></Panel>
   }
 }
 
