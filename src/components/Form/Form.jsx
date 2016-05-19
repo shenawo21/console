@@ -15,7 +15,7 @@ class Forms extends Component {
      * 重置表单
      * @param  {any} e
      */
-    handleReset(e) {
+    handleReset(key, e) {
         e.preventDefault();
 
         const {form, onReset, submitAfterReset, onSubmit, resetNumber} = this.props;
@@ -27,15 +27,16 @@ class Forms extends Component {
             values = {...values, ...resetNumber };
         }
         //如果需要在重置后提交表单，可以通过此属性配置： 例如 搜索的时候
-        submitAfterReset && onSubmit(values);
+        submitAfterReset && onSubmit(values, key);
 
     }
     /**
      * 提交表单
      * 执行属性里面的onSubmit方法
      * @param  {any} e
+     * @param  {any} key  button标识
      */
-    handleSubmit(e) {
+    handleSubmit(key, e) {
         e.preventDefault();
         const {form, onSubmit, resetNumber} = this.props;
         form.validateFields((errors, values) => {
@@ -108,17 +109,25 @@ class Forms extends Component {
      * 如果设置了 buttonOption 则根据buttonOption进行相关配置
      */
     renderButton() {
-        let {horizontal, buttonOption = {}} = this.props;
-
-        const {col = true, ok, cal, okIcon, calIcon, searchSpan, cancel = true} = buttonOption;
-        let cols = col ? (horizontal ? { span: 24, offset: 6 } : { span: 8, offset: 5 }) : null;
-        return (<Col span={searchSpan || "8"} >
+        let {horizontal, buttonOption = {}} = this.props, context = this;
+        const {col = true, ok, cal, okIcon, calIcon, span, cancel = true, buttons = []} = buttonOption;
+        let cols = col ? (horizontal ? { span: 22, offset: 2 } : { span: 8, offset: 5 }) : null;
+        let colSpan = horizontal ? "24" : span || '8';
+        
+        return (<Col span={colSpan}>
             <FormItem wrapperCol={cols}>
-                <Button className={formless.btn} type="primary" onClick={this.handleSubmit.bind(this)}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button>
-                {
-                    cancel ? <Button htmlType="reset" onClick={this.handleReset.bind(this)}>{calIcon ? <Icon type={calIcon} /> : '' }{cal || '重置'}</Button> : ''
-                }
-
+            {
+                buttons.length ? buttons.map((btn, index)=>{
+                            let {className = '', type='default', key, icon, name, handle} = btn;
+                            if(key === 'reset'){
+                                return <Button key={index} key={index} htmlType="reset" className={formless.btn+' '+`${className}`} type={type} onClick={handle || context.handleReset.bind(context, key)}>{icon ? <Icon type={icon} /> : ''} {name}</Button>
+                            }
+                            return <Button key={index} className={formless.btn+' '+`${className}`} type={type} onClick={handle || context.handleSubmit.bind(context, key)}>{icon ? <Icon type={icon} /> : ''} {name}</Button>
+                        }) : <div>
+                        <Button className={formless.btn} type="primary" onClick={this.handleSubmit.bind(this,'ok')}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button> 
+                        {cancel ? <Button htmlType="reset" onClick={this.handleReset.bind(this, 'reset')}>{calIcon ? <Icon type={calIcon} /> : ''}{cal || '重置'}</Button> : ''}
+                    </div>
+            }
             </FormItem>
         </Col>)
     }

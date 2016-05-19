@@ -25,15 +25,18 @@ class Docs extends Component {
    * @param  {any} formData
    * @param  {any} e
    */
-    handleSubmit(value){
-        console.log("=====校验通过=====", value);
+    handleSubmit(value, key){
+        if(key === 'review'){
+            console.log("=====review    校验通过=====");
+        }else if(key === 'commit'){
+            console.log(' =====commit    校验通过=====');
+        }
         message.success(' =====校验通过=====   ' + value);
     }
     
     render() {
         console.log('======props=====',this.props);
         console.log('======state=====',this.state.count);
-        
         return <Panel title="Form 表单"><Link to='/docs/table'>table</Link><DocsComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
     }
 }
