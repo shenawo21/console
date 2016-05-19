@@ -43,7 +43,7 @@ export class Login extends Component {
       let eventCode = e.which || e.keyCode;
       switch (eventCode) {
         case 13:
-          context.handleSubmit(e)
+          //context.handleSubmit(e)
           break;
       }
     }

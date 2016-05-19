@@ -37,7 +37,13 @@ module.exports = function (options) {
       body: parsedBody
     };
     // set 'Host' header to options.host (without protocol prefix), strip trailing slash
-    if (options.host) opt.headers.host = options.host.slice(options.host.indexOf('://') + 3).replace(/\/$/, '');
+    if (options.host){
+        var hostUrl = options.host;
+        if(typeof options.fileProxyFlag === 'string' && this.path.indexOf(options.fileProxyFlag) !== -1 && options.fileServiceUrl) {
+            hostUrl = options.fileServiceUrl;
+        }
+        opt.headers.host = hostUrl.slice(hostUrl.indexOf('://') + 3).replace(/\/$/, '');
+    } 
 
     if (options.requestOptions) {
       Object.keys(options.requestOptions).forEach(function (option) { opt[option] = options.requestOptions[option]; });
@@ -46,7 +52,7 @@ module.exports = function (options) {
     if (options.hook) {
       opt = options.hook(opt);
     }
-    // console.log(options, opt, request, coRequest);
+     //console.log(options, opt, request, coRequest);
     var requestThunk = request(opt);
     if (parsedBody) {
       var res = yield requestThunk;
@@ -77,9 +83,11 @@ module.exports = function (options) {
 
 function resolve(path, options) {
   var url = options.url;
+  var hostUrl = options.fileServiceUrl && path.indexOf(options.fileProxyFlag) !== -1 ? options.fileServiceUrl : options.host;
+  
   if (url) {
     if (!/^http/.test(url)) {
-      url = options.host ? join(options.host, url) : null;
+      url = hostUrl ? join(hostUrl, url) : null;
     }
     return ignoreQuery(url);
   }
@@ -92,7 +100,7 @@ function resolve(path, options) {
     path = options.map(path);
   }
 
-  return options.host ? join(options.host, path) : null;
+  return hostUrl ? join(hostUrl, path) : null;
 }
 
 function ignoreQuery(url) {

@@ -216,9 +216,41 @@ class Docs extends Component {
 
     render() {
         const {handleSubmit} = this.props;
+        /**
+         * 多个按钮配置如下：
+         * 1、需要重置按钮时，key值为reset
+         * 2、需要多个提交按钮时，key为必须，且在handleSubmit函数里面，根据key值进行区分操作,
+         * 3、如果不配buttons参数，按钮默认为提交与重置
+         */
+        const buttonOption = {
+            buttons : [
+                {
+                    key : 'review',
+                    name :'审核',
+                    type : 'primary',
+                    icon : 'search',
+                    className : 'aaa'
+                },
+                {
+                    key : 'back',
+                    name : '返回',
+                    handle(){
+                        history.go(-1);
+                    }
+                },
+                {
+                    key : 'commit',
+                    name : '提交',
+                },
+                {
+                    key : 'reset',   //重置时，key为reset
+                    name : '重置'
+                }
+            ]
+        }
         return (
             <div>
-                <Form horizontal items={this._getFormItems() } onSubmit={handleSubmit} />
+                <Form horizontal items={this._getFormItems() } onSubmit={handleSubmit} buttonOption={buttonOption}/>
             </div>
         );
     }
