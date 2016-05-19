@@ -54,7 +54,7 @@ export const createRoutes = (store) => {
       require.ensure([], (require) => {
         // Provide store for async reducers and middleware
         let asyncComponents = [
-            require('./Repo').default(store),
+            //require('./System').default(store),
         ];
         if(__DEV__){
             asyncComponents.push(require('./Docs').default(store))
