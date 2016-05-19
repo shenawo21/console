@@ -18,7 +18,8 @@
       require.ensure([], (require) => {
         next(null, [
           // Provide store for async reducers and middleware
-          require('./routes/Edit').default(store)
+          require('./routes/Edit').default(store),
+          require('./routes/UpdPwd').default(store)
         ])
       })
   },
