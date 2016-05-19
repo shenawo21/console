@@ -78,8 +78,6 @@ class Edit extends Component {
         }
     }
     
-   
-    
     
     render() {
         const {params, item} = this.state;
@@ -96,7 +94,7 @@ class Edit extends Component {
             cancel: false
         };
         
-        return <Panel title="新增帐号"><EditView item={item} {...formOptions} btnOption={btnOption} /></Panel> 
+        return <Panel title="新增角色"><EditView item={item} {...formOptions} btnOption={btnOption} /></Panel> 
     }
 }
 

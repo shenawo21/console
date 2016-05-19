@@ -1,6 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-
-import {Link} from 'react-router';
 import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
 
 import {UploadImage} from 'components/FileLoader'
@@ -30,8 +28,9 @@ class Edit extends Component {
      * @returns (description)
      */
     _getFormItems() {
-        const {upList} = this.state;
         let config = {}, context = this;
+        const {item} = context.props;
+        const {upList} = this.state;        
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -138,11 +137,12 @@ class Edit extends Component {
     }
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, item, btnOption, ...other} = this.props;
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit} 
-                    onRest={formOptions.handleReset}/>
+                    onRest={formOptions.handleReset} btnOption={item && item.adminId ? btnOption : ''}
+                    allDisable={item && item.adminId ? true : false}/>
             </div>
         );
     }

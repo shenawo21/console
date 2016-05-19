@@ -53,6 +53,7 @@ export const createRoutes = (store) => {
         let asyncComponents = [
              require('./Enterprise').default(store),
              require('./Accounts').default(store),
+             require('./Role').default(store),
          ];
          if(__DEV__){
              asyncComponents.push(require('./Docs').default(store))

@@ -30,7 +30,7 @@ const menuLists = [
         when: '',
       }, {
         title: '角色',
-        url: '/test',
+        url: '/role',
         icon: 'wb-dashboard',
         when: '',
       }
