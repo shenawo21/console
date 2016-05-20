@@ -55,6 +55,9 @@ class Forms extends Component {
                         values[name] = this.formatDate(values[name]);
                     }
                 }
+                if(values[name] === 'true' || values[name] === 'false'){
+                    values[name] = Boolean(values[name]);
+                }
             });
             if (resetNumber) {
                 values = {...values, ...resetNumber}
@@ -110,7 +113,7 @@ class Forms extends Component {
      */
     renderButton() {
         let {horizontal, buttonOption = {}} = this.props, context = this;
-        const {col = true, ok, cal, okIcon, calIcon, span, cancel = true, buttons = []} = buttonOption;
+        const {col = true, ok, cal, okIcon, calIcon, span, cancel = true, loading ＝ false, buttons = []} = buttonOption;
         let cols = col ? (horizontal ? { span: 22, offset: 2 } : { span: 8, offset: 5 }) : null;
         let colSpan = horizontal ? "24" : span || '8';
         
@@ -118,15 +121,15 @@ class Forms extends Component {
             <FormItem wrapperCol={cols}>
             {
                 buttons.length ? buttons.map((btn, index)=>{
-                            let {className = '', type='default', key, icon, name, handle} = btn;
-                            if(key === 'reset'){
-                                return <Button key={index} key={index} htmlType="reset" className={formless.btn+' '+`${className}`} type={type} onClick={handle || context.handleReset.bind(context, key)}>{icon ? <Icon type={icon} /> : ''} {name}</Button>
-                            }
-                            return <Button key={index} className={formless.btn+' '+`${className}`} type={type} onClick={handle || context.handleSubmit.bind(context, key)}>{icon ? <Icon type={icon} /> : ''} {name}</Button>
-                        }) : <div>
-                        <Button className={formless.btn} type="primary" onClick={this.handleSubmit.bind(this,'ok')}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button> 
-                        {cancel ? <Button htmlType="reset" onClick={this.handleReset.bind(this, 'reset')}>{calIcon ? <Icon type={calIcon} /> : ''}{cal || '重置'}</Button> : ''}
-                    </div>
+                        let {className = '', type='default', key, icon, name, handle, loading = false} = btn;
+                        if(key === 'reset'){
+                            return <Button key={index} key={index} htmlType="reset" loading={loading} className={formless.btn+' '+`${className}`} type={type} onClick={handle || context.handleReset.bind(context, key)}>{icon ? <Icon type={icon} /> : ''} {name}</Button>
+                        }
+                        return <Button key={index} className={formless.btn+' '+`${className}`} loading={loading} type={type} onClick={handle || context.handleSubmit.bind(context, key)}>{icon ? <Icon type={icon} /> : ''} {name}</Button>
+                    }) : <div>
+                    <Button className={formless.btn} type="primary" onClick={this.handleSubmit.bind(this,'ok')} loading={loading}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button> 
+                    {cancel ? <Button htmlType="reset" onClick={this.handleReset.bind(this, 'reset')}>{calIcon ? <Icon type={calIcon} /> : ''}{cal || '重置'}</Button> : ''}
+                </div>
             }
             </FormItem>
         </Col>)
@@ -175,6 +178,7 @@ class Forms extends Component {
         return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...fieldProps} {...item.select} >
             {
                 options.map((val, i) => {
+                    typeof val.value === 'boolean' && (val.value = '' + val.value);
                     return <Option key={i} {...val}>{val.title}</Option>
                 })
             }

@@ -30,6 +30,7 @@ class Table extends Component {
      */
     getFormOptions() {
         const context = this;
+        const {loading} = this.props;
         return {
             /**
              * (筛选表单提交)
@@ -46,7 +47,8 @@ class Table extends Component {
              * (筛选表单重置)
              */
             handleReset() {
-            }
+            },
+            loading    //若表单提交需要状态
         }
     }
     

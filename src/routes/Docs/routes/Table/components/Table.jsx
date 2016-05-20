@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import Search from 'components/Search';
 import Image from 'components/Image';
 import {UpLoader, DownLoader} from 'components/FileLoader'
+import Category from 'components/Category';
 
 import {Row, Col, Button, Icon} from 'hen';
 
@@ -20,6 +21,15 @@ class Table extends Component {
                 label: "SPU：",
                 name: "multiple_spuId",
                 input: {}
+            }, {
+				span: '6',
+				labelCol:{span: 8},
+            	wrapperCol:{span: 16},
+                label: "商品分类：",
+                name: "categoryId",
+                custom: (getCustomFieldProps)=> {
+                    return <Category onSelect={this._handleCategoryChange} usePlatform={false} {...getCustomFieldProps('categoryId')}/>
+                }
             }],
             initValue: {
                 name: null,
