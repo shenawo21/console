@@ -92,7 +92,7 @@ class Role extends Component {
             title: '操作',
             dataIndex: 'adminId',
             render(id,row){
-                return <span><Link to={`/accounts/edit/${id}`}>编辑</Link> <Link to={`/accounts/edit/${id}`}>查看</Link> 
+                return <span><Link to={`/role/edit/${id}`}>编辑</Link> <Link to={`/role/edit/${id}`}>查看</Link> 
                     <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.del.bind(context,id)}>
                         <Button type="link">删除</Button>
                     </Popconfirm>

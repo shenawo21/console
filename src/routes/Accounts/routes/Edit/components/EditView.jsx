@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
-
+import {Link} from 'react-router';
 import {UploadImage} from 'components/FileLoader'
 import Form from 'components/Form';
 
@@ -36,6 +36,26 @@ class Edit extends Component {
             showUploadList: true,
             onlyFile: true
         };
+        
+        const review = {
+            title: '备注',
+            className: '',
+            formItems: [{
+                label: "审核描述：",
+                name: "reviewDesctiption",
+                wrapperCol: {span: 10},
+                required: true,
+                hasFeedback: true,
+                rules: [{required: true, message: '审核描述为必填'}],
+                input: {
+                disabled: false,
+                rows: '5',
+                type: "textarea",
+                placeholder: "请输入审核描述",
+                }
+            }]
+        }
+        
         config.panels = [
             {
                 className: 'noborder',
@@ -121,7 +141,7 @@ class Edit extends Component {
                     }
                 }]
             }];
-
+        item && item.enterpriseCode && item.reviewStatue=='no'? config.panels.push(review) : '';
         config.initValue = {
             account: null,
             password: null,
@@ -132,7 +152,9 @@ class Edit extends Component {
             email: null,
             mobile: null
         };
-
+    if (item) {
+      config.initValue = item;
+    }
         return config;
     }
 

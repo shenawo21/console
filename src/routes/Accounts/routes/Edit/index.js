@@ -1,6 +1,6 @@
 export default (store) => ({
   breadcrumbName: "新增帐号",
-  path: 'edit',
+  path: 'edit(/:id)',
   getComponents(nextState, next) {
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and

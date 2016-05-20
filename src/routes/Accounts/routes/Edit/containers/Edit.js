@@ -19,7 +19,10 @@ class Edit extends Component {
         
         this.getFormOptions = this.getFormOptions.bind(this);
         
-        this.state = {count: props.initialCount};  //定义初始状态
+        this.state = {
+            params: {},
+            item: {}    
+        };  //定义初始状态
     }
     componentDidMount() {
         const {params, view} = this.props;
@@ -58,12 +61,13 @@ class Edit extends Component {
       
         handleSubmit(value) {
             const {addItem, params} = context.props;
-            console.log(value);
+            console.log("value++" + value);
             context.setState({
                 params: value
             })
             params.id ? modifyItem({
-                adminId: value.adminId
+                adminId: value.adminId,
+                enterprise_code: value.enterprise_code
             }) : addItem({...value});
           },
           
@@ -89,14 +93,7 @@ class Edit extends Component {
             result,
             'formOptions': this.getFormOptions()
         };
-        const btnOption = {
-            col: false,
-            ok: '修改成功',
-            searchSpan: '4',
-            cancel: false
-        };
-        
-        return <Panel title="新增帐号"><EditView item={item} {...formOptions} btnOption={btnOption} /></Panel> 
+        return <Panel title="新增帐号"><EditView item={item} {...formOptions} /></Panel> 
     }
 }
 
@@ -106,7 +103,7 @@ Edit.propTypes = {
     addItem: React.PropTypes.func,
     modifyItem: React.PropTypes.func,
     loading: React.PropTypes.bool,
-    result: React.PropTypes.bool,
+    result: React.PropTypes.object,
 }
 
 const mapActionCreators = {

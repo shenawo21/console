@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Button, Row, Col, Input, Tree, InputNumber, DatePicker, message, Checkbox} from 'hen';
 import Form from 'components/Form';
-
+import {Link} from 'react-router';
 const TreeNode = Tree.TreeNode;
 
 class Edit extends Component {
@@ -9,28 +9,28 @@ class Edit extends Component {
     /**
 	 * 生成树形
 	 */
-	_renderTree() {
-		let key = 1;
-		/**
-		 * tree
-		 * @param  {any} children
-		 */
-		let tree = (children) => {
+	// _renderTree() {
+	// 	let key = 1;
+	// 	/**
+	// 	 * tree
+	// 	 * @param  {any} children
+	// 	 */
+	// 	let tree = (children) => {
 
-			return children.map((c, index) => {
-				key++;
-				return <TreeNode title={c.name} category={c}  key={key}>
-					{
+	// 		return children.map((c, index) => {
+	// 			key++;
+	// 			return <TreeNode title={c.name} category={c}  key={key}>
+	// 				{
 
-						c.children ? tree(c.children) : ''
-					}
-				</TreeNode>
-			})
-		}
+	// 					c.children ? tree(c.children) : ''
+	// 				}
+	// 			</TreeNode>
+	// 		})
+	// 	}
 
-		return tree(this.state.category)
+	// 	return tree(this.state.category)
 
-	}
+	// }
     
     
     /**
@@ -86,7 +86,7 @@ class Edit extends Component {
                     onRest={formOptions.handleReset} btnOption={item && item.adminId ? btnOption : ''}
                     allDisable={item && item.adminId ? true : false}/>
                     
-                <Tree onSelect={this._handleSelect} defaultExpandAll={false}>{this._renderTree() }</Tree>
+                {/*<Tree onSelect={this._handleSelect} defaultExpandAll={false}>{this._renderTree() }</Tree>*/}
             </div>
         );
     }
