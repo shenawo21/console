@@ -40,7 +40,7 @@ export const DownLoader = (props) => {
     }
 
     if (__DEV__ && curUrl) {
-        curUrl = '/api' + curUrl
+        curUrl = '/suneee-cloud' + curUrl
     }
 
     return <a href={disabled && curUrl ? "javascript:;" : curUrl} ><Button type={bType} disabled={disabled} onClick={onClick}><Icon type={iType}/>{title}</Button></a>
@@ -122,7 +122,7 @@ export const UpLoader = (props) => {
         upConfig.action = '/file-service' + action;
     } else {          //文件上传
         if (__DEV__) {
-            upConfig.action = '/api' + action;
+            upConfig.action = '/suneee-cloud' + action;
         }
     }
 

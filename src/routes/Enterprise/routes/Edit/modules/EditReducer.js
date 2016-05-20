@@ -29,7 +29,7 @@ const ADD_FAILURE = 'edit/ADD_FAILURE';
 export function view(params) {
   return {
     types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.get', params)
+    promise: (client) => client.post('api-enterprise.get', params)
   }
 }
 
@@ -43,7 +43,7 @@ export function view(params) {
 export function auditS(params) {
   return {
     types: [AUDITS, AUDITS_SUCCESS, AUDITS_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.successAudit', params)
+    promise: (client) => client.post('api-enterprise.successAudit', params)
   }
 }
 
@@ -57,7 +57,7 @@ export function auditS(params) {
 export function auditF(params) {
   return {
     types: [AUDITF, AUDITF_SUCCESS, AUDITF_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.failureAudit', params)
+    promise: (client) => client.post('api-enterprise.failureAudit', params)
   }
 }
 
@@ -71,7 +71,7 @@ export function auditF(params) {
 export function addItem(params) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.add', params)
+    promise: (client) => client.post('api-enterprise.add', params)
   }
 }
 

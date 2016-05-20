@@ -32,13 +32,13 @@ class Login extends Component {
     }
     let passwdPropsOptions = {
       rules: [
-        {required: true, min: 5, whitespace: true, message: '请填写密码'}
+        {required: true, min: 3, whitespace: true, message: '请填写密码'}
       ]
     };
     // 正式的时候此代码会被干掉
     if (__DEV__) {
-      namePropsOptions.initialValue = '1394800667@qq.com'
-      passwdPropsOptions.initialValue = '123456'
+      namePropsOptions.initialValue = 'admin'
+      passwdPropsOptions.initialValue = '123'
     }
 
     const nameProps = getFieldProps('account', namePropsOptions);

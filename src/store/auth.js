@@ -22,14 +22,14 @@ export function load() {
 export function login(params) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
-    promise: (client) => client.post('api-user.login', params)
+    promise: (client) => client.post('api-userLogin.login', params)
   }
 }
 
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE],
-    promise: (client) => client.post('api-user.logout')
+    promise: (client) => client.post('api-userLogin.loginOut')
   }
 }
 /**

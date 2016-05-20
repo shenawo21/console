@@ -28,7 +28,7 @@ const DISABLED_FAILURE = 'enterprise/DISABLED_FAILURE';
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.find', params)
+    promise: (client) => client.post('api-enterprise.find', params)
   }
 }
 
@@ -42,7 +42,7 @@ export function queryList(params) {
 export function deleteItem(params) {
   return {
     types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.delete', params)
+    promise: (client) => client.post('api-enterprise.delete', params)
   }
 }
 
@@ -56,7 +56,7 @@ export function deleteItem(params) {
 export function enabledItem(params) {
   return {
     types: [ENADLED, ENADLED_SUCCESS, ENADLED_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.enabled', params)
+    promise: (client) => client.post('api-enterprise.enabled', params)
   }
 }
 
@@ -70,7 +70,7 @@ export function enabledItem(params) {
 export function disabledItem(params) {
   return {
     types: [DISABLED, DISABLED_SUCCESS, DISABLED_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-enterprise.disabled', params)
+    promise: (client) => client.post('api-enterprise.disabled', params)
   }
 }
 
