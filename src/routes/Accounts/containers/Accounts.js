@@ -24,9 +24,10 @@ class Accounts extends Component {
      * @params id
      */
     _delAccount(id){
+        const ids = [];
         const {deleteItem} = this.props;
-        console.log(id);
-        deleteItem({adminIds: id});
+        ids.push(id);
+        deleteItem({adminIds: ids});
     }
     
     componentDidMount() {
@@ -75,13 +76,6 @@ class Accounts extends Component {
       getQuickOptions(){
           const contex = this;
           return {
-              /**
-               * (新增账户)
-               * 
-               */
-              doUp() {
-                  console.log('新增账户');
-              }
              
           }
       }

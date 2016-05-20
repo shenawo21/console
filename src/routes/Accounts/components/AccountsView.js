@@ -10,10 +10,10 @@ import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
 //是否可用
-const STATUS = {
-   'false': "否",
-   'true': "是"
-};
+const STATUS = [
+   { value: false, title: "不可用" },
+   { value: true, title: "可用" }
+];
 
 class Accounts extends Component {
 
@@ -21,7 +21,7 @@ class Accounts extends Component {
         let config = {
             formItems: [{
                 label: "账号：",
-                name: "nick",
+                name: "account",
                 input: {
                     placeholder: "请输入昵称"
                 }
@@ -36,9 +36,7 @@ class Accounts extends Component {
                 name: "enabled",
                 select: {
                     placeholder: "请选择是否可用",
-                    optionValue: Object.keys(STATUS).map((key) => {
-                        return {'value': key, 'title': STATUS[key]}
-                    })
+                    optionValue: STATUS
                 }
             }],
             initValue: {
@@ -93,7 +91,7 @@ class Accounts extends Component {
             dataIndex: 'adminId',
             render(id,row){
                 return <span><Link to={`/accounts/edit/${id}`}>编辑</Link> <Link to={`/accounts/edit/${id}`}>查看</Link> 
-                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.del.bind(context,id)}>
+                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedAccount.bind(context,id)}>
                         <Button type="link">删除</Button>
                     </Popconfirm>
                 </span>
@@ -105,7 +103,7 @@ class Accounts extends Component {
 
     
     //删除
-    del(id) {
+    deletedAccount(id) {
         const {del} = this.props
         del(id)
         this.refs && this.refs.dt.refresh();
@@ -130,7 +128,7 @@ class Accounts extends Component {
 
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
+                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} ref='dt' />
 
             </div>
         )

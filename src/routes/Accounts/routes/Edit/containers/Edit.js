@@ -52,20 +52,21 @@ class Edit extends Component {
         const context = this;
         return {
        /**
-       * (表单提交)
+       * (筛选表单提交)
        *
        * @param value (description)
        */
 
         handleSubmit(value) {
-            const {addItem, params} = context.props;
-            console.log("value++" + value);
+            const {addItem, modifyItem, params} = context.props;
+            console.log("value++" + value.adminId);
             context.setState({
                 params: value
             })
             params.id ? modifyItem({
-                adminId: value.adminId,
-                enterprise_code: value.enterprise_code
+                adminId: params.id,
+                enterpriseCode: value.enterpriseCode,
+                ...value
             }) : addItem({...value});
           },
 

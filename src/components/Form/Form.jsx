@@ -55,6 +55,9 @@ class Forms extends Component {
                         values[name] = this.formatDate(values[name]);
                     }
                 }
+                if(values[name] === 'false' || values[name] === 'true'){
+                    values[name] = Boolean(values[name]);
+                }
             });
             if (resetNumber) {
                 values = {...values, ...resetNumber}
@@ -175,6 +178,7 @@ class Forms extends Component {
         return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...fieldProps} {...item.select} >
             {
                 options.map((val, i) => {
+                    typeof val.vaule === 'boolean' && (val.value = ''+ val.vaule);
                     return <Option key={i} {...val}>{val.title}</Option>
                 })
             }

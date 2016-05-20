@@ -5,12 +5,12 @@ import {UploadImage} from 'components/FileLoader'
 import Form from 'components/Form';
 
 const SEX = [
-    { value: "false", title: "女" },
-    { value: "true", title: "男" }
+    { value: false, title: "女" },
+    { value: true, title: "男" }
 ];
 const STATUS = [
-    { value: "false", title: "不可用" },
-    { value: "true", title: "可用" }
+    { value: false, title: "不可用" },
+    { value: true, title: "可用" }
 ];
 
 class Edit extends Component {
@@ -70,12 +70,22 @@ class Edit extends Component {
                         placeholder: "请输入帐号",
                     }
                 }, {
+                    label: "企业编码：",
+                    name: "enterpriseCode",
+                    required: true,
+                    hasFeedback: true,
+                    rules: [{ required: true, max: 64, message: '最多为64个字符' }],
+                    input: {
+                        type: 'text',
+                        placeholder: "请输入企业编码",
+                    }
+                }, {
                     label: "密码：",
                     name: "password",
                     required: true,
                     hasFeedback: true,
                     rules: [
-                        { required: true, min: 4, message: '至少为4个字符' }
+                        { required: true, min: 3, message: '至少为3个字符' }
                     ],
                     input: {
                         type: "password",
@@ -107,7 +117,6 @@ class Edit extends Component {
                 }, {
                     label: "性别：",
                     name: "sex",
-                    rules: [{ required: true, message: '不能为空' }],
                     select: {
                         placeholder: "请选择性别",
                         optionValue: SEX
@@ -115,7 +124,7 @@ class Edit extends Component {
                 }, {
                     label: "是否可用：",
                     name: "enabled",
-                    rules: [{ required: true, message: '不能为空' }],
+                    //rules: [{ required: false, message: '不能为空' }],
                     select: {
                         placeholder: "请选择是否可用",
                         optionValue: STATUS
@@ -147,13 +156,13 @@ class Edit extends Component {
             password: null,
             name: null,
             photo: null,
-            sex: undefined,
+            sex: false,
             enabled: true,
             email: null,
             mobile: null
         };
     if (item) {
-      config.initValue = item;
+      config.initValue = item;      
     }
         return config;
     }
@@ -163,8 +172,7 @@ class Edit extends Component {
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} btnOption={item && item.adminId ? btnOption : ''}
-                    allDisable={item && item.adminId ? true : false}/>
+                    onRest={formOptions.handleReset} allDisable={item && item.adminId ? true : false}/>
             </div>
         );
     }
