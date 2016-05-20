@@ -14,7 +14,7 @@ const STATUS = [
 ];
 
 class Edit extends Component {
-    
+
     constructor(){
         super();
         this.state = {
@@ -24,19 +24,19 @@ class Edit extends Component {
 
     /**
      * (form表单生成配置)
-     * 
+     *
      * @returns (description)
      */
     _getFormItems() {
         let config = {}, context = this;
         const {item} = context.props;
-        const {upList} = this.state;        
+        const {upList} = this.state;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
         };
-        
+
         const review = {
             title: '备注',
             className: '',
@@ -55,7 +55,7 @@ class Edit extends Component {
                 }
             }]
         }
-        
+
         config.panels = [
             {
                 className: 'noborder',
@@ -141,7 +141,7 @@ class Edit extends Component {
                     }
                 }]
             }];
-        item && item.enterpriseCode && item.reviewStatue=='no'? config.panels.push(review) : '';
+        //item && item.enterpriseCode && item.reviewStatue=='no'? config.panels.push(review) : '';
         config.initValue = {
             account: null,
             password: null,
@@ -162,7 +162,7 @@ class Edit extends Component {
         const {formOptions, item, btnOption, ...other} = this.props;
         return (
             <div>
-                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit} 
+                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
                     onRest={formOptions.handleReset} btnOption={item && item.adminId ? btnOption : ''}
                     allDisable={item && item.adminId ? true : false}/>
             </div>

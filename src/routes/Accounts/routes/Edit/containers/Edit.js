@@ -13,15 +13,15 @@ import {view, addItem, modifyItem} from '../modules/EditReducer'
 import {message} from 'hen';
 
 class Edit extends Component {
-    
+
     constructor(props) {
         super(props);
-        
+
         this.getFormOptions = this.getFormOptions.bind(this);
-        
+
         this.state = {
             params: {},
-            item: {}    
+            item: {}
         };  //定义初始状态
     }
     componentDidMount() {
@@ -30,10 +30,9 @@ class Edit extends Component {
             view({adminId: params.id})
         }
     }
-    
+
     componentWillReceiveProps(nextProps, preProps){
-        
-        if(nextProps.params.id){
+        if(!nextProps.params.id){
             this.setState({
                 item: {}
             })
@@ -42,9 +41,8 @@ class Edit extends Component {
                 item: nextProps.result
             })
         }
-        
     }
-    
+
     /**
    * handle submit
    * @param  {any} formData
@@ -58,7 +56,7 @@ class Edit extends Component {
        *
        * @param value (description)
        */
-      
+
         handleSubmit(value) {
             const {addItem, params} = context.props;
             console.log("value++" + value);
@@ -70,30 +68,31 @@ class Edit extends Component {
                 enterprise_code: value.enterprise_code
             }) : addItem({...value});
           },
-          
+
           /**
            * (重置)表单
            */
-          
+
           handleReset(){
-              
+
           }
-            
+
         }
     }
-    
-   
-    
-    
+
+
+
+
     render() {
         const {params, item} = this.state;
+      console.log(item);
         const {loading, result} = this.props;
         const formOptions = {
             loading,
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel title="新增帐号"><EditView item={item} {...formOptions} /></Panel> 
+        return <Panel title="新增帐号"><EditView item={item} {...formOptions} /></Panel>
     }
 }
 
