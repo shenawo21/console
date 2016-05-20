@@ -154,7 +154,7 @@ class Edit extends Component {
           }
         }]
       }];
-    item && item.enterpriseCode ? config.panels.push(review) : '';
+    item && item.enterpriseCode && item.reviewStatue=='no'? config.panels.push(review) : '';
     config.initValue = {
       enterpriseCode: null,
       name: null,
@@ -190,10 +190,21 @@ class Edit extends Component {
         }
       ]
     }
+    const buttonOptionNone = {
+      buttons : [
+        {
+          key : 'back',
+          name : '返回',
+          handle(){
+            history.go(-1);
+          }
+        }
+      ]
+    }
     return (
       <div>
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-              onReset={formOptions.handleReset} buttonOption={item && item.enterpriseCode ? buttonOption : ''}
+              onReset={formOptions.handleReset} buttonOption={item && item.enterpriseCode  ? item.reviewStatue=='no' ? buttonOption : buttonOptionNone : ''}
               allDisabled={item && item.enterpriseCode ? true : false}/>
       </div>
     )

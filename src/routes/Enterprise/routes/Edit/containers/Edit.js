@@ -55,6 +55,11 @@ class Edit extends Component {
         context.setState({
           params: value
         })
+        /*if(params.id){
+          //if()
+        }else{
+          addItem({...value})
+        }*/
         params.id ? key == 'reviewS'? auditS({
           enterpriseCode: value.enterpriseCode,
           reviewDesctiption: value.reviewDesctiption
