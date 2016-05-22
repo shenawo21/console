@@ -152,7 +152,7 @@ class Docs extends Component {
                         label: "Checkbox：",
                         name: "checkbox",
                         required: true,
-                        rules: [{required: false}],
+                        rules: [{required: false, type: 'array'}],
                         //rules: [{ type: 'boolean', required: true, message: 'I do!' }],
                         checkbox: {
                             checkValue:[

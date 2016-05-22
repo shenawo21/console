@@ -129,9 +129,7 @@ Accounts.propTypes = {
 
 const mapActionCreators = {
     queryList,
-    deleteItem,
-    modifyItem,
-    addItem
+    deleteItem
 }
 
 

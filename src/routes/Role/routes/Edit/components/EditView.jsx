@@ -2,35 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import { Button, Row, Col, Input, Tree, InputNumber, DatePicker, message, Checkbox} from 'hen';
 import Form from 'components/Form';
 import {Link} from 'react-router';
-const TreeNode = Tree.TreeNode;
 
 class Edit extends Component {
-    
-    /**
-	 * 生成树形
-	 */
-	// _renderTree() {
-	// 	let key = 1;
-	// 	/**
-	// 	 * tree
-	// 	 * @param  {any} children
-	// 	 */
-	// 	let tree = (children) => {
-
-	// 		return children.map((c, index) => {
-	// 			key++;
-	// 			return <TreeNode title={c.name} category={c}  key={key}>
-	// 				{
-
-	// 					c.children ? tree(c.children) : ''
-	// 				}
-	// 			</TreeNode>
-	// 		})
-	// 	}
-
-	// 	return tree(this.state.category)
-
-	// }
     
     
     /**
@@ -44,6 +17,7 @@ class Edit extends Component {
 
         config.panels = [
             {
+                title: '角色基本信息',
                 className: 'noborder',
                 formItems: [{
                     label: "名称：",
@@ -57,22 +31,41 @@ class Edit extends Component {
                     }
                 }, {
                     label: "编码：",
-                    name: "password",
+                    name: "code",
                     required: true,
                     hasFeedback: true,
                     rules: [
                         { required: true, min: 3, message: '至少为3个字符' }
                     ],
                     input: {
-                        type: "password",
-                        placeholder: "请输入密码",
+                        type: "text",
+                        placeholder: "请输入编码",
                     }
                 }]
+            }, {
+                title: '权限分配',
+                className: 'noborder',
+                formItems: [ {
+                        label: "权限分配：",
+                        name: "permissionGroup",
+                        required: true,
+                        rules: [{required: false, type: 'array'}],
+                        //rules: [{ type: 'boolean', required: true, message: 'I do!' }],
+                        checkbox: {
+                            checkValue:[
+                                { label: '苹果', value: 'Apple' },
+                                { label: '梨', value: 'Pear' },
+                                { label: '橘', value: 'Orange' },
+                            ]
+                            //disabled : false,
+                        }
+                    }]
             }];
 
         config.initValue = {
             account: null,
-            password: null
+            password: null,
+            permissionGroup: []
         };
 
         return config;
@@ -86,7 +79,6 @@ class Edit extends Component {
                     onRest={formOptions.handleReset} btnOption={item && item.adminId ? btnOption : ''}
                     allDisable={item && item.adminId ? true : false}/>
                     
-                {/*<Tree onSelect={this._handleSelect} defaultExpandAll={false}>{this._renderTree() }</Tree>*/}
             </div>
         );
     }

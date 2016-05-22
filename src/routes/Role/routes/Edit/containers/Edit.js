@@ -24,7 +24,7 @@ class Edit extends Component {
     componentDidMount() {
         const {params, view} = this.props;
         if(params.id){
-            view({adminId: params.id})
+            view({roleId: params.id})
         }
     }
     
@@ -63,7 +63,7 @@ class Edit extends Component {
                 params: value
             })
             params.id ? modifyItem({
-                adminId: value.adminId
+                roleId: value.roleId
             }) : addItem({...value});
           },
           
@@ -87,14 +87,8 @@ class Edit extends Component {
             result,
             'formOptions': this.getFormOptions()
         };
-        const btnOption = {
-            col: false,
-            ok: '修改成功',
-            searchSpan: '4',
-            cancel: false
-        };
         
-        return <Panel title="新增角色"><EditView item={item} {...formOptions} btnOption={btnOption} /></Panel> 
+        return <Panel title="新增角色"><EditView item={item} {...formOptions} /></Panel> 
     }
 }
 

@@ -10,10 +10,10 @@ import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
 //是否可用
-const STATUS = {
-   'false': "否",
-   'true': "是"
-};
+const STATUS = [
+   { value: false, title: "不可用" },
+   { value: true, title: "可用" }
+];
 
 class Role extends Component {
 
@@ -36,9 +36,7 @@ class Role extends Component {
                 name: "enabled",
                 select: {
                     placeholder: "请选择是否可用",
-                    optionValue: Object.keys(STATUS).map((key) => {
-                        return {'value': key, 'title': STATUS[key]}
-                    })
+                    optionValue: STATUS
                 }
             }],
             initValue: {
@@ -92,8 +90,8 @@ class Role extends Component {
             title: '操作',
             dataIndex: 'adminId',
             render(id,row){
-                return <span><Link to={`/role/edit/${id}`}>编辑</Link> <Link to={`/role/edit/${id}`}>查看</Link> 
-                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.del.bind(context,id)}>
+                return <span><Link to={`/role/edit/${id}`}>编辑</Link> 
+                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedRole.bind(context,id)}>
                         <Button type="link">删除</Button>
                     </Popconfirm>
                 </span>
@@ -105,7 +103,7 @@ class Role extends Component {
 
     
     //删除
-    del(id) {
+    deletedRole(id) {
         const {del} = this.props
         del(id)
         this.refs && this.refs.dt.refresh();
@@ -123,14 +121,14 @@ class Role extends Component {
     
 
     render() {
-        const {formOptions,quickOptions,_delAccount, ...other} = this.props;
+        const {formOptions,quickOptions,_delRole, ...other} = this.props;
         
         return (
             <div>
 
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
+                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} ref='dt' />
 
             </div>
         )

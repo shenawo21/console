@@ -207,12 +207,8 @@ class Forms extends Component {
     // }
     
     if (item.checkbox) {
-        let {checkValue, className, title = ''} = item.checkbox;
-        let boxClassName = className || "ant-checkbox-inline";
-        
-        return <CheckboxGroup options={checkValue} {...fieldProps} {...item.checkbox} >
-            
-        </CheckboxGroup>
+        let {checkValue} = item.checkbox;        
+        return <CheckboxGroup options={checkValue} {...fieldProps} {...item.checkbox} ></CheckboxGroup>
     }
     
     

@@ -20,7 +20,7 @@ const QUERY_FAILURE = 'role/QUERY_FAILURE';
 export function deleteItem(params) {
   return {
     types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('role/delete', params)
+    promise: (client) => client.post('api-roleService.delete', params)
   }
 }
 
@@ -34,7 +34,7 @@ export function deleteItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('api-administrator.list', params)
+    promise: (client) => client.post('api-roleService.roleList', params)
   }
 }
 

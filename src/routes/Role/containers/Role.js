@@ -23,10 +23,9 @@ class Role extends Component {
      * (删除角色)
      * @params id
      */
-    _delRole(ids){
+    _delRole(id){
         const {deleteItem} = this.props;
-        console.log(ids);
-        deleteItem({adminIds: ids});
+        deleteItem({roleId: id});
     }
     
     componentDidMount() {
@@ -75,14 +74,7 @@ class Role extends Component {
       getQuickOptions(){
           const contex = this;
           return {
-              /**
-               * (新增角色)
-               * 
-               */
-              doUp() {
-                  console.log('新增角色');
-              }
-             
+                           
           }
       }
     
@@ -111,7 +103,7 @@ class Role extends Component {
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
             del: this._delRole.bind(this),                   //删除账户             
-            rowSelection : this.handleRowSelection()    //需要checkbox时填写
+            //rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
         
@@ -135,9 +127,7 @@ Role.propTypes = {
 
 const mapActionCreators = {
     queryList,
-    deleteItem,
-    modifyItem,
-    addItem
+    deleteItem
 }
 
 
