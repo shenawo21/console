@@ -152,8 +152,14 @@ class Docs extends Component {
                         label: "Checkbox：",
                         name: "checkbox",
                         required: true,
-                        rules: [{ type: 'boolean', required: true, message: 'I do!' }],
+                        rules: [{required: false}],
+                        //rules: [{ type: 'boolean', required: true, message: 'I do!' }],
                         checkbox: {
+                            checkValue:[
+                                { label: '苹果', value: 'Apple' },
+                                { label: '梨', value: 'Pear' },
+                                { label: '橘', value: 'Orange' },
+                            ]
                             //disabled : false,
                         }
                     }, { // 目前不支持校验

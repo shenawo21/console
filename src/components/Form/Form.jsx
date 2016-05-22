@@ -4,6 +4,7 @@ import { Select, Input, Radio, Button, DatePicker, Checkbox, InputNumber, Icon, 
 
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
+const CheckboxGroup = Checkbox.Group;
 const createForm = Form.create;
 const FormItem = Form.Item;
 import formless from './form.less';
@@ -197,13 +198,24 @@ class Forms extends Component {
     }
 
     //   复选框
+    // if (item.checkbox) {
+    //     let {className, title = ''} = item.checkbox;
+    //     let boxClassName = className || "ant-checkbox-inline"
+    //     return <label className={boxClassName} htmlFor={`fm-${name}`}>
+    //         <Checkbox  {...fieldProps}  {...item.checkbox} /> {title}
+    //     </label>
+    // }
+    
     if (item.checkbox) {
-        let {className, title = ''} = item.checkbox;
-        let boxClassName = className || "ant-checkbox-inline"
-        return <label className={boxClassName} htmlFor={`fm-${name}`}>
-            <Checkbox  {...fieldProps}  {...item.checkbox} /> {title}
-        </label>
+        let {checkValue, className, title = ''} = item.checkbox;
+        let boxClassName = className || "ant-checkbox-inline";
+        
+        return <CheckboxGroup options={checkValue} {...fieldProps} {...item.checkbox} >
+            
+        </CheckboxGroup>
     }
+    
+    
     //数值文本框
     if (item.inputNumber) {
         return <InputNumber min={1} max={10} {...fieldProps} {...item.inputNumber} />
