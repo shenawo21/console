@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Link} from 'react-router';
-import { Button, Row, Col, Input, InputNumber, message, Checkbox} from 'hen';
+import { Button, Input, message} from 'hen';
 
 import Form from 'components/Form';
 
@@ -17,13 +17,8 @@ class Setting extends Component {
      * @returns (description)
      */
     _getFormItems() {
-        const {upList} = this.state;
-        let config = {}, context = this;
-        let upConfig = {
-            listType: 'picture',
-            showUploadList: true,
-            onlyFile: true
-        };
+        const config = {}, context = this;
+        const {item} = context.props;
         config.panels = [
             {
                 className: 'noborder',
@@ -43,7 +38,7 @@ class Setting extends Component {
                     required: true,
                     hasFeedback: true,
                     rules: [
-                        { required: true, min: 4, message: '至少为4个字符' }
+                        { required: true, min: 3, message: '至少为3个字符' }
                     ],
                     input: {
                         type: "password",
@@ -55,7 +50,7 @@ class Setting extends Component {
                     required: true,
                     hasFeedback: true,
                     rules: [
-                        { required: true, min: 4, message: '至少为4个字符' }
+                        { required: true, min: 3, message: '至少为3个字符' }
                     ],
                     input: {
                         type: "password",
@@ -70,11 +65,15 @@ class Setting extends Component {
             newPassword: null
         };
 
+        if(item) {
+            config.initValue = item;
+        }
+
         return config;
     }
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, item, ...other} = this.props;
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit} 

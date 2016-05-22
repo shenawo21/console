@@ -24,7 +24,7 @@ const MODIFY_FAILURE = 'role/MODIFY_FAILURE';
 export function view(params) {
   return {
     types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/role/getRole', params)
+    promise: (client) => client.post('role/getRole', params)
   }
 }
 
@@ -38,7 +38,7 @@ export function view(params) {
 export function modifyItem(params) {
   return {
     types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/role/update', params)
+    promise: (client) => client.post('role/update', params)
   }
 }
 
@@ -52,7 +52,7 @@ export function modifyItem(params) {
 export function addItem(params) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/role/add', params)
+    promise: (client) => client.post('role/add', params)
   }
 }
 

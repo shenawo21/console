@@ -23,7 +23,7 @@ const QUERY_FAILURE = 'accounts/QUERY_FAILURE';
 export function deleteItem(params) {
   return {
     types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-administrator.deleteAdmin', params)
+    promise: (client) => client.post('api-administrator.deleteAdmin', params)
   }
 }
 
@@ -37,7 +37,7 @@ export function deleteItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/suneee-cloud/api-administrator.list', params)
+    promise: (client) => client.post('api-administrator.list', params)
   }
 }
 

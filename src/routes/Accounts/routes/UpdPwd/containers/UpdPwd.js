@@ -8,21 +8,26 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import SettingView from '../components/UpdPwdView'
 import Panel from 'components/Panel'
-import {modifyItem} from '../modules/UpdPwdReducer'
+import {modifyItem, view} from '../modules/UpdPwdReducer'
 
 import {message} from 'hen';
 
-class Edit extends Component {
+class Setting extends Component {
     
     constructor(props) {
         super(props);
         
         this.getFormOptions = this.getFormOptions.bind(this);
         
-        this.state = {count: props.initialCount};  //定义初始状态
+        this.state = {
+            params: {},
+            item: {}
+            
+        };  //定义初始状态
     }
     componentDidMount() {
-        
+        const {view} = this.props;
+        //view({});
     }
     
     /**
@@ -40,12 +45,12 @@ class Edit extends Component {
        */
       
         handleSubmit(value) {
-            const {addItem} = context.props;
-            console.log(value);
+            const {modifyItem, params} = context.props;
+
             context.setState({
                 params: value
             })
-            addItem({...value});
+            modifyItem({...value});
           },
           
           /**
@@ -63,7 +68,7 @@ class Edit extends Component {
     
     
     render() {
-        const {params} = this.state;
+        const {params, item} = this.state;
         const {loading, result} = this.props;
         const formOptions = {
             loading,
@@ -71,20 +76,28 @@ class Edit extends Component {
             'formOptions': this.getFormOptions()
         }
         
-        return <Panel title="修改密码"><SettingView {...formOptions} /></Panel> 
+        return <Panel title="修改密码"><SettingView item={item} {...formOptions} /></Panel> 
     }
 }
 
 //数据限制类型
 Setting.propTypes = {
-    
+    view: React.PropTypes.func,
+    modifyItem: React.PropTypes.func,
+    loading: React.PropTypes.bool,
+    result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
-    
+    view,
+    modifyItem
 }
 
 const mapStateToProps = (state) => {
+    
+    const {result, loading} = state.edit;
+    
+    return {'result': result.data, loading};
 
 }
 export default connect(mapStateToProps, mapActionCreators)(Setting)

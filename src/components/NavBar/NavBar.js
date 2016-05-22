@@ -26,7 +26,7 @@ export default () => {
               <a href="javascript:void(0)" role="menuitem"><i className="icon wb-payment" aria-hidden="true" /> Billing</a>
             </li>
             <li role="presentation">
-              <a href="javascript:void(0)" role="menuitem"><i className="icon wb-settings" aria-hidden="true" /> Settings</a>
+              <a href="#/accounts/updpwd" role="menuitem"><i className="icon wb-settings" aria-hidden="true" /> Settings</a>
             </li>
             <li className="divider" role="presentation" />
             <li role="presentation">

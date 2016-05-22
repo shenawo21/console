@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
+
 import {Link} from 'react-router';
+
+import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
 import {UploadImage} from 'components/FileLoader'
 import Form from 'components/Form';
 
@@ -168,7 +170,7 @@ class Edit extends Component {
     }
 
     render() {
-        const {formOptions, item, btnOption, ...other} = this.props;
+        const {formOptions, item, ...other} = this.props;
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}

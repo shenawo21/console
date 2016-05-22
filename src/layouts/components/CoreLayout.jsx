@@ -77,7 +77,7 @@ function CoreLayout(props) {
           </Menu>
 
           <div className={classes['site-menubar-footer'] + ' site-menubar-footer'}>
-            <a href="javascript: void(0);" className="fold-show" data-placement="top" data-toggle="tooltip" data-original-title="Settings">
+            <a href="#/accounts/updpwd" className="fold-show" data-placement="top" data-toggle="tooltip" data-original-title="Settings">
               <span className="icon wb-settings" aria-hidden="true" />
             </a>
             <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">

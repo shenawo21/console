@@ -86,7 +86,6 @@ class Edit extends Component {
 
     render() {
         const {params, item} = this.state;
-      console.log(item);
         const {loading, result} = this.props;
         const formOptions = {
             loading,
