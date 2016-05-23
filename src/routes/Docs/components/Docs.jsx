@@ -24,7 +24,7 @@ class Docs extends Component {
     }
     /**
      * (form表单生成配置)
-     * 
+     *
      * @returns (description)
      */
     _getFormItems() {
