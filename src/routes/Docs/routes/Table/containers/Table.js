@@ -48,7 +48,7 @@ class Table extends Component {
              */
             handleReset() {
             },
-            loading    //若表单提交需要状态
+            //loading    //若表单提交需要状态
         }
     }
     

@@ -113,7 +113,7 @@ class Forms extends Component {
      */
     renderButton() {
         let {horizontal, buttonOption = {}} = this.props, context = this;
-        const {col = true, ok, cal, okIcon, calIcon, span, cancel = true, loading ＝ false, buttons = []} = buttonOption;
+        let {col = true, ok, cal, okIcon, calIcon, span, cancel = true, loading = false, buttons = []} = buttonOption;
         let cols = col ? (horizontal ? { span: 22, offset: 2 } : { span: 8, offset: 5 }) : null;
         let colSpan = horizontal ? "24" : span || '8';
         
