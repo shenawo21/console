@@ -52,7 +52,7 @@ export function modifyItem(params) {
 export function addItem(params) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('role/add', params)
+    promise: (client) => client.post('role/addRole', params)
   }
 }
 

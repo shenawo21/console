@@ -80,17 +80,17 @@ class Accounts extends Component {
         }, {
             key: '6',
             title: '注册时间',
-            dataIndex: 'rgisterTime'
+            dataIndex: 'registerTime'
         }, {
             key: '7',
             title: '创建人',
-            dataIndex: 'create_person'
+            dataIndex: 'createPerson'
         },{
             key: '8',
             title: '操作',
             dataIndex: 'adminId',
             render(id,row){
-                return <span><Link to={`/accounts/edit/${id}`}>编辑</Link> <Link to={`/accounts/edit/${id}`}>查看</Link> 
+                return <span><Link to={`/accounts/edit/${id}`}>编辑</Link> 
                     <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedAccount.bind(context,id)}>
                         <Button type="link">删除</Button>
                     </Popconfirm>

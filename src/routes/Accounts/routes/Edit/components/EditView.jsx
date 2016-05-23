@@ -107,7 +107,7 @@ class Edit extends Component {
                 }, {
                     label: "头像：",
                     name: "photo",
-                    required : false,
+                    required : false,                    
                     custom(getCustomFieldProps) {
                         upConfig.fileList = upList;
                         return <UploadImage title="选择头像" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
