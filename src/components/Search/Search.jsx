@@ -8,6 +8,7 @@ import './Search.less';
 export default React.createClass({
 
     render() {
+        const {loading} = this.props;
         const buttonOption = {
             col: false,
             span : '6',
@@ -15,7 +16,8 @@ export default React.createClass({
                 {
                     name : '搜索',
                     icon : 'search',
-                    type : 'primary'
+                    type : 'primary',
+                    loading : loading
                 },
                 {
                     name : '重置',

@@ -112,9 +112,9 @@ export function normalizeCategory(input) {
     let output = [];
     input && input.forEach(item => {
         let a = {...item, children:null}
-output.push(a)
+        output.push(a)
     });
-return output
+    return output
 }
 
 const numberReg = /^\d*(\,|\.)?\d+$/;
