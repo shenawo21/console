@@ -4,6 +4,7 @@ import CoreLayoutView from '../components/CoreLayout';
 import {logout} from '../../store/auth';
 import {Modal} from 'hen';
 import Cookie from 'js-cookie';
+import store from 'store2';
 
 class CoreLayout extends Component {
     
@@ -33,6 +34,7 @@ class CoreLayout extends Component {
     
     goToLogin(){
         Cookie.remove('sessionId');
+        store.clearAll();
         let pathname = '/login';
         this.context.router.replace(pathname);
     }
