@@ -12,14 +12,15 @@ class Edit extends Component {
   constructor() {
     super();
     this.state = {
-      upList: ""
+      logoList: [],
+      licenseList: []
     }
   }
 
   _getFormItems() {
     let config = {}, context = this;
     const {item} = context.props;
-    const {upList} =  this.state;
+    const {logoList,licenseList} =  this.state;
     let upConfig = {
       listType: 'picture',
       showUploadList: true,
@@ -113,10 +114,10 @@ class Edit extends Component {
           name: "businessLicense",
           required: true,
           custom(getCustomFieldProps) {
-            upConfig.fileList = upList;
+            upConfig.fileList = licenseList;
             return <UploadImage title="营业执照" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
                                 context.setState({
-                                    upList : files
+                                    licenseList : files
                                 })
                             }}} {...getCustomFieldProps('businessLicense')} />
           }
@@ -124,10 +125,10 @@ class Edit extends Component {
           label: "企业LOGO：",
           name: "logo",
           custom(getCustomFieldProps) {
-            upConfig.fileList = upList;
+            upConfig.fileList = logoList;
             return <UploadImage title="企业LOGO" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
                                 context.setState({
-                                    upList : files
+                                    logoList : files
                                 })
                             }}} {...getCustomFieldProps('logo')} />
           }
