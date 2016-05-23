@@ -88,7 +88,7 @@ class Role extends Component {
         },{
             key: '8',
             title: '操作',
-            dataIndex: 'adminId',
+            dataIndex: 'roleId',
             render(id,row){
                 return <span><Link to={`/role/edit/${id}`}>编辑</Link> 
                     <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedRole.bind(context,id)}>
