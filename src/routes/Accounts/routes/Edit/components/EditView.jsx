@@ -37,7 +37,7 @@ class Edit extends Component {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
-        };
+        };        
 
         const review = {
             title: '备注',
@@ -58,10 +58,8 @@ class Edit extends Component {
             }]
         }
 
-        config.panels = [
-            {
-                className: 'noborder',
-                formItems: [{
+        config.formItems = [
+                {
                     label: "帐号：",
                     name: "account",
                     required: true,
@@ -119,6 +117,7 @@ class Edit extends Component {
                 }, {
                     label: "性别：",
                     name: "sex",
+                    rules: [{ required: true, message: '不能为空' }],
                     select: {
                         placeholder: "请选择性别",
                         optionValue: SEX
@@ -126,7 +125,7 @@ class Edit extends Component {
                 }, {
                     label: "是否可用：",
                     name: "enabled",
-                    //rules: [{ required: false, message: '不能为空' }],
+                    rules: [{ required: true, message: '不能为空' }],
                     select: {
                         placeholder: "请选择是否可用",
                         optionValue: STATUS
@@ -151,7 +150,6 @@ class Edit extends Component {
                         placeholder: "请输入手机号码",
                     }
                 }]
-            }];
         //item && item.enterpriseCode && item.reviewStatue=='no'? config.panels.push(review) : '';
         config.initValue = {
             account: null,
@@ -164,10 +162,12 @@ class Edit extends Component {
             email: null,
             mobile: null
         };        
+             
         if (item) {
-            config.panels.splice(0, 1);
+            config.formItems.splice(2, 1);
             config.initValue = item;            
         }
+        
         return config;
     }
 

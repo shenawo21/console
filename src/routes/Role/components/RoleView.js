@@ -66,14 +66,6 @@ class Role extends Component {
                 return status ? <span>可用</span> : <span>不可用</span>
             }
         }, {
-            key: '3',
-            title: '邮箱',
-            dataIndex: 'email'
-        }, {
-            key: '4',
-            title: '手机号码',
-            dataIndex: 'mobile'
-        }, {
             key: '5',
             title: '注册时间',
             dataIndex: 'createTime'
