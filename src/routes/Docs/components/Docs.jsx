@@ -184,14 +184,15 @@ class Docs extends Component {
                         label: "CheckboxGroup",
                         name: "checkboxGroup",
                         required: true,
+                        labelCol: { span: 3 },
+                        wrapperCol: { span: 8 },
                         rules: [{required: false, type: 'array'}],
                         checkboxGroup: {
                             options:[
                                 { label: '苹果', value: 'Apple' },
                                 { label: '梨', value: 'Pear' },
-                                { label: '橘', value: 'Orange' },
+                                { label: '橘', value: 'Orange', disabled : true },
                             ]
-                            //disabled : false,
                         }
                     },{
                         label: "Checkbox",

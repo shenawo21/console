@@ -207,7 +207,7 @@ class Forms extends Component {
     
     //  checkboxGroup 复选框
     if (item.checkboxGroup) {
-        <CheckboxGroup {...fieldProps} {...item.checkbox}  />
+        return <CheckboxGroup {...fieldProps} {...item.checkboxGroup}  />
     }
     
     //数值文本框
