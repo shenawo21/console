@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 import LoginComponent from '../components/Login'
 import {login} from 'store/auth'
 import Cookie from 'js-cookie';
+import store from 'store2';
+
+
+const sessionId = 'sessionId';
 
 export class Login extends Component {
   constructor(props) {
@@ -33,6 +37,8 @@ export class Login extends Component {
       if (!!errors) {
         return;
       }
+      store.clearAll();
+      Cookie.remove(sessionId);
       this.props.login(values);
     });
   }
@@ -82,7 +88,7 @@ const mapStateToProps = (state) => {
   const {auth} = state;
   const {user, loading, isloaded} = auth;
   if (user && user.sessionId) {
-      Cookie.set('sessionId', user.sessionId);
+      Cookie.set(sessionId, user.sessionId);
   }
   return {
     user,
