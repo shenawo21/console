@@ -114,7 +114,7 @@ const mapActionCreators = {
 const mapStateToProps = (state) => {
   const {result, loading} = state.edit;
 
-  return {'result': result.data, loading};
+  return {'result': result, loading};
 
 }
 export default connect(mapStateToProps, mapActionCreators)(Edit)
