@@ -155,6 +155,7 @@ class Edit extends Component {
         //item && item.enterpriseCode && item.reviewStatue=='no'? config.panels.push(review) : '';
         config.initValue = {
             account: null,
+            enterpriseCode: null,
             password: null,
             name: null,
             photo: null,
@@ -162,10 +163,11 @@ class Edit extends Component {
             enabled: true,
             email: null,
             mobile: null
-        };
-    if (item) {
-      config.initValue = item;      
-    }
+        };        
+        if (item) {
+            config.panels.splice(0, 1);
+            config.initValue = item;            
+        }
         return config;
     }
 

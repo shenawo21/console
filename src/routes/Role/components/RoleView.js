@@ -56,37 +56,29 @@ class Role extends Component {
             dataIndex: 'enterpriseCode'
         }, {
             key: '1',
-            title: '帐号',
-            dataIndex: 'account'
-        }, {
-            key: '2',
             title: '用户姓名',
             dataIndex: 'name'
         }, {
-            key: '3',
+            key: '2',
             title: '是否可用',
             dataIndex: 'enabled',
             render(status){
                 return status ? <span>可用</span> : <span>不可用</span>
             }
         }, {
-            key: '4',
+            key: '3',
             title: '邮箱',
             dataIndex: 'email'
         }, {
-            key: '5',
+            key: '4',
             title: '手机号码',
             dataIndex: 'mobile'
         }, {
-            key: '6',
+            key: '5',
             title: '注册时间',
-            dataIndex: 'rgisterTime'
-        }, {
-            key: '7',
-            title: '创建人',
-            dataIndex: 'create_person'
+            dataIndex: 'createTime'
         },{
-            key: '8',
+            key: '6',
             title: '操作',
             dataIndex: 'roleId',
             render(id,row){

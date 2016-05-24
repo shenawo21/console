@@ -15,7 +15,7 @@ const TIMEOUT_SESSION = 'auth/TIMEOUT_SESSION';
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAILURE],
-    promise: (client) => client.post('checkLogin')
+    promise: (client) => client.post('api-userLogin.checkLogin')
   }
 }
 
