@@ -18,7 +18,8 @@ class Setting extends Component {
      */
     _getFormItems() {
         const config = {}, context = this;
-        const {item} = context.props;
+        const {item, user} = context.props;
+        
         config.panels = [
             {
                 className: 'noborder',
@@ -26,6 +27,7 @@ class Setting extends Component {
                     label: "帐号：",
                     name: "account",
                     required: true,
+                    disabled: true,
                     hasFeedback: true,
                     rules: [{ required: true, max: 64, message: '最多为64个字符' }],
                     input: {
@@ -64,10 +66,8 @@ class Setting extends Component {
             password: null,
             newPassword: null
         };
-
-        if(item) {
-            config.initValue = item;
-        }
+        config.initValue = item;
+        config.initValue.account = user;
 
         return config;
     }

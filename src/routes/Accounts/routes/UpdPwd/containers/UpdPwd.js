@@ -8,7 +8,8 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import SettingView from '../components/UpdPwdView'
 import Panel from 'components/Panel'
-import {modifyItem, view} from '../modules/UpdPwdReducer'
+import {modifyItem} from '../modules/UpdPwdReducer'
+import store from 'store2';
 
 import {message} from 'hen';
 
@@ -21,13 +22,17 @@ class Setting extends Component {
         
         this.state = {
             params: {},
-            item: {}
+            item: {},
+            userName: null
             
         };  //定义初始状态
     }
     componentDidMount() {
-        const {view} = this.props;
-        //view({});
+       //store.get('USER').account
+       const context = this;
+       context.setState({
+           userName: store.get('USER').account
+       });        
     }
     
     /**
@@ -68,7 +73,7 @@ class Setting extends Component {
     
     
     render() {
-        const {params, item} = this.state;
+        const {params, item, userName} = this.state;
         const {loading, result} = this.props;
         const formOptions = {
             loading,
@@ -76,20 +81,18 @@ class Setting extends Component {
             'formOptions': this.getFormOptions()
         }
         
-        return <Panel title="修改密码"><SettingView item={item} {...formOptions} /></Panel> 
+        return <Panel title="修改密码"><SettingView item={item} user={userName} {...formOptions} /></Panel> 
     }
 }
 
 //数据限制类型
 Setting.propTypes = {
-    view: React.PropTypes.func,
     modifyItem: React.PropTypes.func,
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
-    view,
     modifyItem
 }
 
