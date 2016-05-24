@@ -22,7 +22,8 @@ export function load() {
 export function login(params) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
-    promise: (client) => client.post('api-userLogin.login', params)
+    promise: (client) => client.post('api-userLogin.login', params),
+    sKey : 'USER'
   }
 }
 
@@ -69,7 +70,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.result.data,
+        user: action.result,
         isloaded: true,
         logoutResult : false
       };

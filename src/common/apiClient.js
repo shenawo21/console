@@ -45,7 +45,7 @@ instance.interceptors.response.use(function (res) {
         }
     }
   }
-  return res
+  return res ? res.data : res;
 }, function (error) {
   console.error('XHR RESPONSE ERROR :', error);
   return error

@@ -134,7 +134,7 @@ const mapActionCreators = {
 const mapStateToProps = (state) => {
     const {result, loading} = state.role;
     
-    const {items = [], totalItems = 0} = result.data || {};
+    const {items = [], totalItems = 0} = result || {};
     return { items, totalItems, loading };
     
 }

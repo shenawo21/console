@@ -28,11 +28,11 @@ export default function clientMiddleware(client) {
             actionPromise.then(
                 (result) => {
                     console.log(result)
-                    if (result.data && result.data.status === 1) {
+                    if (result && result.status === 1) {
                          sKey && result.data && store.set(sKey, result.data);
                          return next({...rest, result : result.data, type: SUCCESS, loading:false})
                     }
-                    if(result.data && result.data.code === "TIMEOUT_SESSION"){
+                    if(result && result.code === "TIMEOUT_SESSION"){
                         return next({...rest, result, type: 'auth/TIMEOUT_SESSION', loading:false})
                     }
                     return next({...rest, result, type: FAILURE, loading:false})
