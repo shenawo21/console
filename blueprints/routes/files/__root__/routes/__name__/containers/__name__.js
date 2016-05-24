@@ -144,10 +144,10 @@ const mapActionCreators = {
 const mapStateToProps = (state) => {
     const {result, loading} = state.<%= camelEntityName %>;
     <% if (type === 'table') { %>
-    const {items = [], totalItems = 0} = result.data || {};
+    const {items = [], totalItems = 0} = result || {};
     return { items, totalItems, loading };
     <% }else{ %>
-    return { 'result' : result.data, loading };
+    return { 'result' : result, loading };
     <% } %>
 }
 
