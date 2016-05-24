@@ -38,7 +38,7 @@ class Docs extends Component {
         console.log('======props=====',this.props);
         console.log('======state=====',this.state.count);
 
-        return <Panel title="Form 表单"><Link to='/docs/table'>table</Link><DocsComponent handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
+        return <Panel title="Form 表单"><Link to='/docs/table'>table</Link><DocsView handleSubmit={this.handleSubmit.bind(this)} /></Panel> 
     }
 }
 
