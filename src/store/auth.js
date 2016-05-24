@@ -69,7 +69,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.result.data,
+        user: action.result,
         isloaded: true,
         logoutResult : false
       };

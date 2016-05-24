@@ -35,21 +35,18 @@ instance.interceptors.request.use(function (config) {
 });
 
 instance.interceptors.response.use(function (res) {
-  if (res && res.data) {
-    console.log(res)
-    if(!res.config.hasMsg){
-        if (res.data.status !== 1 && res.data.code !== 'TIMEOUT_SESSION') {
-          message.error(res.data.message || '获取数据失败');
-        } else {
-          message.success(res.data.message || '数据获取成功');
-        }
-    }
+  console.log(res)
+  if(!res.config.hasMsg){
+      if (res.data.status !== 1 && res.data.code !== 'TIMEOUT_SESSION') {
+        message.error(res.data.message || '获取数据失败');
+      } else {
+        message.success(res.data.message || '数据获取成功');
+      }
   }
-  return res
+  return res.data;
 }, function (error) {
   console.error('XHR RESPONSE ERROR :', error);
-  return error
-
+  return error.data
 })
 
 export default instance
