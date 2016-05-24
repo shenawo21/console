@@ -1,7 +1,5 @@
 import React from 'react';
-import Modal from 'hen';
-
-
+import store from 'store2';
 
 export default function clientMiddleware(client) {
     return ({dispatch, getState}) => {
@@ -10,22 +8,31 @@ export default function clientMiddleware(client) {
               return action(dispatch, getState);
             }
 
-            const { promise, types, ...rest } = action; // eslint-disable-line no-redeclare
+            const { promise, types, sKey, ...rest } = action; // eslint-disable-line no-redeclare
+            
             if (!promise) {
               return next({...action,loading :false});
             }
 
             const [REQUEST, SUCCESS, FAILURE] = types;
+            //数据缓存本地
+            if(sKey){
+                let storeResult = store.get(sKey);
+                if(storeResult){
+                    return next({result : storeResult, type: SUCCESS, loading:false});
+                }
+            }
             next({...rest, type: REQUEST, loading:true});
 
             const actionPromise = promise(client);
             actionPromise.then(
                 (result) => {
                     console.log(result)
-                    if (result.data && result.data.status === 1) {
+                    if (result && result.status === 1) {
+                         sKey && result.data && store.set(sKey, result.data);
                          return next({...rest, result : result.data, type: SUCCESS, loading:false})
                     }
-                    if(result.data && result.data.code === "TIMEOUT_SESSION"){
+                    if(result && result.code === "TIMEOUT_SESSION"){
                         return next({...rest, result, type: 'auth/TIMEOUT_SESSION', loading:false})
                     }
                     return next({...rest, result, type: FAILURE, loading:false})

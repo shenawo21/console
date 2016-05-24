@@ -54,8 +54,6 @@ export const createRoutes = (store) => {
       require.ensure([], (require) => {
         // Provide store for async reducers and middleware
         let asyncComponents = [
-            require('./Repo').default(store),
-            require('./ManageApp').default(store),
             require('./ManageApp').default(store),
         ];
         if(__DEV__){

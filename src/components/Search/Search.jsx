@@ -8,11 +8,22 @@ import './Search.less';
 export default React.createClass({
 
     render() {
+        const {loading} = this.props;
         const buttonOption = {
             col: false,
-            ok: '搜索',
-            searchSpan: '4',
-            okIcon: 'search'
+            span : '6',
+            buttons: [
+                {
+                    name : '搜索',
+                    icon : 'search',
+                    type : 'primary',
+                    loading : loading
+                },
+                {
+                    name : '重置',
+                    key : 'reset'
+                },
+            ]
         };
         return <Form submitAfterReset prefixCls="search-box" ref="form" buttonOption={buttonOption} inline  {...this.props} resetNumber={{ pageNumber: 1 }} />
     }
