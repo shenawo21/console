@@ -156,7 +156,7 @@ class Forms extends Component {
             let option = {
                 id:`fm-${name}`,
                 rules: item.rules || [],
-                initialValue: initValue[name],
+                initialValue: item.select && typeof initValue[name] ==='boolean' ? initValue[name] + '' : initValue[name],
                 valuePropName: item.checkbox ? 'checked': 'value',
 			    ...options
             }
