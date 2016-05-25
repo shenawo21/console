@@ -36,7 +36,7 @@ class Edit extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item} = context.props;
+        const {item, enterList} = context.props;
         const {upList} = this.state;
         let upConfig = {
             listType: 'picture',
@@ -44,8 +44,9 @@ class Edit extends Component {
             onlyFile: true
         };        
 
-        config.formItems = [
-            {
+        console.log(enterList, 'tt');
+
+        config.formItems = [{
                 label: "帐号：",
                 name: "account",
                 required: true,
@@ -62,7 +63,7 @@ class Edit extends Component {
                 rules: [{ required: true, message: '不能为空' }],
                 select: {
                     placeholder: "请选择企业",
-                    optionValue: ENTERPRISECODE
+                    optionValue: enterList
                 }
             }, {
                 label: "密码：",
@@ -133,7 +134,7 @@ class Edit extends Component {
                     type: "text",
                     placeholder: "请输入手机号码",
                 }
-            }];
+        }];
         
         config.initValue = {
             account: null,
@@ -149,7 +150,7 @@ class Edit extends Component {
              
         if (item) {           
             config.initValue = item;
-            config.formItems.splice(2, 1);       
+            //config.formItems.splice(2, 1);       
         }
         
         return config;

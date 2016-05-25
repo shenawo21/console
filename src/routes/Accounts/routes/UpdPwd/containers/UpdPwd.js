@@ -51,11 +51,14 @@ class Setting extends Component {
       
         handleSubmit(value) {
             const {modifyItem, params} = context.props;
-
+            const {adminId} = store.get('USER')
             context.setState({
                 params: value
             })
-            modifyItem({...value});
+            modifyItem({
+                adminId: adminId,
+                ...value
+            });
           },
           
           /**
