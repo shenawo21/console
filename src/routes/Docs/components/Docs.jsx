@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Link} from 'react-router';
-import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
+import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox, Icon} from 'hen';
 import {UploadImage} from 'components/FileLoader'
 
 import Form from 'components/Form';
@@ -13,6 +13,30 @@ const PAYMENTTYPE = [
     { value: "KUANQIAN", title: "快钱支付" },
     { value: "WEIXIN", title: "微信支付" }
 ];
+const address = [{
+  value: 'zhejiang',
+  label: '浙江',
+  children: [{
+    value: 'hangzhou',
+    label: '杭州',
+    children: [{
+      value: 'xihu',
+      label: '西湖',
+    }],
+  }],
+}, {
+  value: 'jiangsu',
+  label: '江苏',
+  children: [{
+    value: 'nanjing',
+    label: '南京',
+    children: [{
+      value: 'zhonghuamen',
+      label: '中华门',
+    }],
+  }],
+}];
+
 
 class Docs extends Component {
 
@@ -95,14 +119,21 @@ class Docs extends Component {
                     label: "单选框：",
                     name: "curRadio",
                     required: true,
-                    rules: [{ required: false }],
+                    rules: [{required: true},
+                        {
+                        validator(rule, value, callback){
+                            console.log(rule, value)
+                            callback();
+                        }
+                    }],
+                    infoLabel : <span><Icon type="info-circle-o" /> 暂不支持其它选项</span>,
                     radio: {
                         radioValue: [
                             { value: "0", title: 'A' },
                             { value: "1", title: 'B' },
                             { value: "2", title: 'C' },
                             { value: "3", title: 'D' }
-                        ]
+                        ],
                     }
                 }, {
                         label: "选择日期：",
@@ -129,7 +160,8 @@ class Docs extends Component {
                             {
                                 validator(rule, value, callback) {
                                     if (value < 2 || value > 5) {
-                                        callback(new Error('请输入2~5之间值!'));
+                                        callback()
+                                        //callback(new Error('请输入2~5之间值!'));
                                     } else {
                                         callback();
                                     }
@@ -149,20 +181,51 @@ class Docs extends Component {
                             placeholder: "随便写"
                         }
                     }, {
-                        label: "Checkbox：",
-                        name: "checkbox",
+                        label: "CheckboxGroup",
+                        name: "checkboxGroup",
                         required: true,
+                        labelCol: { span: 3 },
+                        wrapperCol: { span: 8 },
                         rules: [{required: false, type: 'array'}],
-                        //rules: [{ type: 'boolean', required: true, message: 'I do!' }],
-                        checkbox: {
-                            checkValue:[
+                        checkboxGroup: {
+                            options:[
                                 { label: '苹果', value: 'Apple' },
                                 { label: '梨', value: 'Pear' },
-                                { label: '橘', value: 'Orange' },
+                                { label: '橘', value: 'Orange', disabled : true },
                             ]
-                            //disabled : false,
                         }
-                    }, { // 目前不支持校验
+                    },{
+                        label: "Checkbox",
+                        name: "checkbox",
+                        required: true,
+                        rules: [{ type: 'boolean', required: true, message: '请选择方式' }],
+                        checkbox: {
+                            title : '打豆豆',
+                            //disabled : true,
+                        }
+                    }, 
+                    {
+                        label: "CheckGroup：",
+                        checkbox: {
+                            //title : '打豆豆',
+                            groups : [
+                                {title : '打豆豆', name : 'doudou'},
+                                {title : '不听话', name : 'tinghua', disabled : false}
+                            ]
+                        }
+                    },
+                    {
+                        label: "cascader",
+                        required : true,
+                        name : 'cascader',
+                        rules: [{ required: true, type: 'array', message : '请选择地址' }],
+                        cascader: {
+                            options : address,
+                            placeholder : "请选择地区",
+                            changeOnSelect : false
+                        }
+                    },
+                    { // 目前不支持校验
                         label: "选择多个日期：",
                         labelCol: { span: 2 },
                         wrapperCol: { span: 8 },
@@ -208,13 +271,17 @@ class Docs extends Component {
             textarea: null,
             paymentType: undefined,
             curRadio: null,
-            checkbox: false,
+            checkbox: null,
             time: null,
             inputName: 0,
             textbeginDate: null,
             textendDate: null,
             userName: 'test',
-            logo : null
+            doudou : true,
+            tinghua : null,
+            cascader : null,
+            logo : null,
+            checkboxGroup : []
         };
 
         return config;

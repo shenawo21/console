@@ -51,8 +51,8 @@ class Edit extends Component {
                         required: true,
                         rules: [{required: false, type: 'array'}],
                         //rules: [{ type: 'boolean', required: true, message: 'I do!' }],
-                        checkbox: {
-                            checkValue:[
+                        checkboxGroup: {
+                            options:[
                                 { label: '苹果', value: 'Apple' },
                                 { label: '梨', value: 'Pear' },
                                 { label: '橘', value: 'Orange' },

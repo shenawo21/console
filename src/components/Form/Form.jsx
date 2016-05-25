@@ -146,26 +146,25 @@ class Forms extends Component {
         const { getFieldProps } = form;
         const {initValue} = items;
 
-        let {name, disabled} = item;
+        let {name, disabled, fieldOptions} = item;
         /**
          * 获取field相关的信息
          * @param  {any} name antd form 会根据这个name生成相关的信息
          * @param  {any} options 选项具体参考网站
          */
         let getCustomFieldProps = (name, options) => {
-
-            return {...getFieldProps(name, {
+            let option = {
                 id:`fm-${name}`,
                 rules: item.rules || [],
                 initialValue: initValue[name],
                 valuePropName: item.checkbox ? 'checked': 'value',
-			  ...options
-            }), name, disabled : disabled || allDisabled
+			    ...options
+            }
+            return {...getFieldProps(name, option), name, disabled : disabled || allDisabled }
         }
-    }
 
-    let fieldProps = name ? getCustomFieldProps(name) : {};
-
+    let fieldProps = name ? getCustomFieldProps(name, fieldOptions) : {};
+    
     //input输入框
     if (item.input) {
         return <Input {...fieldProps} {...item.input} />
@@ -198,20 +197,18 @@ class Forms extends Component {
         </RadioGroup>
     }
 
-    //   复选框
-    // if (item.checkbox) {
-    //     let {className, title = ''} = item.checkbox;
-    //     let boxClassName = className || "ant-checkbox-inline"
-    //     return <label className={boxClassName} htmlFor={`fm-${name}`}>
-    //         <Checkbox  {...fieldProps}  {...item.checkbox} /> {title}
-    //     </label>
-    // }
-    
     if (item.checkbox) {
-        let {checkValue} = item.checkbox;        
-        return <CheckboxGroup options={checkValue} {...fieldProps} {...item.checkbox} ></CheckboxGroup>
+        let {groups = [], title = ''} = item.checkbox;
+        return groups.length ? groups.map((v, i) => {
+                let {name, title, ...other} = v;
+                return <Checkbox key={`box-${i}`} {...getCustomFieldProps(name)} {...other} > {title}</Checkbox>
+            }) : <Checkbox {...fieldProps} {...item.checkbox} > {title}</Checkbox>
     }
     
+    //  checkboxGroup 复选框
+    if (item.checkboxGroup) {
+        return <CheckboxGroup {...fieldProps} {...item.checkboxGroup}  />
+    }
     
     //数值文本框
     if (item.inputNumber) {
@@ -220,6 +217,10 @@ class Forms extends Component {
     //日期元素
     if (item.datepicker) {
         return <DatePicker  {...fieldProps} {...item.datepicker}/>
+    }
+    //级联选择
+    if(item.cascader){
+        return <Cascader expandTrigger="hover" {...fieldProps} {...item.cascader} />
     }
     //业务传入自定义元素
     return item.custom && item.custom(getCustomFieldProps, this);
@@ -243,7 +244,7 @@ class Forms extends Component {
 
         const setFormPanel = (formItems) => {
             return formItems.map((item, index) => {
-                let {name} = item;
+                let {name, infoLabel = ''} = item;
 
                 return <Col key={index} span={span6} {...item}>
                     <FormItem id={`fm-${item.name}`}
@@ -254,6 +255,7 @@ class Forms extends Component {
                         {
                             this.renderFormItem(item)
                         }
+                        {infoLabel}
                     </FormItem>
                 </Col>
             })
