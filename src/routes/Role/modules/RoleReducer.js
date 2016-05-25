@@ -1,5 +1,3 @@
-
-
 const DELETE = 'role/DELETE';
 const DELETE_SUCCESS = 'role/DELETE_SUCCESS';
 const DELETE_FAILURE = 'role/DELETE_FAILURE';
@@ -39,34 +37,33 @@ export function queryList(params) {
 }
 
 
-
-export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+export default function reducer(state = {result: {}}, action) {
+  state = {...state, loading: action.loading};
   switch (action.type) {
     case DELETE:
     case QUERY:
-        return {
-            ...state
-        }
-    
+      return {
+        ...state
+      }
+
     case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
+      return {
+        //...state,
+        result: action.result
+      }
     case DELETE_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
+      return {
+        ...state,
+        result: action.result
+      }
     case QUERY_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     default:
       return state
   }
