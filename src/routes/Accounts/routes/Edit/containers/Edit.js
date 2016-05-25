@@ -8,7 +8,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {view, addItem, modifyItem, getEnterList} from '../modules/EditReducer'
+import {view, addItem, modifyItem, checkEnCode, getEnterList} from '../modules/EditReducer'
 
 import {message} from 'hen';
 
@@ -22,37 +22,44 @@ class Edit extends Component {
         this.state = {
             params: {},
             item: {},
+            selState: null,
             enterList: []
         };  //定义初始状态
     }
     componentDidMount() {
         const {params, view, getEnterList} = this.props;
         const context = this;
-        getEnterList().then(function(response) {
-                const lists = response.data.data;
-                console.log(lists,'lists-----')
-                const loop = (lists) =>{
-                   return lists && lists.map(a => {
-                          return {
-                                value: a.enterpriseCode,
-                                title: a.name
-                           }
-                    })
+        
+        /**
+       * (获取企业列表并做筛选)
+       *
+       * @param value (description)
+       */
+        getEnterList().then(res => {
+            const lists = res.data.items;
+            var list = lists.map(a => {
+                return {
+                    value: a.enterpriseCode,
+                    title: a.name
                 }
-                let sel = loop(lists);
-				context.setState({
-                    enterList: sel
-                });      
+            })
+            context.setState({
+                enterList: list
             });
-
+        })
+        
         
         if(params.id){
             view({adminId: params.id})
         }
-                
+        
+        
+        
+        
     }
 
     componentWillReceiveProps(nextProps, preProps){
+        
         if(!nextProps.params.id){
             this.setState({
                 item: {}
@@ -62,7 +69,9 @@ class Edit extends Component {
                 item: nextProps.result
             })
         }
-    }
+    }    
+    
+   
 
     /**
    * handle submit
@@ -80,7 +89,7 @@ class Edit extends Component {
 
         handleSubmit(value) {
             const {addItem, modifyItem, params} = context.props;
-            console.log("value++" + value.adminId);
+
             context.setState({
                 params: value
             })
@@ -97,7 +106,24 @@ class Edit extends Component {
 
           handleReset(){
 
-          }
+          },
+           /**
+             * handle onchange
+             * @param  {any} formData
+             * @param  {any} e
+             */
+            
+            handleChange(value){                
+                const {checkEnCode} = context.props;                
+                checkEnCode({
+                    enterpriseCode: value
+                }).then(res => {
+                    context.setState({
+                        selState: res.data
+                    });
+                    
+                });
+            }
 
         }
     }
@@ -106,14 +132,14 @@ class Edit extends Component {
 
 
     render() {
-        const {params, item, enterList} = this.state;
+        const {params, item, enterList, selState} = this.state;
         const {loading, result} = this.props;
         const formOptions = {
             loading,
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><EditView item={item} enterList={enterList} {...formOptions} /></Panel>
+        return <Panel><EditView item={item} enterList={enterList} selState={selState} {...formOptions} /></Panel>
     }
 }
 
@@ -122,6 +148,8 @@ Edit.propTypes = {
     view: React.PropTypes.func,
     addItem: React.PropTypes.func,
     modifyItem: React.PropTypes.func,
+    checkEnCode: React.PropTypes.func,
+    getEnterList : React.PropTypes.func,
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
@@ -129,7 +157,9 @@ Edit.propTypes = {
 const mapActionCreators = {
     view,
     addItem,
-    modifyItem
+    modifyItem,
+    checkEnCode,
+    getEnterList
 }
 
 const mapStateToProps = (state) => {

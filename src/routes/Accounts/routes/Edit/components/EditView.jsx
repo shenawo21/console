@@ -15,11 +15,6 @@ const STATUS = [
     { value: true, title: "可用" }
 ];
 
-const ENTERPRISECODE = [
-    { value: "1", title: "企业1" },
-    { value: "2", title: "企业2" }
-]
-
 class Edit extends Component {
 
     constructor(){
@@ -36,16 +31,14 @@ class Edit extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item, enterList} = context.props;
+        const {item, enterList, formOptions, selState} = context.props;
         const {upList} = this.state;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
-        };        
-
-        console.log(enterList, 'tt');
-
+        };
+                
         config.formItems = [{
                 label: "帐号：",
                 name: "account",
@@ -60,9 +53,32 @@ class Edit extends Component {
                 label: "企业编码：",
                 name: "enterpriseCode",
                 hasFeedback: true,
-                rules: [{ required: true, message: '不能为空' }],
+                rules: [{ required: true, message: '不能为空' },{
+                    validator(rule, value, callback) {
+                        console.log(rule, 'tt');
+                        if(selState){
+                            callback([new Error('该企业已有管理员账号不能重复创建')]);
+                        }else{
+                            callback();
+                        }
+                        
+                        // callback([new Error('抱歉，该用户名已被占用。')]);
+                        //         if (!value) {
+                        //             callback();
+                        //         } else {
+                        //             setTimeout(function () {
+                        //                 if (value === 'suneee') {
+                        //                     callback([new Error('抱歉，该用户名已被占用。')]);
+                        //                 } else {
+                        //                     callback();
+                        //                 }
+                        //             }, 800);
+                        //         }
+                        }
+                }],
                 select: {
                     placeholder: "请选择企业",
+                    onSelect: formOptions.handleChange,
                     optionValue: enterList
                 }
             }, {
@@ -101,8 +117,7 @@ class Edit extends Component {
             }, {
                 label: "性别：",
                 name: "sex",
-                required: true,
-                hasFeedback: true,
+                //hasFeedback: true,
                 rules: [{ required: true, message: '不能为空' }],
                 select: {
                     placeholder: "请选择性别",
@@ -116,7 +131,7 @@ class Edit extends Component {
                 select: {
                     placeholder: "请选择是否可用",
                     optionValue: STATUS
-            }
+                }
             }, {
                 label: "邮箱：",
                 name: "email",
@@ -150,7 +165,7 @@ class Edit extends Component {
              
         if (item) {           
             config.initValue = item;
-            //config.formItems.splice(2, 1);       
+            config.formItems.splice(2, 1);       
         }
         
         return config;
