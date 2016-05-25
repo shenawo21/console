@@ -118,9 +118,9 @@ class Edit extends Component {
                 checkEnCode({
                     enterpriseCode: value
                 }).then(res => {
-                    context.setState({
-                        selState: res.data
-                    });
+                    if (res.data) {                  
+                        message.error('该企业已有管理员账号不能重复创建');
+                    }
                     
                 });
             }

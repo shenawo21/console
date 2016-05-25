@@ -47,6 +47,7 @@ class Edit extends Component {
                 rules: [{ required: true, max: 64, message: '最多为64个字符' }],
                 input: {
                     type: 'text',
+                    disabled: item ? true : false,
                     placeholder: "请输入帐号",
                 }
             }, {
@@ -176,7 +177,7 @@ class Edit extends Component {
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} allDisable={item && item.adminId ? true : false}/>
+                    onRest={formOptions.handleReset} />
             </div>
         );
     }
