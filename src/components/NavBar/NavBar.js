@@ -1,51 +1,33 @@
 import React from 'react';
 import avatar from './avatar.png';
-import {Menu} from 'hen';
+import {Menu, Dropdown, Icon} from 'hen';
+import style from './navBar.less';
 
-const MenuItem = Menu.Item;
-const SubMenu = Menu.SubMenu;
-
-
-export default () => {
+export default () => { 
+      
+    const menu = (
+      <Menu>
+        <Menu.Item key="0">
+          <a href="##" role="menuitem"><i className="icon wb-settings " aria-hidden="true"></i> 修改密码</a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="1">
+          <a href="javascript:void(0)" role="menuitem"><i className="icon wb-power" aria-hidden="true"></i> 退出</a>
+        </Menu.Item>
+      </Menu>
+    )
+  
 
     return (
-      <ul className="nav navbar-toolbar navbar-right navbar-toolbar-right">
-        <li className="dropdown">
-          <a className="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up" aria-expanded="false" role="button">
-            <span className="flag-icon flag-icon-us" />
-          </a>
-
-        </li>
-        <li className="dropdown">
-          <a className="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
-            
+      <div className="nav navbar-toolbar navbar-right navbar-toolbar-right">
+        <Dropdown className={style.navDown} overlay={menu} trigger={['click']}>
+          <a className="ant-dropdown-link" href="#">
             <span className="avatar avatar-online">
               <img src={avatar} alt="..." />
-              <i />
+              <i></i>
             </span>
           </a>
-        </li>
-        <li className="dropdown">
-          <a data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">
-            <i className="icon wb-bell" aria-hidden="true" />
-            <span className="badge badge-danger up">5</span>
-          </a>
-
-        </li>
-        <li className="dropdown">
-          <a data-toggle="dropdown" href="javascript:void(0)" title="Messages" aria-expanded="false" data-animation="scale-up" role="button">
-            <i className="icon wb-envelope" aria-hidden="true" />
-            <span className="badge badge-info up">3</span>
-          </a>
-
-        </li>
-        <li id="toggleChat">
-          <a data-toggle="site-sidebar" href="javascript:void(0)" title="Chat" data-url="site-sidebar.tpl">
-            <i className="icon wb-chat" aria-hidden="true" />
-          </a>
-        </li>
-      </ul>
-
+        </Dropdown>
+      </div>
     )
-
 }
