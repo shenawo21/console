@@ -1,115 +1,105 @@
-
-/*  This is a container component. Notice it does not contain any JSX,
-    nor does it import React. This component is **only** responsible for
-    wiring in the actions and state necessary to render a presentational
-    component - in this case, the counter:   */
-
-import React, { PropTypes, Component} from 'react'
-import { connect } from 'react-redux'
+import React, {PropTypes, Component} from 'react'
+import {connect} from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {view, addItem, modifyItem} from '../modules/EditReducer'
+import {addItem, view, modifyItem,} from '../modules/EditReducer'
 
-import {message} from 'hen';
 
 class Edit extends Component {
-    
-    constructor(props) {
-        super(props);
-        
-        this.getFormOptions = this.getFormOptions.bind(this);
-        
-        this.state = {count: props.initialCount};  //定义初始状态
+
+  constructor(props) {
+    super(props);
+
+    this.getFormOptions = this.getFormOptions.bind(this);
+
+    this.state = {
+      item: {}
+    };
+  }
+
+  componentDidMount() {
+    const {params, view} = this.props;
+    if (params.id) {
+      view({roleId: params.id})
     }
-    componentDidMount() {
-        const {params, view} = this.props;
-        if(params.id){
-            view({roleId: params.id})
-        }
+  }
+
+  componentWillReceiveProps(nextProps, preProps) {
+
+    if (!nextProps.params.id) {
+      this.setState({
+        item: {}
+      })
+    } else {
+      this.setState({
+        item: nextProps.result
+      })
     }
-    
-    componentWillReceiveProps(nextProps, preProps){
-        
-        if(nextProps.params.id){
-            this.setState({
-                item: {}
-            })
-        } else {
-            this.setState({
-                item: nextProps.result
-            })
-        }
-        
-    }
-    
-    /**
+  }
+
+  /**
    * handle submit
    * @param  {any} formData
    * @param  {any} e
    */
-    getFormOptions() {
-        const context = this;
-        return {
-       /**
+  getFormOptions() {
+    const context = this;
+    return {
+      /**
        * (表单提交)
        *
        * @param value (description)
        */
-      
-        handleSubmit(value) {
-            const {addItem, params} = context.props;
-            console.log(value);
-            context.setState({
-                params: value
-            })
-            params.id ? modifyItem({
-                roleId: value.roleId
-            }) : addItem({...value});
-          },
-          
-          /**
-           * (重置)表单
-           */
-          
-          handleReset(){
-              
-          }
-            
-        }
+
+      handleSubmit(value) {
+        const {addItem, params, modifyItem} = context.props;
+        context.setState({
+          params: value
+        })
+        params.id ? addItem({...value}) : modifyItem({...value});
+        history.go(-1);
+      },
+
+      /**
+       * (重置)表单
+       */
+
+      handleReset(){
+
+      }
+
     }
-    
-    
-    render() {
-        const {params, item} = this.state;
-        const {loading, result} = this.props;
-        const formOptions = {
-            loading,
-            result,
-            'formOptions': this.getFormOptions()
-        };
-        
-        return <Panel title="新增角色"><EditView item={item} {...formOptions} /></Panel> 
-    }
+  }
+
+
+  render() {
+    const {params, item} = this.state;
+    const {loading, result} = this.props;
+    const formOptions = {
+      loading,
+      result,
+      'formOptions': this.getFormOptions()
+    };
+
+    return <Panel title=""><EditView item={item} {...formOptions} /></Panel>
+  }
 }
 
 //数据限制类型
 Edit.propTypes = {
-    view: React.PropTypes.func,
-    addItem: React.PropTypes.func,
-    modifyItem: React.PropTypes.func,
-    loading: React.PropTypes.bool,
-    result: React.PropTypes.bool,
+  modifyItem: React.PropTypes.func,
+  loading: React.PropTypes.bool,
+  result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
-    view,
-    addItem,
-    modifyItem
+  addItem,
+  view,
+  modifyItem,
 }
 
 const mapStateToProps = (state) => {
   const {result, loading} = state.edit;
-
   return {'result': result, loading};
 
 }

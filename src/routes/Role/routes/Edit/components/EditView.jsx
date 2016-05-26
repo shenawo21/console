@@ -1,94 +1,89 @@
 import React, {Component, PropTypes} from 'react';
-import { Button, Row, Col, Input, Tree, InputNumber, DatePicker, message, Checkbox} from 'hen';
 import Form from 'components/Form';
-import {Link} from 'react-router';
 
+//是否可用
+const STATUS = {
+  false: '不可用',
+  true: '可用'
+};
 class Edit extends Component {
-    
-    
-    /**
-     * (form表单生成配置)
-     * 
-     * @returns (description)
-     */
-    _getFormItems() {
-        let config = {}, context = this;
-        const {item} = context.props;  
 
-        config.panels = [
-            {
-                title: '角色基本信息',
-                className: 'noborder',
-                formItems: [{
-                    label: "名称：",
-                    name: "account",
-                    required: true,
-                    hasFeedback: true,
-                    rules: [{ required: true, max: 64, message: '最多为64个字符' }],
-                    input: {
-                        type: 'text',
-                        placeholder: "请输入名称",
-                    }
-                }, {
-                    label: "编码：",
-                    name: "code",
-                    required: true,
-                    hasFeedback: true,
-                    rules: [
-                        { required: true, min: 3, message: '至少为3个字符' }
-                    ],
-                    input: {
-                        type: "text",
-                        placeholder: "请输入编码",
-                    }
-                }]
-            }, {
-                title: '权限分配',
-                className: 'noborder',
-                formItems: [ {
-                        label: "权限分配：",
-                        name: "permissionGroup",
-                        required: true,
-                        rules: [{required: false, type: 'array'}],
-                        //rules: [{ type: 'boolean', required: true, message: 'I do!' }],
-                        checkboxGroup: {
-                            options:[
-                                { label: '苹果', value: 'Apple' },
-                                { label: '梨', value: 'Pear' },
-                                { label: '橘', value: 'Orange' },
-                            ]
-                            //disabled : false,
-                        }
-                    }]
-            }];
-
-        config.initValue = {
-            account: null,
-            password: null,
-            permissionGroup: []
-        };
-
-        return config;
+  constructor() {
+    super();
+    this.state = {
+      permission: []
     }
+  }
 
-    render() {
-        const {formOptions, item, btnOption, ...other} = this.props;
-        return (
-            <div>
-                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit} 
-                    onRest={formOptions.handleReset} btnOption={item && item.adminId ? btnOption : ''}
-                    allDisable={item && item.adminId ? true : false}/>
-                    
-            </div>
-        );
+  /**
+   * (form表单生成配置)
+   *
+   * @returns (description)
+   */
+  _getFormItems() {
+    let config = {}, context = this;
+    const {item} = context.props;
+    config.panels = [
+      {
+        title: '角色基本信息',
+        className: 'noborder',
+        formItems: [{
+          label: "名称：",
+          name: "name",
+          hasFeedback: true,
+          rules: [{required: true, message: '名称为必填'}],
+          input: {
+            type: 'text',
+            placeholder: "请输入名称",
+          }
+        }, {
+          label: "编码：",
+          name: "code",
+          hasFeedback: true,
+          rules: [{required: true, message: '编码为必填'}],
+          input: {
+            type: "text",
+            placeholder: "请输入编码",
+          }
+        }, {
+          label: "是否可用：",
+          name: "enabled",
+          hasFeedback: true,
+          rules: [{required: true, message: '请选择是否可用'}],
+          select: {
+            tipValue: "请选择是否可用",
+            optionValue: Object.keys(STATUS).map((key) => {
+              return {'value': key, 'title': STATUS[key]}
+            })
+          }
+        }]
+      }];
+
+    config.initValue = {
+      name: null,
+      code: null,
+      enabled: null,
+    };
+    if (item) {
+      config.initValue = item;
     }
-
+    return config;
+  }
+  render() {
+    const {formOptions, item, btnOption, ...other} = this.props;
+    return (
+      <div>
+        <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
+              onRest={formOptions.handleReset} btnOption={btnOption} allDisabled={item && item.roleId ? false : false}/>
+      </div>
+    );
+  }
 }
 
 Edit.proptype = {
 
-loading: React.PropTypes.bool,
-params: React.PropTypes.object
+  loading: React.PropTypes.bool,
+  params: React.PropTypes.object
 
 }
 
