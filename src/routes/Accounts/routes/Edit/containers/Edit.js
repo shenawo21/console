@@ -52,10 +52,6 @@ class Edit extends Component {
         if(params.id){
             view({adminId: params.id})
         }
-        
-        
-        
-        
     }
 
     componentWillReceiveProps(nextProps, preProps){
@@ -113,15 +109,15 @@ class Edit extends Component {
              * @param  {any} e
              */
             
-            handleChange(value){                
-                const {checkEnCode} = context.props;                
+            handleChange(value, name, form){ 
+                const {checkEnCode} = context.props;       
                 checkEnCode({
                     enterpriseCode: value
                 }).then(res => {
                     context.setState({
                         selState: res.data
                     });
-                    
+                    form.validateFields([name], { force: true });
                 });
             }
 

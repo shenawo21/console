@@ -55,26 +55,12 @@ class Edit extends Component {
                 hasFeedback: true,
                 rules: [{ required: true, message: '不能为空' },{
                     validator(rule, value, callback) {
-                        console.log(rule, 'tt');
                         if(selState){
                             callback([new Error('该企业已有管理员账号不能重复创建')]);
                         }else{
                             callback();
                         }
-                        
-                        // callback([new Error('抱歉，该用户名已被占用。')]);
-                        //         if (!value) {
-                        //             callback();
-                        //         } else {
-                        //             setTimeout(function () {
-                        //                 if (value === 'suneee') {
-                        //                     callback([new Error('抱歉，该用户名已被占用。')]);
-                        //                 } else {
-                        //                     callback();
-                        //                 }
-                        //             }, 800);
-                        //         }
-                        }
+                    }
                 }],
                 select: {
                     placeholder: "请选择企业",
