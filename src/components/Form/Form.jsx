@@ -169,12 +169,12 @@ class Forms extends Component {
     }
     //下拉选择
     if (item.select) {
-        let {optionValue, tipValue, defaultValue, placeholder} = item.select;
+        let {optionValue, tipValue, placeholder, onSelect, ...other} = item.select;
         let options = Object.assign([], optionValue);//防止直接修改引用类型数据
         !placeholder && tipValue && options.unshift({
             value: null, title: tipValue
         })
-        return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...fieldProps} {...item.select} >
+        return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} onSelect={(value) => {onSelect && onSelect(value, name, form)}} {...fieldProps} {...other} >
             {
                 options.map((val, i) => {
                     typeof val.value === 'boolean' && (val.value = '' + val.value);
