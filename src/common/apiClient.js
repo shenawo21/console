@@ -46,6 +46,12 @@ instance.interceptors.response.use(function (res) {
   return res.data;
 }, function (error) {
   console.error('XHR RESPONSE ERROR :', error);
+  if(error.data){
+      error.data.code !== "TIMEOUT_SESSION" &&  message.error('服务错误：［'+ error.data +'] 错误码：［'+error.status+ ']', 2);
+  }else{
+      message.error('请求超时：［'+ error.message +'] 错误码：［'+error.code+ ']', 2);
+  }
+  
   return error.data
 })
 
