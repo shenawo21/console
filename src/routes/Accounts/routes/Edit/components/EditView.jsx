@@ -56,7 +56,6 @@ class Edit extends Component {
                 hasFeedback: true,
                 rules: [{ required: true, message: '不能为空' },{
                     validator(rule, value, callback) {
-                        console.log(rule, 'tt');
                         if(selState){
                             callback([new Error('该企业已有管理员账号不能重复创建')]);
                         }else{
