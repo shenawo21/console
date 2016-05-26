@@ -61,20 +61,7 @@ class Edit extends Component {
                         }else{
                             callback();
                         }
-                        
-                        // callback([new Error('抱歉，该用户名已被占用。')]);
-                        //         if (!value) {
-                        //             callback();
-                        //         } else {
-                        //             setTimeout(function () {
-                        //                 if (value === 'suneee') {
-                        //                     callback([new Error('抱歉，该用户名已被占用。')]);
-                        //                 } else {
-                        //                     callback();
-                        //                 }
-                        //             }, 800);
-                        //         }
-                        }
+                    }
                 }],
                 select: {
                     placeholder: "请选择企业",
