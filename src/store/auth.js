@@ -15,21 +15,22 @@ const TIMEOUT_SESSION = 'auth/TIMEOUT_SESSION';
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAILURE],
-    promise: (client) => client.post('checkLogin')
+    promise: (client) => client.post('api-userLogin.checkLogin')
   }
 }
 
 export function login(params) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
-    promise: (client) => client.post('api-user.login', params)
+    promise: (client) => client.post('api-userLogin.login', params),
+    sKey : 'USER'
   }
 }
 
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE],
-    promise: (client) => client.post('api-user.logout')
+    promise: (client) => client.post('api-userLogin.loginOut')
   }
 }
 /**

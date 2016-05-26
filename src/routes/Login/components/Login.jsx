@@ -1,6 +1,5 @@
-
-import React, { Component, PropTypes } from 'react';
-import { Form, Input, Button, Checkbox, Radio, Row, Col, Tooltip, Icon } from 'hen';
+import React, {Component, PropTypes} from 'react';
+import {Form, Input, Button, Checkbox, Radio, Row, Col, Tooltip, Icon} from 'hen';
 import './Login.less';
 const FormItem = Form.Item;
 const createForm = Form.create
@@ -25,21 +24,21 @@ class Login extends Component {
 
   render() {
     const {form, isLoading} = this.props;
-    const { getFieldProps, getFieldError, isFieldValidating } = form;
+    const {getFieldProps, getFieldError, isFieldValidating} = form;
     let namePropsOptions = {
       rules: [
-        { required: true, min: 5, message: '用户名至少为 5 个字符' }
+        {required: true, min: 5, message: '用户名至少为 5 个字符'}
       ]
     }
     let passwdPropsOptions = {
       rules: [
-        { required: true, min: 5, whitespace: true, message: '请填写密码' }
+        {required: true, min: 3, whitespace: true, message: '请填写密码'}
       ]
     };
     // 正式的时候此代码会被干掉
     if (__DEV__) {
-      namePropsOptions.initialValue = '1394800667@qq.com'
-      passwdPropsOptions.initialValue = '123456'
+      namePropsOptions.initialValue = 'admin'
+      passwdPropsOptions.initialValue = '123'
     }
 
     const nameProps = getFieldProps('account', namePropsOptions);
@@ -47,8 +46,8 @@ class Login extends Component {
     const passwdProps = getFieldProps('password', passwdPropsOptions);
 
     const formItemLayout = {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
+      labelCol: {span: 4},
+      wrapperCol: {span: 20},
     };
 
     return <div className="page-login-v2 layout-full page-dark">
@@ -56,14 +55,14 @@ class Login extends Component {
         <div className="page-content">
           <div className="page-brand-info">
             <div className="brand">
-              <img className="brand-img" src={logo} alt="..." />
+              <img className="brand-img" src={logo} alt="..."/>
               <h2 className="brand-text font-size-40">翌商云</h2>
             </div>
             <p className="font-size-20">翌商云是对为满足满足翌商前端及未来规则的后台需求，翌商云平台项目是针对企业电商化的为主要导向，帮助企业实现企业互联化的目的。</p>
           </div>
           <div className="page-login-main">
             <div className="brand visible-xs">
-              <img className="brand-img" src={logo} alt="..." />
+              <img className="brand-img" src={logo} alt="..."/>
               <h3 className="brand-text font-size-40">Hen</h3>
             </div>
             <h3 className="font-size-24">登陆</h3>
@@ -82,19 +81,20 @@ class Login extends Component {
                 <FormItem
                   {...formItemLayout}
                   label="密码："
-                  hasFeedback  style={{ marginBottom: '8px' }}>
+                  hasFeedback style={{ marginBottom: '8px' }}>
                   <Input {...passwdProps} type="password" autoComplete="off"
-                    onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop} />
+                                          onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop}/>
                 </FormItem>
-                <FormItem wrapperCol={{ span: 21, offset: 3 }} style={{ marginBottom: '20px' }} >
+                <FormItem wrapperCol={{ span: 21, offset: 3 }} style={{ marginBottom: '20px' }}>
                   <label className="checkbox-inline" style={{ paddingLeft: '16px' }}>
-                    <Checkbox type="checkbox" name="checkbox" />&nbsp; &nbsp; 记住密码
+                    <Checkbox type="checkbox" name="checkbox"/>&nbsp; &nbsp; 记住密码
                   </label>
                   <a className="pull-right" href="forgot-password">忘记密码？</a>
                 </FormItem>
                 <FormItem wrapperCol={{ span: 23, offset: 1 }}>
                   <div className="form-group">
-                    <Button type="primary" className="btn btn-primary btn-block" loading={isLoading} onClick={this.doSubmit.bind(this) }>确定</Button>
+                    <Button type="primary" className="btn btn-primary btn-block" loading={isLoading}
+                            onClick={this.doSubmit.bind(this) }>确定</Button>
                   </div>
                 </FormItem>
 

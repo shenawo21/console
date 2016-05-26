@@ -25,7 +25,7 @@ export default function reducer(state = {item:[]}, action) {
     case SUC_DOCS:
       return {
         ...state,
-        item: action.result.data,
+        item: action.result,
       }
     case ERR_DOCS:
       return {

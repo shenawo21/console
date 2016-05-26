@@ -24,7 +24,6 @@ export default () => {
               <i />
             </span>
           </a>
-          
         </li>
         <li className="dropdown">
           <a data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">

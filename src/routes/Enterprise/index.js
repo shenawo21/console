@@ -3,14 +3,19 @@
   path: 'enterprise',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
-      /*  These modules are lazily evaluated using require hook, and
-          will not loaded until the router invokes this callback. */
-      const Enterprise = require('./containers/EnterpriseContainer').default
-      const reducer = require('./modules/enterprise').default
+      const enterprise = require('./containers/Enterprise').default
+      const reducer = require('./modules/EnterpriseReducer').default
 
       store.injectReducer({ key: 'enterprise', reducer })
 
-      next(null, Enterprise)
+      next(null, enterprise)
     })
-  }
+  },
+   getChildRoutes(location, next) {
+     require.ensure([], (require) => {
+       next(null, [
+         require('./routes/Edit').default(store)
+       ])
+     })
+   }
 })

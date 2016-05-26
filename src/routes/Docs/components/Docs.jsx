@@ -8,8 +8,8 @@ import Form from 'components/Form';
 
 
 const PAYMENTTYPE = [
-    { value: "ALIPAY", title: "支付宝" },
-    { value: "TENPAY", title: "财付通" },
+    { value: true, title: "支付宝" },
+    { value: false, title: "财付通" },
     { value: "KUANQIAN", title: "快钱支付" },
     { value: "WEIXIN", title: "微信支付" }
 ];
@@ -48,7 +48,7 @@ class Docs extends Component {
     }
     /**
      * (form表单生成配置)
-     * 
+     *
      * @returns (description)
      */
     _getFormItems() {
@@ -103,12 +103,12 @@ class Docs extends Component {
                 }, {
                     label: "支付方式：",
                     name: "paymentType",
-                    rules: [{ required: false, type: 'array', message: '不能为空' }],
+                    rules: [{ required: false, type: 'string', message: '不能为空' }],
                     select: {
                         optionValue: PAYMENTTYPE,
-                        searchPlaceholder: "标签模式",
+                        //searchPlaceholder: "标签模式",
                         //disabled : false,
-                        tags: true
+                        //tags: true
                     }
                 }]
             },
@@ -181,7 +181,21 @@ class Docs extends Component {
                             placeholder: "随便写"
                         }
                     }, {
-                        label: "Checkbox：",
+                        label: "CheckboxGroup",
+                        name: "checkboxGroup",
+                        required: true,
+                        labelCol: { span: 3 },
+                        wrapperCol: { span: 8 },
+                        rules: [{required: false, type: 'array'}],
+                        checkboxGroup: {
+                            options:[
+                                { label: '苹果', value: 'Apple' },
+                                { label: '梨', value: 'Pear' },
+                                { label: '橘', value: 'Orange', disabled : true },
+                            ]
+                        }
+                    },{
+                        label: "Checkbox",
                         name: "checkbox",
                         required: true,
                         rules: [{ type: 'boolean', required: true, message: '请选择方式' }],
@@ -255,7 +269,7 @@ class Docs extends Component {
             text: null,
             email: null,
             textarea: null,
-            paymentType: undefined,
+            paymentType: false,
             curRadio: null,
             checkbox: null,
             time: null,
@@ -266,7 +280,8 @@ class Docs extends Component {
             doudou : true,
             tinghua : null,
             cascader : null,
-            logo : null
+            logo : null,
+            checkboxGroup : []
         };
 
         return config;

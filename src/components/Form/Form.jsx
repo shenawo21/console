@@ -4,6 +4,7 @@ import { Select, Input, Radio, Button, DatePicker, Checkbox, InputNumber, Icon, 
 
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
+const CheckboxGroup = Checkbox.Group;
 const createForm = Form.create;
 const FormItem = Form.Item;
 import formless from './form.less';
@@ -55,6 +56,7 @@ class Forms extends Component {
                         values[name] = this.formatDate(values[name]);
                     }
                 }
+                
                 if(values[name] === 'true' || values[name] === 'false'){
                     values[name] = Boolean(values[name]);
                 }
@@ -154,7 +156,7 @@ class Forms extends Component {
             let option = {
                 id:`fm-${name}`,
                 rules: item.rules || [],
-                initialValue: initValue[name],
+                initialValue: item.select && typeof initValue[name] ==='boolean' ? initValue[name] + '' : initValue[name],
                 valuePropName: item.checkbox ? 'checked': 'value',
 			    ...options
             }
@@ -169,12 +171,12 @@ class Forms extends Component {
     }
     //下拉选择
     if (item.select) {
-        let {optionValue, tipValue, defaultValue, placeholder} = item.select;
+        let {optionValue, tipValue, placeholder, onSelect, ...other} = item.select;
         let options = Object.assign([], optionValue);//防止直接修改引用类型数据
         !placeholder && tipValue && options.unshift({
             value: null, title: tipValue
         })
-        return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} {...fieldProps} {...item.select} >
+        return <Select size='large' defaultValue={fieldProps.value} style={{ width: 190 }} placeholder={placeholder} onSelect={(value) => {onSelect && onSelect(value, name, form)}} {...fieldProps} {...other} >
             {
                 options.map((val, i) => {
                     typeof val.value === 'boolean' && (val.value = '' + val.value);
@@ -195,7 +197,6 @@ class Forms extends Component {
         </RadioGroup>
     }
 
-    //   复选框
     if (item.checkbox) {
         let {groups = [], title = ''} = item.checkbox;
         return groups.length ? groups.map((v, i) => {
@@ -246,7 +247,7 @@ class Forms extends Component {
                 let {name, infoLabel = ''} = item;
 
                 return <Col key={index} span={span6} {...item}>
-                    <FormItem id={`fm-${item.name}`} 
+                    <FormItem id={`fm-${item.name}`}
                         labelCol={{ span: span8 }}
                         wrapperCol={{ span: 6 }}
                         help={isFieldValidating(item.name) ? '校验中...' : (getFieldError(item.name) || []).join(', ')}
@@ -259,9 +260,9 @@ class Forms extends Component {
                 </Col>
             })
         }
-        
+
         let showItems = null;
-        
+
         if (panels && panels.length) {
             showItems = panels.map(function(items, idx) {
                 const {formItems, ...other} = items;
@@ -271,7 +272,7 @@ class Forms extends Component {
             });
         } else {
             showItems = setFormPanel(items.formItems);
-        } 
+        }
 
         return <div className={formClassName}>
             <Form inline={inline}  horizontal={horizontal} form={form}>

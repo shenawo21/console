@@ -18,7 +18,7 @@ class Docs extends Component {
         this.state = {count: props.initialCount};  //定义初始状态
     }
     componentDidMount() {
-        
+
     }
       /**
    * handle submit
@@ -33,7 +33,7 @@ class Docs extends Component {
         }
         message.success(' =====校验通过=====   ' + value);
     }
-    
+
     render() {
         console.log('======props=====',this.props);
         console.log('======state=====',this.state.count);
@@ -44,7 +44,7 @@ class Docs extends Component {
 
 //数据限制类型
 Docs.propTypes = {
-    
+
 }
 
 /*  Object of action creators (can also be function that returns object).
@@ -52,11 +52,11 @@ Docs.propTypes = {
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapActionCreators = {
-    
+
 }
 
 const mapStateToProps = (state) => ({
-    
+
 })
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:

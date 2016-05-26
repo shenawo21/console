@@ -9,8 +9,8 @@ import Category from 'components/Category';
 import {Row, Col, Button, Icon} from 'hen';
 
 class Table extends Component {
-    
-    
+
+
     _getFormItems(){
         let config = {
             formItems: [{
@@ -37,7 +37,7 @@ class Table extends Component {
                 categoryId: null
             }
         }
-        
+
         return config;
     }
 
@@ -94,13 +94,13 @@ class Table extends Component {
         },{
             dataIndex: 'spu_id',
             render(id,row){
-                
+
                 return <span><Link to='docs'>docs</Link></span>
             }
         }];
         return columns;
     }
-    
+
     quickButton(quickOptions){
         const context = this;
         const {doUp} = quickOptions
@@ -139,7 +139,7 @@ Table.propTypes = {
     params : React.PropTypes.object,
     getQuickOptions: React.PropTypes.object,
     getFormOptions: React.PropTypes.object,
-    
+
 }
 
 export default Table;
