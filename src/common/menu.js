@@ -1,20 +1,15 @@
 const menuLists = [
   {
     title: '企业管理',
-    url: '/',
+    url: '/enterprise',
     icon: 'home',
     when: '',
     children: [
       {
-        title: '企业列表',
+        title: '企业详情',
         url: '/enterprise',
         icon: 'wb-dashboard',
         when: '',
-      }, {
-        title: '企业申请入驻',
-        url: '/enterprise/edit',
-        icon: 'wb-dashboard',
-        when: ''
       }
     ]
   }, {
@@ -68,8 +63,8 @@ const menuLists = [
            when: '',
          }
        ]
-     } 
+     }
     )
  }
- 
+
  export default menuLists;

@@ -1,5 +1,5 @@
  export default (store) => ({
-  breadcrumbName: "企业列表",
+  breadcrumbName: "企业管理",
   path: 'enterprise',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
@@ -10,12 +10,5 @@
 
       next(null, enterprise)
     })
-  },
-   getChildRoutes(location, next) {
-     require.ensure([], (require) => {
-       next(null, [
-         require('./routes/Edit').default(store)
-       ])
-     })
-   }
+  }
 })

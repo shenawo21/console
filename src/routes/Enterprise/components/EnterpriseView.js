@@ -1,17 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-
-import DataTable from 'components/DataTable';
-
-
-import Search from 'components/Search';
-
-import {Row, Col, Button, Icon, Popconfirm} from 'hen';
-
-//是否可用
-const ENABLED = {
-  'false': "否",
-  'true': "是"
+import {Col, DatePicker} from 'hen';
+import Form from 'components/Form';
+import {UploadImage} from 'components/FileLoader'
+//企业类型
+const TYPE = {
+  'client': "客户",
+  'system': "系统"
 };
 //审核状态
 const REVIEW = {
@@ -19,143 +13,210 @@ const REVIEW = {
   'success': "成功",
   'failure': "未通过"
 };
-//企业类型
-const TYPE = {
-  'client': "客户",
-  'system': "系统"
+//是否可用
+const ENABLED = {
+  'false': "否",
+  'true': "是"
 };
-const ButtonGroup = Button.Group;
 class Enterprise extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      logoList: [],
+      licenseList: []
+    }
+  }
+
   _getFormItems() {
-    let config = {
-      formItems: [{
-        label: "企业编码：",
-        name: "enterpriseCode",
-        input: {
-          placeholder: "请输入企业编码"
-        }
+    let config = {}, context = this;
+    const {item} = context.props;
+    const {logoList, licenseList} =  this.state;
+    let upConfig = {
+      listType: 'picture',
+      showUploadList: true,
+      onlyFile: true,
+    };
+    config.panels = [
+      {
+        title: '基本信息',
+        className: 'aa',
+        formItems: [{
+          label: "企业编码：",
+          name: "enterpriseCode",
+          required: true,
+          hasFeedback: true,
+          rules: [{required: true, message: '企业编码为必填'}],
+          input: {
+            type: "text",
+            placeholder: "请输入企业编码",
+          }
+        }, {
+          label: "企业名称：",
+          name: "name",
+          required: true,
+          wrapperCol: {span: 10},
+          hasFeedback: true,
+          rules: [{required: true, message: '企业名称为必填'}],
+          input: {
+            type: "text",
+            placeholder: "请输入企业名称",
+          }
+        }, {
+          label: "企业简称：",
+          name: "shortName",
+          required: true,
+          hasFeedback: true,
+          rules: [{required: true, message: '企业简称为必填'}],
+          input: {
+            type: "text",
+            placeholder: "请输入企业简称",
+          }
+        }, {
+          label: "企业类型：",
+          name: "type",
+          required: true,
+          hasFeedback: true,
+          rules: [{required: true, message: '企业类型为必填'}],
+          select: {
+            disabled: true,
+            tipValue: "请选择企业类型",
+            optionValue: Object.keys(TYPE).map((key) => {
+              return {'value': key, 'title': TYPE[key]}
+            })
+          }
+        }, {
+          label: "是否可用：",
+          name: "enabled",
+          select: {
+            disabled: true,
+            tipValue: "请选择是否可用",
+            optionValue: Object.keys(ENABLED).map((key) => {
+              return {'value': key, 'title': ENABLED[key]}
+            })
+          }
+        }, {
+          label: "地址：",
+          name: "address",
+          wrapperCol: {span: 10},
+          input: {
+            type: "text",
+            placeholder: "请输入企业地址",
+          }
+        }, {
+          label: "描述：",
+          name: "remark",
+          wrapperCol: {span: 10},
+          input: {
+            type: "textarea",
+            rows: 5,
+            placeholder: "请输入企业描述",
+          }
+        }, {
+          label: "营业执照：",
+          name: "businessLicense",
+          required: true,
+          custom(getCustomFieldProps) {
+            upConfig.fileList = licenseList;
+            return <UploadImage title="营业执照" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
+                                context.setState({
+                                    licenseList : files
+                                })
+                            }}} {...getCustomFieldProps('businessLicense')} />
+          }
+        }, {
+          label: "企业LOGO：",
+          name: "logo",
+          custom(getCustomFieldProps) {
+            upConfig.fileList = logoList;
+            return <UploadImage title="企业LOGO" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
+                                context.setState({
+                                    logoList : files
+                                })
+                            }}} {...getCustomFieldProps('logo')} />
+          }
+        }]
       }, {
-        label: "企业名称：",
-        name: "name",
-        input: {
-          placeholder: "请输入企业名称"
-        }
+        title: '法定代表人信息',
+        formItems: [{
+          label: "姓名：",
+          name: "lealPerson",
+          required: true,
+          hasFeedback: true,
+          rules: [{required: true, message: '法人代表为必填'}],
+          input: {
+            type: "text",
+            placeholder: "请输入法人代表姓名",
+          }
+        }, {
+          label: "联系电话：",
+          name: "telephone",
+          input: {
+            type: "text",
+            placeholder: "请输入联系电话",
+          }
+        }, {
+          label: "创建时间：",
+          name: "createTime",
+          datepicker: {
+            disabled: true,
+            format: "yyyy-MM-dd HH:mm:ss",
+            showTime: true
+          }
+        }]
       }, {
-        label: "企业类型：",
-        name: "type",
-        select: {
-          placeholder: "请选择是否可用",
-          optionValue: Object.keys(TYPE).map((key) => {
-            return {'value': key, 'title': TYPE[key]}
-          })
-        }
-      }],
-      initValue: {
-        enterpriseCode: null,
-        name: null,
-        enabled: null
-      }
+        title: '备注',
+        className: '',
+        formItems: [{
+          label: "审核状态：",
+          name: "reviewStatue",
+          select: {
+            disabled: true,
+            tipValue: "请选择企业类型",
+            optionValue: Object.keys(REVIEW).map((key) => {
+              return {'value': key, 'title': REVIEW[key]}
+            })
+          }
+        }, {
+          label: "审核描述：",
+          name: "reviewDesctiption",
+          wrapperCol: {span: 10},
+          input: {
+            disabled: true,
+            rows: '5',
+            type: "textarea",
+            placeholder: "请输入审核描述",
+          }
+        }]
+      }];
+    config.initValue = {
+      enterpriseCode: null,
+      name: null,
+      shortName: null,
+      type: null,
+      enabled: null,
+      address: null,
+      remark: null,
+      businessLicense: null,
+      logo: null,
+      lealPerson: null,
+      telephone: null,
+      createTime: null,
+      reviewStatue: null,
+      reviewDesctiption: null
+    };
+    if (item) {
+      config.initValue = item;
     }
     return config;
   }
 
-  //删除
-  del(id) {
-    const {delEnterp} = this.props
-    delEnterp(id)
-    this.refs && this.refs.dt.refresh();
-  }
-
-  //激活 禁用
-  handleAction(row, id) {
-    const {isAble} = this.props
-    isAble(row, id)
-    this.refs && this.refs.dt.refresh();
-  }
-
-  _getColumns() {
-    const context = this;
-    let columns = [{
-      key: '0',
-      title: '企业编码',
-      dataIndex: 'enterpriseCode',
-    }, {
-      key: '1',
-      title: '企业名称',
-      dataIndex: 'name'
-    }, {
-      key: '2',
-      title: '联系电话',
-      dataIndex: 'telephone'
-    }, {
-      key: '3',
-      title: '是否可用',
-      dataIndex: 'enabled',
-      render(key){
-        return <span>{ENABLED[key]}</span>;
-      }
-    }, {
-      key: '4',
-      title: '企业类型',
-      dataIndex: 'type',
-      render(key){
-        return <span>{TYPE[key]}</span>;
-      }
-    }, {
-      key: '5',
-      title: '审核状态',
-      dataIndex: 'reviewStatue',
-      render(key){
-        return <span>{REVIEW[key]}</span>;
-      }
-    }, {
-      key: '6',
-      title: '入驻时间',
-      dataIndex: 'createTime'
-    }, {
-      key: '7',
-      title: '操作',
-      dataIndex: 'enterpriseCode',
-      render(id, row){
-        return <ButtonGroup>
-          <Button type="link"><Link to={`/enterprise/edit/${id}`} title="查看">查看</Link></Button>
-
-          <Popconfirm title="确定要删除这个企业吗？" onConfirm={context.del.bind(context,id)}>
-            <Button type="link">删除</Button>
-          </Popconfirm>
-          {
-
-            <Button type="link" onClick={context.handleAction.bind(context,row,id)}>
-              { row.enabled ? '禁用' : '激活' }
-            </Button>
-          }
-        </ButtonGroup>
-      }
-    }];
-    return columns;
-  }
-
-
-  quickButton(quickOptions) {
-    return <Row>
-      <Col span='2'>
-        <Link to={`/enterprise/edit`}>
-          <Button onClick={quickOptions.doUp} type="primary"><Icon type="menu-unfold"/>企业入驻</Button>
-        </Link>
-      </Col>
-    </Row>
-  }
-
   render() {
-    const {formOptions, quickOptions, ...other} = this.props;
+    const {formOptions, ...other} = this.props;
     return (
       <div>
-        <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
-
-        <DataTable bordered={true} columns={this._getColumns()} ref='dt'
-                   quickButton={this.quickButton(quickOptions)} {...other} />
-
+        <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
+              onReset={formOptions.handleReset}/>
       </div>
     )
   }
@@ -163,9 +224,6 @@ class Enterprise extends Component {
 
 
 Enterprise.propTypes = {
-
-  dataSource: React.PropTypes.array.isRequired,
-  action: React.PropTypes.func.isRequired,
 
   loading: React.PropTypes.bool,
   params: React.PropTypes.object

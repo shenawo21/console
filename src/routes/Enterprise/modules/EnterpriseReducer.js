@@ -1,123 +1,65 @@
-//企业列表
-const QUERY = 'enterprise/QUERY';
-const QUERY_SUCCESS = 'enterprise/QUERY_SUCCESS';
-const QUERY_FAILURE = 'enterprise/QUERY_FAILURE';
+//企业详情
+const VIEW = 'enterprise/VIEW';
+const VIEW_SUCCESS = 'enterprise/VIEW_SUCCESS';
+const VIEW_FAILURE = 'enterprise/VIEW_FAILURE';
 
-// /企业删除
-const DELETE = 'enterprise/DELETE';
-const DELETE_SUCCESS = 'enterprise/DELETE_SUCCESS';
-const DELETE_FAILURE = 'enterprise/DELETE_FAILURE';
+//企业修改
+const MODIFY = 'enterprise/MODIFY';
+const MODIFY_SUCCESS = 'enterprise/MODIFY_SUCCESS';
+const MODIFY_FAILURE = 'enterprise/MODIFY_FAILURE';
 
-//激活
-const ENADLED = 'enterprise/ENADLED';
-const ENADLED_SUCCESS = 'enterprise/ENADLED_SUCCESS';
-const ENADLED_FAILURE = 'enterprise/ENADLED_FAILURE';
-
-//禁用
-const DISABLED = 'enterprise/DISABLED';
-const DISABLED_SUCCESS = 'enterprise/DISABLED_SUCCESS';
-const DISABLED_FAILURE = 'enterprise/DISABLED_FAILURE';
 
 /**
- * 列表查询
+ * 企业详情
  *
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function queryList(params) {
+export function view(params) {
   return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('api-enterprise.find', params)
+    types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
+    promise: (client) => client.post('api-enterprise.get', params)
   }
 }
 
 /**
- * 删除
+ * 企业修改
  *
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function deleteItem(params) {
+export function modifyItem(params) {
   return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('api-enterprise.delete', params)
+    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
+    promise: (client) => client.post('api-enterprise.update', params)
   }
 }
-
-/**
- * 激活
- *
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function enabledItem(params) {
-  return {
-    types: [ENADLED, ENADLED_SUCCESS, ENADLED_FAILURE],
-    promise: (client) => client.post('api-enterprise.enabled', params)
-  }
-}
-
-/**
- * 禁用
- *
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function disabledItem(params) {
-  return {
-    types: [DISABLED, DISABLED_SUCCESS, DISABLED_FAILURE],
-    promise: (client) => client.post('api-enterprise.disabled', params)
-  }
-}
-
 
 export default function reducer(state = {result: {}}, action) {
   state = {...state, loading: action.loading};
   switch (action.type) {
-    case QUERY:
-    case DELETE:
-    case ENADLED:
-    case DISABLED:
+    case VIEW:
+    case MODIFY:
       return {
         ...state
       }
-    case QUERY_SUCCESS:
+    case VIEW_SUCCESS:
       return {
         ...state,
         result: action.result
       }
-    case QUERY_FAILURE:
+    case VIEW_FAILURE:
       return {
         ...state
       }
-    case DELETE_SUCCESS:
+    case MODIFY_SUCCESS:
       return {
-        //...state,
+        ...state,
         result: action.result
       }
-    case DELETE_FAILURE:
-      return {
-        ...state
-      }
-    case ENADLED_SUCCESS:
-      return {
-        //...state,
-        result: action.result
-      }
-    case ENADLED_FAILURE:
-      return {
-        ...state
-      }
-    case DISABLED_SUCCESS:
-      return {
-        //...state,
-        result: action.result
-      }
-    case DISABLED_FAILURE:
+    case MODIFY_FAILURE:
       return {
         ...state
       }

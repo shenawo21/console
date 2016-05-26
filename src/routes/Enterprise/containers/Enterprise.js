@@ -2,45 +2,33 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import EnterpriseView from '../components/EnterpriseView'
 import Panel from 'components/Panel'
-import {queryList, deleteItem, enabledItem, disabledItem} from '../modules/EnterpriseReducer'
-
+import {view, modifyItem} from '../modules/EnterpriseReducer'
+import store from 'store2';
 class Enterprise extends Component {
-
   constructor(props) {
     super(props);
-
     this.getFormOptions = this.getFormOptions.bind(this);
-    this.getQuickOptions = this.getQuickOptions.bind(this);
 
     this.state = {
-      params: {}   //表格需要的筛选参数
-    }
-  }
-
-  //删除
-  delEnterp(id) {
-    const {deleteItem} = this.props;
-    console.log(id);
-    deleteItem({enterpriseCode: id})
-  }
-
-  //激活 禁用
-  isAble(row, id) {
-    const {enabledItem, disabledItem} = this.props;
-    if (row.enabled) {
-      //调用禁用
-      disabledItem({enterpriseCode: id})
-    } else {
-      //调用激活
-      enabledItem({enterpriseCode: id})
+      item: {}
     }
   }
 
   componentDidMount() {
-    const {queryList, location} = this.props;
-    const {query} = location;
-    let pageNumber = query.p ? Number(query.p) : 1;
-    queryList({pageNumber});
+    const {view} = this.props;
+    const id = store.get('USER').enterpriseCode;
+    //缓存中获取登陆信息
+    if (id) {
+      view({enterpriseCode: id})
+    }
+  }
+
+  componentWillReceiveProps(nextProps, preProps) {
+    if(nextProps){
+      this.setState({
+        item: nextProps.result
+      })
+    }
   }
 
   /**
@@ -51,16 +39,12 @@ class Enterprise extends Component {
   getFormOptions() {
     const context = this;
     return {
-      /**
-       * (筛选表单提交)
-       *
-       * @param value (description)
-       */
       handleSubmit(value) {
-        console.log(value)
+        const {modifyItem} = context.props;
         context.setState({
           params: value
         })
+        modifyItem({...value})
       },
 
       /**
@@ -71,86 +55,39 @@ class Enterprise extends Component {
     }
   }
 
-  /**
-   * (表格头部快捷按钮配功能置项)
-   *
-   * @returns (description)
-   */
-  getQuickOptions() {
-    const contex = this;
-    return {
-      /**
-       *
-       * (description)
-       */
-      doUp() {
-        console.log('快捷按钮');
-      },
-    }
-  }
-
-
-  handleRowSelection() {
-    return {
-      onSelect(record, selected, selectedRows) {
-        console.log(record, selected, selectedRows);
-      },
-      onSelectAll(selected, selectedRows, changeRows) {
-        console.log(selected, selectedRows, changeRows);
-      },
-    }
-  }
 
   render() {
-    const {params} = this.state;
-    const {items, queryList, totalItems, loading} = this.props;
-    const tableOptions = {
-      dataSource: items,                         //加载组件时，表格从容器里获取初始值
-      action: queryList,                         //表格翻页时触发的action
-      pagination: {                              //表格页码配置，如果为false，则不展示页码
-        total: totalItems                      //数据总数
-      },
-      loading,                                    //表格加载数据状态
-      params,                                     //表格检索数据参数
-      delEnterp: this.delEnterp.bind(this),
-      isAble: this.isAble.bind(this)
-      //rowSelection : this.handleRowSelection()    //需要checkbox时填写
-    }
-
+    const {params, item} = this.state;
+    const {loading, result} = this.props;
     const formOptions = {
+      loading,
+      result,
       'formOptions': this.getFormOptions()
     }
 
-    return <Panel title="">
-      <EnterpriseView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()}/>
-    </Panel>
+
+    return <Panel title=""><EnterpriseView item={item}  {...formOptions}/></Panel>
   }
 }
 
 
 Enterprise.propTypes = {
 
-  queryList: React.PropTypes.func,
-  enabledItem: React.PropTypes.func,
-  disabledItem: React.PropTypes.func,
-  items: React.PropTypes.array.isRequired,
-  totalItems: React.PropTypes.number.isRequired,
+  result: React.PropTypes.object,
+  view: React.PropTypes.func,
 
   loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-  queryList,
-  deleteItem,
-  enabledItem,
-  disabledItem
+  view,
+  modifyItem
 }
 
 
 const mapStateToProps = (state) => {
   const {result, loading} = state.enterprise;
-  const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading};
+  return {'result': result, loading};
 
 }
 
