@@ -114,7 +114,7 @@ class Accounts extends Component {
     quickButton(quickOptions){
         return <Row>
                 <Col span='2'>
-                    <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>增加帐号</Link>
+                    <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>新增帐号</Link>
                 </Col>
         </Row>
     }
