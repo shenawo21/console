@@ -88,7 +88,7 @@ class Accounts extends Component {
             dataIndex: 'createPerson'
         }];
         
-        let columOther = [{
+        let columOther = {
             key: '8',
             title: '操作',
             dataIndex: 'adminId',
@@ -99,7 +99,7 @@ class Accounts extends Component {
                     </Popconfirm>
                 </span>
             }
-        }]
+        }
         
         if(isAdmin){
             columns.push(columOther);
@@ -119,11 +119,14 @@ class Accounts extends Component {
     
     // 按钮
     quickButton(quickOptions){
+        const {isAdmin} = this.props;
+        if(isAdmin){
         return <Row>
                 <Col span='2'>
                     <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>新增帐号</Link>
                 </Col>
         </Row>
+        }
     }
     
 
