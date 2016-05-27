@@ -8,7 +8,7 @@ export default () => {
     const menu = (
       <Menu>
         <Menu.Item key="0">
-          <a href="##" role="menuitem"><i className="icon wb-settings " aria-hidden="true"></i> 修改密码</a>
+          <a href="#/accounts/updpwd?_k=n6ktwc" role="menuitem"><i className="icon wb-settings " aria-hidden="true"></i> 修改密码</a>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="1">
