@@ -39,7 +39,7 @@ export const DownLoader = (props) => {
         curUrl += urlParams;
     }
 
-    if (__DEV__ && curUrl) {
+    if (curUrl) {
         curUrl = '/suneee-cloud' + curUrl
     }
 
@@ -112,7 +112,8 @@ const getFileList = (input, originFile = { status: 'done' }) => {
       <UpLoader title='导入映射信息' upConfig={{action: '/api-channelMapping.importChannelMapping'}} />
 */
 export const UpLoader = (props) => {
-    const {upConfig = {}, onChange = () => { }, ...other} = props;
+    console.log(props)
+    const {upConfig = {}, onChange, ...other} = props;
 
     let {action, imgDomain, fileList = [], onChangeFileList, onlyFile = false} = upConfig;
     fileList = fileList || [];
@@ -121,9 +122,7 @@ export const UpLoader = (props) => {
     if (imgDomain) {  //图片上传
         upConfig.action = '/file-service' + action;
     } else {          //文件上传
-        if (__DEV__) {
-            upConfig.action = '/suneee-cloud' + action;
-        }
+        upConfig.action = '/suneee-cloud' + action;
     }
 
     if (typeof fileList === 'string') {
@@ -156,6 +155,8 @@ export const UpLoader = (props) => {
                     }
                     //返回图片显示对象newFileLists，及图片名称uploadFormItem
                     onChangeFileList && onChangeFileList(newFileLists, uploadFormItem);
+                    //form 表单设置用
+                    onChange && onChange(uploadFormItem);
                 } else {
                     message.error(info.file.name + info.file.response.message);
                 };
