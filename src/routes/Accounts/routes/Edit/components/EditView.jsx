@@ -37,8 +37,8 @@ class Edit extends Component {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
-        };
-                
+        };        
+        
         config.formItems = [{
                 label: "帐号：",
                 name: "account",
@@ -47,7 +47,7 @@ class Edit extends Component {
                 rules: [{ required: true, max: 64, message: '最多为64个字符' }],
                 input: {
                     type: 'text',
-                    disabled: item ? true : false,
+                    disabled: item.adminId ? true : false,
                     placeholder: "请输入帐号",
                 }
             }, {
