@@ -3,8 +3,8 @@ import avatar from './avatar.png';
 import {Menu, Dropdown, Icon} from 'hen';
 import style from './navBar.less';
 
-export default () => { 
-      
+export default (props) => { 
+
     const menu = (
       <Menu>
         <Menu.Item key="0">
@@ -12,7 +12,7 @@ export default () => {
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="1">
-          <a href="javascript:void(0)" role="menuitem"><i className="icon wb-power" aria-hidden="true"></i> 退出</a>
+          <a href="javascript:void(0)" onClick={props.logout} role="menuitem"><i className="icon wb-power" aria-hidden="true"></i> 退出</a>
         </Menu.Item>
       </Menu>
     )

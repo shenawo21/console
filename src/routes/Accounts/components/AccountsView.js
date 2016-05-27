@@ -49,6 +49,7 @@ class Accounts extends Component {
 
 
     _getColumns(){
+        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',
@@ -85,7 +86,9 @@ class Accounts extends Component {
             key: '7',
             title: '创建人',
             dataIndex: 'createPerson'
-        },{
+        }];
+        
+        let columOther = [{
             key: '8',
             title: '操作',
             dataIndex: 'adminId',
@@ -95,9 +98,13 @@ class Accounts extends Component {
                         <Button type="link">删除</Button>
                     </Popconfirm>
                 </span>
-
             }
-        }];
+        }]
+        
+        if(isAdmin){
+            columns.push(columOther);
+        }
+        
         return columns;
     }
 

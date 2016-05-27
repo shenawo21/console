@@ -1,7 +1,8 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import AccountsView from '../components/AccountsView'
-import Panel from 'components/Panel'
+import Panel from 'components/Panel';
+import store from 'store2';
 import {queryList, addItem, modifyItem, deleteItem} from '../modules/AccountsReducer'
 
 class Accounts extends Component {
@@ -15,6 +16,7 @@ class Accounts extends Component {
         this.getQuickOptions = this.getQuickOptions.bind(this);
         
         this.state = {
+            isAdmin: false,
             params: {}   //表格需要的筛选参数
         }
     }
@@ -36,6 +38,10 @@ class Accounts extends Component {
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         queryList({ pageNumber });
+        
+        this.setState({
+            isAdmin: store.get('USER').admin
+        });
         
     }
     
@@ -93,7 +99,7 @@ class Accounts extends Component {
     }
     
     render() {
-        const {params} = this.state;
+        const {params, isAdmin} = this.state;
         
         const {items, queryList, totalItems, loading} = this.props;
         const tableOptions = {
@@ -113,7 +119,7 @@ class Accounts extends Component {
             'formOptions' : this.getFormOptions()
         }
         
-        return <Panel title=""><AccountsView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()}  /></Panel>
+        return <Panel title=""><AccountsView {...tableOptions} {...formOptions} isAdmin={isAdmin} quickOptions={this.getQuickOptions()}  /></Panel>
     }
 }
 
