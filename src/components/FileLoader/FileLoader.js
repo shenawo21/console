@@ -39,7 +39,7 @@ export const DownLoader = (props) => {
         curUrl += urlParams;
     }
 
-    if (curUrl) {
+    if (__DEV__ && curUrl) {
         curUrl = '/suneee-cloud' + curUrl
     }
 
@@ -122,7 +122,9 @@ export const UpLoader = (props) => {
     if (imgDomain) {  //图片上传
         upConfig.action = '/file-service' + action;
     } else {          //文件上传
-        upConfig.action = '/suneee-cloud' + action;
+        if(__DEV__){
+            upConfig.action = '/suneee-cloud' + action;
+        }
     }
 
     if (typeof fileList === 'string') {

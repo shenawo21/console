@@ -10,7 +10,9 @@ const axiosOptions = {
   }
 };
 
-axiosOptions.baseURL = '/suneee-cloud'
+if(__DEV__){
+    axiosOptions.baseURL = '/suneee-cloud'
+}
 
 const instance = axios.create(axiosOptions)
 
