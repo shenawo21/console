@@ -36,12 +36,24 @@ instance.interceptors.request.use(function (config) {
 
 instance.interceptors.response.use(function (res) {
   console.log(res)
-  if(!res.config.hasMsg){
-      if (res.data.status !== 1 && res.data.code !== 'TIMEOUT_SESSION') {
-        message.error(res.data.message || '获取数据失败');
-      } else {
-        message.success(res.data.message || '数据获取成功');
+  if(res.data.status == 1){
+      if(!res.config.hasMsg){
+          if(!res.config.msgStatus){
+              message.success(res.data.message || '数据获取成功');
+          }else{
+              message.error(res.data.message || '数据异常')
+          }
+      }else{
+          if (res.config.hasMsg != true){
+              if(!res.config.msgStatus){
+                  message.success(res.config.hasMsg || '数据获取成功');
+              }else{
+                  message.error(res.config.hasMsg || '数据异常');
+              }
+          }
       }
+  }else{
+      message.error(res.data.message || '获取数据失败')
   }
   return res.data;
 }, function (error) {
