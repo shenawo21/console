@@ -1,18 +1,24 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import LoginComponent from '../components/Login'
-import {login} from 'store/auth'
+import {login, vCode} from 'store/auth'
 import Cookie from 'js-cookie';
 import store from 'store2';
 
 
 const sessionId = 'sessionId';
+const imgUrl = __PROD__ ? 'imageServlet' : 'suneee-cloud/imageServlet';
 
 export class Login extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.uptVcode = this.uptVcode.bind(this);
+    
+    this.state = {
+      vcodeUrl: imgUrl
+    }
   }
 
   getValidateStatus(field) {
@@ -42,6 +48,12 @@ export class Login extends Component {
       this.props.login(values);
     });
   }
+  
+  uptVcode() {
+      this.setState({
+          vcodeUrl : imgUrl+'?t='+new Date().getTime()
+      });
+  }
 
   componentDidMount() {
     const context = this;
@@ -68,14 +80,16 @@ export class Login extends Component {
 
   render() {
     const {loading} = this.props;
+    const {vcodeUrl} = this.state;
     return (
-      <LoginComponent handleSubmit={this.handleSubmit} handleReset={this.handleReset}  isLoading={loading}/>
+      <LoginComponent handleSubmit={this.handleSubmit} handleReset={this.handleReset} vCode={this.uptVcode} vcodeUrl={vcodeUrl} isLoading={loading}/>
     )
   }
 }
 
 Login.propsTypes = {
   user: React.PropTypes.object.isRequired,
+  vCode: React.PropTypes.object.func,
   loading: React.PropTypes.bool.isRequired
 };
 
@@ -96,7 +110,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  login
+  login,
+  vCode
 }
 
 export default connect(

@@ -1,16 +1,13 @@
 
-
+// 删除
 const DELETE = 'accounts/DELETE';
 const DELETE_SUCCESS = 'accounts/DELETE_SUCCESS';
 const DELETE_FAILURE = 'accounts/DELETE_FAILURE';
 
-
+//列表查询
 const QUERY = 'accounts/QUERY';
 const QUERY_SUCCESS = 'accounts/QUERY_SUCCESS';
 const QUERY_FAILURE = 'accounts/QUERY_FAILURE';
-
-
-
 
 
 /**
@@ -54,8 +51,8 @@ export default function reducer(state = {result:{}}, action) {
     
     case DELETE_SUCCESS:
         return {
-            //...state,
-            result: action.result
+            ...state,
+            delResult: action.result
         }
     case DELETE_FAILURE:
         return {

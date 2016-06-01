@@ -24,6 +24,12 @@ const CHECKENCODE = 'accounts/CHECKENCODE';
 const CHECKENCODE_SUCCESS = 'accounts/CHECKENCODE_SUCCESS';
 const CHECKENCODE_FAILURE = 'accounts/CHECKENCODE_FAILURE';
 
+//获取角色列表
+const GETROLELIST = 'accounts/GETROLELIST';
+const GETROLELIST_SUCCESS = 'accounts/GETROLELIST_SUCCESS';
+const GETROLELIST_FAILURE = 'accounts/GETROLELIST_FAILURE';
+
+
 /**
  * 单条查看
  *
@@ -94,6 +100,20 @@ export function getEnterList(params) {
   }
 }
 
+/**
+ * 获取角色列表
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function getRoleList(params) {
+  return {
+    types: [GETROLELIST, GETROLELIST_SUCCESS, GETROLELIST_FAILURE],
+    promise: (client) => client.post('api-roleService.roleListResult', params)
+  }
+}
+
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
@@ -102,6 +122,7 @@ export default function reducer(state = {result:{}}, action) {
     case MODIFY:
     case CHECKENCODE:
     case GETENTERLIST:
+    case GETROLELIST:
         return {
             ...state
         }
@@ -149,6 +170,15 @@ export default function reducer(state = {result:{}}, action) {
             enListResult: action.result
         }
     case GETENTERLIST_FAILURE:
+        return {
+            ...state
+        }
+     case GETROLELIST_SUCCESS:
+        return {
+            ...state,
+            roleListResult: action.result
+        }
+    case GETROLELIST_FAILURE:
         return {
             ...state
         }

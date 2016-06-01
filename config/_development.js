@@ -7,12 +7,12 @@ export default (config) => ({
     enabled: true,
     options: {
       // koa-proxy options
-      host: 'http://172.19.5.209:8088/',
+      host: 'http://172.19.5.96:8088/',
       fileServiceUrl : 'http://172.19.6.131:8081/',
       fileProxyFlag : 'file-service',
       match: /^\/suneee-cloud|file-service\/.*/,
       hook: (opt) => {
-          // opt.url = opt.url.replace(/(api\/)/g, '');
+          // opt.url = opt.url.replace(/(suneee-cloud\/)/g, '');
            return opt
       }
     }

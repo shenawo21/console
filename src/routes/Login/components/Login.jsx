@@ -23,8 +23,13 @@ class Login extends Component {
   }
 
   render() {
-    const {form, isLoading} = this.props;
+    const {form, vcodeUrl, vCode, isLoading} = this.props;
     const {getFieldProps, getFieldError, isFieldValidating} = form;
+    let enNamePropsOptions = {
+      rules: [
+        {required: true, message: '请填写企业名称'}
+      ]
+    }
     let namePropsOptions = {
       rules: [
         {required: true, min: 5, message: '用户名至少为 5 个字符'}
@@ -35,15 +40,25 @@ class Login extends Component {
         {required: true, min: 3, whitespace: true, message: '请填写密码'}
       ]
     };
+    let vCodeOptions = {
+      rules: [
+        {required: true, min: 4, whitespace: true, message: '请填写验证码'}
+      ]
+    };
     // 正式的时候此代码会被干掉
     if (__DEV__) {
+      enNamePropsOptions.initialValue = '象翌微链'
       namePropsOptions.initialValue = 'admin'
       passwdPropsOptions.initialValue = '123'
     }
+    
+    const enNameProps = getFieldProps('enterpriseName', enNamePropsOptions);
 
     const nameProps = getFieldProps('account', namePropsOptions);
 
     const passwdProps = getFieldProps('password', passwdPropsOptions);
+    
+    const vCodeProps = getFieldProps('validateCode', vCodeOptions);
 
     const formItemLayout = {
       labelCol: {span: 4},
@@ -71,9 +86,15 @@ class Login extends Component {
 
             <div className="form-group">
               <Form horizontal form={form} ref='login'>
+	      	<FormItem
+                  {...formItemLayout}
+                  label="企业名："
+                  hasFeedback>
+                  <Input {...enNameProps} />
+                </FormItem>
                 <FormItem
                   {...formItemLayout}
-                  label="邮箱："
+                  label="用户名："
                   hasFeedback>
                   <Input {...nameProps} />
                 </FormItem>
@@ -81,16 +102,19 @@ class Login extends Component {
                 <FormItem
                   {...formItemLayout}
                   label="密码："
-                  hasFeedback style={{ marginBottom: '8px' }}>
+                  hasFeedback>
                   <Input {...passwdProps} type="password" autoComplete="off"
                                           onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop}/>
                 </FormItem>
-                <FormItem wrapperCol={{ span: 21, offset: 3 }} style={{ marginBottom: '20px' }}>
-                  <label className="checkbox-inline" style={{ paddingLeft: '16px' }}>
-                    <Checkbox type="checkbox" name="checkbox"/>&nbsp; &nbsp; 记住密码
-                  </label>
-                  <a className="pull-right" href="forgot-password">忘记密码？</a>
-                </FormItem>
+                
+                <FormItem 
+                {...formItemLayout}
+                  label="验证码："
+                  hasFeedback style={{ marginBottom: '8px' }}>
+                  <Input {...vCodeProps} style={{width: '100px'}} />
+                  <a href="javascript:void(0)" onClick={vCode} > <img src={vcodeUrl} height="30"/></a>
+                </FormItem>                
+                
                 <FormItem wrapperCol={{ span: 23, offset: 1 }}>
                   <div className="form-group">
                     <Button type="primary" className="btn btn-primary btn-block" loading={isLoading}
@@ -100,9 +124,6 @@ class Login extends Component {
 
               </Form>
             </div>
-
-
-            <p>还没注册?<a href="/register">立即注册</a></p>
             <footer className="page-copyright">
               <p>WEBSITE BY SUNEEE</p>
               <p>© 2016. All RIGHT RESERVED.</p>

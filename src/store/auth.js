@@ -10,6 +10,10 @@ const LOGOUT = 'auth/LOGOUT';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
+const VCODE = 'auth/VCODE';
+const VCODE_SUCCESS = 'auth/VCODE_SUCCESS';
+const VCODE_FAILURE = 'auth/VCODE_FAILURE'
+
 const TIMEOUT_SESSION = 'auth/TIMEOUT_SESSION';
 
 export function load(params) {
@@ -19,10 +23,17 @@ export function load(params) {
   }
 }
 
+export function vCode(params) {
+  return {
+    types: [VCODE, VCODE_SUCCESS, VCODE_FAILURE],
+    promise: (client) => client.get('imageServlet', params, {'hasMsg' : true})
+  }
+}
+
 export function login(params) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
-    promise: (client) => client.post('api-userLogin.login', params, {'hasMsg' : '登陆成功'}),
+    promise: (client) => client.post('api-userLogin.loginEn', params, {'hasMsg' : '登陆成功'}),
     sKey : 'USER'
   }
 }
@@ -45,6 +56,9 @@ export default function reducer(state = {}, action = {}) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case LOAD:
+    case LOGIN:
+    case LOGOUT:
+    case VCODE:
       return {
         ...state
       };
@@ -57,11 +71,7 @@ export default function reducer(state = {}, action = {}) {
       return {
         ...state,
         error: action.error
-      };
-    case LOGIN:
-      return {
-        ...state,
-      };
+      };    
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -73,10 +83,6 @@ export default function reducer(state = {}, action = {}) {
         ...state,
         user: null,
         loginError: action.error
-      };
-    case LOGOUT:
-      return {
-        ...state,
       };
     case LOGOUT_SUCCESS:
       return {
@@ -92,6 +98,15 @@ export default function reducer(state = {}, action = {}) {
       return {
          logoutResult : action.result
       }
+    case VCODE_SUCCESS:
+      return {
+        vcodeResult: true
+      };
+    case VCODE_FAILURE:
+      return {
+        ...state,
+        vcodeError: action.error
+      };
     default:
       return state;
   }

@@ -8,7 +8,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {view, addItem, modifyItem, checkEnCode, getEnterList} from '../modules/EditReducer'
+import {view, addItem, modifyItem, checkEnCode, getEnterList, getRoleList} from '../modules/EditReducer'
 
 import {message} from 'hen';
 
@@ -23,11 +23,12 @@ class Edit extends Component {
             params: {},
             item: {},
             selState: null,
-            enterList: []
+            enterList: [],
+            roleList: []
         };  //定义初始状态
     }
     componentDidMount() {
-        const {params, view, getEnterList} = this.props;
+        const {params, view, getEnterList, getRoleList} = this.props;
         const context = this;
         
         /**
@@ -46,6 +47,20 @@ class Edit extends Component {
             context.setState({
                 enterList: list
             });
+        })
+        
+        getRoleList().then(res => {
+            const lists = res.data;
+            var list = lists.map(a => {
+                return {
+                    value: a.roleId,
+                    label: a.name
+                }
+            })
+            context.setState({
+                roleList: list
+            })
+            
         })
         
         
@@ -128,14 +143,14 @@ class Edit extends Component {
 
 
     render() {
-        const {params, item, enterList, selState} = this.state;
+        const {params, item, enterList, selState, roleList} = this.state;
         const {loading, result} = this.props;
         const formOptions = {
             loading,
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><EditView item={item} enterList={enterList} selState={selState} {...formOptions} /></Panel>
+        return <Panel><EditView item={item} enterList={enterList} selState={selState} roleList={roleList} {...formOptions} /></Panel>
     }
 }
 
@@ -146,6 +161,7 @@ Edit.propTypes = {
     modifyItem: React.PropTypes.func,
     checkEnCode: React.PropTypes.func,
     getEnterList : React.PropTypes.func,
+    getRoleList: React.PropTypes.func,
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
@@ -155,7 +171,8 @@ const mapActionCreators = {
     addItem,
     modifyItem,
     checkEnCode,
-    getEnterList
+    getEnterList,
+    getRoleList
 }
 
 const mapStateToProps = (state) => {

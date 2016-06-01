@@ -31,14 +31,14 @@ class Edit extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item, enterList, formOptions, selState} = context.props;
+        const {item, enterList, formOptions, selState, roleList} = context.props;
         const {upList} = this.state;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
-        };        
-        
+        };
+
         config.formItems = [{
                 label: "帐号：",
                 name: "account",
@@ -92,7 +92,7 @@ class Edit extends Component {
             }, {
                 label: "头像：",
                 name: "photo",
-                required : false,                    
+                required : false,
                 custom(getCustomFieldProps) {
                     upConfig.fileList = upList;
                     return <UploadImage title="选择头像" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
@@ -136,8 +136,17 @@ class Edit extends Component {
                     type: "text",
                     placeholder: "请输入手机号码",
                 }
+        }, {
+            label: "角色",
+            name: "roleIdList",
+            labelCol: { span: 3 },
+            wrapperCol: { span: 8 },
+            rules: [{required: false, type: 'array'}],
+            checkboxGroup: {
+                options: roleList
+            }
         }];
-        
+
         config.initValue = {
             account: null,
             enterpriseCode: null,
@@ -147,14 +156,18 @@ class Edit extends Component {
             sex: false,
             enabled: true,
             email: null,
-            mobile: null
-        };        
-             
+            mobile: null,
+            roleIdList: []
+        };
+        
         if (item) {           
-            config.initValue = item;
-            config.formItems.splice(2, 1);       
+            config.initValue = item;            
         }
         
+        if(item.adminId){
+            config.formItems.splice(2, 1);
+        }
+
         return config;
     }
 
