@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js" afterPath="$PROJECT_DIR$/src/routes/Enterprise/components/EnterpriseView.js" />
     </list>
     <ignored path="console.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -940,7 +939,7 @@
       <workItem from="1464312097370" duration="8790000" />
       <workItem from="1464659565709" duration="106000" />
       <workItem from="1464659804455" duration="4048000" />
-      <workItem from="1464847090984" duration="1517000" />
+      <workItem from="1464847090984" duration="1560000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -984,11 +983,18 @@
       <option name="project" value="LOCAL" />
       <updated>1464847453460</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="手机号、邮箱添加正则验证">
+      <created>1464848899919</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1464848899919</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185352000" />
+    <option name="totallyTimeSpent" value="185395000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
@@ -1031,7 +1037,8 @@
     <MESSAGE value="表格刷新" />
     <MESSAGE value="企业" />
     <MESSAGE value="企业编码不可编辑，地址和联系方式为必填项" />
-    <option name="LAST_COMMIT_MESSAGE" value="企业编码不可编辑，地址和联系方式为必填项" />
+    <MESSAGE value="手机号、邮箱添加正则验证" />
+    <option name="LAST_COMMIT_MESSAGE" value="手机号、邮箱添加正则验证" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
