@@ -74,7 +74,24 @@ class Enterprise extends Component {
           label: "企业邮箱：",
           name: "enterpriseMail",
           hasFeedback: true,
-          rules: [{required: true, message: '企业邮箱为必填'}],
+          rules: [
+            {required: true, message: '企业邮箱为必填'},
+            {
+              validator(rule, value, callback) {
+                if (!value) {
+                  callback();
+                } else {
+                  setTimeout(function () {
+                    if (!(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value))) {
+                      callback([new Error('请输入正确的email地址')]);
+                    } else {
+                      callback();
+                    }
+                  }, 800);
+                }
+              }
+            }
+          ],
           input: {
             type: "email",
             placeholder: "请输入企业邮箱",
@@ -161,7 +178,24 @@ class Enterprise extends Component {
           label: "联系电话：",
           name: "telephone",
           hasFeedback: true,
-          rules: [{required: true, message: '联系电话为必填'}],
+          rules: [
+            {required: true, message: '联系电话为必填'},
+            {
+              validator(rule, value, callback) {
+                if (!value) {
+                  callback();
+                } else {
+                  setTimeout(function () {
+                    if (!(/^1[3|4|5|7|8]\d{9}$/.test(value))) {
+                      callback([new Error('请输入正确的手机号')]);
+                    } else {
+                      callback();
+                    }
+                  }, 800);
+                }
+              }
+            }
+          ],
           input: {
             type: "text",
             placeholder: "请输入联系电话",
