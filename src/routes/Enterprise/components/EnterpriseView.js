@@ -44,11 +44,9 @@ class Enterprise extends Component {
         formItems: [{
           label: "企业编码：",
           name: "enterpriseCode",
-          required: true,
-          hasFeedback: true,
-          rules: [{required: true, message: '企业编码为必填'}],
           input: {
             type: "text",
+            disabled: true,
             placeholder: "请输入企业编码",
           }
         }, {
@@ -71,6 +69,15 @@ class Enterprise extends Component {
           input: {
             type: "text",
             placeholder: "请输入企业简称",
+          }
+        },{
+          label: "企业邮箱：",
+          name: "enterpriseMail",
+          hasFeedback: true,
+          rules: [{required: true, message: '企业邮箱为必填'}],
+          input: {
+            type: "email",
+            placeholder: "请输入企业邮箱",
           }
         }, {
           label: "企业类型：",
@@ -99,6 +106,8 @@ class Enterprise extends Component {
           label: "地址：",
           name: "address",
           wrapperCol: {span: 10},
+          hasFeedback: true,
+          rules: [{required: true, message: '地址为必填'}],
           input: {
             type: "text",
             placeholder: "请输入企业地址",
@@ -151,6 +160,8 @@ class Enterprise extends Component {
         }, {
           label: "联系电话：",
           name: "telephone",
+          hasFeedback: true,
+          rules: [{required: true, message: '联系电话为必填'}],
           input: {
             type: "text",
             placeholder: "请输入联系电话",
@@ -193,6 +204,7 @@ class Enterprise extends Component {
       enterpriseCode: null,
       name: null,
       shortName: null,
+      enterpriseMail: null,
       type: null,
       enabled: null,
       address: null,
