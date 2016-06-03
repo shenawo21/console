@@ -125,7 +125,7 @@ class <%= pascalEntityName %> extends Component {
     items: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,
     <% }else{ %>
-    result: React.PropTypes.bool,
+    result: React.PropTypes.object,
     deleteItem: React.PropTypes.func,
     modifyItem: React.PropTypes.func,
     addItem : React.PropTypes.func,

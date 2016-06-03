@@ -8,7 +8,7 @@
 export function tree(arr, transformer, openId) {
     if (!arr || !Array.isArray(arr)) return [];
     var a, stack = [], list = {};
-    arr.forEach(function(v, i) {
+    arr.forEach(function (v, i) {
         var parentId = v.id.substring(0, v.id.length - 2);
         if (parentId == '') {
             a = stack;
@@ -112,9 +112,9 @@ export function normalizeCategory(input) {
     let output = [];
     input && input.forEach(item => {
         let a = {...item, children:null}
-        output.push(a)
+output.push(a)
     });
-    return output
+return output
 }
 
 const numberReg = /^\d*(\,|\.)?\d+$/;
@@ -151,6 +151,23 @@ export function validatorNumber(rule, value, callback) {
 
 }
 
+/**
+ * (检查是否为数字，用法再rules写transform:toNumber)
+ * 
+ * @param v (description)
+ * @returns (description)
+ */
+export function toNumber(v) {
+    if (!v || !v.trim()) {
+        return undefined;
+    }
+    let num = Number(v);
+    // num === ' '
+    if (!isNaN(num)) {
+        num = parseInt(v, 10);
+    }
+    return isNaN(num) ? v : num;
+}
 
 /**
  * 验证是否是数字 必填
@@ -247,7 +264,7 @@ export function formGenerate(items, o = {}, transformer = () => { }) {
             case 'TELEPHONE':   //电话号码
             case 'EMAIL':       //邮箱
                 r.input = {}
-                if ('PLAIN_TEXT' === type ) {
+                if ('PLAIN_TEXT' === type) {
                     r.input.type = 'textarea'
                 }
                 break;
@@ -262,7 +279,7 @@ export function formGenerate(items, o = {}, transformer = () => { }) {
                     }
                 })
                 r.select = {
-                    multiple : type == 'MULTI_SELECT' ? true : false,
+                    multiple: type == 'MULTI_SELECT' ? true : false,
                     optionValue: options,
                     tipValue: item.tip || ''
                 }
@@ -323,26 +340,26 @@ export function formGenerate(items, o = {}, transformer = () => { }) {
         return {...r, ...o}
 	});
 
-    let value = {};
-    form.forEach(item => {
+let value = {};
+form.forEach(item => {
 
-        if (item.v == 'number') {
-            value[item.name] = ''
-            delete item.v;
-        } else {
-            value[item.name] = null;
-        }
-    })
-
-    config.formItems = form;
-    config.initValue = value;
-    config.initStatus = status;
-
-    if (__DEV__) {
-        console.info('转换后的数据\r\n', JSON.stringify(config, null, 2).replace(/"/g, '\''));
+    if (item.v == 'number') {
+        value[item.name] = ''
+        delete item.v;
+    } else {
+        value[item.name] = null;
     }
+})
 
-    return config
+config.formItems = form;
+config.initValue = value;
+config.initStatus = status;
+
+if (__DEV__) {
+    console.info('转换后的数据\r\n', JSON.stringify(config, null, 2).replace(/"/g, '\''));
+}
+
+return config
 }
 
 if (__DEV__) {

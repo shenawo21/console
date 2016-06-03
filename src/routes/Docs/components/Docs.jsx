@@ -5,6 +5,7 @@ import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox, Ic
 import {UploadImage} from 'components/FileLoader'
 
 import Form from 'components/Form';
+import {toNumber} from 'common/utils';
 
 
 const PAYMENTTYPE = [
@@ -94,6 +95,9 @@ class Docs extends Component {
                     name: "email",
                     required: true,
                     hasFeedback: true,
+                    fieldOptions : { // 是否需要在onBlur或onChange时校验
+                        validateTrigger : ['onBlur','onChange']
+                    },
                     rules: [{ required: false, type: 'email', message: '请输入正确的邮箱地址' }],
                     input: {
                         type: "email",
@@ -152,8 +156,17 @@ class Docs extends Component {
                             format: "yyyy-MM-dd HH:mm:ss",
                             showTime: true
                         }
-                    }, {
+                    }, 
+                    {
                         label: "数字：",
+                        name: "number",
+                        rules: [{required: true, type: 'number', transform: toNumber, message :'请输入数字'}],
+                        input: {
+
+                        }    
+                    },
+                    {
+                        label: "数字区间：",
                         name: "inputName",
                         rules: [
                             { required: false, type: 'number' },
@@ -267,6 +280,7 @@ class Docs extends Component {
 
         config.initValue = {
             text: null,
+            number : null,
             email: null,
             textarea: null,
             paymentType: false,
