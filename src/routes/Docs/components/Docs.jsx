@@ -160,7 +160,7 @@ class Docs extends Component {
                     {
                         label: "数字：",
                         name: "number",
-                        rules: [{required: true, type: 'number', transform: toNumber}],
+                        rules: [{required: true, type: 'number', transform: toNumber, message :'请输入数字'}],
                         input: {
 
                         }    
