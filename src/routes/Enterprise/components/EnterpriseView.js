@@ -82,7 +82,7 @@ class Enterprise extends Component {
                   callback();
                 } else {
                   setTimeout(function () {
-                    if (!(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value))) {
+                    if (!(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9]+)+$/.test(value))) {
                       callback([new Error('请输入正确的email地址')]);
                     } else {
                       callback();
