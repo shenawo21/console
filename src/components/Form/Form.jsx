@@ -153,6 +153,10 @@ class Forms extends Component {
          * @param  {any} options 选项具体参考网站
          */
         let getCustomFieldProps = (name, options) => {
+            //TODO: 解决校验中validator 需要form的问题
+            if(item.rules && Object.prototype.toString.call(item.rules) === '[object Function]'){
+              item.rules = item.rules(form);
+            }
             let option = {
                 id:`fm-${name}`,
                 rules: item.rules || [],

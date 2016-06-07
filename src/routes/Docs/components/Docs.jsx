@@ -123,13 +123,17 @@ class Docs extends Component {
                     label: "单选框：",
                     name: "curRadio",
                     required: true,
-                    rules: [{required: true},
-                        {
-                        validator(rule, value, callback){
-                            console.log(rule, value)
-                            callback();
-                        }
-                    }],
+                    rules(fieldForm){
+                        return [
+                            {required: true},
+                            {
+                                validator(rule, value, callback){
+                                    //fieldForm为Form对象，可以做检验用
+                                    console.log(rule, value)
+                                    callback();
+                                }
+                            }
+                    ]},
                     infoLabel : <span><Icon type="info-circle-o" /> 暂不支持其它选项</span>,
                     radio: {
                         radioValue: [
