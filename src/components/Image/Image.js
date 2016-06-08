@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-let imageServiceUrl = __DEV__ ? 'http://172.19.6.131:8081/file-service/image/' : '';
+let imageServiceUrl = __DEV__ ? 'http://172.19.6.131:8081/file-service/image/' : '/file-service/image/';
 
 // 1x1
 const defaultImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=";
