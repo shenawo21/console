@@ -53,7 +53,7 @@ instance.interceptors.response.use(function (res) {
           }
       }
   }else{
-      message.error(res.data.message || '获取数据失败')
+      !res.config.hasMsg ? message.error(res.data.message || '获取数据失败') : '';
   }
   return res.data;
 }, function (error) {
