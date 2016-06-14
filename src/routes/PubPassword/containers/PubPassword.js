@@ -15,15 +15,6 @@ class PubPassword extends Component {
     componentDidMount() {
 
     }
-
-  componentWillReceiveProps(nextProps) {
-    
-    if(nextProps.result !== null && nextProps.result !== undefined && nextProps.result !== ''){
-      setTimeout(()=> {
-        history.go(-1);
-      }, 800);
-    }
-  }  
   
       /**
        * (表格功能配置项)

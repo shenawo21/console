@@ -38,7 +38,6 @@ class Enterprise extends Component {
       view({enterpriseCode: id})
     }
   }
-
   componentWillReceiveProps(nextProps, preProps) {
     if (nextProps) {
       this.setState({
@@ -62,9 +61,14 @@ class Enterprise extends Component {
         context.setState({
           params: value
         })
+        if (context.state.licenseList) {
+          value.businessLicense = (typeof context.state.licenseList) === 'string' ? context.state.licenseList : context.state.licenseList.length ? context.state.licenseList[0].name : '';
+        }
+        if (context.state.logoList && context.state.logoList.length > 0) {
+          value.logo = (typeof context.state.logoList) === 'string' ? context.state.logoList : context.state.logoList.length ? context.state.logoList[0].name : '';
+        }
         modifyItem({...value})
       },
-
       /**
        * (筛选表单重置)
        */
