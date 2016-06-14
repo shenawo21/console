@@ -64,7 +64,7 @@ class Enterprise extends Component {
         if (context.state.licenseList) {
           value.businessLicense = (typeof context.state.licenseList) === 'string' ? context.state.licenseList : context.state.licenseList.length ? context.state.licenseList[0].name : '';
         }
-        if (context.state.logoList && context.state.logoList.length > 0) {
+        if (context.state.logoList) {
           value.logo = (typeof context.state.logoList) === 'string' ? context.state.logoList : context.state.logoList.length ? context.state.logoList[0].name : '';
         }
         modifyItem({...value})
