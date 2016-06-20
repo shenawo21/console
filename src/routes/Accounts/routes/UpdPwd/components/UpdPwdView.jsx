@@ -58,13 +58,41 @@ class Setting extends Component {
                         type: "password",
                         placeholder: "请输入新密码",
                     }
+		}, {
+          label: "确认密码：",
+          name: "commitNewPwd",
+          hasFeedback: true,
+          required: true,
+          rules(fieldForm){
+            return [
+              {required: true, min: 3, message: '至少为3个字符'},
+              {
+                validator(rule, value, callback) {
+                  if (!value) {
+                    callback();
+                  } else {
+                    if (value !== fieldForm.getFieldValue('newPassword')) {
+                      callback(new Error('两次输入密码不一致！'));
+                    } else {
+                      callback();
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          input: {
+            type: "password",
+            placeholder: "请再次确认密码",
+          }
                 }]
             }];
 
         config.initValue = {
             account: null,
             password: null,
-            newPassword: null
+            newPassword: null,
+      commitNewPwd: null
         };
         config.initValue = item;
         config.initValue.account = user;

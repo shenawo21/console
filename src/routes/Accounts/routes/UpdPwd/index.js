@@ -1,6 +1,6 @@
 export default (store) => ({
   breadcrumbName: "修改密码",
-  path: 'updpwd',
+  path: 'updpwd(/:level)',
   getComponents(nextState, next) {
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and
