@@ -50,32 +50,32 @@ import store from 'store2';
 
 
 const menuList = store.get('USER').menuList;
-console.log(menuList,'menuList');
+//console.log(menuList,'menuList');
+console.log(store.get('USER').menuList,'menuList');
+// const lists = menuList.map(menu => {
+//   return {
+//       title: menu.name
+//     };
+// })
 
 const lists = menuList.map(menu => {
+  const childrenList = menu.childrenList && menu.childrenList.map(idx => {
+    return {
+        title: idx.name,
+        url: idx.url,
+        icon: idx.icon,
+        when: idx.when
+      }
+  })
   return {
-      title: menu.name
+      title: menu.name,
+      url: menu.url,
+      icon: menu.icon,
+      when: menu.when,
+      children: childrenList || []
     };
 })
 
-// const lists = menuList.map(menu => {
-//   const childrenList = menu.childrenList.map(idx => {
-//     return {
-//         title: idx.name,
-//         url: idx.url,
-//         icon: idx.icon,
-//         when: idx.when
-//       }
-//   })
-//   return {
-//       title: menu.name,
-//       url: menu.url,
-//       icon: menu.icon,
-//       when: menu.when,
-//       children: childrenList
-//     };
-// })
-console.log(lists,'lists');
 const menuLists = lists;
 console.log(menuLists,'menuLists');
 
