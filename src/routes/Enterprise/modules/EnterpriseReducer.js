@@ -47,7 +47,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case VIEW_SUCCESS:
       return {
-        ...state,
+        //...state,
         result: action.result
       }
     case VIEW_FAILURE:
@@ -56,12 +56,13 @@ export default function reducer(state = {result: {}}, action) {
       }
     case MODIFY_SUCCESS:
       return {
-        ...state,
+        //...state,
         result: action.result
       }
     case MODIFY_FAILURE:
       return {
-        ...state
+        ...state,
+        result:null
       }
     default:
       return state

@@ -57,7 +57,6 @@ class Edit extends Component {
           params: value
         })
         params.id ? addItem({...value}) : modifyItem({...value});
-        history.go(-1);
       },
 
       /**

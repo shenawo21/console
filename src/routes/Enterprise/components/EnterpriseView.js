@@ -30,8 +30,7 @@ class Enterprise extends Component {
 
   _getFormItems() {
     let config = {}, context = this;
-    const {item} = context.props;
-    const {logoList, licenseList} =  this.state;
+    const {item, licenseImg, logoImg, licenseList, logoList} = context.props;
     let upConfig = {
       listType: 'picture',
       showUploadList: true,
@@ -70,7 +69,7 @@ class Enterprise extends Component {
             type: "text",
             placeholder: "请输入企业简称",
           }
-        },{
+        }, {
           label: "企业邮箱：",
           name: "enterpriseMail",
           hasFeedback: true,
@@ -144,22 +143,18 @@ class Enterprise extends Component {
           required: true,
           custom(getCustomFieldProps) {
             upConfig.fileList = licenseList;
-            return <UploadImage title="营业执照" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
-                                context.setState({
-                                    licenseList : files
-                                })
-                            }}} {...getCustomFieldProps('businessLicense')} />
+            return <UploadImage title="营业执照" className='upload-list-inline upload-fixed'
+                                upConfig={{...upConfig, onChangeFileList:licenseImg}}
+              {...getCustomFieldProps('businessLicense')} />
           }
         }, {
           label: "企业LOGO：",
           name: "logo",
           custom(getCustomFieldProps) {
             upConfig.fileList = logoList;
-            return <UploadImage title="企业LOGO" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
-                                context.setState({
-                                    logoList : files
-                                })
-                            }}} {...getCustomFieldProps('logo')} />
+            return <UploadImage title="企业LOGO" className='upload-list-inline upload-fixed'
+                                upConfig={{...upConfig, onChangeFileList:logoImg}}
+              {...getCustomFieldProps('logo')} />
           }
         }]
       }, {

@@ -8,10 +8,26 @@ class Enterprise extends Component {
   constructor(props) {
     super(props);
     this.getFormOptions = this.getFormOptions.bind(this);
+    this.licenseImg = this.licenseImg.bind(this);
+    this.logoImg = this.logoImg.bind(this);
 
     this.state = {
-      item: {}
+      item: {},
+      logoList: [],
+      licenseList: []
     }
+  }
+
+  licenseImg(files) {
+    this.setState({
+      licenseList: files
+    })
+  }
+
+  logoImg(files) {
+    this.setState({
+      logoList: files
+    })
   }
 
   componentDidMount() {
@@ -22,11 +38,12 @@ class Enterprise extends Component {
       view({enterpriseCode: id})
     }
   }
-
   componentWillReceiveProps(nextProps, preProps) {
-    if(nextProps){
+    if (nextProps) {
       this.setState({
-        item: nextProps.result
+        item: nextProps.result,
+        licenseList: nextProps.result.businessLicense,
+        logoList: nextProps.result.logo
       })
     }
   }
@@ -44,9 +61,14 @@ class Enterprise extends Component {
         context.setState({
           params: value
         })
+        if (context.state.licenseList) {
+          value.businessLicense = (typeof context.state.licenseList) === 'string' ? context.state.licenseList : context.state.licenseList.length ? context.state.licenseList[0].name : '';
+        }
+        if (context.state.logoList) {
+          value.logo = (typeof context.state.logoList) === 'string' ? context.state.logoList : context.state.logoList.length ? context.state.logoList[0].name : '';
+        }
         modifyItem({...value})
       },
-
       /**
        * (筛选表单重置)
        */
@@ -57,7 +79,7 @@ class Enterprise extends Component {
 
 
   render() {
-    const {params, item} = this.state;
+    const {params, item,logoList,licenseList} = this.state;
     const {loading, result} = this.props;
     const formOptions = {
       loading,
@@ -66,7 +88,8 @@ class Enterprise extends Component {
     }
 
 
-    return <Panel title=""><EnterpriseView item={item}  {...formOptions}/></Panel>
+    return <Panel title=""><EnterpriseView item={item} logoList={logoList} licenseList={licenseList}
+                                           logoImg={this.logoImg} licenseImg={this.licenseImg} {...formOptions}/></Panel>
   }
 }
 

@@ -3,6 +3,7 @@ import CoreLayout from '../layouts/containers/CoreLayout'
 import Home from './Home'
 import {load, isAuthed} from '../store/auth'
 import Login from './Login'
+import PubPassword from './PubPassword'
 import NotFound from './NotFound'
 import React from 'react'
 
@@ -70,6 +71,7 @@ export const createRoutes = (store) => {
    */
   const otherRoutes = [
     Login(store),
+    PubPassword(store),
     NotFound
   ]
 
@@ -87,7 +89,6 @@ export const createRoutes = (store) => {
       ...otherRoutes
     ]
   }
-
   return routes
 }
 
