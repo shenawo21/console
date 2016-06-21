@@ -49,16 +49,9 @@ import store from 'store2';
 // ]
 
 
-const menuList = store.get('USER').menuList;
-//console.log(menuList,'menuList');
-console.log(store.get('USER').menuList,'menuList');
-// const lists = menuList.map(menu => {
-//   return {
-//       title: menu.name
-//     };
-// })
+const menuList = store.get('USER') && store.get('USER').menuList;
 
-const lists = menuList.map(menu => {
+const lists = menuList && menuList.map(menu => {
   const childrenList = menu.childrenList && menu.childrenList.map(idx => {
     return {
         title: idx.name,
@@ -76,9 +69,7 @@ const lists = menuList.map(menu => {
     };
 })
 
-const menuLists = lists;
-console.log(menuLists,'menuLists');
-
+const menuLists = lists || [];
 
  if(__DEV__){
     menuLists.push(
