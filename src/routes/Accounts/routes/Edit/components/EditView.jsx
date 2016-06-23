@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 
 import {Link} from 'react-router';
 
-import { Button, Row, Col, Input, InputNumber, DatePicker, message, Checkbox} from 'hen';
 import {UploadImage} from 'components/FileLoader'
 import Form from 'components/Form';
 
@@ -31,14 +30,14 @@ class Edit extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item, enterList, formOptions, roleList, photoImg, photoList} = context.props;
+        const {item, formOptions, roleList, photoImg, photoList} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
         };
-        console.log(formOptions,'formOptions');
-        config.formItems = [{
+        config.formItems = [
+            {
                 label: "帐号：",
                 name: "account",
                 required: true,
@@ -70,7 +69,8 @@ class Edit extends Component {
                 input: {
                     placeholder: "请输入用户姓名",
                 }
-            }, {
+            },
+             {
                 label: "头像：",
                 name: "photo",
                 required : false,
@@ -115,15 +115,6 @@ class Edit extends Component {
                     type: "text",
                     placeholder: "请输入手机号码",
                 }
-        }, {
-            label: "角色",
-            name: "roleIdList",
-            labelCol: { span: 3 },
-            wrapperCol: { span: 8 },
-            rules: [{required: false, type: 'array'}],
-            checkboxGroup: {
-                options: roleList
-            }
         }];
 
         config.initValue = {
@@ -144,6 +135,19 @@ class Edit extends Component {
         
         if(item != null && item.adminId){
             config.formItems.splice(1, 1);
+        }
+        
+        if(roleList.length){
+            config.formItems.push({
+                label: "角色",
+                name: "roleIdList",
+                labelCol: { span: 3 },
+                wrapperCol: { span: 8 },
+                rules: [{required: false, type: 'array'}],
+                checkboxGroup: {
+                    options: roleList
+                }
+            })
         }
 
         return config;

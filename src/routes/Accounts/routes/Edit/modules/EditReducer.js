@@ -124,12 +124,12 @@ export default function reducer(state = {result:{}}, action) {
     case GETENTERLIST:
     case GETROLELIST:
         return {
-            ...state
+            ...state,
+            jump : false
         }
     case VIEW_SUCCESS:
         return {
             ...state,
-            loading : action.loading,
             result: action.result
         }
     case VIEW_FAILURE:
@@ -149,11 +149,13 @@ export default function reducer(state = {result:{}}, action) {
     case MODIFY_SUCCESS:
         return {
             ...state,
+            jump : true,
             result: action.result
         }
     case MODIFY_FAILURE:
         return {
-            ...state
+            ...state,
+            jump : false
         }
     case CHECKENCODE_SUCCESS:
         return {

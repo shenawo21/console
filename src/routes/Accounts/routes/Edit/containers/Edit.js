@@ -21,13 +21,9 @@ class Edit extends Component {
         this.photoImg = this.photoImg.bind(this);
 
         this.state = {
-            params: {},
             item: {},
-            selState: null,
-            enterList: [],
             roleList: [],
-            photoList: [],
-            resultState:[]
+            photoList: []
         };  //定义初始状态
     }
     photoImg(files) {
@@ -40,38 +36,38 @@ class Edit extends Component {
         const {params, view, getRoleList} = this.props;
         const context = this;
                 
-        getRoleList().then(res => {
-            const lists = res.data;
+        if(params.id){
+            view({adminId: params.id})
+        }
+
+        getRoleList();
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/accounts')
+            },600)
+        }
+        if (nextProps.result) {
+            this.setState({
+                item: nextProps.result,
+                photoList: nextProps.result.photo
+            })
+        }
+        if(nextProps.result && nextProps.roleListResult){
+            const lists = nextProps.roleListResult;
             var list = lists.map(a => {
                 return {
                     value: a.roleId,
                     label: a.name
                 }
             })
-            context.setState({
-                roleList: list
-            })
-            
-        })
-        
-        
-        if(params.id){
-            view({adminId: params.id})
-        }
-    }
-
-    componentWillReceiveProps(nextProps, preProps){
-        
-        if (nextProps) {
-            //console.log(nextProps.result.photo,'t')
             this.setState({
-                item: nextProps.result,
-                photoList: nextProps.result.photo
+                roleList: list
             })
         }
     }    
-    
-   
 
     /**
    * handle submit
@@ -96,45 +92,18 @@ class Edit extends Component {
             if (_this.state.photoList) {
                 value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
             }
-            console.log(1111,value);
             if(params.id) { 
                 modifyItem({
                     adminId: params.id,
                     enterpriseCode: enterpriseCode,
                     ...value
-                    }).then(res => {
-                        if(res.data == null){
-                            // _this.setState({
-                            //     resultState: value
-                            // });
-	                        //res.data = value;    
-                        }
-
-                        // if(res.status == 1){
-                        //     message.success(res.message || '修改成功')
-                        //     setTimeout(() => {
-                        //         let pathname = '/accounts';
-                        //         _this.context.router.replace(pathname);
-                        //     }, 1000);
-
-                        // }
-                    })
-                }else{ 
-                    addItem({
-                        ...value,
-                        enterpriseCode: enterpriseCode
-                    }).then(res => {
-                            
-                            if(res.status == 1){
-                                message.success(res.message || '修改成功')
-                                setTimeout(() => {
-                                    let pathname = '/accounts';
-                                    _this.context.router.replace(pathname);
-                                }, 1000);
-
-                            }
-                        })
-                }
+                })
+            }else{ 
+                addItem({
+                    ...value,
+                    enterpriseCode: enterpriseCode
+                })
+            }
           },
 
           /**
@@ -147,20 +116,15 @@ class Edit extends Component {
         }
     }
 
-
-
-
     render() {
-        const {params, item, enterList, selState, roleList, photoList, resultState} = this.state;
+        const { item, roleList, photoList} = this.state;
         const {loading, result} = this.props;
-        console.log(111111,this.props)
         const formOptions = {
             loading,
             result,
             'formOptions': this.getFormOptions()
         };
-        console.log(result,'ttt');
-        return <Panel><EditView item={item} enterList={enterList} selState={selState} photoList={photoList} roleList={roleList} photoImg={this.photoImg} {...formOptions} /></Panel>
+        return <Panel><EditView item={item}  photoList={photoList} roleList={roleList} photoImg={this.photoImg} {...formOptions} /></Panel>
     }
 }
 
@@ -186,8 +150,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.edit;
-  return {'result': result, loading};
-
+  const {result, roleListResult, loading, jump} = state.edit;
+  return {'result': result, 'roleListResult' : roleListResult, loading, jump};
 }
+
 export default connect(mapStateToProps, mapActionCreators)(Edit)
