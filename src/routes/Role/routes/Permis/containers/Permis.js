@@ -93,6 +93,11 @@ class Permis extends Component {
         keys
       })
     }
+    if(nextProps.isJump){
+      setTimeout(()=> {
+        nextProps.history.go(-1);
+      }, 800);
+    }
   }
 
   render() {
@@ -116,9 +121,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.permis;
+  const {result, loading,isJump} = state.permis;
 
-  return {'result': result, loading};
+  return {'result': result, loading,isJump};
 
 }
 

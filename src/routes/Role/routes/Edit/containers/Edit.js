@@ -35,6 +35,11 @@ class Edit extends Component {
         item: nextProps.result
       })
     }
+    if(nextProps.isJump){
+      setTimeout(()=> {
+        nextProps.history.go(-1);
+      }, 800);
+    }
   }
 
   /**
@@ -56,7 +61,7 @@ class Edit extends Component {
         context.setState({
           params: value
         })
-        params.id ? addItem({...value}) : modifyItem({...value});
+        params.id ? modifyItem({...value}) : addItem({...value});
       },
 
       /**
@@ -98,8 +103,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.edit;
-  return {'result': result, loading};
+  const {result, loading,isJump} = state.edit;
+  return {'result': result, loading,isJump};
 
 }
 export default connect(mapStateToProps, mapActionCreators)(Edit)
