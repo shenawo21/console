@@ -37,7 +37,7 @@ export function modifyItem(params) {
 }
 
 export default function reducer(state = {result: {}}, action) {
-  state = {...state, loading: action.loading};
+  state = {...state,isJump: false,loading: action.loading};
   switch (action.type) {
     case MODIFY:
     case QUERY:

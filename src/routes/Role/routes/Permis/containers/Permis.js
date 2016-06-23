@@ -94,7 +94,9 @@ class Permis extends Component {
       })
     }
     if(nextProps.isJump){
-      nextProps.history.go(-1)
+      setTimeout(()=> {
+        nextProps.history.go(-1);
+      }, 800);
     }
   }
 
