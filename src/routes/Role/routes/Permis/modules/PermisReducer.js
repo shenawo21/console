@@ -56,11 +56,13 @@ export default function reducer(state = {result: {}}, action) {
     case MODIFY_SUCCESS:
       return {
         ...state,
-        result: action.result
+        result: action.result,
+        isJump: true
       }
     case MODIFY_FAILURE:
       return {
-        ...state
+        ...state,
+        isJump: false
       }
     default:
       return state
