@@ -8,8 +8,8 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {view, addItem, modifyItem, checkEnCode, getEnterList, getRoleList} from '../modules/EditReducer'
-
+import {view, addItem, modifyItem, getRoleList} from '../modules/EditReducer'
+import store from 'store2';
 import {message} from 'hen';
 
 class Edit extends Component {
@@ -18,37 +18,28 @@ class Edit extends Component {
         super(props);
 
         this.getFormOptions = this.getFormOptions.bind(this);
+        this.photoImg = this.photoImg.bind(this);
 
         this.state = {
             params: {},
             item: {},
             selState: null,
             enterList: [],
-            roleList: []
+            roleList: [],
+            photoList: [],
+            resultState:[]
         };  //定义初始状态
     }
-    componentDidMount() {
-        const {params, view, getEnterList, getRoleList} = this.props;
-        const context = this;
-        
-        /**
-       * (获取企业列表并做筛选)
-       *
-       * @param value (description)
-       */
-        getEnterList().then(res => {
-            const lists = res.data.items;
-            var list = lists.map(a => {
-                return {
-                    value: a.enterpriseCode,
-                    title: a.name
-                }
-            })
-            context.setState({
-                enterList: list
-            });
+    photoImg(files) {
+        this.setState({
+            photoList: files
         })
-        
+    }
+
+    componentDidMount() {
+        const {params, view, getRoleList} = this.props;
+        const context = this;
+                
         getRoleList().then(res => {
             const lists = res.data;
             var list = lists.map(a => {
@@ -71,13 +62,11 @@ class Edit extends Component {
 
     componentWillReceiveProps(nextProps, preProps){
         
-        if(!nextProps.params.id){
+        if (nextProps) {
+            //console.log(nextProps.result.photo,'t')
             this.setState({
-                item: {}
-            })
-        } else {
-            this.setState({
-                item: nextProps.result
+                item: nextProps.result,
+                photoList: nextProps.result.photo
             })
         }
     }    
@@ -90,7 +79,7 @@ class Edit extends Component {
    * @param  {any} e
    */
     getFormOptions() {
-        const context = this;
+        const _this = this;
         return {
        /**
        * (筛选表单提交)
@@ -99,16 +88,53 @@ class Edit extends Component {
        */
 
         handleSubmit(value) {
-            const {addItem, modifyItem, params} = context.props;
-
-            context.setState({
+            const {addItem, modifyItem, params} = _this.props;
+            const enterpriseCode = store.get('USER').enterpriseCode;
+            _this.setState({
                 params: value
             })
-            params.id ? modifyItem({
-                adminId: params.id,
-                enterpriseCode: value.enterpriseCode,
-                ...value
-            }) : addItem({...value});
+            if (_this.state.photoList) {
+                value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+            }
+            console.log(1111,value);
+            if(params.id) { 
+                modifyItem({
+                    adminId: params.id,
+                    enterpriseCode: enterpriseCode,
+                    ...value
+                    }).then(res => {
+                        if(res.data == null){
+                            // _this.setState({
+                            //     resultState: value
+                            // });
+	                        //res.data = value;    
+                        }
+
+                        // if(res.status == 1){
+                        //     message.success(res.message || '修改成功')
+                        //     setTimeout(() => {
+                        //         let pathname = '/accounts';
+                        //         _this.context.router.replace(pathname);
+                        //     }, 1000);
+
+                        // }
+                    })
+                }else{ 
+                    addItem({
+                        ...value,
+                        enterpriseCode: enterpriseCode
+                    }).then(res => {
+                            
+                            if(res.status == 1){
+                                message.success(res.message || '修改成功')
+                                setTimeout(() => {
+                                    let pathname = '/accounts';
+                                    _this.context.router.replace(pathname);
+                                }, 1000);
+
+                            }
+                        })
+                }
           },
 
           /**
@@ -117,25 +143,7 @@ class Edit extends Component {
 
           handleReset(){
 
-          },
-           /**
-             * handle onchange
-             * @param  {any} formData
-             * @param  {any} e
-             */
-            
-            handleChange(value, name, form){ 
-                const {checkEnCode} = context.props;       
-                checkEnCode({
-                    enterpriseCode: value
-                }).then(res => {
-                    context.setState({
-                        selState: res.data
-                    });
-                    form.validateFields([name], { force: true });
-                });
-            }
-
+          }
         }
     }
 
@@ -143,14 +151,16 @@ class Edit extends Component {
 
 
     render() {
-        const {params, item, enterList, selState, roleList} = this.state;
+        const {params, item, enterList, selState, roleList, photoList, resultState} = this.state;
         const {loading, result} = this.props;
+        console.log(111111,this.props)
         const formOptions = {
             loading,
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><EditView item={item} enterList={enterList} selState={selState} roleList={roleList} {...formOptions} /></Panel>
+        console.log(result,'ttt');
+        return <Panel><EditView item={item} enterList={enterList} selState={selState} photoList={photoList} roleList={roleList} photoImg={this.photoImg} {...formOptions} /></Panel>
     }
 }
 
@@ -159,25 +169,24 @@ Edit.propTypes = {
     view: React.PropTypes.func,
     addItem: React.PropTypes.func,
     modifyItem: React.PropTypes.func,
-    checkEnCode: React.PropTypes.func,
-    getEnterList : React.PropTypes.func,
     getRoleList: React.PropTypes.func,
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
 
+Edit.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
+
 const mapActionCreators = {
     view,
     addItem,
     modifyItem,
-    checkEnCode,
-    getEnterList,
     getRoleList
 }
 
 const mapStateToProps = (state) => {
   const {result, loading} = state.edit;
-
   return {'result': result, loading};
 
 }

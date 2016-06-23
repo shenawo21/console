@@ -20,7 +20,7 @@ class Edit extends Component {
     constructor(){
         super();
         this.state = {
-            upList : ""
+            photoList : []
         }
     }
 
@@ -31,14 +31,13 @@ class Edit extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item, enterList, formOptions, selState, roleList} = context.props;
-        const {upList} = this.state;
+        const {item, enterList, formOptions, roleList, photoImg, photoList} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
         };
-
+        console.log(formOptions,'formOptions');
         config.formItems = [{
                 label: "帐号：",
                 name: "account",
@@ -47,26 +46,8 @@ class Edit extends Component {
                 rules: [{ required: true, max: 64, message: '最多为64个字符' }],
                 input: {
                     type: 'text',
-                    disabled: item.adminId ? true : false,
+                    disabled: (item != null && item.adminId) ? true : false,
                     placeholder: "请输入帐号",
-                }
-            }, {
-                label: "企业编码：",
-                name: "enterpriseCode",
-                hasFeedback: true,
-                rules: [{ required: true, message: '不能为空' },{
-                    validator(rule, value, callback) {
-                        if(selState){
-                            callback([new Error('该企业已有管理员账号不能重复创建')]);
-                        }else{
-                            callback();
-                        }
-                    }
-                }],
-                select: {
-                    placeholder: "请选择企业",
-                    onSelect: formOptions.handleChange,
-                    optionValue: enterList
                 }
             }, {
                 label: "密码：",
@@ -94,12 +75,10 @@ class Edit extends Component {
                 name: "photo",
                 required : false,
                 custom(getCustomFieldProps) {
-                    upConfig.fileList = upList;
-                    return <UploadImage title="选择头像" className='upload-list-inline upload-fixed' upConfig={{...upConfig, onChangeFileList(files) {
-                        context.setState({
-                            upList : files
-                        })
-                    }}} {...getCustomFieldProps('photo')} />
+                    upConfig.fileList = photoList;
+                    return <UploadImage title="选择头像" className='upload-list-inline upload-fixed'
+                                upConfig={{...upConfig, onChangeFileList:photoImg}}
+                        {...getCustomFieldProps('photo')} />
                 }
             }, {
                 label: "性别：",
@@ -149,7 +128,6 @@ class Edit extends Component {
 
         config.initValue = {
             account: null,
-            enterpriseCode: null,
             password: null,
             name: null,
             photo: null,
@@ -164,8 +142,8 @@ class Edit extends Component {
             config.initValue = item;            
         }
         
-        if(item.adminId){
-            config.formItems.splice(2, 1);
+        if(item != null && item.adminId){
+            config.formItems.splice(1, 1);
         }
 
         return config;

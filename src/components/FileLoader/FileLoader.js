@@ -170,7 +170,7 @@ export const UpLoader = (props) => {
             if (!isFile) {
                 message.error('只能上传 xls或xlsx 后缀文件！');
                 if (isOnly) {
-                    message.warn('只能上传一个文件');
+                    message.warning('只能上传一个文件');
                     return false;
                 }
             }
@@ -259,7 +259,7 @@ export const UploadImage = (props) => {
             return false;
         }
         if (onlyFile && fileList.length) {
-            message.warn('只能上传一个文件');
+            message.warning('只能上传一个文件');
             return false;
         }
     }
