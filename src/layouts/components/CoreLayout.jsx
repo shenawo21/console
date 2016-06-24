@@ -4,11 +4,12 @@ import 'hen/style/index.less'
 import '../../styles/core.less'
 import classes from './CoreLayout.less'
 import { Menu, Breadcrumb, Icon } from 'hen'
+import store from 'store2';
 const SubMenu = Menu.SubMenu
 const MenuItem = Menu.Item;
 
 import Page from '../../components/Page'
-import menus from '../../common/menu'
+import getMenu from '../../common/menu'
 import NavBar from '../../components/NavBar'
 
 var logo = require('./logo.png')
@@ -33,10 +34,14 @@ function CoreLayout(props) {
           findNestedProp(props.children.props)
       }
   }
-
   findNestedProp(props);
 
   const {handleLogout} = props;
+
+  //获取本地存储的菜单信息
+  const menuList = store.get('USER') && store.get('USER').menuList;
+  //修改菜单数据格式
+  let menus = getMenu(menuList);
 
   return (
     <div className={classes.corelayout}>

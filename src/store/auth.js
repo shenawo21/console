@@ -33,7 +33,7 @@ export function vCode(params) {
 export function login(params) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE],
-    promise: (client) => client.post('api-userLogin.loginEn', params, {'hasMsg' : '登陆成功'}),
+    promise: (client) => client.post('api-userLogin.loginEn', params),
     sKey : 'USER'
   }
 }

@@ -44,7 +44,7 @@ instance.interceptors.response.use(function (res) {
               message.error(res.data.message || '数据异常')
           }
       }else{
-          if (res.config.hasMsg != true){
+          if (res.config.hasMsg !== true){
               if(!res.config.msgStatus){
                   message.success(res.config.hasMsg || '数据获取成功');
               }else{
@@ -53,7 +53,7 @@ instance.interceptors.response.use(function (res) {
           }
       }
   }else{
-      !res.config.hasMsg ? message.error(res.data.message || '获取数据失败') : '';
+      message.error(res.data.message || '获取数据失败');
   }
   return res.data;
 }, function (error) {

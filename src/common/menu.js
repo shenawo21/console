@@ -1,4 +1,3 @@
-import store from 'store2';
 // const menuLists = [
 //   {
 //     title: '企业管理',
@@ -48,32 +47,27 @@ import store from 'store2';
 //   }
 // ]
 
-
-const menuList = store.get('USER') && store.get('USER').menuList;
-
-const lists = menuList && menuList.map(menu => {
-  const childrenList = menu.childrenList && menu.childrenList.map(idx => {
-    return {
-        title: idx.name,
-        url: idx.url,
-        icon: idx.icon,
-        when: idx.when
-      }
-  })
-  return {
-      title: menu.name,
-      url: menu.url,
-      icon: menu.icon,
-      when: menu.when,
-      children: childrenList || []
-    };
-})
-
-const menuLists = lists || [];
+const getMenu = menuLists => {
+  const lists = menuLists && menuLists.map(menu => {
+      const childrenList = menu.childrenList && menu.childrenList.map(idx => {
+        return {
+            title: idx.name,
+            url: idx.url,
+            icon: idx.icon,
+            when: idx.when
+          }
+      })
+      return {
+          title: menu.name,
+          url: menu.url,
+          icon: menu.icon,
+          when: menu.when,
+          children: childrenList || []
+      };
+  }) || [];
 
  if(__DEV__){
-    menuLists.push(
-      
+    lists.push(
       {
        title: 'docs',
        url: '/docs',
@@ -90,5 +84,7 @@ const menuLists = lists || [];
      }
     )
  }
+ return lists;
+}
 
- export default menuLists;
+ export default getMenu;

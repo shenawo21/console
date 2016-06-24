@@ -58,7 +58,7 @@ class Forms extends Component {
                 }
                 
                 if(values[name] === 'true' || values[name] === 'false'){
-                    values[name] = Boolean(values[name]);
+                    values[name] = values[name] === 'false' ? false : true;
                 }
             });
             if (resetNumber) {

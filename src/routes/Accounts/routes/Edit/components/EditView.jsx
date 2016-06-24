@@ -1,18 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 
-import {Link} from 'react-router';
-
 import {UploadImage} from 'components/FileLoader'
 import Form from 'components/Form';
 
-const SEX = [
-    { value: false, title: "女" },
-    { value: true, title: "男" }
-];
-const STATUS = [
-    { value: false, title: "不可用" },
-    { value: true, title: "可用" }
-];
+//性别
+const SEX = {
+  false: '女',
+  true: '男'
+};
+//帐号是否可用
+const STATUS = {
+  false: '不可用',
+  true: '可用'
+};
 
 class Edit extends Component {
 
@@ -83,20 +83,24 @@ class Edit extends Component {
             }, {
                 label: "性别：",
                 name: "sex",
-                //hasFeedback: true,
-                rules: [{ required: true, message: '不能为空' }],
+                hasFeedback: true,
+                rules: [{ required: true, message: '请选择性别' }],
                 select: {
-                    placeholder: "请选择性别",
-                    optionValue: SEX
+                    optionValue: [
+                        {title : '女', value : false},
+                        {title : '男', value : true}
+                    ]
                 }
             }, {
                 label: "是否可用：",
                 name: "enabled",
                 hasFeedback: true,
-                rules: [{ required: true, message: '不能为空' }],
+                rules: [{ required: true, message: '请选择是否可用' }],
                 select: {
-                    placeholder: "请选择是否可用",
-                    optionValue: STATUS
+                    optionValue: [
+                        {title : '不可用', value : false},
+                        {title : '可用', value : true}
+                    ]
                 }
             }, {
                 label: "邮箱：",
