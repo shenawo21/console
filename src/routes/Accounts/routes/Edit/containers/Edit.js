@@ -35,7 +35,6 @@ class Edit extends Component {
     componentDidMount() {
         const {params, view, getRoleList} = this.props;
         const context = this;
-                
         if(params.id){
             view({adminId: params.id})
         }
@@ -43,18 +42,25 @@ class Edit extends Component {
         getRoleList();
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps, preProps){
         if(nextProps.jump){
             setTimeout(()=>{
                 this.context.router.push('/accounts')
             },600)
         }
-        if (nextProps.result) {
+
+        if (!nextProps.params.id) {
+            this.setState({
+                item: {},
+                photoList: []
+            })
+        } else {
             this.setState({
                 item: nextProps.result,
                 photoList: nextProps.result.photo
             })
         }
+	
         if(nextProps.result && nextProps.roleListResult){
             const lists = nextProps.roleListResult;
             var list = lists.map(a => {
@@ -90,7 +96,7 @@ class Edit extends Component {
                 params: value
             })
             if (_this.state.photoList) {
-                value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+                value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : [];
             }
             if(params.id) { 
                 modifyItem({

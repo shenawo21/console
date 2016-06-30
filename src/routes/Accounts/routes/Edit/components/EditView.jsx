@@ -4,15 +4,15 @@ import {UploadImage} from 'components/FileLoader'
 import Form from 'components/Form';
 
 //性别
-const SEX = {
-  false: '女',
-  true: '男'
-};
+const SEX = [
+    {title : '女', value : false},
+    {title : '男', value : true}
+];
 //帐号是否可用
-const STATUS = {
-  false: '不可用',
-  true: '可用'
-};
+const STATUS = [
+    {title : '不可用', value : false},
+    {title : '可用', value : true}
+];
 
 class Edit extends Component {
 
@@ -36,8 +36,7 @@ class Edit extends Component {
             showUploadList: true,
             onlyFile: true
         };
-        config.formItems = [
-            {
+        config.formItems = [{
                 label: "帐号：",
                 name: "account",
                 required: true,
@@ -69,13 +68,12 @@ class Edit extends Component {
                 input: {
                     placeholder: "请输入用户姓名",
                 }
-            },
-             {
+            }, {
                 label: "头像：",
                 name: "photo",
                 required : false,
                 custom(getCustomFieldProps) {
-                    upConfig.fileList = photoList;
+                    upConfig.fileList = photoList || [];
                     return <UploadImage title="选择头像" className='upload-list-inline upload-fixed'
                                 upConfig={{...upConfig, onChangeFileList:photoImg}}
                         {...getCustomFieldProps('photo')} />
@@ -83,24 +81,18 @@ class Edit extends Component {
             }, {
                 label: "性别：",
                 name: "sex",
-                hasFeedback: true,
                 rules: [{ required: true, message: '请选择性别' }],
                 select: {
-                    optionValue: [
-                        {title : '女', value : false},
-                        {title : '男', value : true}
-                    ]
+                    placeholder: '请选择性别',
+                    optionValue: SEX
                 }
             }, {
                 label: "是否可用：",
                 name: "enabled",
-                hasFeedback: true,
                 rules: [{ required: true, message: '请选择是否可用' }],
                 select: {
-                    optionValue: [
-                        {title : '不可用', value : false},
-                        {title : '可用', value : true}
-                    ]
+                    placeholder: '请选择是否可用',
+                    optionValue: STATUS
                 }
             }, {
                 label: "邮箱：",
@@ -119,6 +111,15 @@ class Edit extends Component {
                     type: "text",
                     placeholder: "请输入手机号码",
                 }
+        },{
+            label: "角色",
+            name: "roleIdList",
+            labelCol: { span: 3 },
+            wrapperCol: { span: 8 },
+            rules: [{required: false, type: 'array'}],
+            checkboxGroup: {
+                options: roleList
+            }
         }];
 
         config.initValue = {
@@ -132,8 +133,22 @@ class Edit extends Component {
             mobile: null,
             roleIdList: []
         };
+
+        // if(roleList.length){
+        //     console.log(roleList,'roleList');
+        //     config.formItems.push({
+        //         label: "角色",
+        //         name: "roleIdList",
+        //         labelCol: { span: 3 },
+        //         wrapperCol: { span: 8 },
+        //         rules: [{required: false, type: 'array'}],
+        //         checkboxGroup: {
+        //             options: roleList
+        //         }
+        //     })
+        // }
         
-        if (item) {           
+        if (item) {    
             config.initValue = item;            
         }
         
@@ -141,18 +156,7 @@ class Edit extends Component {
             config.formItems.splice(1, 1);
         }
         
-        if(roleList.length){
-            config.formItems.push({
-                label: "角色",
-                name: "roleIdList",
-                labelCol: { span: 3 },
-                wrapperCol: { span: 8 },
-                rules: [{required: false, type: 'array'}],
-                checkboxGroup: {
-                    options: roleList
-                }
-            })
-        }
+        
 
         return config;
     }
