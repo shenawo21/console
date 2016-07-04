@@ -57,7 +57,7 @@ class Edit extends Component {
         } else {
             this.setState({
                 item: nextProps.result,
-                photoList: nextProps.result.photo
+                photoList: nextProps.result ? nextProps.result.photo : []
             })
         }
 	

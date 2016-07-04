@@ -48,7 +48,7 @@ class Login extends Component {
     // 正式的时候此代码会被干掉
     if (__DEV__) {
       enNamePropsOptions.initialValue = '象翌微链'
-      namePropsOptions.initialValue = 'admin'
+      namePropsOptions.initialValue = 'shangwen'
       passwdPropsOptions.initialValue = '123'
     }
     
