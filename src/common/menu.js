@@ -52,9 +52,7 @@ const getMenu = menuLists => {
       const thirdList = menu.childrenList.childrenList && menu.childrenList.childrenList.map(i => {
         return {
             title: i.name,
-            url: i.url,
-            icon: i.icon,
-            when: i.when
+            url: i.url
           }
       })
       console.log('thirdList',thirdList);
@@ -62,17 +60,13 @@ const getMenu = menuLists => {
         return {
             title: idx.name,
             url: idx.url,
-            icon: idx.icon,
-            when: idx.when,
             children: thirdList || null
           }
       })
       console.log('secondList',secondList);
       return {
           title: menu.name,
-          url: menu.url,
           icon: menu.icon,
-          when: menu.when,
           children: secondList || []
       };
   }) || [];
@@ -83,27 +77,20 @@ const getMenu = menuLists => {
        title: 'docs',
        url: '/docs',
        icon: 'user',
-       when: '',
        children: [
          {
            title: 'docs',
            url: '/docs',
-           icon: 'wb-dashboard',
-           when: '',
            children: [
              {
                title: 'docs',
-               url: '/docs',
-               icon: 'wb-dashboard',
-               when: ''
+               url: '/docs'
              }
            ]
          },
          {
             title: 'docs',
-            url: '/docs',
-            icon: 'wb-dashboard',
-            when: ''
+            url: '/docs'
           }
        ]
      }
