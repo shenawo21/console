@@ -64,19 +64,23 @@ class StorageMgt extends Component {
 
     render() {
         const { item } = this.state;
-        const {loading, result} = this.props;
+        const {loading, items} = this.props;
+        const tableOptions = {
+            dataSource : items,                         //加载组件时，表格从容器里获取初始值
+            action : '/',                         //表格翻页时触发的action
+            loading                                    //表格加载数据状态
+        }
         const formOptions = {
-            loading,
-            result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><StorageMgtView item={item} {...formOptions} /></Panel>
+        return <Panel><StorageMgtView item={item} {...tableOptions} {...formOptions} /></Panel>
     }
 }
 
 //数据限制类型
 StorageMgt.propTypes = {
     loading: React.PropTypes.bool,
+    items: React.PropTypes.array.isRequired,
     result: React.PropTypes.object,
 }
 
@@ -86,7 +90,8 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
   const {result, loading} = state.storageMgt;
-  return {'result': result, loading};
+  const {items = []} = {};
+  return {items, loading};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(StorageMgt)

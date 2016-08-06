@@ -11,5 +11,14 @@ export default (store) => ({
       
       next(null, storageMgt)
     })
+  },
+  getChildRoutes(location, next) {
+      require.ensure([], (require) => {
+        next(null, [
+          // Provide store for async reducers and middleware
+          require('./routes/CreateProduct').default(store),
+          require('./routes/AdjustStock').default(store)
+        ])
+      })
   }
 })
