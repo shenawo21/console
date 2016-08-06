@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
-import StorageOdd from '../../StorageQuery/containers/StorageQuery'
-import OutgoOdd from '../../OutgoQuery/containers/OutgoQuery'
+import StorageQuery from './StorageQuery'
+import OutgoQuery from './OutgoQuery'
 
 
 import {Tabs } from 'hen';
@@ -20,8 +20,8 @@ class virtualhouse extends Component {
             <div>
 
                 <Tabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="出库单" key="1"><StorageOdd /></TabPane>
-                    <TabPane tab="入库单" key="2"><OutgoOdd /></TabPane>
+                    <TabPane tab="出库单" key="1"><StorageQuery formOptions={formOptions} {...other} /></TabPane>
+                    <TabPane tab="入库单" key="2"><OutgoQuery formOptions={formOptions} {...other}  /></TabPane>
                 </Tabs>
 
             </div>

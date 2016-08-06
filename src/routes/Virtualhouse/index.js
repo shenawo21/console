@@ -20,9 +20,7 @@
           // Provide store for async reducers and middleware
           require('./routes/OddQuery').default(store),
           require('./routes/OutgoMgt').default(store),
-          require('./routes/StorageMgt').default(store),
-          require('./routes/StorageQuery').default(store),
-          require('./routes/OutgoQuery').default(store)
+          require('./routes/StorageMgt').default(store)
         ])
       })
   },

@@ -1,16 +1,17 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import StorageQueryView from '../components/StorageQueryView'
-import Panel from 'components/Panel';
-import { storageQueryList } from '../modules/StorageQueryReducer'
+import OddQueryView from '../components/OddQueryView'
+import Panel from 'components/Panel'
+import {queryList, addItem, modifyItem, deleteItem} from '../modules/OddQueryReducer'
 
-class StorageQuery extends Component {
+class OddQuery extends Component {
   
     constructor(props) {
         super(props);
         
-        this.getFormOptions = this.getFormOptions.bind(this);        
-                
+        this.getFormOptions = this.getFormOptions.bind(this);
+        
+        
         this.state = {
             params: {}   //表格需要的筛选参数
         }
@@ -18,11 +19,11 @@ class StorageQuery extends Component {
     
     componentDidMount() {
         
-        const {storageQueryList, location} = this.props;
+        const {queryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        storageQueryList({ pageNumber });
-                
+        queryList({ pageNumber });
+        
     }
     
       /**
@@ -54,18 +55,6 @@ class StorageQuery extends Component {
       }
     
     
-       /**
-       * (表格头部快捷按钮配功能置项)
-       * 
-       * @returns (description)
-       */
-      getQuickOptions(){
-          const contex = this;
-          return {
-             
-          }
-      }
-    
     
     handleRowSelection() {
         return {
@@ -81,16 +70,16 @@ class StorageQuery extends Component {
     render() {
         const {params} = this.state;
         
-        const {items, storageQueryList, totalItems, loading} = this.props;
+        const {items, queryList, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : storageQueryList,                         //表格翻页时触发的action
+            action : queryList,                         //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
-            params                                     //表格检索数据参数
-            //rowSelection : this.handleRowSelection()    //需要checkbox时填写
+            params,                                     //表格检索数据参数
+            rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
         
@@ -98,14 +87,14 @@ class StorageQuery extends Component {
             'formOptions' : this.getFormOptions()
         }
         
-        return <Panel title=""><StorageQueryView {...tableOptions} {...formOptions} /></Panel>
+        return <Panel title=""><OddQueryView {...tableOptions} {...formOptions} /></Panel>
     }
 }
 
 
-StorageQuery.propTypes = {
+OddQuery.propTypes = {
     
-    storageQueryList: React.PropTypes.func,
+    queryList: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,
     
@@ -113,18 +102,20 @@ StorageQuery.propTypes = {
 }
 
 const mapActionCreators = {
-    storageQueryList
+    queryList,
+    deleteItem,
+    modifyItem,
+    addItem
 }
 
 
 const mapStateToProps = (state) => {
-    console.log(state.storagequery,'state');
-    const {  } = state.storagequery;
+    const {result, loading} = state.oddQuery;
     
-    const {items = [], totalItems = 0} = {};
-    return { items, totalItems };
+    const {items = [], totalItems = 0} = result || {};
+    return { items, totalItems, loading };
     
 }
 
-export default connect(mapStateToProps, mapActionCreators)(StorageQuery)
+export default connect(mapStateToProps, mapActionCreators)(OddQuery)
 

@@ -13,28 +13,49 @@ const STATUS = [
    { value: true, title: "可用" }
 ];
 
-class StorageQuery extends Component {
+class OutgoView extends Component {
 
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "账号：",
+                label: "出库日期 ",
                 name: "account",
                 input: {
-                    placeholder: "请输入昵称"
                 }
             }, {
-                label: "用户姓名：",
+                label: "出库店铺 ",
                 name: "name",
-                input: {
-                    placeholder: "请输入用户姓名"
+                select: {
                 }
             },{
-                label: "是否可用：",
+                label: "出库单号 ",
+                name: "enabled",
+                input: {
+                   
+                }
+            },{
+                label: "SPU ",
+                name: "enabled",
+                input: {
+                   
+                }
+            },{
+                label: "SKU ",
+                name: "enabled",
+                input: {
+                   
+                }
+            },{
+                label: "出库类型 ",
                 name: "enabled",
                 select: {
-                    placeholder: "请选择是否可用",
-                    optionValue: STATUS
+                   
+                }
+            },{
+                label: "操作人 ",
+                name: "enabled",
+                input: {
+                   
                 }
             }],
             initValue: {
@@ -51,44 +72,63 @@ class StorageQuery extends Component {
         const context = this;
         let columns = [{
             key: '0',
-            title: '企业编码',
+            title: '出库单号',
             dataIndex: 'enterpriseCode'
         }, {
             key: '1',
-            title: '帐号',
+            title: '出库店铺',
             dataIndex: 'account'
         }, {
             key: '2',
-            title: '用户姓名',
+            title: '出库类型',
             dataIndex: 'name'
         }, {
             key: '3',
-            title: '是否可用',
+            title: 'SPU',
             dataIndex: 'enabled',
             render(status){
                 return status ? <span>可用</span> : <span>不可用</span>
             }
         }, {
             key: '4',
-            title: '邮箱',
+            title: 'SKU',
             dataIndex: 'email'
         }, {
             key: '5',
-            title: '手机号码',
+            title: '商品名称',
             dataIndex: 'mobile'
         }, {
             key: '6',
-            title: '注册时间',
+            title: '市场价',
             dataIndex: 'registerTime'
         }, {
             key: '7',
-            title: '创建人',
+            title: '销售价',
+            dataIndex: 'createPerson'
+        }, {
+            key: '8',
+            title: '建议销售价',
+            dataIndex: 'registerTime'
+        }, {
+            key: '9',
+            title: '出库数量',
+            dataIndex: 'createPerson'
+        }, {
+            key: '10',
+            title: '出库时间',
+            dataIndex: 'registerTime'
+        }, {
+            key: '11',
+            title: '操作人',
+            dataIndex: 'createPerson'
+        }, {
+            key: '12',
+            title: '备注',
             dataIndex: 'createPerson'
         }];
         
         return columns;
-    }
-       
+    }    
 
     render() {
         const {formOptions, ...other} = this.props;
@@ -106,14 +146,14 @@ class StorageQuery extends Component {
 }
 
 
-StorageQuery.propTypes = {
+OutgoView.propTypes = {
 
-    dataSource : React.PropTypes.array.isRequired,
-    action : React.PropTypes.func.isRequired,
+    // dataSource : React.PropTypes.array.isRequired,
+    // action : React.PropTypes.func.isRequired,
 
-    loading : React.PropTypes.bool,
-    params : React.PropTypes.object
+    // loading : React.PropTypes.bool,
+    // params : React.PropTypes.object
 }
 
 
-export default StorageQuery;
+export default OutgoView;
