@@ -2,32 +2,27 @@
 //   {
 //     title: '企业管理',
 //     url: '/enterprise',
-//     icon: 'home',
-//     when: '',
+//     icon: 'home'
 //     children: [
 //       {
 //         title: '企业详情',
 //         url: '/enterprise',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }
 //     ]
 //   }, {
 //     title: '账号管理',
 //     url: '/accounts',
-//     icon: 'user',
-//     when: '',
+//     icon: 'user'
 //     children: [
 //       {
 //         title: '账号列表',
 //         url: '/accounts',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }, {
 //         title: '角色',
 //         url: '/role',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }
 //     ]
 //   },
@@ -35,13 +30,11 @@
 //     title: '应用管理',
 //     url: '/manage',
 //     icon: 'user',
-//     when: '',
 //     children: [
 //       {
 //         title: '应用管理',
 //         url: '/manage',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }
 //     ]
 //   }
@@ -55,7 +48,7 @@ const getMenu = menuLists => {
             url: i.url
           }
       })
-      console.log('thirdList',thirdList);
+      //console.log('thirdList',thirdList);
       const secondList = menu.childrenList && menu.childrenList.map(idx => {
         return {
             title: idx.name,
@@ -63,7 +56,7 @@ const getMenu = menuLists => {
             children: thirdList || null
           }
       })
-      console.log('secondList',secondList);
+      //console.log('secondList',secondList);
       return {
           title: menu.name,
           icon: menu.icon,
@@ -80,17 +73,25 @@ const getMenu = menuLists => {
        children: [
          {
            title: 'docs',
-           url: '/docs',
-           children: [
-             {
-               title: 'docs',
-               url: '/docs'
-             }
-           ]
+           url: '/docs'
+         }
+       ]
+     },
+     {
+       title: '虚拟总仓管理',
+       icon: 'setting',
+       children: [
+         {
+           title: '虚拟总仓',
+           url: 'virtualhouse'
          },
          {
-            title: 'docs',
-            url: '/docs'
+            title: '出入库单查询',
+            url: '/virtualhouse/OddQuery'
+          },
+         {
+            title: '商品规格值管理',
+            url: '/virtualhouse/specificationMgt'
           }
        ]
      }
