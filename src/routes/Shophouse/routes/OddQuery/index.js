@@ -8,7 +8,7 @@
       const oddQuery = require('./containers/OddQuery').default
       const reducer = require('./modules/OddQueryReducer').default
 
-      store.injectReducer({ key: 'oddQuery', reducer })
+      store.injectReducer({ key: 'shopOddQuery', reducer })
 
       next(null, oddQuery)
     })

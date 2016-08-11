@@ -8,7 +8,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import StorageMgtView from '../components/StorageMgtView'
 import Panel from 'components/Panel'
-import { getRoleList } from '../modules/StorageMgtReducer'
+import {  } from '../modules/StorageMgtReducer'
 import {message} from 'hen';
 
 class StorageMgt extends Component {
