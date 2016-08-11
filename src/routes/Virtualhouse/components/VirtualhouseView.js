@@ -107,11 +107,10 @@ class Accounts extends Component {
     
 
     render() {
-        const {formOptions,quickOptions,_delAccount, ...other} = this.props;
+        const {formOptions,quickOptions, ...other} = this.props;
         
         return (
             <div>
-
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                 <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} ref='dt' />

@@ -1,14 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
-import StorageQuery from './StorageQuery'
-import OutgoQuery from './OutgoQuery'
+import Shop from './Shop'
+import Product from './Product'
 
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
 
-class virtualhouse extends Component {
+class shopprice extends Component {
     
 
     render() {
@@ -21,8 +21,8 @@ class virtualhouse extends Component {
             <div>
 
                 <Tabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="出库单" key="1"><OutgoQuery formOptions={formOptions} {...other}  /></TabPane>
-                    <TabPane tab="入库单" key="2"><StorageQuery formOptions={formOptions} {...other} /></TabPane>
+                    <TabPane tab="店铺仓库" key="1"><Shop formOptions={formOptions} {...other} /></TabPane>
+                    <TabPane tab="商品对比" key="2"><Product formOptions={formOptions} {...other}  /></TabPane>
                 </Tabs>
 
             </div>
@@ -31,7 +31,7 @@ class virtualhouse extends Component {
 }
 
 
-virtualhouse.propTypes = {
+shopprice.propTypes = {
 
     //dataSource : React.PropTypes.array.isRequired,
     //action : React.PropTypes.func.isRequired,
@@ -41,4 +41,4 @@ virtualhouse.propTypes = {
 }
 
 
-export default virtualhouse;
+export default shopprice;

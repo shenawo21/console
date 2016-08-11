@@ -1,10 +1,10 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import OddQueryView from '../components/OddQueryView'
+import ShophouseView from '../components/ShophouseView'
 import Panel from 'components/Panel'
-import { storageQueryList, outgoQueryList } from '../modules/OddQueryReducer'
+import { shopQueryList, priceQueryList } from '../modules/ShophouseReducer'
 
-class OddQuery extends Component {
+class Shophouse extends Component {
   
     constructor(props) {
         super(props);
@@ -24,23 +24,23 @@ class OddQuery extends Component {
      */
     _isQueryStatus(key){
         const _this = this;
-        const {storageQueryList, outgoQueryList, location} = this.props;
+        const {shopQueryList, priceQueryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         if(key == 1){
-            outgoQueryList({ pageNumber });
+            priceQueryList({ pageNumber });
             _this.setState({ oddStatus: true });
         }else{
-            storageQueryList({ pageNumber });
+            shopQueryList({ pageNumber });
             _this.setState({ oddStatus: false });
         }
     }
 
     componentDidMount() {
-        const {storageQueryList, outgoQueryList, location} = this.props;
+        const {shopQueryList, priceQueryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        outgoQueryList({ pageNumber });
+        priceQueryList({ pageNumber });
     }
     
       /**
@@ -87,10 +87,10 @@ class OddQuery extends Component {
     render() {
         const {params, oddStatus} = this.state;
         
-        const {items, storageQueryList, outgoQueryList, totalItems, loading} = this.props;
+        const {items, shopQueryList, priceQueryList, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddStatus ? outgoQueryList : storageQueryList,                  //表格翻页时触发的action
+            action : oddStatus ? priceQueryList : shopQueryList,                  //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
@@ -105,15 +105,15 @@ class OddQuery extends Component {
             'formOptions' : this.getFormOptions()
         }
         
-        return <Panel title=""><OddQueryView {...tableOptions} {...formOptions} /></Panel>
+        return <Panel title=""><ShophouseView {...tableOptions} {...formOptions} /></Panel>
     }
 }
 
 
-OddQuery.propTypes = {
+Shophouse.propTypes = {
     
-    storageQueryList: React.PropTypes.func,
-    outgoQueryList: React.PropTypes.func,
+    priceQueryList: React.PropTypes.func,
+    shopQueryList: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,
     
@@ -121,18 +121,18 @@ OddQuery.propTypes = {
 }
 
 const mapActionCreators = {
-    storageQueryList,
-    outgoQueryList
+    priceQueryList,
+    shopQueryList
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.oddQuery;
+    const {result, loading} = state.shophouse;
     
     const {items = [], totalItems = 0} = result || {};
     return { items, totalItems, loading };
     
 }
 
-export default connect(mapStateToProps, mapActionCreators)(OddQuery)
+export default connect(mapStateToProps, mapActionCreators)(Shophouse)
 

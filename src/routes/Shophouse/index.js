@@ -1,16 +1,16 @@
  export default (store) => ({
-  breadcrumbName: "虚拟总仓",
-  path: 'virtualhouse',
+  breadcrumbName: "店铺仓库管理",
+  path: 'shophouse',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and
           will not loaded until the router invokes this callback. */
-      const virtualhouse = require('./containers/virtualhouse').default
-      const reducer = require('./modules/virtualhouseReducer').default
+      const shophouse = require('./containers/shophouse').default
+      const reducer = require('./modules/shophouseReducer').default
 
-      store.injectReducer({ key: 'virtualhouse', reducer })
+      store.injectReducer({ key: 'shophouse', reducer })
 
-      next(null, virtualhouse)
+      next(null, shophouse)
     })
   },
   
@@ -19,9 +19,8 @@
         next(null, [
           // Provide store for async reducers and middleware
           require('./routes/OddQuery').default(store),
-          require('./routes/OutgoMgt').default(store),
-          require('./routes/StorageMgt').default(store),
-          require('./routes/SpecificationMgt').default(store)
+          require('./routes/AdjustPrice').default(store),
+          require('./routes/OutgoManual').default(store)
         ])
       })
   },

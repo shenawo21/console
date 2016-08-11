@@ -7,23 +7,22 @@ import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
-//是否可用
-const STATUS = [
-   { value: false, title: "不可用" },
-   { value: true, title: "可用" }
-];
-
-class StorageQuery extends Component {
+class shop extends Component {
 
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "入库日期：",
+                label: "出库日期：",
                 name: "account",
                 input: {
                 }
+            }, {
+                label: "出库店铺：",
+                name: "name",
+                select: {
+                }
             },{
-                label: "入库单号：",
+                label: "出库单号：",
                 name: "enabled",
                 input: {
                    
@@ -41,19 +40,7 @@ class StorageQuery extends Component {
                    
                 }
             },{
-                label: "商品类目：",
-                name: "enabled",
-                select: {
-                   
-                }
-            },{
-                label: "商品名称：",
-                name: "enabled",
-                input: {
-                   
-                }
-            },{
-                label: "入库类型：",
+                label: "出库类型：",
                 name: "enabled",
                 select: {
                    
@@ -79,50 +66,50 @@ class StorageQuery extends Component {
         const context = this;
         let columns = [{
             key: '0',
-            title: '入库单号',
+            title: '出库单号',
             dataIndex: 'enterpriseCode'
-        },{
+        }, {
             key: '1',
-            title: '入库类型',
-            dataIndex: 'name'
+            title: '出库店铺',
+            dataIndex: 'account'
         }, {
             key: '2',
+            title: '出库类型',
+            dataIndex: 'name'
+        }, {
+            key: '3',
             title: 'SPU',
             dataIndex: 'enabled',
             render(status){
                 return status ? <span>可用</span> : <span>不可用</span>
             }
         }, {
-            key: '3',
+            key: '4',
             title: 'SKU',
             dataIndex: 'email'
         }, {
-            key: '4',
+            key: '5',
             title: '商品名称',
             dataIndex: 'mobile'
         }, {
-            key: '5',
-            title: '商品类目',
-            dataIndex: 'registerTime'
-        }, {
             key: '6',
-            title: '规格',
-            dataIndex: 'createPerson'
-        }, {
-            key: '7',
             title: '市场价',
             dataIndex: 'registerTime'
         }, {
-            key: '8',
+            key: '7',
             title: '销售价',
             dataIndex: 'createPerson'
         }, {
-            key: '9',
-            title: '入库数量',
+            key: '8',
+            title: '建议销售价',
             dataIndex: 'registerTime'
-        },  {
+        }, {
+            key: '9',
+            title: '出库数量',
+            dataIndex: 'createPerson'
+        }, {
             key: '10',
-            title: '入库时间',
+            title: '出库时间',
             dataIndex: 'registerTime'
         }, {
             key: '11',
@@ -135,16 +122,25 @@ class StorageQuery extends Component {
         }];
         
         return columns;
-    }    
-       
+    }
 
     render() {
         const {formOptions, ...other} = this.props;
         
         return (
             <div>
- 
+                <div style={{marginBottom:20}}>
+                    <Row>
+                        <Col span='2'>
+                            <Link className="ant-btn ant-btn-normal" to={`/shophouse/adjustPrice`}>价格调整</Link>
+                        </Col>
+                        <Col span='2'>
+                            <Link className="ant-btn ant-btn-normal" to={`/shophouse/outgoManual`}>手动出库</Link>
+                        </Col>
+                    </Row>
+                </div>
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+
 
                 <DataTable bordered={true} columns={this._getColumns()} {...other} ref='dt' />
 
@@ -154,7 +150,7 @@ class StorageQuery extends Component {
 }
 
 
-StorageQuery.propTypes = {
+shop.propTypes = {
 
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
@@ -164,4 +160,4 @@ StorageQuery.propTypes = {
 }
 
 
-export default StorageQuery;
+export default shop;

@@ -94,6 +94,20 @@ const getMenu = menuLists => {
             url: '/virtualhouse/specificationMgt'
           }
        ]
+     },
+     {
+       title: '店铺仓库管理',
+       icon: 'setting',
+       children: [
+         {
+           title: '店铺仓库',
+           url: '/shophouse'
+         },
+         {
+            title: '出入库单查询',
+            url: '/shophouse/oddquery'
+          }
+       ]
      }
     )
  }

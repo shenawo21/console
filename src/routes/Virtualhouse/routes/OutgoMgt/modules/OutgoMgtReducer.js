@@ -13,7 +13,7 @@ const VIEWPWD_FAILURE = 'virtualhouse/VIEWPWD_FAILURE';
 export function viewItem(params) {
   return {
     types: [VIEWPWD, VIEWPWD_SUCCESS, VIEWPWD_FAILURE],
-    promise: (client) => client.post('api-administrator.updPwd', params)
+    promise: (client) => client.post('api-administrator.list', params)
   }
 }
 

@@ -4,19 +4,19 @@ import {Link} from 'react-router';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable';
 
-import {Row, Col, Button} from 'hen';
+import {Row, Col, Button, Input} from 'hen';
 import Search from 'components/Search';
 
-class AdjustStock extends Component {
+class AdjustPrice extends Component {
     
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "商品名称：",
+                label: "所属店铺：",
                 name: "name1",
-                input: {}
+                select: {}
             },{
-                label: "SPU：",
+                label: "商品名称：",
                 name: "name2",
                 input: {}
             },{
@@ -67,35 +67,76 @@ class AdjustStock extends Component {
         return columns;
     }
     
+    _getColumnsModify(){
+        const context = this;
+        let columns = [{
+            key: '0',
+            title: 'SPU编码',
+            dataIndex: '字段0'
+        }, {
+            key: '1',
+            title: 'SKU编码',
+            dataIndex: '字段1'
+        }, {
+            key: '2',
+            title: '所属店铺',
+            dataIndex: '字段2'
+        }, {
+            key: '3',
+            title: '商品名称',
+            dataIndex: '字段3'
+        }, {
+            key: '4',
+            title: '销售价',
+            dataIndex: '字段4'
+        }, {
+            key: '5',
+            title: '调整销售价',
+            dataIndex: '字段5',
+            render(id, row){
+                return <input type="text" value="999"/>
+            }
+        }, {
+            key: '6',
+            title: '库存',
+            dataIndex: '字段5'
+        }];
+        return columns;
+    }
     
     render() {
         const {formOptions, ...other} = this.props;
         
         return (
             <div>
-                <label>＊选择待调整的库存商品</label>
+                <div className="panel-head">
+                    <h3 className="panel-title">价格调整</h3>
+                </div>
+                <h3 className="tit-table">选择商品</h3>
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+            
                 
                 <DataTable bordered={true} columns={this._getColumns()}  {...other} />
 
-                <label>＊增加库存列表</label>
+                <h3 className="tit-table">设置销售价格</h3>
 
-                <DataTable bordered={true} columns={this._getColumns()}  {...other} />
-                <Row>
-                    <Col span='2'>
-                        <Button>取消</Button>
-                    </Col>
-                    <Col span='2'>
-                        <Button type="primary">确认</Button>
-                    </Col>
-                </Row>
+                <DataTable bordered={true} columns={this._getColumnsModify()}  {...other} />
+                <div className="ant-form-item">
+                    <label className="ant-form-item-required">调整说明：</label>
+                    <Input type="textarea" id="control-textarea" rows="3" />
+                </div>
+                <div className="ant-form-item-control ">
+                    <Button type="normal">取消</Button>
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <Button type="primary">确认</Button>
+                </div>
             </div>
         )
     }
 }
 
 
-AdjustStock.propTypes = {
+AdjustPrice.propTypes = {
     
     dataSource : React.PropTypes.array.isRequired,
     action : React.PropTypes.func.isRequired,
@@ -105,4 +146,4 @@ AdjustStock.propTypes = {
 }
 
 
-export default AdjustStock;
+export default AdjustPrice;

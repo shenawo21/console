@@ -6,13 +6,12 @@
 
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import OutgoMgtView from '../components/OutgoMgtView'
+import SpecificationMgtView from '../components/SpecificationMgtView'
 import Panel from 'components/Panel'
-import { viewItem } from '../modules/OutgoMgtReducer'
-
+import { getRoleList } from '../modules/specificationMgtReducer'
 import {message} from 'hen';
 
-class OutgoMgt extends Component {
+class specificationMgt extends Component {
 
     constructor(props) {
         super(props);
@@ -26,11 +25,12 @@ class OutgoMgt extends Component {
     componentDidMount() {
         const {params} = this.props;
         const context = this;
+
     }
 
     componentWillReceiveProps(nextProps, preProps){
 
-    }  
+    }    
 
     /**
    * handle submit
@@ -38,16 +38,17 @@ class OutgoMgt extends Component {
    * @param  {any} e
    */
     getFormOptions() {
-        const context = this;
+        const _this = this;
         return {
        /**
-       * (表单提交)
+       * (筛选表单提交)
        *
        * @param value (description)
        */
 
         handleSubmit(value) {
             const {} = _this.props;
+
           },
 
           /**
@@ -61,37 +62,36 @@ class OutgoMgt extends Component {
         }
     }
 
-
-
-
     render() {
         const { item } = this.state;
-        const {loading, result} = this.props;
-        const formOptions = {
-            loading,
-            result,
-            'formOptions': this.getFormOptions()
+        const {loading, items} = this.props;
+        const tableOptions = {
+            dataSource : items,                         //加载组件时，表格从容器里获取初始值
+            action : '/',                         //表格翻页时触发的action
+            loading                                    //表格加载数据状态
         }
-
-        return <Panel title="出库管理"><OutgoMgtView item={item} {...formOptions} /></Panel>
+        const formOptions = {
+            'formOptions': this.getFormOptions()
+        };
+        return <Panel><SpecificationMgtView item={item} {...tableOptions} {...formOptions} /></Panel>
     }
 }
 
 //数据限制类型
-OutgoMgt.propTypes = {
-    viewItem: React.PropTypes.func,
+specificationMgt.propTypes = {
     loading: React.PropTypes.bool,
+    items: React.PropTypes.array.isRequired,
     result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
-    viewItem
+
 }
 
 const mapStateToProps = (state) => {
-    console.log(state,'state');
-    const {result, loading} = state.outgoMgt;
-    return {'result': result, loading};
-
+  const {result, loading} = state.specificationMgt;
+  const {items = []} = {};
+  return {items, loading};
 }
-export default connect(mapStateToProps, mapActionCreators)(OutgoMgt)
+
+export default connect(mapStateToProps, mapActionCreators)(specificationMgt)
