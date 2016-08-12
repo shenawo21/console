@@ -21,8 +21,8 @@ class shopprice extends Component {
             <div>
 
                 <Tabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="店铺仓库" key="1"><Shop formOptions={formOptions} {...other} /></TabPane>
-                    <TabPane tab="商品对比" key="2"><Product formOptions={formOptions} {...other}  /></TabPane>
+                    <TabPane tab="店铺仓库" key="1"><Product formOptions={formOptions} {...other}  /></TabPane>
+                    <TabPane tab="商品对比" key="2"><Shop formOptions={formOptions} {...other} /></TabPane>
                 </Tabs>
 
             </div>

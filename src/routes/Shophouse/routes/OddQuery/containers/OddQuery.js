@@ -40,7 +40,7 @@ class OddQuery extends Component {
         const { shopOddQueryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        outgoQueryList({ pageNumber });
+        shopOddQueryList({ pageNumber });
     }
     
       /**

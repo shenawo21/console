@@ -19,7 +19,7 @@ class OutgoView extends Component {
         let config = {
             formItems: [{
                 label: "出库日期：",
-                name: "account",
+                name: "createTimeStart",
                 input: {
                 }
             }, {
@@ -29,31 +29,31 @@ class OutgoView extends Component {
                 }
             },{
                 label: "出库单号：",
-                name: "enabled",
+                name: "recordId",
                 input: {
                    
                 }
             },{
                 label: "SPU：",
-                name: "enabled",
+                name: "spuId",
                 input: {
                    
                 }
             },{
                 label: "SKU：",
-                name: "enabled",
+                name: "skuId",
                 input: {
                    
                 }
             },{
                 label: "出库类型：",
-                name: "enabled",
+                name: "stockType",
                 select: {
                    
                 }
             },{
                 label: "操作人：",
-                name: "enabled",
+                name: "createUser",
                 input: {
                    
                 }
@@ -66,14 +66,13 @@ class OutgoView extends Component {
         return config;
     }
 
-
     _getColumns(){
         const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',
             title: '出库单号',
-            dataIndex: 'enterpriseCode'
+            dataIndex: 'recordId'
         }, {
             key: '1',
             title: '出库店铺',
@@ -81,30 +80,27 @@ class OutgoView extends Component {
         }, {
             key: '2',
             title: '出库类型',
-            dataIndex: 'name'
+            dataIndex: 'stockType'
         }, {
             key: '3',
             title: 'SPU',
-            dataIndex: 'enabled',
-            render(status){
-                return status ? <span>可用</span> : <span>不可用</span>
-            }
+            dataIndex: 'spuId'
         }, {
             key: '4',
             title: 'SKU',
-            dataIndex: 'email'
+            dataIndex: 'skuId'
         }, {
             key: '5',
             title: '商品名称',
-            dataIndex: 'mobile'
+            dataIndex: 'title'
         }, {
             key: '6',
             title: '市场价',
-            dataIndex: 'registerTime'
+            dataIndex: 'marketPrice'
         }, {
             key: '7',
             title: '销售价',
-            dataIndex: 'createPerson'
+            dataIndex: 'price'
         }, {
             key: '8',
             title: '建议销售价',
@@ -112,19 +108,19 @@ class OutgoView extends Component {
         }, {
             key: '9',
             title: '出库数量',
-            dataIndex: 'createPerson'
+            dataIndex: 'incoming'
         }, {
             key: '10',
             title: '出库时间',
-            dataIndex: 'registerTime'
+            dataIndex: 'createTime'
         }, {
             key: '11',
             title: '操作人',
-            dataIndex: 'createPerson'
+            dataIndex: 'createUser'
         }, {
             key: '12',
             title: '备注',
-            dataIndex: 'createPerson'
+            dataIndex: 'remark'
         }];
         
         return columns;
@@ -132,7 +128,7 @@ class OutgoView extends Component {
 
     render() {
         const {formOptions, ...other} = this.props;
-        
+        console.log(1111222,other)
         return (
             <div>
  

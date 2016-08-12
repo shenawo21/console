@@ -8,7 +8,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import SpecificationMgtView from '../components/SpecificationMgtView'
 import Panel from 'components/Panel'
-import {  } from '../modules/SpecificationMgtReducer'
+import { spec } from '../modules/SpecificationMgtReducer'
 import {message} from 'hen';
 
 class specificationMgt extends Component {

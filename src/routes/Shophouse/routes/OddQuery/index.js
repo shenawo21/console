@@ -1,6 +1,6 @@
  export default (store) => ({
   breadcrumbName: "出入库单查询",
-  path: 'oddquery',
+  path: 'shopoddquery',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and

@@ -33,7 +33,7 @@ const address = [{
 }];
 
 
-const quickButton = <Button>额外操作</Button>;
+const quickButton = <Button>添加规格值</Button>;
 
 class specificationMgt extends Component {
 

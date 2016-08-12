@@ -14,7 +14,7 @@ const OUTGOQUERY_FAILURE = 'shophouse/OUTGOQUERY_FAILURE';
  * @param params (description)
  * @returns (description)
  */
-export function shopStorageQueryList(params) {
+export function shopOddQueryList(params) {
   return {
     types: [STORAGEQUERY, STORAGEQUERY_SUCCESS, STORAGEQUERY_FAILURE],
     promise: (client) => client.post('api-administrator.list', params)

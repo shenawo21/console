@@ -12,5 +12,16 @@
 
       next(null, shophouse)
     })
+  },
+  
+  getChildRoutes(location, next) {
+      require.ensure([], (require) => {
+        next(null, [
+          // Provide store for async reducers and middleware
+          require('./routes/OddQuery').default(store),
+          require('./routes/AdjustPrice').default(store),
+          require('./routes/OutgoManual').default(store)
+        ])
+      })
   }
 })

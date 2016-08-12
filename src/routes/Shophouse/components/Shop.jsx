@@ -62,7 +62,6 @@ class shop extends Component {
 
 
     _getColumns(){
-        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',

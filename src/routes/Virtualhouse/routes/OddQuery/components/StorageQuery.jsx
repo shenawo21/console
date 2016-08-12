@@ -73,7 +73,6 @@ class StorageQuery extends Component {
         return config;
     }
 
-
     _getColumns(){
         const {isAdmin} = this.props;
         const context = this;
@@ -140,7 +139,7 @@ class StorageQuery extends Component {
 
     render() {
         const {formOptions, ...other} = this.props;
-        
+        console.log('storage');
         return (
             <div>
  
