@@ -5,7 +5,8 @@ export default (store) => ({
       require.ensure([], (require) => {
         next(null, [
           // Provide store for async reducers and middleware
-          require('./routes/Table').default(store)
+          require('./routes/Table').default(store),
+          require('./routes/TableCascaderTest').default(store)
         ])
       })
   },
