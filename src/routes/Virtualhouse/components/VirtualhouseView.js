@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 
 import Search from 'components/Search';
-
+import {DownLoader} from 'components/FileLoader'
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
 //是否可用
@@ -19,19 +19,19 @@ class Accounts extends Component {
         let config = {
             formItems: [{
                 label: "商品名称：",
-                name: "account",
+                name: "title",
                 input: {
                     placeholder: "请输入商品名称"
                 }
             }, {
                 label: "SPU：",
-                name: "name",
+                name: "spuId",
                 input: {
                     placeholder: "请输入SPU"
                 }
             }, {
                 label: "SKU：",
-                name: "name",
+                name: "skuId",
                 input: {
                     placeholder: "请输入SKU"
                 }
@@ -56,35 +56,39 @@ class Accounts extends Component {
         const context = this;
         let columns = [{
             key: '0',
-            title: '帐号',
-            dataIndex: 'account'
+            title: '平台SPU',
+            dataIndex: 'spuId'
         }, {
             key: '1',
-            title: '用户姓名',
-            dataIndex: 'name'
+            title: '平台SKU',
+            dataIndex: 'skuId'
         }, {
             key: '2',
-            title: '是否可用',
-            dataIndex: 'enabled',
-            render(status){
-                return status ? <span>可用</span> : <span>不可用</span>
-            }
+            title: '商品名称',
+            dataIndex: 'title'
         }, {
             key: '3',
-            title: '邮箱',
-            dataIndex: 'email'
+            title: '商品类目',
+            dataIndex: 'categoryName'
         }, {
             key: '4',
-            title: '手机号码',
-            dataIndex: 'mobile'
+            title: '规格',
+            dataIndex: 'specOneValue'
         }, {
             key: '5',
-            title: '注册时间',
-            dataIndex: 'registerTime'
+            title: '价格',
+            dataIndex: 'price'
         }, {
             key: '6',
-            title: '创建人',
-            dataIndex: 'createPerson'
+            title: '已出库存',
+            dataIndex: 'assignedStock',
+            render(id,row){
+                return <a href="">已出库存</a>
+            }
+        }, {
+            key: '7',
+            title: '剩余可分配库存',
+            dataIndex: 'stock'
         }];
         return columns;
     }
@@ -92,9 +96,12 @@ class Accounts extends Component {
     
     // 按钮
     quickButton(quickOptions){
+        const skuIds=[];
         return <Row>
-                <Col span='2'>
-                    <a href="##" className="ant-btn ant-btn-normal">批量导入</a>
+                <Col span="3">
+                    <DownLoader title='批量导出' url="/api-productService.exportFile" iType='exception' params={{
+                        skuIds
+                    }}/>
                 </Col>
                 <Col span='2'>
                     <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/storageMgt`}>入库</Link>

@@ -105,7 +105,7 @@ const getMenu = menuLists => {
          },
          {
             title: '出入库单查询',
-            url: '/shophouse/oddquery'
+            url: '/shophouse/shopoddquery'
           }
        ]
      }

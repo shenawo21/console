@@ -28,10 +28,10 @@ class Shophouse extends Component {
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         if(key == 1){
-            priceQueryList({ pageNumber });
+            shopQueryList({ pageNumber });
             _this.setState({ oddStatus: true });
         }else{
-            shopQueryList({ pageNumber });
+            priceQueryList({ pageNumber });
             _this.setState({ oddStatus: false });
         }
     }
@@ -40,7 +40,7 @@ class Shophouse extends Component {
         const {shopQueryList, priceQueryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        priceQueryList({ pageNumber });
+        shopQueryList({ pageNumber });
     }
     
       /**
@@ -90,7 +90,7 @@ class Shophouse extends Component {
         const {items, shopQueryList, priceQueryList, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddStatus ? priceQueryList : shopQueryList,                  //表格翻页时触发的action
+            action : oddStatus ? shopQueryList : priceQueryList,                  //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  

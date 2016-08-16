@@ -5,12 +5,13 @@ import DataTable from 'components/DataTable';
 
 import Search from 'components/Search';
 
-import {Row, Col, Button, Icon, Popconfirm} from 'hen';
+import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
-//是否可用
-const STATUS = [
-   { value: false, title: "不可用" },
-   { value: true, title: "可用" }
+//入库类型
+const STOCKTYPE = [
+   { value: '手动添加', title: "调拨出库" },
+   { value: '店铺回退', title: "损耗出库" },
+   { value: '调正入库', title: "盘点出库" }
 ];
 
 class StorageQuery extends Component {
@@ -18,61 +19,79 @@ class StorageQuery extends Component {
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "入库日期：",
-                name: "account",
-                input: {
-                }
-            },{
                 label: "入库单号：",
-                name: "enabled",
+                name: "recordId",
                 input: {
-                   
+                   placeholder: "请输入入库单号"
                 }
             },{
                 label: "SPU：",
-                name: "enabled",
+                name: "spuId",
                 input: {
-                   
+                   placeholder: "请输入SPU"
                 }
             },{
                 label: "SKU：",
-                name: "enabled",
+                name: "skuId",
                 input: {
-                   
+                   placeholder: "请输入SKU"
                 }
             },{
                 label: "商品类目：",
-                name: "enabled",
+                name: "categoryCode",
                 select: {
-                   
+                   placeholder: "请选择商品类目"
                 }
             },{
                 label: "商品名称：",
-                name: "enabled",
+                name: "title",
                 input: {
-                   
+                   placeholder: "请输入商品名称"
                 }
             },{
                 label: "入库类型：",
-                name: "enabled",
+                name: "stockType",
                 select: {
-                   
+                   optionValue: STOCKTYPE,
+                   placeholder: "请选择入库类型"
                 }
             },{
                 label: "操作人：",
-                name: "enabled",
+                name: "createUser",
                 input: {
-                   
+                   placeholder: "请输入操作人"
+                }
+            },{
+                label: "入库日期：",
+                labelCol: { span: 2 },
+                wrapperCol: { span: 8 },
+                custom(getCustomFieldProps, FormContext) {
+                    return <div>
+                        <Col span="8">
+                            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
+                        </Col>
+                        <Col span="1">
+                            <p className="ant-form-split">-</p>
+                        </Col>
+                        <Col span="8">
+                            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
+                        </Col>
+                    </div>
                 }
             }],
             initValue: {
-                name: null,
-                nick : null
+                operateStore: null,
+                recordId : null,
+                spuId: null,
+                skuId : null,
+                stockType: null,
+                createUser : null,
+                createTimeStart : null,
+                createTimeEnd : null
             }
         }
         return config;
     }
-
 
     _getColumns(){
         const {isAdmin} = this.props;
@@ -80,58 +99,55 @@ class StorageQuery extends Component {
         let columns = [{
             key: '0',
             title: '入库单号',
-            dataIndex: 'enterpriseCode'
+            dataIndex: 'recordId'
         },{
             key: '1',
             title: '入库类型',
-            dataIndex: 'name'
+            dataIndex: 'stockType'
         }, {
             key: '2',
             title: 'SPU',
-            dataIndex: 'enabled',
-            render(status){
-                return status ? <span>可用</span> : <span>不可用</span>
-            }
+            dataIndex: 'spuId'
         }, {
             key: '3',
             title: 'SKU',
-            dataIndex: 'email'
+            dataIndex: 'skuId'
         }, {
             key: '4',
             title: '商品名称',
-            dataIndex: 'mobile'
+            dataIndex: 'title'
         }, {
             key: '5',
             title: '商品类目',
-            dataIndex: 'registerTime'
+            dataIndex: 'category'
         }, {
             key: '6',
             title: '规格',
-            dataIndex: 'createPerson'
+            dataIndex: 'spec'
         }, {
             key: '7',
             title: '市场价',
-            dataIndex: 'registerTime'
+            dataIndex: 'marketPrice'
         }, {
             key: '8',
             title: '销售价',
-            dataIndex: 'createPerson'
+            dataIndex: 'price'
         }, {
             key: '9',
             title: '入库数量',
-            dataIndex: 'registerTime'
+            dataIndex: 'incoming'
         },  {
             key: '10',
             title: '入库时间',
-            dataIndex: 'registerTime'
+            dataIndex: 'createTime'
         }, {
             key: '11',
             title: '操作人',
-            dataIndex: 'createPerson'
+            dataIndex: 'createUser'
         }, {
             key: '12',
             title: '备注',
-            dataIndex: 'createPerson'
+            dataIndex: 'remark'
         }];
         
         return columns;
@@ -140,7 +156,7 @@ class StorageQuery extends Component {
 
     render() {
         const {formOptions, ...other} = this.props;
-        
+        console.log('storage');
         return (
             <div>
  

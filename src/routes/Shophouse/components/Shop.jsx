@@ -7,49 +7,35 @@ import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
+//所属店铺
+const STATUS = [
+   { value: false, title: "不可用" },
+   { value: true, title: "可用" }
+];
+
 class shop extends Component {
 
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "出库日期：",
-                name: "account",
+                label: "所属店铺：",
+                name: "shopName",
                 input: {
+                    placeholder: "请选择所属店铺",
+                    optionValue: STATUS
                 }
             }, {
-                label: "出库店铺：",
+                label: "商品名称：",
                 name: "name",
                 select: {
+                    placeholder: "请输入商品名称"
                 }
             },{
-                label: "出库单号：",
-                name: "enabled",
-                input: {
-                   
-                }
-            },{
-                label: "SPU：",
-                name: "enabled",
-                input: {
-                   
-                }
-            },{
-                label: "SKU：",
-                name: "enabled",
-                input: {
-                   
-                }
-            },{
-                label: "出库类型：",
+                label: "商品类目：",
                 name: "enabled",
                 select: {
-                   
-                }
-            },{
-                label: "操作人：",
-                name: "enabled",
-                input: {
-                   
+                    placeholder: "请选择商品类目",
+                    optionValue: STATUS
                 }
             }],
             initValue: {
@@ -62,63 +48,47 @@ class shop extends Component {
 
 
     _getColumns(){
-        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',
-            title: '出库单号',
-            dataIndex: 'enterpriseCode'
+            title: 'SPU',
+            dataIndex: 'spuId'
         }, {
             key: '1',
-            title: '出库店铺',
-            dataIndex: 'account'
+            title: 'SKU',
+            dataIndex: 'skuId'
         }, {
             key: '2',
-            title: '出库类型',
-            dataIndex: 'name'
+            title: '所属店铺',
+            dataIndex: 'shopName'
         }, {
             key: '3',
-            title: 'SPU',
-            dataIndex: 'enabled',
-            render(status){
-                return status ? <span>可用</span> : <span>不可用</span>
-            }
+            title: '商品名称',
+            dataIndex: 'title'
         }, {
             key: '4',
-            title: 'SKU',
-            dataIndex: 'email'
+            title: '商品类目',
+            dataIndex: 'categoryName'
         }, {
             key: '5',
-            title: '商品名称',
-            dataIndex: 'mobile'
+            title: '品牌',
+            dataIndex: 'brandId'
         }, {
             key: '6',
-            title: '市场价',
-            dataIndex: 'registerTime'
+            title: '规格',
+            dataIndex: 'specOneValue'
         }, {
             key: '7',
-            title: '销售价',
-            dataIndex: 'createPerson'
+            title: '市场价',
+            dataIndex: 'marketPrice'
         }, {
             key: '8',
-            title: '建议销售价',
-            dataIndex: 'registerTime'
+            title: '销售价',
+            dataIndex: 'price'
         }, {
             key: '9',
-            title: '出库数量',
-            dataIndex: 'createPerson'
-        }, {
-            key: '10',
-            title: '出库时间',
-            dataIndex: 'registerTime'
-        }, {
-            key: '11',
-            title: '操作人',
-            dataIndex: 'createPerson'
-        }, {
-            key: '12',
-            title: '备注',
-            dataIndex: 'createPerson'
+            title: '在售库存',
+            dataIndex: 'stock'
         }];
         
         return columns;
