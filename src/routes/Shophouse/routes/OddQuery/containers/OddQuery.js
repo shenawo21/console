@@ -24,14 +24,18 @@ class OddQuery extends Component {
      */
     _isQueryStatus(key){
         const _this = this;
-        const { shopOddQueryList, location} = this.props;
-        const {query} = location;
-        let pageNumber = query.p ? Number(query.p) : 1;
+        const { shopOddQueryList} = this.props;
         if(key == 1){
-            shopOddQueryList({ pageNumber });
+            shopOddQueryList({ 
+                recordType: '出库',
+                pageNumber: '1'
+            });
             _this.setState({ oddStatus: true });
         }else{
-            shopOddQueryList({ pageNumber });
+            shopOddQueryList({ 
+                recordType: '入库',
+                pageNumber: '1'
+            });
             _this.setState({ oddStatus: false });
         }
     }
@@ -40,7 +44,10 @@ class OddQuery extends Component {
         const { shopOddQueryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        shopOddQueryList({ pageNumber });
+        shopOddQueryList({ 
+            recordType: '出库',
+            pageNumber
+        });
     }
     
       /**
@@ -90,7 +97,7 @@ class OddQuery extends Component {
         const {items, shopOddQueryList, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddStatus ? shopOddQueryList : shopOddQueryList,                  //表格翻页时触发的action
+            action : shopOddQueryList,               //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  

@@ -17,7 +17,7 @@ const PRICEQUERY_FAILURE = 'shophouse/PRICEQUERY_FAILURE';
 export function shopQueryList(params) {
   return {
     types: [SHOPQUERY, SHOPQUERY_SUCCESS, SHOPQUERY_FAILURE],
-    promise: (client) => client.post('api-administrator.list', params)
+    promise: (client) => client.post('api-shopStock.getShopStocks', params)
   }
 }
 
