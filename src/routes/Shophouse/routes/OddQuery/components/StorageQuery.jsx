@@ -5,7 +5,7 @@ import DataTable from 'components/DataTable';
 
 import Search from 'components/Search';
 
-import {Row, Col, Button, Icon, Popconfirm} from 'hen';
+import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
 
 //入库类型
@@ -52,8 +52,8 @@ class StorageQuery extends Component {
                 label: "入库类型：",
                 name: "stockType",
                 select: {
-                   optionValue: STOCKTYPE,
-                   placeholder: "请选择入库类型"
+                    placeholder: "请选择入库类型",
+                    optionValue: STOCKTYPE
                 }
             },{
                 label: "操作人：",

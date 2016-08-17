@@ -4,9 +4,9 @@ const VIRHOUSEQUERY = 'virtualhouse/VIRHOUSEQUERY';
 const VIRHOUSEQUERY_SUCCESS = 'virtualhouse/VIRHOUSEQUERY_SUCCESS';
 const VIRHOUSEQUERY_FAILURE = 'virtualhouse/VIRHOUSEQUERY_FAILURE';
 //导出
-const EXPORTVIR = 'virtualhouse/EXPORTVIR';
-const EXPORTVIR_SUCCESS = 'virtualhouse/EXPORTVIR_SUCCESS';
-const EXPORTVIR_FAILURE = 'virtualhouse/EXPORTVIR_FAILURE';
+const SHOPSTOCK = 'virtualhouse/SHOPSTOCK';
+const SHOPSTOCK_SUCCESS = 'virtualhouse/SHOPSTOCK_SUCCESS';
+const SHOPSTOCK_FAILURE = 'virtualhouse/SHOPSTOCK_FAILURE';
 
 /**
  * 列表查询
@@ -22,16 +22,16 @@ export function virhoustQueryList(params) {
   }
 }
 /**
- * 列表勾选导出
+ * 获取单条出口库存
  *
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function exportVir(params) {
+export function getShopStocks(params) {
   return {
-    types: [EXPORTVIR, EXPORTVIR_SUCCESS, EXPORTVIR_FAILURE],
-    promise: (client) => client.post('api-productService.ListVirtualDepot', params)
+    types: [SHOPSTOCK, SHOPSTOCK_SUCCESS, SHOPSTOCK_FAILURE],
+    promise: (client) => client.post('api-shopStock.getListBySkuId', params)
   }
 }
 
@@ -39,7 +39,7 @@ export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case VIRHOUSEQUERY:
-    case EXPORTVIR:
+    case SHOPSTOCK:
         return {
             ...state
         }
@@ -52,12 +52,12 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
-    case EXPORTVIR_SUCCESS:
+    case SHOPSTOCK_SUCCESS:
         return {
             ...state,
-            result: action.result
+            stockResult: action.result
         }
-    case EXPORTVIR_FAILURE:
+    case SHOPSTOCK_FAILURE:
         return {
             ...state
         }

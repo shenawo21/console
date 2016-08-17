@@ -27,7 +27,7 @@ class CreateProduct extends Component {
                 required: true,
                 custom(getCustomFieldProps) {
                     return <Row>
-                        <Col span='12'><input type="text" disabled {...getCustomFieldProps('name1') } /></Col><Col span='6'><Button onClick={context.showModal}>选择已有SPU</Button></Col>
+                        <Col span='12'><input type="text" className="ant-input ant-input-lg" disabled {...getCustomFieldProps('name1') } /></Col><Col span='6'><Button onClick={context.showModal}>选择已有SPU</Button></Col>
                     </Row>
                 }
             }, {

@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import VirtualhouseView from '../components/VirtualhouseView'
 import Panel from 'components/Panel'
-import { virhoustQueryList } from '../modules/virtualhouseReducer'
+import { virhoustQueryList, getShopStocks } from '../modules/virtualhouseReducer'
 
 class Virtualhouse extends Component {
   
@@ -10,12 +10,16 @@ class Virtualhouse extends Component {
         super(props);
         
         this.getFormOptions = this.getFormOptions.bind(this);
-        
+
+        // this.handleModal = this.handleModal.bind(this);    
         
         this.getQuickOptions = this.getQuickOptions.bind(this);
         
         this.state = {
-            params: {}   //表格需要的筛选参数
+            params: {},   //表格需要的筛选参数
+            stockParams: {},
+            selectList: [],
+            visible: false
         }
     }    
     
@@ -24,9 +28,11 @@ class Virtualhouse extends Component {
         const {virhoustQueryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        virhoustQueryList({ pageNumber });
+        virhoustQueryList({ pageNumber });       
+        
         
     }
+    
     
       /**
        * (表格功能配置项)
@@ -42,7 +48,6 @@ class Virtualhouse extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  console.log(value)
                   context.setState({
                       params: value
                   })
@@ -57,34 +62,63 @@ class Virtualhouse extends Component {
       }
     
     
-       /**
-       * (表格头部快捷按钮配功能置项)
-       * 
-       * @returns (description)
-       */
-      getQuickOptions(){
-          const contex = this;
-          return {
-             
-          }
-      }
+    /**
+     * (表格头部快捷按钮配功能置项)
+     * 
+     * @returns (description)
+     */
+    getQuickOptions(){
+        const contex = this;
+        return {
+            
+        }
+    }
+    
     
     
     handleRowSelection() {
         return {
-            onSelect(record, selected, selectedRows) {
-                console.log(record, selected, selectedRows);
+            onSelect : (record, selected, selectedRows) => {
+                let selectList = selectedRows.map(c => c.skuId);                
+                this.setState({selectList:selectList});
             },
-            onSelectAll(selected, selectedRows, changeRows) {
-                console.log(selected, selectedRows, changeRows);
+            onSelectAll : (selected, selectedRows, changeRows) => {
+                let selectList = selectedRows.map(c => c.skuId);
+                this.setState({selectList});
             },
+        }
+    }
+
+    handleModal() {
+        return {
+            showModal : (id) => {
+                console.log(id,'this');
+                const { getShopStocks } = this.props;
+                getShopStocks({skuId: id});
+                this.setState({
+                    visible: true,
+                });
+            },
+            handleOk : () => {
+                console.log('点击了确定');
+                this.setState({
+                    visible: false,
+                });
+            },
+            handleCancel : (e) => {
+                console.log(e);
+                this.setState({
+                    visible: false,
+                });
+            }
         }
     }
     
     render() {
-        const {params} = this.state;
+        const {params, stockParams, selectList, visible} = this.state;
         
-        const {items, virhoustQueryList, totalItems, loading} = this.props;
+        const {items, stockItems, virhoustQueryList, getShopStocks, totalItems, loading} = this.props;
+        console.log(stockItems,'stockItems');
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : virhoustQueryList,                 //表格翻页时触发的action
@@ -93,36 +127,46 @@ class Virtualhouse extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数            
-            rowSelection : this.handleRowSelection()    //需要checkbox时填写
+            rowSelection : this.handleRowSelection(),    //需要checkbox时填写
+            'handleModal' : this.handleModal()
         }
-        
+        const stockTableOptions = {
+            dataSource : stockItems,                    //加载组件时，表格从容器里获取初始值
+            //action : getShopStocks,                     //表格翻页时触发的action
+            loading                                    //表格加载数据状态
+        }        
         
         const formOptions = {
             'formOptions' : this.getFormOptions()
         }
         
-        return <Panel title=""><VirtualhouseView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()}  /></Panel>
+        return <Panel title=""><VirtualhouseView tableOptions={tableOptions} stockTableOptions={stockTableOptions} {...formOptions} quickOptions={this.getQuickOptions()} 
+                                                 selectList={selectList} visible={visible} /></Panel>
     }
 }
 
-
 Virtualhouse.propTypes = {    
     virhoustQueryList: React.PropTypes.func,
+    getShopStocks: React.PropTypes.func,    
     items: React.PropTypes.array.isRequired,
+    stockItems: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,    
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    virhoustQueryList
+    virhoustQueryList,
+    getShopStocks
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.virtualhouse;
+    const {result, stockResult, loading} = state.virtualhouse;
     
-    const {items = [], totalItems = 0} = result || {};
-    return { items, totalItems, loading };
+    const {items = [], stockItems = [], totalItems = 0} = result || {};
+    return { items, stockItems: stockResult, totalItems, loading };
+
+    //return {'result': result, 'roleListResult' : roleListResult, loading, jump};
     
 }
 

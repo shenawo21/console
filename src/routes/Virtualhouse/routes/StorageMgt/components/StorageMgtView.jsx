@@ -6,6 +6,13 @@ import DataTable from 'components/DataTable'
 import {Row, Col, Button, Icon} from 'hen';
 import {Link} from 'react-router';
 
+
+//入库类型
+const STOCKTYPE = [
+   { value: '新增商品', title: "新增商品" },
+   { value: '调整库存', title: "调整库存" }
+];
+
 class storageMgt extends Component {
 
     constructor(){
@@ -72,11 +79,10 @@ class storageMgt extends Component {
                 name: "account",
                 required: true,
                 hasFeedback: true,
-                rules: [{ required: true, max: 64, message: '最多为64个字符' }],
-                input: {
-                    type: 'text',
-                    disabled: true,
-                    placeholder: "请输入帐号",
+                rules: [{ required: true, message: '请选择入库类型' }],
+                select: {
+                    optionValue: STOCKTYPE,
+                    placeholder: "请选择入库类型"
                 }
             }, {
                 label: "入库说明：",
@@ -85,7 +91,7 @@ class storageMgt extends Component {
                 rules: [{ required: true, message: '不打算写点什么吗' }],
                 input: {
                     type: "textarea",
-                    placeholder: "随便写"
+                    placeholder: "入库说明"
                 }
             }, {
                 labelCol: { span: 2 },
@@ -135,7 +141,6 @@ class storageMgt extends Component {
 }
 
 storageMgt.proptype = {
-
 loading: React.PropTypes.bool,
 params: React.PropTypes.object
 

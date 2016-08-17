@@ -13,7 +13,7 @@ const SHOPODDQUERY_FAILURE = 'shophouse/SHOPODDQUERY_FAILURE';
 export function shopOddQueryList(params) {
   return {
     types: [SHOPODDQUERY, SHOPODDQUERY_SUCCESS, SHOPODDQUERY_FAILURE],
-    promise: (client) => client.post('api-shopStock.getShopStock', params)
+    promise: (client) => client.post('api-shopStock.getShopStockRecords', params)
   }
 }
 
