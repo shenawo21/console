@@ -3,7 +3,8 @@ import {Link} from 'react-router';
 
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import concat from 'lodash/concat'
+import Collapse from 'components/Collapse';
+import concat from 'lodash/concat';
 
 
 class TableCascader extends Component {
@@ -57,8 +58,9 @@ class TableCascader extends Component {
      */
     removeItems(pageNumber, curItem){
         const {sourceItems} = this.state;
+        const {uKey} = this.props;
         sourceItems[pageNumber].forEach((item, index) => {
-            if (item.adminId == curItem.adminId) {
+            if (item[uKey] == curItem[uKey]) {
                 sourceItems[pageNumber].splice(index, 1)
                 return false
             }
@@ -82,7 +84,7 @@ class TableCascader extends Component {
 
     getItems(sourceItems, nextProps) {
         let selectItem = [], selectItemKey = []
-        const {tableOptions, getSelectItems} = nextProps || this.props
+        const {tableOptions, getSelectItems, uKey} = nextProps || this.props
         const {dataSource, pagination} = tableOptions
         if (sourceItems) {
             Object.keys(sourceItems).forEach((num) => {
@@ -95,7 +97,7 @@ class TableCascader extends Component {
                     } else {
                         sourceItems[num].forEach((val) => {
                             dataSource.forEach((item, index) => {
-                                if (item.adminId == val.adminId) {
+                                if (item[uKey] == val[uKey]) {
                                     selectItemKey.push(index)
                                     val._sKey = num +'_'+ index
                                     return false
@@ -137,7 +139,7 @@ class TableCascader extends Component {
     }
 
     render() {
-        let {formOptions, tableOptions} = this.props;
+        let {formOptions, tableOptions, collapseOptions} = this.props;
         const {selectedItems, selectedItemsKeys, sourceItems} = this.state;
 
         tableOptions = {
@@ -145,13 +147,16 @@ class TableCascader extends Component {
             selectedItemsKeys,
             ...tableOptions
         }
-
         return (
             <div>
-                <Search  items={formOptions.items } onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
-                <DataTable bordered={true} {...tableOptions} />
-
-                <DataTable bordered={true} columns={this._getColumns()} dataSource={selectedItems} />
+                <Collapse {...collapseOptions.source}>
+                    <Search  items={formOptions.items } onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+                    <DataTable bordered={true} {...tableOptions} />
+                </Collapse>
+                
+                <Collapse {...collapseOptions.dist}>
+                    <DataTable bordered={true} columns={this._getColumns()} dataSource={selectedItems} />
+                </Collapse>
             </div>
         )
     }

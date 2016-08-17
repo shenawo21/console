@@ -99,7 +99,7 @@ class DataTable extends Component {
             }
             this.requestData(nextProps.params);
         }
-        if(!isEqual(nextProps.selectedItemsKeys, this.props.selectedItemsKeys)){
+        if(nextProps.selectedItemsKeys){
             this.setState({
                 selectedRowKeys: nextProps.selectedItemsKeys
             })

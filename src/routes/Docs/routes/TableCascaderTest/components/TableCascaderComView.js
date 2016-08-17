@@ -47,10 +47,10 @@ class TableCascaderTest extends Component {
 
     _getColumns() {
         let columns = [{
-                key: '0',
-                title: '企业编码',
-                dataIndex: 'enterpriseCode'
-            }, {
+            key: '0',
+            title: '企业编码',
+            dataIndex: 'enterpriseCode'
+        }, {
                 key: '1',
                 title: '帐号',
                 dataIndex: 'account'
@@ -88,10 +88,10 @@ class TableCascaderTest extends Component {
     _getColumnsDist() {
         const context = this;
         let columns = [{
-                key: '0',
-                title: '企业编码',
-                dataIndex: 'enterpriseCode'
-            }, {
+            key: '0',
+            title: '企业编码',
+            dataIndex: 'enterpriseCode'
+        }, {
                 key: '1',
                 title: '帐号',
                 dataIndex: 'account'
@@ -112,11 +112,11 @@ class TableCascaderTest extends Component {
      * 选中后，获取的数据
      * @param {any} items
      */
-    getData(items){
-        console.log('items=======',items)
+    getData(items) {
+        console.log('items=======', items)
     }
 
-    
+
     render() {
         let {formOptions, tableOptions} = this.props;
 
@@ -124,10 +124,10 @@ class TableCascaderTest extends Component {
             columns: this._getColumns(),
             ...tableOptions
         }
-        
+
         let distTableOptions = {
-            delFlag : true,
-            columns : this._getColumnsDist()
+            delFlag: true,
+            columns: this._getColumnsDist()
         }
 
         formOptions = {
@@ -135,9 +135,22 @@ class TableCascaderTest extends Component {
             ...formOptions
         }
 
+        let collapseOptions = {
+            source : {
+                titles:[{
+                    name:1111
+                }]
+            },
+            dist: {
+                titles:[{
+                    name:22222
+                }]
+            }
+        }
+
         return (
             <div>
-                <TableCascader formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData}></TableCascader>
+                <TableCascader uKey='adminId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
             </div>
         )
     }
@@ -145,11 +158,11 @@ class TableCascaderTest extends Component {
 
 TableCascaderTest.propTypes = {
 
-    dataSource: React.PropTypes.array.isRequired,
-    action: React.PropTypes.func.isRequired,
+    // dataSource: React.PropTypes.array.isRequired,
+    // action: React.PropTypes.func.isRequired,
 
-    loading: React.PropTypes.bool,
-    params: React.PropTypes.object
+    // loading: React.PropTypes.bool,
+    // params: React.PropTypes.object
 }
 
 
