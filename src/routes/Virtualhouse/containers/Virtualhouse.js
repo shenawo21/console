@@ -9,9 +9,7 @@ class Virtualhouse extends Component {
     constructor(props) {
         super(props);
         
-        this.getFormOptions = this.getFormOptions.bind(this);
-
-        // this.handleModal = this.handleModal.bind(this);    
+        this.getFormOptions = this.getFormOptions.bind(this);  
         
         this.getQuickOptions = this.getQuickOptions.bind(this);
         
@@ -28,8 +26,7 @@ class Virtualhouse extends Component {
         const {virhoustQueryList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        virhoustQueryList({ pageNumber });       
-        
+        virhoustQueryList({ pageNumber });
         
     }
     
@@ -92,7 +89,6 @@ class Virtualhouse extends Component {
     handleModal() {
         return {
             showModal : (id) => {
-                console.log(id,'this');
                 const { getShopStocks } = this.props;
                 getShopStocks({skuId: id});
                 this.setState({
@@ -100,7 +96,6 @@ class Virtualhouse extends Component {
                 });
             },
             handleOk : () => {
-                console.log('点击了确定');
                 this.setState({
                     visible: false,
                 });
@@ -115,10 +110,9 @@ class Virtualhouse extends Component {
     }
     
     render() {
-        const {params, stockParams, selectList, visible} = this.state;
-        
+        const {params, stockParams, selectList, visible} = this.state;        
         const {items, stockItems, virhoustQueryList, getShopStocks, totalItems, loading} = this.props;
-        console.log(stockItems,'stockItems');
+
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : virhoustQueryList,                 //表格翻页时触发的action
@@ -149,7 +143,7 @@ Virtualhouse.propTypes = {
     virhoustQueryList: React.PropTypes.func,
     getShopStocks: React.PropTypes.func,    
     items: React.PropTypes.array.isRequired,
-    stockItems: React.PropTypes.array.isRequired,
+    stockItems: React.PropTypes.array,
     totalItems: React.PropTypes.number.isRequired,    
     loading: React.PropTypes.bool
 }
@@ -161,9 +155,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-    const {result, stockResult, loading} = state.virtualhouse;
-    
-    const {items = [], stockItems = [], totalItems = 0} = result || {};
+    const {result, stockResult, loading} = state.virtualhouse;    
+    const {items = [], totalItems = 0} = result || {};
+    const { stockItems = [] } = stockResult || {};
     return { items, stockItems: stockResult, totalItems, loading };
 
     //return {'result': result, 'roleListResult' : roleListResult, loading, jump};

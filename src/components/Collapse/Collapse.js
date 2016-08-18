@@ -22,16 +22,16 @@ class Collapse extends Component {
             <div className={classes.header}>
                 <Icon type='anticon-right' className={`fr ${hasArrow ? classes.show : classes.hide}`} onClick={this.toggle}></Icon>
                 {
-                    btns.map((val) => {
+                    btns.map((val,index) => {
                         const {className, name, ...other} = val;
-                        return <Button className="fr" {...other}>{name}</Button>
+                        return <Button key={index} className="fr" {...other}>{name}</Button>
                     })
                 }
                 <ul className={classes.tit}>
                     {
-                        titles.map((val) => {
+                        titles.map((val,index) => {
                             const {className, name} = val;
-                            return <li className={classes.listwidth} className={className}>{name}</li>
+                            return <li key={index} className={classes.listwidth} className={className}>{name}</li>
                         })
                     }
                 </ul>

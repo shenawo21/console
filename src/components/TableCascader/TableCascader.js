@@ -126,7 +126,7 @@ class TableCascader extends Component {
         const context = this;
         if(delFlag){
             return columns.concat([{
-                key: columns.length - 1,
+                key: columns.length,
                 title: '操作',
                 dataIndex: '_sKey',
                 render(val, row){

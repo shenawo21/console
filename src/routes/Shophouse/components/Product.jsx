@@ -40,7 +40,7 @@ class product extends Component {
         }, {
             key: '7',
             title: '建议销售价',
-            dataIndex: 'createPerson'
+            dataIndex: 'price'
         }, {
             key: '8',
             title: '待同步库存',

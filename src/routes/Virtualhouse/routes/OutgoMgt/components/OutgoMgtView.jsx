@@ -1,18 +1,34 @@
 import React, {Component, PropTypes} from 'react';
 
-import Form from 'components/Form';
-import DataTable from 'components/DataTable'
 
-import { Input, Select, Button, Popconfirm } from 'hen';
-import {Link} from 'react-router';
 import Search from 'components/Search';
+import DataTable from 'components/DataTable';
+import TableCascader from 'components/TableCascader';
+
+import { Input, Select, Button, Form, Popconfirm } from 'hen';
+const FormItem = Form.Item;
+const Option = Select.Option;
+
+import {Link} from 'react-router';
+
+//出库类型
+const STOCKTYPE = [
+   { value: '调拨出库', title: "调拨出库" },
+   { value: '损耗出库', title: "损耗出库" },
+   { value: '盘点出库', title: "盘点出库" }
+];
 
 class outgoMgt extends Component {
 
   constructor() {
     super();
+    this.getData = this.getData.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
     this.state = {
-
+        stockList: [],
+        incoming : '',
+        price : ''
     }
   }
 
@@ -20,31 +36,35 @@ class outgoMgt extends Component {
         let config = {
             formItems: [{
                 label: "商品名称：",
-                name: "name1",
-                input: {}
+                name: "title",
+                input: {
+                    placeholder: "请输入商品名称"
+                }
             },{
                 label: "SPU：",
-                name: "name2",
-                input: {}
+                name: "spuId",
+                input: {
+                    placeholder: "请输入SPU"
+                }
             },{
                 label: "SKU：",
-                name: "name3",
-                input: {}
+                name: "skuId",
+                input: {
+                    placeholder: "请输入SKU"
+                }
             },{
                 label: "商品类目：",
-                name: "name4",
-                select: {}
-            },{
-                label: "商品品牌：",
-                name: "name5",
-                input: {}
+                name: "categoryName",
+                select: {
+                    placeholder: "请选择商品类目",
+                    optionValue : STOCKTYPE                    
+                }
             }],
             initValue: {
-                name1: null,
-                name2 : null,
-                name3: null,
-                name4 : null,
-                name5: null
+                title: null,
+                spuId : null,
+                skuId: null,
+                name4 : null
             }
         }
         return config;
@@ -55,134 +75,245 @@ class outgoMgt extends Component {
         const context = this;
         let columns = [{
             key: '0',
-            title: 'spu编码',
-            dataIndex: '字段0'
+            title: 'SPU编码',
+            dataIndex: 'spuId'
         }, {
             key: '1',
-            title: 'sku编码',
-            dataIndex: '字段1'
+            title: 'SKU编码',
+            dataIndex: 'skuId'
         }, {
             key: '2',
             title: '商品名称',
-            dataIndex: '字段2'
+            dataIndex: 'title'
         }, {
             key: '3',
             title: '商品类目',
-            dataIndex: '字段3'
+            dataIndex: 'categoryName'
         }, {
             key: '4',
-            title: '品牌',
-            dataIndex: '字段4'
+            title: '规格',
+            dataIndex: 'specOneValue'
         }, {
             key: '5',
-            title: '规格',
-            dataIndex: '字段5'
+            title: '市场价',
+            dataIndex: 'marketPrice'
         }, {
             key: '6',
             title: '销售价',
-            dataIndex: '字段6'
+            dataIndex: 'price'
         }, {
             key: '7',
             title: '剩余可分配库存',
-            dataIndex: '字段7'
+            dataIndex: 'stock'
         }];
         return columns;
     }
 
-    _getColumnsModify(){
+    _getColumnsDist(){
         const context = this;
         let columns = [{
             key: '0',
-            title: 'spu编码',
-            dataIndex: '字段0'
+            title: 'SPU编码',
+            dataIndex: 'spuId'
         }, {
             key: '1',
-            title: 'sku编码',
-            dataIndex: '字段1'
+            title: 'SKU编码',
+            dataIndex: 'skuId'
         }, {
             key: '2',
             title: '商品名称',
-            dataIndex: '字段2'
+            dataIndex: 'title'
         }, {
             key: '3',
             title: '商品类目',
-            dataIndex: '字段3'
+            dataIndex: 'categoryName'
         }, {
             key: '4',
-            title: '品牌',
-            dataIndex: '字段4'
+            title: '规格',
+            dataIndex: 'specOneValue',
+            render(value, row){
+                return <span>{value}/{row.specOneValue}</span>
+            }
         }, {
             key: '5',
-            title: '销售价',
-            dataIndex: '字段5'
+            title: '市场价',
+            dataIndex: 'marketPrice'
         }, {
             key: '6',
-            title: '建议销售价',
-            dataIndex: '字段6',
-            render(id, row){
-                return <input type="text" value="999"/>
-            } 
+            title: '销售价',
+            dataIndex: 'price'
         }, {
             key: '7',
-            title: '剩余可分配库存',
-            dataIndex: '字段7'
-        }, {
-            key: '8',
-            title: '出库库存',
-            dataIndex: '字段6',
-            render(id, row){
-                return <input type="text" value="999"/>
+            title: '建议销售价',
+            dataIndex: 'price',
+            render(value, row){
+                return <Input type="text" placeholder="请输入建议销售价" onChange={(e) => {
+                    context.setState({
+                        price: e.target.value
+                    })
+                }} defaultValue={value}/> 
             } 
         }, {
+            key: '8',
+            title: '剩余可分配库存',
+            dataIndex: 'stock'
+        }, {
             key: '9',
-            title: '操作',
-            dataIndex: 'id',
-            render(id, row){
-                return <span>
-                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedRole.bind(context,id)}>
-                        <Button type="link">删除</Button>
-                    </Popconfirm>
-                </span>
+            title: '出库库存数',
+            dataIndex: 'incoming',
+            render(value, row){
+                return <Input type="text" placeholder="请输入出库库存数"  onChange={(e) => {
+                    context.setState({
+                        incoming: e.target.value
+                    })
+                }} defaultValue={value} /> 
             } 
         }];
         return columns;
     }
 
+
+    /**
+     * 
+     * 选中后，获取的数据
+     * @param {any} items
+     */
+    getData(items) {
+        console.log('items=======', items)
+    }
+    
+    //修改店铺时删除目标表格数据
+
+    handleChange(value) {
+        console.log(`selected ${value}`);
+    }
+
+
+    //提交数据
+    handleSubmit(e) {
+        const context = this;
+        const { stockList } = context.state;
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((errors, values) => {
+
+            const params = {
+                ...values,
+                stockDetailList: stockList
+            }
+         });
+        
+    }
+
+    //重置
+    handleReset(e) {
+        const context = this;
+        e.preventDefault();
+        context.props.form.resetFields();
+    }
     
   render() {
-    const {formOptions, item, ...other} = this.props;
+        
+        let {formOptions, tableOptions, shopList, form} = this.props;
+        let { getFieldProps, getFieldError, isFieldValidating } = form;
+
+        tableOptions = {
+            columns: this._getColumns(),
+            ...tableOptions
+        }
+
+        let distTableOptions = {
+            delFlag: true,
+            columns: this._getColumnsDist()
+        }
+
+        formOptions = {
+            items: this._getFormItems(),
+            ...formOptions
+        }
+
+        let collapseOptions = {
+            source : {
+                titles:[{
+                    name: '选择商品'
+                }]
+            },
+            dist: {
+                titles:[{
+                    name: '库存及价格设置'
+                }]
+            }
+        }
+
+        const formItemLayout = {
+            labelCol: { span: 3 },
+            wrapperCol: { span: 14 }
+        };
+
+        const selectProps = getFieldProps('recordType', {
+            rules: [
+                { required: true, message: '请选择出库类型' },
+            ],
+        });
+
+        const multiSelectProps = getFieldProps('operateStore', {
+            rules: [
+                { required: true, message: '请选择待出库店铺' },
+            ],
+        });
+
+        const textareaProps = getFieldProps('mark', {
+            rules: [
+                { required: true, message: '真的不打算写点什么吗？' },
+            ],
+        });
+
         return (
             <div>
-                <div className="ant-form-item">
-                    <label className="ant-form-item-required">出库类型：</label>
-                    <Select defaultValue="1" style={{ width: 200 }}>
-                        <Option value="1">调拨出库</Option>
-                    </Select>
-                </div>
-                <div className="ant-form-item">
-                    <label className="ant-form-item-required">待出库店铺：</label>
-                    <Select defaultValue="1" style={{ width: 200 }}>
-                        <Option value="1">乐购天猫旗舰店</Option>
-                    </Select>
-                </div>
-                <div className="ant-form-item">
-                    <label className="ant-form-item-required">出库说明：</label>
-                    <Input type="textarea" id="control-textarea" style={{ width: 500 }} rows="3" />
-                </div>
-                <h3 className="tit-table">选择商品分配库存设置价格</h3>
-                <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+                <Form horizontal form={this.props.form}>
+                    <FormItem
+                        label="出库类型："
+                        {...formItemLayout}
+                    >
+                        <Select {...selectProps} defaultValue="调拨出库" placeholder="请选择出库类型" style={{ width: 200 }}>
+                            <Option value="调拨出库">调拨出库</Option>
+                            <Option value="耗损出库">耗损出库</Option>
+                            <Option value="盘点出库">盘点出库</Option>
+                        </Select>
+                    </FormItem>
 
-                
-                <DataTable bordered={true} columns={this._getColumns()}  {...other} />
-                <h3 className="tit-table">分配库存设置价格</h3>
+                    <FormItem
+                        label="待出库店铺："
+                        {...formItemLayout}                
+                    >
+                    <Select {...multiSelectProps} placeholder="请选择待出库店铺" style={{ width: 200 }}>
+                        {
+                            shopList && shopList.map((val, i) => {
+                               typeof val.value === 'boolean' && (val.value = '' + val.value);
+                                return <Option key={i} {...val}>{val.name}</Option>
+                            })
+                        }                        
+                        <Option value="2">乐购天猫旗舰店</Option>
+                    </Select>
+                    </FormItem>
 
-                <DataTable bordered={true} columns={this._getColumnsModify()}  {...other} />
-                
-                <div className="ant-form-item-control ">
-                    <Button type="normal">取消</Button>
-                    <span>&nbsp;&nbsp;&nbsp;</span>
-                    <Button type="primary">确认</Button>
-                </div>
+                    <FormItem
+                        id="control-textarea"
+                        label="出库说明："
+                        {...formItemLayout}
+                    >
+                        <Input type="textarea" {...textareaProps} rows="3" />
+                    </FormItem>
+
+                    <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
+
+                    <FormItem
+                        wrapperCol={{ span: 12, offset: 11 }}
+                    >
+                        <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
+                        &nbsp;&nbsp;&nbsp;
+                        <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
+                    </FormItem>
+                </Form>
             </div>
         );
   }
@@ -196,5 +327,5 @@ outgoMgt.proptype = {
 
 }
 
-export default outgoMgt;
+export default Form.create()(outgoMgt);
 

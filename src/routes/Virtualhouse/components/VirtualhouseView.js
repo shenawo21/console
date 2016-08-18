@@ -165,12 +165,12 @@ class virtualView extends Component {
 
 virtualView.propTypes = {
     tableOptions: React.PropTypes.shape({
-      dataSource: React.PropTypes.array.isRequired,
-      action: React.PropTypes.func.isRequired,
+      dataSource: React.PropTypes.array,
+      action: React.PropTypes.func,
       loading : React.PropTypes.bool
     }),
     stockTableOptions: React.PropTypes.shape({
-      dataSource: React.PropTypes.array.isRequired,
+      dataSource: React.PropTypes.array,
       loading : React.PropTypes.bool
     })
 }
