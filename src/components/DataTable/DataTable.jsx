@@ -17,12 +17,17 @@ class DataTable extends Component {
      */
     constructor(props) {
         super(props);
-        this.state = {
-            current: 1,
-            pageSize: 10,
-            selectedRowKeys: []
-        }
+        this.state = this.initState();
         this.refresh = this.refresh.bind(this);
+    }
+
+    initState(){
+        const {pageSize, selectedItemsKeys = []} = this.props;
+        return {
+            current: 1,
+            pageSize,
+            selectedRowKeys: selectedItemsKeys
+        }
     }
 
     /**
@@ -33,7 +38,7 @@ class DataTable extends Component {
     }
 
     /**
-     * (description)
+     * (获取当前页码)
      * 
      * @returns (description)
      */
@@ -43,24 +48,22 @@ class DataTable extends Component {
         return Number(p) || 1;
     }
     /**
-     * (description)
+     * (数据请求)
      * 
      * @param param (description)
-     * @param current (description)
+     * @param pages {pageNumber,pageSize}
      */
-    requestData(param, current) {
+    requestData(param, pages) {
         const {location} = this.context.props;
         const {action, params} = this.props;
-        if (current) {
+        if (pages && pages.current) {
             params && params.pageNumber && delete params.pageNumber;
         }
-        
         setTimeout(()=>{
             let data = Object.assign({
-                pageNumber: current || this.getCurrentPage(),
-                pageSize : this.state.pageSize
+                pageNumber: (pages && pages.current) || this.getCurrentPage(),
+                pageSize :  (pages && pages.pageSize) || this.state.pageSize
             }, param || params);
-            
             action(data);
         
             this.setState({
@@ -74,7 +77,7 @@ class DataTable extends Component {
     }
 
     componentWillUnmount() {
-        
+        this.setState(this.initState())
     }
 
 
@@ -83,18 +86,23 @@ class DataTable extends Component {
     * @param  {any} nextProps
     */
     componentWillReceiveProps(nextProps) {
-        // console.log(nextProps, this.props);
         if (!isEqual(nextProps.params, this.props.params)) {
-            //if(!isEqual(nextProps,this.props)){
             if ((nextProps.params && nextProps.params.pageNumber)) {
-                let pageNumber = nextProps.params.pageNumber;
+                const {params} = nextProps
+                const {pageNumber, pageSize} = params;
                 const {location,router} = this.context.props
                 this.setState({
-                    current: pageNumber
+                    current: pageNumber,
+                    pageSize : pageSize || this.props.pageSize
                 });
                 router.push({...location, query : { p: pageNumber }});
             }
             this.requestData(nextProps.params);
+        }
+        if(nextProps.selectedItemsKeys){
+            this.setState({
+                selectedRowKeys: nextProps.selectedItemsKeys
+            })
         }
     }
 
@@ -104,7 +112,6 @@ class DataTable extends Component {
      * @param  {any} index
      */
     _rowKey(record, index) {
-
         return index
     }
 
@@ -116,14 +123,15 @@ class DataTable extends Component {
         
         const {location, router} = this.context.props;
         
-        const {current} = pagination;
+        const {current, pageSize} = pagination;
         
         router.push({...location, query:{ p: current }});
 
-        this.requestData(null, current);
+        this.requestData(null, {pageSize, current});
 
         this.setState({
-            current
+            current,
+            pageSize
         })
     }
     
@@ -182,12 +190,15 @@ class DataTable extends Component {
 DataTable.propTypes = {
     action : React.PropTypes.func,
     params : React.PropTypes.object,
+    selectedItemsKeys : React.PropTypes.array,
     pagination: React.PropTypes.oneOfType([
       React.PropTypes.bool,
       React.PropTypes.object
     ])
 }
-
+DataTable.defaultProps = {
+    pageSize : 10
+}
 DataTable.contextTypes = {
     props: React.PropTypes.object
 }

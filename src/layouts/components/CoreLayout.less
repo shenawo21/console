@@ -69,19 +69,37 @@
 }
 
 :global {
+
+  .panel-head {
+    background: #fbfbfb;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
   
+  .tit-table{
+    font-size: 14px;
+    line-height: 3em;
+    font-weight: 600;
+    color: #76838f;
+  }
+  .fr{
+    float: right;
+  }
+
   .page-header {
     padding: 15px 30px;
-  }  
-  
+  } 
+   
   .site-menu-horizontal {
+    .ant-menu-submenu-horizontal.ant-menu-submenu{
+      padding-top: 10px;
+    }
    > .ant-menu-horizontal {
-      border-bottom: none;
+      border-bottom: none;      
       .ant-menu-submenu-title {
         span {
           line-height: 20px;
-          display: block;
-          padding: 11px 10px;
+          display: inline-block;          
           .anticon {
             display: block;
             width: 100%;
@@ -96,5 +114,12 @@
         min-width: 160px;
       }
     }
+  }
+
+
+  //弹出层内的样式
+  
+  .ant-modal-mask{
+    
   }
 }

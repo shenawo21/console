@@ -2,32 +2,27 @@
 //   {
 //     title: '企业管理',
 //     url: '/enterprise',
-//     icon: 'home',
-//     when: '',
+//     icon: 'home'
 //     children: [
 //       {
 //         title: '企业详情',
 //         url: '/enterprise',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }
 //     ]
 //   }, {
 //     title: '账号管理',
 //     url: '/accounts',
-//     icon: 'user',
-//     when: '',
+//     icon: 'user'
 //     children: [
 //       {
 //         title: '账号列表',
 //         url: '/accounts',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }, {
 //         title: '角色',
 //         url: '/role',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }
 //     ]
 //   },
@@ -35,13 +30,11 @@
 //     title: '应用管理',
 //     url: '/manage',
 //     icon: 'user',
-//     when: '',
 //     children: [
 //       {
 //         title: '应用管理',
 //         url: '/manage',
-//         icon: 'wb-dashboard',
-//         when: '',
+//         icon: 'wb-dashboard'
 //       }
 //     ]
 //   }
@@ -49,20 +42,25 @@
 
 const getMenu = menuLists => {
   const lists = menuLists && menuLists.map(menu => {
-      const childrenList = menu.childrenList && menu.childrenList.map(idx => {
+      const thirdList = menu.childrenList.childrenList && menu.childrenList.childrenList.map(i => {
+        return {
+            title: i.name,
+            url: i.url
+          }
+      })
+      //console.log('thirdList',thirdList);
+      const secondList = menu.childrenList && menu.childrenList.map(idx => {
         return {
             title: idx.name,
             url: idx.url,
-            icon: idx.icon,
-            when: idx.when
+            children: thirdList || null
           }
       })
+      //console.log('secondList',secondList);
       return {
           title: menu.name,
-          url: menu.url,
           icon: menu.icon,
-          when: menu.when,
-          children: childrenList || []
+          children: secondList || []
       };
   }) || [];
 
@@ -72,14 +70,43 @@ const getMenu = menuLists => {
        title: 'docs',
        url: '/docs',
        icon: 'user',
-       when: '',
        children: [
          {
            title: 'docs',
-           url: '/docs',
-           icon: 'wb-dashboard',
-           when: '',
+           url: '/docs'
          }
+       ]
+     },
+     {
+       title: '虚拟总仓管理',
+       icon: 'setting',
+       children: [
+         {
+           title: '虚拟总仓',
+           url: 'virtualhouse'
+         },
+         {
+            title: '出入库单查询',
+            url: '/virtualhouse/OddQuery'
+          },
+         {
+            title: '商品规格值管理',
+            url: '/virtualhouse/specificationMgt'
+          }
+       ]
+     },
+     {
+       title: '店铺仓库管理',
+       icon: 'setting',
+       children: [
+         {
+           title: '店铺仓库',
+           url: '/shophouse'
+         },
+         {
+            title: '出入库单查询',
+            url: '/shophouse/shopoddquery'
+          }
        ]
      }
     )
