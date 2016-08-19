@@ -74,22 +74,6 @@ class OutgoMgt extends Component {
         handleSubmit(value) {
             const { storeManage } = context.props;
 
-            // storeManage({
-            //     recordType: '2',                
-            //     operateStore: '1',
-            //     remark: 'dsf',  
-            //     stockDetailList: [{skuId:'1',price:'2',incoming:'2'}]  
-            // });
-
-            // this.props.form.validateFieldsAndScroll((errors, values) => {
-            //     if (!!errors) {
-            //         console.log('Errors in form!!!');
-            //         return;
-            //     }
-            //     console.log('Submit!!!');
-            //     console.log(values);
-            // });
-
           },
 
           /**

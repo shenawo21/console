@@ -1,11 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 
-
-import Search from 'components/Search';
-import DataTable from 'components/DataTable';
 import TableCascader from 'components/TableCascader';
 
-import { Input, Select, Button, Form, Popconfirm } from 'hen';
+import { Input, Select, Button, Form } from 'hen';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -64,7 +61,7 @@ class outgoMgt extends Component {
                 title: null,
                 spuId : null,
                 skuId: null,
-                name4 : null
+                categoryName : null
             }
         }
         return config;
@@ -304,16 +301,17 @@ class outgoMgt extends Component {
                         <Input type="textarea" {...textareaProps} rows="3" />
                     </FormItem>
 
-                    <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
-
+                    
                     <FormItem
                         wrapperCol={{ span: 12, offset: 11 }}
                     >
                         <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
                         &nbsp;&nbsp;&nbsp;
                         <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
-                    </FormItem>
+                    </FormItem> 
                 </Form>
+                <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
+
             </div>
         );
   }

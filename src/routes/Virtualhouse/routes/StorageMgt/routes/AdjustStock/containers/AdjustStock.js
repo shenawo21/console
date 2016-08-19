@@ -2,27 +2,33 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import AdjustStockView from '../components/AdjustStockView'
 import Panel from 'components/Panel'
-import {queryList, addItem, modifyItem, deleteItem} from '../modules/AdjustStockReducer'
+import {adjustStock, getAirList} from '../modules/AdjustStockReducer'
 
 class AdjustStock extends Component {
   
     constructor(props) {
         super(props);
         
-        this.getFormOptions = this.getFormOptions.bind(this);
-        
+        this.getFormOptions = this.getFormOptions.bind(this);       
         
         this.state = {
-            params: {}   //表格需要的筛选参数
+            item: {},
+            params: {},  //表格需要的筛选参数
+            pageSize: 5
         }
     }
     
-    componentDidMount() {
-        
-        const {queryList, location} = this.props;
+    //获取分页页码
+    getPageNumber(location) {
         const {query} = location;
-        let pageNumber = query.p ? Number(query.p) : 1;
-        queryList({ pageNumber });
+        return query && query.p ? Number(query.p) : 1;
+    }
+
+    componentDidMount() {        
+        const {adjustStock, location} = this.props;
+        const {pageSize} = this.state;
+        let pageNumber = getPageNumber();
+        adjustStock({ pageNumber });
         
     }
     
@@ -33,6 +39,7 @@ class AdjustStock extends Component {
        */
       getFormOptions() {
           const context = this;
+          const {pageSize} = this.state;
           return {
               /**
                * (筛选表单提交)
@@ -40,10 +47,7 @@ class AdjustStock extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  console.log(value)
-                  context.setState({
-                      params: value
-                  })
+
               },
 
               /**
@@ -52,34 +56,23 @@ class AdjustStock extends Component {
               handleReset() {
               }
           }
-      }
+      }   
     
-    
-    
-    handleRowSelection() {
-        return {
-            onSelect(record, selected, selectedRows) {
-                console.log(record, selected, selectedRows);
-            },
-            onSelectAll(selected, selectedRows, changeRows) {
-                console.log(selected, selectedRows, changeRows);
-            },
-        }
-    }
     
     render() {
-        const {params} = this.state;
+        const {item, params, selectedItems, shopList, pageSize} = this.state;
         
-        const {items, queryList, totalItems, loading} = this.props;
+        const {items, getAirList, totalItems, loading, location} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : queryList,                         //表格翻页时触发的action
+            action : getAirList,                         //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
-                total : totalItems                      //数据总数
+                total : totalItems,                      //数据总数
+                pageSize,
+                current : this.getPageNumber(location)
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
-            rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
         
@@ -94,26 +87,23 @@ class AdjustStock extends Component {
 
 AdjustStock.propTypes = {
     
-    queryList: React.PropTypes.func,
-    items: React.PropTypes.array.isRequired,
-    totalItems: React.PropTypes.number.isRequired,
-    
-    loading: React.PropTypes.bool
+    adjustStock: React.PropTypes.func,
+    getAirList: React.PropTypes.func, 
+    loading: React.PropTypes.bool,
+    result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
-    queryList,
-    deleteItem,
-    modifyItem,
-    addItem
+    adjustStock,
+    getAirList
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.adjustStock;
+    const {result, airListResult, loading} = state.adjustStock;
     
-    const {items = [], totalItems = 0} = result || {};
-    return { items, totalItems, loading };
+    const {items = [], totalItems = 0} = airListResult || {};
+    return { items, totalItems, 'result': result, loading };
     
 }
 

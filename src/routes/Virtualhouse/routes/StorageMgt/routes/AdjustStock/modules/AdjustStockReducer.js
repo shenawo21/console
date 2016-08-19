@@ -1,23 +1,10 @@
-const ADD = 'adjustStock/ADD';
-const ADD_SUCCESS = 'adjustStock/ADD_SUCCESS';
-const ADD_FAILURE = 'adjustStock/ADD_FAILURE';
+const ADJUSTSTOCK = 'adjustStock/ADJUSTSTOCK';
+const ADJUSTSTOCK_SUCCESS = 'adjustStock/ADJUSTSTOCK_SUCCESS';
+const ADJUSTSTOCK_FAILURE = 'adjustStock/ADJUSTSTOCK_FAILURE';
 
-const DELETE = 'adjustStock/DELETE';
-const DELETE_SUCCESS = 'adjustStock/DELETE_SUCCESS';
-const DELETE_FAILURE = 'adjustStock/DELETE_FAILURE';
-
-const MODIFY = 'adjustStock/MODIFY';
-const MODIFY_SUCCESS = 'adjustStock/MODIFY_SUCCESS';
-const MODIFY_FAILURE = 'adjustStock/MODIFY_FAILURE';
-
-const QUERY = 'adjustStock/QUERY';
-const QUERY_SUCCESS = 'adjustStock/QUERY_SUCCESS';
-const QUERY_FAILURE = 'adjustStock/QUERY_FAILURE';
-
-const VIEW = 'adjustStock/VIEW';
-const VIEW_SUCCESS = 'adjustStock/VIEW_SUCCESS';
-const VIEW_FAILURE = 'adjustStock/VIEW_FAILURE';
-
+const GETAIRLIST = 'adjustStock/GETAIRLIST';
+const GETAIRLIST_SUCCESS = 'adjustStock/GETAIRLIST_SUCCESS';
+const GETAIRLIST_FAILURE = 'adjustStock/GETAIRLIST_FAILURE';
 
 /**
  * 新增
@@ -26,10 +13,10 @@ const VIEW_FAILURE = 'adjustStock/VIEW_FAILURE';
  * @param params (description)
  * @returns (description)
  */
-export function addItem(params) {
+export function adjustStock(params) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-product.adjustStock', params)
   }
 }
 
@@ -40,52 +27,10 @@ export function addItem(params) {
  * @param params (description)
  * @returns (description)
  */
-export function deleteItem(params) {
+export function getAirList(params) {
   return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 修改
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function modifyItem(params) {
-  return {
-    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 列表查询
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function queryList(params) {
-  return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 单条查看
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function view(params) {
-  return {
-    types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [GETAIRLIST, GETAIRLIST_SUCCESS, GETAIRLIST_FAILURE],
+    promise: (client) => client.post('api-productService.ListVirtualDepot', params)
   }
 }
 
@@ -93,57 +38,27 @@ export function view(params) {
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
-    case ADD:
-    case DELETE:
-    case MODIFY:
-    case QUERY:
-    case VIEW:
+    case ADJUSTSTOCK:
+    case GETAIRLIST:
         return {
             ...state
         }
-    case ADD_SUCCESS:
+    case ADJUSTSTOCK_SUCCESS:
         return {
             //...state,
             loading : action.loading,
             result: action.result
         }
-    case ADD_FAILURE:
+    case ADJUSTSTOCK_FAILURE:
         return {
             ...state
         }
-    case MODIFY_SUCCESS:
+    case GETAIRLIST_SUCCESS:
         return {
             //...state,
-            result: action.result
+            airListResult: action.result
         }
-    case MODIFY_FAILURE:
-        return {
-            ...state
-        }
-    case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case DELETE_FAILURE:
-        return {
-            ...state
-        }
-    case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
-    case QUERY_FAILURE:
-        return {
-            ...state
-        }
-    case VIEW_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case VIEW_FAILURE:
+    case GETAIRLIST_FAILURE:
         return {
             ...state
         }

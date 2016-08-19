@@ -35,7 +35,6 @@ export function getVirList(params) {
  * @returns (description)
  */
 export function storeManage(params) {
-    console.log(params,'[]');
     return {
         types: [STOREMANAGE, STOREMANAGE_SUCCESS, STOREMANAGE_FAILURE],
         promise: (client) => client.post('api-productService.storeManage', params)
