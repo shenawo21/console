@@ -1,23 +1,37 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import SynchView from '../components/SynchView'
+import ApplicView from '../components/ApplicView'
 import Panel from 'components/Panel'
-import {queryList, addItem, modifyItem, deleteItem} from '../modules/SynchReducer'
+import {queryList, enabledItem, disabledItem, deleteItem} from '../modules/ApplicReducer'
 
-class Synch extends Component {
+class Applic extends Component {
 
     constructor(props) {
         super(props);
-
         this.getFormOptions = this.getFormOptions.bind(this);
-
-
         this.getQuickOptions = this.getQuickOptions.bind(this);
-
         this.state = {
             params: {}   //表格需要的筛选参数
         }
     }
+
+  //删除
+  delApp(id) {
+    const {deleteItem} = this.props;
+    deleteItem({shopId: id})
+  }
+
+  //激活 禁用
+  isAble(row, id) {
+    const {enabledItem, disabledItem} = this.props;
+    if (row.enabled) {
+      //调用禁用
+      disabledItem({shopId: id})
+    } else {
+      //调用激活
+      enabledItem({shopId: id})
+    }
+  }
 
     componentDidMount() {
 
@@ -100,6 +114,8 @@ class Synch extends Component {
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
             //rowSelection : this.handleRowSelection()    //需要checkbox时填写
+          delApp: this.delApp.bind(this),
+          isAble: this.isAble.bind(this)
         }
 
 
@@ -107,12 +123,12 @@ class Synch extends Component {
             'formOptions' : this.getFormOptions()
         }
 
-        return <Panel title=""><SynchView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()}  /></Panel>
+        return <Panel title=""><ApplicView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()}  /></Panel>
     }
 }
 
 
-Synch.propTypes = {
+Applic.propTypes = {
 
     queryList: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
@@ -124,18 +140,17 @@ Synch.propTypes = {
 const mapActionCreators = {
     queryList,
     deleteItem,
-    modifyItem,
-    addItem
+    enabledItem,
+    disabledItem
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.synch;
-
+    const {result, loading} = state.applic;
     const {items = [], totalItems = 0} = result || {};
     return { items, totalItems, loading };
 
 }
 
-export default connect(mapStateToProps, mapActionCreators)(Synch)
+export default connect(mapStateToProps, mapActionCreators)(Applic)
 

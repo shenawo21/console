@@ -130,6 +130,20 @@ const getMenu = menuLists => {
             url: '/order/history'
           }
         ]
+      },
+      {
+        title: '应用管理',
+        icon: 'hdd',
+        children: [
+          {
+            title: '我的应用',
+            url: '/applic'
+          },
+          {
+            title: '店铺对接',
+            url: ''
+          }
+        ]
       }
     )
   }

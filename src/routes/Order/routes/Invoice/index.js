@@ -1,5 +1,5 @@
  export default (store) => ({
-  breadcrumbName: "Invoice",
+  breadcrumbName: "打单发货",
   path: 'invoice',
   getComponent(nextState, next) {
     require.ensure([], (require) => {

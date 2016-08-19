@@ -52,7 +52,7 @@ export const createRoutes = (store) => {
     getChildRoutes(location, next) {
       require.ensure([], (require) => {
         let asyncComponents = [
-          require('./ManageApp').default(store),
+          require('./Applic').default(store),
           require('./Enterprise').default(store),
           require('./Accounts').default(store),
           require('./Role').default(store),
