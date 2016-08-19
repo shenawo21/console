@@ -43,75 +43,97 @@
 const getMenu = menuLists => {
   const lists = menuLists && menuLists.map(menu => {
       const thirdList = menu.childrenList.childrenList && menu.childrenList.childrenList.map(i => {
-        return {
+          return {
             title: i.name,
             url: i.url
           }
-      })
+        })
       //console.log('thirdList',thirdList);
       const secondList = menu.childrenList && menu.childrenList.map(idx => {
-        return {
+          return {
             title: idx.name,
             url: idx.url,
             children: thirdList || null
           }
-      })
+        })
       //console.log('secondList',secondList);
       return {
-          title: menu.name,
-          icon: menu.icon,
-          children: secondList || []
+        title: menu.name,
+        icon: menu.icon,
+        children: secondList || []
       };
-  }) || [];
+    }) || [];
 
- if(__DEV__){
+  if (__DEV__) {
     lists.push(
       {
-       title: 'docs',
-       url: '/docs',
-       icon: 'user',
-       children: [
-         {
-           title: 'docs',
-           url: '/docs'
-         }
-       ]
-     },
-     {
-       title: '虚拟总仓管理',
-       icon: 'setting',
-       children: [
-         {
-           title: '虚拟总仓',
-           url: 'virtualhouse'
-         },
-         {
+        title: 'docs',
+        url: '/docs',
+        icon: 'user',
+        children: [
+          {
+            title: 'docs',
+            url: '/docs'
+          }
+        ]
+      },
+      {
+        title: '虚拟总仓管理',
+        icon: 'setting',
+        children: [
+          {
+            title: '虚拟总仓',
+            url: 'virtualhouse'
+          },
+          {
             title: '出入库单查询',
             url: '/virtualhouse/OddQuery'
           },
-         {
+          {
             title: '商品规格值管理',
             url: '/virtualhouse/specificationMgt'
           }
-       ]
-     },
-     {
-       title: '店铺仓库管理',
-       icon: 'setting',
-       children: [
-         {
-           title: '店铺仓库',
-           url: '/shophouse'
-         },
-         {
+        ]
+      },
+      {
+        title: '店铺仓库管理',
+        icon: 'setting',
+        children: [
+          {
+            title: '店铺仓库',
+            url: '/shophouse'
+          },
+          {
             title: '出入库单查询',
             url: '/shophouse/shopoddquery'
           }
-       ]
-     }
+        ]
+      },
+      {
+        title: '订单管理',
+        icon: 'shopping-cart',
+        children: [
+          {
+            title: '同步订单',
+            url: '/order/synch'
+          },
+          {
+            title: '审单',
+            url: '/order/audit'
+          },
+          {
+            title: '打单发货',
+            url: '/order/invoice'
+          },
+          {
+            title: '历史订单',
+            url: '/order/history'
+          }
+        ]
+      }
     )
- }
- return lists;
+  }
+  return lists;
 }
 
- export default getMenu;
+export default getMenu;

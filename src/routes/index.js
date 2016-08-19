@@ -9,8 +9,8 @@ import React from 'react'
 
 export const createRoutes = (store) => {
   /*  Note: Instead of using JSX, we are using react-router PlainRoute,
-      a simple javascript object to provide route definitions.
-      When creating a new async route, pass the instantiated store!   */
+   a simple javascript object to provide route definitions.
+   When creating a new async route, pass the instantiated store!   */
   const requireLogin = (nextState, replace, cb) => {
     /**
      * 权限检查
@@ -52,15 +52,16 @@ export const createRoutes = (store) => {
     getChildRoutes(location, next) {
       require.ensure([], (require) => {
         let asyncComponents = [
-            require('./ManageApp').default(store),
-            require('./Enterprise').default(store),
-            require('./Accounts').default(store),
-            require('./Role').default(store),
-            require('./Virtualhouse').default(store),
-             require('./Shophouse').default(store)
+          require('./ManageApp').default(store),
+          require('./Enterprise').default(store),
+          require('./Accounts').default(store),
+          require('./Role').default(store),
+          require('./Virtualhouse').default(store),
+          require('./Shophouse').default(store),
+          require('./Order').default(store)
         ];
-        if(__DEV__){
-            asyncComponents.push(require('./Docs').default(store))
+        if (__DEV__) {
+          asyncComponents.push(require('./Docs').default(store))
         }
         next(null, asyncComponents)
       })
