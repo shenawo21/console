@@ -15,9 +15,7 @@ class virtualhouse extends Component {
     }
 
     render() {
-        const {formOptions, quickOptions, isStatus, ...other} = this.props;
-        console.log(2121221,other)
-        
+        const {formOptions, quickOptions, isStatus, ...other} = this.props;        
         return (
             <div>
                 <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>

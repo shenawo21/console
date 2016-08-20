@@ -14,16 +14,19 @@ const STOCKTYPE = [
    { value: '盘点出库', title: "盘点出库" }
 ];
 
+
 class OutgoView extends Component {
 
     _getFormItems(){
+    	let context = this;
+        const {shopList} = context.props;
         let config = {
-            formItems: [{
+            formItems: [ {
                 label: "出库店铺：",
-                name: "operateStore",
+                name: "relevantStore",
                 select: {
-                    optionValue : STOCKTYPE,
-                    placeholder: "请选择出库店铺"
+                    placeholder: "请选择所属店铺",
+                    optionValue: shopList
                 }
             },{
                 label: "出库单号：",
@@ -45,10 +48,10 @@ class OutgoView extends Component {
                 }
             },{
                 label: "出库类型：",
-                name: "stockType",
+                name: "recordType",
                 select: {
-                   optionValue : STOCKTYPE,
-                   placeholder: "请选择出库类型"
+		   placeholder: "请选择出库类型",
+                   optionValue : STOCKTYPE
                 }
             },{
                 label: "操作人：",

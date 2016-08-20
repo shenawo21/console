@@ -9,8 +9,9 @@ import {Link} from 'react-router';
 
 //入库类型
 const STOCKTYPE = [
-   { value: '新增商品', title: "新增商品" },
-   { value: '调整库存', title: "调整库存" }
+   { value: '手动添加', title: "手动添加" },
+   { value: '店铺回退', title: "店铺回退" },
+   { value: '调正入库', title: "调正入库" }
 ];
 
 class storageMgt extends Component {

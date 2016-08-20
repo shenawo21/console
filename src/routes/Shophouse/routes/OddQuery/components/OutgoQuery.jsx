@@ -5,7 +5,7 @@ import DataTable from 'components/DataTable';
 
 import Search from 'components/Search';
 
-import {Row, Col, Button, Icon, Popconfirm, DatePicker } from 'hen';
+import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
 //出库类型
 const STOCKTYPE = [
@@ -18,13 +18,15 @@ const STOCKTYPE = [
 class OutgoView extends Component {
 
     _getFormItems(){
+    	let context = this;
+        const {shopList} = context.props;
         let config = {
             formItems: [ {
                 label: "出库店铺：",
-                name: "operateStore",
+                name: "shopId",
                 select: {
-                    optionValue : STOCKTYPE,
-                    placeholder: "请选择出库店铺"
+                    placeholder: "请选择所属店铺",
+                    optionValue: shopList
                 }
             },{
                 label: "出库单号：",
@@ -48,8 +50,8 @@ class OutgoView extends Component {
                 label: "出库类型：",
                 name: "stockType",
                 select: {
-                   optionValue : STOCKTYPE,
-                   placeholder: "请选择出库类型"
+		   placeholder: "请选择出库类型",
+                   optionValue : STOCKTYPE
                 }
             },{
                 label: "操作人：",
@@ -88,7 +90,6 @@ class OutgoView extends Component {
         }
         return config;
     }
-
 
     _getColumns(){
         const {isAdmin} = this.props;
@@ -152,7 +153,6 @@ class OutgoView extends Component {
 
     render() {
         const {formOptions, ...other} = this.props;
-        
         return (
             <div>
  

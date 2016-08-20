@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
+import Collapse from 'components/Collapse';
 import DataTable from 'components/DataTable';
-
-import classes from './Collapse.less'
 
 class product extends Component {
 
@@ -12,31 +11,31 @@ class product extends Component {
         let columns = [{
             key: '0',
             title: 'SPU',
-            dataIndex: 'enterpriseCode'
+            dataIndex: 'spuId'
         }, {
             key: '1',
             title: 'SKU',
-            dataIndex: 'account'
+            dataIndex: 'skuId'
         }, {
             key: '2',
             title: '所属店铺',
-            dataIndex: 'name'
+            dataIndex: 'shopName'
         }, {
             key: '3',
             title: '商品名称',
-            dataIndex: 'enabled'
+            dataIndex: 'title'
         }, {
             key: '4',
             title: '商品类目',
-            dataIndex: 'email'
+            dataIndex: 'categoryName'
         }, {
             key: '5',
             title: '规格',
-            dataIndex: 'mobile'
+            dataIndex: 'specOneValue'
         }, {
             key: '6',
             title: '市场价',
-            dataIndex: 'registerTime'
+            dataIndex: 'marketPrice'
         }, {
             key: '7',
             title: '建议销售价',
@@ -44,78 +43,52 @@ class product extends Component {
         }, {
             key: '8',
             title: '待同步库存',
-            dataIndex: 'registerTime'
+            dataIndex: 'stock'
         }, {
             key: '9',
             title: '状态',
-            dataIndex: 'createPerson'
+            dataIndex: 'status'
         }];
         
         return columns;
     }
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, tableOptionsPro, ...other} = this.props;
+        console.log(this);
+
+        const tableOptions = {
+            columns: this._getColumns(),
+            ...tableOptionsPro
+        }
+
+        let collapseOptions = {
+            source : {
+                titles:[{
+                    name: '待对比商品'
+                },{
+                    name: '比对失败'
+                },{
+                    name: '出库时间'
+                }],
+                btns:[{
+                    name: '退回'
+                },{
+                    name: '导出'
+                },{
+                    name: '比对更新'
+                }],
+                hasArrow: true
+            }
+        }           
+            
 
         return (
             <div>
 
-                <div className={classes.collapse}>
-                    <div className={classes.collapseItem}>
-                        <div className={classes.collapseHeader}>
-                            <i className="anticon anticon-right fr"></i>
-                            <button className="ant-btn ant-btn-normal fr">回退</button>
-                            <button className="ant-btn ant-btn-normal fr">导出</button>
-                            <button className="ant-btn ant-btn-normal fr">对比更新</button>
-                            <ul className={classes.tit}>
-                                <li className={classes.titList}>待对比商品：1</li>
-                                <li className={classes.titList}>对比失败：1</li>
-                                <li>出库时间：2016-07-21  10:30:11</li>
-                            </ul>
-                        </div>
-                        <div className={classes.collapseContent}>
-                            <div className={classes.collapseContentBox}>
-                                <DataTable bordered={true} columns={this._getColumns()} {...other} pagination={false} ref='dt' />
-                            </div>
-                        </div>
-                    </div>
-                    <div className={classes.collapseItem}>
-                        <div className={classes.collapseHeader}>
-                            <i className="anticon anticon-right fr"></i>
-                            <button className="ant-btn ant-btn-normal fr">回退</button>
-                            <button className="ant-btn ant-btn-normal fr">导出</button>
-                            <button className="ant-btn ant-btn-normal fr">对比更新</button>
-                            <ul className={classes.tit}>
-                                <li className={classes.titList}>待对比商品：1</li>
-                                <li className={classes.titList}>对比失败：1</li>
-                                <li>出库时间：2016-07-21  10:30:11</li>
-                            </ul>
-                        </div>
-                        <div className={classes.collapseContent}>
-                            <div className={classes.collapseContentBox}>
-                                <DataTable bordered={true} columns={this._getColumns()} {...other} pagination={false} ref='dt' />
-                            </div>
-                        </div>
-                    </div>
-                    <div className={classes.collapseItem}>
-                        <div className={classes.collapseHeader}>
-                            <i className="anticon anticon-right fr"></i>
-                            <button className="ant-btn ant-btn-normal fr">回退</button>
-                            <button className="ant-btn ant-btn-normal fr">导出</button>
-                            <button className="ant-btn ant-btn-normal fr">对比更新</button>
-                            <ul className={classes.tit}>
-                                <li className={classes.titList}>待对比商品：1</li>
-                                <li className={classes.titList}>对比失败：1</li>
-                                <li>出库时间：2016-07-21  10:30:11</li>
-                            </ul>
-                        </div>
-                        <div className={classes.collapseContent}>
-                            <div className={classes.collapseContentBox}>
-                                <DataTable bordered={true} columns={this._getColumns()} {...other} pagination={false} ref='dt' />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Collapse {...collapseOptions.source}>
+                    <DataTable bordered={true} {...tableOptions} />
+                </Collapse>
 
             </div>
         )

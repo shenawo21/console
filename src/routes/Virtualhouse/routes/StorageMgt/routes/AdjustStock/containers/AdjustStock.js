@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import AdjustStockView from '../components/AdjustStockView'
 import Panel from 'components/Panel'
-import {adjustStock, getAirList} from '../modules/AdjustStockReducer'
+import {adjustStock, getAirList, adStockCateList} from '../modules/AdjustStockReducer'
 
 class AdjustStock extends Component {
   
@@ -25,11 +25,14 @@ class AdjustStock extends Component {
     }
 
     componentDidMount() {        
-        const {adjustStock, location} = this.props;
+        const {getAirList, adStockCateList, location} = this.props;
         const {pageSize} = this.state;
-        let pageNumber = getPageNumber();
-        adjustStock({ pageNumber });
+        let pageNumber = this.getPageNumber(location);
+        getAirList({ pageNumber, pageSize });
         
+        //获取分类列表
+        adStockCateList();
+
     }
     
       /**
@@ -42,16 +45,19 @@ class AdjustStock extends Component {
           const {pageSize} = this.state;
           return {
               /**
-               * (筛选表单提交)
+               * (表单提交)
                * 
                * @param value (description)
                */
               handleSubmit(value) {
-
+                   
+                  context.setState({
+                    params: {pageSize, ...value}
+                  })
               },
 
               /**
-               * (筛选表单重置)
+               * (表单重置)
                */
               handleReset() {
               }
@@ -62,7 +68,32 @@ class AdjustStock extends Component {
     render() {
         const {item, params, selectedItems, shopList, pageSize} = this.state;
         
-        const {items, getAirList, totalItems, loading, location} = this.props;
+        const {items, getAirList, adjustStock, cateResult, totalItems, loading, location} = this.props;
+        
+        /**
+         * 类目列表
+         * @param lists
+         * @returns {*}
+         */
+        const loop = (lists) => {
+            return lists && lists.map(a => {
+                let children = a.level < 3 ? loop(a.children) : '';
+
+                if (children) {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name,
+                        children
+                    }
+                } else {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name
+                    }
+                }
+            })
+        }
+
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : getAirList,                         //表格翻页时触发的action
@@ -72,38 +103,37 @@ class AdjustStock extends Component {
                 current : this.getPageNumber(location)
             },  
             loading,                                    //表格加载数据状态
-            params,                                     //表格检索数据参数
-        }
-        
+            params                                      //表格检索数据参数
+        }        
         
         const formOptions = {
-            'formOptions' : this.getFormOptions()
+            ...this.getFormOptions()
         }
         
-        return <Panel title=""><AdjustStockView {...tableOptions} {...formOptions} /></Panel>
+        return <Panel title="库存调整"><AdjustStockView item={item} tableOptions={tableOptions} formOptions={formOptions} cateList={loop(cateResult)} adjustStock={adjustStock} /></Panel>
     }
 }
 
 
-AdjustStock.propTypes = {
-    
+AdjustStock.propTypes = {    
     adjustStock: React.PropTypes.func,
     getAirList: React.PropTypes.func, 
+    adStockCateList: React.PropTypes.func, 
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
     adjustStock,
-    getAirList
+    getAirList,
+    adStockCateList
 }
 
-
 const mapStateToProps = (state) => {
-    const {result, airListResult, loading} = state.adjustStock;
+    const {result, airListResult, cateResult, loading} = state.adjustStock;
     
     const {items = [], totalItems = 0} = airListResult || {};
-    return { items, totalItems, 'result': result, loading };
+    return { items, totalItems, cateResult, 'result': result, loading };
     
 }
 

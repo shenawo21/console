@@ -7,12 +7,6 @@ import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader'
 import {Row, Col, Button, Icon, Popconfirm, Modal} from 'hen';
 
-//是否可用
-const STATUS = [
-   { value: false, title: "不可用" },
-   { value: true, title: "可用" }
-];
-
 class virtualView extends Component {
 
     //获取单条已出库存信息
@@ -25,6 +19,8 @@ class virtualView extends Component {
     
 
     _getFormItems(){
+        let context = this;
+        const {cateList} = context.props;
         let config = {
             formItems: [{
                 label: "商品名称：",
@@ -46,15 +42,19 @@ class virtualView extends Component {
                 }
             },{
                 label: "商品类目：",
-                name: "enabled",
-                select: {
-                    placeholder: "请选择商品类目",
-                    optionValue: STATUS
+                name: "categoryCode",
+                wrapperCol: {span: 15},
+                cascader: {
+                    options: cateList,
+                    placeholder: "请选择所属类目",
+                    changeOnSelect: true
                 }
             }],
             initValue: {
-                name: null,
-                nick : null
+                title: null,
+                spuId : null,
+                skuId: null,
+                categoryCode : null
             }
         }
         return config;

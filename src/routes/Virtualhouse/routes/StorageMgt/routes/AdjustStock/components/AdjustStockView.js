@@ -3,15 +3,7 @@ import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
 
-import {Row, Col, Form, Button} from 'hen';
-const FormItem = Form.Item;
-
-//商品类目
-const STOCKTYPE = [
-   { value: '调拨出库', title: "调拨出库" },
-   { value: '损耗出库', title: "损耗出库" },
-   { value: '盘点出库', title: "盘点出库" }
-];
+import {Row, Col, Form, Button, Input, message} from 'hen';
 
 class AdjustStock extends Component {
     
@@ -20,9 +12,15 @@ class AdjustStock extends Component {
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleReset = this.handleReset.bind(this);
+        this.state = {
+            stock: null,
+            stockList: [{skuId:1245,stock:12}]
+        }
     }
 
     _getFormItems(){
+        let context = this;
+        const {cateList} = context.props;
         let config = {
             formItems: [{
                 label: "商品名称：",
@@ -44,17 +42,19 @@ class AdjustStock extends Component {
                 }
             },{
                 label: "商品类目：",
-                name: "categoryName",
-                select: {
-                    placeholder: "请选择商品类目",
-                    optionValue : STOCKTYPE
+                name: "categoryCode",
+                wrapperCol: {span: 15},
+                cascader: {
+                    options: cateList,
+                    placeholder: "请选择所属类目",
+                    changeOnSelect: true
                 }
             }],
             initValue: {
                 title: null,
                 spuId : null,
                 skuId: null,
-                categoryName : null
+                categoryCode : null
             }
         }
         return config;
@@ -107,16 +107,23 @@ class AdjustStock extends Component {
             dataIndex: 'title'
         }, {
             key: '3',
-            title: '商品类目',
-            dataIndex: 'categoryName'
-        }, {
-            key: '4',
             title: '规格',
             dataIndex: 'specOneValue'
         }, {
-            key: '5',
+            key: '4',
             title: '库存',
             dataIndex: 'stock'
+        }, {
+            key: '5',
+            title: '增加库存',
+            dataIndex: 'stock',
+            render(value, row) {
+                return <Input type="text" placeholder="请输入出库库存数" style={{width:120}} onChange={(e) => {
+                    context.setState({
+                        stock: e.target.value
+                    })
+                }} defaultValue={value} /> 
+            }
         }];
         return columns;
     }
@@ -133,28 +140,25 @@ class AdjustStock extends Component {
     //提交数据
     handleSubmit(e) {
         const context = this;
+        const { adjustStock } = context.props;
         const { stockList } = context.state;
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((errors, values) => {
-
-            const params = {
-                ...values,
-                stockDetailList: stockList
-            }
-         });
+        
+        adjustStock({
+            stockList: stockList
+        });
         
     }
 
     //重置
     handleReset(e) {
-        const context = this;
         e.preventDefault();
-        context.props.form.resetFields();
+        this.context.router.push('/virtualhouse')
     }
     
     render() {
         
-        let {formOptions, tableOptions, shopList, form} = this.props;
+        let {formOptions, tableOptions, shopList} = this.props;
 
         tableOptions = {
             columns: this._getColumns(),
@@ -186,15 +190,12 @@ class AdjustStock extends Component {
 
         return (
             <div>
-                    <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
-    
-                     <div
-                        wrapperCol={{ span: 12, offset: 11 }}
-                    >
-                        <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
-                        &nbsp;&nbsp;&nbsp;
-                        <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
-                    </div>
+                <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
+                <div className="tc">
+                    <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
+                    &nbsp;&nbsp;&nbsp;
+                    <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
+                </div>
             </div>
         )
     }
@@ -202,13 +203,13 @@ class AdjustStock extends Component {
 
 
 AdjustStock.propTypes = {
-    
-    dataSource : React.PropTypes.array.isRequired,
-    action : React.PropTypes.func.isRequired,
-    
+    adjustStock: React.PropTypes.func,    
     loading : React.PropTypes.bool,
     params : React.PropTypes.object
 }
 
+AdjustStock.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 export default AdjustStock;

@@ -20,7 +20,7 @@ class Collapse extends Component {
         const {show} = this.state;
         return <div className={classes.collapse} id={uKey}>
             <div className={classes.header}>
-                <Icon type='anticon-right' className={`fr ${hasArrow ? classes.show : classes.hide}`} onClick={this.toggle}></Icon>
+                <Icon type='right' className={`fr ${hasArrow ? classes.show : classes.hide}`} onClick={this.toggle}></Icon>
                 {
                     btns.map((val,index) => {
                         const {className, name, ...other} = val;

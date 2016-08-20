@@ -1,14 +1,8 @@
-
-/*  This is a container component. Notice it does not contain any JSX,
-    nor does it import React. This component is **only** responsible for
-    wiring in the actions and state necessary to render a presentational
-    component - in this case, the counter:   */
-
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import OutgoMgtView from '../components/OutgoMgtView'
 import Panel from 'components/Panel'
-import { getVirList, storeManage, getShopList } from '../modules/OutgoMgtReducer'
+import { getVirList, storeManage, getShopList, outCateList } from '../modules/OutgoMgtReducer'
 
 import {message} from 'hen';
 
@@ -22,8 +16,7 @@ class OutgoMgt extends Component {
         this.state = {
             item: {},
             params: {},
-            pageSize: 5,
-            shopList: []
+            pageSize: 5
         };  //定义初始状态
     }
 
@@ -34,26 +27,24 @@ class OutgoMgt extends Component {
     }
 
     componentDidMount() {
-        const { getVirList, getShopList, location } = this.props;
+        const { getVirList, getShopList, outCateList, location } = this.props;
         const {pageSize} = this.state;
         let pageNumber = this.getPageNumber(location);
         getVirList({ pageNumber, pageSize });
+	//获取店铺列表
+        getShopList();
 
-        getShopList().then(res => {
-            const lists = res.data;
-            this.setState({
-                shopList: lists
-            });
-        })
+        //获取分类列表
+        outCateList();
 
     }
 
     componentWillReceiveProps(nextProps, preProps){
-        if(nextProps.jump){
-            setTimeout(()=>{
-                this.context.router.push('/virtualhouse')
-            },600)
-        }
+        // if(nextProps.jump){
+        //     setTimeout(()=>{
+        //         this.context.router.push('/virtualhouse')
+        //     },600)
+        // }
     }  
 
     /**
@@ -65,16 +56,18 @@ class OutgoMgt extends Component {
         const context = this;
         const {pageSize} = this.state;
         return {
-       /**
-       * (表单提交)
-       *
-       * @param value (description)
-       */
+        /**
+         * (表单提交)
+         *
+         * @param value (description)
+         */
 
-        handleSubmit(value) {
-            const { storeManage } = context.props;
+            handleSubmit(value) {
+                context.setState({
+                    params: {pageSize, ...value}
+                })
 
-          },
+            },
 
           /**
            * (重置)表单
@@ -88,8 +81,31 @@ class OutgoMgt extends Component {
     }
 
     render() {
-        const {item, params, selectedItems, shopList, pageSize} = this.state;
-        const {items, getVirList, totalItems, loading, location} = this.props;
+        const {item, params, selectedItems, pageSize} = this.state;
+        const {items, getVirList, totalItems, cateResult, shopListResult, storeManage, loading, location} = this.props;
+        /**
+         * 类目列表
+         * @param lists
+         * @returns {*}
+         */
+        const loop = (lists) => {
+            return lists && lists.map(a => {
+                let children = a.level < 3 ? loop(a.children) : '';
+
+                if (children) {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name,
+                        children
+                    }
+                } else {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name
+                    }
+                }
+            })
+        }
 
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -102,12 +118,26 @@ class OutgoMgt extends Component {
             loading,                                    //表格加载数据状态
             params                                      //表格检索数据参数
         }
+	
+	/**
+         * 店铺列表
+         * @param lists
+         * @returns {*}
+         */
+	const shopLoop = (lists) => {
+            return lists && lists.map(a => {
+                return {
+                    value: a.shopId,
+                    title: a.name
+                }
+            })
+        }
        
         const formOptions = {
             ...this.getFormOptions()
         }
 
-        return <Panel title="出库管理"><OutgoMgtView item={item} tableOptions={tableOptions} formOptions={formOptions} shopList={shopList} /></Panel>
+        return <Panel title="出库管理"><OutgoMgtView item={item} tableOptions={tableOptions} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} storeManage={storeManage} /></Panel>
     }
 }
 
@@ -116,6 +146,7 @@ OutgoMgt.propTypes = {
     getVirList: React.PropTypes.func,
     storeManage: React.PropTypes.func,
     getShopList: React.PropTypes.func,
+    outCateList: React.PropTypes.func,
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
@@ -123,16 +154,16 @@ OutgoMgt.propTypes = {
 const mapActionCreators = {
     getVirList,
     storeManage,
-    getShopList
+    getShopList,
+    outCateList
 }
 
 const mapStateToProps = (state) => {
 
-    const {result, virListResult, shopListResult, loading} = state.outgoMgt;
-
+    const {result, virListResult, shopListResult, cateResult, loading} = state.outgoMgt;
     const {items = [], totalItems = 0} = virListResult || {};
 
-    return {items, totalItems, 'shopListResult': shopListResult, 'result': result, loading};
+    return {items, totalItems, shopListResult, cateResult, result, loading};
 
 }
 export default connect(mapStateToProps, mapActionCreators)(OutgoMgt)

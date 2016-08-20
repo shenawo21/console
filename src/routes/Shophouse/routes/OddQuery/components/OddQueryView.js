@@ -9,19 +9,17 @@ import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
 
 class virtualhouse extends Component {
-    
+    callback(key) {
+        const {isStatus} = this.props;
+        isStatus(key); 
+    }
 
     render() {
-        const {formOptions, quickOptions, isStatus, ...other} = this.props;
-        
-        function callback(key) {
-            isStatus(key);            
-        }
+        const {formOptions, quickOptions, isStatus, ...other} = this.props;        
         return (
             <div>
-
-                <Tabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="出库单" key="1"><OutgoQuery formOptions={formOptions} {...other}  /></TabPane>
+                <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
+                    <TabPane tab="出库单" key="1"><OutgoQuery formOptions={formOptions} {...other} /></TabPane>
                     <TabPane tab="入库单" key="2"><StorageQuery formOptions={formOptions} {...other} /></TabPane>
                 </Tabs>
 

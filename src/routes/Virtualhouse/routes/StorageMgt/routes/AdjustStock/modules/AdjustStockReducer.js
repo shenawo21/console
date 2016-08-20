@@ -6,8 +6,14 @@ const GETAIRLIST = 'adjustStock/GETAIRLIST';
 const GETAIRLIST_SUCCESS = 'adjustStock/GETAIRLIST_SUCCESS';
 const GETAIRLIST_FAILURE = 'adjustStock/GETAIRLIST_FAILURE';
 
+
+//获取商品类目列表
+const ADSTOCKCATELIST = 'virtualhouse/ADSTOCKCATELIST';
+const ADSTOCKCATELIST_SUCCESS = 'virtualhouse/ADSTOCKCATELIST_SUCCESS';
+const ADSTOCKCATELIST_FAILURE = 'virtualhouse/ADSTOCKCATELIST_FAILURE';
+
 /**
- * 新增
+ * 调整库存
  * 
  * @export
  * @param params (description)
@@ -15,13 +21,13 @@ const GETAIRLIST_FAILURE = 'adjustStock/GETAIRLIST_FAILURE';
  */
 export function adjustStock(params) {
   return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('api-product.adjustStock', params)
+    types: [ADJUSTSTOCK, ADJUSTSTOCK_SUCCESS, ADJUSTSTOCK_FAILURE],
+    promise: (client) => client.post('api-productService.adjustStock', params)
   }
 }
 
 /**
- * 删除
+ * 获取虚拟总仓列表
  * 
  * @export
  * @param params (description)
@@ -34,19 +40,32 @@ export function getAirList(params) {
   }
 }
 
+/**
+ * 商品类目列表
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function adStockCateList(params) {
+  return {
+    types: [ADSTOCKCATELIST, ADSTOCKCATELIST_SUCCESS, ADSTOCKCATELIST_FAILURE],
+    promise: (client) => client.post('api-category.listAll', params)
+  }
+}
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case ADJUSTSTOCK:
     case GETAIRLIST:
+    case ADSTOCKCATELIST:
         return {
             ...state
         }
     case ADJUSTSTOCK_SUCCESS:
         return {
-            //...state,
-            loading : action.loading,
+            ...state,
             result: action.result
         }
     case ADJUSTSTOCK_FAILURE:
@@ -55,10 +74,19 @@ export default function reducer(state = {result:{}}, action) {
         }
     case GETAIRLIST_SUCCESS:
         return {
-            //...state,
+            ...state,
             airListResult: action.result
         }
     case GETAIRLIST_FAILURE:
+        return {
+            ...state
+        }
+    case ADSTOCKCATELIST_SUCCESS:
+        return {
+            ...state,
+            cateResult: action.result
+        }
+    case ADSTOCKCATELIST_FAILURE:
         return {
             ...state
         }

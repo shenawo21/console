@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import VirtualhouseView from '../components/VirtualhouseView'
 import Panel from 'components/Panel'
-import { virhoustQueryList, getShopStocks } from '../modules/virtualhouseReducer'
+import { virhoustQueryList, getShopStocks, virCateList } from '../modules/virtualhouseReducer'
 
 class Virtualhouse extends Component {
   
@@ -23,11 +23,17 @@ class Virtualhouse extends Component {
     
     componentDidMount() {
         
-        const {virhoustQueryList, location} = this.props;
+        const {virhoustQueryList, virCateList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
+        /**
+         * 虚拟总仓列表
+         */
         virhoustQueryList({ pageNumber });
-        
+        /**
+         * 商品类目列表
+         */
+        virCateList();
     }
     
     
@@ -111,7 +117,31 @@ class Virtualhouse extends Component {
     
     render() {
         const {params, stockParams, selectList, visible} = this.state;        
-        const {items, stockItems, virhoustQueryList, getShopStocks, totalItems, loading} = this.props;
+        const {items, stockItems, virhoustQueryList, getShopStocks, cateResult, totalItems, loading} = this.props;
+
+        /**
+         * 类目列表
+         * @param lists
+         * @returns {*}
+         */
+        const loop = (lists) => {
+            return lists && lists.map(a => {
+                let children = a.level < 3 ? loop(a.children) : '';
+
+                if (children) {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name,
+                        children
+                    }
+                } else {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name
+                    }
+                }
+            })
+        }
 
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -135,13 +165,14 @@ class Virtualhouse extends Component {
         }
         
         return <Panel title=""><VirtualhouseView tableOptions={tableOptions} stockTableOptions={stockTableOptions} {...formOptions} quickOptions={this.getQuickOptions()} 
-                                                 selectList={selectList} visible={visible} /></Panel>
+                                                 selectList={selectList} visible={visible} cateList={loop(cateResult)} /></Panel>
     }
 }
 
 Virtualhouse.propTypes = {    
     virhoustQueryList: React.PropTypes.func,
-    getShopStocks: React.PropTypes.func,    
+    getShopStocks: React.PropTypes.func,
+    virCateList: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
     stockItems: React.PropTypes.array,
     totalItems: React.PropTypes.number.isRequired,    
@@ -150,17 +181,17 @@ Virtualhouse.propTypes = {
 
 const mapActionCreators = {
     virhoustQueryList,
-    getShopStocks
+    getShopStocks,
+    virCateList
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, stockResult, loading} = state.virtualhouse;    
+
+    const {result, stockResult, cateResult, loading} = state.virtualhouse;    
     const {items = [], totalItems = 0} = result || {};
     const { stockItems = [] } = stockResult || {};
-    return { items, stockItems: stockResult, totalItems, loading };
-
-    //return {'result': result, 'roleListResult' : roleListResult, loading, jump};
+    return { items, stockItems: stockResult, cateResult, totalItems, loading };
     
 }
 

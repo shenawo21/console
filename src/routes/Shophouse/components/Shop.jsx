@@ -7,40 +7,39 @@ import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
-//所属店铺
-const STATUS = [
-   { value: false, title: "不可用" },
-   { value: true, title: "可用" }
-];
-
 class shop extends Component {
 
     _getFormItems(){
+    	let context = this;
+        const {cateList, shopList} = context.props;
         let config = {
             formItems: [{
                 label: "所属店铺：",
-                name: "shopName",
-                input: {
+                name: "shopId",
+                select: {
                     placeholder: "请选择所属店铺",
-                    optionValue: STATUS
+                    optionValue: shopList
                 }
             }, {
                 label: "商品名称：",
-                name: "name",
-                select: {
+                name: "title",
+                input: {
                     placeholder: "请输入商品名称"
                 }
             },{
                 label: "商品类目：",
-                name: "enabled",
-                select: {
-                    placeholder: "请选择商品类目",
-                    optionValue: STATUS
+                name: "categoryCode",
+                wrapperCol: {span: 15},
+                cascader: {
+                    options: cateList,
+                    placeholder: "请选择所属类目",
+                    changeOnSelect: true
                 }
             }],
             initValue: {
-                name: null,
-                nick : null
+                shopId: null,
+                title : null,
+                categoryCode: null
             }
         }
         return config;
@@ -95,7 +94,7 @@ class shop extends Component {
     }
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, tableOptions, ...other} = this.props;
         
         return (
             <div>
@@ -112,7 +111,7 @@ class shop extends Component {
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
 
-                <DataTable bordered={true} columns={this._getColumns()} {...other} ref='dt' />
+                <DataTable bordered={true} columns={this._getColumns()} {...tableOptions} ref='dt' />
 
             </div>
         )

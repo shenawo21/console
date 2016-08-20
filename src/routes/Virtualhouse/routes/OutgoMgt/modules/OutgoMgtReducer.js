@@ -13,6 +13,11 @@ const GETSHOPLIST = 'virtualhouse/GETSHOPLIST';
 const GETSHOPLIST_SUCCESS = 'virtualhouse/GETSHOPLIST_SUCCESS';
 const GETSHOPLIST_FAILURE = 'virtualhouse/GETSHOPLIST_FAILURE';
 
+//获取商品类目列表
+const OUTCATELIST = 'virtualhouse/OUTCATELIST';
+const OUTCATELIST_SUCCESS = 'virtualhouse/OUTCATELIST_SUCCESS';
+const OUTCATELIST_FAILURE = 'virtualhouse/OUTCATELIST_FAILURE';
+
 /**
  * 获取仓库列表
  *
@@ -55,20 +60,34 @@ export function getShopList() {
     }
 }
 
+/**
+ * 商品类目列表
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function outCateList(params) {
+  return {
+    types: [OUTCATELIST, OUTCATELIST_SUCCESS, OUTCATELIST_FAILURE],
+    promise: (client) => client.post('api-category.listAll', params)
+  }
+}
+
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case GETVIRLIST:
     case STOREMANAGE:
     case GETSHOPLIST:
+    case OUTCATELIST:
         return {
             ...state,
             jump : false
         }
     case GETVIRLIST_SUCCESS:
         return {
-            //...state,
-            loading : action.loading,
+            ...state,
             virListResult: action.result
         }
     case GETVIRLIST_FAILURE:
@@ -88,11 +107,19 @@ export default function reducer(state = {result:{}}, action) {
         }
     case GETSHOPLIST_SUCCESS:
         return {
-            //...state,
-            loading : action.loading,
+            ...state,
             shopListResult: action.result
         }
     case GETSHOPLIST_FAILURE:
+        return {
+            ...state
+        }
+     case OUTCATELIST_SUCCESS:
+        return {
+            ...state,
+            cateResult: action.result
+        }
+    case OUTCATELIST_FAILURE:
         return {
             ...state
         }

@@ -23,7 +23,7 @@ class CreateProduct extends Component {
         let config = {
             formItems: [{
                 label: "SPU",
-                name: "name1",
+                name: "spuId",
                 required: true,
                 custom(getCustomFieldProps) {
                     return <Row>
@@ -32,7 +32,7 @@ class CreateProduct extends Component {
                 }
             }, {
                     label: "商品标题：",
-                    name: "name2",
+                    name: "title",
                     required: true,
                     select: {}
                 }, {

@@ -1,12 +1,11 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
 
-import { Input, Select, Button, Form } from 'hen';
+import { Input, Select, Button, Form, message } from 'hen';
 const FormItem = Form.Item;
 const Option = Select.Option;
-
-import {Link} from 'react-router';
 
 //出库类型
 const STOCKTYPE = [
@@ -30,6 +29,8 @@ class outgoMgt extends Component {
   }
 
   _getFormItems(){
+        let context = this;
+        const {cateList} = context.props;
         let config = {
             formItems: [{
                 label: "商品名称：",
@@ -51,17 +52,19 @@ class outgoMgt extends Component {
                 }
             },{
                 label: "商品类目：",
-                name: "categoryName",
-                select: {
-                    placeholder: "请选择商品类目",
-                    optionValue : STOCKTYPE                    
+                name: "categoryCode",
+                wrapperCol: {span: 15},
+                cascader: {
+                    options: cateList,
+                    placeholder: "请选择所属类目",
+                    changeOnSelect: true
                 }
             }],
             initValue: {
                 title: null,
                 spuId : null,
                 skuId: null,
-                categoryName : null
+                categoryCode : null
             }
         }
         return config;
@@ -189,23 +192,39 @@ class outgoMgt extends Component {
     //提交数据
     handleSubmit(e) {
         const context = this;
+        const { storeManage, form } = context.props;
         const { stockList } = context.state;
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((errors, values) => {
+        
+        form.validateFieldsAndScroll((errors, values) => {
 
-            const params = {
-                ...values,
-                stockDetailList: stockList
+            if (!!errors) {
+                if (__DEV__) {
+                    console.log('Errors in form!!!', errors, form.getFieldsValue());
+                }
+                return;
             }
+
+            // 商品数量为0时提示选择商品并做库存及价格设置
+            if(!stockList.length){    
+                message.warning('请选择出库商品并做库存及价格设置', 10);
+                return;
+            }
+           
+            storeManage({
+                ...values,
+                recordType: '出库',
+                stockDetailList: stockList
+            });
          });
+
         
     }
 
-    //重置
+    //返回
     handleReset(e) {
-        const context = this;
         e.preventDefault();
-        context.props.form.resetFields();
+        this.context.router.push('/virtualhouse')
     }
     
   render() {
@@ -246,19 +265,19 @@ class outgoMgt extends Component {
             wrapperCol: { span: 14 }
         };
 
-        const selectProps = getFieldProps('recordType', {
+        const selectProps = getFieldProps('stockType', {
             rules: [
                 { required: true, message: '请选择出库类型' },
             ],
         });
 
-        const multiSelectProps = getFieldProps('operateStore', {
+        const multiSelectProps = getFieldProps('relevantStore', {
             rules: [
                 { required: true, message: '请选择待出库店铺' },
             ],
         });
 
-        const textareaProps = getFieldProps('mark', {
+        const textareaProps = getFieldProps('remark', {
             rules: [
                 { required: true, message: '真的不打算写点什么吗？' },
             ],
@@ -266,7 +285,7 @@ class outgoMgt extends Component {
 
         return (
             <div>
-                <Form horizontal form={this.props.form}>
+                <Form horizontal form={this.props.form} >
                     <FormItem
                         label="出库类型："
                         {...formItemLayout}
@@ -300,17 +319,14 @@ class outgoMgt extends Component {
                     >
                         <Input type="textarea" {...textareaProps} rows="3" />
                     </FormItem>
-
-                    
-                    <FormItem
-                        wrapperCol={{ span: 12, offset: 11 }}
-                    >
-                        <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
-                        &nbsp;&nbsp;&nbsp;
-                        <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
-                    </FormItem> 
                 </Form>
                 <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
+
+                <div className="tc">
+                    <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
+                    &nbsp;&nbsp;&nbsp;
+                    <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
+                </div> 
 
             </div>
         );
@@ -318,12 +334,18 @@ class outgoMgt extends Component {
 
 }
 
+//数据限制类型
 outgoMgt.proptype = {
-
+  storeManage: React.PropTypes.func,
   loading: React.PropTypes.bool,
   params: React.PropTypes.object
 
 }
+
+outgoMgt.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
+
 
 export default Form.create()(outgoMgt);
 

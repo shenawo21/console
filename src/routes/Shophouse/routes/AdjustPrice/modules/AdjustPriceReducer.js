@@ -1,92 +1,121 @@
 
-const PRICELIST = 'shophouse/PRICELIST';
-const PRICELIST_SUCCESS = 'shophouse/PRICELIST_SUCCESS';
-const PRICELIST_FAILURE = 'shophouse/PRICELIST_FAILURE';
+const UPTPRICE = 'shophouse/UPTPRICE';
+const UPTPRICE_SUCCESS = 'shophouse/UPTPRICE_SUCCESS';
+const UPTPRICE_FAILURE = 'shophouse/UPTPRICE_FAILURE';
 
-const PRICEDEL = 'shophouse/PRICEDEL';
-const PRICEDEL_SUCCESS = 'shophouse/PRICEDEL_SUCCESS';
-const PRICEDEL_FAILURE = 'shophouse/PRICEDEL_FAILURE';
+const PRICESHOPHOUSELIST = 'shophouse/PRICESHOPHOUSELIST';
+const PRICESHOPHOUSELIST_SUCCESS = 'shophouse/PRICESHOPHOUSELIST_SUCCESS';
+const PRICESHOPHOUSELIST_FAILURE = 'shophouse/PRICESHOPHOUSELIST_FAILURE';
 
-const PRICEMODIFY = 'shophouse/PRICEMODIFY';
-const PRICEMODIFY_SUCCESS = 'shophouse/PRICEMODIFY_SUCCESS';
-const PRICEMODIFY_FAILURE = 'shophouse/PRICEMODIFY_FAILURE';
+//获取店铺列表
+const GETSHOPLIST = 'shophouse/GETSHOPLIST';
+const GETSHOPLIST_SUCCESS = 'shophouse/GETSHOPLIST_SUCCESS';
+const GETSHOPLIST_FAILURE = 'shophouse/GETSHOPLIST_FAILURE';
 
+//获取商品类目列表
+const OUTCATELIST = 'shophouse/OUTCATELIST';
+const OUTCATELIST_SUCCESS = 'shophouse/OUTCATELIST_SUCCESS';
+const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
 
 /**
- * 新增
+ * 更新商品价格
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function priceList(params) {
+export function uptPrice(params) {
   return {
-    types: [PRICELIST, PRICELIST_SUCCESS, PRICELIST_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [UPTPRICE, UPTPRICE_SUCCESS, UPTPRICE_FAILURE],
+    promise: (client) => client.post('api-shopStock.updatePrice', params)
   }
 }
 
 /**
- * 删除
+ * 获取店铺仓库列表
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function priceDel(params) {
+export function priceShopHouseList(params) {
   return {
-    types: [PRICEDEL, PRICEDEL_SUCCESS, PRICEDEL_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [PRICESHOPHOUSELIST, PRICESHOPHOUSELIST_SUCCESS, PRICESHOPHOUSELIST_FAILURE],
+    promise: (client) => client.post('api-shopStock.getShopStocks', params)
   }
 }
 
 /**
- * 修改
+ * 获取店铺列表
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function priceModify(params) {
+export function getShopList() {
+    return {
+        types: [GETSHOPLIST, GETSHOPLIST_SUCCESS, GETSHOPLIST_FAILURE],
+        promise: (client) => client.post('api-shop.listEnterpriseShop')
+    }
+}
+
+/**
+ * 获取商品分类
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function priceCateList(params) {
   return {
-    types: [PRICEMODIFY, PRICEMODIFY_SUCCESS, PRICEMODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [OUTCATELIST, OUTCATELIST_SUCCESS, OUTCATELIST_FAILURE],
+    promise: (client) => client.post('api-category.listAll', params)
   }
 }
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
-    case PRICELIST:
-    case PRICEDEL:
-    case PRICEMODIFY:
+    case UPTPRICE:
+    case PRICESHOPHOUSELIST:
+    case GETSHOPLIST:
+    case OUTCATELIST:
         return {
             ...state
         }
-    case PRICELIST_SUCCESS:
+    case UPTPRICE_SUCCESS:
         return {
-            //...state,
+            ...state,
             result: action.result
         }
-    case PRICELIST_FAILURE:
+    case UPTPRICE_FAILURE:
         return {
             ...state
         }
-    case PRICEDEL_SUCCESS:
+    case PRICESHOPHOUSELIST_SUCCESS:
         return {
-            //...state,
-            result: action.result
+            ...state,
+            houseListResult: action.result
         }
-    case PRICEDEL_FAILURE:
+    case PRICESHOPHOUSELIST_FAILURE:
         return {
             ...state
         }
-    case PRICEMODIFY_SUCCESS:
+    case GETSHOPLIST_SUCCESS:
         return {
-            //...state,
-            result: action.result
+            ...state,
+            shopListResult: action.result
         }
-    case PRICEMODIFY_FAILURE:
+    case GETSHOPLIST_FAILURE:
+        return {
+            ...state
+        }
+     case OUTCATELIST_SUCCESS:
+        return {
+            ...state,
+            cateResult: action.result
+        }
+    case OUTCATELIST_FAILURE:
         return {
             ...state
         }

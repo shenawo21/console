@@ -7,16 +7,18 @@ import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
-
 //入库类型
 const STOCKTYPE = [
-   { value: '手动添加', title: "调拨出库" },
-   { value: '店铺回退', title: "损耗出库" },
-   { value: '调正入库', title: "盘点出库" }
+   { value: '手动添加', title: "手动添加" },
+   { value: '店铺回退', title: "店铺回退" },
+   { value: '调正入库', title: "调正入库" }
 ];
+
 class StorageQuery extends Component {
 
     _getFormItems(){
+    	let context = this;
+        const {cateList} = context.props;
         let config = {
             formItems: [{
                 label: "入库单号：",
@@ -39,8 +41,11 @@ class StorageQuery extends Component {
             },{
                 label: "商品类目：",
                 name: "categoryCode",
-                select: {
-                   placeholder: "请选择商品类目"
+                wrapperCol: {span: 15},
+                cascader: {
+                    options: cateList,
+                    placeholder: "请选择所属类目",
+                    changeOnSelect: true
                 }
             },{
                 label: "商品名称：",
@@ -80,10 +85,11 @@ class StorageQuery extends Component {
                 }
             }],
             initValue: {
-                operateStore: null,
-                recordId : null,
+                recordId: null,
                 spuId: null,
                 skuId : null,
+		categoryCode: null,
+		title: null,
                 stockType: null,
                 createUser : null,
                 createTimeStart : null,
@@ -93,65 +99,61 @@ class StorageQuery extends Component {
         return config;
     }
 
-
     _getColumns(){
         const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',
             title: '入库单号',
-            dataIndex: 'enterpriseCode'
+            dataIndex: 'recordId'
         },{
             key: '1',
             title: '入库类型',
-            dataIndex: 'name'
+            dataIndex: 'stockType'
         }, {
             key: '2',
             title: 'SPU',
-            dataIndex: 'enabled',
-            render(status){
-                return status ? <span>可用</span> : <span>不可用</span>
-            }
+            dataIndex: 'spuId'
         }, {
             key: '3',
             title: 'SKU',
-            dataIndex: 'email'
+            dataIndex: 'skuId'
         }, {
             key: '4',
             title: '商品名称',
-            dataIndex: 'mobile'
+            dataIndex: 'title'
         }, {
             key: '5',
             title: '商品类目',
-            dataIndex: 'registerTime'
+            dataIndex: 'category'
         }, {
             key: '6',
             title: '规格',
-            dataIndex: 'createPerson'
+            dataIndex: 'spec'
         }, {
             key: '7',
             title: '市场价',
-            dataIndex: 'registerTime'
+            dataIndex: 'marketPrice'
         }, {
             key: '8',
             title: '销售价',
-            dataIndex: 'createPerson'
+            dataIndex: 'price'
         }, {
             key: '9',
             title: '入库数量',
-            dataIndex: 'registerTime'
+            dataIndex: 'incoming'
         },  {
             key: '10',
             title: '入库时间',
-            dataIndex: 'registerTime'
+            dataIndex: 'createTime'
         }, {
             key: '11',
             title: '操作人',
-            dataIndex: 'createPerson'
+            dataIndex: 'createUser'
         }, {
             key: '12',
             title: '备注',
-            dataIndex: 'createPerson'
+            dataIndex: 'remark'
         }];
         
         return columns;
