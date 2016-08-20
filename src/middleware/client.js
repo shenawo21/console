@@ -9,7 +9,7 @@ export default function clientMiddleware(client) {
             }
 
             const { promise, types, sKey, ...rest } = action; // eslint-disable-line no-redeclare
-            
+
             if (!promise) {
               return next({...action,loading :false});
             }
@@ -27,7 +27,6 @@ export default function clientMiddleware(client) {
             const actionPromise = promise(client);
             actionPromise.then(
                 (result) => {
-                    console.log(result)
                     if (result && result.status === 1) {
                          sKey && result.data && store.set(sKey, result.data);
                          return next({...rest, result : result.data, type: SUCCESS, loading:false})
@@ -39,8 +38,7 @@ export default function clientMiddleware(client) {
                 },
                 (error) => next({...rest, error, type: FAILURE, loading:false})
             ).catch((error) => {
-                console.error('MIDDLEWARE ERROR:', error);
-                
+
                 next({...rest, error, type: FAILURE, loading:false});
             });
 
