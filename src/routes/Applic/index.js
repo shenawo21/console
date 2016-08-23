@@ -8,5 +8,13 @@
       store.injectReducer({ key: 'applic', reducer })
       next(null, applic)
     })
-  }
+  },
+   getChildRoutes(location, next) {
+     require.ensure([], (require) => {
+       next(null, [
+         require('./routes/Edit').default(store),
+         require('./routes/Joint').default(store)
+       ])
+     })
+   }
 })

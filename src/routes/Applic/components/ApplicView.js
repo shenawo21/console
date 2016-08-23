@@ -69,10 +69,10 @@ class Applic extends Component {
       render(id, row){
         return <ButtonGroup size="large">
           <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
-            <Link to={`/enterprise/`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>编辑</Link>
+            <Link to={`/applic/edit/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>编辑</Link>
           </Button>
           <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
-            <Link to={`/enterprise/`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>对接设置</Link>
+            <Link to={`/applic/joint/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>对接设置</Link>
           </Button>
 
           <Button type="ghost" disabled={ row.status == 'audit' || row.status == 'create'? true : false} onClick={context.handleAction.bind(context,row,id)}>
@@ -94,7 +94,7 @@ class Applic extends Component {
   quickButton(quickOptions) {
     return <Row>
       <Col span='2'>
-        <Button onClick={quickOptions.doUp}><Icon type=""/>快捷按钮</Button>
+        <Link className="ant-btn ant-btn-primary" to={`/applic/edit`}>创建店铺</Link>
       </Col>
     </Row>
   }
