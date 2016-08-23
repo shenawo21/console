@@ -130,7 +130,7 @@ class Edit extends Component {
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><EditView item={item}  photoList={photoList} roleList={roleList} photoImg={this.photoImg} {...formOptions} /></Panel>
+        return <Panel><EditView item={item} photoList={photoList} roleList={roleList} photoImg={this.photoImg} {...formOptions} /></Panel>
     }
 }
 
@@ -157,7 +157,7 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
   const {result, roleListResult, loading, jump} = state.edit;
-  return {'result': result, 'roleListResult' : roleListResult, loading, jump};
+  return {result, roleListResult, loading, jump};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Edit)

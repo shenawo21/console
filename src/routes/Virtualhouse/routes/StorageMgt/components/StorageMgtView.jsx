@@ -1,11 +1,10 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
 
-import {Row, Col, Button, Icon} from 'hen';
-import {Link} from 'react-router';
-
+import {Row, Col} from 'hen';
 
 //入库类型
 const STOCKTYPE = [
@@ -24,44 +23,43 @@ class storageMgt extends Component {
     }
 
      _getColumns(){
-        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',
             title: 'SPU',
-            dataIndex: 'enterpriseCode'
+            dataIndex: 'spuId'
         }, {
             key: '1',
             title: 'SKU',
-            dataIndex: 'account'
+            dataIndex: 'skuId'
         }, {
             key: '2',
             title: '商品名称',
-            dataIndex: 'name'
+            dataIndex: 'title'
         }, {
             key: '3',
             title: '商品类目',
-            dataIndex: 'enabled'
+            dataIndex: 'categoryName'
         }, {
             key: '4',
             title: '品牌',
-            dataIndex: 'email'
+            dataIndex: 'brand'
         }, {
             key: '5',
             title: '规格',
-            dataIndex: 'mobile'
+            dataIndex: 'specOneValue'
         }, {
             key: '6',
             title: '市场价',
-            dataIndex: 'registerTime'
+            dataIndex: 'markPrice'
         }, {
             key: '7',
             title: '销售价',
-            dataIndex: 'createPerson'
+            dataIndex: 'price'
         },{
             key: '8',
-            title: '入口数量',
-            dataIndex: 'aa'
+            title: '入库数量',
+            dataIndex: 'incoming'
         }];
         
         return columns;
@@ -74,10 +72,10 @@ class storageMgt extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item, formOptions, ...other} = context.props;
+        const {item, ...other} = context.props;
         config.formItems = [{
                 label: "入库类型：",
-                name: "account",
+                name: "recordType",
                 required: true,
                 hasFeedback: true,
                 rules: [{ required: true, message: '请选择入库类型' }],
@@ -87,7 +85,7 @@ class storageMgt extends Component {
                 }
             }, {
                 label: "入库说明：",
-                name: "textarea",
+                name: "remark",
                 required: true,
                 rules: [{ required: true, message: '不打算写点什么吗' }],
                 input: {
@@ -97,6 +95,7 @@ class storageMgt extends Component {
             }, {
                 labelCol: { span: 2 },
                 label: "待入库商品：",
+                //name: 'proList',
                 custom() {
                     return <Row>
                                 <Col span='8'>
@@ -116,9 +115,9 @@ class storageMgt extends Component {
             }];
 
         config.initValue = {
-            account: null,
-            textarea: null,
-            password: null
+            recordType: null,
+            remark: null,
+            proList: null
         };
         
         if (item) {    
@@ -129,7 +128,7 @@ class storageMgt extends Component {
     }
 
     render() {
-        const {formOptions, item, ...other} = this.props;
+        const {formOptions} = this.props;
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
@@ -144,7 +143,6 @@ class storageMgt extends Component {
 storageMgt.proptype = {
 loading: React.PropTypes.bool,
 params: React.PropTypes.object
-
 }
 
 export default storageMgt;

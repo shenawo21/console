@@ -1,14 +1,8 @@
-
-/*  This is a container component. Notice it does not contain any JSX,
-    nor does it import React. This component is **only** responsible for
-    wiring in the actions and state necessary to render a presentational
-    component - in this case, the counter:   */
-
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import StorageMgtView from '../components/StorageMgtView'
 import Panel from 'components/Panel'
-import {  } from '../modules/StorageMgtReducer'
+import { storageMgt, getProList } from '../modules/StorageMgtReducer'
 import {message} from 'hen';
 
 class StorageMgt extends Component {
@@ -23,9 +17,10 @@ class StorageMgt extends Component {
         };  //定义初始状态
     }
     componentDidMount() {
-        const {params} = this.props;
+        const {getProList} = this.props;
         const context = this;
 
+        getProList();
     }
 
     componentWillReceiveProps(nextProps, preProps){
@@ -39,6 +34,7 @@ class StorageMgt extends Component {
    */
     getFormOptions() {
         const _this = this;
+        console.log(_this,'this');
         return {
        /**
        * (筛选表单提交)
@@ -47,7 +43,8 @@ class StorageMgt extends Component {
        */
 
         handleSubmit(value) {
-            const {} = _this.props;
+            const { storageMgt } = _this.props;
+            storageMgt({...value})
 
           },
 
@@ -56,7 +53,7 @@ class StorageMgt extends Component {
            */
 
           handleReset(){
-
+            _this.context.router.push('/virtualhouse')
           }
 
         }
@@ -66,32 +63,38 @@ class StorageMgt extends Component {
         const { item } = this.state;
         const {loading, items} = this.props;
         const tableOptions = {
-            dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : '/',                         //表格翻页时触发的action
-            loading                                    //表格加载数据状态
+            dataSource : items,                     //加载组件时，表格从容器里获取初始值
+            loading                                 //表格加载数据状态
         }
         const formOptions = {
             'formOptions': this.getFormOptions()
         };
-        return <Panel><StorageMgtView item={item} {...tableOptions} {...formOptions} /></Panel>
+        return <Panel><StorageMgtView item={item} {...tableOptions} formOptions={formOptions} /></Panel>
     }
 }
 
 //数据限制类型
 StorageMgt.propTypes = {
+    storageMgt: React.PropTypes.func,
+    getProList: React.PropTypes.func,
     loading: React.PropTypes.bool,
-    items: React.PropTypes.array.isRequired,
+    items: React.PropTypes.array,
     result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
-
+    storageMgt,
+    getProList
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.storageMgt;
-  const {items = []} = {};
-  return {items, loading};
+  const {result, proListResult, loading} = state.storageMgt;
+  const items = proListResult || [];
+  return {result, proListResult, items, loading};
 }
+
+StorageMgt.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, mapActionCreators)(StorageMgt)

@@ -20,51 +20,68 @@ class CreateProduct extends Component {
 
     _getFormItems() {
         let context = this;
+        const {cateList} = context.props;
         let config = {
             formItems: [{
                 label: "SPU",
                 name: "spuId",
-                required: true,
+                disabled: 'disabled',
                 custom(getCustomFieldProps) {
                     return <Row>
-                        <Col span='12'><input type="text" className="ant-input ant-input-lg" disabled {...getCustomFieldProps('name1') } /></Col><Col span='6'><Button onClick={context.showModal}>选择已有SPU</Button></Col>
+                        <Col span='12'><input type="text" className="ant-input ant-input-lg" {...getCustomFieldProps('spuId') } /></Col><Col span='6'><Button onClick={context.showModal}>选择已有SPU</Button></Col>
                     </Row>
                 }
             }, {
                     label: "商品标题：",
                     name: "title",
                     required: true,
-                    select: {}
+                    input: {
+                        placeholder: "请输入商品标题"
+                    }
                 }, {
                     label: "商品类目：",
-                    name: "name2",
-                    required: true,
-                    select: {}
+                    name: "categoryCode",
+                    wrapperCol: {span: 15},
+                    cascader: {
+                        options: cateList,
+                        placeholder: "请选择所属类目",
+                        changeOnSelect: true
+                    }
                 }, {
                     label: "商品属性：",
                     name: "name2",
-                    cascader: {}
+                    cascader: {
+                        placeholder: "请选择商品属性"
+                    }
                 }, {
                     label: "商品品牌：",
-                    name: "name2",
-                    select: {}
+                    name: "brand",
+                    select: {
+                        placeholder: "请选择商品品牌"
+                    }
                 }, {
                     label: "市场价(元)：",
-                    name: "name2",
+                    name: "marketPrice",
                     infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
-                    input: {}
+                    input: {
+                        placeholder: "请输入市场价"
+                    }
                 }, {
                     label: "销售价(元)：",
-                    name: "name2",
+                    name: "prce",
                     required: true,
                     infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
-                    input: {}
+                    input: {
+                        placeholder: "请输入销售价"
+                    }
                 }, {
                     label: "库存数量：",
-                    name: "name2",
+                    name: "stock",
                     required: true,
                     infoLabel: <span>必须是0～999999999之间整数</span>,
-                    input: {}
+                    input: {
+                        placeholder: "请输入库存数量" 
+                    }
                 }, {
                     label: "商品规格",
                     required: true,
@@ -98,7 +115,7 @@ class CreateProduct extends Component {
     }
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, tableOptions} = this.props;
 
         return (
             <div>
@@ -107,7 +124,7 @@ class CreateProduct extends Component {
                     closable={false}
                     width={1020}
                     onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <SearchSpu formOptions={formOptions}  {...other}></SearchSpu>
+                    <SearchSpu formOptions={formOptions} tableOptions={tableOptions}></SearchSpu>
                 </Modal>
             </div>
         )

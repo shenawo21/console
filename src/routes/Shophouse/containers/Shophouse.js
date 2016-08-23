@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import ShophouseView from '../components/ShophouseView'
 import Panel from 'components/Panel'
-import { shopQueryList, compareList, compareUpt, fallBack, getShopList, priceCateList } from '../modules/ShophouseReducer'
+import { shopQueryList, compareList, comparePage, compareUpt, fallBack, getShopList, priceCateList } from '../modules/ShophouseReducer'
 
 class Shophouse extends Component {
   
@@ -36,7 +36,7 @@ class Shophouse extends Component {
     }
 
     componentDidMount() {
-        const {shopQueryList, priceQueryList, getShopList, priceCateList, location} = this.props;
+        const {shopQueryList, compareList, getShopList, priceCateList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         shopQueryList({ pageNumber });
@@ -91,10 +91,10 @@ class Shophouse extends Component {
     render() {
         const {params, oddStatus} = this.state;
         
-        const {items, shopQueryList, priceQueryList, shopListResult, cateResult, totalItems, loading} = this.props;
+        const {items, compareItems, shopQueryList, compareList, comparePage, compareListResult, shopListResult, cateResult, totalItems, comparetotalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddStatus ? shopQueryList : priceQueryList,                  //表格翻页时触发的action
+            action : oddStatus ? shopQueryList : compareList,                  //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
@@ -103,15 +103,19 @@ class Shophouse extends Component {
             isStatus: this._isQueryStatus.bind(this)        //判断出库/入库
             //rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
+        // const compareItems = (lists) => {
+        //     return lists && lists.map(a => {
+        //         return a.items
+        //     })
+        // } 
 
         const tableOptionsPro = {
-            dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddStatus ? shopQueryList : priceQueryList,                  //表格翻页时触发的action
+            dataSource : items,                   //加载组件时，表格从容器里获取初始值
+            action : comparePage,                       //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
-                total : totalItems                      //数据总数
+                total : totalItems || comparetotalItems                     //数据总数
             },  
             loading,                                    //表格加载数据状态
-            params,                                     //表格检索数据参数
             rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         /**
@@ -156,7 +160,7 @@ class Shophouse extends Component {
             'formOptions' : this.getFormOptions()
         }
         
-        return <Panel title=""><ShophouseView tableOptions={tableOptions} tableOptionsPro={tableOptionsPro} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} /></Panel>
+        return <Panel title=""><ShophouseView tableOptions={tableOptions} tableOptionsPro={tableOptionsPro} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} compareListResult={compareListResult} /></Panel>
     }
 }
 
@@ -165,27 +169,34 @@ Shophouse.propTypes = {
         
     shopQueryList: React.PropTypes.func,
     compareList: React.PropTypes.func,
+    comparePage: React.PropTypes.func,
     getShopList: React.PropTypes.func,
     priceCateList: React.PropTypes.func,
+    compareUpt: React.PropTypes.func,
+    fallBack: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,
-    
+    compareItems: React.PropTypes.array.isRequired,
+    comparetotalItems: React.PropTypes.number.isRequired,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {    
     shopQueryList, 
     compareList,
+    comparePage,
     getShopList, 
-    priceCateList
+    priceCateList,
+    compareUpt,
+    fallBack
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, shopListResult, cateResult, loading} = state.shophouse;
-    
+    const {result, shopListResult, compareListResult, comparePageResult, cateResult, loading} = state.shophouse;
     const {items = [], totalItems = 0} = result || {};
-    return { items, shopListResult, cateResult, totalItems, loading };
+    const {compareItems = [], comparetotalItems = 0} = comparePageResult || {};
+    return { items, shopListResult, compareListResult, comparePageResult, cateResult, totalItems, loading };
     
 }
 

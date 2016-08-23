@@ -1,149 +1,123 @@
-const ADD = 'createProduct/ADD';
-const ADD_SUCCESS = 'createProduct/ADD_SUCCESS';
-const ADD_FAILURE = 'createProduct/ADD_FAILURE';
+//获取商品类目列表
+const OUTCATELIST = 'virtualhouse/OUTCATELIST';
+const OUTCATELIST_SUCCESS = 'virtualhouse/OUTCATELIST_SUCCESS';
+const OUTCATELIST_FAILURE = 'virtualhouse/OUTCATELIST_FAILURE';
 
-const DELETE = 'createProduct/DELETE';
-const DELETE_SUCCESS = 'createProduct/DELETE_SUCCESS';
-const DELETE_FAILURE = 'createProduct/DELETE_FAILURE';
+//获取商品属性列表
+const ATTRLIST = 'createProduct/ATTRLIST';
+const ATTRLIST_SUCCESS = 'createProduct/ATTRLIST_SUCCESS';
+const ATTRLIST_FAILURE = 'createProduct/ATTRLIST_FAILURE';
 
-const MODIFY = 'createProduct/MODIFY';
-const MODIFY_SUCCESS = 'createProduct/MODIFY_SUCCESS';
-const MODIFY_FAILURE = 'createProduct/MODIFY_FAILURE';
+//获取商品品牌列表
+const BRANDLIST = 'createProduct/BRANDLIST';
+const BRANDLIST_SUCCESS = 'createProduct/BRANDLIST_SUCCESS';
+const BRANDLIST_FAILURE = 'createProduct/BRANDLIST_FAILURE';
 
-const QUERY = 'createProduct/QUERY';
-const QUERY_SUCCESS = 'createProduct/QUERY_SUCCESS';
-const QUERY_FAILURE = 'createProduct/QUERY_FAILURE';
-
-const VIEW = 'createProduct/VIEW';
-const VIEW_SUCCESS = 'createProduct/VIEW_SUCCESS';
-const VIEW_FAILURE = 'createProduct/VIEW_FAILURE';
+//新增商品提交
+const ADDPRO = 'createProduct/ADDPRO';
+const ADDPRO_SUCCESS = 'createProduct/ADDPRO_SUCCESS';
+const ADDPRO_FAILURE = 'createProduct/ADDPRO_FAILURE';
 
 
 /**
- * 新增
+ * 获取商品类目
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function addItem(params) {
+export function outCateList(params) {
   return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [OUTCATELIST, OUTCATELIST_SUCCESS, OUTCATELIST_FAILURE],
+    promise: (client) => client.post('api-category.listAll', params)
   }
 }
 
 /**
- * 删除
+ * 获取商品属性列表
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function deleteItem(params) {
+export function getAttrList(params) {
   return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
+    types: [ATTRLIST, ATTRLIST_SUCCESS, ATTRLIST_FAILURE],
     promise: (client) => client.post('/', params)
   }
 }
 
 /**
- * 修改
+ * 获取商品品牌列表
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function modifyItem(params) {
+export function getBrandList(params) {
   return {
-    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
+    types: [BRANDLIST, BRANDLIST_SUCCESS, BRANDLIST_FAILURE],
     promise: (client) => client.post('/', params)
   }
 }
 
 /**
- * 列表查询
+ * 新增商品提交
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function queryList(params) {
+export function addPro(params) {
   return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [ADDPRO, ADDPRO_SUCCESS, ADDPRO_FAILURE],
+    promise: (client) => client.post('api- productService.add', params)
   }
 }
-
-/**
- * 单条查看
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function view(params) {
-  return {
-    types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
-    case ADD:
-    case DELETE:
-    case MODIFY:
-    case QUERY:
-    case VIEW:
+    case OUTCATELIST:
+    case ATTRLIST:
+    case BRANDLIST:
+    case ADDPRO:
         return {
             ...state
         }
-    case ADD_SUCCESS:
+    case OUTCATELIST_SUCCESS:
         return {
-            //...state,
-            loading : action.loading,
-            result: action.result
+            ...state,
+            cateResult: action.result
         }
-    case ADD_FAILURE:
-        return {
-            ...state
-        }
-    case MODIFY_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case MODIFY_FAILURE:
+    case OUTCATELIST_FAILURE:
         return {
             ...state
         }
-    case DELETE_SUCCESS:
+    case ATTRLIST_SUCCESS:
         return {
-            //...state,
-            result: action.result
+            ...state,
+            attrResult: action.result
         }
-    case DELETE_FAILURE:
+    case ATTRLIST_FAILURE:
         return {
             ...state
         }
-    case QUERY_SUCCESS:
+    case BRANDLIST_SUCCESS:
+        return {
+            ...state,
+            brandResult: action.result
+        }
+    case BRANDLIST_FAILURE:
+        return {
+            ...state
+        }
+    case ADDPRO_SUCCESS:
         return {
             ...state,
             result: action.result
         }
-    case QUERY_FAILURE:
-        return {
-            ...state
-        }
-    case VIEW_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case VIEW_FAILURE:
+    case ADDPRO_FAILURE:
         return {
             ...state
         }

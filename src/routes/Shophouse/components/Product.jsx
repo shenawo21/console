@@ -54,7 +54,7 @@ class product extends Component {
     }
 
     render() {
-        const {formOptions, tableOptionsPro, ...other} = this.props;
+        const {formOptions, tableOptionsPro, compareListResult} = this.props;
         console.log(this);
 
         const tableOptions = {
@@ -82,10 +82,10 @@ class product extends Component {
             }
         }           
             
-
+        const list = compareListResult;
         return (
-            <div>
-
+            
+            <div>                
                 <Collapse {...collapseOptions.source}>
                     <DataTable bordered={true} {...tableOptions} />
                 </Collapse>

@@ -4,10 +4,14 @@ const SHOPQUERY_SUCCESS = 'shophouse/SHOPQUERY_SUCCESS';
 const SHOPQUERY_FAILURE = 'shophouse/SHOPQUERY_FAILURE';
 
 //获取对比商品的列表
-
 const COMPARELIST = 'shophouse/COMPARELIST';
 const COMPARELIST_SUCCESS = 'shophouse/COMPARELIST_SUCCESS';
 const COMPARELIST_FAILURE = 'shophouse/COMPARELIST_FAILURE';
+
+//对比商品列表翻页
+const COMPAREPAGE = 'shophouse/COMPAREPAGE';
+const COMPAREPAGE_SUCCESS = 'shophouse/COMPAREPAGE_SUCCESS';
+const COMPAREPAGE_FAILURE = 'shophouse/COMPAREPAGE_FAILURE';
 
 //比对更新
 const COMPAREUPT = 'shophouse/COMPAREUPT';
@@ -53,7 +57,21 @@ export function shopQueryList(params) {
 export function compareList(params) {
   return {
     types: [COMPARELIST, COMPARELIST_SUCCESS, COMPARELIST_FAILURE],
-    promise: (client) => client.post('api-shopStock.compareList', params)
+    promise: (client) => client.post('api-shopStock.getCompareList', params)
+  }
+}
+
+/**
+ * 出库单翻页接口
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function comparePage(params) {
+  return {
+    types: [COMPAREPAGE, COMPAREPAGE_SUCCESS, COMPAREPAGE_FAILURE],
+    promise: (client) => client.post('api-shopStock.getComparePage', params)
   }
 }
 
@@ -118,6 +136,7 @@ export default function reducer(state = {result:{}}, action) {
   switch (action.type) {    
     case SHOPQUERY:
     case COMPARELIST:
+    case COMPAREPAGE:
     case COMPAREUPT:
     case GETSHOPLIST:
     case OUTCATELIST:
@@ -136,9 +155,18 @@ export default function reducer(state = {result:{}}, action) {
     case COMPARELIST_SUCCESS:
         return {
             ...state,
-            result: action.result
+            compareListResult: action.result
         }
     case COMPARELIST_FAILURE:
+        return {
+            ...state
+        }
+    case COMPAREPAGE_SUCCESS:
+        return {
+            ...state,
+            comparePageResult: action.result
+        }
+    case COMPAREPAGE_FAILURE:
         return {
             ...state
         }
@@ -160,7 +188,7 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
-     case OUTCATELIST_SUCCESS:
+    case OUTCATELIST_SUCCESS:
         return {
             ...state,
             cateResult: action.result

@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import CreateProductView from '../components/CreateProductView'
 import Panel from 'components/Panel'
-import {queryList, addItem, modifyItem, deleteItem} from '../modules/CreateProductReducer'
+import {outCateList, getAttrList, getBrandList, addPro} from '../modules/CreateProductReducer'
 
 class CreateProduct extends Component {
   
@@ -18,7 +18,11 @@ class CreateProduct extends Component {
     }
     
     componentDidMount() {
-        
+        const { outCateList } = this.props;
+	
+	//获取分类列表
+        outCateList();
+	
     }
     
       /**
@@ -35,10 +39,11 @@ class CreateProduct extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  console.log(value)
+                  const {addPro} = context.props;
                   context.setState({
                       params: value
                   })
+                  addPro({value})
               },
 
               /**
@@ -54,41 +59,63 @@ class CreateProduct extends Component {
     render() {
         const {params} = this.state;
         
-           const {loading, result} = this.props;
+           const {cateResult, loading, result} = this.props;
            const formOptions = {
               loading, 
               result,
               'formOptions' : this.getFormOptions()
            }
+           /**
+         * 类目列表
+         * @param lists
+         * @returns {*}
+         */
+        const loop = (lists) => {
+            return lists && lists.map(a => {
+                let children = a.level < 3 ? loop(a.children) : '';
+
+                if (children) {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name,
+                        children
+                    }
+                } else {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name
+                    }
+                }
+            })
+        }
         
-        
-        return <Panel title=""><CreateProductView  {...formOptions} /></Panel>
+        return <Panel title=""><CreateProductView formOptions={formOptions} cateList={loop(cateResult)} /></Panel>
     }
 }
 
 
-CreateProduct.propTypes = {
+CreateProduct.propTypes = {   
     
-    result: React.PropTypes.object,
+    outCateList: React.PropTypes.func,
     deleteItem: React.PropTypes.func,
     modifyItem: React.PropTypes.func,
     addItem : React.PropTypes.func,
-    
+    result: React.PropTypes.object,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    queryList,
-    deleteItem,
-    modifyItem,
-    addItem
+    outCateList,
+    getAttrList,
+    getBrandList,
+    addPro
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.createProduct;
+    const {result, cateResult, attrResult, brandResult, loading} = state.createProduct;
     
-    return { 'result' : result, loading };
+    return { result, cateResult, attrResult, brandResult, loading };
     
 }
 

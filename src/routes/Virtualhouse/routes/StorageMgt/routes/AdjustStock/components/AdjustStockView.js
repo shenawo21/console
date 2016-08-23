@@ -14,7 +14,7 @@ class AdjustStock extends Component {
         this.handleReset = this.handleReset.bind(this);
         this.state = {
             stock: null,
-            stockList: [{skuId:1245,stock:12}]
+            stockList: [{skuId:10606002,stock:12}, {skuId:10611002,stock:11}]
         }
     }
 
