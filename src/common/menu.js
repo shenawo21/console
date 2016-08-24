@@ -138,10 +138,6 @@ const getMenu = menuLists => {
           {
             title: '我的应用',
             url: '/applic'
-          },
-          {
-            title: '店铺对接',
-            url: ''
           }
         ]
       }

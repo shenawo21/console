@@ -31,13 +31,13 @@ class Synch extends Component {
         wrapperCol:{span:19},
         custom(getCustomFieldProps, FormContext){
           return <div>
-            <Col span="10">
+            <Col span="11">
               <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
             </Col>
-            <Col span="3">
+            <Col span="2">
               <p className="ant-form-split">~</p>
             </Col>
-            <Col span="10">
+            <Col span="11">
               <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
             </Col>
           </div>
@@ -50,7 +50,6 @@ class Synch extends Component {
     }
     return config;
   }
-
 
   _getColumns() {
     const context = this;
