@@ -43,9 +43,10 @@ class StorageMgt extends Component {
        */
 
         handleSubmit(value) {
-            const { storageMgt } = _this.props;
+            const { storageMgt, proListResult } = _this.props;
+            console.log(proListResult,'proListResult');
+            console.log(value,'value');
             storageMgt({...value})
-
           },
 
           /**
@@ -67,7 +68,7 @@ class StorageMgt extends Component {
             loading                                 //表格加载数据状态
         }
         const formOptions = {
-            'formOptions': this.getFormOptions()
+            ...this.getFormOptions()
         };
         return <Panel><StorageMgtView item={item} {...tableOptions} formOptions={formOptions} /></Panel>
     }

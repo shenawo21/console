@@ -1,14 +1,8 @@
-
-/*  This is a container component. Notice it does not contain any JSX,
-    nor does it import React. This component is **only** responsible for
-    wiring in the actions and state necessary to render a presentational
-    component - in this case, the counter:   */
-
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import SpecificationMgtView from '../components/SpecificationMgtView'
 import Panel from 'components/Panel'
-import { spec } from '../modules/SpecificationMgtReducer'
+import { getCateList, getSpecByCateList, addSpec } from '../modules/SpecificationMgtReducer'
 import {message} from 'hen';
 
 class specificationMgt extends Component {
@@ -17,15 +11,28 @@ class specificationMgt extends Component {
         super(props);
 
         this.getFormOptions = this.getFormOptions.bind(this);
-
+        this.specList = this._getSpecByCateList.bind(this);
         this.state = {
             item: {}
         };  //定义初始状态
     }
-    componentDidMount() {
-        const {params} = this.props;
-        const context = this;
 
+     /**
+     * 根据商品类目获取属性列表
+     * @param  {any} id
+     */
+    _getSpecByCateList(id){
+        const context = this;
+        const {getSpecByCateList} = context.props;
+        getSpecByCateList({categoryCode: id});
+    }
+
+    componentDidMount() {
+        const {params, getCateList} = this.props;
+        
+        const context = this;
+        //获取商品类目列表
+        getCateList();
     }
 
     componentWillReceiveProps(nextProps, preProps){
@@ -64,34 +71,59 @@ class specificationMgt extends Component {
 
     render() {
         const { item } = this.state;
-        const {loading, items} = this.props;
+        const {cateListResult, loading, items} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : '/',                         //表格翻页时触发的action
             loading                                    //表格加载数据状态
+        }
+        /**
+         * 类目列表
+         * @param lists
+         * @returns {*}
+         */
+        const loop = (lists) => {
+            return lists && lists.map(a => {
+                let children = a.level < 3 ? loop(a.children) : '';
+
+                if (children) {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name,
+                        children
+                    }
+                } else {
+                    return {
+                        value: a.categoryCode + '',
+                        label: a.name
+                    }
+                }
+            })
         }
         const formOptions = {
             'formOptions': this.getFormOptions()
-        };
-        return <Panel><SpecificationMgtView item={item} {...tableOptions} {...formOptions} /></Panel>
+        }
+        return <Panel><SpecificationMgtView item={item} {...tableOptions} {...formOptions} cateList={loop(cateListResult)} specList={this.specList} /></Panel>
     }
 }
 
 //数据限制类型
 specificationMgt.propTypes = {
+    getCateList: React.PropTypes.func,
+    getSpecByCateList: React.PropTypes.func,
+    addSpec: React.PropTypes.func,
     loading: React.PropTypes.bool,
     items: React.PropTypes.array.isRequired,
     result: React.PropTypes.object,
 }
-
 const mapActionCreators = {
-
+    getCateList,
+    getSpecByCateList,
+    addSpec
 }
-
 const mapStateToProps = (state) => {
-  const {result, loading} = state.specificationMgt;
+  const {cateListResult, specListResult, result, loading} = state.specificationMgt;
   const {items = []} = {};
-  return {items, loading};
+  return {cateListResult, specListResult, result, items, loading};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(specificationMgt)

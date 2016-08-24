@@ -157,7 +157,7 @@ class Shophouse extends Component {
         }
         
         const formOptions = {
-            'formOptions' : this.getFormOptions()
+            ...this.getFormOptions()
         }
         
         return <Panel title=""><ShophouseView tableOptions={tableOptions} tableOptionsPro={tableOptionsPro} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} compareListResult={compareListResult} /></Panel>
