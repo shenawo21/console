@@ -12,7 +12,6 @@ class AdjustStock extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);       
         
         this.state = {
-            item: {},
             params: {},  //表格需要的筛选参数
             pageSize: 5
         }
@@ -50,23 +49,16 @@ class AdjustStock extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                   
                   context.setState({
                     params: {pageSize, ...value}
                   })
-              },
-
-              /**
-               * (表单重置)
-               */
-              handleReset() {
               }
           }
       }   
     
     
     render() {
-        const {item, params, selectedItems, shopList, pageSize} = this.state;
+        const { params, pageSize} = this.state;
         
         const {items, getAirList, adjustStock, cateResult, totalItems, loading, location} = this.props;
         
@@ -110,7 +102,7 @@ class AdjustStock extends Component {
             ...this.getFormOptions()
         }
         
-        return <Panel title="库存调整"><AdjustStockView item={item} tableOptions={tableOptions} formOptions={formOptions} cateList={loop(cateResult)} adjustStock={adjustStock} /></Panel>
+        return <Panel title="库存调整"><AdjustStockView tableOptions={tableOptions} formOptions={formOptions} cateList={loop(cateResult)} adjustStock={adjustStock} /></Panel>
     }
 }
 
