@@ -10,7 +10,7 @@ import Search from 'components/Search';
 import {Row, Col, Button, Icon} from 'hen';
 
 class Audit extends Component {
-    
+
     _getFormItems(){
         let config = {
             formItems: [{
@@ -29,8 +29,8 @@ class Audit extends Component {
         }
         return config;
     }
-    
-    
+
+
     _getColumns(){
         const context = this;
         let columns = [{
@@ -66,8 +66,8 @@ class Audit extends Component {
         }];
         return columns;
     }
-    
-    
+
+
         quickButton(quickOptions){
             return <Row>
                     <Col span='2'>
@@ -75,18 +75,18 @@ class Audit extends Component {
                     </Col>
             </Row>
         }
-    
+
     render() {
         const {formOptions,quickOptions, ...other} = this.props;
-        
+
         return (
             <div>
-            
+
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
-            
-            
+
+
                 <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
-            
+
             </div>
         )
     }
@@ -94,10 +94,10 @@ class Audit extends Component {
 
 
 Audit.propTypes = {
-    
+
     dataSource : React.PropTypes.array.isRequired,
     action : React.PropTypes.func.isRequired,
-    
+
     loading : React.PropTypes.bool,
     params : React.PropTypes.object
 }

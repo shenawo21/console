@@ -1,51 +1,45 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-
 import DataTable from 'components/DataTable';
-
-
 import Search from 'components/Search';
 
-import {Row, Col, Button, Icon,DatePicker } from 'hen';
-
-const STATUS = [
-  { value: false, title: "所有店铺" },
-  { value: true, title: "天猫" }
-];
+import {Row, Col, Button, Icon, DatePicker} from 'hen';
 class Synch extends Component {
-
   _getFormItems() {
+    let context = this;
+    const {shopList} = context.props;
     let config = {
       formItems: [{
         label: "选择店铺：",
-        span:'5',
-        name: "name1",
+        span: '5',
+        name: "shopId",
         select: {
           placeholder: "请选择所属店铺",
-          optionValue: STATUS
+          optionValue: shopList
         }
       }, {
-        label:"按日期查询：",
-        span : "10",
-        labelCol:{span: 4},
-        wrapperCol:{span:19},
+        label: "按日期查询：",
+        span: "10",
+        labelCol: {span: 4},
+        wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div>
             <Col span="11">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
+              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('synStartTime') } showTime={true}/>
             </Col>
             <Col span="2">
               <p className="ant-form-split">~</p>
             </Col>
             <Col span="11">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
+              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('synEndTime') } showTime={true}/>
             </Col>
           </div>
         }
       }],
       initValue: {
-        name1: null,
-        name2: null
+        shopId: null,
+        synStartTime: null,
+        synEndTime: null
       }
     }
     return config;
@@ -56,31 +50,30 @@ class Synch extends Component {
     let columns = [{
       key: '0',
       title: 'ID',
-      dataIndex: '字段0'
+      dataIndex: 'tid'
     }, {
       key: '1',
       title: '同步时间',
-      dataIndex: '字段1'
+      dataIndex: 'createTime'
     }, {
       key: '2',
       title: '同步数量',
-      dataIndex: '字段2'
+      dataIndex: 'num'
     }, {
       key: '3',
       title: '店铺',
-      dataIndex: '字段3'
+      dataIndex: 'shopName'
     }, {
       key: '4',
       title: '同步结果',
-      dataIndex: '字段4'
+      dataIndex: 'isSuccess'
     }, {
       key: '5',
-      title: '操作者',
-      dataIndex: '字段5'
+      title: '操作人',
+      dataIndex: 'createUser'
     }];
     return columns;
   }
-
 
   quickButton(quickOptions) {
     return <Row>
@@ -94,16 +87,11 @@ class Synch extends Component {
 
   render() {
     const {formOptions, quickOptions, ...other} = this.props;
-
     return (
       <div>
-
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
-
-
         <DataTable bordered={true} columns={this._getColumns()}
                    quickButton={this.quickButton(quickOptions)} {...other} />
-
       </div>
     )
   }

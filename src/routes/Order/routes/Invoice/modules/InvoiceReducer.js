@@ -1,69 +1,22 @@
-const ADD = 'invoice/ADD';
-const ADD_SUCCESS = 'invoice/ADD_SUCCESS';
-const ADD_FAILURE = 'invoice/ADD_FAILURE';
-
-const DELETE = 'invoice/DELETE';
-const DELETE_SUCCESS = 'invoice/DELETE_SUCCESS';
-const DELETE_FAILURE = 'invoice/DELETE_FAILURE';
-
-const MODIFY = 'invoice/MODIFY';
-const MODIFY_SUCCESS = 'invoice/MODIFY_SUCCESS';
-const MODIFY_FAILURE = 'invoice/MODIFY_FAILURE';
-
+//发货单查询
 const QUERY = 'invoice/QUERY';
 const QUERY_SUCCESS = 'invoice/QUERY_SUCCESS';
 const QUERY_FAILURE = 'invoice/QUERY_FAILURE';
 
-const VIEW = 'invoice/VIEW';
-const VIEW_SUCCESS = 'invoice/VIEW_SUCCESS';
-const VIEW_FAILURE = 'invoice/VIEW_FAILURE';
+//删除分类
+const DELETE = 'invoice/DELETE';
+const DELETE_SUCCESS = 'invoice/DELETE_SUCCESS';
+const DELETE_FAILURE = 'invoice/DELETE_FAILURE';
+
+//店铺列表
+const APPQUERY = 'applic/APPQUERY';
+const APPQUERY_SUCCESS = 'applic/APPQUERY_SUCCESS';
+const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 
 
 /**
- * 新增
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function addItem(params) {
-  return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 删除
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function deleteItem(params) {
-  return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 修改
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function modifyItem(params) {
-  return {
-    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 列表查询
- * 
+ * 发货单查询
+ *api-tradesInfo.selectWaitSendGoods
  * @export
  * @param params (description)
  * @returns (description)
@@ -71,82 +24,69 @@ export function modifyItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-tradesInfo.selectWaitSendGoods', params)
   }
 }
-
 /**
- * 单条查看
- * 
+ *发货
+ *api-tradesInfo.sendGoods
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function view(params) {
+export function deleteItem(params) {
   return {
-    types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
+    promise: (client) => client.post('api-tradesInfo.sendGoods', params)
+  }
+}
+/**
+ * 店铺列表
+ *api-shop.listEnterpriseShop
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function appList(params) {
+  return {
+    types: [APPQUERY, APPQUERY_SUCCESS, APPQUERY_FAILURE],
+    promise: (client) => client.post('api-shop.listEnterpriseShop', params)
   }
 }
 
-
-export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+export default function reducer(state = {result: {}}, action) {
+  state = {...state, loading: action.loading};
   switch (action.type) {
-    case ADD:
     case DELETE:
-    case MODIFY:
     case QUERY:
-    case VIEW:
-        return {
-            ...state
-        }
-    case ADD_SUCCESS:
-        return {
-            //...state,
-            loading : action.loading,
-            result: action.result
-        }
-    case ADD_FAILURE:
-        return {
-            ...state
-        }
-    case MODIFY_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case MODIFY_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
+      return {
+        result: action.result
+      }
     case DELETE_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
+      return {
+        result: action.result
+      }
     case QUERY_FAILURE:
-        return {
-            ...state
-        }
-    case VIEW_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case VIEW_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
+    case APPQUERY_SUCCESS:
+      return {
+        ...state,
+        appResult: action.result
+      }
+    case APPQUERY_FAILURE:
+      return {
+        ...state
+      }
     default:
       return state
   }

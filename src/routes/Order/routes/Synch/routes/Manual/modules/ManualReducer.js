@@ -1,55 +1,16 @@
-const ADD = 'manual/ADD';
-const ADD_SUCCESS = 'manual/ADD_SUCCESS';
-const ADD_FAILURE = 'manual/ADD_FAILURE';
-
-const DELETE = 'manual/DELETE';
-const DELETE_SUCCESS = 'manual/DELETE_SUCCESS';
-const DELETE_FAILURE = 'manual/DELETE_FAILURE';
-
+//手工订单同步
 const MODIFY = 'manual/MODIFY';
 const MODIFY_SUCCESS = 'manual/MODIFY_SUCCESS';
 const MODIFY_FAILURE = 'manual/MODIFY_FAILURE';
 
-const QUERY = 'manual/QUERY';
-const QUERY_SUCCESS = 'manual/QUERY_SUCCESS';
-const QUERY_FAILURE = 'manual/QUERY_FAILURE';
-
-const VIEW = 'manual/VIEW';
-const VIEW_SUCCESS = 'manual/VIEW_SUCCESS';
-const VIEW_FAILURE = 'manual/VIEW_FAILURE';
-
+//店铺列表
+const APPQUERY = 'applic/APPQUERY';
+const APPQUERY_SUCCESS = 'applic/APPQUERY_SUCCESS';
+const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 
 /**
- * 新增
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function addItem(params) {
-  return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 删除
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function deleteItem(params) {
-  return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 修改
- * 
+ * 手工订单同步
+ *api-tradesInfo.synchronizeOrder
  * @export
  * @param params (description)
  * @returns (description)
@@ -57,96 +18,50 @@ export function deleteItem(params) {
 export function modifyItem(params) {
   return {
     types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-tradesInfo.synchronizeOrder', params)
   }
 }
-
 /**
- * 列表查询
- * 
+ * 店铺列表
+ *api-shop.listEnterpriseShop
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function queryList(params) {
+export function appList(params) {
   return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [APPQUERY, APPQUERY_SUCCESS, APPQUERY_FAILURE],
+    promise: (client) => client.post('api-shop.listEnterpriseShop', params)
   }
 }
 
-/**
- * 单条查看
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function view(params) {
-  return {
-    types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-
-export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+export default function reducer(state = {result: {}}, action) {
+  state = {...state, isJump: false, loading: action.loading};
   switch (action.type) {
-    case ADD:
-    case DELETE:
     case MODIFY:
-    case QUERY:
-    case VIEW:
-        return {
-            ...state
-        }
-    case ADD_SUCCESS:
-        return {
-            //...state,
-            loading : action.loading,
-            result: action.result
-        }
-    case ADD_FAILURE:
-        return {
-            ...state
-        }
+    case APPQUERY:
+      return {
+        ...state
+      }
     case MODIFY_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
+      return {
+        result: action.result,
+        isJump: true
+      }
     case MODIFY_FAILURE:
-        return {
-            ...state
-        }
-    case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case DELETE_FAILURE:
-        return {
-            ...state
-        }
-    case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
-    case QUERY_FAILURE:
-        return {
-            ...state
-        }
-    case VIEW_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case VIEW_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state,
+        isJump: false
+      }
+    case APPQUERY_SUCCESS:
+      return {
+        ...state,
+        appResult: action.result
+      }
+    case APPQUERY_FAILURE:
+      return {
+        ...state
+      }
     default:
       return state
   }
