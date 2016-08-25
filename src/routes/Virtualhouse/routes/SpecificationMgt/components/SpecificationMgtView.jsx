@@ -17,7 +17,7 @@ class specificationMgt extends Component {
         this.callback= this.callback.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            specList: []
+            
         }
     }
 
@@ -38,13 +38,23 @@ class specificationMgt extends Component {
     
     // 按钮
     quickButton(){ 
-        return <Button>添加属性规格</Button>
+        const context = this;
+
+        return <Button onClick={context._addSpec.bind()}>添加属性规格</Button>
     }
+
+    //添加规格
+    _addSpec(){
+        const context = this;
+        console.log(1);
+    }
+
     //根据商品类目获取规格属性
     getSpecList(value) {    	
         const context = this;
-        const { specList } = context.props;        
-        specList(value);
+        const id = value[value.length - 1] || ''
+        const { getSpecList } = context.props;
+        getSpecList(id);
     }
     
     callback(key) {
@@ -61,12 +71,11 @@ class specificationMgt extends Component {
             /*storeManage({
                 enterpriseSpecList: specList
             });*/
-
         
     }
 
     render() {
-        const {formOptions, cateList, item, ...other} = this.props;
+        const {formOptions, cateList, item, specListResult, isLoader, ...other} = this.props;
         const note = <ol>
             <li>1、选择企业经营的商品类目，以读取平台绑定的商品类目及类目下的规格类型，如类目：“服装”；规格类型：“颜色”、“尺码”等。</li>
             <li>2、添加所属规格类型下的规格值，已有规格值可以删除；新增的规格值必须填写，否则该行数据不会被更新或者保存。</li>
@@ -83,19 +92,28 @@ class specificationMgt extends Component {
                     >
                         <Cascader style={{ width: 200 }} options={cateList} onChange={this.getSpecList.bind()} placeholder="请选择" />
                     </FormItem>
+                    {
+                        specListResult.length ? 
+                            <Tabs defaultActiveKey="0" onChange={this.callback.bind()} tabBarExtraContent={this.quickButton(this)}>
 
-                    <Tabs defaultActiveKey="1" onChange={this.callback.bind()} tabBarExtraContent={this.quickButton}>
-                        <TabPane tab="颜色" key="1">
-                            <DataTable bordered={true} columns={this._getColumns()} {...other} />
-                        </TabPane>
-                        <TabPane tab="尺寸" key="2">
-                            <DataTable bordered={true} columns={this._getColumns()} {...other} />
-                        </TabPane>
-                    </Tabs>  
-                
-                    <div className="tc">
+                                {
+                                    specListResult && specListResult.map((val, i) => {
+                                        return <TabPane tab={val.name} key={i}>
+                                                    <DataTable bordered={true} columns={this._getColumns()} />
+                                                </TabPane>
+                                    }) 
+
+                                }
+                                
+                                
+                            </Tabs> : <p className="tc">没有选择分类或者该分类下没有属性，不能添加规格值</p>
+                    }
+                    {
+                        specListResult.length ? <div className="tc">
                         <Button type="primary" onClick={this.handleSubmit.bind()}>提交保存规格值</Button>
-                    </div> 
+                    </div> : ''
+                    }
+                    
                 </Form>                               
                 
             </div>

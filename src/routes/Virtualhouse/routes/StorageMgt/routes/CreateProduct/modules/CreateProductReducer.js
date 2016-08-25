@@ -3,11 +3,6 @@ const OUTCATELIST = 'virtualhouse/OUTCATELIST';
 const OUTCATELIST_SUCCESS = 'virtualhouse/OUTCATELIST_SUCCESS';
 const OUTCATELIST_FAILURE = 'virtualhouse/OUTCATELIST_FAILURE';
 
-//获取商品属性列表
-const ATTRLIST = 'createProduct/ATTRLIST';
-const ATTRLIST_SUCCESS = 'createProduct/ATTRLIST_SUCCESS';
-const ATTRLIST_FAILURE = 'createProduct/ATTRLIST_FAILURE';
-
 //获取商品品牌列表
 const BRANDLIST = 'createProduct/BRANDLIST';
 const BRANDLIST_SUCCESS = 'createProduct/BRANDLIST_SUCCESS';
@@ -18,6 +13,15 @@ const ADDPRO = 'createProduct/ADDPRO';
 const ADDPRO_SUCCESS = 'createProduct/ADDPRO_SUCCESS';
 const ADDPRO_FAILURE = 'createProduct/ADDPRO_FAILURE';
 
+//获取spu商品列表
+const LISTVIEW = 'virtualhouse/LISTVIEW';
+const LISTVIEW_SUCCESS = 'virtualhouse/LISTVIEW_SUCCESS';
+const LISTVIEW_FAILURE = 'virtualhouse/LISTVIEW_FAILURE';
+
+//根据商品类目获取规格属性列表
+const SPECLIST = 'virtualhouse/SPECLIST';
+const SPECLIST_SUCCESS = 'virtualhouse/SPECLIST_SUCCESS';
+const SPECLIST_FAILURE = 'virtualhouse/SPECLIST_FAILURE';
 
 /**
  * 获取商品类目
@@ -34,16 +38,16 @@ export function outCateList(params) {
 }
 
 /**
- * 获取商品属性列表
- * 
+ * 根据商品类目获取规格属性列表
+ *
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function getAttrList(params) {
+export function getSpecByCateList(params) {
   return {
-    types: [ATTRLIST, ATTRLIST_SUCCESS, ATTRLIST_FAILURE],
-    promise: (client) => client.post('/', params)
+    types: [SPECLIST, SPECLIST_SUCCESS, SPECLIST_FAILURE],
+    promise: (client) => client.post('api-spec.getSpecByCategoryCode', params)
   }
 }
 
@@ -57,7 +61,7 @@ export function getAttrList(params) {
 export function getBrandList(params) {
   return {
     types: [BRANDLIST, BRANDLIST_SUCCESS, BRANDLIST_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-brandService.listView', params)
   }
 }
 
@@ -71,7 +75,21 @@ export function getBrandList(params) {
 export function addPro(params) {
   return {
     types: [ADDPRO, ADDPRO_SUCCESS, ADDPRO_FAILURE],
-    promise: (client) => client.post('api- productService.add', params)
+    promise: (client) => client.post('api-productService.add', params)
+  }
+}
+
+/**
+ * 获取spu商品列表
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function listView(params) {
+  return {
+    types: [LISTVIEW, LISTVIEW_SUCCESS, LISTVIEW_FAILURE],
+    promise: (client) => client.post('api-productService.listView', params)
   }
 }
 
@@ -79,9 +97,10 @@ export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case OUTCATELIST:
-    case ATTRLIST:
+    case SPECLIST:
     case BRANDLIST:
     case ADDPRO:
+    case LISTVIEW:
         return {
             ...state
         }
@@ -94,12 +113,12 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
-    case ATTRLIST_SUCCESS:
+    case SPECLIST_SUCCESS:
         return {
             ...state,
-            attrResult: action.result
+            specListResult: action.result
         }
-    case ATTRLIST_FAILURE:
+    case SPECLIST_FAILURE:
         return {
             ...state
         }
@@ -118,6 +137,15 @@ export default function reducer(state = {result:{}}, action) {
             result: action.result
         }
     case ADDPRO_FAILURE:
+        return {
+            ...state
+        }
+    case LISTVIEW_SUCCESS:
+        return {
+            ...state,
+            listViewResult: action.result
+        }
+     case LISTVIEW_FAILURE:
         return {
             ...state
         }

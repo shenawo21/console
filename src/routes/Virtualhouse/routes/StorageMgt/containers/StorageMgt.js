@@ -34,27 +34,34 @@ class StorageMgt extends Component {
    */
     getFormOptions() {
         const _this = this;
-        console.log(_this,'this');
         return {
        /**
-       * (筛选表单提交)
+       * (表单提交)
        *
        * @param value (description)
        */
 
         handleSubmit(value) {
+            debugger;
             const { storageMgt, proListResult } = _this.props;
-            console.log(proListResult,'proListResult');
-            console.log(value,'value');
-            storageMgt({...value})
+            const list = proListResult.map(a => {
+                return {
+                    tempId: a.tempId,
+                    skuId: a.skuId,
+                    incoming: a.incoming
+                }
+            })
+            storageMgt({
+                list,
+                ...value
+            })
           },
 
           /**
-           * (重置)表单
+           * 返回
            */
-
           handleReset(){
-            _this.context.router.push('/virtualhouse')
+                _this.context.router.push('/virtualhouse')
           }
 
         }
@@ -88,14 +95,14 @@ const mapActionCreators = {
     getProList
 }
 
+StorageMgt.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
+
 const mapStateToProps = (state) => {
   const {result, proListResult, loading} = state.storageMgt;
   const items = proListResult || [];
   return {result, proListResult, items, loading};
 }
-
-StorageMgt.contextTypes = {
-    router: React.PropTypes.object.isRequired,
-};
 
 export default connect(mapStateToProps, mapActionCreators)(StorageMgt)

@@ -9,11 +9,11 @@ class specificationMgt extends Component {
 
     constructor(props) {
         super(props);
-
         this.getFormOptions = this.getFormOptions.bind(this);
         this.specList = this._getSpecByCateList.bind(this);
         this.state = {
-            item: {}
+            item: {},
+            specList: []
         };  //定义初始状态
     }
 
@@ -23,8 +23,11 @@ class specificationMgt extends Component {
      */
     _getSpecByCateList(id){
         const context = this;
-        const {getSpecByCateList} = context.props;
+        const {getSpecByCateList, specListResult} = context.props;
         getSpecByCateList({categoryCode: id});
+        context.setState({
+            specList: specListResult
+        });
     }
 
     componentDidMount() {
@@ -70,8 +73,8 @@ class specificationMgt extends Component {
     }
 
     render() {
-        const { item } = this.state;
-        const {cateListResult, loading, items} = this.props;
+        const { item, specList } = this.state;
+        const {cateListResult, specListResult, isLoader, loading, items} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             loading                                    //表格加载数据状态
@@ -102,7 +105,7 @@ class specificationMgt extends Component {
         const formOptions = {
             'formOptions': this.getFormOptions()
         }
-        return <Panel><SpecificationMgtView item={item} {...tableOptions} {...formOptions} cateList={loop(cateListResult)} specList={this.specList} /></Panel>
+        return <Panel><SpecificationMgtView item={item} {...tableOptions} {...formOptions} cateList={loop(cateListResult)} getSpecList={this.specList} specList={specList} specListResult={specListResult} isLoader={isLoader} /></Panel>
     }
 }
 
@@ -121,9 +124,12 @@ const mapActionCreators = {
     addSpec
 }
 const mapStateToProps = (state) => {
-  const {cateListResult, specListResult, result, loading} = state.specificationMgt;
+  let {cateListResult, specListResult, result, loading, isLoader} = state.specificationMgt;
+  if(!isLoader){
+      specListResult = []
+  }
   const {items = []} = {};
-  return {cateListResult, specListResult, result, items, loading};
+  return {cateListResult, specListResult, result, isLoader, items, loading};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(specificationMgt)

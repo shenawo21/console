@@ -10,7 +10,7 @@ class SearchSpu extends Component {
         let config = {
             formItems: [{
                 label: "spu：",
-                name: "name",
+                name: "spuId",
                 span: '8',
                 input: {                    
                     placeholder: "请输入spu"
@@ -33,17 +33,17 @@ class SearchSpu extends Component {
                 }
             }, {
                 label: "商品标题：",
-                name: "name",
+                name: "title",
                 span: '8',
                 input: {
                     placeholder: "请输入商品标题"
                 }
             }],
             initValue: {
-                name: null,
+                spuId: null,
                 createTimeStart: null,
                 createTimeEnd: null,
-                name: null
+                title: null
             }
         }
         return config;
@@ -55,27 +55,27 @@ class SearchSpu extends Component {
         let columns = [{
             key: '0',
             title: 'spu',
-            dataIndex: 'spu'
+            dataIndex: 'spuId'
         }, {
             key: '1',
             title: '商品标题',
-            dataIndex: 'name'
+            dataIndex: 'title'
         }, {
             key: '2',
             title: '创建日期',
-            dataIndex: 'time'
+            dataIndex: 'createTime'
         }];
         return columns;
     }
     
 
     render() {
-        const {formOptions, ...other} = this.props;
-        
+        const {tableFormOptions, tableOptions} = this.props;
+        console.log(this.props,'props');
         return (
             <div>
-                <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} />
-                <DataTable bordered={true} columns={this._getColumns()} {...other} />
+                <Search  items={this._getFormItems()}  onSubmit={tableFormOptions.handleSubmit} onReset={tableFormOptions.handleReset}/>
+                <DataTable bordered={true} columns={this._getColumns()} {...tableOptions} />
             </div>
         )
     }

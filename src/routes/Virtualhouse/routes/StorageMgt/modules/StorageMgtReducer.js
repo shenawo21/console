@@ -55,7 +55,7 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
-        case GETPROLIST_SUCCESS:
+     case GETPROLIST_SUCCESS:
         return {
             ...state,
             proListResult: action.result
@@ -63,7 +63,7 @@ export default function reducer(state = {result:{}}, action) {
      case GETPROLIST_FAILURE:
         return {
             ...state
-        }
+        }     
     default:
       return state
   }

@@ -19,11 +19,10 @@ class CreateProduct extends Component {
     }
 
     _getFormItems() {
-        let context = this;
-        const {cateList} = context.props;
-        let config = {
-            formItems: [{
-                label: "SPU",
+        let config = {}, context = this;
+        const {cateList, brandList} = context.props;
+	    config.formItems = [{
+                label: "SPU：",
                 name: "spuId",
                 disabled: 'disabled',
                 custom(getCustomFieldProps) {
@@ -48,16 +47,11 @@ class CreateProduct extends Component {
                         changeOnSelect: true
                     }
                 }, {
-                    label: "商品属性：",
-                    name: "name2",
-                    cascader: {
-                        placeholder: "请选择商品属性"
-                    }
-                }, {
                     label: "商品品牌：",
-                    name: "brand",
+                    name: "brandId",
                     select: {
-                        placeholder: "请选择商品品牌"
+                        placeholder: "请选择商品品牌",
+                        optionValue: brandList
                     }
                 }, {
                     label: "市场价(元)：",
@@ -68,7 +62,7 @@ class CreateProduct extends Component {
                     }
                 }, {
                     label: "销售价(元)：",
-                    name: "prce",
+                    name: "price",
                     required: true,
                     infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
                     input: {
@@ -83,16 +77,23 @@ class CreateProduct extends Component {
                         placeholder: "请输入库存数量" 
                     }
                 }, {
-                    label: "商品规格",
+                    label: "商品规格：",
                     required: true,
                     custom() {
                         return <Sku></Sku>
                     }
-                }],
-            initValue: {
+                }];
+            config.initValue = {
+		spuId: null,
+            title: null,
+            categoryCode: null,
+            brandId: null,
+            marketPrice: null,
+            price: null,
+            stock: null
 
             }
-        }
+
         return config;
     }
 
@@ -115,16 +116,16 @@ class CreateProduct extends Component {
     }
 
     render() {
-        const {formOptions, tableOptions} = this.props;
+        const {formOptions, tableFormOptions, tableOptions} = this.props;
 
         return (
             <div>
-                <Form horizontal  items={this._getFormItems() } onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+                <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
                 <Modal visible={this.state.visible}
                     closable={false}
                     width={1020}
                     onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <SearchSpu formOptions={formOptions} tableOptions={tableOptions}></SearchSpu>
+                    <SearchSpu tableFormOptions={tableFormOptions} tableOptions={tableOptions}></SearchSpu>
                 </Modal>
             </div>
         )

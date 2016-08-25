@@ -62,7 +62,8 @@ export default function reducer(state = {result:{}}, action) {
     case SPECLIST:
     case ADDSPEC:
         return {
-            ...state
+            ...state,
+            isLoader : false
         }
     case CATELIST_SUCCESS:
         return {
@@ -76,11 +77,13 @@ export default function reducer(state = {result:{}}, action) {
     case SPECLIST_SUCCESS:
         return { 
             ...state,
+            isLoader : true,
             specListResult: action.result
         }
     case SPECLIST_FAILURE:
         return {
-            ...state
+            ...state,
+            isLoader : false
         }
     case ADDSPEC_SUCCESS:
         return {

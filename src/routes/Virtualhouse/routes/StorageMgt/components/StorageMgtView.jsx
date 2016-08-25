@@ -75,7 +75,7 @@ class storageMgt extends Component {
         const {item, ...other} = context.props;
         config.formItems = [{
                 label: "入库类型：",
-                name: "recordType",
+                name: "stockType",
                 required: true,
                 hasFeedback: true,
                 rules: [{ required: true, message: '请选择入库类型' }],
@@ -129,6 +129,7 @@ class storageMgt extends Component {
 
     render() {
         const {formOptions} = this.props;
+        console.log(this.props,'formOptions');
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
@@ -145,5 +146,5 @@ loading: React.PropTypes.bool,
 params: React.PropTypes.object
 }
 
-export default storageMgt;
+export default storageMgt ;
 
