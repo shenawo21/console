@@ -71,7 +71,6 @@ class SearchSpu extends Component {
 
     render() {
         const {tableFormOptions, tableOptions} = this.props;
-        console.log(this.props,'props');
         return (
             <div>
                 <Search  items={this._getFormItems()}  onSubmit={tableFormOptions.handleSubmit} onReset={tableFormOptions.handleReset}/>

@@ -17,7 +17,7 @@ class specificationMgt extends Component {
         this.callback= this.callback.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            
+            tableData:[]
         }
     }
 
@@ -30,7 +30,10 @@ class specificationMgt extends Component {
         }, {
             key: '2',
             title: '操作',
-            dataIndex: 'name'
+            dataIndex: 'name',
+            render(row){
+                return <Button onClick={context._del.bind(row)}>删除</Button>
+            }
         }];
         
         return columns;
@@ -45,8 +48,23 @@ class specificationMgt extends Component {
 
     //添加规格
     _addSpec(){
-        const context = this;
-        console.log(1);
+        const {tableData} = this.state;
+        tableData.push({
+            id: null,
+            name: null
+        })
+    }
+
+    //删除
+    _del(row){
+        const { del } = this.props.tableOptions;
+        let id = row.id;
+        if(id) {
+            del(id);
+        }else{
+            console.log('删除本地');
+        }
+        
     }
 
     //根据商品类目获取规格属性
@@ -59,6 +77,7 @@ class specificationMgt extends Component {
     
     callback(key) {
     	console.log(key);
+
     }
     
     //提交数据
@@ -76,6 +95,7 @@ class specificationMgt extends Component {
 
     render() {
         const {formOptions, cateList, item, specListResult, isLoader, ...other} = this.props;
+        const { tableData } = this.state;
         const note = <ol>
             <li>1、选择企业经营的商品类目，以读取平台绑定的商品类目及类目下的规格类型，如类目：“服装”；规格类型：“颜色”、“尺码”等。</li>
             <li>2、添加所属规格类型下的规格值，已有规格值可以删除；新增的规格值必须填写，否则该行数据不会被更新或者保存。</li>
@@ -90,8 +110,8 @@ class specificationMgt extends Component {
                         labelCol={{ span: 2 }}
                         wrapperCol={{ span: 16 }}
                     >
-                        <Cascader style={{ width: 200 }} options={cateList} onChange={this.getSpecList.bind()} placeholder="请选择" />
-                    </FormItem>
+                     <Cascader style={{ width: 200 }} options={cateList} onChange={this.getSpecList.bind()} placeholder="请选择" />
+                 </FormItem>
                     {
                         specListResult.length ? 
                             <Tabs defaultActiveKey="0" onChange={this.callback.bind()} tabBarExtraContent={this.quickButton(this)}>
@@ -99,7 +119,7 @@ class specificationMgt extends Component {
                                 {
                                     specListResult && specListResult.map((val, i) => {
                                         return <TabPane tab={val.name} key={i}>
-                                                    <DataTable bordered={true} columns={this._getColumns()} />
+                                                    <DataTable bordered={true} columns={this._getColumns()} dataSource={val.enterpriseSpecList} />
                                                 </TabPane>
                                     }) 
 

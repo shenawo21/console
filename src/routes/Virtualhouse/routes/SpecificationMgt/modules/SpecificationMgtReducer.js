@@ -13,6 +13,11 @@ const ADDSPEC = 'virtualhouse/ADDSPEC';
 const ADDSPEC_SUCCESS = 'virtualhouse/ADDSPEC_SUCCESS';
 const ADDSPEC_FAILURE = 'virtualhouse/ADDSPEC_FAILURE';
 
+//删除已有属性规格值
+const DELSPEC = 'virtualhouse/DELSPEC';
+const DELSPEC_SUCCESS = 'virtualhouse/DELSPEC_SUCCESS';
+const DELSPEC_FAILURE = 'virtualhouse/DELSPEC_FAILURE';
+
 /**
  * 获取商品类目
  *
@@ -55,12 +60,27 @@ export function addSpec(params) {
   }
 }
 
+/**
+ * 删除已有属性规格值
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function delSpec(params) {
+  return {
+    types: [DELSPEC, DELSPEC_SUCCESS, DELSPEC_FAILURE],
+    promise: (client) => client.post('api-enterpriseSpec.addEnterpriseSpec', params)
+  }
+}
+
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case CATELIST:
     case SPECLIST:
     case ADDSPEC:
+    case DELSPEC:
         return {
             ...state,
             isLoader : false
@@ -91,6 +111,15 @@ export default function reducer(state = {result:{}}, action) {
             result: action.result
         }
     case ADDSPEC_FAILURE:
+        return {
+            ...state
+        }
+    case DELSPEC_SUCCESS:
+        return {
+            ...state,
+            delResult: action.result
+        }
+    case DELSPEC_FAILURE:
         return {
             ...state
         }

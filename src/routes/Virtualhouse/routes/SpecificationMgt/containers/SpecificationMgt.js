@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import SpecificationMgtView from '../components/SpecificationMgtView'
 import Panel from 'components/Panel'
-import { getCateList, getSpecByCateList, addSpec } from '../modules/SpecificationMgtReducer'
+import { getCateList, getSpecByCateList, addSpec, delSpec } from '../modules/SpecificationMgtReducer'
 import {message} from 'hen';
 
 class specificationMgt extends Component {
@@ -28,6 +28,13 @@ class specificationMgt extends Component {
         context.setState({
             specList: specListResult
         });
+    }
+
+    //删除已有规格属性
+    _delSpec(id) {
+        const context = this;
+        const { delSpec } = context.props;
+        delSpec(id);
     }
 
     componentDidMount() {
@@ -77,7 +84,8 @@ class specificationMgt extends Component {
         const {cateListResult, specListResult, isLoader, loading, items} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            loading                                    //表格加载数据状态
+            loading,                                    //表格加载数据状态
+            del: this._delSpec.bind(this)
         }
         /**
          * 类目列表
@@ -114,6 +122,7 @@ specificationMgt.propTypes = {
     getCateList: React.PropTypes.func,
     getSpecByCateList: React.PropTypes.func,
     addSpec: React.PropTypes.func,
+    delSpec: React.PropTypes.func,
     loading: React.PropTypes.bool,
     items: React.PropTypes.array.isRequired,
     result: React.PropTypes.object,
@@ -121,15 +130,16 @@ specificationMgt.propTypes = {
 const mapActionCreators = {
     getCateList,
     getSpecByCateList,
-    addSpec
+    addSpec,
+    delSpec
 }
 const mapStateToProps = (state) => {
-  let {cateListResult, specListResult, result, loading, isLoader} = state.specificationMgt;
+  let {cateListResult, specListResult, delResult, result, loading, isLoader} = state.specificationMgt;
   if(!isLoader){
       specListResult = []
   }
   const {items = []} = {};
-  return {cateListResult, specListResult, result, isLoader, items, loading};
+  return {cateListResult, specListResult, delResult, result, isLoader, items, loading};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(specificationMgt)

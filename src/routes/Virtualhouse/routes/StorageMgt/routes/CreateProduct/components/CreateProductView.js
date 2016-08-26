@@ -20,7 +20,7 @@ class CreateProduct extends Component {
 
     _getFormItems() {
         let config = {}, context = this;
-        const {cateList, brandList} = context.props;
+        const {cateList, brandList, selectItem} = context.props;
 	    config.formItems = [{
                 label: "SPU：",
                 name: "spuId",
@@ -84,14 +84,16 @@ class CreateProduct extends Component {
                     }
                 }];
             config.initValue = {
-		spuId: null,
-            title: null,
-            categoryCode: null,
-            brandId: null,
-            marketPrice: null,
-            price: null,
-            stock: null
-
+                spuId: null,
+                title: null,
+                categoryCode: null,
+                brandId: null,
+                marketPrice: null,
+                price: null,
+                stock: null
+            }
+            if(selectItem){
+                config.initValue = selectItem;
             }
 
         return config;

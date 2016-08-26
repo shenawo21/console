@@ -64,7 +64,7 @@ class CreateProduct extends Component {
                       params: value
                   })
                   
-                  addPro({value})
+                  addPro({...value})
               },
 
               /**
@@ -100,6 +100,13 @@ class CreateProduct extends Component {
                */
               handleReset() {
                   
+              },
+
+              /**
+               * 勾选数据后设置item
+               */
+              handleItem() {
+
               }
           }
       }
@@ -114,7 +121,7 @@ class CreateProduct extends Component {
                     return
                 }else{
                     this.setState({
-                        selectItem: selectedRows
+                        selectItem: selectedRows[0]
                     })
                 }               
                 
@@ -184,7 +191,7 @@ class CreateProduct extends Component {
             })
         }
         
-        return <Panel title=""><CreateProductView formOptions={formOptions} tableFormOptions={tableFormOptions} tableOptions={tableOptions} cateList={loop(cateResult)} brandList={brandLoop(brandResult)} /></Panel>
+        return <Panel title=""><CreateProductView selectItem={selectItem} formOptions={formOptions} tableFormOptions={tableFormOptions} tableOptions={tableOptions} cateList={loop(cateResult)} brandList={brandLoop(brandResult)} /></Panel>
     }
 }
 
