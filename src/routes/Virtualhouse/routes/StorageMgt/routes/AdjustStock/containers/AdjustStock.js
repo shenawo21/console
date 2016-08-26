@@ -5,63 +5,63 @@ import Panel from 'components/Panel'
 import {adjustStock, getAirList, adStockCateList} from '../modules/AdjustStockReducer'
 
 class AdjustStock extends Component {
-  
+
     constructor(props) {
         super(props);
-        
-        this.getFormOptions = this.getFormOptions.bind(this);       
-        
+
+        this.getFormOptions = this.getFormOptions.bind(this);
+
         this.state = {
             params: {},  //表格需要的筛选参数
             pageSize: 5
         }
     }
-    
+
     //获取分页页码
     getPageNumber(location) {
         const {query} = location;
         return query && query.p ? Number(query.p) : 1;
     }
 
-    componentDidMount() {        
+    componentDidMount() {
         const {getAirList, adStockCateList, location} = this.props;
         const {pageSize} = this.state;
         let pageNumber = this.getPageNumber(location);
         getAirList({ pageNumber, pageSize });
-        
+
         //获取分类列表
         adStockCateList();
 
     }
-    
-      /**
-       * (表格功能配置项)
-       * 
-       * @returns (description)
-       */
-      getFormOptions() {
-          const context = this;
-          const {pageSize} = this.state;
-          return {
-              /**
-               * (表单提交)
-               * 
-               * @param value (description)
-               */
-              handleSubmit(value) {
-                  context.setState({
-                    params: {pageSize, ...value}
-                  })
-              }
-          }
-      }   
+
+    /**
+     * (表格功能配置项)
+     * 
+     * @returns (description)
+     */
+    getFormOptions() {
+        const context = this;
+        const {pageSize} = this.state;
+        return {
+            /**
+             * (表单提交)
+             * 
+             * @param value (description)
+             */
+            handleSubmit(value) {
+                context.setState({
+                    params: { pageSize, ...value}
+                })
+            }
+        }
+    }   
     
     
     render() {
         const { params, pageSize} = this.state;
-        
+
         const {items, getAirList, adjustStock, cateResult, totalItems, loading, location} = this.props;
-        
+
         /**
          * 类目列表
          * @param lists
@@ -87,30 +87,30 @@ class AdjustStock extends Component {
         }
 
         const tableOptions = {
-            dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : getAirList,                         //表格翻页时触发的action
-            pagination : {                              //表格页码陪着，如果为false，则不展示页码
-                total : totalItems,                      //数据总数
+            dataSource: items,                         //加载组件时，表格从容器里获取初始值
+            action: getAirList,                         //表格翻页时触发的action
+            pagination: {                              //表格页码陪着，如果为false，则不展示页码
+                total: totalItems,                      //数据总数
                 pageSize,
-                current : this.getPageNumber(location)
-            },  
+                current: this.getPageNumber(location)
+            },
             loading,                                    //表格加载数据状态
             params                                      //表格检索数据参数
-        }        
-        
-        const formOptions = {
-            ...this.getFormOptions()
         }
-        
-        return <Panel title="库存调整"><AdjustStockView tableOptions={tableOptions} formOptions={formOptions} cateList={loop(cateResult)} adjustStock={adjustStock} /></Panel>
+
+        const formOptions = {
+                ...this.getFormOptions()
+        }
+
+        return <Panel title="库存调整"><AdjustStockView tableOptions={tableOptions} formOptions={formOptions} cateList={loop(cateResult) } adjustStock={adjustStock} /></Panel>
     }
 }
 
 
-AdjustStock.propTypes = {    
+AdjustStock.propTypes = {
     adjustStock: React.PropTypes.func,
-    getAirList: React.PropTypes.func, 
-    adStockCateList: React.PropTypes.func, 
+    getAirList: React.PropTypes.func,
+    adStockCateList: React.PropTypes.func,
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
@@ -123,10 +123,10 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
     const {result, airListResult, cateResult, loading} = state.adjustStock;
-    
+
     const {items = [], totalItems = 0} = airListResult || {};
     return { items, totalItems, cateResult, 'result': result, loading };
-    
+
 }
 
 export default connect(mapStateToProps, mapActionCreators)(AdjustStock)

@@ -6,19 +6,18 @@ import TableCascader from 'components/TableCascader';
 import {Row, Col, Form, Button, Input, message} from 'hen';
 
 class AdjustStock extends Component {
-    
+
     constructor() {
         super();
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleReset = this.handleReset.bind(this);
+        this.goBack = this.goBack.bind(this);
         this.state = {
-            stock: null,
-            stockList: [{skuId:10606002,stock:12}, {skuId:10611002,stock:11}]
+            stockList: []
         }
     }
 
-    _getFormItems(){
+    _getFormItems() {
         let context = this;
         const {cateList} = context.props;
         let config = {
@@ -28,103 +27,108 @@ class AdjustStock extends Component {
                 input: {
                     placeholder: "请输入商品名称"
                 }
-            },{
-                label: "SPU：",
-                name: "spuId",
-                input: {
-                    placeholder: "请输入SPU"
-                }
-            },{
-                label: "SKU：",
-                name: "skuId",
-                input: {
-                    placeholder: "请输入SKU"
-                }
-            },{
-                label: "商品类目：",
-                name: "categoryCode",
-                wrapperCol: {span: 15},
-                cascader: {
-                    options: cateList,
-                    placeholder: "请选择所属类目",
-                    changeOnSelect: true
-                }
-            }],
+            }, {
+                    label: "SPU：",
+                    name: "spuId",
+                    input: {
+                        placeholder: "请输入SPU"
+                    }
+                }, {
+                    label: "SKU：",
+                    name: "skuId",
+                    input: {
+                        placeholder: "请输入SKU"
+                    }
+                }, {
+                    label: "商品类目：",
+                    name: "categoryCode",
+                    wrapperCol: { span: 15 },
+                    cascader: {
+                        options: cateList,
+                        placeholder: "请选择所属类目",
+                        changeOnSelect: true
+                    }
+                }],
             initValue: {
                 title: null,
-                spuId : null,
+                spuId: null,
                 skuId: null,
-                categoryCode : null
+                categoryCode: null
             }
         }
         return config;
     }
-    
-    
-    _getColumns(){
+
+
+    _getColumns() {
         const context = this;
         let columns = [{
             key: '0',
             title: 'spu编码',
             dataIndex: 'spuId'
         }, {
-            key: '1',
-            title: 'sku编码',
-            dataIndex: 'skuId'
-        }, {
-            key: '2',
-            title: '商品名称',
-            dataIndex: 'title'
-        }, {
-            key: '3',
-            title: '商品类目',
-            dataIndex: 'categoryName'
-        }, {
-            key: '4',
-            title: '规格',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '5',
-            title: '库存',
-            dataIndex: 'stock'
-        }];
+                key: '1',
+                title: 'sku编码',
+                dataIndex: 'skuId'
+            }, {
+                key: '2',
+                title: '商品名称',
+                dataIndex: 'title'
+            }, {
+                key: '3',
+                title: '商品类目',
+                dataIndex: 'categoryName'
+            }, {
+                key: '4',
+                title: '规格',
+                dataIndex: 'specOneValue'
+            }, {
+                key: '5',
+                title: '库存',
+                dataIndex: 'stock'
+            }];
         return columns;
     }
 
-    _getColumnsDist(){
-        const context = this;
+    _getColumnsDist() {
+        const context = this
         let columns = [{
             key: '0',
             title: 'SPU编码',
             dataIndex: 'spuId'
         }, {
-            key: '1',
-            title: 'SKU编码',
-            dataIndex: 'skuId'
-        }, {
-            key: '2',
-            title: '商品名称',
-            dataIndex: 'title'
-        }, {
-            key: '3',
-            title: '规格',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '4',
-            title: '库存',
-            dataIndex: 'stock'
-        }, {
-            key: '5',
-            title: '增加库存',
-            dataIndex: 'stock',
-            render(value, row) {
-                return <Input type="text" placeholder="请输入出库库存数" style={{width:120}} onChange={(e) => {
-                    context.setState({
-                        stock: e.target.value
-                    })
-                }} defaultValue={value} /> 
-            }
-        }];
+                key: '1',
+                title: 'SKU编码',
+                dataIndex: 'skuId'
+            }, {
+                key: '2',
+                title: '商品名称',
+                dataIndex: 'title'
+            }, {
+                key: '3',
+                title: '规格',
+                dataIndex: 'specOneValue'
+            }, {
+                key: '4',
+                title: '库存',
+                dataIndex: 'stock'
+            }, {
+                key: '5',
+                title: '增加库存',
+                dataIndex: 'stock',
+                render(value, row) {
+                    return <Input type="text" placeholder="请输入出库库存数" style={{ width: 120 }} onChange={(e) => {
+                        let {stockList} = context.state, stock = { skuId: row.skuId, stock: e.target.value }, selectItems = []
+                        selectItems = stockList.filter((val) => {
+                            return val.skuId !== row.skuId
+                        })
+                        selectItems.push(stock)
+                        context.setState({
+                            stockList: selectItems
+                        })
+                    } } />
+                }
+            }];
         return columns;
     }
 
@@ -134,30 +138,40 @@ class AdjustStock extends Component {
      * @param {any} items
      */
     getData(items) {
-        console.log('items=======', items)
+        const {stockList} = this.state, curStockList = [];
+        if (items) {
+            items.forEach((item) => {
+                stockList.every((val) => {
+                    if (val.skuId == item.skuId) {
+                        curStockList.push(val)
+                        return false
+                    }
+                    return true
+                })
+            })
+            this.setState({
+                stockList: curStockList
+            })
+        }
     }
-    
+
     //提交数据
     handleSubmit(e) {
-        const context = this;
-        const { adjustStock } = context.props;
-        const { stockList } = context.state;
+        const { adjustStock } = this.props;
+        const { stockList } = this.state;
         e.preventDefault();
-        
         adjustStock({
             stockList: stockList
         });
-        
     }
 
-    //重置
-    handleReset(e) {
+    goBack(e) {
         e.preventDefault();
-        this.context.router.push('/virtualhouse')
+        this.context.router.push('/virtualhouse/storageMgt')
     }
-    
+
     render() {
-        
+
         let {formOptions, tableOptions, shopList} = this.props;
 
         tableOptions = {
@@ -176,13 +190,13 @@ class AdjustStock extends Component {
         }
 
         let collapseOptions = {
-            source : {
-                titles:[{
+            source: {
+                titles: [{
                     name: '选择待调整的库存商品'
                 }]
             },
             dist: {
-                titles:[{
+                titles: [{
                     name: '增加库存列表'
                 }]
             }
@@ -192,9 +206,9 @@ class AdjustStock extends Component {
             <div>
                 <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
                 <div className="tc">
-                    <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
-                    &nbsp;&nbsp;&nbsp;
-                    <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
+                    <Button type="ghost" onClick={this.goBack.bind() }>取消</Button>
+                    &nbsp; &nbsp; &nbsp;
+                    <Button type="primary" onClick={this.handleSubmit.bind() }>确认</Button>
                 </div>
             </div>
         )
@@ -203,9 +217,9 @@ class AdjustStock extends Component {
 
 
 AdjustStock.propTypes = {
-    adjustStock: React.PropTypes.func,    
-    loading : React.PropTypes.bool,
-    params : React.PropTypes.object
+    adjustStock: React.PropTypes.func,
+    loading: React.PropTypes.bool,
+    params: React.PropTypes.object
 }
 
 AdjustStock.contextTypes = {

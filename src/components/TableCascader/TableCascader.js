@@ -4,8 +4,6 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import Collapse from 'components/Collapse';
-import concat from 'lodash/concat';
-
 
 class TableCascader extends Component {
 
@@ -97,103 +95,103 @@ class TableCascader extends Component {
             sourceItems: items,
             ...this.getItems(items)
         });
-}
-
-/**
- *  删除时，重新设置源选中数据
- */
-removeItems(curItem){
-    const {sourceItems} = this.state;
-    const {uKey} = this.props;
-    sourceItems.every((item, index) => {
-        if (item[uKey] === curItem[uKey]) {
-            sourceItems.splice(index, 1)
-            return false
-        }
-        return true
-    })
-    this.setState(this.getItems(sourceItems))
-}
-
-componentWillReceiveProps(nextProps) {
-    const {tableOptions} = nextProps;
-    if ((tableOptions && (tableOptions.dataSource !== this.props.tableOptions.dataSource))) {
-        let {sourceItems} = this.state;
-        this.setState(this.getItems(sourceItems, nextProps))
     }
-}
 
-getItems(sourceItems, nextProps) {
-    let selectItemKey = []
-    const {tableOptions, getSelectItems, uKey} = nextProps || this.props
-    const {dataSource} = tableOptions
-    if (sourceItems) {
-        sourceItems.forEach((val) => {
-            dataSource.every((item, index) => {
-                if (item[uKey] === val[uKey]) {
-                    selectItemKey.push(index)
-                    return false
-                }
-                return true
-            })
-        })
-    }
-    //getSelectItems传递当前选中的数据给view层
-    getSelectItems(sourceItems)
-    return {
-        selectedItems: sourceItems,
-        selectedItemsKeys: selectItemKey
-    }
-}
-
-/**
- * 目标表格需要del列时，通过delFlag标识配置
- */
-_getColumns(){
-    let {distTableOptions, uKey} = this.props
-    let {delFlag, columns} = distTableOptions
-    const context = this;
-    if (delFlag) {
-        return columns.concat([{
-            key: columns.length,
-            title: '操作',
-            dataIndex: uKey,
-            render(val, row) {
-                return <a onClick={context.removeItems.bind(context, row) }>删除</a>
+    /**
+     *  删除时，重新设置源选中数据
+     */
+    removeItems(curItem){
+        const {sourceItems} = this.state;
+        const {uKey} = this.props;
+        sourceItems.every((item, index) => {
+            if (item[uKey] === curItem[uKey]) {
+                sourceItems.splice(index, 1)
+                return false
             }
-        }])
-    } else {
-        return columns
-    }
-}
-
-render() {
-    let {formOptions, tableOptions, collapseOptions} = this.props;
-    const {selectedItems, selectedItemsKeys, sourceItems} = this.state;
-
-    tableOptions = {
-        rowSelection: this.handleRowSelection(),
-        selectedItemsKeys,
-            ...tableOptions
+            return true
+        })
+        this.setState(this.getItems(sourceItems))
     }
 
-    return (
-        <div>
-            <Collapse {...collapseOptions.source}>
-                <Search  items={formOptions.items } onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
-                <DataTable bordered={true} {...tableOptions} />
-            </Collapse>
+    componentWillReceiveProps(nextProps) {
+        const {tableOptions} = nextProps;
+        if ((tableOptions && (tableOptions.dataSource !== this.props.tableOptions.dataSource))) {
+            let {sourceItems} = this.state;
+            this.setState(this.getItems(sourceItems, nextProps))
+        }
+    }
 
-            <Collapse {...collapseOptions.dist}>
-                <DataTable bordered={true} columns={this._getColumns() } dataSource={selectedItems} />
-            </Collapse>
-        </div>
-    )
-}
+    getItems(sourceItems, nextProps) {
+        let selectItemKey = []
+        const {tableOptions, getSelectItems, uKey} = nextProps || this.props
+        const {dataSource} = tableOptions
+        if (sourceItems) {
+            sourceItems.forEach((val) => {
+                dataSource.every((item, index) => {
+                    if (item[uKey] === val[uKey]) {
+                        selectItemKey.push(index)
+                        return false
+                    }
+                    return true
+                })
+            })
+        }
+        //getSelectItems传递当前选中的数据给view层
+        getSelectItems(sourceItems)
+        return {
+            selectedItems: sourceItems,
+            selectedItemsKeys: selectItemKey
+        }
+    }
 
-componentWillUnmount(){
-    this.setState({
-        sourceItems: null,
+    /**
+     * 目标表格需要del列时，通过delFlag标识配置
+     */
+    _getColumns(){
+        let {distTableOptions, uKey} = this.props
+        let {delFlag, columns} = distTableOptions
+        const context = this;
+        if (delFlag) {
+            return columns.concat([{
+                key: columns.length,
+                title: '操作',
+                dataIndex: uKey,
+                render(val, row) {
+                    return <a onClick={context.removeItems.bind(context, row) }>删除</a>
+                }
+            }])
+        } else {
+            return columns
+        }
+    }
+
+    render() {
+        let {formOptions, tableOptions, collapseOptions} = this.props;
+        const {selectedItems, selectedItemsKeys, sourceItems} = this.state;
+
+        tableOptions = {
+            rowSelection: this.handleRowSelection(),
+            selectedItemsKeys,
+                ...tableOptions
+        }
+
+        return (
+            <div>
+                <Collapse {...collapseOptions.source}>
+                    <Search  items={formOptions.items } onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+                    <DataTable bordered={true} {...tableOptions} />
+                </Collapse>
+
+                <Collapse {...collapseOptions.dist}>
+                    <DataTable bordered={true} columns={this._getColumns() } dataSource={selectedItems} />
+                </Collapse>
+            </div>
+        )
+    }
+
+    componentWillUnmount(){
+        this.setState({
+            sourceItems: null,
             ...this.getItems()
         })
     }
