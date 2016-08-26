@@ -34,7 +34,7 @@ class specificationMgt extends Component {
     _delSpec(id) {
         const context = this;
         const { delSpec } = context.props;
-        delSpec(id);
+        delSpec({id:id});
     }
 
     componentDidMount() {

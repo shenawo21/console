@@ -17,7 +17,7 @@ class specificationMgt extends Component {
         this.callback= this.callback.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            tableData:[]
+            specList:[]
         }
     }
 
@@ -39,10 +39,9 @@ class specificationMgt extends Component {
         return columns;
     }
     
-    // 按钮
+    // 添加属性规格
     quickButton(){ 
         const context = this;
-
         return <Button onClick={context._addSpec.bind()}>添加属性规格</Button>
     }
 
@@ -71,12 +70,14 @@ class specificationMgt extends Component {
     getSpecList(value) {    	
         const context = this;
         const id = value[value.length - 1] || ''
-        const { getSpecList } = context.props;
-        getSpecList(id);
+        const { getSpecList, specListResult } = context.props;
+        getSpecList(id)        
     }
     
+    //tab切换
     callback(key) {
     	console.log(key);
+        const {specListResult} = this.props;
 
     }
     
@@ -84,18 +85,18 @@ class specificationMgt extends Component {
     handleSubmit(e) {
         const context = this;
         const { specList } = context.state;
-	    const {  } = context.props;
+	    const { addSpec } = context.props;
         e.preventDefault();
            
-            /*storeManage({
-                enterpriseSpecList: specList
-            });*/
+        /*addSpec({
+            enterpriseSpecList: specList
+        });*/
         
     }
 
     render() {
         const {formOptions, cateList, item, specListResult, isLoader, ...other} = this.props;
-        const { tableData } = this.state;
+        const { specList } = this.state;
         const note = <ol>
             <li>1、选择企业经营的商品类目，以读取平台绑定的商品类目及类目下的规格类型，如类目：“服装”；规格类型：“颜色”、“尺码”等。</li>
             <li>2、添加所属规格类型下的规格值，已有规格值可以删除；新增的规格值必须填写，否则该行数据不会被更新或者保存。</li>
@@ -119,6 +120,7 @@ class specificationMgt extends Component {
                                 {
                                     specListResult && specListResult.map((val, i) => {
                                         return <TabPane tab={val.name} key={i}>
+
                                                     <DataTable bordered={true} columns={this._getColumns()} dataSource={val.enterpriseSpecList} />
                                                 </TabPane>
                                     }) 

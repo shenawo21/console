@@ -18,7 +18,7 @@ class Shophouse extends Component {
     }
     
      /**
-     * (判断出库/入库)
+     * (判断仓库/商品对比)
      * @params id
      */
     _isQueryStatus(key){
@@ -30,8 +30,7 @@ class Shophouse extends Component {
             shopQueryList({ pageNumber:1 });
             _this.setState({ oddStatus: true });
         }else{
-	console.log(11111);
-	     compareList();
+	        compareList();
         }	
     }
 
@@ -41,7 +40,7 @@ class Shophouse extends Component {
         let pageNumber = query.p ? Number(query.p) : 1;
         shopQueryList({ pageNumber });
 	
-	//获取店铺列表
+	    //获取店铺列表
         getShopList();
         
         //获取分类列表
@@ -111,10 +110,6 @@ class Shophouse extends Component {
 
         const tableOptionsPro = {
             dataSource : items,                   //加载组件时，表格从容器里获取初始值
-            action : comparePage,                       //表格翻页时触发的action
-            pagination : {                              //表格页码陪着，如果为false，则不展示页码
-                total : totalItems || comparetotalItems                     //数据总数
-            },  
             loading,                                    //表格加载数据状态
             rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
@@ -195,7 +190,7 @@ const mapActionCreators = {
 const mapStateToProps = (state) => {
     const {result, shopListResult, compareListResult, comparePageResult, cateResult, loading} = state.shophouse;
     const {items = [], totalItems = 0} = result || {};
-    const {compareItems = [], comparetotalItems = 0} = comparePageResult || {};
+    //const {compareItems = [], comparetotalItems = 0} = comparePageResult || {};
     return { items, shopListResult, compareListResult, comparePageResult, cateResult, totalItems, loading };
     
 }

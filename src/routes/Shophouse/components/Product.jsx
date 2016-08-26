@@ -81,17 +81,20 @@ class product extends Component {
                 hasArrow: true
             }
         }           
-            
-        const list = compareListResult;
+        
         return (
             
-            <div>                
-                <Collapse {...collapseOptions.source}>
-                    <DataTable bordered={true} {...tableOptions} />
-                </Collapse>
-
+            <div>
+                {
+                    compareListResult && compareListResult.map((val, i) => {
+                        return <Collapse {...collapseOptions.source}>
+                                    <DataTable bordered={true} columns={this._getColumns()} dataSource={val.items} />
+                                </Collapse>
+                    })  
+                    
+                }
             </div>
-        )
+        ) 
     }
 }
 
