@@ -140,6 +140,24 @@ const getMenu = menuLists => {
             url: '/applic'
           }
         ]
+      },
+      {
+        title: '售后服务',
+        icon: 'customerservice',
+        children: [
+          {
+            title: '售后处理',
+            url: '/service/aftersale'
+          },
+          {
+            title: '仓库处理',
+            url: '/service/warehouse '
+          },
+          {
+            title: '历史售后订单',
+            url: '/service/history'
+          }
+        ]
       }
     )
   }

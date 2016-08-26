@@ -58,7 +58,8 @@ export const createRoutes = (store) => {
           require('./Role').default(store),
           require('./Virtualhouse').default(store),
           require('./Shophouse').default(store),
-          require('./Order').default(store)
+          require('./Order').default(store),
+          require('./Service').default(store)
         ];
         if (__DEV__) {
           asyncComponents.push(require('./Docs').default(store))
