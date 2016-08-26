@@ -4,8 +4,6 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import Collapse from 'components/Collapse';
-import concat from 'lodash/concat';
-
 
 class TableCascader extends Component {
 
@@ -41,37 +39,78 @@ class TableCascader extends Component {
      * @param {any} curItems
      * @param {any} selectedRows
      */
-    getSelectedItems(curItems, selectedRows){
-        const {tableOptions} = this.props
-        let {pagination} = tableOptions
-        let num = pagination.current;
-        curItems[num] = selectedRows;
-        !curItems[num].length && delete curItems[num]
+    getSelectedItems(curItems, selectedRows) {
+        const {tableOptions, uKey} = this.props
+        let { dataSource } = tableOptions, items = [], flag = null, unSelectedNum = null
+        let {selectedItemsKeys} = this.state;
+
+        if (curItems.length) {
+            if (selectedRows.length) {
+                //选中元素
+                selectedRows.forEach((item) => {
+                    flag = curItems.some((val, index) => {
+                        return val[uKey] === item[uKey]
+                    })
+                    !flag && items.push(item)
+                })
+                if (selectedItemsKeys.length < selectedRows.length) {
+                    //合并选中元素
+                    curItems = curItems.concat(items);
+                } else {
+                    //获取取消元素在dataSource的下标
+                    selectedItemsKeys.forEach((val) => {
+                        selectedRows.some((item, index) => {
+                            if (dataSource[val][uKey] !== item[uKey]) {
+                                unSelectedNum = val
+                                return false
+                            }
+                        })
+                    })
+                    //删除状态中取消的元素
+                    curItems.every((item, index) => {
+                        if (dataSource[unSelectedNum][uKey] === item[uKey]) {
+                            curItems.splice(index, 1)
+                            return false
+                        }
+                        return true
+                    })
+                }
+            } else {
+                //没有选中元素时，根据dataSource删除状态中元素
+                dataSource.forEach((val) => {
+                    curItems.every((item, index) => {
+                        if (val[uKey] === item[uKey]) {
+                            curItems.splice(index, 1)
+                            return false
+                        }
+                        return true
+                    })
+                })
+            }
+            items = curItems
+        } else {
+            items = selectedRows;
+        }
         this.setState({
-            sourceItems : curItems,
-            ...this.getItems(curItems)
+            sourceItems: items,
+            ...this.getItems(items)
         });
     }
-    
+
     /**
      *  删除时，重新设置源选中数据
      */
-    removeItems(pageNumber, curItem){
+    removeItems(curItem){
         const {sourceItems} = this.state;
         const {uKey} = this.props;
-        sourceItems[pageNumber].forEach((item, index) => {
-            if (item[uKey] == curItem[uKey]) {
-                sourceItems[pageNumber].splice(index, 1)
+        sourceItems.every((item, index) => {
+            if (item[uKey] === curItem[uKey]) {
+                sourceItems.splice(index, 1)
                 return false
             }
+            return true
         })
-        !sourceItems[pageNumber].length && delete sourceItems[pageNumber]
         this.setState(this.getItems(sourceItems))
-    }
-
-    delItem(index, row){
-        let num = index.split('_');
-        this.removeItems && this.removeItems(num[0], row)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -83,36 +122,24 @@ class TableCascader extends Component {
     }
 
     getItems(sourceItems, nextProps) {
-        let selectItem = [], selectItemKey = []
+        let selectItemKey = []
         const {tableOptions, getSelectItems, uKey} = nextProps || this.props
-        const {dataSource, pagination} = tableOptions
+        const {dataSource} = tableOptions
         if (sourceItems) {
-            Object.keys(sourceItems).forEach((num) => {
-                if (pagination.current == num) {
-                    if (sourceItems[num].length == dataSource.length) {
-                        sourceItems[num].forEach((val, index) => {
-                            selectItemKey.push(index)
-                            val._sKey = num +'_'+ index
-                        })
-                    } else {
-                        sourceItems[num].forEach((val) => {
-                            dataSource.forEach((item, index) => {
-                                if (item[uKey] == val[uKey]) {
-                                    selectItemKey.push(index)
-                                    val._sKey = num +'_'+ index
-                                    return false
-                                }
-                            })
-                        })
+            sourceItems.forEach((val) => {
+                dataSource.every((item, index) => {
+                    if (item[uKey] === val[uKey]) {
+                        selectItemKey.push(index)
+                        return false
                     }
-                }
-                selectItem = sourceItems[num].length && concat(selectItem, sourceItems[num]);
+                    return true
+                })
             })
         }
         //getSelectItems传递当前选中的数据给view层
-        getSelectItems(selectItem)
+        getSelectItems(sourceItems)
         return {
-            selectedItems: selectItem,
+            selectedItems: sourceItems,
             selectedItemsKeys: selectItemKey
         }
     }
@@ -121,19 +148,19 @@ class TableCascader extends Component {
      * 目标表格需要del列时，通过delFlag标识配置
      */
     _getColumns(){
-        let {distTableOptions} = this.props
+        let {distTableOptions, uKey} = this.props
         let {delFlag, columns} = distTableOptions
         const context = this;
-        if(delFlag){
+        if (delFlag) {
             return columns.concat([{
                 key: columns.length,
                 title: '操作',
-                dataIndex: '_sKey',
-                render(val, row){
-                    return <a onClick={context.delItem.bind(context, val, row)}>删除</a>
+                dataIndex: uKey,
+                render(val, row) {
+                    return <a onClick={context.removeItems.bind(context, row) }>删除</a>
                 }
             }])
-        }else{
+        } else {
             return columns
         }
     }
@@ -143,19 +170,20 @@ class TableCascader extends Component {
         const {selectedItems, selectedItemsKeys, sourceItems} = this.state;
 
         tableOptions = {
-            rowSelection : this.handleRowSelection(),
+            rowSelection: this.handleRowSelection(),
             selectedItemsKeys,
-            ...tableOptions
+                ...tableOptions
         }
+
         return (
             <div>
                 <Collapse {...collapseOptions.source}>
                     <Search  items={formOptions.items } onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
                     <DataTable bordered={true} {...tableOptions} />
                 </Collapse>
-                
+
                 <Collapse {...collapseOptions.dist}>
-                    <DataTable bordered={true} columns={this._getColumns()} dataSource={selectedItems} />
+                    <DataTable bordered={true} columns={this._getColumns() } dataSource={selectedItems} />
                 </Collapse>
             </div>
         )
