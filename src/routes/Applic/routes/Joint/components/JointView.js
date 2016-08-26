@@ -27,7 +27,7 @@ class Joint extends Component {
     /**
      * 数据拼接
      * @type {string}
-       */
+     */
     let jsonInitStr = "{";
     let vsize = vList.length;
     for (let i = 0; i < vsize; i++) {
@@ -38,7 +38,7 @@ class Joint extends Component {
     }
     jsonInitStr += "}";
     config.initValue = JSON.parse(jsonInitStr);
-    
+
     config.initValue = kList;
     if (sName) {
       config.initValue.name = sName;
