@@ -59,6 +59,7 @@ export default function reducer(state = {result: {}}, action) {
   switch (action.type) {
     case DELETE:
     case QUERY:
+    case APPQUERY:
       return {
         ...state
       }

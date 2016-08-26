@@ -47,14 +47,14 @@ class Invoice extends Component {
   }
 
   componentDidMount() {
-    const {queryList, location} = this.props;
+    const {queryList, location,appList} = this.props;
     const {query} = location;
     let pageNumber = query.p ? Number(query.p) : 1;
     queryList({pageNumber});
     /**
      * 获取该企业的所有店铺
      */
-    this.props.appList()
+    appList()
   }
 
   /**

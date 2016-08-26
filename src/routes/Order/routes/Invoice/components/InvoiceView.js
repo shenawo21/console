@@ -30,7 +30,7 @@ class Audit extends Component {
         }
       }, {
         label: "订单编号：",
-        name: "orderId",
+        name: "tId",
         span: "5",
         labelCol: {span: 8},
         input: {}
@@ -79,7 +79,7 @@ class Audit extends Component {
       }],
       initValue: {
         shopId: null,
-        orderId: null,
+        tId: null,
         buyerNick: null,
         createStartTime: null,
         createEndTime: null,
