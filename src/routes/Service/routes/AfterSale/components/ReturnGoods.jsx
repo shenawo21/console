@@ -4,85 +4,59 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
-//出库类型
-const STOCKTYPE = [
-   { value: '调拨出库', title: "调拨出库" },
-   { value: '损耗出库', title: "损耗出库" },
-   { value: '盘点出库', title: "盘点出库" }
+//店铺名称
+const STORENAME = [
+   { value: 'all', title: "全部" },
+   { value: 'taobao', title: "淘宝" },
+   { value: 'tianmao', title: "天猫" },
+   { value: 'jingdong', title: "京东" }
 ];
 
-
-class OutgoView extends Component {
+class ReturnGoods extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {shopList} = context.props;
+        const {cateList} = context.props;
         let config = {
-            formItems: [ {
-                label: "出库店铺：",
-                name: "relevantStore",
+            formItems: [{
+                label: "订单编号：",
+                name: "tid",
+                labelCol: {span: 8},
+                span:7,
+                input: {}
+            },{
+                label: "买家账号：",
+                name: "buyerNick",
+                labelCol: {span: 8},
+                span:7,
+                input: {}
+            },{
+                label: "店铺名称：",
+                name: "shopName",
+                labelCol: {span: 8},
+                span:7,
                 select: {
-                    placeholder: "请选择所属店铺",
-                    optionValue: shopList
+                    optionValue: STORENAME
                 }
             },{
-                label: "出库单号：",
-                name: "recordId",
-                input: {
-                   placeholder: "请输入出库单号"
-                }
-            },{
-                label: "SPU：",
-                name: "spuId",
-                input: {
-                   placeholder: "请输入SPU"
-                }
-            },{
-                label: "SKU：",
+                label: "商品编码：",
                 name: "skuId",
-                input: {
-                   placeholder: "请输入SKU"
-                }
+                labelCol: {span: 8},
+                span:7,
+                input: {}
             },{
-                label: "出库类型：",
-                name: "recordType",
-                select: {
-		   placeholder: "请选择出库类型",
-                   optionValue : STOCKTYPE
-                }
-            },{
-                label: "操作人：",
-                name: "createUser",
-                input: {
-                   placeholder: "请输入操作人"
-                }
-            },{
-                label: "出库日期：",
-                labelCol: { span: 2 },
-                wrapperCol: { span: 8 },
-                custom(getCustomFieldProps, FormContext) {
-                    return <div>
-                        <Col span="8">
-                            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
-                        </Col>
-                        <Col span="1">
-                            <p className="ant-form-split">-</p>
-                        </Col>
-                        <Col span="8">
-                            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
-                        </Col>
-                    </div>
-                }
+                label: "产品名称：",
+                name: "title",
+                labelCol: {span: 6},
+                span:9,
+                input: {}
             }],
             initValue: {
-                operateStore: null,
-                recordId : null,
-                spuId: null,
-                skuId : null,
-                stockType: null,
-                createUser : null,
-                createTimeStart : null,
-                createTimeEnd : null
+                tid: null,
+                buyerNick: null,
+                shopName: 'all',
+                skuId: null,
+                title: null,
             }
         }
         return config;
@@ -92,70 +66,70 @@ class OutgoView extends Component {
         const {isAdmin} = this.props;
         const context = this;
         let columns = [{
-            key: '0',
-            title: '出库单号',
-            dataIndex: 'recordId'
-        }, {
             key: '1',
-            title: '出库店铺',
-            dataIndex: 'operateStore'
-        }, {
+            title: '申请发起时间',
+            dataIndex: 'created'
+        },{
             key: '2',
-            title: '出库类型',
-            dataIndex: 'stockType'
-        }, {
-            key: '3',
-            title: 'SPU',
-            dataIndex: 'spuId'
-        }, {
-            key: '4',
-            title: 'SKU',
+            title: '商品编码',
             dataIndex: 'skuId'
         }, {
-            key: '5',
-            title: '商品名称',
+            key: '3',
+            title: '产品名称',
             dataIndex: 'title'
         }, {
+            key: '4',
+            title: '原价格',
+            dataIndex: 'price'
+        }, {
+            key: '5',
+            title: '数量',
+            dataIndex: 'goodsNum'
+        }, {
             key: '6',
-            title: '市场价',
-            dataIndex: 'marketPrice'
+            title: '商品总价值',
+            dataIndex: 'totalFee'
         }, {
             key: '7',
-            title: '销售价',
-            dataIndex: 'price'
+            title: '退货数量',
+            dataIndex: 'refundNums'
         }, {
             key: '8',
-            title: '建议销售价',
-            dataIndex: 'price'
+            title: '退货金额',
+            dataIndex: 'refundFee'
         }, {
             key: '9',
-            title: '出库数量',
-            dataIndex: 'incoming'
-        }, {
+            title: '处理状态',
+            dataIndex: 'processStatus'
+        },{
             key: '10',
-            title: '出库时间',
-            dataIndex: 'createTime'
-        }, {
+            title: '仓库反馈',
+            dataIndex: 'feedbackStatus'
+        },{
             key: '11',
-            title: '操作人',
-            dataIndex: 'createUser'
-        }, {
+            title: '仓库反馈时间',
+            dataIndex: ''
+        },{
             key: '12',
-            title: '备注',
-            dataIndex: 'remark'
+            title: '操作',
+            render(id,row) {
+                return <div><Link to={`/service/aftersale/info/${row.id}`}>订单退款</Link></div>
+            }
         }];
         
         return columns;
     }    
+       
 
     render() {
         const {formOptions, ...other} = this.props;
+        
         return (
             <div>
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} {...other} ref='dt' />
+                <DataTable bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.skuId}</p>}  {...other} ref='dt' />
 
             </div>
         )
@@ -163,14 +137,12 @@ class OutgoView extends Component {
 }
 
 
-OutgoView.propTypes = {
-
+ReturnGoods.propTypes = {
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
-
     // loading : React.PropTypes.bool,
     // params : React.PropTypes.object
 }
 
 
-export default OutgoView;
+export default ReturnGoods;
