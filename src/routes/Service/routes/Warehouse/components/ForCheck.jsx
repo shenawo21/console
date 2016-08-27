@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import {Row, Col, Button, Icon, Popconfirm, DatePicker, Table} from 'hen';
+import {Table} from 'hen';
 
 //所属平台
 const STOCKTYPE = [
@@ -11,8 +11,7 @@ const STOCKTYPE = [
    { value: '京东', title: "京东" }
 ];
 
-
-class OutgoView extends Component {
+class ForCheck extends Component {
 
     _getFormItems(){
     	let context = this;
@@ -66,23 +65,30 @@ class OutgoView extends Component {
         let columns = [{
             key: '0',
             title: '订单编号',
-            dataIndex: 'recordId'
+            dataIndex: 'tid'
         }, {
             key: '1',
             title: '成交时间',
-            dataIndex: 'operateStore'
+            dataIndex: 'payTime'
         }, {
             key: '2',
             title: '买家账号',
-            dataIndex: 'stockType'
+            dataIndex: 'buyerNick'
         }, {
             key: '3',
             title: '店铺名称',
-            dataIndex: 'spuId'
+            dataIndex: 'shopName'
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'skuId'
+            dataIndex: 'offSaleType'
+        }, {
+            key: '5',
+            title: '操作',
+            dataIndex: 'tid',
+            render(id, row) {
+                return <span><Link to="/">订单详情</Link></span>
+            }
         }];
         
         return columns;
@@ -92,48 +98,54 @@ class OutgoView extends Component {
         let columns = [{
             key: '0',
             title: '申请发起时间',
-            dataIndex: 'recordId'
+            dataIndex: 'created'
         }, {
             key: '1',
             title: '商品编码',
-            dataIndex: 'operateStore'
+            dataIndex: 'skuStr'
         }, {
             key: '2',
             title: '产品名称',
-            dataIndex: 'stockType'
+            dataIndex: 'title'
         }, {
             key: '3',
             title: '数量',
-            dataIndex: 'spuId'
+            dataIndex: 'goodsNum'
         }, {
             key: '4',
             title: '退货数量',
-            dataIndex: 'skuId'
+            dataIndex: 'goodsNum'
         }, {
             key: '5',
             title: '操作',
             dataIndex: 'skuId',
-            render(id){
-                //return <span><Link to={`/accounts/edit/${id}`}>已验收详情</Link>
+            render(text, record) {
+                return (
+                <span>
+                    <a href="###">已验收详情</a>
+                </span>
+                );
             }
         }];
         
         return columns;
     }
 
-
     render() {
         const {formOptions, dataSource, ...other} = this.props;
         dataSource.forEach((val, index)=>{
             val.key = index
         })
-        console.log(dataSource)
+
+        console.log(this,'this');
 
         return (
             <div>
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.spuId}</p>} className="table" dataSource={dataSource}  {...other}  />
+                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
+                           expandedRowRender={record => <Table columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           dataSource={dataSource} {...other}  />
 
             </div>
         )
@@ -141,7 +153,7 @@ class OutgoView extends Component {
 }
 
 
-OutgoView.propTypes = {
+ForCheck.propTypes = {
 
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
@@ -151,4 +163,4 @@ OutgoView.propTypes = {
 }
 
 
-export default OutgoView;
+export default ForCheck;

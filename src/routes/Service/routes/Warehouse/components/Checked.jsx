@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
+import {Table} from 'hen';
 
 //店铺名称
 const STORENAME = [
@@ -12,7 +12,7 @@ const STORENAME = [
    { value: 'jingdong', title: "京东" }
 ];
 
-class ReturnMoney extends Component {
+class Checked extends Component {
 
     _getFormItems(){
     	let context = this;
@@ -73,30 +73,31 @@ class ReturnMoney extends Component {
     _getColumns(){
         const context = this;
         let columns = [{
-            key: '1',
+            key: '0',
             title: '订单编号',
-            dataIndex: 'created'
-        },{
-            key: '2',
+            dataIndex: 'tid'
+        }, {
+            key: '1',
             title: '成交时间',
-            dataIndex: 'skuId'
+            dataIndex: 'payTime'
+        }, {
+            key: '2',
+            title: '买家账号',
+            dataIndex: 'buyerNick'
         }, {
             key: '3',
-            title: '买家账号',
-            dataIndex: 'title'
+            title: '店铺名称',
+            dataIndex: 'shopName'
         }, {
             key: '4',
-            title: '店铺名称',
-            dataIndex: 'price'
+            title: '售后类型',
+            dataIndex: 'offSaleType'
         }, {
             key: '5',
-            title: '售后类型',
-            dataIndex: 'goodsNum'
-        }, {
-            key: '9',
             title: '操作',
-            render(id,row) {
-                return <div><Link to={`/service/Warehouse/info/${row.id}`}>订单详情</Link></div>
+            dataIndex: 'tid',
+            render(id, row) {
+                return <span><Link to="/">订单详情</Link></span>
             }
         }];
         
@@ -105,53 +106,62 @@ class ReturnMoney extends Component {
     _getSubColumns(){
         const context = this;
         let columns = [{
-            key: '1',
+            key: '0',
             title: '申请发起时间',
             dataIndex: 'created'
-        },{
-            key: '2',
-            title: '商品编码',
-            dataIndex: 'skuId'
         }, {
-            key: '3',
+            key: '1',
+            title: '商品编码',
+            dataIndex: 'skuStr'
+        }, {
+            key: '2',
             title: '产品名称',
             dataIndex: 'title'
         }, {
-            key: '4',
+            key: '3',
             title: '数量',
-            dataIndex: 'price'
+            dataIndex: 'goodsNum'
         }, {
-            key: '5',
+            key: '4',
             title: '退货数量',
             dataIndex: 'goodsNum'
         }, {
-            key: '6',
+            key: '5',
             title: '操作',
-            render(id,row) {
-                return <div><Link to={`/service/aftersale/info/${row.id}`}>已验收详情</Link></div>
+            dataIndex: 'skuId',
+            render(text, record) {
+                return (
+                <span>
+                    <a href="###">已验收详情</a>
+                </span>
+                );
             }
         }];
         
         return columns;
-    }  
+    }
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, dataSource, ...other} = this.props;
+        dataSource.forEach((val, index)=>{
+            val.key = index
+        })
         
         return (
             <div>
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.skuId}</p>} {...other} />
-
+                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
+                           expandedRowRender={record => <Table columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           dataSource={dataSource} {...other}  />
             </div>
         )
     }
 }
 
 
-ReturnMoney.propTypes = {
+Checked.propTypes = {
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
     // loading : React.PropTypes.bool,
@@ -159,4 +169,4 @@ ReturnMoney.propTypes = {
 }
 
 
-export default ReturnMoney;
+export default Checked;
