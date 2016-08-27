@@ -109,7 +109,7 @@ class Shophouse extends Component {
         // } 
 
         const tableOptionsPro = {
-            dataSource : items,                   //加载组件时，表格从容器里获取初始值
+            dataSource : [],                   //加载组件时，表格从容器里获取初始值
             loading,                                    //表格加载数据状态
             rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }

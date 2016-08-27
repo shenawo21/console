@@ -57,38 +57,47 @@ class product extends Component {
         const {formOptions, tableOptionsPro, compareListResult} = this.props;
         console.log(this);
 
-        const tableOptions = {
+        let tableOptions = {
             columns: this._getColumns(),
             ...tableOptionsPro
         }
-
-        let collapseOptions = {
-            source : {
-                titles:[{
-                    name: '待对比商品'
-                },{
-                    name: '比对失败'
-                },{
-                    name: '出库时间'
-                }],
-                btns:[{
-                    name: '退回'
-                },{
-                    name: '导出'
-                },{
-                    name: '比对更新'
-                }],
-                hasArrow: true
-            }
-        }           
         
         return (
             
             <div>
                 {
                     compareListResult && compareListResult.map((val, i) => {
+                        tableOptions.dataSource = val.items
+                        let collapseOptions = {
+                            source : {
+                                titles:[{
+                                    name: '待对比商品:' + val.totalWaiting
+                                },{
+                                    name: '比对失败:'+ val.totalFail
+                                },{
+                                    name: '出库时间:'+ val.createTime
+                                }],
+                                btns:[{
+                                    name: '退回',
+                                    handle(e){
+                                        
+                                    }
+                                },{
+                                    name: '导出',
+                                    handle(e){
+                                        
+                                    }
+                                },{
+                                    name: '比对更新',
+                                    handle(e){
+                                        
+                                    }
+                                }],
+                                hasArrow: true
+                            }
+                        } 
                         return <Collapse {...collapseOptions.source}>
-                                    <DataTable bordered={true} columns={this._getColumns()} dataSource={val.items} />
+                                    <DataTable bordered={true} {...tableOptions} />
                                 </Collapse>
                     })  
                     

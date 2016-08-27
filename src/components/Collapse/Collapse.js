@@ -23,8 +23,8 @@ class Collapse extends Component {
                 <Icon type='right' className={`fr ${hasArrow ? classes.show : classes.hide}`} onClick={this.toggle}></Icon>
                 {
                     btns.map((val,index) => {
-                        const {className, name, ...other} = val;
-                        return <Button key={index} className="fr" {...other}>{name}</Button>
+                        const {className, name, handle, ...other} = val;
+                        return <Button key={index} className="fr" onClick={handle} {...other}>{name}</Button>
                     })
                 }
                 <ul className={classes.tit}>
