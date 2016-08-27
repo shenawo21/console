@@ -151,7 +151,7 @@ const getMenu = menuLists => {
           },
           {
             title: '仓库处理',
-            url: '/service/warehouse '
+            url: '/service/warehouse'
           },
           {
             title: '历史售后订单',

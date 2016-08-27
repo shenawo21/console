@@ -12,7 +12,7 @@ const STORENAME = [
    { value: 'jingdong', title: "京东" }
 ];
 
-class ReturnGoods extends Component {
+class ReturnMoney extends Component {
 
     _getFormItems(){
     	let context = this;
@@ -23,13 +23,17 @@ class ReturnGoods extends Component {
                 name: "tid",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入出库单号"
+                }
             },{
                 label: "买家账号：",
                 name: "buyerNick",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入出库单号"
+                }
             },{
                 label: "店铺名称：",
                 name: "shopName",
@@ -43,13 +47,17 @@ class ReturnGoods extends Component {
                 name: "skuId",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入商品编码"
+                }
             },{
                 label: "产品名称：",
                 name: "title",
                 labelCol: {span: 6},
                 span:9,
-                input: {}
+                input: {
+                    placeholder: "请输入产品名称"
+                }
             }],
             initValue: {
                 tid: null,
@@ -99,18 +107,6 @@ class ReturnGoods extends Component {
             dataIndex: 'refundFee'
         }, {
             key: '9',
-            title: '处理状态',
-            dataIndex: 'processStatus'
-        },{
-            key: '10',
-            title: '仓库反馈',
-            dataIndex: 'feedbackStatus'
-        },{
-            key: '11',
-            title: '仓库反馈时间',
-            dataIndex: ''
-        },{
-            key: '12',
             title: '操作',
             render(id,row) {
                 return <div><Link to={`/service/aftersale/info/${row.id}`}>订单退款</Link></div>
@@ -137,7 +133,7 @@ class ReturnGoods extends Component {
 }
 
 
-ReturnGoods.propTypes = {
+ReturnMoney.propTypes = {
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
     // loading : React.PropTypes.bool,
@@ -145,4 +141,4 @@ ReturnGoods.propTypes = {
 }
 
 
-export default ReturnGoods;
+export default ReturnMoney;
