@@ -1,96 +1,75 @@
+// 订单退款/退货列表
+const REQ_REFUND = 'REQ_REFUND';
+const SUC_REFUND = 'SUC_REFUND';
+const ERR_REFUND = 'ERR_REFUND';
+// 订单换货列表
+const REQ_CHANGEGOODS = 'REQ_CHANGEGOODS';
+const SUC_CHANGEGOODS = 'SUC_CHANGEGOODS';
+const ERR_CHANGEGOODS = 'ERR_CHANGEGOODS';
+// 店铺列表
+const REQ_SHOPLIST = 'REQ_SHOPLIST';
+const SUC_SHOPLIST = 'SUC_SHOPLIST';
+const ERR_SHOPLIST = 'ERR_SHOPLIST';
 
-//获取出入库单列表
-const ODDQUERY = 'oddQuery/ODDQUERY';
-const ODDQUERY_SUCCESS = 'oddQuery/ODDQUERY_SUCCESS';
-const ODDQUERY_FAILURE = 'oddQuery/ODDQUERY_FAILURE';
 
-//获取店铺列表
-const GETSHOPLIST = 'shophouse/GETSHOPLIST';
-const GETSHOPLIST_SUCCESS = 'shophouse/GETSHOPLIST_SUCCESS';
-const GETSHOPLIST_FAILURE = 'shophouse/GETSHOPLIST_FAILURE';
-
-//获取商品类目列表
-const OUTCATELIST = 'shophouse/OUTCATELIST';
-const OUTCATELIST_SUCCESS = 'shophouse/OUTCATELIST_SUCCESS';
-const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
-
-/**
- * 入库单
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function oddQueryList(params) {
+export function getRefund(params) {
   return {
-    types: [ODDQUERY, ODDQUERY_SUCCESS, ODDQUERY_FAILURE],
-    promise: (client) => client.post('api-productService.stockRecordlistView', params)
+    types: [REQ_REFUND, SUC_REFUND, ERR_REFUND],
+    promise: (client) => client.post('api-offSale.getRefundApplysByCondition', params)
   }
 }
-
-
-/**
- * 获取店铺列表
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
+export function getChangeGoods(params) {
+  return {
+    types: [REQ_CHANGEGOODS, SUC_CHANGEGOODS, ERR_CHANGEGOODS],
+    promise: (client) => client.post('api-offSale.getChangeGoodsOrder', params)
+  }
+}
 export function getShopList() {
     return {
-        types: [GETSHOPLIST, GETSHOPLIST_SUCCESS, GETSHOPLIST_FAILURE],
+        types: [REQ_SHOPLIST, SUC_SHOPLIST, ERR_SHOPLIST],
         promise: (client) => client.post('api-shop.listEnterpriseShop')
     }
 }
-
-/**
- * 获取商品分类
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function priceCateList(params) {
-  return {
-    types: [OUTCATELIST, OUTCATELIST_SUCCESS, OUTCATELIST_FAILURE],
-    promise: (client) => client.post('api-category.listAll', params)
-  }
-}
-
-
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {    
-    case ODDQUERY:
-    case GETSHOPLIST:
-    case OUTCATELIST:
+    case REQ_REFUND:
         return {
             ...state
         }    
-    case ODDQUERY_SUCCESS:
+    case SUC_REFUND:
         return {
             ...state,
-            result: action.result
+            refundList: action.result
         }
-    case ODDQUERY_FAILURE:
+    case ERR_REFUND:
         return {
             ...state
         }
-    case GETSHOPLIST_SUCCESS:
+   case REQ_CHANGEGOODS:
+        return {
+            ...state
+        }    
+    case SUC_CHANGEGOODS:
         return {
             ...state,
-            shopListResult: action.result
+            changegoodsList: action.result
         }
-    case GETSHOPLIST_FAILURE:
+    case ERR_CHANGEGOODS:
         return {
             ...state
         }
-     case OUTCATELIST_SUCCESS:
+
+   case REQ_SHOPLIST:
+        return {
+            ...state
+        }    
+    case SUC_SHOPLIST:
         return {
             ...state,
-            cateResult: action.result
+            shoplist: action.result
         }
-    case OUTCATELIST_FAILURE:
+    case ERR_SHOPLIST:
         return {
             ...state
         }
