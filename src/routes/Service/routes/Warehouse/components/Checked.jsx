@@ -71,7 +71,38 @@ class ReturnMoney extends Component {
     }
 
     _getColumns(){
-        const {isAdmin} = this.props;
+        const context = this;
+        let columns = [{
+            key: '1',
+            title: '订单编号',
+            dataIndex: 'created'
+        },{
+            key: '2',
+            title: '成交时间',
+            dataIndex: 'skuId'
+        }, {
+            key: '3',
+            title: '买家账号',
+            dataIndex: 'title'
+        }, {
+            key: '4',
+            title: '店铺名称',
+            dataIndex: 'price'
+        }, {
+            key: '5',
+            title: '售后类型',
+            dataIndex: 'goodsNum'
+        }, {
+            key: '9',
+            title: '操作',
+            render(id,row) {
+                return <div><Link to={`/service/Warehouse/info/${row.id}`}>订单详情</Link></div>
+            }
+        }];
+        
+        return columns;
+    }    
+    _getSubColumns(){
         const context = this;
         let columns = [{
             key: '1',
@@ -87,35 +118,22 @@ class ReturnMoney extends Component {
             dataIndex: 'title'
         }, {
             key: '4',
-            title: '原价格',
+            title: '数量',
             dataIndex: 'price'
         }, {
             key: '5',
-            title: '数量',
+            title: '退货数量',
             dataIndex: 'goodsNum'
         }, {
             key: '6',
-            title: '商品总价值',
-            dataIndex: 'totalFee'
-        }, {
-            key: '7',
-            title: '退货数量',
-            dataIndex: 'refundNums'
-        }, {
-            key: '8',
-            title: '退货金额',
-            dataIndex: 'refundFee'
-        }, {
-            key: '9',
             title: '操作',
             render(id,row) {
-                return <div><Link to={`/service/aftersale/info/${row.id}`}>订单退款</Link></div>
+                return <div><Link to={`/service/aftersale/info/${row.id}`}>已验收详情</Link></div>
             }
         }];
         
         return columns;
-    }    
-       
+    }  
 
     render() {
         const {formOptions, ...other} = this.props;
@@ -125,7 +143,7 @@ class ReturnMoney extends Component {
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.skuId}</p>}  {...other} ref='dt' />
+                <DataTable bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.skuId}</p>} {...other} />
 
             </div>
         )

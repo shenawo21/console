@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
+import {Row, Col, Button, Icon, Popconfirm, DatePicker, Table} from 'hen';
 
 //所属平台
 const STOCKTYPE = [
@@ -119,16 +119,21 @@ class OutgoView extends Component {
         }];
         
         return columns;
-    }   
+    }
+
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, dataSource, ...other} = this.props;
+        dataSource.forEach((val, index)=>{
+            val.key = index
+        })
+        console.log(dataSource)
+
         return (
             <div>
- 
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
-                
-                <DataTable bordered={true} columns={this._getColumns()} {...other} ref='dt' />
+
+                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.spuId}</p>} className="table" dataSource={dataSource}  {...other}  />
 
             </div>
         )

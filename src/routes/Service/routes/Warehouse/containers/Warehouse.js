@@ -103,7 +103,7 @@ class OddQuery extends Component {
         const {items, oddQueryList, shopListResult, cateResult, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddQueryList,                  //表格翻页时触发的action
+            action : oddQueryList,                      //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  

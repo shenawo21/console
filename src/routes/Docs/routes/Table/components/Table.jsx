@@ -125,7 +125,7 @@ class Table extends Component {
         return (
             <div>
                 <Search items={this._getFormItems()} onSubmit={handleSubmit} onReset={handleReset} {...formOther} ></Search>
-                <DataTable ref='dt' bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
+                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...other} />
             </div>
         )
     }

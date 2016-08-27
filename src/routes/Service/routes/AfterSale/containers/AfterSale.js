@@ -78,7 +78,7 @@ class OddQuery extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
-            isStatus: this._isQueryStatus.bind(this)        //判断退款/退换货
+            //isStatus: this._isQueryStatus.bind(this)        //判断退款/退换货
         }
         
         /**
