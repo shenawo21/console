@@ -24,9 +24,9 @@ class OddQuery extends Component {
         const {getRefund, getChangeGoods, getShopList, location } = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        getRefund();
+        getRefund({type:'退款'});
         //获取店铺列表
-        getShopList({type:'退款'});
+        getShopList();
     }
     
       /**
@@ -43,10 +43,6 @@ class OddQuery extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                    // const {params} = context.state;
-                    // if(value.categoryCode){
-                    //     value.categoryCode = value.categoryCode[value.categoryCode.length - 1] || '';
-                    // }
                   context.setState({
                       params: {
 		      	      ...params,
@@ -54,22 +50,21 @@ class OddQuery extends Component {
 		            } 
                   })
               },
-
-              /**
-               * (筛选表单重置)
-               */
-              handleReset() {
-              }
           }
       }
     callback(key) {
-        console.log(key,'key=====')
+        const {getRefund, getChangeGoods, getShopList } = this.props;
+        if(key == 2) { 
+            getRefund({type:'退货'});
+        } else {
+            getRefund({type:'退款'});
+        }
         
     }
     render() {
         const {params, oddStatus} = this.state;
         
-        const {items, getRefund, shopListResult, cateResult, totalItems, loading} = this.props;
+        const {items, getRefund, shoplist, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : getRefund,                  //表格翻页时触发的action
@@ -78,7 +73,6 @@ class OddQuery extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
-            //isStatus: this._isQueryStatus.bind(this)        //判断退款/退换货
         }
         
         /**
@@ -86,32 +80,35 @@ class OddQuery extends Component {
          * @param lists
          * @returns {*}
          */
-        const shopLoop = (lists) => {
-            return lists && lists.map(a => {
-                return {
-                    value: a.shopId,
-                    title: a.name
-                }
-            })
+        let shopListItem = [];
+        if (shoplist) {
+            shopListItem = shoplist.map(c=> {
+            return {
+                value: c.shopId,
+                title: c.name
+           }
+        });
+        } else {
+            shopListItem = [{
+                value: null,
+                title: '正在加载中...'
+            }]
         }
 	
         const formOptions = {
             'formOptions' : this.getFormOptions()
         }
-        
         return <Panel title="">
-                    {/** <RefundView {...tableOptions} {...formOptions} shopList={shopLoop(shopListResult)} />*/}
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                        <TabPane tab="订单退款" key="1"><ReturnMoney {...formOptions} {...tableOptions} /></TabPane>
-                        <TabPane tab="退换货" key="2"><ReturnGoods {...formOptions} {...tableOptions} /></TabPane>
+                        <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} /></TabPane>
+                        <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} /></TabPane>
                     </Tabs>
                 </Panel>
     }
 }
 
 
-OddQuery.propTypes = {
-    
+OddQuery.propTypes = {   
     // oddQueryList: React.PropTypes.func,
     // items: React.PropTypes.array.isRequired,
     // getShopList: React.PropTypes.func,
@@ -129,10 +126,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-    console.log(state,'state=====')
-    const {result, shopListResult, cateResult, loading} = state.aftersale;
+    const {refundList, changegoodsList, shoplist, loading} = state.aftersale;
 
-    return { };
+    return { refundList, changegoodsList, shoplist, loading };
     
 }
 

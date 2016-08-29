@@ -4,19 +4,11 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
-//店铺名称
-const STORENAME = [
-   { value: 'all', title: "全部" },
-   { value: 'taobao', title: "淘宝" },
-   { value: 'tianmao', title: "天猫" },
-   { value: 'jingdong', title: "京东" }
-];
-
 class ReturnMoney extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {cateList} = context.props;
+        const {shopListItem} = context.props;
         let config = {
             formItems: [{
                 label: "订单编号：",
@@ -36,7 +28,7 @@ class ReturnMoney extends Component {
                 labelCol: {span: 8},
                 span:7,
                 select: {
-                    optionValue: STORENAME
+                    optionValue: shopListItem
                 }
             },{
                 label: "商品编码：",
@@ -105,19 +97,25 @@ class ReturnMoney extends Component {
             }
         }];
         
+        
         return columns;
     }    
-       
+      
 
     render() {
         const {formOptions, ...other} = this.props;
-        
+         // 测试数据
+        const data = [
+            {key:1,created:'2016年8月29日',skuId:'113444',title:'title2',price:'3',goodsNum:'3',totalFee:'3',totalFee:'3',refundNums:'3',refundFee:'3',description:'ceshi1'},
+            {key:2,created:'2016年8月30日',skuId:'57626',title:'title',price:'5',goodsNum:'3',totalFee:'3',totalFee:'3',refundNums:'3',refundFee:'3',description:'ceshi3'},
+            {key:3,created:'2016年8月31日',skuId:'14667',title:'title3',price:'7',goodsNum:'3',totalFee:'3',totalFee:'3',refundNums:'3',refundFee:'3',description:'ceshi6'},
+        ] 
         return (
             <div>
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.skuId}</p>}  {...other} ref='dt' />
+                <DataTable bordered={true} columns={this._getColumns()}   expandedRowRender={record => <p>{record.description}</p>} dataSource={data}  ref='dt' />
 
             </div>
         )
