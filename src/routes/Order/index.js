@@ -13,7 +13,8 @@ export default (store) => ({
         require('./routes/Synch').default(store),
         require('./routes/Audit').default(store),
         require('./routes/Invoice').default(store),
-        require('./routes/History').default(store)
+        require('./routes/History').default(store),
+        require('./routes/Add').default(store)
       ])
     })
   }

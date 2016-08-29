@@ -128,6 +128,10 @@ const getMenu = menuLists => {
           {
             title: '历史订单',
             url: '/order/history'
+          },
+          {
+            title: '新建订单',
+            url: '/order/add'
           }
         ]
       },

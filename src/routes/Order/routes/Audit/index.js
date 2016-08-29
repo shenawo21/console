@@ -8,5 +8,15 @@
       store.injectReducer({ key: 'audit', reducer })
       next(null, audit)
     })
-  }
+  },
+   getChildRoutes(location, next) {
+     require.ensure([], (require) => {
+       next(null, [
+         require('./routes/Detail').default(store),
+         require('./routes/Deal').default(store),
+         require('./routes/Apart').default(store),
+         require('./routes/Merge').default(store)
+       ])
+     })
+   }
 })

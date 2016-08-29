@@ -3,7 +3,7 @@ const QUERY = 'invoice/QUERY';
 const QUERY_SUCCESS = 'invoice/QUERY_SUCCESS';
 const QUERY_FAILURE = 'invoice/QUERY_FAILURE';
 
-//删除分类
+//发货
 const DELETE = 'invoice/DELETE';
 const DELETE_SUCCESS = 'invoice/DELETE_SUCCESS';
 const DELETE_FAILURE = 'invoice/DELETE_FAILURE';
