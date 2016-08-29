@@ -4,19 +4,11 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
-//店铺名称
-const STORENAME = [
-   { value: 'all', title: "全部" },
-   { value: 'taobao', title: "淘宝" },
-   { value: 'tianmao', title: "天猫" },
-   { value: 'jingdong', title: "京东" }
-];
-
 class ReturnGoods extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {cateList} = context.props;
+        const {shopListItem} = context.props;
         let config = {
             formItems: [{
                 label: "订单编号：",
@@ -36,7 +28,7 @@ class ReturnGoods extends Component {
                 labelCol: {span: 8},
                 span:7,
                 select: {
-                    optionValue: STORENAME
+                    optionValue: shopListItem
                 }
             },{
                 label: "商品编码：",
