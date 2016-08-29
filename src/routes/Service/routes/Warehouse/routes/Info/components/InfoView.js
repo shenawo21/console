@@ -60,7 +60,6 @@ class InfoView extends Component {
                 label: "快递公司：",
                 name: "stockType",
                 required: true,
-                hasFeedback: true,
                 rules: [{ required: true, message: '请选择快递公司' }],
                 select: {
                     optionValue: STOCKTYPE,
@@ -69,6 +68,8 @@ class InfoView extends Component {
             },{
                 label: "退货快递单号：",
                 name: "title",
+                required: true,
+                rules: [{ required: true, message: '请输入快递单号' }],
                 input: {
                     placeholder: "请输入商品名称"
                 }
@@ -76,7 +77,7 @@ class InfoView extends Component {
                 label: "货物结果：",
                 wrapperCol: { span: 24 },
                 custom() {
-                     return <DataTable bordered={true} columns={context._getColumns()} {...other} />
+                     return <DataTable bordered={true} size="small" columns={context._getColumns()} {...other} />
                 }
             },{
                 label: "备注：",
@@ -94,8 +95,8 @@ class InfoView extends Component {
                 custom(getCustomFieldProps) {
                     upConfig.fileList = [];
                     return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
-                                        upConfig={{...upConfig, onChangeFileList:licenseImg}}
-                    {...getCustomFieldProps('businessLicense')} />
+                            upConfig={{...upConfig, onChangeFileList:licenseImg}}
+                            {...getCustomFieldProps('businessLicense')} />
                 }
             }],
             initValue: {

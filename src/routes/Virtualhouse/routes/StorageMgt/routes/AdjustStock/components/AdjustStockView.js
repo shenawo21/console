@@ -3,19 +3,19 @@ import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
 
-import {Row, Col, Form, Button, Input, message} from 'hen';
+import {Button, Input, message} from 'hen';
 
 class AdjustStock extends Component {
 
-    constructor() {
-        super();
-        this.getData = this.getData.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.goBack = this.goBack.bind(this);
-        this.state = {
+  constructor() {
+    super();
+    this.getData = this.getData.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.goBack = this.goBack.bind(this);
+    this.state = {
             stockList: []
-        }
     }
+  }
 
     _getFormItems() {
         let context = this;
@@ -27,93 +27,93 @@ class AdjustStock extends Component {
                 input: {
                     placeholder: "请输入商品名称"
                 }
-            }, {
-                    label: "SPU：",
-                    name: "spuId",
-                    input: {
-                        placeholder: "请输入SPU"
-                    }
-                }, {
-                    label: "SKU：",
-                    name: "skuId",
-                    input: {
-                        placeholder: "请输入SKU"
-                    }
-                }, {
-                    label: "商品类目：",
-                    name: "categoryCode",
-                    wrapperCol: { span: 15 },
-                    cascader: {
-                        options: cateList,
-                        placeholder: "请选择所属类目",
-                        changeOnSelect: true
-                    }
-                }],
+            },{
+                label: "SPU：",
+                name: "spuId",
+                input: {
+                    placeholder: "请输入SPU"
+                }
+            },{
+                label: "SKU：",
+                name: "skuId",
+                input: {
+                    placeholder: "请输入SKU"
+                }
+            },{
+                label: "商品类目：",
+                name: "categoryCode",
+                wrapperCol: {span: 15},
+                cascader: {
+                    options: cateList,
+                    placeholder: "请选择所属类目",
+                    changeOnSelect: true
+                }
+            }],
             initValue: {
                 title: null,
-                spuId: null,
+                spuId : null,
                 skuId: null,
-                categoryCode: null
+                categoryCode : null
             }
         }
         return config;
     }
-
-
-    _getColumns() {
+    
+    
+    _getColumns(){
         const context = this;
-        let columns = [{
-            key: '0',
-            title: 'spu编码',
-            dataIndex: 'spuId'
-        }, {
-                key: '1',
-                title: 'sku编码',
-                dataIndex: 'skuId'
-            }, {
-                key: '2',
-                title: '商品名称',
-                dataIndex: 'title'
-            }, {
-                key: '3',
-                title: '商品类目',
-                dataIndex: 'categoryName'
-            }, {
-                key: '4',
-                title: '规格',
-                dataIndex: 'specOneValue'
-            }, {
-                key: '5',
-                title: '库存',
-                dataIndex: 'stock'
-            }];
-        return columns;
-    }
-
-    _getColumnsDist() {
-        const context = this
         let columns = [{
             key: '0',
             title: 'SPU编码',
             dataIndex: 'spuId'
         }, {
-                key: '1',
-                title: 'SKU编码',
-                dataIndex: 'skuId'
-            }, {
-                key: '2',
-                title: '商品名称',
-                dataIndex: 'title'
-            }, {
-                key: '3',
+            key: '1',
+            title: 'SKU编码',
+            dataIndex: 'skuId'
+        }, {
+            key: '2',
+            title: '商品名称',
+            dataIndex: 'title'
+        }, {
+            key: '3',
+            title: '商品类目',
+            dataIndex: 'categoryName'
+        }, {
+            key: '4',
+            title: '规格',
+            dataIndex: 'specOneValue'
+        }, {
+            key: '5',
+                title: '库存',
+            dataIndex: 'stock'
+        }];
+        return columns;
+    }
+
+    _getColumnsDist(){
+        const context = this;
+        let columns = [{
+            key: '0',
+            title: 'SPU编码',
+            dataIndex: 'spuId'
+        }, {
+            key: '1',
+            title: 'SKU编码',
+            dataIndex: 'skuId'
+        }, {
+            key: '2',
+            title: '商品名称',
+            dataIndex: 'title'
+        }, {
+            key: '3',
                 title: '规格',
                 dataIndex: 'specOneValue'
-            }, {
-                key: '4',
+        }, {
+            key: '4',
                 title: '库存',
                 dataIndex: 'stock'
-            }, {
-                key: '5',
+        }, {
+            key: '5',
                 title: '增加库存',
                 dataIndex: 'stock',
                 render(value, row) {
@@ -164,7 +164,7 @@ class AdjustStock extends Component {
             stockList: stockList
         });
     }
-
+	//返回
     goBack(e) {
         e.preventDefault();
         this.context.router.push('/virtualhouse/storageMgt')
@@ -172,7 +172,7 @@ class AdjustStock extends Component {
 
     render() {
 
-        let {formOptions, tableOptions, shopList} = this.props;
+        let {formOptions, tableOptions} = this.props;
 
         tableOptions = {
             columns: this._getColumns(),
@@ -206,9 +206,9 @@ class AdjustStock extends Component {
             <div>
                 <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
                 <div className="tc">
-                    <Button type="ghost" onClick={this.goBack.bind() }>取消</Button>
-                    &nbsp; &nbsp; &nbsp;
-                    <Button type="primary" onClick={this.handleSubmit.bind() }>确认</Button>
+                    <Button type="ghost" onClick={this.goBack.bind()}>取消</Button>
+                    &nbsp;&nbsp;&nbsp;
+                    <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
                 </div>
             </div>
         )

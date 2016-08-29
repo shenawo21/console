@@ -12,10 +12,9 @@ class OutgoManual extends Component {
         super();
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleReset = this.handleReset.bind(this);
+        this.goBack = this.goBack.bind(this);
         this.state = {
-            outgoList: [{skuId:10625001,stockId:37,shopId:1,incoming:1}],
-            incomming : ''
+            outgoList: []
         }
     }
     
@@ -114,9 +113,14 @@ class OutgoManual extends Component {
             dataIndex: 'incoming',
             render(value, row){
                 return <Input type="text" placeholder="请输入出库数量" style={{width:150}} onChange={(e) => {
-                    context.setState({
-                        price: e.target.value
-                    })
+			let {outgoList} = context.state, outgo = { skuId: row.skuId, spuId: row.spuId, stockId: row.stockId, price: row.price, incoming: e.target.value }, selectItems = []
+                        selectItems = outgoList.filter((val) => {
+                            return val.skuId !== row.skuId
+                        })
+                        selectItems.push(outgo)
+                        context.setState({
+                            outgoList: selectItems
+                        })
                 }} defaultValue={value}/> 
             }
         }];
@@ -129,7 +133,21 @@ class OutgoManual extends Component {
      * @param {any} items
      */
     getData(items) {
-        console.log('items=======', items)
+        const {outgoList} = this.state, curOutgoList = [];
+        if (items) {
+            items.forEach((item) => {
+                outgoList.every((val) => {
+                    if (val.skuId == item.skuId) {
+                        curOutgoList.push(val)
+                        return false
+                    }
+                    return true
+                })
+            })
+            this.setState({
+                outgoList: outgoList
+            })
+        }
     }
 
     //提交数据
@@ -138,7 +156,6 @@ class OutgoManual extends Component {
         const { outManual, form } = context.props;
         const { outgoList } = context.state;
         e.preventDefault();
-         
         form.validateFieldsAndScroll((errors, values) => {
 
             if (!!errors) {
@@ -164,7 +181,7 @@ class OutgoManual extends Component {
     }
 
     //返回
-    handleReset(e) {
+    goBack(e) {
         e.preventDefault();
         this.context.router.push('/shophouse')
     }
@@ -241,13 +258,11 @@ class OutgoManual extends Component {
                 </Form>
 
                 <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
-
                 <div className="tc">
-                    <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
+                    <Button type="ghost" onClick={this.goBack.bind()}>取消</Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
                 </div>
-                
             </div>
         )
     }

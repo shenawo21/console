@@ -71,7 +71,7 @@ class Info extends Component {
 Info.propTypes = {
     view: React.PropTypes.func,
     items: React.PropTypes.array,
-    totalItems: React.PropTypes.number.isRequired,    
+    totalItems: React.PropTypes.number,    
     loading: React.PropTypes.bool
 }
 

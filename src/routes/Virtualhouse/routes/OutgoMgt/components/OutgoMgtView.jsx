@@ -20,15 +20,13 @@ class outgoMgt extends Component {
     super();
     this.getData = this.getData.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
+    this.goBack = this.goBack.bind(this);
     this.state = {
-        stockList: [],
-        incoming : '',
-        price : ''
+        stockList: []
     }
   }
 
-  _getFormItems(){
+    _getFormItems() {
         let context = this;
         const {cateList} = context.props;
         let config = {
@@ -147,11 +145,22 @@ class outgoMgt extends Component {
             title: '建议销售价',
             dataIndex: 'price',
             render(value, row){
-                return <Input type="text" placeholder="请输入建议销售价" onChange={(e) => {
-                    context.setState({
-                        price: e.target.value
-                    })
-                }} defaultValue={value}/> 
+                return <Input type="text" placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
+                    let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], incoming = ''
+                       stockList.forEach((val) => {
+                            if(val.skuId !== row.skuId){
+                                selectItems.push(val)
+                            }else{
+                                incoming = val.incoming
+                            }
+                        })
+                        stock.price = e.target.value
+                        stock.incoming = incoming
+                        selectItems.push(stock)
+                        context.setState({
+                            stockList: selectItems
+                        })
+                }} /> 
             } 
         }, {
             key: '8',
@@ -163,10 +172,21 @@ class outgoMgt extends Component {
             dataIndex: 'incoming',
             render(value, row){
                 return <Input type="text" placeholder="请输入出库库存数"  onChange={(e) => {
-                    context.setState({
-                        incoming: e.target.value
-                    })
-                }} defaultValue={value} /> 
+                    let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
+                        stockList.forEach((val) => {
+                            if(val.skuId !== row.skuId){
+                                selectItems.push(val)
+                            }else{
+                                price = val.price
+                            }
+                        })
+                        stock.incoming = e.target.value
+                        stock.price = price
+                        selectItems.push(stock)
+                        context.setState({
+                            stockList: selectItems
+                        })
+                }} /> 
             } 
         }];
         return columns;
@@ -179,7 +199,21 @@ class outgoMgt extends Component {
      * @param {any} items
      */
     getData(items) {
-        console.log('items=======', items)
+        const {stockList} = this.state, curStockList = [];
+        if (items) {
+            items.forEach((item) => {
+                stockList.every((val) => {
+                    if (val.skuId == item.skuId) {
+                        curStockList.push(val)
+                        return false
+                    }
+                    return true
+                })
+            })
+            this.setState({
+                stockList: curStockList
+            })
+        }
     }
     
     //修改店铺时删除目标表格数据
@@ -222,13 +256,12 @@ class outgoMgt extends Component {
     }
 
     //返回
-    handleReset(e) {
+    goBack(e) {
         e.preventDefault();
         this.context.router.push('/virtualhouse')
     }
     
   render() {
-        
         let {formOptions, tableOptions, shopList, form} = this.props;
         let { getFieldProps, getFieldError, isFieldValidating } = form;
 
@@ -323,7 +356,7 @@ class outgoMgt extends Component {
                 <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
 
                 <div className="tc">
-                    <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
+                    <Button type="ghost" onClick={this.goBack.bind()}>取消</Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
                 </div> 

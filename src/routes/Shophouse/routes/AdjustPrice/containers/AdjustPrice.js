@@ -14,7 +14,7 @@ class AdjustPrice extends Component {
         this.state = {
             params: {},   //表格需要的筛选参数
             pageSize: 5
-        }
+        };  //定义初始状态
     }
 
     //获取分页页码
@@ -51,7 +51,7 @@ class AdjustPrice extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  value.categoryCode = value.categoryCode && value.categoryCode[value.categoryCode.length - 1] || '';
+                  if(value.categoryCode){ value.categoryCode = value.categoryCode[value.categoryCode.length - 1]}
                   context.setState({
                       pageSize,
                       params: value
@@ -68,7 +68,7 @@ class AdjustPrice extends Component {
     
     
     render() {
-        const {params, selectedItems, pageSize} = this.state;
+        const {params, pageSize} = this.state;
         
         const {items, priceShopHouseList, shopListResult, uptPrice, cateResult, totalItems, loading} = this.props;
 	const tableOptions = {

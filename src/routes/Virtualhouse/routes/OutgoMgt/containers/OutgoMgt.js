@@ -4,8 +4,6 @@ import OutgoMgtView from '../components/OutgoMgtView'
 import Panel from 'components/Panel'
 import { getVirList, storeManage, getShopList, outCateList } from '../modules/OutgoMgtReducer'
 
-import {message} from 'hen';
-
 class OutgoMgt extends Component {
 
     constructor(props) {
@@ -14,8 +12,7 @@ class OutgoMgt extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);
 
         this.state = {
-            item: {},
-            params: {},
+            params: {},  //表格需要的筛选参数
             pageSize: 5
         };  //定义初始状态
     }
@@ -81,7 +78,7 @@ class OutgoMgt extends Component {
     }
 
     render() {
-        const {item, params, selectedItems, pageSize} = this.state;
+        const {params, selectedItems, pageSize} = this.state;
         const {items, getVirList, totalItems, cateResult, shopListResult, storeManage, loading, location} = this.props;
         /**
          * 类目列表
@@ -137,7 +134,7 @@ class OutgoMgt extends Component {
             ...this.getFormOptions()
         }
 
-        return <Panel title="出库管理"><OutgoMgtView item={item} tableOptions={tableOptions} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} storeManage={storeManage} /></Panel>
+        return <Panel title="出库管理"><OutgoMgtView tableOptions={tableOptions} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} storeManage={storeManage} /></Panel>
     }
 }
 
