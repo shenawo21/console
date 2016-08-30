@@ -3,8 +3,12 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
-
-class ReturnMoney extends Component {
+const TYPE = [
+    {value:'0',title:'退款'},
+    {value:'1',title:'退货'},
+    {value:'2',title:'换货'},
+]
+class History extends Component {
 
     _getFormItems(){
     	let context = this;
@@ -13,35 +17,31 @@ class ReturnMoney extends Component {
             formItems: [{
                 label: "订单编号：",
                 name: "tid",
-                labelCol: {span: 8},
-                span:7,
                 input: {}
             },{
                 label: "买家账号：",
                 name: "buyerNick",
-                labelCol: {span: 8},
-                span:7,
                 input: {}
             },{
                 label: "店铺名称：",
                 name: "shopId",
-                labelCol: {span: 8},
-                span:7,
                 select: {
                     optionValue: shopListItem
                 }
             },{
                 label: "商品编码：",
                 name: "skuId",
-                labelCol: {span: 8},
-                span:7,
                 input: {}
             },{
                 label: "产品名称：",
                 name: "title",
-                labelCol: {span: 6},
-                span:9,
                 input: {}
+            },{
+                label: "售后类型：",
+                name: "offSaleType",
+                select: {
+                    optionValue: TYPE
+                }
             }],
             initValue: {
                 tid: null,
@@ -49,6 +49,7 @@ class ReturnMoney extends Component {
                 shopName: null,
                 skuId: null,
                 title: null,
+                offSaleType:null
             }
         }
         return config;
@@ -75,23 +76,13 @@ class ReturnMoney extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'afterSaleType',
-            render(type) {
-                switch(type) {
-                    case 'REFUND_MONEY':
-                        return '退款'
-                    case 'REFUND_GOODS':
-                        return '退货'
-                    case 'CHANGE_GOODS':
-                        return '换货'        
-                }
-            }
+            dataIndex: 'offSaleType'
         }, {
             key: '5',
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to="/order/audit/detail/1">订单详情</Link></span>
+                return <span><Link to="/">订单详情</Link></span>
             }
         }];
         
@@ -133,11 +124,27 @@ class ReturnMoney extends Component {
             key: '8',
             title: '退货金额',
             dataIndex: 'refundFee'
-        }, {
+        },{
             key: '9',
+            title: '处理状态',
+            dataIndex: 'processStatus'
+        },{
+            key: '10',
+            title: '仓库反馈',
+            dataIndex: 'feedbackStatus'
+        },{
+            key: '11',
+            title: '仓库反馈时间',
+            dataIndex: 'refundFee'
+        }, {
+            key: '12',
             title: '操作',
             render(id,row) {
-                return <div><Link to={`/service/aftersale/info/${row.refundId}`}>订单退款</Link></div>
+                console.log(row,'row11')
+                console.log(row.processStatus,'row2')
+                return <div>
+                            <Link to={`/service/history/info/${row.key}`}>售后详情</Link><br />
+                        </div>
             }
         }];
         
@@ -166,7 +173,7 @@ class ReturnMoney extends Component {
 }
 
 
-ReturnMoney.propTypes = {
+History.propTypes = {
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
     // loading : React.PropTypes.bool,
@@ -174,4 +181,4 @@ ReturnMoney.propTypes = {
 }
 
 
-export default ReturnMoney;
+export default History;

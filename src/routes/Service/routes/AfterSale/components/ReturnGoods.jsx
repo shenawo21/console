@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
+import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
 
 class ReturnGoods extends Component {
 
@@ -24,7 +24,7 @@ class ReturnGoods extends Component {
                 input: {}
             },{
                 label: "店铺名称：",
-                name: "shopName",
+                name: "shopId",
                 labelCol: {span: 8},
                 span:7,
                 select: {
@@ -46,7 +46,7 @@ class ReturnGoods extends Component {
             initValue: {
                 tid: null,
                 buyerNick: null,
-                shopName: 'all',
+                shopName: null,
                 skuId: null,
                 title: null,
             }
@@ -55,6 +55,50 @@ class ReturnGoods extends Component {
     }
 
     _getColumns(){
+        const context = this;
+        let columns = [{
+            key: '0',
+            title: '订单编号',
+            dataIndex: 'tid'
+        }, {
+            key: '1',
+            title: '成交时间',
+            dataIndex: 'payTime'
+        }, {
+            key: '2',
+            title: '买家账号',
+            dataIndex: 'buyerNick'
+        }, {
+            key: '3',
+            title: '店铺名称',
+            dataIndex: 'shopName'
+        }, {
+            key: '4',
+            title: '售后类型',
+            dataIndex: 'afterSaleType',
+            render(type) {
+                switch(type) {
+                    case 'REFUND_MONEY':
+                        return '退款'
+                    case 'REFUND_GOODS':
+                        return '退货'
+                    case 'CHANGE_GOODS':
+                        return '换货'        
+                }
+            }
+        }, {
+            key: '5',
+            title: '操作',
+            dataIndex: 'tid',
+            render(id, row) {
+                return <span><Link to="/order/audit/detail/1">订单详情</Link></span>
+            }
+        }];
+        
+        return columns;
+    }
+
+    _getSubColumns() {
         const {isAdmin} = this.props;
         const context = this;
         let columns = [{
@@ -89,39 +133,74 @@ class ReturnGoods extends Component {
             key: '8',
             title: '退货金额',
             dataIndex: 'refundFee'
-        }, {
+        },{
             key: '9',
             title: '处理状态',
-            dataIndex: 'processStatus'
+            dataIndex: 'processStatus',
+            render(type){
+                switch(type) {
+                    case 'INIT':
+                        return '待处理'
+                    case 'PROCESS':
+                        return '处理中'    
+                }
+            }
         },{
             key: '10',
             title: '仓库反馈',
-            dataIndex: 'feedbackStatus'
+            dataIndex: 'feedbackStatus',
+            render(type) {
+                switch(type) {
+                    case 'ACCEPT':
+                        return '允许入库'
+                    case 'DENY':
+                        return '拒绝入库'    
+                }
+            }
         },{
             key: '11',
             title: '仓库反馈时间',
-            dataIndex: ''
-        },{
+            dataIndex: 'feedbackTime'
+        }, {
             key: '12',
             title: '操作',
             render(id,row) {
-                return <div><Link to={`/service/aftersale/info/${row.id}`}>订单退款</Link></div>
+                return <div>
+                            {
+                                row.processStatus == 'INIT' ? <div><Link to={`/service/aftersale/apply/${row.id}`}>处理申请</Link></div> :
+                                    <div><span><Link to={`/service/aftersale/detail/${row.id}`}>退货详情</Link><br /></span>
+                                        {
+                                          row.afterSaleType == 'REFUND_GOODS' ?  <Link to={`/service/aftersale/end/${row.id}`}>结束退货</Link> :               
+                                           <Link to={`/service/aftersale/end/${row.id}`}>结束换货</Link>
+                                        }
+                                       
+                                           
+                                    </div>
+                            }
+                            
+                            
+                        </div>
             }
         }];
         
         return columns;
     }    
-       
+      
 
     render() {
-        const {formOptions, ...other} = this.props;
-        
+        const {formOptions,dataSource,...other} = this.props;
+
+        dataSource && dataSource.forEach((val, index)=>{
+            val.key = index
+        })
         return (
             <div>
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} expandedRowRender={record => <p>{record.skuId}</p>}  {...other} ref='dt' />
+               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
+                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           dataSource={dataSource} {...other}  />
 
             </div>
         )

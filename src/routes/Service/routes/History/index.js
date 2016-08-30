@@ -5,12 +5,20 @@
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and
           will not loaded until the router invokes this callback. */
-      const History = require('./containers/History').default
-      const reducer = require('./modules/OddQueryReducer').default
+      const History = require('./containers/HistoryContainer').default
+      const reducer = require('./modules/history').default
 
       store.injectReducer({ key: 'history', reducer })
 
       next(null, History)
     })
+  },
+  getChildRoutes(location, next) {
+      require.ensure([], (require) => {
+        next(null, [
+          // Provide store for async reducers and middleware
+          require('./routes/Info').default(store)
+        ])
+      })
   }
 })
