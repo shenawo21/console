@@ -14,7 +14,7 @@ class AdjustStock extends Component {
         this.state = {
             params: {},  //表格需要的筛选参数
             pageSize: 5
-        }
+        };  //定义初始状态
     }
 
     //获取分页页码
@@ -49,6 +49,7 @@ class AdjustStock extends Component {
              * @param value (description)
              */
             handleSubmit(value) {
+		if(value.categoryCode){ value.categoryCode = value.categoryCode[value.categoryCode.length - 1]}
                 context.setState({
                     params: { pageSize, ...value}
                 })
@@ -62,6 +63,19 @@ class AdjustStock extends Component {
 
         const {items, getAirList, adjustStock, cateResult, totalItems, loading, location} = this.props;
 
+
+
+        const tableOptions = {
+            dataSource: items,                         //加载组件时，表格从容器里获取初始值
+            action: getAirList,                         //表格翻页时触发的action
+            pagination: {                              //表格页码陪着，如果为false，则不展示页码
+                total: totalItems,                      //数据总数
+                pageSize,
+                current: this.getPageNumber(location)
+            },
+            loading,                                    //表格加载数据状态
+            params                                      //表格检索数据参数
+        }
         /**
          * 类目列表
          * @param lists
@@ -85,19 +99,6 @@ class AdjustStock extends Component {
                 }
             })
         }
-
-        const tableOptions = {
-            dataSource: items,                         //加载组件时，表格从容器里获取初始值
-            action: getAirList,                         //表格翻页时触发的action
-            pagination: {                              //表格页码陪着，如果为false，则不展示页码
-                total: totalItems,                      //数据总数
-                pageSize,
-                current: this.getPageNumber(location)
-            },
-            loading,                                    //表格加载数据状态
-            params                                      //表格检索数据参数
-        }
-
         const formOptions = {
                 ...this.getFormOptions()
         }
@@ -125,7 +126,7 @@ const mapStateToProps = (state) => {
     const {result, airListResult, cateResult, loading} = state.adjustStock;
 
     const {items = [], totalItems = 0} = airListResult || {};
-    return { items, totalItems, cateResult, 'result': result, loading };
+    return { items, totalItems, cateResult, result, loading };
 
 }
 

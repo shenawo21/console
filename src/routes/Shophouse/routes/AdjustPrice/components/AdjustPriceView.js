@@ -12,10 +12,9 @@ class AdjustPrice extends Component {
         super();
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleReset = this.handleReset.bind(this);
+        this.goBack = this.goBack.bind(this);
         this.state = {
-            priceList: [{skuId:10625001,stockId:37,shopId:1,price:1000000}],
-            price : ''
+            priceList: []
         }
     }
 
@@ -113,11 +112,17 @@ class AdjustPrice extends Component {
             title: '调整销售价',
             dataIndex: 'price',
             render(value, row){
-                return <Input type="text" placeholder="请输入建议销售价" style={{width:150}} onChange={(e) => {
-                    context.setState({
-                        price: e.target.value
-                    })
-                }} defaultValue={value}/> 
+                return <Input type="text" placeholder="请输入建议销售价" style={{width:120}} onChange={(e) => {
+			let {priceList} = context.state, price = { skuId: row.skuId, stockId: row.stockId, price: e.target.value }, selectItems = []
+                        selectItems = priceList.filter((val) => {
+                            return val.skuId !== row.skuId
+                        })
+                        selectItems.push(price)
+                        context.setState({
+                            priceList: selectItems
+                        })
+
+                }} /> 
             }
         }];
         return columns;
@@ -129,7 +134,21 @@ class AdjustPrice extends Component {
      * @param {any} items
      */
     getData(items) {
-        console.log('items=======', items)
+        const {priceList} = this.state, curPriceList = [];
+        if (items) {
+            items.forEach((item) => {
+                priceList.every((val) => {
+                    if (val.skuId == item.skuId) {
+                        curPriceList.push(val)
+                        return false
+                    }
+                    return true
+                })
+            })
+            this.setState({
+                priceList: curPriceList
+            })
+        }
     }
 
     //提交数据
@@ -138,7 +157,6 @@ class AdjustPrice extends Component {
         const { uptPrice, form } = context.props;
         const { priceList } = context.state;
         e.preventDefault();
-        
         form.validateFieldsAndScroll((errors, values) => {
 
             if (!!errors) {
@@ -164,7 +182,7 @@ class AdjustPrice extends Component {
     }
 
     //返回
-    handleReset(e) {
+    goBack(e) {
         e.preventDefault();
         this.context.router.push('/shophouse')
     }
@@ -221,13 +239,11 @@ class AdjustPrice extends Component {
                 </Form>
 
                 <TableCascader uKey='skuId' formOptions={formOptions} tableOptions={tableOptions} distTableOptions={distTableOptions} getSelectItems={this.getData} collapseOptions={collapseOptions}></TableCascader>
-
                 <div className="tc">
-                    <Button type="ghost" onClick={this.handleReset.bind()}>取消</Button>
+                    <Button type="ghost" onClick={this.goBack.bind()}>取消</Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
                 </div>
-
             </div>
         )
     }
@@ -242,6 +258,5 @@ AdjustPrice.propTypes = {
 AdjustPrice.contextTypes = {
     router: React.PropTypes.object.isRequired,
 };
-
 
 export default Form.create()(AdjustPrice);

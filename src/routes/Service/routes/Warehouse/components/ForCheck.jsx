@@ -87,7 +87,7 @@ class ForCheck extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to="/">订单详情</Link></span>
+                return <Link to={`/service/warehouse/info`}>订单详情</Link>
             }
         }];
         
@@ -119,10 +119,10 @@ class ForCheck extends Component {
             key: '5',
             title: '操作',
             dataIndex: 'skuId',
-            render(text, record) {
+            render(id, record) {
                 return (
                 <span>
-                    <a href="###">已验收详情</a>
+                    <Link to={`/service/warehouse/info/${id}`}>已验收详情</Link>
                 </span>
                 );
             }
@@ -137,14 +137,12 @@ class ForCheck extends Component {
             val.key = index
         })
 
-        console.log(this,'this');
-
         return (
             <div>
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
-
+ 
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={dataSource} pagination={false} />} 
                            dataSource={dataSource} {...other}  />
 
             </div>
