@@ -16,22 +16,29 @@ if(__DEV__){
 
 const instance = axios.create(axiosOptions)
 
+const loop = (items) => {
+    Object.keys(items).forEach((val) => {
+        let prop = items[val];
+        if (prop === null || prop === 'undefined') {
+            console.warn(`REQUEST => 删除参数：${val}:${prop}`);
+            delete items[val];
+        } else if (prop.constructor.name === "Object"){
+            loop(prop)
+        }
+    })
+}
+
+
 instance.interceptors.request.use(function (config) {
-  if (typeof config.data === 'string') {
-    config.data = JSON.parse(config.data);
-    for (let item in config.data) {
-      let prop = config.data[item];
-      if (prop === null || prop === 'undefined') {
-        console.warn(`REQUEST => 删除参数：${item}:${prop}`);
-        delete config.data[item];
-      }
+    if (typeof config.data === 'string') {
+        config.data = JSON.parse(config.data);
+        loop(config.data)
+        config.data = JSON.stringify(config.data);
     }
-    config.data = JSON.stringify(config.data);
-  }
-  return config;
+    return config;
 }, function (error) {
-  console.error('XHR REQUEST ERROR :', error);
-  return error
+    console.error('XHR REQUEST ERROR :', error);
+    return error
 });
 
 instance.interceptors.response.use(function (res) {
