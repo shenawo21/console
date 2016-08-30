@@ -47,7 +47,7 @@ export function outCateList(params) {
 export function getSpecByCateList(params) {
   return {
     types: [SPECLIST, SPECLIST_SUCCESS, SPECLIST_FAILURE],
-    promise: (client) => client.post('api-spec.getSpecByCategoryCode', params)
+    promise: (client) => client.post('api-enterpriseSpec.listView', params)
   }
 }
 

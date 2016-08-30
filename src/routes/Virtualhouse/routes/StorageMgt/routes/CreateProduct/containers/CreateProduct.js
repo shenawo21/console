@@ -4,6 +4,7 @@ import CreateProductView from '../components/CreateProductView'
 import Panel from 'components/Panel'
 import {outCateList, getSpecByCateList, getBrandList, addPro, listView} from '../modules/CreateProductReducer'
 import {message} from 'hen'
+
 class CreateProduct extends Component {
   
     constructor(props) {
@@ -15,30 +16,13 @@ class CreateProduct extends Component {
             params: {},   //表格需要的筛选参数
             selectItem: {}
         }
-    }    
-    
-     /**
-     * 根据商品类目获取属性列表
-     * @param  {any} id
-     */
-    _getSpecByCateList(id){
-        const context = this;
-        const {getSpecByCateList, specListResult} = context.props;
-        getSpecByCateList({categoryCode: id});
-        context.setState({
-            specList: specListResult
-        });
     }
-
     
     componentDidMount() {
-        const { outCateList, listView, getBrandList } = this.props;
+        const { outCateList, getBrandList } = this.props;
 	
 	    //获取分类列表
         outCateList();
-
-        //获取已有SPU列表
-        listView();
 
         //获取品牌列表
         getBrandList();
@@ -59,7 +43,7 @@ class CreateProduct extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  const {addPro, listView} = _this.props;
+                  const {addPro} = _this.props;
                   _this.setState({
                       params: value
                   })
@@ -127,19 +111,25 @@ class CreateProduct extends Component {
                 
             },
             onSelectAll : (selected, selectedRows, changeRows) => {
-                console.log(selected, selectedRows, changeRows);
+                if(selectedRows.length > 1){
+                    message.warning('只能选择一条商品', 8);
+                    return
+                }
             },
         }
     }
     
     render() {
         const {params, selectItem} = this.state; 
-        const {cateResult, brandResult, items, listView, totalItems, loading, result} = this.props;
+        const {cateResult, brandResult, items, listView, totalItems, loading, result, specListResult, getSpecByCateList, location} = this.props;
+        const {query} = location;
+
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : listView,                          //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
-                total : totalItems                      //数据总数
+                total : totalItems,                      //数据总数,
+                current : query && query.p ? Number(query.p) : 1
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数           
@@ -191,7 +181,15 @@ class CreateProduct extends Component {
             })
         }
         
-        return <Panel title=""><CreateProductView selectItem={selectItem} formOptions={formOptions} tableFormOptions={tableFormOptions} tableOptions={tableOptions} cateList={loop(cateResult)} brandList={brandLoop(brandResult)} /></Panel>
+        return <Panel title=""><CreateProductView 
+                            selectItem={selectItem} 
+                            formOptions={formOptions} 
+                            tableFormOptions={tableFormOptions} 
+                            tableOptions={tableOptions} 
+                            cateList={loop(cateResult)} 
+                            brandList={brandLoop(brandResult)}
+                            specListResult = {specListResult}
+                            getSpecByCateList={getSpecByCateList} /></Panel>
     }
 }
 
@@ -221,7 +219,7 @@ CreateProduct.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, cateResult, specListResult, brandResult, listViewResult, loading} = state.createProduct;
+    let {result, cateResult, specListResult, brandResult, listViewResult, loading} = state.createProduct;
     const {items = [], totalItems = 0} = listViewResult || {};
     return { result, cateResult, specListResult, brandResult, items, totalItems, loading };    
 }
