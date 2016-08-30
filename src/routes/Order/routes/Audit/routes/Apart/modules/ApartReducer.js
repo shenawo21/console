@@ -1,83 +1,15 @@
-const ADD = 'apart/ADD';
-const ADD_SUCCESS = 'apart/ADD_SUCCESS';
-const ADD_FAILURE = 'apart/ADD_FAILURE';
-
-const DELETE = 'apart/DELETE';
-const DELETE_SUCCESS = 'apart/DELETE_SUCCESS';
-const DELETE_FAILURE = 'apart/DELETE_FAILURE';
-
-const MODIFY = 'apart/MODIFY';
-const MODIFY_SUCCESS = 'apart/MODIFY_SUCCESS';
-const MODIFY_FAILURE = 'apart/MODIFY_FAILURE';
-
-const QUERY = 'apart/QUERY';
-const QUERY_SUCCESS = 'apart/QUERY_SUCCESS';
-const QUERY_FAILURE = 'apart/QUERY_FAILURE';
-
-const VIEW = 'apart/VIEW';
-const VIEW_SUCCESS = 'apart/VIEW_SUCCESS';
-const VIEW_FAILURE = 'apart/VIEW_FAILURE';
-
+//订单详情
+const VIEW = 'detail/VIEW';
+const VIEW_SUCCESS = 'detail/VIEW_SUCCESS';
+const VIEW_FAILURE = 'detail/VIEW_FAILURE';
+//提交发货（修改订单状态，并生成发货单）
+const SEND = 'apart/SEND';
+const SEND_SUCCESS = 'apart/SEND_SUCCESS';
+const SEND_FAILURE = 'apart/SEND_FAILURE';
 
 /**
- * 新增
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function addItem(params) {
-  return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 删除
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function deleteItem(params) {
-  return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 修改
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function modifyItem(params) {
-  return {
-    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 列表查询
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function queryList(params) {
-  return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 单条查看
- * 
+ * 订单详情
+ *api-tradesInfo.orderDetial
  * @export
  * @param params (description)
  * @returns (description)
@@ -85,68 +17,47 @@ export function queryList(params) {
 export function view(params) {
   return {
     types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-tradesInfo.orderDetial', params)
+  }
+}
+/**
+ * 拆单
+ *api-tradesInfo.splitOrders
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function splitOrders(params) {
+  return {
+    types: [SEND, SEND_SUCCESS, SEND_FAILURE],
+    promise: (client) => client.post('api-tradesInfo.splitOrders', params)
   }
 }
 
-
-export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+export default function reducer(state = {result: {}}, action) {
+  state = {...state, loading: action.loading};
   switch (action.type) {
-    case ADD:
-    case DELETE:
-    case MODIFY:
-    case QUERY:
     case VIEW:
-        return {
-            ...state
-        }
-    case ADD_SUCCESS:
-        return {
-            //...state,
-            loading : action.loading,
-            result: action.result
-        }
-    case ADD_FAILURE:
-        return {
-            ...state
-        }
-    case MODIFY_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case MODIFY_FAILURE:
-        return {
-            ...state
-        }
-    case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case DELETE_FAILURE:
-        return {
-            ...state
-        }
-    case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
-    case QUERY_FAILURE:
-        return {
-            ...state
-        }
+    case SEND:
+      return {
+        ...state
+      }
     case VIEW_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
+      return {
+        result: action.result
+      }
     case VIEW_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
+    case SEND_SUCCESS:
+      return {
+        result: action.result
+      }
+    case SEND_FAILURE:
+      return {
+        ...state
+      }
     default:
       return state
   }

@@ -1,6 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader';
