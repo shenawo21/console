@@ -1,10 +1,8 @@
  export default (store) => ({
   breadcrumbName: "Merge",
-  path: 'merge',
+  path: 'merge/:id',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
-      /*  These modules are lazily evaluated using require hook, and
-          will not loaded until the router invokes this callback. */
       const merge = require('./containers/Merge').default
       const reducer = require('./modules/MergeReducer').default
 

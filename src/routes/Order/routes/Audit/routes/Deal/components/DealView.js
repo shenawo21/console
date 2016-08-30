@@ -1,53 +1,243 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-
-
+import {Collapse, Tabs, Button} from 'hen';
 import Form from 'components/Form';
+//基本信息
+import BasicView from '../../pubViews/BasicView';
+//买家信息
+import BuyersView from '../../pubViews/BuyersView';
+//收货信息
+import ReceivingView from '../../pubViews/ReceivingView';
+//发票要求
+import InvoiceView from '../../pubViews/InvoiceView';
+//商品明细
+import ProductView from '../../pubViews/ProductView';
+//支付详情
+import PayView from '../../pubViews/PayView';
+//促销信息
+import PromView from '../../pubViews/PromView';
+//订单处理记录
+import LogView from '../../pubViews/LogView';
 
+const Panel = Collapse.Panel;
+const TabPane = Tabs.TabPane;
 
 class Deal extends Component {
-    
-    _getFormItems(){
-        let config = {
-            formItems: [{
-                label: "标题名1",
-                name: "name1",
-                input: {}
-            },{
-                label: "标题名2",
-                name: "name2",
-                select: {}
-            }],
-            initValue: {
-                name1: null,
-                name2 : null
-            }
-        }
-        return config;
-    }
-    
-    
-    
-    render() {
-        const {formOptions, ...other} = this.props;
-        
-        return (
-            <div>
-            
-                <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
-            
-            
-            </div>
-        )
-    }
-}
 
+  _getFormItems() {
+    let config = {}, context = this;
+    const {params} = context.props;
+    config.panels = [
+      {
+        title: '修改物流信息',
+        className: '',
+        formItems: [{
+          label: "选择省市区：",
+          name: "receiverState",
+          required: true,
+          rules: [{required: true, type: 'array', message: '请选择省市区'}],
+          cascader: {
+            options: [],
+            placeholder: "请选择省市区",
+            changeOnSelect: false
+          }
+        }, {
+          label: "详细地址：",
+          name: "receiverAddress",
+          span: '24',
+          labelCol: {span: 2},
+          wrapperCol: {span: 13},
+          hasFeedback: true,
+          rules: [{required: true, message: '请输入详细地址'}],
+          input: {
+            type: 'text',
+            placeholder: "请输入详细地址"
+          }
+        }, {
+          label: "收件人：",
+          name: "receiverName",
+          span: '8',
+          labelCol: {span: 6},
+          wrapperCol: {span: 10},
+          hasFeedback: true,
+          rules: [{required: true, message: '请输入详细地址'}],
+          input: {
+            type: 'text',
+            placeholder: "请输入收件人姓名"
+          }
+        }, {
+          label: "邮政编码：",
+          name: "receiverZip",
+          span: '12',
+          labelCol: {span: 4},
+          wrapperCol: {span: 10},
+          hasFeedback: true,
+          rules: [{required: true, message: '请输入邮政编码'}],
+          input: {
+            type: 'text',
+            placeholder: "请输入邮政编码"
+          }
+        }, {
+          label: "手机号码：",
+          name: "receiverMobile",
+          span: '8',
+          labelCol: {span: 6},
+          wrapperCol: {span: 10},
+          hasFeedback: true,
+          rules: [{required: true, message: '请输入手机号码'}],
+          input: {
+            type: 'text',
+            placeholder: "请输入手机号码"
+          }
+        }, {
+          label: "固定电话：",
+          span: '12',
+          labelCol: {span: 4},
+          wrapperCol: {span: 10},
+          name: "receiverPhone",
+          hasFeedback: true,
+          rules: [{required: true, message: '请输入固定电话'}],
+          input: {
+            type: 'text',
+            placeholder: "请输入固定电话"
+          }
+        }, {
+          label: "变更快递公司：",
+          name: "companyCode",
+          span: '12',
+          labelCol: {span: 4},
+          hasFeedback: true,
+          rules: [{required: true, message: '请选择快递公司'}],
+          select: {
+            optionValue: []
+          }
+        }]
+      }];
+    config.initValue = {
+      receiverState: null,
+      receiverAddress: null,
+      receiverName: null,
+      receiverZip: null,
+      receiverMobile: null,
+      receiverPhone: null,
+      companyCode: null
+    };
+    return config;
+  }
+
+  _getNoteItems() {
+    let config = {
+      formItems: [{
+        label: "客服备注：",
+        name: "offlineStatus",
+        wrapperCol: {span: 10},
+        hasFeedback: true,
+        rules: [{required: true, message: '请输入备注信息'}],
+        input: {
+          type: "textarea",
+          rows: 5,
+          placeholder: "请输入备注信息",
+        }
+      }],
+      initValue: {
+        offlineStatus: null
+      }
+    }
+    return config;
+  }
+
+  editLogsic() {
+    const {edited} = this.props;
+    edited()
+  }
+
+  render() {
+    const {formOptions, noteOptions, ...other} = this.props;
+    const {isShow} = this.props;
+    const buttonOption = {
+      buttons: [
+        {
+          key: 'submit',
+          name: '提交返货',
+          type: 'primary'
+        },
+        {
+          key: 'delay',
+          name: '延迟发货',
+          type: 'primary'
+        },
+        {
+          key: 'again',
+          name: '重新理单',
+          type: 'primary'
+        },
+        {
+          key: 'unlock',
+          name: '解锁',
+          type: 'primary'
+        }
+      ]
+    }
+    return (
+      <div>
+        <Collapse defaultActiveKey={['1']}>
+          <Panel header="基本信息" key="1">
+            <BasicView />
+          </Panel>
+          <Panel header="买家信息" key="2">
+            <BuyersView />
+          </Panel>
+          <Panel header="收货信息" key="3">
+            <ReceivingView />
+          </Panel>
+          <Panel header="发票要求" key="4">
+            <InvoiceView />
+          </Panel>
+          <Panel header="其他信息" key="5">
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="商品明细" key="1">
+                <ProductView />
+              </TabPane>
+              <TabPane tab="支付详情" key="2">
+                <PayView />
+              </TabPane>
+              <TabPane tab="促销信息" key="3">
+                <PromView />
+              </TabPane>
+              <TabPane tab="物流快递" key="4">
+                <ReceivingView />
+                <div style={{ position: 'absolute',top: 0,right: 0 }}>
+                  <Button type="ghost" onClick={this.editLogsic.bind(this)}>
+                    修改物流信息
+                  </Button>
+                </div>
+                <div style={{display: isShow?'':'none'}}>
+                  <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
+                        onReset={formOptions.handleReset}/>
+                </div>
+              </TabPane>
+              <TabPane tab="订单处理记录" key="5">
+                <LogView />
+              </TabPane>
+            </Tabs>
+          </Panel>
+        </Collapse>
+        <div style={{ marginTop: 16 }}>
+          <Form horizontal items={this._getNoteItems()} onSubmit={noteOptions.handleSubmit} buttonOption={buttonOption}
+                onReset={noteOptions.handleReset}/>
+        </div>
+      </div>
+    )
+  }
+}
 
 Deal.propTypes = {
-    
-    loading : React.PropTypes.bool,
-    params : React.PropTypes.object
+  loading: React.PropTypes.bool,
+  params: React.PropTypes.object
 }
 
-
 export default Deal;
+
+
+
+
+
