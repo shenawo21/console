@@ -1,83 +1,15 @@
-const ADD = 'merge/ADD';
-const ADD_SUCCESS = 'merge/ADD_SUCCESS';
-const ADD_FAILURE = 'merge/ADD_FAILURE';
-
-const DELETE = 'merge/DELETE';
-const DELETE_SUCCESS = 'merge/DELETE_SUCCESS';
-const DELETE_FAILURE = 'merge/DELETE_FAILURE';
-
-const MODIFY = 'merge/MODIFY';
-const MODIFY_SUCCESS = 'merge/MODIFY_SUCCESS';
-const MODIFY_FAILURE = 'merge/MODIFY_FAILURE';
-
-const QUERY = 'merge/QUERY';
-const QUERY_SUCCESS = 'merge/QUERY_SUCCESS';
-const QUERY_FAILURE = 'merge/QUERY_FAILURE';
-
+//订单详情
 const VIEW = 'merge/VIEW';
 const VIEW_SUCCESS = 'merge/VIEW_SUCCESS';
 const VIEW_FAILURE = 'merge/VIEW_FAILURE';
-
-
-/**
- * 新增
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function addItem(params) {
-  return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
+//合并订单
+const MERGE = 'apart/MERGE';
+const MERGE_SUCCESS = 'apart/MERGE_SUCCESS';
+const MERGE_FAILURE = 'apart/MERGE_FAILURE';
 
 /**
- * 删除
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function deleteItem(params) {
-  return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 修改
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function modifyItem(params) {
-  return {
-    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 列表查询
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function queryList(params) {
-  return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 单条查看
- * 
+ * 订单详情
+ *api-tradesInfo.orderDetial
  * @export
  * @param params (description)
  * @returns (description)
@@ -85,68 +17,47 @@ export function queryList(params) {
 export function view(params) {
   return {
     types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-tradesInfo.orderDetial', params)
   }
 }
-
+/**
+ * 合并订单
+ *api-tradesInfo.getCanCombinedOrder
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function mergeOrder(params) {
+  return {
+    types: [MERGE, MERGE_SUCCESS, MERGE_FAILURE],
+    promise: (client) => client.post('api-tradesInfo.getCanCombinedOrder', params)
+  }
+}
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
-    case ADD:
-    case DELETE:
-    case MODIFY:
-    case QUERY:
     case VIEW:
-        return {
-            ...state
-        }
-    case ADD_SUCCESS:
-        return {
-            //...state,
-            loading : action.loading,
-            result: action.result
-        }
-    case ADD_FAILURE:
-        return {
-            ...state
-        }
-    case MODIFY_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case MODIFY_FAILURE:
-        return {
-            ...state
-        }
-    case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case DELETE_FAILURE:
-        return {
-            ...state
-        }
-    case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
-    case QUERY_FAILURE:
-        return {
-            ...state
-        }
+    case MERGE:
+      return {
+        ...state
+      }
     case VIEW_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
+      return {
+        result: action.result
+      }
     case VIEW_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
+    case MERGE_SUCCESS:
+      return {
+        result: action.result
+      }
+    case MERGE_FAILURE:
+      return {
+        ...state
+      }
     default:
       return state
   }

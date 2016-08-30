@@ -121,7 +121,7 @@ class Manual extends Component {
         <Form horizontal items={this._getFormItems()} buttonOption={buttonOptionNone}
               onSubmit={formOptions.handleSubmit}
               onReset={formOptions.handleReset}/>
-        <div style={{display:isVisible?'':''}}>
+        <div style={{display:isVisible?'':'none'}}>
           <Form horizontal items={this._sFormItems()} buttonOption={buttonOptionBack}
                 onSubmit={formOptions.handleSubmit}
                 onReset={formOptions.handleReset}/>

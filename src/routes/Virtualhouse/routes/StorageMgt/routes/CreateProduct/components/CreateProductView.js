@@ -20,7 +20,7 @@ class CreateProduct extends Component {
 
     _getFormItems() {
         let config = {}, context = this;
-        const {cateList, brandList, selectItem} = context.props;
+        const {cateList, brandList, selectItem, getSpecByCateList, specListResult} = this.props;
 	    config.formItems = [{
                 label: "SPU：",
                 name: "spuId",
@@ -43,8 +43,12 @@ class CreateProduct extends Component {
                     wrapperCol: {span: 15},
                     cascader: {
                         options: cateList,
-                        placeholder: "请选择所属类目",
-                        changeOnSelect: true
+                        placeholder: "请选择所属类目"
+                    },
+                    fieldOptions: {
+                        onChange:function(value) {
+                            getSpecByCateList({categoryCode: value.pop()})
+                        }
                     }
                 }, {
                     label: "商品品牌：",
@@ -79,8 +83,9 @@ class CreateProduct extends Component {
                 }, {
                     label: "商品规格：",
                     required: true,
+                    wrapperCol: {span: 15},
                     custom() {
-                        return <Sku></Sku>
+                        return <Sku sourceData={specListResult}></Sku>
                     }
                 }];
             config.initValue = {
@@ -100,9 +105,12 @@ class CreateProduct extends Component {
     }
 
     showModal() {
+        const {tableOptions} = this.props;
+        const {action, pagination} = tableOptions
         this.setState({
             visible: true
         });
+        action({pageNumber : pagination.current})
     }
 
     handleOk() {

@@ -14,9 +14,9 @@ const ADDSPEC_SUCCESS = 'virtualhouse/ADDSPEC_SUCCESS';
 const ADDSPEC_FAILURE = 'virtualhouse/ADDSPEC_FAILURE';
 
 //删除已有属性规格值
-const DELSPEC = 'virtualhouse/DELSPEC';
-const DELSPEC_SUCCESS = 'virtualhouse/DELSPEC_SUCCESS';
-const DELSPEC_FAILURE = 'virtualhouse/DELSPEC_FAILURE';
+const CHECKSPEC = 'virtualhouse/CHECKSPEC';
+const CHECKSPEC_SUCCESS = 'virtualhouse/CHECKSPEC_SUCCESS';
+const CHECKSPEC_FAILURE = 'virtualhouse/CHECKSPEC_FAILURE';
 
 /**
  * 获取商品类目
@@ -33,7 +33,7 @@ export function getCateList(params) {
 }
 
 /**
- * 根据商品类目获取规格属性列表
+ * 企业根据商品类目获取规格属性列表
  *
  * @export
  * @param params (description)
@@ -42,9 +42,10 @@ export function getCateList(params) {
 export function getSpecByCateList(params) {
   return {
     types: [SPECLIST, SPECLIST_SUCCESS, SPECLIST_FAILURE],
-    promise: (client) => client.post('api-spec.getSpecByCategoryCode', params)
+    promise: (client) => client.post('api-enterpriseSpec.listView', params)
   }
 }
+
 
 /**
  * 保存属性规格值
@@ -67,10 +68,10 @@ export function addSpec(params) {
  * @param params (description)
  * @returns (description)
  */
-export function delSpec(params) {
+export function checkIsUsed(params) {
   return {
-    types: [DELSPEC, DELSPEC_SUCCESS, DELSPEC_FAILURE],
-    promise: (client) => client.post('api-enterpriseSpec.addEnterpriseSpec', params)
+    types: [CHECKSPEC, CHECKSPEC_SUCCESS, CHECKSPEC_FAILURE],
+    promise: (client) => client.post('api-enterpriseSpec.checkIsUsed', params, {hasMsg : true})
   }
 }
 
@@ -79,11 +80,17 @@ export default function reducer(state = {result:{}}, action) {
   switch (action.type) {
     case CATELIST:
     case SPECLIST:
-    case ADDSPEC:
-    case DELSPEC:
         return {
             ...state,
             isLoader : false
+        }
+    case ADDSPEC:
+        return {
+            ...state
+        }
+    case CHECKSPEC:
+        return {
+            ...state
         }
     case CATELIST_SUCCESS:
         return {
@@ -114,12 +121,12 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
-    case DELSPEC_SUCCESS:
+    case CHECKSPEC_SUCCESS:
         return {
             ...state,
-            delResult: action.result
+            checkResult: action.result
         }
-    case DELSPEC_FAILURE:
+    case CHECKSPEC_FAILURE:
         return {
             ...state
         }

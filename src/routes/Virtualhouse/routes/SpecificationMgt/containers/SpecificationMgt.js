@@ -2,39 +2,24 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import SpecificationMgtView from '../components/SpecificationMgtView'
 import Panel from 'components/Panel'
-import { getCateList, getSpecByCateList, addSpec, delSpec } from '../modules/SpecificationMgtReducer'
+import { getCateList, getSpecByCateList, addSpec, checkIsUsed } from '../modules/SpecificationMgtReducer'
 import {message} from 'hen';
 
 class specificationMgt extends Component {
 
     constructor(props) {
         super(props);
-        this.getFormOptions = this.getFormOptions.bind(this);
-        this.specList = this._getSpecByCateList.bind(this);
-        this.state = {
-            item: {},
-            specList: []
-        };  //定义初始状态
+        this.getSpecList = this.getSpecList.bind(this);
     }
 
      /**
      * 根据商品类目获取属性列表
      * @param  {any} id
      */
-    _getSpecByCateList(id){
+    getSpecList(id){
         const context = this;
-        const {getSpecByCateList, specListResult} = context.props;
+        const {getSpecByCateList} = context.props;
         getSpecByCateList({categoryCode: id});
-        context.setState({
-            specList: specListResult
-        });
-    }
-
-    //删除已有规格属性
-    _delSpec(id) {
-        const context = this;
-        const { delSpec } = context.props;
-        delSpec({id:id});
     }
 
     componentDidMount() {
@@ -44,48 +29,17 @@ class specificationMgt extends Component {
         //获取商品类目列表
         getCateList();
     }
-
-    componentWillReceiveProps(nextProps, preProps){
-
-    }    
-
-    /**
-   * handle submit
-   * @param  {any} formData
-   * @param  {any} e
-   */
-    getFormOptions() {
-        const _this = this;
-        return {
-       /**
-       * (筛选表单提交)
-       *
-       * @param value (description)
-       */
-
-        handleSubmit(value) {
-            const {} = _this.props;
-
-          },
-
-          /**
-           * (重置)表单
-           */
-
-          handleReset(){
-
-          }
-
-        }
-    }
-
+      
     render() {
-        const { item, specList } = this.state;
-        const {cateListResult, specListResult, isLoader, loading, items} = this.props;
-        const tableOptions = {
-            dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            loading,                                    //表格加载数据状态
-            del: this._delSpec.bind(this)
+        const {cateListResult, specListResult, isLoader, loading, items, checkIsUsed, addSpec, result} = this.props;
+        const options = {
+            loading,        //表格加载数据状态
+            checkIsUsed,    //检查是否可以删除
+            addSpec,        //添加规格
+            specListResult, //查询规格列表
+            getSpecList : this.getSpecList,    //根据栏目id获取规格列表 
+            isLoader,        //是否请求数据
+            result          //提交返回数据
         }
         /**
          * 类目列表
@@ -110,10 +64,7 @@ class specificationMgt extends Component {
                 }
             })
         }
-        const formOptions = {
-            'formOptions': this.getFormOptions()
-        }
-        return <Panel><SpecificationMgtView item={item} {...tableOptions} {...formOptions} cateList={loop(cateListResult)} getSpecList={this.specList} specList={specList} specListResult={specListResult} isLoader={isLoader} /></Panel>
+        return <Panel><SpecificationMgtView {...options} cateList={loop(cateListResult)} /></Panel>
     }
 }
 
@@ -122,7 +73,7 @@ specificationMgt.propTypes = {
     getCateList: React.PropTypes.func,
     getSpecByCateList: React.PropTypes.func,
     addSpec: React.PropTypes.func,
-    delSpec: React.PropTypes.func,
+    checkIsUsed: React.PropTypes.func,
     loading: React.PropTypes.bool,
     items: React.PropTypes.array.isRequired,
     result: React.PropTypes.object,
@@ -131,15 +82,16 @@ const mapActionCreators = {
     getCateList,
     getSpecByCateList,
     addSpec,
-    delSpec
+    checkIsUsed
 }
+
 const mapStateToProps = (state) => {
-  let {cateListResult, specListResult, delResult, result, loading, isLoader} = state.specificationMgt;
+  let {cateListResult, specListResult, checkResult, result, loading, isLoader} = state.specificationMgt;
   if(!isLoader){
       specListResult = []
   }
   const {items = []} = {};
-  return {cateListResult, specListResult, delResult, result, isLoader, items, loading};
+  return {cateListResult, specListResult, checkResult, result, isLoader, items, loading};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(specificationMgt)

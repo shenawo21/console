@@ -1,6 +1,6 @@
  export default (store) => ({
   breadcrumbName: "拆单",
-  path: 'apart',
+  path: 'apart/:id',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
       const apart = require('./containers/Apart').default

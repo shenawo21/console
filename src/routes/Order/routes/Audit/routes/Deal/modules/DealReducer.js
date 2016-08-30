@@ -1,83 +1,31 @@
-const ADD = 'deal/ADD';
-const ADD_SUCCESS = 'deal/ADD_SUCCESS';
-const ADD_FAILURE = 'deal/ADD_FAILURE';
-
-const DELETE = 'deal/DELETE';
-const DELETE_SUCCESS = 'deal/DELETE_SUCCESS';
-const DELETE_FAILURE = 'deal/DELETE_FAILURE';
-
+//订单详情
+const VIEW = 'detail/VIEW';
+const VIEW_SUCCESS = 'detail/VIEW_SUCCESS';
+const VIEW_FAILURE = 'detail/VIEW_FAILURE';
+//提交发货（修改订单状态，并生成发货单）
+const SEND = 'detail/SEND';
+const SEND_SUCCESS = 'detail/SEND_SUCCESS';
+const SEND_FAILURE = 'detail/SEND_FAILURE';
+//订单状态修改（延迟发货、重新理单、解锁场景下使用）
 const MODIFY = 'deal/MODIFY';
 const MODIFY_SUCCESS = 'deal/MODIFY_SUCCESS';
 const MODIFY_FAILURE = 'deal/MODIFY_FAILURE';
-
-const QUERY = 'deal/QUERY';
-const QUERY_SUCCESS = 'deal/QUERY_SUCCESS';
-const QUERY_FAILURE = 'deal/QUERY_FAILURE';
-
-const VIEW = 'deal/VIEW';
-const VIEW_SUCCESS = 'deal/VIEW_SUCCESS';
-const VIEW_FAILURE = 'deal/VIEW_FAILURE';
-
-
-/**
- * 新增
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function addItem(params) {
-  return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
+//物流公司列表
+const COMPANY = 'deal/COMPANY';
+const COMPANY_SUCCESS = 'deal/COMPANY_SUCCESS';
+const COMPANY_FAILURE = 'deal/COMPANY_FAILURE';
+//修改物流信息
+const LOGIS = 'deal/LOGIS';
+const LOGIS_SUCCESS = 'deal/LOGIS_SUCCESS';
+const LOGIS_FAILURE = 'deal/LOGIS_FAILURE';
+//省市区列表
+const ADDR = 'deal/ADDR';
+const ADDR_SUCCESS = 'deal/ADDR_SUCCESS';
+const ADDR_FAILURE = 'deal/ADDR_FAILURE';
 
 /**
- * 删除
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function deleteItem(params) {
-  return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 修改
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function modifyItem(params) {
-  return {
-    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 列表查询
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function queryList(params) {
-  return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
-  }
-}
-
-/**
- * 单条查看
- * 
+ * 订单详情
+ *api-tradesInfo.orderDetial
  * @export
  * @param params (description)
  * @returns (description)
@@ -85,68 +33,136 @@ export function queryList(params) {
 export function view(params) {
   return {
     types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-tradesInfo.orderDetial', params)
+  }
+}
+/**
+ * 提交发货（修改订单状态，并生成发货单）
+ *api-tradesInfo.submitOrder
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function submitOrder(params) {
+  return {
+    types: [SEND, SEND_SUCCESS, SEND_FAILURE],
+    promise: (client) => client.post('api-tradesInfo.submitOrder', params)
+  }
+}
+/**
+ * 订单状态修改（延迟发货、重新理单、解锁场景下使用）
+ *api- tradesInfo.modifyOrder
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function modifyItem(params) {
+  return {
+    types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
+    promise: (client) => client.post('api- tradesInfo.modifyOrder', params)
+  }
+}
+/**
+ * 物流公司列表
+ *api-enterpriseIndustry.listEnterpriseIndustrys
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function companyList(params) {
+  return {
+    types: [ADDR, ADDR_SUCCESS, ADDR_FAILURE],
+    promise: (client) => client.post('api-enterpriseIndustry.listEnterpriseIndustrys', params)
+  }
+}
+/**
+ * 修改物流信息
+ *api- tradesInfo.modifyLogistics
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function modifyLogistics(params) {
+  return {
+    types: [LOGIS, LOGIS_SUCCESS, LOGIS_FAILURE],
+    promise: (client) => client.post('api- tradesInfo.modifyOrder', params)
+  }
+}
+/**
+ * 省市区列表
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function addrList(params) {
+  return {
+    types: [ADDR, ADDR_SUCCESS, ADDR_FAILURE],
+    promise: (client) => client.post('api- tradesInfo.modifyOrder', params)
   }
 }
 
-
-export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+export default function reducer(state = {result: {}}, action) {
+  state = {...state, loading: action.loading};
   switch (action.type) {
-    case ADD:
-    case DELETE:
-    case MODIFY:
-    case QUERY:
     case VIEW:
-        return {
-            ...state
-        }
-    case ADD_SUCCESS:
-        return {
-            //...state,
-            loading : action.loading,
-            result: action.result
-        }
-    case ADD_FAILURE:
-        return {
-            ...state
-        }
-    case MODIFY_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case MODIFY_FAILURE:
-        return {
-            ...state
-        }
-    case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case DELETE_FAILURE:
-        return {
-            ...state
-        }
-    case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
-    case QUERY_FAILURE:
-        return {
-            ...state
-        }
+    case SEND:
+    case MODIFY:
+    case COMPANY:
+    case LOGIS:
+    case ADDR:
+      return {
+        ...state
+      }
     case VIEW_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
+      return {
+        result: action.result
+      }
     case VIEW_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
+    case SEND_SUCCESS:
+      return {
+        result: action.result
+      }
+    case SEND_FAILURE:
+      return {
+        ...state
+      }
+    case MODIFY_SUCCESS:
+      return {
+        result: action.result
+      }
+    case MODIFY_FAILURE:
+      return {
+        ...state
+      }
+    case COMPANY_SUCCESS:
+      return {
+        result: action.result
+      }
+    case COMPANY_FAILURE:
+      return {
+        ...state
+      }
+    case LOGIS_SUCCESS:
+      return {
+        ...state,
+        result: action.result
+      }
+    case LOGIS_FAILURE:
+      return {
+        ...state
+      }
+    case ADDR_SUCCESS:
+      return {
+        result: action.result
+      }
+    case ADDR_FAILURE:
+      return {
+        ...state
+      }
     default:
       return state
   }
