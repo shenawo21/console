@@ -1,8 +1,8 @@
 
-//获取出入库单列表
-const ODDQUERY = 'oddQuery/ODDQUERY';
-const ODDQUERY_SUCCESS = 'oddQuery/ODDQUERY_SUCCESS';
-const ODDQUERY_FAILURE = 'oddQuery/ODDQUERY_FAILURE';
+//获取待验收商品列表
+const NOCHECKLIST = 'oddQuery/NOCHECKLIST';
+const NOCHECKLIST_SUCCESS = 'oddQuery/NOCHECKLIST_SUCCESS';
+const NOCHECKLIST_FAILURE = 'oddQuery/NOCHECKLIST_FAILURE';
 
 //获取店铺列表
 const GETSHOPLIST = 'shophouse/GETSHOPLIST';
@@ -15,16 +15,16 @@ const OUTCATELIST_SUCCESS = 'shophouse/OUTCATELIST_SUCCESS';
 const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
 
 /**
- * 入库单
+ * 获取待验收商品列表
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function oddQueryList(params) {
+export function getNoCheckList(params) {
   return {
-    types: [ODDQUERY, ODDQUERY_SUCCESS, ODDQUERY_FAILURE],
-    promise: (client) => client.post('api-productService.stockRecordlistView', params)
+    types: [NOCHECKLIST, NOCHECKLIST_SUCCESS, NOCHECKLIST_FAILURE],
+    promise: (client) => client.post('api-offSale.getNotCheckedList', params)
   }
 }
 
@@ -61,18 +61,18 @@ export function priceCateList(params) {
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {    
-    case ODDQUERY:
+    case NOCHECKLIST:
     case GETSHOPLIST:
     case OUTCATELIST:
         return {
             ...state
         }    
-    case ODDQUERY_SUCCESS:
+    case NOCHECKLIST_SUCCESS:
         return {
             ...state,
             result: action.result
         }
-    case ODDQUERY_FAILURE:
+    case NOCHECKLIST_FAILURE:
         return {
             ...state
         }
