@@ -15,40 +15,59 @@ class ReturnMoney extends Component {
                 name: "tid",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入订单编号"
+                }
             },{
                 label: "买家账号：",
                 name: "buyerNick",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入买家账号"
+                }
             },{
                 label: "店铺名称：",
                 name: "shopId",
                 labelCol: {span: 8},
                 span:7,
                 select: {
+                    placeholder: "请选择店铺名称",
                     optionValue: shopListItem
                 }
             },{
                 label: "商品编码：",
-                name: "outerSkuId",
+                name: "skuId",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入商品编码"
+                }
             },{
                 label: "产品名称：",
                 name: "title",
-                labelCol: {span: 6},
-                span:9,
-                input: {}
+                labelCol: {span: 8},
+                span:7,
+                input: {
+                    placeholder: "请输入产品名称"
+                }
+            },{
+                label: "售后类型：",
+                name: "offSaleType",
+                labelCol: {span: 8},
+                span:7,
+                select: {
+                    placeholder: "请选择售后类型",
+                    optionValue: shopListItem
+                }
             }],
             initValue: {
                 tid: null,
                 buyerNick: null,
                 shopName: null,
-                outerSkuId: null,
+                skuId: null,
                 title: null,
+                offSaleType: 'all'
             }
         }
         return config;
@@ -75,13 +94,15 @@ class ReturnMoney extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'hasGoodReturn',
+            dataIndex: 'afterSaleType',
             render(type) {
                 switch(type) {
-                    case false:
+                    case 'REFUND_MONEY':
                         return '退款'
-                    case true:
+                    case 'REFUND_GOODS':
                         return '退货'
+                    case 'CHANGE_GOODS':
+                        return '换货'        
                 }
             }
         }, {
@@ -106,7 +127,7 @@ class ReturnMoney extends Component {
         },{
             key: '2',
             title: '商品编码',
-            dataIndex: 'outerSkuId'
+            dataIndex: 'skuId'
         }, {
             key: '3',
             title: '产品名称',
@@ -118,23 +139,19 @@ class ReturnMoney extends Component {
         }, {
             key: '5',
             title: '数量',
-            dataIndex: 'num'
+            dataIndex: 'goodsNum'
         }, {
             key: '6',
             title: '商品总价值',
-            render(id,row) {
-                return row.price * row.num
-            }
+            dataIndex: 'totalFee'
         }, {
             key: '7',
             title: '退货数量',
-            dataIndex: 'tGoodsNum'
+            dataIndex: 'refundNums'
         }, {
             key: '8',
             title: '退货金额',
-            render(id,row) {
-                return row.price * row.tGoodsNum
-            }
+            dataIndex: 'refundFee'
         }, {
             key: '9',
             title: '操作',

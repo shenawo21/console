@@ -2,9 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
+import {Table} from 'hen';
 
-class ReturnMoney extends Component {
+class ReturnGoods extends Component {
 
     _getFormItems(){
     	let context = this;
@@ -15,40 +15,49 @@ class ReturnMoney extends Component {
                 name: "tid",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入订单编号"
+                }
             },{
                 label: "买家账号：",
                 name: "buyerNick",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入买家账号"
+                }
             },{
                 label: "店铺名称：",
                 name: "shopId",
                 labelCol: {span: 8},
                 span:7,
                 select: {
+                    placeholder: "请选择店铺名称",
                     optionValue: shopListItem
                 }
             },{
                 label: "商品编码：",
-                name: "outerSkuId",
+                name: "skuId",
                 labelCol: {span: 8},
                 span:7,
-                input: {}
+                input: {
+                    placeholder: "请输入商品编码"
+                }
             },{
                 label: "产品名称：",
                 name: "title",
-                labelCol: {span: 6},
-                span:9,
-                input: {}
+                labelCol: {span: 8},
+                span:7,
+                input: {
+                    placeholder: "请输入产品名称"
+                }
             }],
             initValue: {
                 tid: null,
                 buyerNick: null,
                 shopName: null,
-                outerSkuId: null,
-                title: null,
+                skuId: null,
+                title: null
             }
         }
         return config;
@@ -75,13 +84,15 @@ class ReturnMoney extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'hasGoodReturn',
+            dataIndex: 'afterSaleType',
             render(type) {
                 switch(type) {
-                    case false:
+                    case 'REFUND_MONEY':
                         return '退款'
-                    case true:
+                    case 'REFUND_GOODS':
                         return '退货'
+                    case 'CHANGE_GOODS':
+                        return '换货'        
                 }
             }
         }, {
@@ -106,7 +117,7 @@ class ReturnMoney extends Component {
         },{
             key: '2',
             title: '商品编码',
-            dataIndex: 'outerSkuId'
+            dataIndex: 'skuId'
         }, {
             key: '3',
             title: '产品名称',
@@ -118,28 +129,66 @@ class ReturnMoney extends Component {
         }, {
             key: '5',
             title: '数量',
-            dataIndex: 'num'
+            dataIndex: 'goodsNum'
         }, {
             key: '6',
             title: '商品总价值',
-            render(id,row) {
-                return row.price * row.num
-            }
+            dataIndex: 'totalFee'
         }, {
             key: '7',
             title: '退货数量',
-            dataIndex: 'tGoodsNum'
+            dataIndex: 'refundNums'
         }, {
             key: '8',
             title: '退货金额',
-            render(id,row) {
-                return row.price * row.tGoodsNum
-            }
-        }, {
+            dataIndex: 'refundFee'
+        },{
             key: '9',
+            title: '处理状态',
+            dataIndex: 'processStatus',
+            render(type){
+                switch(type) {
+                    case 'INIT':
+                        return '待处理'
+                    case 'PROCESS':
+                        return '处理中'    
+                }
+            }
+        },{
+            key: '10',
+            title: '仓库反馈',
+            dataIndex: 'feedbackStatus',
+            render(type) {
+                switch(type) {
+                    case 'ACCEPT':
+                        return '允许入库'
+                    case 'DENY':
+                        return '拒绝入库'    
+                }
+            }
+        },{
+            key: '11',
+            title: '仓库反馈时间',
+            dataIndex: 'feedbackTime'
+        }, {
+            key: '12',
             title: '操作',
             render(id,row) {
-                return <div><Link to={`/service/aftersale/info/${row.refundId}`}>订单退款</Link></div>
+                return <div>
+                            {
+                                row.processStatus == 'INIT' ? <div><Link to={`/service/aftersale/apply/${row.id}`}>处理申请</Link></div> :
+                                    <div><span><Link to={`/service/aftersale/detail/${row.id}`}>退货详情</Link><br /></span>
+                                        {
+                                          row.afterSaleType == 'REFUND_GOODS' ?  <Link to={`/service/aftersale/end/${row.id}`}>结束退货</Link> :               
+                                           <Link to={`/service/aftersale/end/${row.id}`}>结束换货</Link>
+                                        }
+                                       
+                                           
+                                    </div>
+                            }
+                            
+                            
+                        </div>
             }
         }];
         
@@ -168,7 +217,7 @@ class ReturnMoney extends Component {
 }
 
 
-ReturnMoney.propTypes = {
+ReturnGoods.propTypes = {
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
     // loading : React.PropTypes.bool,
@@ -176,4 +225,4 @@ ReturnMoney.propTypes = {
 }
 
 
-export default ReturnMoney;
+export default ReturnGoods;

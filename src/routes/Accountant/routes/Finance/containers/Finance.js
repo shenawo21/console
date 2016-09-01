@@ -1,16 +1,16 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import ReturnGoods from '../components/ReturnGoods'
-import ReturnMoney from '../components/ReturnMoney'
+import ForDeal from '../components/ForDeal'
+import Deal from '../components/Deal'
 import Panel from 'components/Panel'
-import { getRefund, getChangeGoods,getShopList } from '../modules/AfterSaleReducer'
+import { getRefund, getChangeGoods, getShopList } from '../modules/FinanceReducer'
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
 
-const TYPES = [{type : '退款'},{type : '退货'}];
+const TYPES = [{status : '待处理'},{type : '已处理'}];
 
-class OddQuery extends Component {
+class finance extends Component {
   
     constructor(props) {
         super(props);
@@ -75,7 +75,7 @@ class OddQuery extends Component {
         const {items, getRefund, shoplist, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : getRefund,                  //表格翻页时触发的action
+            action : getRefund,                         //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
@@ -91,11 +91,11 @@ class OddQuery extends Component {
         let shopListItem = [];
         if (shoplist) {
             shopListItem = shoplist.map(c=> {
-            return {
-                value: c.shopId,
-                title: c.name
-           }
-        });
+                return {
+                    value: c.shopId,
+                    title: c.name
+            }
+            });
         } else {
             shopListItem = [{
                 value: null,
@@ -104,19 +104,19 @@ class OddQuery extends Component {
         }
 	
         const formOptions = {
-            'formOptions' : this.getFormOptions()
+            ...this.getFormOptions()
         }
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                        <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} /></TabPane>
-                        <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} /></TabPane>
+                        <TabPane tab="待处理" key="1"><ForDeal shopListItem={shopListItem} formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
+                        <TabPane tab="已处理" key="2"><Deal shopListItem={shopListItem}  formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
                     </Tabs>
                 </Panel>
     }
 }
 
 
-OddQuery.propTypes = {   
+finance.propTypes = {   
     // oddQueryList: React.PropTypes.func,
     // items: React.PropTypes.array.isRequired,
     // getShopList: React.PropTypes.func,
@@ -134,11 +134,11 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-    const {result, changegoodsList, shoplist, loading} = state.aftersale;
+    const {result, changegoodsList, shoplist, loading} = state.finance;
     const {items = [], totalItems = 0} = result || {};
     return {items, changegoodsList, shoplist, totalItems, loading };
     
 }
 
-export default connect(mapStateToProps, mapActionCreators)(OddQuery)
+export default connect(mapStateToProps, mapActionCreators)(finance)
 

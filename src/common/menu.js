@@ -79,7 +79,7 @@ const getMenu = menuLists => {
       },
       {
         title: '虚拟总仓管理',
-        icon: 'setting',
+        icon: 'home',
         children: [
           {
             title: '虚拟总仓',
@@ -97,7 +97,7 @@ const getMenu = menuLists => {
       },
       {
         title: '店铺仓库管理',
-        icon: 'setting',
+        icon: 'home',
         children: [
           {
             title: '店铺仓库',
@@ -160,6 +160,20 @@ const getMenu = menuLists => {
           {
             title: '历史售后订单',
             url: '/service/history'
+          }
+        ]
+      },
+      {
+        title: '财务结算',
+        icon: 'calculator',
+        children: [
+          {
+            title: '财务处理',
+            url: '/accountant/finance'
+          },
+          {
+            title: '线下登记',
+            url: '/accountant/offlineRegister'
           }
         ]
       }

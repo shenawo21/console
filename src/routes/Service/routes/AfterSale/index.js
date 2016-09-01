@@ -12,5 +12,13 @@
 
       next(null, afterSale)
     })
+  },
+  getChildRoutes(location, next) {
+      require.ensure([], (require) => {
+        next(null, [
+          // Provide store for async reducers and middleware
+          require('./routes/Info').default(store)
+        ])
+      })
   }
 })
