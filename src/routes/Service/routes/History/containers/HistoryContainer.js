@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import HistoryView from '../components/HistoryView'
 import Panel from 'components/Panel'
-import { getRefund,getShopList } from '../modules/history'
+import { getHistory,getShopList } from '../modules/history'
 
 import {Tabs } from 'hen';
 
@@ -18,10 +18,10 @@ class HistoryList extends Component {
     
 
     componentDidMount() {
-        const {getRefund, getShopList, location } = this.props;
+        const {getHistory, getShopList, location } = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        getRefund();
+        getHistory();
         //获取店铺列表
         getShopList();
     }
@@ -54,10 +54,10 @@ class HistoryList extends Component {
       }
     render() {
         const {params} = this.state;
-        const {items, getRefund, shoplist, totalItems, loading} = this.props;
+        const {items, getHistory, shoplist, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : getRefund,                  //表格翻页时触发的action
+            action : getHistory,                  //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
@@ -106,13 +106,14 @@ HistoryList.propTypes = {
 }
 
 const mapActionCreators = {
-    getRefund, 
+    getHistory, 
     getShopList
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, shoplist, loading} = state.aftersale;
+    console.log(state,'9999')
+    const {result, shoplist, loading} = state.history;
     const {items = [], totalItems = 0} = result || {};
     return {items, shoplist, totalItems, loading };
     
