@@ -13,8 +13,7 @@ class CreateProduct extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);       
         this.tablegetFormOptions = this.tablegetFormOptions.bind(this);
         this.state = {
-            params: {},   //表格需要的筛选参数
-            selectItem: {}
+            params: {}   //表格需要的筛选参数
         }
     }
     
@@ -95,32 +94,9 @@ class CreateProduct extends Component {
           }
       }
       
-    //勾选
-    handleRowSelection() {
-        return {
-            onSelect : (record, selected, selectedRows) => {
-                //只能选择一条商品信息
-                if(selectedRows.length > 1){
-                    message.warning('只能选择一条商品', 8);
-                    return
-                }else{
-                    this.setState({
-                        selectItem: selectedRows[0]
-                    })
-                }               
-                
-            },
-            onSelectAll : (selected, selectedRows, changeRows) => {
-                if(selectedRows.length > 1){
-                    message.warning('只能选择一条商品', 8);
-                    return
-                }
-            },
-        }
-    }
     
     render() {
-        const {params, selectItem} = this.state; 
+        const {params} = this.state; 
         const {cateResult, brandResult, items, listView, totalItems, loading, result, specListResult, getSpecByCateList, location} = this.props;
         const {query} = location;
 
@@ -132,8 +108,7 @@ class CreateProduct extends Component {
                 current : query && query.p ? Number(query.p) : 1
             },  
             loading,                                    //表格加载数据状态
-            params,                                     //表格检索数据参数           
-            rowSelection : this.handleRowSelection()    //需要checkbox时填写
+            params                                      //表格检索数据参数           
         }
         const formOptions = {
             loading, 
@@ -182,7 +157,6 @@ class CreateProduct extends Component {
         }
         
         return <Panel title=""><CreateProductView 
-                            selectItem={selectItem} 
                             formOptions={formOptions} 
                             tableFormOptions={tableFormOptions} 
                             tableOptions={tableOptions} 

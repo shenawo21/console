@@ -18,7 +18,7 @@ class InfoView extends Component {
         
     _getFormItems(){
         let context = this;
-        const {item, photoList, licenseImg, ...other} = context.props;
+        const {isRequired, photoList, licenseImg } = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -26,15 +26,6 @@ class InfoView extends Component {
         };
         let config = {
             formItems: [{
-                label: "拒绝退款原因：",
-                name: "cwRefuseReason",
-                required: true,
-                rules: [{ required: true, message: '原因不能为空' }],
-                select: {
-                    placeholder:'请选择拒绝退款原因',
-                    optionValue: RESON
-                }
-            },{
                 label: "退款审批说明：",
                 name: "optRemark",
                 wrapperCol: {span: 10},
@@ -59,11 +50,34 @@ class InfoView extends Component {
                 businessLicense : null
             }
         }
+        if (isRequired == true) {
+            const obj = {
+                label: "拒绝退款原因：",
+                name: "cwRefuseReason",
+                required: true,
+                rules: [{ required: true, message: '请选择快递公司' }],
+                select: {
+                    placeholder:'请选择拒绝退款原因',
+                    optionValue: RESON
+                }
+            }
+             config.formItems.unshift(obj)
+
+        }
+
         return config;
     }
     
     render() {
-        let {result, handleSubmit} = this.props;
+        const {result, handleSubmit} = this.props;
+        const refundComment = result.refundComment || {}
+        const Goodsstatus = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
+        const url = refundComment.picUrls
+        const src = url && url.split(',')
+        const ArryStatus = [
+            {name:'货物状态:',status:Goodsstatus},
+            {name:'退款说明:',status:refundComment.content},
+        ]
         const buttonOption = {
             buttons : [
                 {
@@ -86,7 +100,7 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <RefundView result = {result} />
+                <RefundView result = {result} ArryStatus = {ArryStatus} src = {src} />
 
                 <h3 className = 'titleName'>退款审批</h3>
                 <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />

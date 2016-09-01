@@ -3,15 +3,16 @@ import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
 import {refundDetail,verify} from '../modules/InfoReducer'
+import { message } from 'hen';
 
 class Info extends Component {
   
     constructor(props) {
-        super(props);
-        
+        super(props);        
         this.handleSubmit = this.handleSubmit.bind(this);      
         this.photoImg = this.photoImg.bind(this);
         this.state = {
+            isRequired:false,
             item: {},
             photoList: []
         }
@@ -35,29 +36,43 @@ class Info extends Component {
         if(key === 'review'){
             Object.assign(value,{processStatus:'PROCESS'})
             verify(value).then(function(response) {
-                    const _this = this;
-                    if (response && response.code == 200) {
+                    if (response && response.status == 1) {
                         setTimeout(() => {
                             let pathname = '/service/aftersale';
-                            self.context.router.replace(pathname);
-                        }, 2000);
+                            _this.context.router.replace(pathname);
+                        }, 1000);
                     }
                 })
         } else if(key === 'refuse'){
+            _this.setState({isRequired:true})
             Object.assign(value,{processStatus:'DENY'})
-            verify(value)
+            if(value.cwRefuseReason) {
+                verify(value).then(function(response) {
+                    if (response && response.status == 1) {
+                        setTimeout(() => {
+                            let pathname = '/service/aftersale';
+                            _this.context.router.replace(pathname);
+                        }, 1000);
+                    }
+                })
+            } else {
+                message.error('请选择拒绝退款原因')
+            }
         }
     }
     
     
     render() {
-        // const {item, photoList} = this.state;        
+        // const {item, photoList} = this.state;
+        const {isRequired} = this.state        
         const {result, loading} = this.props;   
         
-        return <Panel title="商品退款审批"><InfoView result = {result} handleSubmit = {this.handleSubmit} /></Panel>
+        return <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} /></Panel>
     }
 }
-
+Info.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 Info.propTypes = {
     // view: React.PropTypes.func,
     // items: React.PropTypes.array,
@@ -75,7 +90,6 @@ InfoView.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    console.log(state,'888')
     const {result, loading} = state.moneyinfo;    
     return { result, loading };    
 }

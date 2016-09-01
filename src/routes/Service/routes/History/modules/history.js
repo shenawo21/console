@@ -9,10 +9,10 @@ const SUC_SHOPLIST = 'SUC_SHOPLIST';
 const ERR_SHOPLIST = 'ERR_SHOPLIST';
 
 
-export function getRefund(params) {
+export function getHistory(params) {
   return {
     types: [REQ_REFUND, SUC_REFUND, ERR_REFUND],
-    promise: (client) => client.post('api-offSale.getRefundApplysByCondition', params)
+    promise: (client) => client.post('api-warehouseDispose.getHistoryRefundApplys', params)
   }
 }
 

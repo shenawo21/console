@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Checkbox, Table, Input, Row, Col} from 'hen';
+import uniq from 'lodash/uniq'
+// import indexOf from 'lodash/indexOf'
 
 const SPECTYPE = ['One', 'Two', 'Three', 'Four']
 
@@ -8,26 +10,25 @@ class Sku extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            specList: [],
-            specDataList: [],
-            rowList: []
+            specList: [],       //规格列表
+            specDataList: [],   //选中的规格及值
+            rowList: []         //sku列表
         }
     }
-
+    
     componentWillReceiveProps(nextProps) {
-        if (nextProps.sourceData != this.props.sourceData) {
+        if (nextProps.sourceData !== this.props.sourceData) {
             let eSpecList = [];
-            console.log(nextProps.sourceData);
             nextProps.sourceData.length && nextProps.sourceData.forEach((val, index) => {
                 if (val.enterpriseSpecList.length) {
-                    let specValueList = []
+                    let specValues = []
                     val.enterpriseSpecList.forEach((item) => {
-                        specValueList.push(item.specValue)
+                        specValues.push(item.specValue)
                     })
                     eSpecList.push({
                         name: val.name,
                         specId: val.specId,
-                        specValues: specValueList
+                        specValues
                     })
                 }
             })
@@ -35,11 +36,56 @@ class Sku extends Component {
                 specList: eSpecList
             })
         }
+        if(!Object.is(nextProps.specState, this.props.specState)){
+            let eSpecList = [], curSpec = [];
+            let rowList = nextProps.specState.skuList ? nextProps.specState.skuList : []
+            //获取规格列表
+            SPECTYPE.forEach((val)=>{
+                let specName = nextProps.specState['spec'+ val +'Name']
+                let specValue = nextProps.specState['spec'+ val +'Value']
+                let specId = nextProps.specState['specId'+ val]
+                
+                if(specName && specValue){
+                     eSpecList.push({
+                        name: specName,
+                        specId,
+                        specValues : specValue.split(',')
+                    })
+                }
+            })
+            //获取规格类型标示，比如‘one’，‘two’
+            let curSpecType = SPECTYPE.slice(0, eSpecList.length)
+            //循环遍历已选中规格值
+            curSpecType.forEach((item, index)=>{
+                let specChecked = []
+                curSpec[index] = {key:item, items:[]}
+                rowList.forEach((val, num)=>{
+                    curSpec[index].items.push(val['spec'+ item +'Value'])
+                })
+                //去重规格值
+                curSpec[index].items = uniq(curSpec[index].items)
+            })
+            console.log(rowList,curSpec);
+            this.setState({
+                specList: eSpecList,
+                specDataList : curSpec,
+                rowList
+            })
+        }
     }
 
+    /**
+     * 选中规格,组合列表数据
+     * 
+     * @param {any} num 第几个spec
+     * @param {any} specTitle 规格名称
+     * @param {any} specValue 选中的规格值
+     * @param {any} e
+     * @returns
+    
+     */
     changeSpecValue(num, specTitle, specValue, e) {
-        let {specDataList, rowList, specList} = this.state, curSpec = [];
-        let SpecTypeNum = specList.length;
+        let {specDataList, rowList} = this.state, curSpec = [];
         if (e.target.checked) {
             if (!specDataList[num]) {
                 specDataList[num] = {
@@ -53,21 +99,39 @@ class Sku extends Component {
             specDataList[num].items = specDataList[num].items.filter((val) => {
                 return val !== specValue
             })
+            if(!specDataList[num].items.length){
+                specDataList.splice(num, 1);
+            }
+        }
+        console.log('11111',specDataList);
+        curSpec = this.normalize(specDataList)
+        //当修改销售价或库存数量后，再次添加sku时，要将选中的组合与之前修改的rowList里面元素进行合并，用新的curSpec做表格源数据
+        if(curSpec.length > 1){ //新增时，当列表只有一行数据时，选择规格值时不需要合并之前的rowList数据
+            rowList.forEach((val)=>{
+                curSpec.every((item,index)=>{
+                    if(val.key === item.key){
+                        curSpec[index] = {...val, ...item}
+                        return false 
+                    }
+                    return true
+                })
+            })
         }
         this.setState({
-            rowList : this._normalize(specDataList)
+            specDataList,
+            rowList : curSpec
         })
     }
 
     /**
-   * 规格算法：取第一项的items为基础数据、进行递归组合
-   * @param  {Array} items，例如：[{key:One,items:[1,2]}, {key:Two,items:['L','X','M']}]
-   * @return {Array} 组合后的数据，如下
-   *        例如： [{"specOneValue":1,"specOneValue":"L"},{"specOneValue":1,"specOneValue":"X"}
-   *               {"specOneValue":1,"specOneValue":"M"},{"specOneValue":2,"specOneValue":"L"}
-   *               {"specOneValue":2,"specOneValue":"X"},{"specOneValue":2,"specOneValue":"M"}]
-   */
-    _normalize(items) {
+     * 规格算法：取第一项的items为基础数据、进行递归组合
+     * @param  {Array} items，例如：[{key:One,items:[1,2]}, {key:Two,items:['L','X','M']}]
+     * @return {Array} 组合后的数据，如下
+     *        例如： [{"specOneValue":1,"specOneValue":"L"},{"specOneValue":1,"specOneValue":"X"}
+     *               {"specOneValue":1,"specOneValue":"M"},{"specOneValue":2,"specOneValue":"L"}
+     *               {"specOneValue":2,"specOneValue":"X"},{"specOneValue":2,"specOneValue":"M"}]
+     */
+    normalize(items) {
         if (items.length == 0) return [];
 
         const runner = (base, other) => {
@@ -77,7 +141,6 @@ class Sku extends Component {
                 base.items.forEach((b,index) => {
                     if (!next.items.length) {
                         let o = {};
-
                         if (base.key) {
                             o[`spec${base.key}Value`] = b;
                             o.key = index;
@@ -86,7 +149,6 @@ class Sku extends Component {
                     }
                     next.items.forEach((n, num) => {
                         let o = {};
-
                         if (base.key) {
                             o[`spec${base.key}Value`] = b;
                         }
@@ -98,18 +160,16 @@ class Sku extends Component {
                         if (typeof b == 'object') {
                             o = {...b, ...o}
                         }
-
                         result.items.push(o)
                     })
-
                 })
             }else{
-                console.log(11212,next);
                 if (next.items.length) {
-                     next.items.forEach(n => {
+                     next.items.forEach((n,index) => {
                         let o = {};
                         if (next.key) {
                             o[`spec${next.key}Value`] = n;
+                            o.key = index;
                         }
                         result.items.push(o)
                     })
@@ -123,9 +183,11 @@ class Sku extends Component {
         return runner(items[0], items.slice(1))
     }
 
-
+    /**
+     * 表格所需要的colunms
+     */
     getColumns(){
-        const {specList} = this.state;
+        const {specList} = this.state, context = this;
         let columns = [], otherColumns = [];
 
         specList.forEach((item, num) => {
@@ -136,47 +198,78 @@ class Sku extends Component {
                 width: 150
             })
         })
+        //
         otherColumns = [{
             title: '销售价',
             dataIndex: 'price',
             key: specList.length,
             width: 200,
-            render(val) {
+            render(val, row) {
                 return <Input type='text' size="small" onChange={(e) => {
-
-                } } defaultValue={val}/>
+                    context.setInputValue(e, row, 'price')
+                }} defaultValue={val}/>
             }
         },{
             title: '库存数量',
             dataIndex: 'assignedStock',
             key: specList.length + 1,
             width: 200,
-            render(val) {
+            render(val, row) {
                 return <Input type='text' size="small" onChange={(e) => {
-
-                } } defaultValue={val}/>
+                    context.setInputValue(e, row, 'assignedStock')
+                }} defaultValue={val}/>
             }
         }]
         columns = [...columns, ...otherColumns]
-        console.log(   columns );
         return columns
     }
 
-    getDataSource(){
+    /**
+     * 设置input框里面的值
+     * params cKey 为 price或assignedStock
+     * params e
+     */
+    setInputValue(e, row, cKey){
         const {rowList} = this.state;
-        let dataSource = [];
+        let item = {}, selectItems = [], num = '', salePrice = 0, totalStock = '';
+        rowList.forEach((val, index) => {
+            // if(index !== rowList.length - 1){
+            //     if(rowList[index].price < rowList[index + 1].price){
+            //         salePrice = rowList[index].price
+            //     }else{
+            //         salePrice = rowList[index + 1].price
+            //     }
+            // }
+            if(val.key !== row.key){
+                //筛选不是当前行的数据
+                selectItems.push(val)
+            }else{
+                //记录当前行下标num及元素值item
+                num = index;
+                item = val
+            }
+        })
+        //修改当前cKey的值
+        item[cKey] = e.target.value
+        //将修改后的item重新插入selectItems数组，下标为num，保证与源数据顺序一致
+        selectItems.splice(num, 0, item)
+        this.setState({
+            rowList: selectItems
+        })
     }
 
     render(){
         const {specList, rowList} = this.state;
-
+        console.log('render',rowList,specList);
         return <div>
             {
                 specList.length ? specList.map((item, index) => {
                     return <Row><Col span='2'><label>{item.name + " "}: </label></Col>
                         {
                             item.specValues.length ? item.specValues.map((v, i) => {
-                                return <Col span='2'><Checkbox key={`c-${i + item.specValues.length * index}`} onChange={this.changeSpecValue.bind(this, index, item.name, v) }>{v}</Checkbox></Col>
+                                // let status = specCheckedList.length && indexOf(specCheckedList[index].isDisabled, v) !== -1 ? true : false;
+                                // let disabledFlag = specCheckedList[index]
+                                return <Col span='2'><Checkbox key={`c-${i + item.specValues.length * index}`} onChange={this.changeSpecValue.bind(this, index, item.name, v) } defaultChecked={status} disabled={status}>{v}</Checkbox></Col>
                             }) : ''
                         }
                     </Row>
