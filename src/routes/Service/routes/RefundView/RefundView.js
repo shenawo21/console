@@ -1,10 +1,14 @@
 import React from 'react'
 import './RefundView.less'
+// import Image from 'components/Image';
 
 export default (props) => {
   const result = props.result
   const refundComment = result.refundComment || {}
   const status = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
+  const url = refundComment.picUrls
+  const src = url && url.split(',')
+ 
   return (
     <div className="table-box">
             <table className = 'border-table' style = {{width:'100%'}}>
@@ -44,7 +48,13 @@ export default (props) => {
                 </tr>
                 <tr>
                     <th>凭证:</th>
-                    <td>{refundComment.picUrls}</td>
+                    <td>
+                        {
+                            src && src.map((item, index)=>{
+                            return <img src={item} width= '80' style={{marginRight:10}} />
+                            })
+                        }
+                    </td>
                 </tr>
             </table>
         </div>
