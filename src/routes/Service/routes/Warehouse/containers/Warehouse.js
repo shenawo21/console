@@ -1,10 +1,16 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import WarehouseView from '../components/WarehouseView'
-import Panel from 'components/Panel'
-import { getNoCheckList, getShopList, priceCateList } from '../modules/WarehouseReducer'
 
-class OddQuery extends Component {
+import ForCheck from '../components/ForCheck'
+import Checked from '../components/Checked'
+
+import Panel from 'components/Panel'
+import { getNoCheckList, getCheckedList, getPlatList} from '../modules/WarehouseReducer'
+
+import {Tabs } from 'hen';
+const TabPane = Tabs.TabPane;
+
+class Warehouse extends Component {
   
     constructor(props) {
         super(props);
@@ -12,42 +18,19 @@ class OddQuery extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);       
         
         this.state = {
-            oddStatus: true,
+            curKey: 0,
             params: {}   //表格需要的筛选参数
         }
     }
-    
-     /**
-     * (判断待验收/已验收)
-     * @params id
-     */
-    _isQueryStatus(key){
-        const { getNoCheckList, location} = this.props;
-        let pageNumber = 1;
-        this.setState({
-            params: {
-                pageNumber : 1,
-                processStatus : key == 1 ? "INIT" : "入库"
-            }
-        })
-    }
 
     componentDidMount() {
-        const { getNoCheckList, getShopList, priceCateList, location} = this.props;
+        const { getNoCheckList, getPlatList, priceCateList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         getNoCheckList({pageNumber});
-         this.setState({
-            params: {
-                processStatus : "INIT"
-            }
-        })
 	
-	    //获取店铺列表
-        getShopList();
-        
-        //获取分类列表
-        priceCateList();
+	    //获取平台列表
+        getPlatList();
     }
     
       /**
@@ -64,16 +47,11 @@ class OddQuery extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                const {params} = context.state;
-                if(value.categoryCode){
-                    value.categoryCode = value.categoryCode[value.categoryCode.length - 1] || '';
-                }
+                const {params, curKey} = context.state;
                 context.setState({
-                    params: {
-                    ...params,
-                    ...value
-                    } 
+                    params: value
                 })
+                console.log(context.state.params,'value');
               },
 
               /**
@@ -83,9 +61,10 @@ class OddQuery extends Component {
               }
           }
       }
-    
-    
-    
+
+    /**
+     * 
+     */
     handleRowSelection() {
         return {
             onSelect(record, selected, selectedRows) {
@@ -97,92 +76,91 @@ class OddQuery extends Component {
         }
     }
     
-    render() {
-        const {params, oddStatus} = this.state;
+    callback(key) {
+        const {getNoCheckList, getCheckedList } = this.props;
+        if(key == 2) { 
+            getCheckedList();
+        } else {
+            getNoCheckList();
+        }
+        this.setState({
+            curKey : key - 1,
+            params: {}
+        })
         
-        const {items, getNoCheckList, shopListResult, cateResult, totalItems, loading} = this.props;
+    }
+
+    render() {
+        const {params, curKey} = this.state;        
+        const {items, getNoCheckList, getCheckedList, platlistResult, totalItems, loading} = this.props;
+
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : getNoCheckList,                      //表格翻页时触发的action
+            action : curKey==1 ? getCheckedList : getNoCheckList,        //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
-            isStatus: this._isQueryStatus.bind(this)        //判断退款/退换货
             //rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
         /**
-         * 类目列表
+         * 平台列表
          * @param lists
          * @returns {*}
          */
-        const loop = (lists) => {
-            return lists && lists.map(a => {
-                let children = a.level < 3 ? loop(a.children) : '';
-
-                if (children) {
-                    return {
-                        value: a.categoryCode + '',
-                        label: a.name,
-                        children
-                    }
-                } else {
-                    return {
-                        value: a.categoryCode + '',
-                        label: a.name
-                    }
-                }
-            })
-        }
-        
-        /**
-         * 店铺列表
-         * @param lists
-         * @returns {*}
-         */
-        const shopLoop = (lists) => {
-            return lists && lists.map(a => {
+        let platListItem = [];
+        if (platlistResult) {
+            platListItem = platlistResult.map(c=> {
                 return {
-                    value: a.shopId,
-                    title: a.name
-                }
-            })
+                    value: c.shopId,
+                    title: c.name
+            }
+            });
+        } else {
+            platListItem = [{
+                value: null,
+                title: '正在加载中...'
+            }]
         }
 	
         const formOptions = {
-            'formOptions' : this.getFormOptions()
+            ...this.getFormOptions()
         }
         
-        return <Panel title=""><WarehouseView {...tableOptions} {...formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} /></Panel>
+        return <Panel title="">
+                    <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
+                        <TabPane tab="待验收" key="1"><ForCheck platListItem={platListItem} formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
+                        <TabPane tab="已验收" key="2"><Checked platListItem={platListItem} formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
+                    </Tabs>
+                </Panel>
     }
 }
 
 
-OddQuery.propTypes = {
-    
+Warehouse.propTypes = {    
     getNoCheckList: React.PropTypes.func,
+    getCheckedList: React.PropTypes.func,    
+    getPlatList: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
-    getShopList: React.PropTypes.func,
-    priceCateList: React.PropTypes.func,
     totalItems: React.PropTypes.number.isRequired,    
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    getNoCheckList, 
-    getShopList, 
-    priceCateList
+    getNoCheckList,
+    getCheckedList,
+    getPlatList
 }
 
 const mapStateToProps = (state) => {
-    const {result, shopListResult, cateResult, loading} = state.Warehouse;
+    const {result, platlistResult, loading} = state.Warehouse;
     
     const {items = [], totalItems = 0} = result || {};
-    return { items, shopListResult, cateResult, totalItems, loading };
+    return { items, platlistResult, totalItems, loading };
     
 }
 
-export default connect(mapStateToProps, mapActionCreators)(OddQuery)
+export default connect(mapStateToProps, mapActionCreators)(Warehouse)
 

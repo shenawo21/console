@@ -105,16 +105,42 @@ class InfoView extends Component {
                 categoryCode : null
             }
         }
+        if (item) {    
+            config.initValue = item;            
+        }
         return config;
     }
     
     render() {
         let {formOptions} = this.props;
-
+        /**
+         * button 配置项
+         * 
+         */
+        const buttonOption = {
+            buttons : [
+                {
+                    key : 'review',
+                    name :'提交验收结果',
+                    type : 'primary'
+                },
+                {
+                    key : 'reset',   //重置时，key为reset
+                    name : '重置'
+                },
+                {
+                    key : 'back',   
+                    name : '返回',
+                    handle(){
+                        history.go(-1);
+                    }
+                }
+            ]
+        }
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} />
+                    onRest={formOptions.handleReset} buttonOption={buttonOption} />
             </div>
         )
     }
