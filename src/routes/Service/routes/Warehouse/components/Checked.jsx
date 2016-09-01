@@ -4,67 +4,50 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Table} from 'hen';
 
-//店铺名称
-const STORENAME = [
-   { value: 'all', title: "全部" },
-   { value: 'taobao', title: "淘宝" },
-   { value: 'tianmao', title: "天猫" },
-   { value: 'jingdong', title: "京东" }
-];
-
 class Checked extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {cateList} = context.props;
+        const {platListItem} = context.props;
         let config = {
-            formItems: [{
+            formItems: [ {
                 label: "订单编号：",
                 name: "tid",
-                labelCol: {span: 8},
-                span:7,
                 input: {
-                    placeholder: "请输入出库单号"
+                   placeholder: "请输入订单编号"
                 }
             },{
                 label: "买家账号：",
                 name: "buyerNick",
-                labelCol: {span: 8},
-                span:7,
                 input: {
-                    placeholder: "请输入出库单号"
+                   placeholder: "请输入出库单号"
                 }
             },{
-                label: "店铺名称：",
-                name: "shopName",
-                labelCol: {span: 8},
-                span:7,
+                label: "所属平台：",
+                name: "channelCode",
                 select: {
-                    optionValue: STORENAME
+                    placeholder: "请选择所属平台",
+                    optionValue: platListItem
                 }
             },{
                 label: "商品编码：",
                 name: "skuId",
-                labelCol: {span: 8},
-                span:7,
                 input: {
-                    placeholder: "请输入商品编码"
+                   placeholder: "请输入商品编码"
                 }
             },{
                 label: "产品名称：",
                 name: "title",
-                labelCol: {span: 6},
-                span:9,
                 input: {
-                    placeholder: "请输入产品名称"
+                   placeholder: "请输入产品名称"
                 }
             }],
             initValue: {
                 tid: null,
-                buyerNick: null,
-                shopName: 'all',
-                skuId: null,
-                title: null,
+                buyerNick : null,
+                channelCode: null,
+                skuId : null,
+                title: null
             }
         }
         return config;
@@ -91,13 +74,23 @@ class Checked extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'offSaleType'
+            dataIndex: 'offSaleType',
+            render(type) {
+                switch(type) {
+                    case 'REFUND_MONEY':
+                        return '退款'
+                    case 'REFUND_GOODS':
+                        return '退货'
+                    case 'CHANGE_GOODS':
+                        return '换货'        
+                }
+            }
         }, {
             key: '5',
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to="/">订单详情</Link></span>
+                return <Link to={`/order/audit/detail/1`}>订单详情</Link>
             }
         }];
         
@@ -128,11 +121,11 @@ class Checked extends Component {
         }, {
             key: '5',
             title: '操作',
-            dataIndex: 'skuId',
-            render(text, record) {
+            dataIndex: 'refundId',
+            render(id, record) {
                 return (
                 <span>
-                    <a href="###">已验收详情</a>
+                    <Link to={`/service/warehouse/info/${id}`}>已验收详情</Link>
                 </span>
                 );
             }
@@ -142,7 +135,8 @@ class Checked extends Component {
     }
 
     render() {
-        const {formOptions, dataSource, ...other} = this.props;
+        const {formOptions, tableOptions, ...other} = this.props;
+        const {dataSource} = tableOptions;
         dataSource.forEach((val, index)=>{
             val.key = index
         })
@@ -153,8 +147,8 @@ class Checked extends Component {
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
-                           dataSource={dataSource} {...other}  />
+                           expandedRowRender={record => <Table size="small" bordered={true} columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           {...tableOptions} />
             </div>
         )
     }
@@ -162,10 +156,10 @@ class Checked extends Component {
 
 
 Checked.propTypes = {
-    // dataSource : React.PropTypes.array.isRequired,
-    // action : React.PropTypes.func.isRequired,
-    // loading : React.PropTypes.bool,
-    // params : React.PropTypes.object
+    dataSource : React.PropTypes.array.isRequired,
+    action : React.PropTypes.func.isRequired,
+    loading : React.PropTypes.bool,
+    params : React.PropTypes.object
 }
 
 

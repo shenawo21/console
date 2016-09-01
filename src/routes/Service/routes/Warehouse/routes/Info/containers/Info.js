@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
-import {view} from '../modules/InfoReducer'
+import {view, doCheck} from '../modules/InfoReducer'
 
 class Info extends Component {
   
@@ -21,14 +21,33 @@ class Info extends Component {
             photoList: files
         })
     }
-    
-    componentDidMount() {
-        
-        const {view} = this.props;
-
+     
+    componentDidMount() {        
+        const {view, params} = this.props;
+        console.log(params, 'params');
         //获取详情信息
-        view();
+        view({refundId:params.id});
     }
+
+    componentWillReceiveProps(nextProps, preProps){
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/accounts')
+            },600)
+        }
+
+        if (!nextProps.params.id) {
+            this.setState({
+                item: {},
+                photoList: []
+            })
+        } else {
+            this.setState({
+                item: nextProps.result,
+                photoList: nextProps.result ? nextProps.result.photo : []
+            })
+        }
+    }    
     
       /**
        * (表格功能配置项)
@@ -43,19 +62,21 @@ class Info extends Component {
                * 
                * @param value (description)
                */
-              handleSubmit(value) {                  
-                  
+              handleSubmit(value) {
+                  const { doCheck } = context.props;               
+                  doCheck({
+                      ...value
+                  })
               },
 
               /**
                * (返回)
                */
-              handleReset() {
+              goback() {
                   _this.context.router.push('/Warehouse')
               }
           }
       }
-    
     
     render() {
         const {item, photoList} = this.state;        
@@ -63,29 +84,28 @@ class Info extends Component {
         const formOptions = {
             ...this.getFormOptions()
         }
-        
         return <Panel title="验收详情"><InfoView item={item} photoList={photoList} formOptions={formOptions} /></Panel>
     }
 }
 
 Info.propTypes = {
     view: React.PropTypes.func,
-    items: React.PropTypes.array,
-    totalItems: React.PropTypes.number,    
+    doCheck: React.PropTypes.func,    
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    view
+    view,
+    doCheck
 }
 
-InfoView.contextTypes = {
+Info.contextTypes = {
     router: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.info;    
-    return { result, loading };    
+    const {result, checkResult, loading} = state.info;    
+    return { result, checkResult, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

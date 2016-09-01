@@ -1,18 +1,19 @@
 
 //获取待验收商品列表
-const NOCHECKLIST = 'oddQuery/NOCHECKLIST';
-const NOCHECKLIST_SUCCESS = 'oddQuery/NOCHECKLIST_SUCCESS';
-const NOCHECKLIST_FAILURE = 'oddQuery/NOCHECKLIST_FAILURE';
+const NOCHECKLIST = 'service/NOCHECKLIST';
+const NOCHECKLIST_SUCCESS = 'service/NOCHECKLIST_SUCCESS';
+const NOCHECKLIST_FAILURE = 'service/NOCHECKLIST_FAILURE';
 
-//获取店铺列表
-const GETSHOPLIST = 'shophouse/GETSHOPLIST';
-const GETSHOPLIST_SUCCESS = 'shophouse/GETSHOPLIST_SUCCESS';
-const GETSHOPLIST_FAILURE = 'shophouse/GETSHOPLIST_FAILURE';
+//获取已验收商品列表
+const CHECKEDLIST = 'service/CHECKEDLIST';
+const CHECKEDLIST_SUCCESS = 'service/CHECKEDLIST_SUCCESS';
+const CHECKEDLIST_FAILURE = 'service/CHECKEDLIST_FAILURE';
 
-//获取商品类目列表
-const OUTCATELIST = 'shophouse/OUTCATELIST';
-const OUTCATELIST_SUCCESS = 'shophouse/OUTCATELIST_SUCCESS';
-const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
+
+//获取所属平台列表
+const PLATLIST = 'service/PLATLIST';
+const PLATLIST_SUCCESS = 'service/PLATLIST_SUCCESS';
+const PLATLIST_FAILURE = 'service/PLATLIST_FAILURE';
 
 /**
  * 获取待验收商品列表
@@ -24,46 +25,45 @@ const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
 export function getNoCheckList(params) {
   return {
     types: [NOCHECKLIST, NOCHECKLIST_SUCCESS, NOCHECKLIST_FAILURE],
-    promise: (client) => client.post('api-offSale.getNotCheckedList', params)
+    promise: (client) => client.post('api-warehouseDispose.getNotCheckedList', params)
   }
 }
 
-
 /**
- * 获取店铺列表
+ * 获取已验收商品列表
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function getShopList() {
+export function getCheckedList(params) {
+  return {
+    types: [CHECKEDLIST, CHECKEDLIST_SUCCESS, CHECKEDLIST_FAILURE],
+    promise: (client) => client.post('api-warehouseDispose.getCheckedList', params)
+  }
+}
+
+
+/**
+ * 获取所属平台列表
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function getPlatList(params) {
     return {
-        types: [GETSHOPLIST, GETSHOPLIST_SUCCESS, GETSHOPLIST_FAILURE],
-        promise: (client) => client.post('api-shop.listEnterpriseShop')
+        types: [PLATLIST, PLATLIST_SUCCESS, PLATLIST_FAILURE],
+        promise: (client) => client.post('api-channel.listChannel', params)
     }
 }
-
-/**
- * 获取商品分类
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function priceCateList(params) {
-  return {
-    types: [OUTCATELIST, OUTCATELIST_SUCCESS, OUTCATELIST_FAILURE],
-    promise: (client) => client.post('api-category.listAll', params)
-  }
-}
-
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {    
     case NOCHECKLIST:
-    case GETSHOPLIST:
-    case OUTCATELIST:
+    case CHECKEDLIST:
+    case PLATLIST:
         return {
             ...state
         }    
@@ -76,21 +76,21 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
-    case GETSHOPLIST_SUCCESS:
+    case CHECKEDLIST_SUCCESS:
         return {
             ...state,
-            shopListResult: action.result
+            result: action.result
         }
-    case GETSHOPLIST_FAILURE:
+    case CHECKEDLIST_FAILURE:
         return {
             ...state
-        }
-     case OUTCATELIST_SUCCESS:
+        }     
+    case PLATLIST_SUCCESS:
         return {
             ...state,
-            cateResult: action.result
+            platlistResult: action.result
         }
-    case OUTCATELIST_FAILURE:
+    case PLATLIST_FAILURE:
         return {
             ...state
         }

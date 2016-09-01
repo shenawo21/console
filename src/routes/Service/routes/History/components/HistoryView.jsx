@@ -4,9 +4,9 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
 const TYPE = [
-    {value:'0',title:'退款'},
-    {value:'1',title:'退货'},
-    {value:'2',title:'换货'},
+    {value:'REFUND_MONEY',title:'退款'},
+    {value:'REFUND_GOODS',title:'退货'},
+    {value:'CHANGE_GOODS',title:'换货'},
 ]
 class History extends Component {
 
@@ -64,7 +64,7 @@ class History extends Component {
         }, {
             key: '1',
             title: '成交时间',
-            dataIndex: 'payTime'
+            dataIndex: 'tradesCreated'
         }, {
             key: '2',
             title: '买家账号',
@@ -76,7 +76,17 @@ class History extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'offSaleType'
+            dataIndex: 'afterSaleType',
+            render(type) {
+                switch(type) {
+                    case 'REFUND_MONEY':
+                        return '退款'
+                    case 'REFUND_GOODS':
+                        return '退货'
+                    case 'CHANGE_GOODS':
+                        return '换货'
+                }
+            }
         }, {
             key: '5',
             title: '操作',
@@ -141,7 +151,11 @@ class History extends Component {
             title: '操作',
             render(id,row) {
                 return <div>
-                            <Link to={`/service/history/info/${row.key}`}>售后详情</Link><br />
+                            {
+                                row.afterSaleType == 'REFUND_MONEY' ? <Link to={`/service/history/info/${row.key}`}>退款详情</Link> :
+                                row.afterSaleType == 'REFUND_GOODS' ? <Link to={`/service/history/info/${row.key}`}>退货详情</Link> :
+                                <Link to={`/service/history/info/${row.key}`}>换货详情</Link> 
+                            }
                         </div>
             }
         }];

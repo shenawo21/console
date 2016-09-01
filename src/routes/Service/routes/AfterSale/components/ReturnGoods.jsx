@@ -32,7 +32,7 @@ class ReturnGoods extends Component {
                 }
             },{
                 label: "商品编码：",
-                name: "skuId",
+                name: "outerSkuId",
                 labelCol: {span: 8},
                 span:7,
                 input: {}
@@ -47,7 +47,7 @@ class ReturnGoods extends Component {
                 tid: null,
                 buyerNick: null,
                 shopName: null,
-                skuId: null,
+                outerSkuId: null,
                 title: null,
             }
         }
@@ -63,7 +63,7 @@ class ReturnGoods extends Component {
         }, {
             key: '1',
             title: '成交时间',
-            dataIndex: 'payTime'
+            dataIndex: 'tradesCreated'
         }, {
             key: '2',
             title: '买家账号',
@@ -108,7 +108,7 @@ class ReturnGoods extends Component {
         },{
             key: '2',
             title: '商品编码',
-            dataIndex: 'skuId'
+            dataIndex: 'outerSkuId'
         }, {
             key: '3',
             title: '产品名称',
@@ -120,19 +120,23 @@ class ReturnGoods extends Component {
         }, {
             key: '5',
             title: '数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'num'
         }, {
             key: '6',
             title: '商品总价值',
-            dataIndex: 'totalFee'
+            render(id,row) {
+                return row.price * row.num
+            }
         }, {
             key: '7',
             title: '退货数量',
-            dataIndex: 'refundNums'
+            dataIndex: 'tGoodsNum'
         }, {
             key: '8',
             title: '退货金额',
-            dataIndex: 'refundFee'
+            render(id,row) {
+                return row.price * row.tGoodsNum
+            }
         },{
             key: '9',
             title: '处理状态',
@@ -167,11 +171,11 @@ class ReturnGoods extends Component {
             render(id,row) {
                 return <div>
                             {
-                                row.processStatus == 'INIT' ? <div><Link to={`/service/aftersale/apply/${row.id}`}>处理申请</Link></div> :
-                                    <div><span><Link to={`/service/aftersale/detail/${row.id}`}>退货详情</Link><br /></span>
+                                row.processStatus == 'INIT' ? <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div> :
+                                    <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
                                         {
-                                          row.afterSaleType == 'REFUND_GOODS' ?  <Link to={`/service/aftersale/end/${row.id}`}>结束退货</Link> :               
-                                           <Link to={`/service/aftersale/end/${row.id}`}>结束换货</Link>
+                                          row.afterSaleType == 'REFUND_GOODS' ?  <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>结束退货</Link> :               
+                                           <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>结束换货</Link>
                                         }
                                        
                                            
@@ -199,7 +203,7 @@ class ReturnGoods extends Component {
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
                            dataSource={dataSource} {...other}  />
 
             </div>
