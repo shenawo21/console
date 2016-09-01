@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import WarehouseView from '../components/WarehouseView'
 import Panel from 'components/Panel'
-import { oddQueryList, getShopList, priceCateList } from '../modules/WarehouseReducer'
+import { getNoCheckList, getShopList, priceCateList } from '../modules/WarehouseReducer'
 
 class OddQuery extends Component {
   
@@ -22,28 +22,28 @@ class OddQuery extends Component {
      * @params id
      */
     _isQueryStatus(key){
-        const { oddQueryList, location} = this.props;
+        const { getNoCheckList, location} = this.props;
         let pageNumber = 1;
         this.setState({
             params: {
                 pageNumber : 1,
-                recordType : key == 1 ? "出库" : "入库"
+                processStatus : key == 1 ? "INIT" : "入库"
             }
         })
     }
 
     componentDidMount() {
-        const { oddQueryList, getShopList, priceCateList, location} = this.props;
+        const { getNoCheckList, getShopList, priceCateList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        oddQueryList({pageNumber});
+        getNoCheckList({pageNumber});
          this.setState({
             params: {
-                recordType : "出库"
+                processStatus : "INIT"
             }
         })
 	
-	//获取店铺列表
+	    //获取店铺列表
         getShopList();
         
         //获取分类列表
@@ -100,10 +100,10 @@ class OddQuery extends Component {
     render() {
         const {params, oddStatus} = this.state;
         
-        const {items, oddQueryList, shopListResult, cateResult, totalItems, loading} = this.props;
+        const {items, getNoCheckList, shopListResult, cateResult, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddQueryList,                      //表格翻页时触发的action
+            action : getNoCheckList,                      //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
@@ -162,7 +162,7 @@ class OddQuery extends Component {
 
 OddQuery.propTypes = {
     
-    oddQueryList: React.PropTypes.func,
+    getNoCheckList: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
     getShopList: React.PropTypes.func,
     priceCateList: React.PropTypes.func,
@@ -171,7 +171,7 @@ OddQuery.propTypes = {
 }
 
 const mapActionCreators = {
-    oddQueryList, 
+    getNoCheckList, 
     getShopList, 
     priceCateList
 }
