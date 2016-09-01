@@ -15,26 +15,26 @@ class ForCheck extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {shopList} = context.props;
+        const {platListItem} = context.props;
         let config = {
             formItems: [ {
                 label: "订单编号：",
-                name: "relevantStore",
+                name: "tid",
                 input: {
                    placeholder: "请输入订单编号"
                 }
             },{
                 label: "买家账号：",
-                name: "recordId",
+                name: "buyerNick",
                 input: {
                    placeholder: "请输入出库单号"
                 }
             },{
                 label: "所属平台：",
-                name: "spuId",
+                name: "channelCode",
                 select: {
                     placeholder: "请选择所属平台",
-                    optionValue: shopList
+                    optionValue: platListItem
                 }
             },{
                 label: "商品编码：",
@@ -44,17 +44,17 @@ class ForCheck extends Component {
                 }
             },{
                 label: "产品名称：",
-                name: "recordType",
+                name: "title",
                 input: {
                    placeholder: "请输入产品名称"
                 }
             }],
             initValue: {
-                operateStore: null,
-                recordId : null,
-                spuId: null,
+                tid: null,
+                buyerNick : null,
+                channelCode: null,
                 skuId : null,
-                stockType: null
+                title: null
             }
         }
         return config;
@@ -87,7 +87,7 @@ class ForCheck extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <Link to={`/service/warehouse/info`}>订单详情</Link>
+                return <Link to={`/order/audit/detail/1`}>订单详情</Link>
             }
         }];
         
@@ -102,7 +102,7 @@ class ForCheck extends Component {
         }, {
             key: '1',
             title: '商品编码',
-            dataIndex: 'skuStr'
+            dataIndex: 'outerSkuId'
         }, {
             key: '2',
             title: '产品名称',
@@ -118,11 +118,11 @@ class ForCheck extends Component {
         }, {
             key: '5',
             title: '操作',
-            dataIndex: 'skuId',
-            render(id, record) {
+            dataIndex: 'refundId',
+            render(id, row) {
                 return (
                 <span>
-                    <Link to={`/service/warehouse/info/${id}`}>已验收详情</Link>
+                    <Link to={`/service/warehouse/info/${id}`}>验收商品</Link>
                 </span>
                 );
             }
@@ -132,18 +132,20 @@ class ForCheck extends Component {
     }
 
     render() {
-        const {formOptions, dataSource, ...other} = this.props;
+        const {formOptions, tableOptions, ...other} = this.props;
+        const {dataSource} = tableOptions;
+        console.log(tableOptions,'tableOptions');
         dataSource.forEach((val, index)=>{
             val.key = index
         })
 
         return (
             <div>
-                <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+                <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
  
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
                            expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={dataSource} pagination={false} />} 
-                           dataSource={dataSource} {...other}  />
+                           {...tableOptions} />
 
             </div>
         )
