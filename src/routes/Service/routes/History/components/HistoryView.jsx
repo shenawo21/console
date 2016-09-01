@@ -140,8 +140,6 @@ class History extends Component {
             key: '12',
             title: '操作',
             render(id,row) {
-                console.log(row,'row11')
-                console.log(row.processStatus,'row2')
                 return <div>
                             <Link to={`/service/history/info/${row.key}`}>售后详情</Link><br />
                         </div>

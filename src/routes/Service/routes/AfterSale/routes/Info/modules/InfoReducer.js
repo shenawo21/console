@@ -1,36 +1,54 @@
 
-//获取详情信息
-const VIEW = 'shophouse/VIEW';
-const VIEW_SUCCESS = 'shophouse/VIEW_SUCCESS';
-const VIEW_FAILURE = 'shophouse/VIEW_FAILURE';
+//退款详情信息
+const REQ_REFUNDDETAIL = 'REQ_REFUNDDETAIL';
+const SUC_REFUNDDETAIL = 'SUC_REFUNDDETAIL';
+const ERR_REFUNDDETAIL = 'ERR_REFUNDDETAIL';
 
-/**
- * 获取详细信息
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function view() {
+// 客服审批退款单
+const REQ_VERIFY = 'REQ_VERIFY';
+const SUC_VERIFY = 'SUC_VERIFY';
+const ERR_VERIFY = 'ERR_VERIFY';
+
+export function refundDetail(params) {
     return {
-        types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-        promise: (client) => client.post('api-shop.listEnterpriseShop')
+        types: [REQ_REFUNDDETAIL, SUC_REFUNDDETAIL, ERR_REFUNDDETAIL],
+        promise: (client) => client.post('api-offSale.getRefundApply',params)
+    }
+}
+
+export function verify(params) {
+    return {
+        types: [REQ_VERIFY, SUC_VERIFY, ERR_VERIFY],
+        promise: (client) => client.post('api-offSale.doVerify',params)
     }
 }
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
-    case VIEW:
+    case REQ_REFUNDDETAIL:
         return {
             ...state
         }
-    case VIEW_SUCCESS:
+    case SUC_REFUNDDETAIL:
         return {
             ...state,
             result: action.result
         }
-    case VIEW_FAILURE:
+    case ERR_REFUNDDETAIL:
+        return {
+            ...state
+        }
+
+    case REQ_VERIFY:
+        return {
+            ...state
+        }
+    case SUC_VERIFY:
+        return {
+            ...state,
+        }
+    case ERR_VERIFY:
         return {
             ...state
         }

@@ -3,10 +3,12 @@ import {Link} from 'react-router';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
 import {UploadImage} from 'components/FileLoader'
-
-
+import RefundView from 'routes/Service/routes/RefundView';
+const RESON = [
+            {value:'已发货，买家未举证',title:'已发货，买家未举证'},
+            {value:'买家恶意申请退款',title:'买家恶意申请退款'}
+        ]
 class InfoView extends Component {
-    
     constructor() {
         super();
         this.state = {
@@ -14,44 +16,6 @@ class InfoView extends Component {
         }
     }
         
-    _getColumns(){
-        const context = this;
-        let columns = [{
-            key: '0',
-            title: '商品编码',
-            dataIndex: 'skuId'
-        },{
-            key: '1',
-            title: '商品名称',
-            dataIndex: 'title'
-        },{
-            key: '2',
-            title: '原价格',
-            dataIndex: 'price'
-        }, {
-            key: '3',
-            title: '数量',
-            dataIndex: 'refund_nums'
-        }, {
-            key: '4',
-            title: '商品总价值',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '5',
-            title: '优惠金额',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '4',
-            title: '退货数量',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '4',
-            title: '退货金额',
-            dataIndex: 'specOneValue'
-        }];
-        return columns;
-    }
-
     _getFormItems(){
         let context = this;
         const {item, photoList, licenseImg, ...other} = context.props;
@@ -62,16 +26,17 @@ class InfoView extends Component {
         };
         let config = {
             formItems: [{
-                label: "退货快递单号：",
-                name: "title",
+                label: "拒绝退款原因：",
+                name: "cwRefuseReason",
                 required: true,
-                rules: [{ required: true, message: '请输入快递单号' }],
-                input: {
-                    placeholder: "请输入商品名称"
+                rules: [{ required: true, message: '原因不能为空' }],
+                select: {
+                    placeholder:'请选择拒绝退款原因',
+                    optionValue: RESON
                 }
             },{
-                label: "备注：",
-                name: "remark",
+                label: "退款审批说明：",
+                name: "optRemark",
                 wrapperCol: {span: 10},
                 input: {
                     rows: '5',
@@ -79,9 +44,8 @@ class InfoView extends Component {
                     placeholder: "请输入审核描述",
                 }
             }, {
-                label: "验货凭证：",
+                label: "发货凭证：",
                 name: "businessLicense",
-                required: true,
                 custom(getCustomFieldProps) {
                     upConfig.fileList = [];
                     return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
@@ -90,24 +54,42 @@ class InfoView extends Component {
                 }
             }],
             initValue: {
-                title : null,
-                shopId: null,
-                categoryCode : null
+                cwRefuseReason : null,
+                optRemark: null,
+                businessLicense : null
             }
         }
         return config;
     }
     
     render() {
-        let {formOptions, ...other} = this.props;
+        let {result, handleSubmit} = this.props;
+        const buttonOption = {
+            buttons : [
+                {
+                    key : 'review',
+                    name :'审核通过，通知财务退款',
+                    type : 'primary',
+                },
+                {
+                    key : 'refuse',
+                    name : '拒绝退款',
+                },
+                {
+                    key : 'back',
+                    name : '返回',
+                    handle(){
+                        history.go(-1);
+                    }
+                }
+            ]
+        }
         return (
             <div>
-                <h3 className = 'titleName'>客户退款申请</h3>
-                <DataTable bordered={true} size="small" columns={this._getColumns()} {...other} />
+                <RefundView result = {result} />
 
                 <h3 className = 'titleName'>退款审批</h3>
-                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} />
+                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />
             </div>
         )
     }

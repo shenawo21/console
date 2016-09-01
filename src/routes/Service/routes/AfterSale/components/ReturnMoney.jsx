@@ -32,7 +32,7 @@ class ReturnMoney extends Component {
                 }
             },{
                 label: "商品编码：",
-                name: "skuId",
+                name: "outerSkuId",
                 labelCol: {span: 8},
                 span:7,
                 input: {}
@@ -47,7 +47,7 @@ class ReturnMoney extends Component {
                 tid: null,
                 buyerNick: null,
                 shopName: null,
-                skuId: null,
+                outerSkuId: null,
                 title: null,
             }
         }
@@ -75,15 +75,13 @@ class ReturnMoney extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'afterSaleType',
+            dataIndex: 'hasGoodReturn',
             render(type) {
                 switch(type) {
-                    case 'REFUND_MONEY':
+                    case false:
                         return '退款'
-                    case 'REFUND_GOODS':
+                    case true:
                         return '退货'
-                    case 'CHANGE_GOODS':
-                        return '换货'        
                 }
             }
         }, {
@@ -108,7 +106,7 @@ class ReturnMoney extends Component {
         },{
             key: '2',
             title: '商品编码',
-            dataIndex: 'skuId'
+            dataIndex: 'outerSkuId'
         }, {
             key: '3',
             title: '产品名称',
@@ -120,19 +118,23 @@ class ReturnMoney extends Component {
         }, {
             key: '5',
             title: '数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'num'
         }, {
             key: '6',
             title: '商品总价值',
-            dataIndex: 'totalFee'
+            render(id,row) {
+                return row.price * row.num
+            }
         }, {
             key: '7',
             title: '退货数量',
-            dataIndex: 'refundNums'
+            dataIndex: 'tGoodsNum'
         }, {
             key: '8',
             title: '退货金额',
-            dataIndex: 'refundFee'
+            render(id,row) {
+                return row.price * row.tGoodsNum
+            }
         }, {
             key: '9',
             title: '操作',
