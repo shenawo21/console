@@ -42,7 +42,7 @@ class specificationMgt extends Component {
                 return row.id ? <span>{val}</span> : <Input type='text' onChange={(e)=>{
                     specList[curKey].enterpriseSpecList[index].specValue = e.target.value
                     context.setState({specList})
-                }} defaultValue={val} />
+                }} value={val} />
             }
         }, {
             key: '2',
@@ -161,7 +161,7 @@ class specificationMgt extends Component {
                         labelCol={{ span: 2 }}
                         wrapperCol={{ span: 16 }}
                         >
-                        <Cascader style={{ width: 200 }} options={cateList} onChange={this.getSpecCateList} placeholder="请选择" />
+                        <Cascader style={{ width: 200 }} options={cateList} onChange={this.getSpecCateList} expandTrigger="hover" placeholder="请选择" />
                     </FormItem>
                     {
                         specList.length ?

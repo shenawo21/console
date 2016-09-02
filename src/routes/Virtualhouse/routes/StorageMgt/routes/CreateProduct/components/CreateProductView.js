@@ -5,7 +5,6 @@ import Sku from "./Sku"
 import SearchSpu from "./SearchSpu"
 import Form from 'components/Form';
 
-
 class CreateProduct extends Component {
     constructor(props){
         super(props);
@@ -25,78 +24,79 @@ class CreateProduct extends Component {
         const { selectItem } = this.state;
 
 	    config.formItems = [{
-                label: "SPU：",
-                name: "spuId",
-                disabled: 'disabled',
-                custom(getCustomFieldProps) {
-                    return <Row>
-                        <Col span='12'><input type="text" className="ant-input ant-input-lg" {...getCustomFieldProps('spuId') } /></Col><Col span='6'><Button onClick={context.showModal}>选择已有SPU</Button></Col>
-                    </Row>
+            label: "SPU：",
+            name: "spuId",
+            disabled: 'disabled',
+            custom(getCustomFieldProps) {
+                return <Row>
+                    <Col span='12'><input type="text" className="ant-input ant-input-lg" {...getCustomFieldProps('spuId') } /></Col><Col span='6'><Button onClick={context.showModal}>选择已有SPU</Button></Col>
+                </Row>
+            }
+        }, {
+            label: "商品标题：",
+            name: "title",
+            required: true,
+            input: {
+                placeholder: "请输入商品标题",
+                disabled: selectItem ? true : false
+            }
+        }, {
+            label: "商品类目：",
+            name: "categoryCode",
+            wrapperCol: {span: 15},
+            cascader: {
+                options: cateList,
+                placeholder: "请选择所属类目",
+                disabled: selectItem ? true : false
+            },
+            fieldOptions: {
+                onChange:function(value) {
+                    getSpecByCateList({categoryCode: value.pop()})
                 }
-            }, {
-                label: "商品标题：",
-                name: "title",
-                required: true,
-                input: {
-                    placeholder: "请输入商品标题",
-                    disabled: selectItem ? true : false
-                }
-            }, {
-                label: "商品类目：",
-                name: "categoryCode",
-                wrapperCol: {span: 15},
-                cascader: {
-                    options: cateList,
-                    placeholder: "请选择所属类目",
-                    disabled: selectItem ? true : false
-                },
-                fieldOptions: {
-                    onChange:function(value) {
-                        getSpecByCateList({categoryCode: value.pop()})
-                    }
-                }
-            }, {
-                label: "商品品牌：",
-                name: "brandId",
-                select: {
-                    placeholder: "请选择商品品牌",
-                    optionValue: brandList,
-                    disabled: selectItem ? true : false
-                }
-            }, {
-                label: "市场价(元)：",
-                name: "marketPrice",
-                infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
-                input: {
-                    placeholder: "请输入市场价",
-                    disabled: selectItem ? true : false
-                }
-            }, {
-                label: "销售价(元)：",
-                name: "price",
-                required: true,
-                infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
-                input: {
-                    placeholder: "请输入销售价",
-                    disabled:true
-                }
-            }, {
-                label: "库存数量：",
-                name: "stock",
-                required: true,
-                infoLabel: <span>必须是0～999999999之间整数</span>,
-                input: {
-                    placeholder: "请输入库存数量",
-                    disabled:true
-                }
-            }, {
-                label: "商品规格：",
-                required: true,
-                wrapperCol: {span: 15},
-                custom() {
-                    return <Sku sourceData={specListResult} specState={selectItem} ></Sku>
-                }
-            }];
+            }
+        }, {
+            label: "商品品牌：",
+            name: "brandId",
+            select: {
+                placeholder: "请选择商品品牌",
+                optionValue: brandList,
+                disabled: selectItem ? true : false
+            }
+        }, {
+            label: "市场价(元)：",
+            name: "marketPrice",
+            infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
+            input: {
+                placeholder: "请输入市场价",
+                disabled: selectItem ? true : false
+            }
+        }, {
+            label: "销售价(元)：",
+            name: "price",
+            required: true,
+            infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
+            input: {
+                placeholder: "请输入销售价",
+                disabled:true
+            }
+        }, {
+            label: "库存数量：",
+            name: "stock",
+            required: true,
+            infoLabel: <span>必须是0～999999999之间整数</span>,
+            input: {
+                placeholder: "请输入库存数量",
+                disabled:true
+            }
+        }, {
+            label: "商品规格：",
+            required: true,
+            name : 'skuList',
+            wrapperCol: {span: 15},
+            custom(fieldProps) {
+                return <Sku sourceData={specListResult} specState={selectItem} {...fieldProps('skuList')} ></Sku>
+            }
+        }];
         config.initValue = {
             spuId: null,
             title: null,
@@ -104,12 +104,18 @@ class CreateProduct extends Component {
             brandId: null,
             marketPrice: null,
             price: null,
-            stock: null
-        }
-        if(selectItem){
-            config.initValue = selectItem;
+            stock: null,
+            skuList : []
         }
 
+        if( selectItem ){
+            config.initValue = selectItem;
+            let num = selectItem.categoryId.length / 2, categoryCode = []
+            for(var i = 0; i < num; i++){
+                categoryCode.push(selectItem.categoryId.substring(2*i,2*(i+1)))
+            }
+            config.initValue.categoryCode = categoryCode
+        }
         return config;
     }
 

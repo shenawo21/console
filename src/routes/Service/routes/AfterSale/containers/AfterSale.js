@@ -8,7 +8,7 @@ import { getRefund, getChangeGoods,getShopList } from '../modules/AfterSaleReduc
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
 
-const TYPES = [{type : '退款'},{type : '退货'}];
+const TYPES = [{type : '退款'},{type : '退换货'}];
 
 class OddQuery extends Component {
   
