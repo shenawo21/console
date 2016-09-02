@@ -101,7 +101,7 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <RefundView result = {result} ArryStatus = {ArryStatus} src = {src} />
+                <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} />
 
                 <h3 className = 'titleName'>退款审批</h3>
                 {result.processStatus = 'PROCESS' ? 

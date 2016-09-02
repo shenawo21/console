@@ -9,7 +9,7 @@ export default (props) => {
   return (
     <div className="table-box">
             <table className = 'border-table' style = {{width:'100%'}}>
-                <caption>客户退款申请</caption>
+                <caption>{props.title}</caption>
                 <tr>
                     <th>商品编码</th>
                     <th>商品名称</th>
@@ -49,20 +49,6 @@ export default (props) => {
                     </span></li>
 
             </ul>
-                {/**<tr>
-                    <th>退款说明:</th>
-                    <td>{refundComment.content}</td>
-                </tr>
-                <tr>
-                    <th>凭证:</th>
-                    <td>
-                        {
-                            src && src.map((item, index)=>{
-                            return <img src={item} width= '80' style={{marginRight:10}} />
-                            })
-                        }
-                    </td>
-                </tr> */ }
         </div>
   )
 }
