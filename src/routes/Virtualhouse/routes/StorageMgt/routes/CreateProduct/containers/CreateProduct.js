@@ -43,11 +43,12 @@ class CreateProduct extends Component {
                */
               handleSubmit(value) {
                   const {addPro} = _this.props;
-                  _this.setState({
-                      params: value
-                  })
-                  
-                  addPro({...value})
+                //   _this.setState({
+                //       params: value
+                //   })
+                  let {skuData, categoryCode, ...other} = value
+                  value = {...skuData, ...other, categoryCode : categoryCode.join(',')}
+                  addPro(value)
               },
 
               /**
@@ -76,20 +77,6 @@ class CreateProduct extends Component {
                   _this.setState({
                       params: value
                   })
-              },
-
-              /**
-               * (筛选表单重置)
-               */
-              handleReset() {
-                  
-              },
-
-              /**
-               * 勾选数据后设置item
-               */
-              handleItem() {
-
               }
           }
       }
