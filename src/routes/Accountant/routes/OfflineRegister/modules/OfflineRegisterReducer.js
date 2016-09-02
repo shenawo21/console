@@ -38,12 +38,12 @@ export function getRecordedList(params) {
 export function delRegister() {
     return {
         types: [DELREGISTER, DELREGISTER_SUCCESS, DELREGISTER_FAILURE],
-        promise: (client) => client.post('api-shop.listEnterpriseShop')
+        promise: (client) => client.post('api-offSale.deleteRegist')
     }
 }
 
 /**
- * 获取商品分类
+ * 费用登记
  * 
  * @export
  * @param params (description)
@@ -52,7 +52,7 @@ export function delRegister() {
 export function register(params) {
   return {
     types: [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE],
-    promise: (client) => client.post('api-category.listAll', params)
+    promise: (client) => client.post('api-offSale.doRegist', params)
   }
 }
 

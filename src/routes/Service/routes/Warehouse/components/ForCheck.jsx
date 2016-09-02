@@ -120,10 +120,11 @@ class ForCheck extends Component {
             title: '操作',
             dataIndex: 'refundId',
             render(id, row) {
+                console.log(row,'row');
                 return (
-                <span>
-                    <Link to={`/service/warehouse/info/${id}`}>验收商品</Link>
-                </span>
+                    <span>
+                        <Link to={`/service/warehouse/info/${id}/${row.outerSkuId}`}>验收商品</Link>
+                    </span>
                 );
             }
         }];
@@ -134,7 +135,7 @@ class ForCheck extends Component {
     render() {
         const {formOptions, tableOptions, ...other} = this.props;
         const {dataSource} = tableOptions;
-        console.log(tableOptions,'tableOptions');
+        console.log(dataSource, 'dataSource');
         dataSource.forEach((val, index)=>{
             val.key = index
         })

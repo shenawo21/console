@@ -125,7 +125,7 @@ class Checked extends Component {
             render(id, record) {
                 return (
                 <span>
-                    <Link to={`/service/warehouse/info/${id}`}>已验收详情</Link>
+                    <Link to={`/service/warehouse/info/${id}/1`}>已验收详情</Link>
                 </span>
                 );
             }

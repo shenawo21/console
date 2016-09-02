@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
-import {view, doCheck} from '../modules/InfoReducer'
+import {view, viewForcheck, doCheck} from '../modules/InfoReducer'
 
 class Info extends Component {
   
@@ -23,16 +23,23 @@ class Info extends Component {
     }
      
     componentDidMount() {        
-        const {view, params} = this.props;
+        const {view, viewForcheck, params} = this.props;
         console.log(params, 'params');
         //获取详情信息
-        view({refundId:params.id});
+        if(params.skuid != 1){
+            viewForcheck({
+                tid: params.id,
+                outerSkuId: params.skuid
+            });
+        }else{
+            view({refundId:params.id});
+        }        
     }
 
     componentWillReceiveProps(nextProps, preProps){
         if(nextProps.jump){
             setTimeout(()=>{
-                this.context.router.push('/accounts')
+                this.context.router.push('/warehouse')
             },600)
         }
 
@@ -88,14 +95,16 @@ class Info extends Component {
     }
 }
 
-Info.propTypes = {
+Info.propTypes = {    
+    doCheck: React.PropTypes.func,
     view: React.PropTypes.func,
-    doCheck: React.PropTypes.func,    
+    viewForcheck: React.PropTypes.func,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
     view,
+    viewForcheck,
     doCheck
 }
 
@@ -104,8 +113,8 @@ Info.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, checkResult, loading} = state.info;    
-    return { result, checkResult, loading };    
+    const {result, checkResult, forchekResult, loading} = state.info;    
+    return { result, checkResult, forchekResult, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)
