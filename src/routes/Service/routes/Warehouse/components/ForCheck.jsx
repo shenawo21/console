@@ -120,10 +120,11 @@ class ForCheck extends Component {
             title: '操作',
             dataIndex: 'refundId',
             render(id, row) {
+                console.log(row,'row');
                 return (
-                <span>
-                    <Link to={`/service/warehouse/info/${id}`}>验收商品</Link>
-                </span>
+                    <span>
+                        <Link to={`/service/warehouse/info/${id}/${row.outerSkuId}`}>验收商品</Link>
+                    </span>
                 );
             }
         }];
@@ -134,17 +135,22 @@ class ForCheck extends Component {
     render() {
         const {formOptions, tableOptions, ...other} = this.props;
         const {dataSource} = tableOptions;
-        console.log(tableOptions,'tableOptions');
-        dataSource.forEach((val, index)=>{
+        let dataSourceSub = [];
+        dataSource && dataSource.forEach((val, index)=>{
             val.key = index
+            // val.refundApplyList && val.refundApplyList.forEach((val, i) => {
+            //     val.key = index
+            // })
+            dataSourceSub = val.refundApplyList
         })
+        console.log(dataSourceSub,'dataSourceSub');
 
         return (
             <div>
                 <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
  
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={dataSource} pagination={false} />} 
+                           expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={dataSourceSub} pagination={false} />} 
                            {...tableOptions} />
 
             </div>

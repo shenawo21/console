@@ -125,7 +125,7 @@ class Checked extends Component {
             render(id, record) {
                 return (
                 <span>
-                    <Link to={`/service/warehouse/info/${id}`}>已验收详情</Link>
+                    <Link to={`/service/warehouse/info/${id}/1`}>已验收详情</Link>
                 </span>
                 );
             }
@@ -137,8 +137,13 @@ class Checked extends Component {
     render() {
         const {formOptions, tableOptions, ...other} = this.props;
         const {dataSource} = tableOptions;
-        dataSource.forEach((val, index)=>{
+        let dataSourceSub = [];
+        dataSource && dataSource.forEach((val, index)=>{
             val.key = index
+            // val.refundApplyList && val.refundApplyList.forEach((val, i) => {
+            //     val.key = index
+            // })
+            dataSourceSub = val.refundApplyList
         })
         
         return (
@@ -147,7 +152,7 @@ class Checked extends Component {
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table size="small" bordered={true} columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           expandedRowRender={record => <Table size="small" bordered={true} columns={this._getSubColumns()} dataSource={dataSourceSub} pagination={false} />} 
                            {...tableOptions} />
             </div>
         )

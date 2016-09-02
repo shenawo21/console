@@ -77,11 +77,13 @@ class Warehouse extends Component {
     }
     
     callback(key) {
-        const {getNoCheckList, getCheckedList } = this.props;
+        const {getNoCheckList, getCheckedList, location } = this.props;
+        const {query} = location;
+        let pageNumber = query.p ? Number(query.p) : 1;
         if(key == 2) { 
-            getCheckedList();
+            getCheckedList({pageNumber});
         } else {
-            getNoCheckList();
+            getNoCheckList({pageNumber});
         }
         this.setState({
             curKey : key - 1,

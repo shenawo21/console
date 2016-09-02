@@ -112,7 +112,8 @@ class InfoView extends Component {
     }
     
     render() {
-        let {formOptions} = this.props;
+        let {formOptions, params} = this.props;
+        console.log(params,'params');
         /**
          * button 配置项
          * 
@@ -131,6 +132,17 @@ class InfoView extends Component {
                 {
                     key : 'back',   
                     name : '返回',
+                    handle(){
+                        history.go(-1);
+                    }
+                }
+            ]
+        }
+        const buttonBack = {
+            buttons : [
+                {
+                    key : 'back',   
+                    name : '关闭',
                     handle(){
                         history.go(-1);
                     }

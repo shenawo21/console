@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
-import {view, doCheck} from '../modules/InfoReducer'
+import {view, viewForcheck, getLogisticsList, doCheck} from '../modules/InfoReducer'
 
 class Info extends Component {
   
@@ -23,16 +23,25 @@ class Info extends Component {
     }
      
     componentDidMount() {        
-        const {view, params} = this.props;
+        const {view, viewForcheck, getLogisticsList, params} = this.props;
         console.log(params, 'params');
         //获取详情信息
-        view({refundId:params.id});
+        if(params.skuid != 1){
+            viewForcheck({
+                tid: params.id,
+                outerSkuId: params.skuid
+            });            
+        }else{
+            view({refundId:params.id});
+        }
+        //获取物流公司列表
+        getLogisticsList();   
     }
 
     componentWillReceiveProps(nextProps, preProps){
         if(nextProps.jump){
             setTimeout(()=>{
-                this.context.router.push('/accounts')
+                this.context.router.push('/warehouse')
             },600)
         }
 
@@ -63,7 +72,8 @@ class Info extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  const { doCheck } = context.props;               
+                  const { doCheck } = _this.props;
+                  console.log(value,'value');          
                   doCheck({
                       ...value
                   })
@@ -80,7 +90,7 @@ class Info extends Component {
     
     render() {
         const {item, photoList} = this.state;        
-        const {shopListResult, totalItems, loading} = this.props;        
+        const {logisticResult} = this.props;        
         const formOptions = {
             ...this.getFormOptions()
         }
@@ -88,14 +98,17 @@ class Info extends Component {
     }
 }
 
-Info.propTypes = {
+Info.propTypes = {    
+    doCheck: React.PropTypes.func,
     view: React.PropTypes.func,
-    doCheck: React.PropTypes.func,    
+    viewForcheck: React.PropTypes.func,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
     view,
+    viewForcheck,
+    
     doCheck
 }
 
@@ -104,8 +117,8 @@ Info.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, checkResult, loading} = state.info;    
-    return { result, checkResult, loading };    
+    const {result, checkResult, logisticResult, forchekResult, loading} = state.info;    
+    return { result, checkResult, logisticResult, forchekResult, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

@@ -30,7 +30,7 @@ class History extends Component {
                 }
             },{
                 label: "商品编码：",
-                name: "skuId",
+                name: "outerSkuId",
                 input: {}
             },{
                 label: "产品名称：",
@@ -47,7 +47,7 @@ class History extends Component {
                 tid: null,
                 buyerNick: null,
                 shopName: null,
-                skuId: null,
+                outerSkuId: null,
                 title: null,
                 offSaleType:null
             }
@@ -109,7 +109,7 @@ class History extends Component {
         },{
             key: '2',
             title: '商品编码',
-            dataIndex: 'skuId'
+            dataIndex: 'outerSkuId'
         }, {
             key: '3',
             title: '产品名称',
@@ -121,27 +121,51 @@ class History extends Component {
         }, {
             key: '5',
             title: '数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'num'
         }, {
             key: '6',
             title: '商品总价值',
-            dataIndex: 'totalFee'
+            render(id,row) {
+                return row.price * row.num
+            }
         }, {
             key: '7',
             title: '退货数量',
-            dataIndex: 'refundNums'
+            dataIndex: 'tGoodsNum'
         }, {
             key: '8',
             title: '退货金额',
-            dataIndex: 'refundFee'
+            render(id,row) {
+                return row.price * row.tGoodsNum
+            }
         },{
             key: '9',
             title: '处理状态',
-            dataIndex: 'processStatus'
+            dataIndex: 'processStatus',
+            render(type) {
+                // switch(type) {
+                //     case 'REFUND_MONEY':
+                //         return '退款'
+                //     case 'REFUND_GOODS':
+                //         return '退货'
+                //     case 'CHANGE_GOODS':
+                //         return '换货'
+                // }
+            }
         },{
             key: '10',
             title: '仓库反馈',
-            dataIndex: 'feedbackStatus'
+            dataIndex: 'feedbackStatus',
+            render(type) {
+                // switch(type) {
+                //     case 'REFUND_MONEY':
+                //         return '退款'
+                //     case 'REFUND_GOODS':
+                //         return '退货'
+                //     case 'CHANGE_GOODS':
+                //         return '换货'
+                // }
+            }
         },{
             key: '11',
             title: '仓库反馈时间',
@@ -152,8 +176,8 @@ class History extends Component {
             render(id,row) {
                 return <div>
                             {
-                                row.afterSaleType == 'REFUND_MONEY' ? <Link to={`/service/history/info/${row.key}`}>退款详情</Link> :
-                                row.afterSaleType == 'REFUND_GOODS' ? <Link to={`/service/history/info/${row.key}`}>退货详情</Link> :
+                                row.afterSaleType == 'REFUND_MONEY' ? <Link to={`/service/aftersale/info/${row.key}`}>退款详情</Link> :
+                                row.afterSaleType == 'REFUND_GOODS' ? <Link to={`/service/aftersale/applyGoods/${row.key}`}>退货详情</Link> :
                                 <Link to={`/service/history/info/${row.key}`}>换货详情</Link> 
                             }
                         </div>
@@ -176,7 +200,7 @@ class History extends Component {
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
+                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
                            dataSource={dataSource} {...other}  />
 
             </div>
