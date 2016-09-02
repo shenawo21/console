@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
-import {view, viewForcheck, doCheck} from '../modules/InfoReducer'
+import {view, viewForcheck, getLogisticsList, doCheck} from '../modules/InfoReducer'
 
 class Info extends Component {
   
@@ -23,17 +23,19 @@ class Info extends Component {
     }
      
     componentDidMount() {        
-        const {view, viewForcheck, params} = this.props;
+        const {view, viewForcheck, getLogisticsList, params} = this.props;
         console.log(params, 'params');
         //获取详情信息
         if(params.skuid != 1){
             viewForcheck({
                 tid: params.id,
                 outerSkuId: params.skuid
-            });
+            });            
         }else{
             view({refundId:params.id});
-        }        
+        }
+        //获取物流公司列表
+        getLogisticsList();   
     }
 
     componentWillReceiveProps(nextProps, preProps){
@@ -70,7 +72,8 @@ class Info extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  const { doCheck } = context.props;               
+                  const { doCheck } = _this.props;
+                  console.log(value,'value');          
                   doCheck({
                       ...value
                   })
@@ -87,7 +90,7 @@ class Info extends Component {
     
     render() {
         const {item, photoList} = this.state;        
-        const {shopListResult, totalItems, loading} = this.props;        
+        const {logisticResult} = this.props;        
         const formOptions = {
             ...this.getFormOptions()
         }
@@ -105,6 +108,7 @@ Info.propTypes = {
 const mapActionCreators = {
     view,
     viewForcheck,
+    
     doCheck
 }
 
@@ -113,8 +117,8 @@ Info.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, checkResult, forchekResult, loading} = state.info;    
-    return { result, checkResult, forchekResult, loading };    
+    const {result, checkResult, logisticResult, forchekResult, loading} = state.info;    
+    return { result, checkResult, logisticResult, forchekResult, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

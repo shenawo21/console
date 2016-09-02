@@ -135,17 +135,22 @@ class ForCheck extends Component {
     render() {
         const {formOptions, tableOptions, ...other} = this.props;
         const {dataSource} = tableOptions;
-        console.log(dataSource, 'dataSource');
-        dataSource.forEach((val, index)=>{
+        let dataSourceSub = [];
+        dataSource && dataSource.forEach((val, index)=>{
             val.key = index
+            // val.refundApplyList && val.refundApplyList.forEach((val, i) => {
+            //     val.key = index
+            // })
+            dataSourceSub = val.refundApplyList
         })
+        console.log(dataSourceSub,'dataSourceSub');
 
         return (
             <div>
                 <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
  
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={dataSource} pagination={false} />} 
+                           expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={dataSourceSub} pagination={false} />} 
                            {...tableOptions} />
 
             </div>
