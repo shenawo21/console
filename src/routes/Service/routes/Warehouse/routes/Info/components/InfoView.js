@@ -38,18 +38,29 @@ class InfoView extends Component {
         }, {
             key: '3',
             title: '实际数量',
-            dataIndex: 'categoryCode'
+            dataIndex: 'categoryCode',
+            render(id, row){
+                return <span>
+                            <input value="1" />
+                        </span>
+            }
         }, {
             key: '4',
             title: '验收结果',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(id, row){
+                return <span>
+                            <input value="1" />
+                        </span>
+            }
         }];
+
         return columns;
     }
 
     _getFormItems(){
         let context = this;
-        const {item, photoList, licenseImg, ...other} = context.props;
+        const {item, photoList, licenseImg, tableOptions, logiListItem, ...other} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -62,7 +73,7 @@ class InfoView extends Component {
                 required: true,
                 rules: [{ required: true, message: '请选择快递公司' }],
                 select: {
-                    optionValue: STOCKTYPE,
+                    optionValue: logiListItem,
                     placeholder: "请选择快递公司"
                 }
             },{
@@ -77,7 +88,7 @@ class InfoView extends Component {
                 label: "货物结果：",
                 wrapperCol: { span: 24 },
                 custom() {
-                     return <DataTable bordered={true} size="small" columns={context._getColumns()} {...other} />
+                     return <DataTable bordered={true} size="small" columns={context._getColumns()} {...tableOptions} />
                 }
             },{
                 label: "备注：",
@@ -112,8 +123,7 @@ class InfoView extends Component {
     }
     
     render() {
-        let {formOptions, params} = this.props;
-        console.log(params,'params');
+        let {formOptions} = this.props;
         /**
          * button 配置项
          * 

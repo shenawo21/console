@@ -118,7 +118,7 @@ class ForCheck extends Component {
         }, {
             key: '5',
             title: '操作',
-            dataIndex: 'refundId',
+            dataIndex: 'id',
             render(id, row) {
                 console.log(row,'row');
                 return (
@@ -138,12 +138,12 @@ class ForCheck extends Component {
         let dataSourceSub = [];
         dataSource && dataSource.forEach((val, index)=>{
             val.key = index
-            // val.refundApplyList && val.refundApplyList.forEach((val, i) => {
-            //     val.key = index
-            // })
+
+            val.refundApplyList && val.refundApplyList.forEach((val, index) => {
+                val.id = val.tid
+            })
             dataSourceSub = val.refundApplyList
         })
-        console.log(dataSourceSub,'dataSourceSub');
 
         return (
             <div>

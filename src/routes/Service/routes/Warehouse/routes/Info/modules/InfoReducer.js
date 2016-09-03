@@ -19,7 +19,7 @@ const CHECK_SUCCESS = 'service/CHECK_SUCCESS';
 const CHECK_FAILURE = 'service/CHECK_FAILURE';
 
 /**
- * 获取单条数据
+ * 获取单条数据（已验收）
  * 
  * @export
  * @param params (description)
@@ -33,7 +33,7 @@ export function view(params) {
 }
 
 /**
- * 获取单条数据
+ * 获取单条数据(未验收)
  * 
  * @export
  * @param params (description)
@@ -56,7 +56,7 @@ export function viewForcheck(params) {
 export function getLogisticsList(params) {
   return {
     types: [LOGISTICSlIST, LOGISTICSlIST_SUCCESS, LOGISTICSlIST_FAILURE],
-    promise: (client) => client.post('api-warehouseDispose.getViewRefundApplyByTidAndSkuId', params)
+    promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
   }
 }
 
@@ -96,7 +96,7 @@ export default function reducer(state = {result:{}}, action) {
     case CHECK_SUCCESS:
         return {
             ...state,
-            checkResult: action.result
+            result: action.result
         }
     case CHECK_FAILURE:
         return {
@@ -114,7 +114,7 @@ export default function reducer(state = {result:{}}, action) {
     case VIEWFORCHECK_SUCCESS:
         return {
             ...state,
-            forchekResult: action.result
+            result: action.result
         }
     case VIEWFORCHECK_FAILURE:
         return {
