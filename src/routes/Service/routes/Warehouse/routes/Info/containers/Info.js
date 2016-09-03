@@ -145,10 +145,10 @@ Info.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, logisticResult, loading} = state.info;
-    console.log(result,'result');
+    const {result, checkResult, forchekResult, logisticResult, loading} = state.info;
     const items = [];
-    return { items, result, logisticResult, loading };    
+    items.push(forchekResult)
+    return { items, result, checkResult, forchekResult, logisticResult, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

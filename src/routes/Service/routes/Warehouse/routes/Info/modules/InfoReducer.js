@@ -96,7 +96,7 @@ export default function reducer(state = {result:{}}, action) {
     case CHECK_SUCCESS:
         return {
             ...state,
-            result: action.result
+            checkResult: action.result
         }
     case CHECK_FAILURE:
         return {
@@ -114,7 +114,7 @@ export default function reducer(state = {result:{}}, action) {
     case VIEWFORCHECK_SUCCESS:
         return {
             ...state,
-            result: action.result
+            forchekResult: action.result
         }
     case VIEWFORCHECK_FAILURE:
         return {
