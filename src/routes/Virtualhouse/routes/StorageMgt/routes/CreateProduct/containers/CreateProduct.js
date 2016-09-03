@@ -46,9 +46,14 @@ class CreateProduct extends Component {
                 //   _this.setState({
                 //       params: value
                 //   })
-                  let {skuData, categoryCode, ...other} = value
-                  value = {...skuData, ...other, categoryCode : categoryCode.join(',')}
-                  addPro(value)
+                  let {skuData, categoryId, ...other} = value
+                  console.log('categoryCode',categoryId);
+                  value = {...skuData, ...other, categoryId : typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
+                  addPro(value).then((res)=>{
+                      if(res.status === 1){
+                          setTimeout(()=>{history.go(-1)}, 1000)
+                      }
+                  })
               },
 
               /**

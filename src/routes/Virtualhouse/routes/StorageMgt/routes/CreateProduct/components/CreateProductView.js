@@ -54,7 +54,7 @@ class CreateProduct extends Component {
             }
         }, {
             label: "商品类目：",
-            name: "categoryCode",
+            name: "categoryId",
             wrapperCol: {span: 15},
             cascader: {
                 options: cateList,
@@ -63,6 +63,7 @@ class CreateProduct extends Component {
             },
             fieldOptions: {
                 onChange:function(value) {
+                    console.log(21212,arguments)
                     getSpecByCateList({categoryCode: value.pop()})
                 }
             }
@@ -84,9 +85,9 @@ class CreateProduct extends Component {
             }
         }, {
             label: "销售价(元)：",
-            name: "price",
+            name: "advicePrice",
             required: true,
-            rules: [{ required: true, message: '销售价不能为空' }],
+            // rules: [{ required: true, message: '销售价不能为空' }],
             infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
             input: {
                 placeholder: "请输入销售价",
@@ -94,9 +95,9 @@ class CreateProduct extends Component {
             }
         }, {
             label: "库存数量：",
-            name: "stock",
+            name: "total",
             required: true,
-            rules: [{ required: true, message: '库存数量不能为空' }],
+            // rules: [{ required: true, message: '库存数量不能为空' }],
             infoLabel: <span>必须是0～999999999之间整数</span>,
             input: {
                 placeholder: "请输入库存数量",
@@ -106,7 +107,7 @@ class CreateProduct extends Component {
             label: "商品规格：",
             required: true,
             wrapperCol: {span: 15},
-            rules: [{ required: true, message: 'sku不能为空' }],
+            // rules: [{ required: true, message: 'sku不能为空' }],
             name : 'skuData',
             custom(fieldProps) {
                 return <Sku specList={specList} specDataList={specDataList} rowList={rowList} setInputValue={context.setInputValue} changeSpecValue={context.changeSpecValue}  specType={SPECTYPE} {...fieldProps('skuData')}></Sku>
@@ -124,27 +125,29 @@ class CreateProduct extends Component {
         }
 
         if( selectItem ){
-            config.initValue = selectItem;
-            let num = selectItem.categoryId.length / 2, categoryCode = []
-            for(var i = 0; i < num; i++){
-                categoryCode.push(selectItem.categoryId.substring(2*i, 2*(i+1)))
-            }
-            config.initValue.categoryCode = categoryCode
+             config.initValue = selectItem;
+            // let num = selectItem.categoryId.length / 2, categoryCode = []
+            // for(var i = 0; i < num; i++){
+            //     categoryCode.push(selectItem.categoryId.substring(2*i, 2*(i+1)))
+            // }
+            // config.initValue.categoryCode = categoryCode
+             config.initValue.categoryId = selectItem.categoryId
         }
+       
         if(salePrice){
-            config.initValue.price = salePrice
+            config.initValue.advicePrice = salePrice
         }
         if(totalStock){
-            config.initValue.stock = totalStock
+            config.initValue.total = totalStock
         }
-        config.initValue.skuData = this.setSkuConfig(specDataList, rowList)
+        config.initValue.skuData = this.setSkuConfig(specDataList, rowList, selectItem)
         return config;
     }
 
-    setSkuConfig(specDataList, rowList){
+    setSkuConfig(specDataList, rowList, selectItem){
         let skuData = {skuList:[]}
         specDataList.forEach((val)=>{
-            skuData['spec'+ val.key +'Name'] = val.items.map((item) => {
+            skuData['spec'+ val.key +'Value'] = val.items.map((item) => {
                 return item.indexOf('_d') !== -1 ? item.split('_')[0] : item
             }).join(',')
         })
@@ -152,6 +155,9 @@ class CreateProduct extends Component {
             let curSku = {}
             SPECTYPE.forEach((item)=>{
                 curSku['spec'+ item +'Value'] = val['spec'+ item +'Value']
+                if(selectItem && selectItem['specId'+ item] && num == 0){
+                    skuData['specId'+ item] = selectItem['specId'+ item]
+                }
             })
             curSku = {
                 ...curSku,
@@ -208,7 +214,7 @@ class CreateProduct extends Component {
                     })
                     eSpecList.push({
                         name: val.name,
-                        specId: val.specId,
+                        // specId: val.specId,
                         specValues
                     })
                 }
@@ -231,12 +237,12 @@ class CreateProduct extends Component {
         SPECTYPE.forEach((val)=>{
             let specName = specState['spec'+ val +'Name']
             let specValue = specState['spec'+ val +'Value']
-            let specId = specState['specId'+ val]
+            // let specId = specState['specId'+ val]
             
             if(specName && specValue){
                 eSpecList.push({
                     name: specName,
-                    specId,
+                    // specId,
                     specValues : specValue.split(',')
                 })
             }
@@ -317,7 +323,6 @@ class CreateProduct extends Component {
                 !val.specTwoValue && delete rowList[num].specTwoValue
                 !val.specThreeValue && delete rowList[num].specThreeValue
                 !val.specFourValue && delete rowList[num].specFourValue
-
                 curSpec.every((item,index) => {
                     if(val.specOneValue == item.specOneValue && val.specTwoValue == item.specTwoValue && val.specThreeValue == item.specThreeValue && val.specFourValue == item.specFourValue){
                         let curPrice = Number(val.price || 0) || 0
