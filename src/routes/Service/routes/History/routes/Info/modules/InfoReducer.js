@@ -14,7 +14,7 @@ const VIEW_FAILURE = 'shophouse/VIEW_FAILURE';
 export function view() {
     return {
         types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-        promise: (client) => client.post('api-shop.listEnterpriseShop')
+        promise: (client) => client.post('api-offSale.getChangeGoodsOrder')
     }
 }
 

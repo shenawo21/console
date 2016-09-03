@@ -69,7 +69,7 @@ class ForCheck extends Component {
         }, {
             key: '1',
             title: '成交时间',
-            dataIndex: 'payTime'
+            dataIndex: 'tradesCreated'
         }, {
             key: '2',
             title: '买家账号',
@@ -81,13 +81,13 @@ class ForCheck extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'offSaleType'
+            dataIndex: 'afterSaleType'
         }, {
             key: '5',
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <Link to={`/order/audit/detail/1`}>订单详情</Link>
+                return <Link to={`/order/audit/detail/${id}`}>订单详情</Link>
             }
         }];
         
@@ -119,8 +119,7 @@ class ForCheck extends Component {
             key: '5',
             title: '操作',
             dataIndex: 'id',
-            render(id, row) {
-                console.log(row,'row');
+            render(id, row, record) {
                 return (
                     <span>
                         <Link to={`/service/warehouse/info/${id}/${row.outerSkuId}`}>验收商品</Link>
@@ -142,7 +141,6 @@ class ForCheck extends Component {
             val.refundApplyList && val.refundApplyList.forEach((val, index) => {
                 val.id = val.tid
             })
-            dataSourceSub = val.refundApplyList
         })
 
         return (
@@ -150,7 +148,7 @@ class ForCheck extends Component {
                 <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
  
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={dataSourceSub} pagination={false} />} 
+                           expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={record.refundApplyList} pagination={false} />} 
                            {...tableOptions} />
 
             </div>
