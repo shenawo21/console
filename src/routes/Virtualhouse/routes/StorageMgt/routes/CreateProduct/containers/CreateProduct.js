@@ -43,9 +43,6 @@ class CreateProduct extends Component {
                */
               handleSubmit(value) {
                   const {addPro} = _this.props;
-                //   _this.setState({
-                //       params: value
-                //   })
                   let {skuData, categoryId, ...other} = value
                   console.log('categoryCode',categoryId);
                   value = {...skuData, ...other, categoryId : typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
@@ -60,7 +57,7 @@ class CreateProduct extends Component {
                * (筛选表单重置)
                */
               handleReset() {
-                  _this.context.router.push('/virtualhouse/storageMgt')
+                  //_this.context.router.push('/virtualhouse/storageMgt')
               }
           }
       }
