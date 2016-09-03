@@ -51,7 +51,6 @@ class Warehouse extends Component {
                 context.setState({
                     params: value
                 })
-                console.log(context.state.params,'value');
               },
 
               /**
@@ -157,8 +156,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result, platlistResult, loading} = state.Warehouse;
-    
+    const {result, platlistResult, loading} = state.Warehouse;    
     const {items = [], totalItems = 0} = result || {};
     return { items, platlistResult, totalItems, loading };
     

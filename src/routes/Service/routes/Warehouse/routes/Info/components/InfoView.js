@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
+import {Input} from 'hen'
 import {UploadImage} from 'components/FileLoader'
 
 
@@ -17,7 +18,8 @@ class InfoView extends Component {
     constructor() {
         super();
         this.state = {
-            photoList : []
+            photoList : [],
+            stockList: []
         }
     }
         
@@ -30,26 +32,67 @@ class InfoView extends Component {
         }, {
             key: '1',
             title: '商品编码',
-            dataIndex: 'skuId'
+            dataIndex: 'outerSkuId'
         }, {
             key: '2',
             title: '退货数量',
-            dataIndex: 'goodNum'
+            dataIndex: 'num'
         }, {
             key: '3',
             title: '实际数量',
-            dataIndex: 'categoryCode'
+            dataIndex: 'realAmount',
+            render(id, row){
+                return <span>
+                            <Input type="text" placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
+                                let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], incoming = ''
+                                stockList.forEach((val) => {
+                                        if(val.skuId !== row.skuId){
+                                            selectItems.push(val)
+                                        }else{
+                                            incoming = val.incoming
+                                        }
+                                    })
+                                    stock.price = e.target.value
+                                    stock.incoming = incoming
+                                    selectItems.push(stock)
+                                    context.setState({
+                                        stockList: selectItems
+                                    })
+                            }} /> 
+                        </span>
+            }
         }, {
             key: '4',
             title: '验收结果',
-            dataIndex: 'specOneValue'
+            dataIndex: 'checkResult',
+            render(id, row){
+                return <span>
+                            <Input type="text" placeholder="请输入出库库存数" style={{ width: 120 }}  onChange={(e) => {
+                                let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
+                                    stockList.forEach((val) => {
+                                        if(val.skuId !== row.skuId){
+                                            selectItems.push(val)
+                                        }else{
+                                            price = val.price
+                                        }
+                                    })
+                                    stock.incoming = e.target.value
+                                    stock.price = price
+                                    selectItems.push(stock)
+                                    context.setState({
+                                        stockList: selectItems
+                                    })
+                            }} />
+                        </span>
+            }
         }];
+
         return columns;
     }
 
     _getFormItems(){
         let context = this;
-        const {item, photoList, licenseImg, ...other} = context.props;
+        const {item, photoList, licenseImg, tableOptions, logiListItem, ...other} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -62,7 +105,7 @@ class InfoView extends Component {
                 required: true,
                 rules: [{ required: true, message: '请选择快递公司' }],
                 select: {
-                    optionValue: STOCKTYPE,
+                    optionValue: logiListItem,
                     placeholder: "请选择快递公司"
                 }
             },{
@@ -77,7 +120,7 @@ class InfoView extends Component {
                 label: "货物结果：",
                 wrapperCol: { span: 24 },
                 custom() {
-                     return <DataTable bordered={true} size="small" columns={context._getColumns()} {...other} />
+                     return <DataTable bordered={true} size="small" columns={context._getColumns()} {...tableOptions} />
                 }
             },{
                 label: "备注：",
@@ -112,8 +155,7 @@ class InfoView extends Component {
     }
     
     render() {
-        let {formOptions, params} = this.props;
-        console.log(params,'params');
+        let {formOptions} = this.props;
         /**
          * button 配置项
          * 

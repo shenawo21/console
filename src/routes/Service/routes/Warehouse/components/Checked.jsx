@@ -62,7 +62,7 @@ class Checked extends Component {
         }, {
             key: '1',
             title: '成交时间',
-            dataIndex: 'payTime'
+            dataIndex: 'tradesCreated'
         }, {
             key: '2',
             title: '买家账号',
@@ -74,7 +74,7 @@ class Checked extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'offSaleType',
+            dataIndex: 'afterSaleType',
             render(type) {
                 switch(type) {
                     case 'REFUND_MONEY':
@@ -90,7 +90,7 @@ class Checked extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <Link to={`/order/audit/detail/1`}>订单详情</Link>
+                return <Link to={`/order/audit/detail/${id}`}>订单详情</Link>
             }
         }];
         
@@ -140,9 +140,6 @@ class Checked extends Component {
         let dataSourceSub = [];
         dataSource && dataSource.forEach((val, index)=>{
             val.key = index
-            // val.refundApplyList && val.refundApplyList.forEach((val, i) => {
-            //     val.key = index
-            // })
             dataSourceSub = val.refundApplyList
         })
         
@@ -152,7 +149,7 @@ class Checked extends Component {
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                 <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table size="small" bordered={true} columns={this._getSubColumns()} dataSource={dataSourceSub} pagination={false} />} 
+                           expandedRowRender={record => <Table size="small" bordered={true} columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
                            {...tableOptions} />
             </div>
         )
