@@ -240,10 +240,10 @@ export function getSpecValue(row) {
  * @returns
  */
 export function getTimeStamp(value){
-    if(value){
+    if(value && typeof value === 'string'){
         return new Date(value).getTime()
     }else{
-        new Date().getTime()
+        return new Date().getTime()
     }
 }
 
