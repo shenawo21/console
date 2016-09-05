@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import StorageMgtView from '../components/StorageMgtView'
 import Panel from 'components/Panel'
-import { storageMgt, getProList } from '../modules/StorageMgtReducer'
+import { storageMgtAction, getProList } from '../modules/StorageMgtReducer'
 import {message} from 'hen';
 
 class StorageMgt extends Component {
@@ -43,7 +43,7 @@ class StorageMgt extends Component {
 
         handleSubmit(value) {
             debugger;
-            const { storageMgt, proListResult } = _this.props;
+            const { storageMgtAction, proListResult } = _this.props;
             const list = proListResult.map(a => {
                 return {
                     tempId: a.tempId,
@@ -51,7 +51,7 @@ class StorageMgt extends Component {
                     incoming: a.incoming
                 }
             })
-            storageMgt({
+            storageMgtAction({
                 list,
                 ...value
             })
@@ -83,7 +83,7 @@ class StorageMgt extends Component {
 
 //数据限制类型
 StorageMgt.propTypes = {
-    storageMgt: React.PropTypes.func,
+    storageMgtAction: React.PropTypes.func,
     getProList: React.PropTypes.func,
     loading: React.PropTypes.bool,
     items: React.PropTypes.array,
@@ -91,7 +91,7 @@ StorageMgt.propTypes = {
 }
 
 const mapActionCreators = {
-    storageMgt,
+    storageMgtAction,
     getProList
 }
 

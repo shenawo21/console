@@ -46,6 +46,7 @@ class specificationMgt extends Component {
             }
         }, {
             key: '2',
+            width: 50,
             title: '操作',
             dataIndex: 'specId',
             render(val, row, index) {

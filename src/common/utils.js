@@ -112,9 +112,9 @@ export function normalizeCategory(input) {
     let output = [];
     input && input.forEach(item => {
         let a = {...item, children:null}
-output.push(a)
+        output.push(a)
     });
-return output
+    return output
 }
 
 const numberReg = /^\d*(\,|\.)?\d+$/;
@@ -182,8 +182,6 @@ export function validatorRequiredNumber(rule, value, callback) {
     } else {
         callback(new Error('请填写有效数字'))
     }
-
-
 }
 
 /**
@@ -212,157 +210,72 @@ export function validatorContent(value, callback, msg, num) {
     }
 }
 
+const specType = ['One', 'Two', 'Three', 'Four']
 
 /**
- * 格式化指定集合的数据为现在项目的格式
-		例如：T([
-			{ name: 'showInFront', type: 'BOOLEAN', label: '前台可见'},
-			{ name: 'showInBack', type: 'BOOLEAN', label: '中台可见'},
-			{ name: 'showInBackList', type: 'BOOLEAN', label: '中台列表可见'}
-		])
- *
- * @param  {any} items
- * @param  {any} o={}
+ * 列表中将规格值转换成  specOneValue/specTowValue/specThreeValue/specFourValue
+ * 
+ * @export
+ * @param {any} row 列表单行数据
+ * @returns
  */
-export function formGenerate(items, o = {}, transformer = () => { }) {
-    if (__DEV__) {
-        items = items.map(item => {
-            if (!item.name || !item.id || !item.dataType) {
-                item.dataType = item.type;
-                item.displayName = item.label;
-                item.id = item.name;
-            }
-
-
-            return item;
-        })
-    }
-    // 过滤没有name的以及type是隐藏文本域的
-    let result = items.filter(item => item.id && item.dataType && item.dataType.toLowerCase() !== 'hidden');
-    let status = null;
-    let config = {};
-
-    let form = result.map(item => {
-        const name = item.displayName || item.name;
-        const tipName = name.replace('：', '');
-        let r = {
-            label: tipName + '：', name: item.id
+export function getSpecValue(row) {
+    let curSpec = []
+    specType.forEach((val) => {
+        if (row['spec' + val + 'Value']) {
+            curSpec.push(row['spec' + val + 'Value'])
         }
-        const type = item.dataType.toUpperCase();
-        switch (type) {
-
-            // radio
-            case 'BOOLEAN':    //是否
-                r.radio = {}
-                break;
-            //input
-            case 'PLAIN_TEXT':  //多行文本
-            case 'TEXT':        //文本
-            case 'NUMBER':      //数字
-            case 'RICH_TEXT':   //富文本
-            case 'MOBILE':      //手机
-            case 'TELEPHONE':   //电话号码
-            case 'EMAIL':       //邮箱
-                r.input = {}
-                if ('PLAIN_TEXT' === type) {
-                    r.input.type = 'textarea'
-                }
-                break;
-            // select
-            case 'SELECT':     //单选
-            case 'MULTI_SELECT':
-                let arr = item.presetValue.split(',');
-                let options = arr.map(a => {
-                    return {
-                        title: a,
-                        value: a
-                    }
-                })
-                r.select = {
-                    multiple: type == 'MULTI_SELECT' ? true : false,
-                    optionValue: options,
-                    tipValue: item.tip || ''
-                }
-                break;
-            // INTEGER
-            case 'INTEGER':     //整数
-                r.inputNumber = {
-
-                }
-                break;
-            // DATE             //时间
-            case 'DATE':
-                r.datepicker = {
-
-                }
-                break;
-            default:
-                break;
-        }
-
-        if (item.must || type === 'NUMBER') {
-            const required = item.must ? true : false;
-            r.required = required;
-
-            let message = '';
-            let rules = [];
-            status = status || {};
-            status[r.name] = {};
-            if (required) {
-                message = `请填写${tipName}`;
-                rules.push({
-                    required,
-                    message
-                })
-
-            }
-            if (item.maxLength) {
-                message = `最多${item.maxLength}个字符`;
-                rules.push({
-                    required,
-                    message,
-                    max: item.maxLength
-                })
-            }
-            if (type === 'NUMBER') {
-                message = `必须为数字类型`;
-                rules.push({ validator: validatorNumber })
-                r.v = 'number'
-            }
-
-
-            r.rules = rules
-        }
-
-        r = transformer(r);
-
-
-        return {...r, ...o}
-	});
-
-let value = {};
-form.forEach(item => {
-
-    if (item.v == 'number') {
-        value[item.name] = ''
-        delete item.v;
-    } else {
-        value[item.name] = null;
-    }
-})
-
-config.formItems = form;
-config.initValue = value;
-config.initStatus = status;
-
-if (__DEV__) {
-    console.info('转换后的数据\r\n', JSON.stringify(config, null, 2).replace(/"/g, '\''));
+    })
+    return curSpec.join('/')
 }
 
-return config
+/**
+ * 获取时间戳
+ *  
+ *  example:
+ *  new Date('2012-01-11 12:30:00').getTime()   =>   1326256200000
+ * 
+ * @export
+ * @param {any} value  传入时刻，没有时返回当前时间戳
+ * @returns
+ */
+export function getTimeStamp(value){
+    if(value){
+        return new Date(value).getTime()
+    }else{
+        new Date().getTime()
+    }
 }
 
-if (__DEV__) {
-    // function T
-    window.T = formGenerate;
+/**
+ * 将时间戳转换成时间格式
+ * example:
+ *   1326256200000  =>  '2012-01-11 12:30:00'
+ * 
+ * @export
+ * @param {any} value
+ * @param {any} showTime 是否显示time
+ * @returns
+ */
+export function formatDate(value, showTime) {
+    if (!value) return null;
+    let _date = new Date(value),
+        year = _date.getFullYear(),
+        month = _date.getMonth() + 1,
+        date = _date.getDate(),
+        hours = _date.getHours(),
+        mins = _date.getMinutes(),
+        second = _date.getSeconds(),
+        _dateTime = null;
+
+    month < 10 && (month = "0" + month);
+    date < 10 && (date = "0" + date);
+    hours < 10 && (hours = "0" + hours);
+    mins < 10 && (mins = "0" + mins);
+    second < 10 && (second = "0" + second);
+    _dateTime = year + "-" + month + "-" + date;
+    if (showTime) {
+        _dateTime += " " + hours + ":" + mins + ":" + second;
+    }
+    return _dateTime;
 }

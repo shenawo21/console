@@ -13,7 +13,6 @@ class Sku extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('sku',nextProps,this.props);
         if(nextProps !== this.props){
             this.setState({
                 specList: nextProps.specList,
@@ -72,8 +71,8 @@ class Sku extends Component {
      * params 某一个规格值
      */
     getfilterStatus(specData, v){
-        let status = "", disabledFlag = "";
-        specData && specData.items.every((val)=>{
+        let status = false, disabledFlag = false;
+        specData && specData.items && specData.items.every((val)=>{
             let flag = val.indexOf('_d') !== -1;
             let value = flag ? val.split('_d')[0] : val
             if(value === v){
@@ -101,8 +100,8 @@ class Sku extends Component {
                             item.specValues.length ? item.specValues.map((v, i) => {
                                 let spec = context.getfilterStatus(specDataList[index], v);
                                 return <Col span='2'><Checkbox key={`c-${i + item.specValues.length * index}`} onChange={(e)=>{
-                                    changeSpecValue(index, item.name, v, e)
-                                }} defaultChecked={spec.status} disabled={spec.disabledFlag}>{v}</Checkbox></Col>
+                                    changeSpecValue(index, item.name, item.specId, v, e)
+                                }} checked={spec.status} disabled={spec.disabledFlag}>{v}</Checkbox></Col>
                             }) : ''
                         }
                     </Row>
