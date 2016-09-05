@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 
 import Search from 'components/Search';
-
+import {getSpecValue} from 'common/utils'
 import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
 //入库类型
@@ -88,8 +88,8 @@ class StorageQuery extends Component {
                 recordId: null,
                 spuId: null,
                 skuId : null,
-		categoryCode: null,
-		title: null,
+                categoryCode: null,
+                title: null,
                 stockType: null,
                 createUser : null,
                 createTimeStart : null,
@@ -125,11 +125,14 @@ class StorageQuery extends Component {
         }, {
             key: '5',
             title: '商品类目',
-            dataIndex: 'category'
+            dataIndex: 'categoryName'
         }, {
             key: '6',
             title: '规格',
-            dataIndex: 'spec'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '7',
             title: '市场价',

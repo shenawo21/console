@@ -7,24 +7,31 @@ class Collapse extends Component {
         super(props)
         this.toggle = this.toggle.bind(this);
         this.state = {
-            show : true
+            toggleFlag : false
         } 
     }
 
-    toggle(key) {
-        console.log(key)
+    toggle(e) {
+        const {toggleFlag} = this.state
+        this.setState({
+            toggleFlag : toggleFlag ? false : true
+        })
     }
 
     render() {
-        const {btns = [], titles = [], hasArrow = false, uKey, children} = this.props;
-        const {show} = this.state;
-        return <div className={classes.collapse} id={uKey}>
-            <div className={classes.header}>
-                <Icon type='right' className={`fr ${hasArrow ? classes.show : classes.hide}`} onClick={this.toggle}></Icon>
+        const {btns = [], titles = [], hasArrow = false, children} = this.props;
+        const {toggleFlag} = this.state;
+        return <div className={classes.collapse}> 
+            <div className={classes.header} onClick={this.toggle}>
+                <Icon type={!toggleFlag ? 'right' : 'down'} className={`fr ${hasArrow ? classes.show : classes.hide}`}></Icon>
                 {
-                    btns.map((val,index) => {
+                    btns.map((val, index) => {
                         const {className, name, handle, ...other} = val;
-                        return <Button key={index} className="fr" onClick={handle} {...other}>{name}</Button>
+                        return <Button key={index} className="fr" onClick={(e)=>{
+                            e.cancelBubble = true
+                            e.stopPropagation && e.stopPropagation();
+                            handle(e)
+                        }} {...other}>{name}</Button>
                     })
                 }
                 <ul className={classes.tit}>
@@ -36,7 +43,7 @@ class Collapse extends Component {
                     }
                 </ul>
             </div>
-            <div className={classes.content}>
+            <div className={toggleFlag ? classes.content : classes.content +' '+classes.hide}>
                 {children}
             </div>
         </div>

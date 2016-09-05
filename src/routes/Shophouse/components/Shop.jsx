@@ -6,6 +6,7 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
+import {getSpecValue} from 'common/utils'
 
 class shop extends Component {
 
@@ -75,7 +76,10 @@ class shop extends Component {
         }, {
             key: '6',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '7',
             title: '市场价',
