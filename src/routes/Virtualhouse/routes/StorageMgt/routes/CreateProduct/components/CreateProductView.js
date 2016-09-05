@@ -98,7 +98,7 @@ class CreateProduct extends Component {
             label: "销售价(元)：",
             name: "advicePrice",
             required: true,
-            // rules: [{ required: true, message: '销售价不能为空' }],
+            //rules: [{ required: true, message: '销售价不能为空' }],
             infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
             input: {
                 placeholder: "请输入销售价",
@@ -108,7 +108,7 @@ class CreateProduct extends Component {
             label: "库存数量：",
             name: "total",
             required: true,
-            // rules: [{ required: true, message: '库存数量不能为空' }],
+            //rules: [{ required: true, message: '库存数量不能为空' }],
             infoLabel: <span>必须是0～999999999之间整数</span>,
             input: {
                 placeholder: "请输入库存数量",
@@ -118,7 +118,7 @@ class CreateProduct extends Component {
             label: "商品规格：",
             required: true,
             wrapperCol: {span: 15},
-            // rules: [{ required: true, message: 'sku不能为空' }],
+            //rules: [{ required: true, message: '库存数量或销售价不能为空'}],
             name : 'skuData',
             custom(fieldProps) {
                 return <Sku specList={specList} specDataList={specDataList} rowList={rowList} setInputValue={context.setInputValue} changeSpecValue={context.changeSpecValue}  specType={SPECTYPE} {...fieldProps('skuData')}></Sku>

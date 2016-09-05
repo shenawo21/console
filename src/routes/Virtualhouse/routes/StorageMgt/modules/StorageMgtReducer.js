@@ -16,7 +16,7 @@ const GETPROLIST_FAILURE = 'virtualhouse/GETPROLIST_FAILURE';
  * @param params (description)
  * @returns (description)
  */
-export function storageMgt(params) {
+export function storageMgtAction(params) {
   return {
     types: [STORAGEMGT, STORAGEMGT_SUCCESS, STORAGEMGT_FAILURE],
     promise: (client) => client.post('api-productService.saveStcokInRecord', params)
