@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
+//售后类型
 const TYPE = [
     {value:'REFUND_MONEY',title:'退款'},
     {value:'REFUND_GOODS',title:'退货'},

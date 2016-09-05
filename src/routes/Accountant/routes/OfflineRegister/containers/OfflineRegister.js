@@ -30,18 +30,6 @@ class offlineRegister extends Component {
         const { delRegister } = this.props;
         delRegister({id: id});
     }
-    
-     /**
-     * (判断待验收/已验收)
-     * @params id
-     */
-    _isStatus(key){
-        const { getRecordedList, location} = this.props;
-        let pageNumber = 1;
-        if(key == 2){
-            getRecordedList({pageNumber});
-        }
-    }
 
     componentDidMount() {
 	
@@ -77,8 +65,8 @@ class offlineRegister extends Component {
                 const {params} = context.state;
                 context.setState({
                     params: {
-                    ...params,
-                    ...value
+                        ...params,
+                        ...value
                     } 
                 })
             },
@@ -110,9 +98,11 @@ class offlineRegister extends Component {
     }
     
     callback(key) {
-        const { getRecordedList } = this.props;
+        const { getRecordedList, location } = this.props;
+        const {query} = location;
+        let pageNumber = query.p ? Number(query.p) : 1;
         if(key == 2) { 
-            getRecordedList();
+            getRecordedList({pageNumber});
         }
         this.setState({
             curKey : key - 1

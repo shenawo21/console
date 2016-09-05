@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
-import {view} from '../modules/InfoReducer'
+import {view, doAgreeRemit, doRefuseRemit} from '../modules/InfoReducer'
 
 class Info extends Component {
   
@@ -39,19 +39,20 @@ class Info extends Component {
           const _this = this;
           return {
               /**
-               * (表单提交)
+               * (同意)
                * 
                * @param value (description)
                */
               handleSubmit(value) {                  
-                  
+                  const {doAgreeRemit,  doRefuseRemit} = _this.props;
+
               },
 
               /**
                * (返回)
                */
               handleReset() {
-                  _this.context.router.push('/Warehouse')
+                  _this.context.router.push('/accountant/finance')
               }
           }
       }
@@ -64,19 +65,21 @@ class Info extends Component {
             ...this.getFormOptions()
         }
         
-        return <Panel title="商品退款审批"><InfoView item={item} photoList={photoList} formOptions={formOptions} /></Panel>
+        return <Panel title="退款处理"><InfoView item={item} photoList={photoList} formOptions={formOptions} /></Panel>
     }
 }
 
-Info.propTypes = {
-    view: React.PropTypes.func,
-    items: React.PropTypes.array,
-    totalItems: React.PropTypes.number,    
+Info.propTypes = {    
+     view: React.PropTypes.func,
+     doAgreeRemit: React.PropTypes.func,
+     doRefuseRemit: React.PropTypes.func,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    view
+    view, 
+    doAgreeRemit, 
+    doRefuseRemit, 
 }
 
 InfoView.contextTypes = {
