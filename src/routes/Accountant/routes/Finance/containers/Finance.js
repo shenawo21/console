@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 import ForDeal from '../components/ForDeal'
 import Deal from '../components/Deal'
 import Panel from 'components/Panel'
-import { getRefund, getChangeGoods, getShopList } from '../modules/FinanceReducer'
+import { getForRefund, getRefund, getShopList } from '../modules/FinanceReducer'
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
-
-const TYPES = [{status : '待处理'},{type : '已处理'}];
 
 class finance extends Component {
   
@@ -23,10 +21,11 @@ class finance extends Component {
     
 
     componentDidMount() {
-        const {getRefund, getChangeGoods, getShopList, location } = this.props;
+        const {getForRefund, getShopList, location } = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        getRefund(TYPES[0]);
+        getForRefund({pageNumber});
+
         //获取店铺列表
         getShopList();
     }
@@ -45,25 +44,22 @@ class finance extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  const {curKey} = context.state;
-                  const {pageNumber, ...other} = value;
-                  let condition = {condition:{...other}}
                   context.setState({
                       params: {
-                      ...condition,
-                      ...TYPES[curKey],
-                      pageNumber
-		            } 
+                        ...value
+                    } 
                   })
               },
           }
       }
     callback(key) {
-        const {getRefund, getChangeGoods, getShopList } = this.props;
+        const {getForRefund, getRefund, location } = this.props;
+        const {query} = location;
+        let pageNumber = query.p ? Number(query.p) : 1;
         if(key == 2) { 
-            getRefund(TYPES[key-1]);
+            getRefund({pageNumber});
         } else {
-            getRefund(TYPES[key-1]);
+            getForRefund({pageNumber});
         }
         this.setState({
             curKey : key - 1
@@ -71,16 +67,16 @@ class finance extends Component {
         
     }
     render() {
-        const {params} = this.state;
-        const {items, getRefund, shoplist, totalItems, loading} = this.props;
+        const {params, curKey} = this.state;
+        const {items, getForRefund, getRefund, shopListResult, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : getRefund,                         //表格翻页时触发的action
+            action : curKey == 2 ? getRefund : getForRefund,                         //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
-            params,                                     //表格检索数据参数
+            params                                      //表格检索数据参数
         }
         
         /**
@@ -89,8 +85,8 @@ class finance extends Component {
          * @returns {*}
          */
         let shopListItem = [];
-        if (shoplist) {
-            shopListItem = shoplist.map(c=> {
+        if (shopListResult) {
+            shopListItem = shopListResult.map(c=> {
                 return {
                     value: c.shopId,
                     title: c.name
@@ -117,26 +113,25 @@ class finance extends Component {
 
 
 finance.propTypes = {   
-    // oddQueryList: React.PropTypes.func,
-    // items: React.PropTypes.array.isRequired,
-    // getShopList: React.PropTypes.func,
-    // priceCateList: React.PropTypes.func,
-    // totalItems: React.PropTypes.number.isRequired,
-    
-    // loading: React.PropTypes.bool
+     getForRefund: React.PropTypes.func,
+     getRefund: React.PropTypes.func,
+     getShopList: React.PropTypes.func,
+     items: React.PropTypes.array.isRequired,
+     totalItems: React.PropTypes.number.isRequired,    
+     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    getRefund, 
-    getChangeGoods, 
+    getForRefund, 
+    getRefund,
     getShopList
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, changegoodsList, shoplist, loading} = state.finance;
+    const {result, shopListResult, loading} = state.finance;
     const {items = [], totalItems = 0} = result || {};
-    return {items, changegoodsList, shoplist, totalItems, loading };
+    return {items, shopListResult, totalItems, loading };
     
 }
 

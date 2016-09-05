@@ -3,8 +3,13 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Table} from 'hen';
-
-class ReturnGoods extends Component {
+//售后类型
+const TYPE = [
+    {value:'REFUND_MONEY',title:'退款'},
+    {value:'REFUND_GOODS',title:'退货'},
+    {value:'CHANGE_GOODS',title:'换货'},
+]
+class ForDeal extends Component {
 
     _getFormItems(){
     	let context = this;
@@ -13,24 +18,18 @@ class ReturnGoods extends Component {
             formItems: [{
                 label: "订单编号：",
                 name: "tid",
-                labelCol: {span: 8},
-                span:7,
                 input: {
                     placeholder: "请输入订单编号"
                 }
             },{
                 label: "买家账号：",
                 name: "buyerNick",
-                labelCol: {span: 8},
-                span:7,
                 input: {
                     placeholder: "请输入买家账号"
                 }
             },{
                 label: "店铺名称：",
                 name: "shopId",
-                labelCol: {span: 8},
-                span:7,
                 select: {
                     placeholder: "请选择店铺名称",
                     optionValue: shopListItem
@@ -38,18 +37,21 @@ class ReturnGoods extends Component {
             },{
                 label: "商品编码：",
                 name: "skuId",
-                labelCol: {span: 8},
-                span:7,
                 input: {
                     placeholder: "请输入商品编码"
                 }
             },{
                 label: "产品名称：",
                 name: "title",
-                labelCol: {span: 8},
-                span:7,
                 input: {
                     placeholder: "请输入产品名称"
+                }
+            },{
+                label: "售后类型：",
+                name: "afterSaleType",
+                select: {
+                    placeholder: "请选择售后类型",
+                    optionValue: TYPE
                 }
             }],
             initValue: {
@@ -57,7 +59,8 @@ class ReturnGoods extends Component {
                 buyerNick: null,
                 shopName: null,
                 skuId: null,
-                title: null
+                title: null,
+                afterSaleType: null
             }
         }
         return config;
@@ -100,7 +103,7 @@ class ReturnGoods extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to="/order/audit/detail/1">订单详情</Link></span>
+                return <span><Link to={`/order/audit/detail/${row.id}`}>订单详情</Link></span>
             }
         }];
         
@@ -142,53 +145,12 @@ class ReturnGoods extends Component {
             key: '8',
             title: '退货金额',
             dataIndex: 'refundFee'
-        },{
-            key: '9',
-            title: '处理状态',
-            dataIndex: 'processStatus',
-            render(type){
-                switch(type) {
-                    case 'INIT':
-                        return '待处理'
-                    case 'PROCESS':
-                        return '处理中'    
-                }
-            }
-        },{
-            key: '10',
-            title: '仓库反馈',
-            dataIndex: 'feedbackStatus',
-            render(type) {
-                switch(type) {
-                    case 'ACCEPT':
-                        return '允许入库'
-                    case 'DENY':
-                        return '拒绝入库'    
-                }
-            }
-        },{
-            key: '11',
-            title: '仓库反馈时间',
-            dataIndex: 'feedbackTime'
         }, {
-            key: '12',
+            key: '9',
             title: '操作',
+            dataIndex: 'refundId',
             render(id,row) {
-                return <div>
-                            {
-                                row.processStatus == 'INIT' ? <div><Link to={`/service/aftersale/apply/${row.id}`}>处理申请</Link></div> :
-                                    <div><span><Link to={`/service/aftersale/detail/${row.id}`}>退货详情</Link><br /></span>
-                                        {
-                                          row.afterSaleType == 'REFUND_GOODS' ?  <Link to={`/service/aftersale/end/${row.id}`}>结束退货</Link> :               
-                                           <Link to={`/service/aftersale/end/${row.id}`}>结束换货</Link>
-                                        }
-                                       
-                                           
-                                    </div>
-                            }
-                            
-                            
-                        </div>
+                return <span><Link to={`/accountant/finance/info/${id}`}>退款处理</Link></span>
             }
         }];
         
@@ -197,19 +159,21 @@ class ReturnGoods extends Component {
       
 
     render() {
-        const {formOptions,dataSource,...other} = this.props;
+        const {formOptions, tableOptions,...other} = this.props;
+        let {dataSource} = tableOptions;
 
         dataSource && dataSource.forEach((val, index)=>{
             val.key = index
         })
+
         return (
             <div>
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={dataSource} pagination={false} />} 
-                           dataSource={dataSource} {...other}  />
+                           expandedRowRender={record => <Table size="small" bordered={true} columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
+                           dataSource={dataSource} {...tableOptions}  />
 
             </div>
         )
@@ -217,7 +181,7 @@ class ReturnGoods extends Component {
 }
 
 
-ReturnGoods.propTypes = {
+ForDeal.propTypes = {
     // dataSource : React.PropTypes.array.isRequired,
     // action : React.PropTypes.func.isRequired,
     // loading : React.PropTypes.bool,
@@ -225,4 +189,4 @@ ReturnGoods.propTypes = {
 }
 
 
-export default ReturnGoods;
+export default ForDeal;

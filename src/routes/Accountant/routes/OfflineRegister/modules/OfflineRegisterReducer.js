@@ -24,7 +24,7 @@ const REGISTER_FAILURE = 'accountant/REGISTER_FAILURE';
 export function getRecordedList(params) {
   return {
     types: [RECORDEDLIST, RECORDEDLIST_SUCCESS, RECORDEDLIST_FAILURE],
-    promise: (client) => client.post('api-offSale.getRecordedList', params)
+    promise: (client) => client.post('api-financialOfflineInfo.getRecordedList', params)
   }
 }
 
@@ -38,7 +38,7 @@ export function getRecordedList(params) {
 export function delRegister() {
     return {
         types: [DELREGISTER, DELREGISTER_SUCCESS, DELREGISTER_FAILURE],
-        promise: (client) => client.post('api-offSale.deleteRegist')
+        promise: (client) => client.post('api-financialOfflineInfo.deleteRegist')
     }
 }
 
@@ -52,7 +52,7 @@ export function delRegister() {
 export function register(params) {
   return {
     types: [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE],
-    promise: (client) => client.post('api-offSale.doRegist', params)
+    promise: (client) => client.post('api-financialOfflineInfo.addFinancialOfflineInfo', params)
   }
 }
 
