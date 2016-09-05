@@ -116,7 +116,7 @@ finance.propTypes = {
      getForRefund: React.PropTypes.func,
      getRefund: React.PropTypes.func,
      getShopList: React.PropTypes.func,
-     items: React.PropTypes.array.isRequired,
+     items: React.PropTypes.array,
      totalItems: React.PropTypes.number.isRequired,    
      loading: React.PropTypes.bool
 }

@@ -24,10 +24,12 @@ class Info extends Component {
     
     componentDidMount() {
         
-        const {view} = this.props;
+        const {view, params} = this.props;
 
         //获取详情信息
-        view();
+        view({
+            refundId : params.id
+        });
     }
     
       /**
@@ -45,6 +47,19 @@ class Info extends Component {
                */
               handleSubmit(value) {                  
                   const {doAgreeRemit,  doRefuseRemit} = _this.props;
+                  if(key === 'review'){
+                      let cwRemark = value.cwRemark || '';
+                      doAgreeRemit({
+                          cwRemark: cwRemark
+                      });
+                  }else if(key === 'refuse'){
+                      let cwRefuseReason = value.cwRefuseReason || '',
+                          cwRefuseRemark = value.cwRefuseRemark || '';
+                      doRefuseRemit({
+                          cwRefuseReason : cwRefuseReason,
+                          cwRefuseRemark : cwRefuseRemark
+                      })
+                  }
 
               },
 
@@ -60,12 +75,12 @@ class Info extends Component {
     
     render() {
         const {item, photoList} = this.state;        
-        const {shopListResult, totalItems, loading} = this.props;        
+        const {shopListResult, totalItems, params, loading} = this.props;        
         const formOptions = {
             ...this.getFormOptions()
         }
         
-        return <Panel title="退款处理"><InfoView item={item} photoList={photoList} formOptions={formOptions} /></Panel>
+        return <Panel title="退款处理"><InfoView item={item} params={params} photoList={photoList} formOptions={formOptions} /></Panel>
     }
 }
 
@@ -73,7 +88,7 @@ Info.propTypes = {
      view: React.PropTypes.func,
      doAgreeRemit: React.PropTypes.func,
      doRefuseRemit: React.PropTypes.func,
-    loading: React.PropTypes.bool
+     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {

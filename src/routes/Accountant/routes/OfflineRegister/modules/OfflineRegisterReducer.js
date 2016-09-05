@@ -35,10 +35,10 @@ export function getRecordedList(params) {
  * @param params (description)
  * @returns (description)
  */
-export function delRegister() {
+export function delRegister(params) {
     return {
         types: [DELREGISTER, DELREGISTER_SUCCESS, DELREGISTER_FAILURE],
-        promise: (client) => client.post('api-financialOfflineInfo.deleteRegist')
+        promise: (client) => client.post('api-financialOfflineInfo.deleteFinancialOfflineInfo',params)
     }
 }
 
