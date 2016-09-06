@@ -14,7 +14,7 @@ class Info extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);      
         this.photoImg = this.photoImg.bind(this);
         this.state = {
-            isRequired:false,
+            isRequired: false,
             item: {},
             photoList: []
         }
@@ -33,6 +33,11 @@ class Info extends Component {
         view({
             refundId : params.id
         });
+        if(params.state != 1){
+            this.setState({
+                isRequired: true
+            })
+        }
     }
     
       /**
@@ -48,7 +53,7 @@ class Info extends Component {
                * 
                * @param value (description)
                */
-              handleSubmit(value) {                  
+              handleSubmit(value, key) {
                   const {doAgreeRemit,  doRefuseRemit} = _this.props;
                   if(key === 'review'){
                       let cwRemark = value.cwRemark || '';
@@ -56,11 +61,14 @@ class Info extends Component {
                           cwRemark: cwRemark
                       });
                   }else if(key === 'refuse'){
+                      
                       let cwRefuseReason = value.cwRefuseReason || '',
-                          cwRefuseRemark = value.cwRefuseRemark || '';
+                          cwRefuseRemark = value.cwRefuseRemark || '',
+                          cwRefuseP = value.cwRefuseP || '';
                       doRefuseRemit({
                           cwRefuseReason : cwRefuseReason,
-                          cwRefuseRemark : cwRefuseRemark
+                          cwRefuseRemark : cwRefuseRemark,
+                          cwRefuseP: cwRefuseP
                       })
                   }
 

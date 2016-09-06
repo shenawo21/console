@@ -75,7 +75,7 @@ class ForDeal extends Component {
         }, {
             key: '1',
             title: '成交时间',
-            dataIndex: 'payTime'
+            dataIndex: 'tradesCreated'
         }, {
             key: '2',
             title: '买家账号',
@@ -120,7 +120,7 @@ class ForDeal extends Component {
         },{
             key: '2',
             title: '商品编码',
-            dataIndex: 'skuId'
+            dataIndex: 'outerSkuId'
         }, {
             key: '3',
             title: '产品名称',
@@ -132,15 +132,15 @@ class ForDeal extends Component {
         }, {
             key: '5',
             title: '数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'num'
         }, {
             key: '6',
             title: '商品总价值',
-            dataIndex: 'totalFee'
+            dataIndex: 'price'
         }, {
             key: '7',
             title: '退货数量',
-            dataIndex: 'refundNums'
+            dataIndex: 'tGoodsNum'
         }, {
             key: '8',
             title: '退货金额',
