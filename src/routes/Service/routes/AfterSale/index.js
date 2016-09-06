@@ -18,7 +18,8 @@
         next(null, [
           // Provide store for async reducers and middleware
           require('./routes/Info').default(store),
-          require('./routes/GoodsInfo').default(store)
+          require('./routes/GoodsInfo').default(store),
+          require('./routes/ChangeGoods').default(store)
         ])
       })
   }

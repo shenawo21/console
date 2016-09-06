@@ -20,7 +20,8 @@
           // Provide store for async reducers and middleware
           require('./routes/OddQuery').default(store),
           require('./routes/AdjustPrice').default(store),
-          require('./routes/OutgoManual').default(store)
+          require('./routes/OutgoManual').default(store),
+          require('./routes/AddressManage').default(store)
         ])
       })
   }

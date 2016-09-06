@@ -106,6 +106,10 @@ const getMenu = menuLists => {
           {
             title: '出入库单查询',
             url: '/shophouse/shopoddquery'
+          },
+          {
+            title: '退货地址管理',
+            url: '/shophouse/address'
           }
         ]
       },

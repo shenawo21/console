@@ -10,24 +10,14 @@ const RESON = [
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
         ]
 class InfoView extends Component {
-    constructor() {
-        super();
-        this.state = {
-            photoList : []
-        }
-    }
         
     _getFormItems(){
         let context = this;
-        const {isRequired, photoList, licenseImg } = context.props;
-        let upConfig = {
-            listType: 'picture',
-            showUploadList: true,
-            onlyFile: true
-        };
+        // const {isRequired } = context.props;
+
         let config = {
             formItems: [{
-                label: "退款审批说明：",
+                label: "换货原因：",
                 name: "optRemark",
                 wrapperCol: {span: 10},
                 input: {
