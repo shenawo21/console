@@ -1,8 +1,10 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
+import GoodsInfo from '../components/GoodsInfo'
 import Panel from 'components/Panel'
 import {view, doAgreeRemit, doRefuseRemit} from '../modules/InfoReducer'
+import { message } from 'hen';
 
 class Info extends Component {
   
@@ -12,6 +14,7 @@ class Info extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);      
         this.photoImg = this.photoImg.bind(this);
         this.state = {
+            isRequired:false,
             item: {},
             photoList: []
         }
@@ -74,13 +77,13 @@ class Info extends Component {
     
     
     render() {
-        const {item, photoList} = this.state;        
-        const {shopListResult, totalItems, params, loading} = this.props;        
+        const {item, photoList, isRequired} = this.state;        
+        const {result, loading} = this.props;        
         const formOptions = {
             ...this.getFormOptions()
         }
         
-        return <Panel title="退款处理"><InfoView item={item} params={params} photoList={photoList} formOptions={formOptions} /></Panel>
+        return <Panel title="退款处理"><InfoView item={item} result={result} isRequired={isRequired} photoList={photoList} formOptions={formOptions} /></Panel>
     }
 }
 

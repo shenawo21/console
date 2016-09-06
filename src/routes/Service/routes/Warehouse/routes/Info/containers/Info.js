@@ -24,7 +24,6 @@ class Info extends Component {
      
     componentDidMount() {        
         const {view, viewForcheck, getLogisticsList, params} = this.props;
-
         //获取详情信息
         if(params.skuid != 1){
             viewForcheck({
@@ -90,11 +89,10 @@ class Info extends Component {
     
     render() {
         const {item, photoList} = this.state;        
-        const {logisticResult, items, loading} = this.props;        
+        const {logisticResult, items, params, loading} = this.props;        
         const formOptions = {
             ...this.getFormOptions()
         }
-
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             loading                                     //表格加载数据状态
@@ -120,7 +118,7 @@ class Info extends Component {
             }]
         }
 
-        return <Panel title="验收详情"><InfoView item={item} photoList={photoList} formOptions={formOptions} tableOptions={tableOptions} logiListItem={logiListItem} /></Panel>
+        return <Panel title="验收详情"><InfoView item={item} params={params} photoList={photoList} formOptions={formOptions} tableOptions={tableOptions} logiListItem={logiListItem} /></Panel>
     }
 }
 
@@ -147,7 +145,7 @@ Info.contextTypes = {
 const mapStateToProps = (state) => {
     const {result, checkResult, forchekResult, logisticResult, loading} = state.info;
     const items = [];
-    items.push(forchekResult)
+    forchekResult && items.push(forchekResult)
     return { items, result, checkResult, forchekResult, logisticResult, loading };    
 }
 

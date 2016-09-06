@@ -10,6 +10,7 @@ const RESON = [
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
         ]
 class InfoView extends Component {
+    
     constructor() {
         super();
         this.state = {

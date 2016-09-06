@@ -103,7 +103,7 @@ class ForDeal extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to={`/order/audit/detail/${row.id}/1`}>订单详情</Link></span>
+                return <span><Link to={`/order/audit/detail/${row.id}`}>订单详情</Link></span>
             }
         }];
         
@@ -150,7 +150,7 @@ class ForDeal extends Component {
             title: '操作',
             dataIndex: 'refundId',
             render(id,row) {
-                return <span><Link to={`/accountant/finance/info/${id}`}>退款处理</Link></span>
+                return <span><Link to={`/accountant/finance/info/${id}/1`}>退款处理</Link></span>
             }
         }];
         
@@ -163,7 +163,10 @@ class ForDeal extends Component {
         let {dataSource} = tableOptions;
 
         dataSource && dataSource.forEach((val, index)=>{
-            val.key = index
+            val.key = index;
+            val.refundApplyList && val.refundApplyList.forEach((val, index) => {
+                val.key = index
+            })
         })
 
         return (

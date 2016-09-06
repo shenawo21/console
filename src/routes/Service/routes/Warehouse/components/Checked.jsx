@@ -105,7 +105,7 @@ class Checked extends Component {
         }, {
             key: '1',
             title: '商品编码',
-            dataIndex: 'skuStr'
+            dataIndex: 'outerSkuId'
         }, {
             key: '2',
             title: '产品名称',
@@ -113,11 +113,11 @@ class Checked extends Component {
         }, {
             key: '3',
             title: '数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'num'
         }, {
             key: '4',
             title: '退货数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'tGoodsNum'
         }, {
             key: '5',
             title: '操作',
@@ -137,10 +137,11 @@ class Checked extends Component {
     render() {
         const {formOptions, tableOptions, ...other} = this.props;
         const {dataSource} = tableOptions;
-        let dataSourceSub = [];
         dataSource && dataSource.forEach((val, index)=>{
-            val.key = index
-            dataSourceSub = val.refundApplyList
+            val.key = index;
+            val.refundApplyList && val.refundApplyList.forEach((val, index) => {
+                val.key = index
+            })
         })
         
         return (
@@ -158,8 +159,8 @@ class Checked extends Component {
 
 
 Checked.propTypes = {
-    dataSource : React.PropTypes.array.isRequired,
-    action : React.PropTypes.func.isRequired,
+    dataSource : React.PropTypes.array,
+    action : React.PropTypes.func,
     loading : React.PropTypes.bool,
     params : React.PropTypes.object
 }

@@ -136,10 +136,10 @@ class ForCheck extends Component {
         const {dataSource} = tableOptions;
         let dataSourceSub = [];
         dataSource && dataSource.forEach((val, index)=>{
-            val.key = index
-
+            val.key = index;
             val.refundApplyList && val.refundApplyList.forEach((val, index) => {
-                val.id = val.tid
+                val.key = index;
+                val.id = val.tid;
             })
         })
 
@@ -159,11 +159,11 @@ class ForCheck extends Component {
 
 ForCheck.propTypes = {
 
-    // dataSource : React.PropTypes.array.isRequired,
-    // action : React.PropTypes.func.isRequired,
+    dataSource : React.PropTypes.array,
+    action : React.PropTypes.func,
 
-    // loading : React.PropTypes.bool,
-    // params : React.PropTypes.object
+    loading : React.PropTypes.bool,
+    params : React.PropTypes.object
 }
 
 

@@ -144,8 +144,8 @@ Warehouse.propTypes = {
     getNoCheckList: React.PropTypes.func,
     getCheckedList: React.PropTypes.func,    
     getPlatList: React.PropTypes.func,
-    items: React.PropTypes.array.isRequired,
-    totalItems: React.PropTypes.number.isRequired,    
+    items: React.PropTypes.array,
+    totalItems: React.PropTypes.number,    
     loading: React.PropTypes.bool
 }
 

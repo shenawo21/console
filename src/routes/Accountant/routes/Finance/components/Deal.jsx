@@ -104,7 +104,7 @@ class Deal extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to={`/order/audit/detail/${row.id}/2`}>订单详情</Link></span>
+                return <span><Link to={`/order/audit/detail/${row.id}`}>订单详情</Link></span>
             }
         }];
         
@@ -112,7 +112,6 @@ class Deal extends Component {
     }
 
     _getSubColumns() {
-        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '1',
@@ -151,7 +150,7 @@ class Deal extends Component {
             title: '操作',
             dataIndex: 'refundId',
             render(id,row) {
-                return <span><Link to={`/accountant/finance/info/${id}`}>处理详情</Link></span>
+                return <span><Link to={`/accountant/finance/info/${id}/2`}>处理详情</Link></span>
             }
         }];
         
@@ -164,7 +163,10 @@ class Deal extends Component {
         let {dataSource} = tableOptions;
 
         dataSource && dataSource.forEach((val, index)=>{
-            val.key = index
+            val.key = index;
+            val.refundApplyList && val.refundApplyList.forEach((val, index) => {
+                val.key = index
+            })
         })
 
         return (
