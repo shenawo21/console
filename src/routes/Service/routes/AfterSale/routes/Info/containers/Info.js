@@ -15,6 +15,7 @@ class Info extends Component {
         this.photoImg = this.photoImg.bind(this);
         this.state = {
             isRequired:false,
+            isDel:false,
             item: {},
             photoList: []
         }
@@ -78,9 +79,10 @@ class Info extends Component {
                     }
                 })
         } else if(key === 'refuse'){
-            _this.setState({isRequired:true})
+            console.log('aaaaaaaaaaa')
+            _this.setState({isDel:true})
             Object.assign(value,{processStatus:'DENY'})
-            if(value.cwRefuseReason) {
+            if(value.sellerRemark) {
                 verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
@@ -90,20 +92,20 @@ class Info extends Component {
                     }
                 })
             } else {
-                message.error('请选择拒绝退款原因')
+                message.error('请选择拒绝退货原因')
             }
         }
     }
     
     render() {
         // const {item, photoList} = this.state;
-        const {isRequired} = this.state        
+        const {isRequired,isDel} = this.state        
         const {result, loading} = this.props;
 
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
                        <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} /></Panel> :
-                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} isRequired = {isRequired} handleGoodSubmit = {this.handleGoodSubmit} /></Panel> }  
+                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} /></Panel> }  
               </div>                    
                 
     }

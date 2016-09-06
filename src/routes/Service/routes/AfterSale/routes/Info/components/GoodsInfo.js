@@ -10,7 +10,8 @@ class GoodsInfo extends Component {
         
     _getFormItems(){
         let context = this;
-
+        const {isDel} = context.props;
+        console.log(isDel,'11')
         let config = {
             formItems: [{
                 label: "商品价值承担：",
@@ -74,6 +75,7 @@ class GoodsInfo extends Component {
                 label: "卖家留言",
                 name: "sellerRemark",
                 wrapperCol: {span: 10},
+                rules:[{required: true, message: '请输入手机号码'}],
                 input: {
                     rows: '5',
                     type: "textarea",
@@ -91,7 +93,10 @@ class GoodsInfo extends Component {
                 sellerRemark:null
             }
         }
-
+        if (isDel == true) {
+            console.log('qqqqqqqqq')
+             config.formItems.splice(1, 7);
+        }
         return config;
     }
     
