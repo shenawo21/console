@@ -6,6 +6,7 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader'
 import {Row, Col, Button, Icon, Popconfirm, Modal} from 'hen';
+import {getSpecValue} from 'common/utils'
 
 class virtualView extends Component {
 
@@ -17,7 +18,6 @@ class virtualView extends Component {
         handleModal.showModal(id);
     }
     
-
     _getFormItems(){
         let context = this;
         const {cateList} = context.props;
@@ -83,7 +83,10 @@ class virtualView extends Component {
         }, {
             key: '4',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '5',
             title: '价格',

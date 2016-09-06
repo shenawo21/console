@@ -33,7 +33,7 @@ class ForCheck extends Component {
                 }
             },{
                 label: "转出时间：",
-                name: "outTime",
+                name: "outTimeTemp",
                 rules: [
                     { required: true, type: 'date', message: '请选择转出时间' },
                     {

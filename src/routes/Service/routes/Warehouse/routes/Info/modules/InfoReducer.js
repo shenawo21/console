@@ -8,13 +8,18 @@ const VIEWFORCHECK = 'service/VIEWFORCHECK';
 const VIEWFORCHECK_SUCCESS = 'service/VIEWFORCHECK_SUCCESS';
 const VIEWFORCHECK_FAILURE = 'service/VIEWFORCHECK_FAILURE';
 
+//获取物流公司列表
+const LOGISTICSlIST = 'service/LOGISTICSlIST';
+const LOGISTICSlIST_SUCCESS = 'service/LOGISTICSlIST_SUCCESS';
+const LOGISTICSlIST_FAILURE = 'service/LOGISTICSlIST_FAILURE';
+
 //提交验收结果
 const CHECK = 'service/CHECK';
 const CHECK_SUCCESS = 'service/CHECK_SUCCESS';
 const CHECK_FAILURE = 'service/CHECK_FAILURE';
 
 /**
- * 获取单条数据
+ * 获取单条数据（已验收）
  * 
  * @export
  * @param params (description)
@@ -28,7 +33,7 @@ export function view(params) {
 }
 
 /**
- * 获取单条数据
+ * 获取单条数据(未验收)
  * 
  * @export
  * @param params (description)
@@ -38,6 +43,20 @@ export function viewForcheck(params) {
   return {
     types: [VIEWFORCHECK, VIEWFORCHECK_SUCCESS, VIEWFORCHECK_FAILURE],
     promise: (client) => client.post('api-warehouseDispose.getViewRefundApplyByTidAndSkuId', params)
+  }
+}
+
+/**
+ * 获取物流公司列表
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function getLogisticsList(params) {
+  return {
+    types: [LOGISTICSlIST, LOGISTICSlIST_SUCCESS, LOGISTICSlIST_FAILURE],
+    promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
   }
 }
 
@@ -60,6 +79,7 @@ export default function reducer(state = {result:{}}, action) {
   switch (action.type) {
     case VIEW:
     case VIEWFORCHECK:
+    case LOGISTICSlIST:
     case CHECK:
         return {
             ...state
@@ -79,6 +99,15 @@ export default function reducer(state = {result:{}}, action) {
             checkResult: action.result
         }
     case CHECK_FAILURE:
+        return {
+            ...state
+        }
+    case LOGISTICSlIST_SUCCESS:
+        return {
+            ...state,
+            logisticResult: action.result
+        }
+    case LOGISTICSlIST_FAILURE:
         return {
             ...state
         }

@@ -1,75 +1,93 @@
-// 订单退款/退货列表
-const REQ_REFUND = 'REQ_REFUND';
-const SUC_REFUND = 'SUC_REFUND';
-const ERR_REFUND = 'ERR_REFUND';
-// 订单换货列表
-const REQ_CHANGEGOODS = 'REQ_CHANGEGOODS';
-const SUC_CHANGEGOODS = 'SUC_CHANGEGOODS';
-const ERR_CHANGEGOODS = 'ERR_CHANGEGOODS';
-// 店铺列表
-const REQ_SHOPLIST = 'REQ_SHOPLIST';
-const SUC_SHOPLIST = 'SUC_SHOPLIST';
-const ERR_SHOPLIST = 'ERR_SHOPLIST';
+// 退款(待处理)
+const FORREFUND = 'accountant/FORREFUND';
+const FORREFUND_SUCCESS = 'accountant/FORREFUND_SUCCESS';
+const FORREFUND_FAILURE = 'accountant/FORREFUND_FAILURE';
 
+// 退款(待处理)
+const REFUND = 'accountant/REFUND';
+const REFUND_SUCCESS = 'accountant/REFUND_SUCCESS';
+const REFUND_FAILURE = 'accountant/REFUND_FAILURE';
 
+// 获取店铺列表
+const SHOPLIST = 'accountant/SHOPLIST';
+const SHOPLIST_SUCCESS = 'accountant/SHOPLIST_SUCCESS';
+const SHOPLIST_FAILURE = 'accountant/SHOPLIST_FAILURE';
+
+/**
+ * 获取待退款列表
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function getForRefund(params) {
+  return {
+    types: [FORREFUND, FORREFUND_SUCCESS, FORREFUND_FAILURE],
+    promise: (client) => client.post('api-offSale.getNotRefundApplys', params)
+  }
+}
+
+/**
+ * 获取已退款列表
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
 export function getRefund(params) {
   return {
-    types: [REQ_REFUND, SUC_REFUND, ERR_REFUND],
-    promise: (client) => client.post('api-offSale.getRefundApplysByCondition', params)
+    types: [REFUND, REFUND_SUCCESS, REFUND_FAILURE],
+    promise: (client) => client.post('api-offSale.getRefundedApplys', params)
   }
 }
-export function getChangeGoods(params) {
-  return {
-    types: [REQ_CHANGEGOODS, SUC_CHANGEGOODS, ERR_CHANGEGOODS],
-    promise: (client) => client.post('api-offSale.getChangeGoodsOrder', params)
-  }
-}
+
+/**
+ * 获取店铺列表
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
 export function getShopList() {
     return {
-        types: [REQ_SHOPLIST, SUC_SHOPLIST, ERR_SHOPLIST],
+        types: [SHOPLIST, SHOPLIST_SUCCESS, SHOPLIST_FAILURE],
         promise: (client) => client.post('api-shop.listEnterpriseShop')
     }
 }
+
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {    
-    case REQ_REFUND:
+    case FORREFUND:
+    case REFUND:
+    case SHOPLIST:
         return {
             ...state
         }    
-    case SUC_REFUND:
+    case FORREFUND_SUCCESS:
         return {
             ...state,
             result: action.result
         }
-    case ERR_REFUND:
+    case FORREFUND_FAILURE:
         return {
             ...state
         }
-   case REQ_CHANGEGOODS:
+    case REFUND_SUCCESS:
+        return {
+            ...state,
+            result: action.result
+        }    
+    case REFUND_FAILURE:
         return {
             ...state
         }    
-    case SUC_CHANGEGOODS:
+    case SHOPLIST_SUCCESS:
         return {
             ...state,
-            changegoodsList: action.result
-        }
-    case ERR_CHANGEGOODS:
-        return {
-            ...state
-        }
-
-   case REQ_SHOPLIST:
-        return {
-            ...state
+            shopListResult: action.result
         }    
-    case SUC_SHOPLIST:
-        return {
-            ...state,
-            shoplist: action.result
-        }
-    case ERR_SHOPLIST:
+    case SHOPLIST_FAILURE:
         return {
             ...state
         }

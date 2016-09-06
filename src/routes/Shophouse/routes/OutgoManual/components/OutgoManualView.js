@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import TableCascader from 'components/TableCascader';
 
 import {Form, Button, Input, Select, message } from 'hen';
+import {getSpecValue} from 'common/utils'
 const FormItem = Form.Item;
 
 class OutgoManual extends Component {
@@ -72,11 +73,14 @@ class OutgoManual extends Component {
         }, {
             key: '3',
             title: '商品类目',
-            dataIndex: 'categoryCode'
+            dataIndex: 'categoryName'
         }, {
             key: '4',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '5',
             title: '在售库存',

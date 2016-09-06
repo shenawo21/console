@@ -110,11 +110,20 @@ class InfoView extends Component {
     
     render() {
         let {formOptions} = this.props;
-
+        const buttonOption = {
+            buttons : [
+                {
+                    key : 'back',   
+                    name : '返回',
+                    handle(){
+                        history.go(-1);
+                    }
+                }
+            ]
+        }
         return (
             <div>
-                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} />
+                <Form horizontal items={this._getFormItems()} buttonOption={buttonOption} />
             </div>
         )
     }

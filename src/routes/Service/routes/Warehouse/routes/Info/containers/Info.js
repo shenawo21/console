@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
-import {view, viewForcheck, doCheck} from '../modules/InfoReducer'
+import {view, viewForcheck, getLogisticsList, doCheck} from '../modules/InfoReducer'
 
 class Info extends Component {
   
@@ -23,17 +23,18 @@ class Info extends Component {
     }
      
     componentDidMount() {        
-        const {view, viewForcheck, params} = this.props;
-        console.log(params, 'params');
+        const {view, viewForcheck, getLogisticsList, params} = this.props;
         //获取详情信息
         if(params.skuid != 1){
             viewForcheck({
                 tid: params.id,
                 outerSkuId: params.skuid
-            });
+            });            
         }else{
             view({refundId:params.id});
-        }        
+        }
+        //获取物流公司列表
+        getLogisticsList();   
     }
 
     componentWillReceiveProps(nextProps, preProps){
@@ -70,7 +71,8 @@ class Info extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  const { doCheck } = context.props;               
+                  const { doCheck } = _this.props;
+                  console.log(value,'value');          
                   doCheck({
                       ...value
                   })
@@ -87,11 +89,36 @@ class Info extends Component {
     
     render() {
         const {item, photoList} = this.state;        
-        const {shopListResult, totalItems, loading} = this.props;        
+        const {logisticResult, items, params, loading} = this.props;        
         const formOptions = {
             ...this.getFormOptions()
         }
-        return <Panel title="验收详情"><InfoView item={item} photoList={photoList} formOptions={formOptions} /></Panel>
+        const tableOptions = {
+            dataSource : items,                         //加载组件时，表格从容器里获取初始值
+            loading                                     //表格加载数据状态
+        }
+
+        /**
+         * 快递列表
+         * @param lists
+         * @returns {*}
+         */
+        let logiListItem = [];
+        if (logisticResult) {
+            logiListItem = logisticResult.map(c=> {
+            return {
+                value: c.companyCode,
+                title: c.companyName
+           }
+        });
+        } else { 
+            logiListItem = [{
+                value: null,
+                title: '正在加载中...'
+            }]
+        }
+
+        return <Panel title="验收详情"><InfoView item={item} params={params} photoList={photoList} formOptions={formOptions} tableOptions={tableOptions} logiListItem={logiListItem} /></Panel>
     }
 }
 
@@ -99,12 +126,15 @@ Info.propTypes = {
     doCheck: React.PropTypes.func,
     view: React.PropTypes.func,
     viewForcheck: React.PropTypes.func,
+    getLogisticsList: React.PropTypes.func,
+    items: React.PropTypes.array.isRequired,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
     view,
     viewForcheck,
+    getLogisticsList,
     doCheck
 }
 
@@ -113,8 +143,10 @@ Info.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, checkResult, forchekResult, loading} = state.info;    
-    return { result, checkResult, forchekResult, loading };    
+    const {result, checkResult, forchekResult, logisticResult, loading} = state.info;
+    const items = [];
+    forchekResult && items.push(forchekResult)
+    return { items, result, checkResult, forchekResult, logisticResult, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

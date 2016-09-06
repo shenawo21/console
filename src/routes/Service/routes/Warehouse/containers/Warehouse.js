@@ -51,7 +51,6 @@ class Warehouse extends Component {
                 context.setState({
                     params: value
                 })
-                console.log(context.state.params,'value');
               },
 
               /**
@@ -145,8 +144,8 @@ Warehouse.propTypes = {
     getNoCheckList: React.PropTypes.func,
     getCheckedList: React.PropTypes.func,    
     getPlatList: React.PropTypes.func,
-    items: React.PropTypes.array.isRequired,
-    totalItems: React.PropTypes.number.isRequired,    
+    items: React.PropTypes.array,
+    totalItems: React.PropTypes.number,    
     loading: React.PropTypes.bool
 }
 
@@ -157,8 +156,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result, platlistResult, loading} = state.Warehouse;
-    
+    const {result, platlistResult, loading} = state.Warehouse;    
     const {items = [], totalItems = 0} = result || {};
     return { items, platlistResult, totalItems, loading };
     

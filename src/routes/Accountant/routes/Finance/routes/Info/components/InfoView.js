@@ -1,10 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
+import { Button } from 'hen';
 import DataTable from 'components/DataTable'
 import {UploadImage} from 'components/FileLoader'
-
-
+import RefundView from 'routes/Service/routes/RefundView';
+const RESON = [
+            {value:'已发货，买家未举证',title:'已发货，买家未举证'},
+            {value:'买家恶意申请退款',title:'买家恶意申请退款'}
+        ]
 class InfoView extends Component {
     
     constructor() {
@@ -14,47 +18,9 @@ class InfoView extends Component {
         }
     }
         
-    _getColumns(){
-        const context = this;
-        let columns = [{
-            key: '0',
-            title: '商品编码',
-            dataIndex: 'skuId'
-        },{
-            key: '1',
-            title: '商品名称',
-            dataIndex: 'title'
-        },{
-            key: '2',
-            title: '原价格',
-            dataIndex: 'price'
-        }, {
-            key: '3',
-            title: '数量',
-            dataIndex: 'refund_nums'
-        }, {
-            key: '4',
-            title: '商品总价值',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '5',
-            title: '优惠金额',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '4',
-            title: '退货数量',
-            dataIndex: 'specOneValue'
-        }, {
-            key: '4',
-            title: '退货金额',
-            dataIndex: 'specOneValue'
-        }];
-        return columns;
-    }
-
     _getFormItems(){
         let context = this;
-        const {item, photoList, licenseImg, ...other} = context.props;
+        const {item, photoList, licenseImg, isRequired, ...other} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -62,15 +28,14 @@ class InfoView extends Component {
         };
         let config = {
             formItems: [{
-                label: "退货快递单号：",
+                label: "拒绝退款原因：",
                 name: "title",
-                required: true,
-                rules: [{ required: true, message: '请输入快递单号' }],
-                input: {
-                    placeholder: "请输入商品名称"
+                select: {
+                    placeholder: "请输入商品名称",
+		            optionValue: RESON
                 }
             },{
-                label: "备注：",
+                label: "拒绝退款说明：",
                 name: "remark",
                 wrapperCol: {span: 10},
                 input: {
@@ -79,14 +44,22 @@ class InfoView extends Component {
                     placeholder: "请输入审核描述",
                 }
             }, {
-                label: "验货凭证：",
+                label: "拒绝退款凭证：",
                 name: "businessLicense",
-                required: true,
                 custom(getCustomFieldProps) {
                     upConfig.fileList = [];
-                    return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
+                    return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:licenseImg}}
                             {...getCustomFieldProps('businessLicense')} />
+                }
+            },{
+                label: "财务退款说明：",
+                name: "remark",
+                wrapperCol: {span: 10},
+                input: {
+                    rows: '5',
+                    type: "textarea",
+                    placeholder: "请输入审核描述",
                 }
             }],
             initValue: {
@@ -99,15 +72,60 @@ class InfoView extends Component {
     }
     
     render() {
-        let {formOptions, ...other} = this.props;
+        let {formOptions, result} = this.props;
+	const refundComment = result.refundComment || {}
+        const Goodsstatus = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
+        const url = refundComment.picUrls
+        const src = url && url.split(',')
+        const ArryStatus = [
+            {name:'货物状态:',status:Goodsstatus},
+            {name:'退款说明:',status:Goodsstatus},
+        ]
+        /**
+         * 多个按钮配置如下：
+         * 1、需要重置按钮时，key值为reset
+         * 2、需要多个提交按钮时，key为必须，且在handleSubmit函数里面，根据key值进行区分操作,
+         * 3、如果不配buttons参数，按钮默认为提交与重置
+         */
+        const buttonOption = {
+            buttons : [
+                {
+                    key : 'review',
+                    name :'通过',
+                    type : 'primary'
+                },
+                {
+                    key : 'refuse',
+                    name : '拒绝',
+                },
+                {
+                    key : 'back',
+                    name : '返回',
+                    handle(){
+                        history.go(-1);
+                    }
+                }
+            ]
+        }
+
+        const buttonOptionS = {
+            buttons : [
+                {
+                    key : 'back',
+                    name : '关闭',
+                    handle(){
+                        history.go(-1);
+                    }
+                }
+            ]
+        }
         return (
             <div>
-                <h3 className = 'titleName'>客户退款申请</h3>
-                <DataTable bordered={true} size="small" columns={this._getColumns()} {...other} />
+                <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} />
 
                 <h3 className = 'titleName'>退款审批</h3>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} />
+                    onRest={formOptions.handleReset} buttonOption={buttonOption} />
             </div>
         )
     }

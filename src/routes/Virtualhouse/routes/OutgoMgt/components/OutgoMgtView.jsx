@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
+import {getSpecValue} from 'common/utils'
 
 import { Input, Select, Button, Form, message } from 'hen';
 const FormItem = Form.Item;
@@ -90,7 +91,10 @@ class outgoMgt extends Component {
         }, {
             key: '4',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '5',
             title: '市场价',
@@ -130,7 +134,7 @@ class outgoMgt extends Component {
             title: '规格',
             dataIndex: 'specOneValue',
             render(value, row){
-                return <span>{value}/{row.specOneValue}</span>
+                return getSpecValue(row)
             }
         }, {
             key: '5',

@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
-
+import {getSpecValue} from 'common/utils'
 import {Form, Button, Input, message} from 'hen';
 const FormItem = Form.Item;
 
@@ -72,11 +72,14 @@ class AdjustPrice extends Component {
         }, {
             key: '3',
             title: '商品类目',
-            dataIndex: 'categoryCode'
+            dataIndex: 'categoryName'
         }, {
             key: '4',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '5',
             title: '库存',

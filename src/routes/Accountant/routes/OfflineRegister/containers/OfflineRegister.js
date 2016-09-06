@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Register from '../components/Register'
 import List from '../components/List'
 import Panel from 'components/Panel'
+import {getTimeStamp, formatDate} from 'common/utils';
 import { getRecordedList, delRegister, register } from '../modules/OfflineRegisterReducer'
 
 import {Tabs} from 'hen';
@@ -30,18 +31,6 @@ class offlineRegister extends Component {
         const { delRegister } = this.props;
         delRegister({id: id});
     }
-    
-     /**
-     * (判断待验收/已验收)
-     * @params id
-     */
-    _isStatus(key){
-        const { getRecordedList, location} = this.props;
-        let pageNumber = 1;
-        if(key == 2){
-            getRecordedList({pageNumber});
-        }
-    }
 
     componentDidMount() {
 	
@@ -63,6 +52,9 @@ class offlineRegister extends Component {
              */
             handleSubmit(value) {
                 const { register } = context.props;
+                //getTimeStamp
+                value.outTimeTemp = value.outTimeTemp && getTimeStamp(value.outTimeTemp);
+                console.log(value.outTimeTemp,'value.outTime');
                 register({
                     ...value
                 })
@@ -77,8 +69,8 @@ class offlineRegister extends Component {
                 const {params} = context.state;
                 context.setState({
                     params: {
-                    ...params,
-                    ...value
+                        ...params,
+                        ...value
                     } 
                 })
             },
@@ -110,9 +102,11 @@ class offlineRegister extends Component {
     }
     
     callback(key) {
-        const { getRecordedList } = this.props;
+        const { getRecordedList, location } = this.props;
+        const {query} = location;
+        let pageNumber = query.p ? Number(query.p) : 1;
         if(key == 2) { 
-            getRecordedList();
+            getRecordedList({pageNumber});
         }
         this.setState({
             curKey : key - 1
@@ -165,7 +159,6 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
     const {result, delResult, registerResult, loading} = state.offlineRegister;
-    
     const {items = [], totalItems = 0} = result || {};
     return { items, delResult, registerResult, totalItems, loading };
     

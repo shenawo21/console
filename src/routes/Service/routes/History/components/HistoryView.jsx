@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
+//售后类型
 const TYPE = [
     {value:'REFUND_MONEY',title:'退款'},
     {value:'REFUND_GOODS',title:'退货'},
@@ -17,29 +18,39 @@ class History extends Component {
             formItems: [{
                 label: "订单编号：",
                 name: "tid",
-                input: {}
+                input: {
+                    placeholder: "请输入订单编号"
+                }
             },{
                 label: "买家账号：",
                 name: "buyerNick",
-                input: {}
+                input: {
+                    placeholder: "请输入买家账号"
+                }
             },{
                 label: "店铺名称：",
                 name: "shopId",
                 select: {
+                    placeholder: "请输入店铺名称",
                     optionValue: shopListItem
                 }
             },{
                 label: "商品编码：",
                 name: "outerSkuId",
-                input: {}
+                input: {
+                    placeholder: "请输入商品编码"
+                }
             },{
                 label: "产品名称：",
                 name: "title",
-                input: {}
+                input: {
+                    placeholder: "请输入产品名称"
+                }
             },{
                 label: "售后类型：",
                 name: "offSaleType",
                 select: {
+                    placeholder: "请选择售后类型",
                     optionValue: TYPE
                 }
             }],
@@ -92,7 +103,7 @@ class History extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to="/">订单详情</Link></span>
+                return <Link to={`/order/audit/detail/${id}`}>订单详情</Link>
             }
         }];
         
@@ -100,7 +111,6 @@ class History extends Component {
     }
 
     _getSubColumns() {
-        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '1',
@@ -173,12 +183,12 @@ class History extends Component {
         }, {
             key: '12',
             title: '操作',
-            render(id,row) {
+            render(id, row) {
                 return <div>
                             {
-                                row.afterSaleType == 'REFUND_MONEY' ? <Link to={`/service/aftersale/info/${row.key}`}>退款详情</Link> :
-                                row.afterSaleType == 'REFUND_GOODS' ? <Link to={`/service/aftersale/applyGoods/${row.key}`}>退货详情</Link> :
-                                <Link to={`/service/history/info/${row.key}`}>换货详情</Link> 
+                                row.afterSaleType == 'REFUND_MONEY' ? <Link to={`/service/aftersale/info/${row.refundId}`}>退款详情</Link> :
+                                row.afterSaleType == 'REFUND_GOODS' ? <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link> :
+                                <Link to={`/service/history/info/${row.refundId}`}>换货详情</Link> 
                             }
                         </div>
             }

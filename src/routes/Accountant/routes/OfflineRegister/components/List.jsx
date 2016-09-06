@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import {Table} from 'hen';
+import {Table, Popconfirm, Button} from 'hen';
 
 //登记类型
 const REGISTERTYPE = [
@@ -96,7 +96,7 @@ class Checked extends Component {
         }, {
             key: '8',
             title: '操作',
-            dataIndex: 'orderId',
+            dataIndex: 'id',
             render(id, row) {
                 return <span>
                     <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deleted.bind(context,id)}>
@@ -113,19 +113,19 @@ class Checked extends Component {
      * 删除该记录
      * @params id
      */
-    deleted(id) {
-        const {del} = this.props
+    deleted(id) {        
+        const {del} = this.props.tableOptions;
         del(id)
         this.refs && this.refs.dt.refresh();
     }
 
     render() {
-        const {formOptions, tableOption, ...other} = this.props;
+        const {formOptions, tableOptions, ...other} = this.props;
         return (
             <div> 
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmitTab} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} {...tableOption} ref='dt' />
+                <DataTable bordered={true} columns={this._getColumns()} {...tableOptions} ref='dt' />
             </div>
         )
     }

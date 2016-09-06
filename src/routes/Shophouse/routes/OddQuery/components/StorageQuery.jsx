@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import DataTable from 'components/DataTable';
-
+import {getSpecValue} from 'common/utils'
 import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
@@ -125,11 +125,14 @@ class StorageQuery extends Component {
         }, {
             key: '5',
             title: '商品类目',
-            dataIndex: 'category'
+            dataIndex: 'categoryName'
         }, {
             key: '6',
             title: '规格',
-            dataIndex: 'spec'
+            dataIndex: 'categoryName',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '7',
             title: '市场价',

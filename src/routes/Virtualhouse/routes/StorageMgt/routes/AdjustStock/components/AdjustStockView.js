@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import TableCascader from 'components/TableCascader';
 
 import {Button, Input, message} from 'hen';
-
+import {getSpecValue} from 'common/utils'
 class AdjustStock extends Component {
 
   constructor() {
@@ -81,7 +81,10 @@ class AdjustStock extends Component {
         }, {
             key: '4',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '5',
                 title: '库存',
@@ -106,29 +109,32 @@ class AdjustStock extends Component {
             dataIndex: 'title'
         }, {
             key: '3',
-                title: '规格',
-                dataIndex: 'specOneValue'
+            title: '规格',
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '4',
-                title: '库存',
-                dataIndex: 'stock'
+            title: '库存',
+            dataIndex: 'stock'
         }, {
             key: '5',
-                title: '增加库存',
-                dataIndex: 'stock',
-                render(value, row) {
-                    return <Input type="text" placeholder="请输入出库库存数" style={{ width: 120 }} onChange={(e) => {
-                        let {stockList} = context.state, stock = { skuId: row.skuId, stock: e.target.value }, selectItems = []
-                        selectItems = stockList.filter((val) => {
-                            return val.skuId !== row.skuId
-                        })
-                        selectItems.push(stock)
-                        context.setState({
-                            stockList: selectItems
-                        })
-                    } } />
-                }
-            }];
+            title: '增加库存',
+            dataIndex: 'stock',
+            render(value, row) {
+                return <Input type="text" placeholder="请输入出库库存数" style={{ width: 120 }} onChange={(e) => {
+                    let {stockList} = context.state, stock = { skuId: row.skuId, stock: e.target.value }, selectItems = []
+                    selectItems = stockList.filter((val) => {
+                        return val.skuId !== row.skuId
+                    })
+                    selectItems.push(stock)
+                    context.setState({
+                        stockList: selectItems
+                    })
+                } } />
+            }
+        }];
         return columns;
     }
 

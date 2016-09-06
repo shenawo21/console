@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 
 import Collapse from 'components/Collapse';
 import DataTable from 'components/DataTable';
+import {getSpecValue} from 'common/utils'
 
 class product extends Component {
 
@@ -31,7 +32,10 @@ class product extends Component {
         }, {
             key: '5',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '6',
             title: '市场价',
@@ -70,6 +74,7 @@ class product extends Component {
                         tableOptions.dataSource = val.items
                         let collapseOptions = {
                             source : {
+                                key : i,
                                 titles:[{
                                     name: '待对比商品:' + val.totalWaiting
                                 },{
@@ -78,7 +83,7 @@ class product extends Component {
                                     name: '出库时间:'+ val.createTime
                                 }],
                                 btns:[{
-                                    name: '退回',
+                                    name: '回退',
                                     handle(e){
                                         
                                     }
@@ -98,7 +103,7 @@ class product extends Component {
                         } 
                         return <Collapse {...collapseOptions.source}>
                                     <DataTable bordered={true} {...tableOptions} />
-                                </Collapse>
+                               </Collapse>
                     })  
                     
                 }

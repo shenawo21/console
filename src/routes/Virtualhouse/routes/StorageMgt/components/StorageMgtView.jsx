@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
+import {getSpecValue} from 'common/utils'
 
 import {Row, Col} from 'hen';
 
@@ -43,15 +44,18 @@ class storageMgt extends Component {
         }, {
             key: '4',
             title: '品牌',
-            dataIndex: 'brand'
+            dataIndex: 'brandName'
         }, {
             key: '5',
             title: '规格',
-            dataIndex: 'specOneValue'
+            dataIndex: 'specOneValue',
+            render(val, row){
+                return getSpecValue(row)
+            }
         }, {
             key: '6',
             title: '市场价',
-            dataIndex: 'markPrice'
+            dataIndex: 'marketPrice'
         }, {
             key: '7',
             title: '销售价',
@@ -74,45 +78,45 @@ class storageMgt extends Component {
         let config = {}, context = this;
         const {item, ...other} = context.props;
         config.formItems = [{
-                label: "入库类型：",
-                name: "stockType",
-                required: true,
-                hasFeedback: true,
-                rules: [{ required: true, message: '请选择入库类型' }],
-                select: {
-                    optionValue: STOCKTYPE,
-                    placeholder: "请选择入库类型"
-                }
-            }, {
-                label: "入库说明：",
-                name: "remark",
-                required: true,
-                rules: [{ required: true, message: '不打算写点什么吗' }],
-                input: {
-                    type: "textarea",
-                    placeholder: "入库说明"
-                }
-            }, {
-                labelCol: { span: 2 },
-                label: "待入库商品：",
-                //name: 'proList',
-                custom() {
-                    return <Row>
-                                <Col span='8'>
-                                    <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/storageMgt/createProduct`}>新增商品</Link>
-                                </Col>
-                                <Col span='8'>
-                                    <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/storageMgt/adjustStock`}>调整库存</Link>
-                                </Col>
-                            </Row>
-                }
-            },
-            {
-                wrapperCol: { span: 24 },
-                custom() {
-                     return <DataTable bordered={true} columns={context._getColumns()} {...other} />
-                }
-            }];
+            label: "入库类型：",
+            name: "stockType",
+            required: true,
+            hasFeedback: true,
+            rules: [{ required: true, message: '请选择入库类型' }],
+            select: {
+                optionValue: STOCKTYPE,
+                placeholder: "请选择入库类型"
+            }
+        }, {
+            label: "入库说明：",
+            name: "remark",
+            required: true,
+            rules: [{ required: true, message: '不打算写点什么吗' }],
+            input: {
+                type: "textarea",
+                placeholder: "入库说明"
+            }
+        }, {
+            labelCol: { span: 2 },
+            label: "待入库商品：",
+            //name: 'proList',
+            custom() {
+                return <Row>
+                            <Col span='8'>
+                                <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/storageMgt/createProduct`}>新增商品</Link>
+                            </Col>
+                            <Col span='8'>
+                                <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/storageMgt/adjustStock`}>调整库存</Link>
+                            </Col>
+                        </Row>
+            }
+        },
+        {
+            wrapperCol: { span: 24 },
+            custom() {
+                    return <DataTable bordered={true} columns={context._getColumns()} {...other} />
+            }
+        }];
 
         config.initValue = {
             recordType: null,
@@ -132,9 +136,7 @@ class storageMgt extends Component {
         console.log(this.props,'formOptions');
         return (
             <div>
-                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} />
-                
+                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit} buttonOption = {formOptions.buttonOption} />
             </div>
         );
     }
