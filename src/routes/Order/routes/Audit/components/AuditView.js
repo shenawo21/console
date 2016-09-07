@@ -122,7 +122,7 @@ class Audit extends Component {
     }, {
       key: '2',
       title: '下单时间',
-      dataIndex: 'create'
+      dataIndex: 'created'
     }, {
       key: '3',
       title: '买家账号',

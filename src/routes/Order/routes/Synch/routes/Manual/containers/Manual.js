@@ -11,7 +11,8 @@ class Manual extends Component {
     this.state = {
       params: {},
       //同步结果
-      isVisible: false
+      isVisible: false,
+      item:{}
     }
   }
 
@@ -22,10 +23,18 @@ class Manual extends Component {
     this.props.appList()
   }
   componentWillReceiveProps(nextProps, preProps) {
+    this.setState({
+      item: nextProps.result
+    })
     if (nextProps.isJump) {
       this.setState({
         isVisible: true
-      })
+      });
+      setTimeout(()=>{
+        this.setState({
+          isVisible: false
+        });
+      },10000)
     }
   }
   getFormOptions() {
@@ -45,7 +54,7 @@ class Manual extends Component {
   }
 
   render() {
-    const {params,isVisible} = this.state;
+    const {params,isVisible,item} = this.state;
     const {loading, result,appResult} = this.props;
     const formOptions = {
       loading,
@@ -70,7 +79,7 @@ class Manual extends Component {
         title: '正在加载中...'
       }]
     }
-    return <Panel title=""><ManualView shopList={shopList} isVisible={isVisible} {...formOptions}/></Panel>
+    return <Panel title=""><ManualView shopList={shopList} item={item} isVisible={isVisible} {...formOptions}/></Panel>
   }
 }
 
@@ -86,8 +95,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading,appResult} = state.manual;
-  return {'result': result, loading,appResult};
+  const {result, loading,appResult,isJump} = state.manual;
+  return {'result': result, loading,appResult,isJump};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Manual)
