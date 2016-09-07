@@ -53,10 +53,10 @@ class Forms extends Component {
                     if (/date/ig.test(name)) { //需要显示日期时间
                         values[name] = this.formatDate(values[name], true);
                     } else {
-                        values[name] = this.formatDate(values[name]);
+                        values[name] = this.formatDate(values[name], true);
                     }
                 }
-                
+
                 if(values[name] === 'true' || values[name] === 'false'){
                     values[name] = values[name] === 'false' ? false : true;
                 }
@@ -118,7 +118,7 @@ class Forms extends Component {
         let {col = true, ok, cal, okIcon, calIcon, span, cancel = true, loading = false, buttons = []} = buttonOption;
         let cols = col ? (horizontal ? { span: 22, offset: 2 } : { span: 8, offset: 5 }) : null;
         let colSpan = horizontal ? "24" : span || '8';
-        
+
         return (<Col span={colSpan}>
             <FormItem wrapperCol={cols}>
             {
@@ -129,7 +129,7 @@ class Forms extends Component {
                         }
                         return <Button key={index} className={formless.btn+' '+`${className}`} loading={loading} type={type} onClick={handle || context.handleSubmit.bind(context, key)}>{icon ? <Icon type={icon} /> : ''} {name}</Button>
                     }) : <div>
-                    <Button className={formless.btn} type="primary" onClick={this.handleSubmit.bind(this,'ok')} loading={loading}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button> 
+                    <Button className={formless.btn} type="primary" onClick={this.handleSubmit.bind(this,'ok')} loading={loading}>{okIcon ? <Icon type={okIcon} /> : '' } {ok || '提交'}</Button>
                     {cancel ? <Button htmlType="reset" onClick={this.handleReset.bind(this, 'reset')}>{calIcon ? <Icon type={calIcon} /> : ''}{cal || '重置'}</Button> : ''}
                 </div>
             }
@@ -168,7 +168,7 @@ class Forms extends Component {
         }
 
     let fieldProps = name ? getCustomFieldProps(name, fieldOptions) : {};
-    
+
     //input输入框
     if (item.input) {
         return <Input {...fieldProps} {...item.input} />
@@ -208,12 +208,12 @@ class Forms extends Component {
                 return <Checkbox key={`box-${i}`} {...getCustomFieldProps(name)} {...other} > {title}</Checkbox>
             }) : <Checkbox {...fieldProps} {...item.checkbox} > {title}</Checkbox>
     }
-    
+
     //  checkboxGroup 复选框
     if (item.checkboxGroup) {
         return <CheckboxGroup {...fieldProps} {...item.checkboxGroup}  />
     }
-    
+
     //数值文本框
     if (item.inputNumber) {
         return <InputNumber min={1} max={10} {...fieldProps} {...item.inputNumber} />

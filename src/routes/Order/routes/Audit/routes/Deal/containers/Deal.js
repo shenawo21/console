@@ -12,6 +12,7 @@ class Deal extends Component {
     this.getNoteOptions = this.getNoteOptions.bind(this);
     this.state = {
       params: {},
+      item: {},
       isShow: false
     }
   }
@@ -20,7 +21,7 @@ class Deal extends Component {
     const {view, params, companyList, addrList} = this.props;
     const id = params.id;
     if (id) {
-      view({tId: id})
+      view({tid: id})
     }
     /**
      * 物流公司列表
@@ -33,9 +34,19 @@ class Deal extends Component {
   }
 
   componentWillReceiveProps(nextProps, preProps) {
+    if (!nextProps.params.id) {
+      this.setState({
+        item: {}
+      })
+    } else {
+      this.setState({
+        item: nextProps.result
+      })
+    }
     if (nextProps.isJump) {
       this.setState({
-        isShow: true
+        isShow: false,
+        item: nextProps.lResult
       })
     }
   }
@@ -53,7 +64,7 @@ class Deal extends Component {
    */
   getFormOptions() {
     const context = this;
-    const {modifyLogistics} = this.props;
+    const {modifyLogistics, params} = context.props;
     return {
       /**
        * (筛选表单提交)
@@ -61,11 +72,24 @@ class Deal extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        console.log(value)
-        context.setState({
-          params: value
+        let P = '', C = '', D = '';
+        if (value.receiverAddr) {
+          P = value.receiverAddr[0];
+          C = value.receiverAddr[1];
+          D = value.receiverAddr[2]
+        }
+        modifyLogistics({
+          tid: params.id,
+          receiverState: P,
+          receiverCity: C,
+          receiverDistrict: D,
+          receiverAddress: value.receiverAddress,
+          receiverName: value.receiverName,
+          receiverZip: value.receiverZip,
+          receiverMobile: value.receiverMobile,
+          receiverPhone: value.receiverPhone,
+          companyCode: value.companyCode
         })
-        modifyLogistics({...value})
       },
 
       /**
@@ -79,25 +103,30 @@ class Deal extends Component {
   getNoteOptions() {
     const context = this;
     const {submitOrder, modifyItem, params} = context.props;
+    const {item} = context.state;
     return {
       handleSubmit(value, key) {
-        console.log(value, key)
         context.setState({
           params: value
         })
         key == 'submit' ? submitOrder({
+          ...value,
           tid: params.id
         }) :
           key == 'delay' ? modifyItem({
+            offlineStatus: '延迟发货',
             tid: params.id,
             ...value
           }) :
             key == 'again' ? modifyItem({
+              offlineStatus: '重新理单',
+              ...value,
               tid: params.id
             }) :
               key == 'unlock' ? modifyItem({
+                ...value,
                 tid: params.id,
-                isLocked: value.isLocked
+                isLocked: item.is_Locked
               }) : ''
       },
       handleReset() {
@@ -106,8 +135,26 @@ class Deal extends Component {
   }
 
   render() {
-    const {params, isShow} = this.state;
-    const {loading, result} = this.props;
+    const {params, isShow, item} = this.state;
+    const {loading, result, cResult, addrResult, lResult} = this.props;
+    /**
+     * 快递公司列表
+     * @type {Array}
+     */
+    let cList = [];
+    if (cResult) {
+      cList = cResult.map(c=> {
+        return {
+          value: c.companyCode,
+          title: c.companyName
+        }
+      });
+    } else {
+      cList = [{
+        value: null,
+        title: '正在加载中...'
+      }]
+    }
     const formOptions = {
       loading,
       result,
@@ -119,7 +166,7 @@ class Deal extends Component {
       'noteOptions': this.getNoteOptions()
     }
 
-    return <Panel title=""><DealView isShow={isShow}
+    return <Panel title=""><DealView isShow={isShow} item={item} cList={cList} addrResult={addrResult}
                                      edited={this.edited.bind(this)} {...formOptions} {...noteOptions} /></Panel>
   }
 }
@@ -127,7 +174,6 @@ class Deal extends Component {
 Deal.propTypes = {
 
   result: React.PropTypes.object,
-  deleteItem: React.PropTypes.func,
   modifyItem: React.PropTypes.func,
   loading: React.PropTypes.bool
 }
@@ -143,8 +189,8 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.deal;
-  return {'result': result, loading};
+  const {result, loading, cResult, addrResult, lResult, isJump} = state.deal;
+  return {'result': result, loading, cResult, addrResult, lResult, isJump};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Deal)

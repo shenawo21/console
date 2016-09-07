@@ -16,14 +16,19 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    const {view,params} = this.props;
+    const {view, params} = this.props;
     const id = params.id;
     if (id) {
-      view({tId: id})
+      view({tid: id})
     }
   }
+
   componentWillReceiveProps(nextProps, preProps) {
-    if (nextProps) {
+    if (!nextProps.params.id) {
+      this.setState({
+        item: {}
+      })
+    } else {
       this.setState({
         item: nextProps.result
       })
@@ -59,25 +64,20 @@ class Detail extends Component {
   }
 
   render() {
-    const {params,item} = this.state;
+    const {params, item} = this.state;
     const {loading, result} = this.props;
     const formOptions = {
       loading,
       result,
       'formOptions': this.getFormOptions()
     }
-    return <Panel title=""><DetailView item={item} {...formOptions} /></Panel>
+    return <Panel title=""><DetailView item={item}/></Panel>
   }
 }
 
 
 Detail.propTypes = {
-
   result: React.PropTypes.object,
-  deleteItem: React.PropTypes.func,
-  modifyItem: React.PropTypes.func,
-  addItem: React.PropTypes.func,
-
   loading: React.PropTypes.bool
 }
 

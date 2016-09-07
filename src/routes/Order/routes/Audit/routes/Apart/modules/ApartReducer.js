@@ -2,10 +2,14 @@
 const VIEW = 'detail/VIEW';
 const VIEW_SUCCESS = 'detail/VIEW_SUCCESS';
 const VIEW_FAILURE = 'detail/VIEW_FAILURE';
-//提交发货（修改订单状态，并生成发货单）
+//拆单
 const SEND = 'apart/SEND';
 const SEND_SUCCESS = 'apart/SEND_SUCCESS';
 const SEND_FAILURE = 'apart/SEND_FAILURE';
+//解锁订单
+const LOCK = 'apart/LOCK';
+const LOCK_SUCCESS = 'apart/LOCK_SUCCESS';
+const LOCK_FAILURE = 'apart/LOCK_FAILURE';
 
 /**
  * 订单详情
@@ -33,9 +37,22 @@ export function splitOrders(params) {
     promise: (client) => client.post('api-tradesInfo.splitOrders', params)
   }
 }
+/**
+ * 解锁订单
+ *api-tradesInfo.unlockTrades
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function unlock(params) {
+  return {
+    types: [LOCK, LOCK_SUCCESS, LOCK_FAILURE],
+    promise: (client) => client.post('api-tradesInfo.unlockTrades', params)
+  }
+}
 
 export default function reducer(state = {result: {}}, action) {
-  state = {...state, loading: action.loading};
+  state = {...state,isJump:false, loading: action.loading};
   switch (action.type) {
     case VIEW:
     case SEND:
@@ -44,6 +61,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case VIEW_SUCCESS:
       return {
+        ...state,
         result: action.result
       }
     case VIEW_FAILURE:
@@ -52,9 +70,18 @@ export default function reducer(state = {result: {}}, action) {
       }
     case SEND_SUCCESS:
       return {
-        result: action.result
+        result: action.result,
+        isJump:true
       }
     case SEND_FAILURE:
+      return {
+        ...state
+      }
+    case LOCK_SUCCESS:
+      return {
+        result: action.result
+      }
+    case LOCK_FAILURE:
       return {
         ...state
       }

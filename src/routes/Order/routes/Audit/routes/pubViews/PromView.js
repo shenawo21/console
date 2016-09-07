@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Table} from 'hen';
 const columns = [{
   title: '订单ID',
-  dataIndex: 'orderId',
+  dataIndex: 'tid',
 }, {
   title: '促销名称',
   dataIndex: 'promotionName'
@@ -16,10 +16,11 @@ const columns = [{
 class Receiving extends Component {
 
   render() {
-    //const {productOrder} = this.props;
-    //if(!productOrder)return null;
-    const promotionList = [];
-    return <Table dataSource={promotionList} columns={columns} bordered  />
+    const {promInfo} = this.props;
+    let promotionList = promInfo.promotionList;
+    if (!promotionList)return null;
+    return <Table dataSource={promotionList} rowKey={record => record.recordId} columns={columns} bordered
+                  pagination={false}/>
   }
 }
 

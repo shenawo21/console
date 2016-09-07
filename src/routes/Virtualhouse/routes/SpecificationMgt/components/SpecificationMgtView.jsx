@@ -84,7 +84,7 @@ class specificationMgt extends Component {
     _checkId(id, checkFlag, index) {
         const { checkIsUsed } = this.props, context = this;
         let {curKey, specList, delSpecList} = this.state, curItems = [];
-        
+
         if (checkFlag) {
             checkIsUsed({id}).then((res)=>{
                 if(res.status === 1 && res.data){

@@ -21,24 +21,33 @@ class Usermanage extends Component {
                 name: "shopId",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                rules: [
-                    { required: true, message: '请选择店铺' },
-                    {
-                        validator(rule, value, callback) {
-                             console.log(value,'555')
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择店铺'));
+                        } else {
+                            callback();
                         }
-                        
                     }
-                ],
+                }],
                 select: {
+                    placeholder: "请选择店铺",
                     optionValue: shopListItem
                 }
                },{
                 label: "退货地址：",
                 name: "address",
-                //  rules: [{ required: true, message: '请选择退货地址' }],
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择退货地址'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 cascader: {
                     options: addresslist,
                     placeholder: "请输入退货地址",
@@ -49,8 +58,15 @@ class Usermanage extends Component {
                 name: "receiverAddress",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                required: true,
-                rules: [{ required: true, message: '请输入详细地址' }],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请输入详细地址'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 input: {
                     placeholder: "请输入详细地址",
                 }
@@ -59,8 +75,15 @@ class Usermanage extends Component {
                 name: "name",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                required: true,
-                rules: [{ required: true, message: '请输入联系人' }],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请输入联系人'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 input: {
                     placeholder: "请输入联系人"
                 }
@@ -69,8 +92,19 @@ class Usermanage extends Component {
                 name: "phone",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                required: true,
-                rules: [{ required: true, message: '请输入联系电话' }],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请输入联系电话'));
+                        } else {
+                            if (!/^1[34578][0-9]\d{8}$/g.test(value)) {
+                                    callback('请输入正确的手机号码');
+                            } else {
+                                callback();
+                            }
+                        }
+                    }
+                }],
                 input: {
                     placeholder: "请输入联系电话"
                 }
@@ -182,7 +216,6 @@ class Usermanage extends Component {
             {
                 title: '操作',
                 render(id, row) {
-                    // console.log(row.defaults)
                     const dels = () => {
                         context.onDels(row.id);
                     }
@@ -258,7 +291,7 @@ class Usermanage extends Component {
             </Modal>
             <DataTable {...other} ref='theTable' columns={this._getColumns() } rowSelection={rowSelection} ></DataTable>
             <Popconfirm  title="确定要删除此条地址信息？" onConfirm={this.onDels} >
-                <Button type="primary" disabled = {!hasSelected} loading={loading} style={{ marginTop: 10 }}>删除</Button>
+                <Button type="primary" disabled = {!hasSelected} loading={loading} style={{ marginTop:-80 }}>删除</Button>
             </Popconfirm>
        
         </div>

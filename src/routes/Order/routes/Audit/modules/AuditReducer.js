@@ -33,7 +33,7 @@ export function queryList(params) {
 }
 /**
  * 发货
- *api-tradesInfo.sendGoods
+ *api-tradesInfo.submitOrder
  * @export
  * @param params (description)
  * @returns (description)
@@ -41,13 +41,13 @@ export function queryList(params) {
 export function giveItem(params) {
   return {
     types: [GIVE, GIVE_SUCCESS, GIVE_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.sendGoods', params)
+    promise: (client) => client.post('api-tradesInfo.submitOrder', params)
   }
 }
 
 /**
  * 放弃合并
- *api-shop.modifyConnParams
+ *api-tradesInfo.modifyOrder
  * @export
  * @param params (description)
  * @returns (description)
@@ -55,7 +55,7 @@ export function giveItem(params) {
 export function deleteItem(params) {
   return {
     types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('api-shop.modifyConnParams', params)
+    promise: (client) => client.post('api-tradesInfo.modifyOrder', params)
   }
 }
 /**
@@ -76,15 +76,24 @@ export function appList(params) {
 export default function reducer(state = {result: {}}, action) {
   state = {...state, loading: action.loading};
   switch (action.type) {
+    case QUERY:
     case GIVE:
     case DELETE:
     case APPQUERY:
       return {
         ...state
       }
-    case GIVE_SUCCESS:
+    case QUERY_SUCCESS:
       return {
         ...state,
+        result: action.result
+      }
+    case QUERY_FAILURE:
+      return {
+        ...state
+      }
+    case GIVE_SUCCESS:
+      return {
         result: action.result
       }
     case GIVE_FAILURE:
@@ -93,7 +102,6 @@ export default function reducer(state = {result: {}}, action) {
       }
     case DELETE_SUCCESS:
       return {
-        ...state,
         result: action.result
       }
     case DELETE_FAILURE:

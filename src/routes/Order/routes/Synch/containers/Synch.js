@@ -16,7 +16,7 @@ class Synch extends Component {
   }
 
   componentDidMount() {
-    const {queryList, location,appList} = this.props;
+    const {queryList, location, appList} = this.props;
     const {query} = location;
     let pageNumber = query.p ? Number(query.p) : 1;
     queryList({pageNumber});
@@ -86,7 +86,7 @@ class Synch extends Component {
 
   render() {
     const {params} = this.state;
-    const {items, queryList, totalItems, loading,appResult} = this.props;
+    const {items, queryList, totalItems, loading, appResult} = this.props;
     const tableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
       action: queryList,                         //表格翻页时触发的action
@@ -114,15 +114,15 @@ class Synch extends Component {
         value: null,
         title: '正在加载中...'
       }]
-    };
+    }
+    ;
     const formOptions = {
       'formOptions': this.getFormOptions()
     }
 
-    return <Panel title=""><SynchView {...tableOptions} shopList={shopList} {...formOptions} quickOptions={this.getQuickOptions()}/></Panel>
+    return <Panel title=""><SynchView {...tableOptions} shopList={shopList} {...formOptions} /></Panel>
   }
 }
-
 
 Synch.propTypes = {
 
@@ -140,9 +140,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading,appResult} = state.synch;
+  const {result, loading, appResult} = state.synch;
   const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading,appResult};
+  return {items, totalItems, loading, appResult};
 
 }
 
