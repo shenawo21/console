@@ -9,8 +9,6 @@ class Usermanage extends Component {
         super(props)
         this.onDels = this.onDels.bind(this);
     }
-
-
     _getFormIModal(){
 
         let context = this;
@@ -223,7 +221,7 @@ class Usermanage extends Component {
                         context.onhandEdit(row.id);
                     }
                      const isdefaults = () => {
-                        context.ondefaults(row.id);
+                        context.ondefaults(row.id,row.shopId);
                     }
                     return <span>
                         <a onClick={handEdit}>编辑</a>&nbsp; &nbsp; |&nbsp; &nbsp;
@@ -254,9 +252,9 @@ class Usermanage extends Component {
         const {Edit} = this.props;
         Edit(id);
     }
-    ondefaults(id,refresh) {
+    ondefaults(id,shopId,refresh) {
         const {setDefault} = this.props;
-        setDefault(id, this.refs.theTable.refresh);
+        setDefault(id,shopId,this.refs.theTable.refresh);
     }
     
     render() {
