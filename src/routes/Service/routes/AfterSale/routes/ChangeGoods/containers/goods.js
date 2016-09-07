@@ -14,8 +14,9 @@ class Goods extends Component {
     
     componentDidMount() {  
         const {chagenDetail,params} = this.props;
+        console.log(params,'params')
         //获取详情信息
-        chagenDetail(params);
+        chagenDetail({oid:params.refundId});
     }
     // 退款详情处理
     handleSubmit(value, key) {
@@ -80,7 +81,8 @@ Goods.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.moneyinfo;    
+    console.log(state,'state')
+    const {result, loading} = state.changegoods;    
     return { result, loading };    
 }
 

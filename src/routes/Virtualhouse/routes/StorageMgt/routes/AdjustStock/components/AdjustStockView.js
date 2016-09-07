@@ -87,7 +87,7 @@ class AdjustStock extends Component {
             }
         }, {
             key: '5',
-                title: '库存',
+            title: '库存',
             dataIndex: 'stock'
         }];
         return columns;

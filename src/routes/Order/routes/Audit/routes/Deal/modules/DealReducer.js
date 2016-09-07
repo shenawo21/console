@@ -51,7 +51,7 @@ export function submitOrder(params) {
 }
 /**
  * 订单状态修改（延迟发货、重新理单、解锁场景下使用）
- *api- tradesInfo.modifyOrder
+ *api-tradesInfo.modifyOrder
  * @export
  * @param params (description)
  * @returns (description)
@@ -59,25 +59,25 @@ export function submitOrder(params) {
 export function modifyItem(params) {
   return {
     types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('api- tradesInfo.modifyOrder', params)
+    promise: (client) => client.post('api-tradesInfo.modifyOrder', params)
   }
 }
 /**
  * 物流公司列表
- *api-enterpriseIndustry.listEnterpriseIndustrys
+ *api-enterpriseLogistic.listEnterpriseLogistics
  * @export
  * @param params (description)
  * @returns (description)
  */
 export function companyList(params) {
   return {
-    types: [ADDR, ADDR_SUCCESS, ADDR_FAILURE],
-    promise: (client) => client.post('api-enterpriseIndustry.listEnterpriseIndustrys', params)
+    types: [COMPANY, COMPANY_SUCCESS, COMPANY_FAILURE],
+    promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
   }
 }
 /**
  * 修改物流信息
- *api- tradesInfo.modifyLogistics
+ *api-tradesInfo.modifyLogistics
  * @export
  * @param params (description)
  * @returns (description)
@@ -85,12 +85,12 @@ export function companyList(params) {
 export function modifyLogistics(params) {
   return {
     types: [LOGIS, LOGIS_SUCCESS, LOGIS_FAILURE],
-    promise: (client) => client.post('api- tradesInfo.modifyOrder', params)
+    promise: (client) => client.post('api-tradesInfo.modifyLogistics', params)
   }
 }
 /**
  * 省市区列表
- *
+ *resources.get?path=static.resource.areas
  * @export
  * @param params (description)
  * @returns (description)
@@ -98,12 +98,12 @@ export function modifyLogistics(params) {
 export function addrList(params) {
   return {
     types: [ADDR, ADDR_SUCCESS, ADDR_FAILURE],
-    promise: (client) => client.post('api- tradesInfo.modifyOrder', params)
+    promise: (client) => client.post('resources.get?path=static.resource.areas', params)
   }
 }
 
 export default function reducer(state = {result: {}}, action) {
-  state = {...state, loading: action.loading};
+  state = {...state,isJump:false, loading: action.loading};
   switch (action.type) {
     case VIEW:
     case SEND:
@@ -116,6 +116,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case VIEW_SUCCESS:
       return {
+        ...state,
         result: action.result
       }
     case VIEW_FAILURE:
@@ -140,7 +141,8 @@ export default function reducer(state = {result: {}}, action) {
       }
     case COMPANY_SUCCESS:
       return {
-        result: action.result
+        ...state,
+        cResult: action.result
       }
     case COMPANY_FAILURE:
       return {
@@ -149,7 +151,8 @@ export default function reducer(state = {result: {}}, action) {
     case LOGIS_SUCCESS:
       return {
         ...state,
-        result: action.result
+        lResult: action.result,
+        isJump:true
       }
     case LOGIS_FAILURE:
       return {
@@ -157,7 +160,8 @@ export default function reducer(state = {result: {}}, action) {
       }
     case ADDR_SUCCESS:
       return {
-        result: action.result
+        ...state,
+        addrResult: action.result
       }
     case ADDR_FAILURE:
       return {
@@ -167,3 +171,6 @@ export default function reducer(state = {result: {}}, action) {
       return state
   }
 }
+
+
+

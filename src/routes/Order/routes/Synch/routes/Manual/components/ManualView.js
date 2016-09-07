@@ -1,6 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import Form from 'components/Form';
 import {Row, Col, Button, Icon, DatePicker} from 'hen';
+//是否成功
+const ISSUCC = {
+  true: "成功",
+  false: "失败"
+};
 class Manual extends Component {
 
   _getFormItems() {
@@ -10,41 +15,39 @@ class Manual extends Component {
       formItems: [{
         label: "选择店铺：",
         name: "shopId",
-        rules: [{required: true, type: 'number', message: '店铺必填'}],
         select: {
           placeholder: "请选择所属店铺",
           optionValue: shopList
         }
       }, {
         label: "按订单编号：",
-        name: "orderId",
+        name: "tId",
+        infoLabel: <div style={{color:'#ccc'}}>电商平台各自订单编号规则要求：淘宝是14位数字，京东是10位数字</div>,
         wrapperCol: {span: 5},
-        rules: [{required: true, message: '订单编号必填'}],
         input: {}
       }, {
         label: "按日期查询：",
         labelCol: {span: 2},
         wrapperCol: {span: 19},
-        rules: [{required: true, message: '日期必填'}],
         custom(getCustomFieldProps, FormContext){
           return <div>
             <Col span="3">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('synStartTime') } showTime={true}/>
+              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('startSynTime') } showTime={true}/>
             </Col>
             <Col span="2">
               <p className="ant-form-split">~</p>
             </Col>
             <Col span="3">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('synEndTime') } showTime={true}/>
+              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('endSynTime') } showTime={true}/>
             </Col>
           </div>
         }
       }],
       initValue: {
         shopId: null,
-        orderId: null,
-        synStartTime: null,
-        synEndTime: null
+        tId: null,
+        startSynTime: null,
+        endSynTime: null
       }
     }
     return config;
@@ -52,6 +55,7 @@ class Manual extends Component {
 
   _sFormItems() {
     let config = {}, context = this;
+    const {item} = context.props;
     config.panels = [
       {
         title: '同步结果',
@@ -61,14 +65,15 @@ class Manual extends Component {
             label: "是否成功：",
             custom(getCustomFieldProps) {
               return <label className="ant-checkbox-inline">
-                <span name="isSuccess">{getCustomFieldProps('isSuccess').value}</span>
+                <span style={{color:item.isSuccess?'#0C3':'#F00'}}
+                      name="isSuccess">{'同步'+ISSUCC[getCustomFieldProps('isSuccess').value]+'！'}</span>
               </label>
             }
           }, {
             label: "同步订单数量：",
             custom(getCustomFieldProps) {
               return <label className="ant-checkbox-inline">
-                <span name="synOrderNum">{getCustomFieldProps('synOrderNum').value}</span>
+                <span name="num">{getCustomFieldProps('num').value}</span>
               </label>
             }
           }, {
@@ -84,9 +89,12 @@ class Manual extends Component {
     ];
     config.initValue = {
       isSuccess: null,
-      synOrderNum: null,
+      num: null,
       returnInfo: null
     };
+    if (item) {
+      config.initValue = item
+    }
     return config;
   }
 
@@ -137,3 +145,5 @@ Manual.propTypes = {
 }
 
 export default Manual;
+
+

@@ -74,23 +74,11 @@ class Shophouse extends Component {
               }
           }
       }
-
-    //勾选    
-    handleRowSelection() {
-        return {
-            onSelect(record, selected, selectedRows) {
-                console.log(record, selected, selectedRows);
-            },
-            onSelectAll(selected, selectedRows, changeRows) {
-                console.log(selected, selectedRows, changeRows);
-            },
-        }
-    }
     
     render() {
         const {params, oddStatus} = this.state;
         
-        const {items, compareItems, shopQueryList, compareList, comparePage, compareListResult, shopListResult, cateResult, totalItems, comparetotalItems, loading} = this.props;
+        const {items, compareItems, shopQueryList, compareList, comparePage, compareListResult, shopListResult, cateResult, totalItems, comparetotalItems, loading, compareUpt, fallBack} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : oddStatus ? shopQueryList : compareList,                  //表格翻页时触发的action
@@ -99,20 +87,15 @@ class Shophouse extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
-            isStatus: this._isQueryStatus.bind(this)        //判断出库/入库
-            //rowSelection : this.handleRowSelection()    //需要checkbox时填写
+            isStatus: this._isQueryStatus.bind(this)    //判断出库/入库
         }
-        // const compareItems = (lists) => {
-        //     return lists && lists.map(a => {
-        //         return a.items
-        //     })
-        // } 
 
         const tableOptionsPro = {
-            dataSource : [],                   //加载组件时，表格从容器里获取初始值
             loading,                                    //表格加载数据状态
-            rowSelection : this.handleRowSelection()    //需要checkbox时填写
+            compareUpt,                                 
+            fallBack                                    
         }
+
         /**
          * 类目列表
          * @param lists
@@ -155,13 +138,12 @@ class Shophouse extends Component {
             ...this.getFormOptions()
         }
         
-        return <Panel title=""><ShophouseView tableOptions={tableOptions} tableOptionsPro={tableOptionsPro} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} compareListResult={compareListResult} /></Panel>
+        return <Panel title=""><ShophouseView tableOptions={tableOptions} tableOptionsPro={tableOptionsPro} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} compareListResult={compareListResult} compareList={compareList} /></Panel>
     }
 }
 
 
 Shophouse.propTypes = {
-        
     shopQueryList: React.PropTypes.func,
     compareList: React.PropTypes.func,
     comparePage: React.PropTypes.func,

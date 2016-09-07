@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Collapse, Tabs, Button,Table} from 'hen';
+import {Collapse, Tabs, Button, Table, InputNumber} from 'hen';
 import Form from 'components/Form';
 //基本信息
 import BasicView from '../../pubViews/BasicView';
@@ -42,12 +42,13 @@ class Apart extends Component {
 
   _getColumns() {
     const context = this;
+    const {item}=context.props;
     let columns = [{
       title: '商品编码',
-      dataIndex: 'channelSku',
+      dataIndex: 'outerSkuId',
     }, {
       title: '商品名称',
-      dataIndex: 'spuName'
+      dataIndex: 'title'
     }, {
       title: '市场价',
       dataIndex: 'price'
@@ -63,31 +64,35 @@ class Apart extends Component {
     }, {
       title: '发货数量',
       dataIndex: 'quantity',
-      render(value){
-        return <Input placeholder="发货数量" name='quantity' onChange={(e) => {
-                    context.setState({
-                        quantity: e.target.value
-                    })
-                    /**
-                    * 如果是天猫店的话不可以修改
-                    */
-                }} defaultValue={value}/>
+      render(value, row){
+        /**
+         * 如果是天猫店的话不可以修改
+         */
+        return <InputNumber name='quantity' disabled={item.channelCode == 'TMALL' ? false : false} onChange={(e) => {
+                    item && item.tradesOrderList.forEach((val,index)=>{
+                    if(row.outerSkuId==val.outerSkuId){
+                      item.tradesOrderList[index].quantity = e.target.value
+                    }
+                })
+                context.setState({
+                  item
+                })
+                }}/>
       },
       width: 100
-    }, {
-      title: '发货商品金额',
-      dataIndex: '',
-      render(row){
-        return <span>{row.salePrice*row.quantity}</span>
-      }
-    }];
+    }/*, {
+     title: '发货商品金额',
+     dataIndex: '',
+     render(row){
+     return <span>{row.salePrice * row.quantity}</span>
+     }
+     }*/];
     return columns;
   }
 
   render() {
     const context = this;
-    const {formOptions, handleRowSelection,...other} = context.props;
-    const skuList = [];
+    const {formOptions, handleRowSelection, item, ...other} = context.props;
     const buttonOption = {
       buttons: [
         {
@@ -102,21 +107,22 @@ class Apart extends Component {
     }
     return (
       <div>
-        <Collapse defaultActiveKey={['1']}>
+        <Collapse defaultActiveKey={['5']}>
           <Panel header="基本信息" key="1">
-            <BasicView />
+            <BasicView basicInfo={item}/>
           </Panel>
           <Panel header="买家信息" key="2">
-            <BuyersView />
+            <BuyersView buyersInfo={item}/>
           </Panel>
           <Panel header="收货信息" key="3">
-            <ReceivingView />
+            <ReceivingView receivingInfo={item}/>
           </Panel>
           <Panel header="发票要求" key="4">
-            <InvoiceView />
+            <InvoiceView invoiceInfo={item}/>
           </Panel>
           <Panel header="商品拆分" key="5">
-            <Table bordered={true} rowSelection={handleRowSelection} columns={this._getColumns()} />
+            <Table bordered={true} dataSource={item.tradesOrderList} rowSelection={handleRowSelection}
+                   columns={this._getColumns()} pagination={false}/>
           </Panel>
         </Collapse>
         <div style={{ marginTop: 16 }}>

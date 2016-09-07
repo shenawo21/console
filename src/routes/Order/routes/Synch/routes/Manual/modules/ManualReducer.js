@@ -10,7 +10,7 @@ const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 
 /**
  * 手工订单同步
- *api-tradesInfo.synchronizeOrder
+ *api-tradesInfo.manualSyncOrder
  * @export
  * @param params (description)
  * @returns (description)
@@ -18,7 +18,7 @@ const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 export function modifyItem(params) {
   return {
     types: [MODIFY, MODIFY_SUCCESS, MODIFY_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.synchronizeOrder', params)
+    promise: (client) => client.post('api-tradesInfo.manualSyncOrder', params)
   }
 }
 /**
@@ -45,6 +45,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case MODIFY_SUCCESS:
       return {
+        ...state,
         result: action.result,
         isJump: true
       }

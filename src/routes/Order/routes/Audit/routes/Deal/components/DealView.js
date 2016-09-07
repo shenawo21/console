@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Collapse, Tabs, Button} from 'hen';
+import {Collapse, Tabs, Button, Cascader} from 'hen';
 import Form from 'components/Form';
 //基本信息
 import BasicView from '../../pubViews/BasicView';
@@ -25,18 +25,18 @@ class Deal extends Component {
 
   _getFormItems() {
     let config = {}, context = this;
-    const {params} = context.props;
+    const {params, cList, addrResult, item} = context.props;
     config.panels = [
       {
         title: '修改物流信息',
         className: '',
         formItems: [{
           label: "选择省市区：",
-          name: "receiverState",
+          name: "receiverAddr",
           required: true,
           rules: [{required: true, type: 'array', message: '请选择省市区'}],
           cascader: {
-            options: [],
+            options: addrResult,
             placeholder: "请选择省市区",
             changeOnSelect: false
           }
@@ -94,8 +94,6 @@ class Deal extends Component {
           labelCol: {span: 4},
           wrapperCol: {span: 10},
           name: "receiverPhone",
-          hasFeedback: true,
-          rules: [{required: true, message: '请输入固定电话'}],
           input: {
             type: 'text',
             placeholder: "请输入固定电话"
@@ -105,15 +103,13 @@ class Deal extends Component {
           name: "companyCode",
           span: '12',
           labelCol: {span: 4},
-          hasFeedback: true,
-          rules: [{required: true, message: '请选择快递公司'}],
           select: {
-            optionValue: []
+            optionValue: cList
           }
         }]
       }];
     config.initValue = {
-      receiverState: null,
+      receiverAddr: null,
       receiverAddress: null,
       receiverName: null,
       receiverZip: null,
@@ -121,14 +117,23 @@ class Deal extends Component {
       receiverPhone: null,
       companyCode: null
     };
+    if (item) {
+      config.initValue = item
+      if (item.receiverState && item.receiverCity && item.receiverDistrict) {
+        const addr=[];
+        addr.push(item.receiverState,item.receiverCity,item.receiverDistrict);
+        config.initValue.receiverAddr = addr;
+      }
+    }
     return config;
   }
 
   _getNoteItems() {
+    const {item} = this.props;
     let config = {
       formItems: [{
         label: "客服备注：",
-        name: "offlineStatus",
+        name: "remark",
         wrapperCol: {span: 10},
         hasFeedback: true,
         rules: [{required: true, message: '请输入备注信息'}],
@@ -139,8 +144,11 @@ class Deal extends Component {
         }
       }],
       initValue: {
-        offlineStatus: null
+        remark: null
       }
+    }
+    if(item){
+      config.initValue = item
     }
     return config;
   }
@@ -151,13 +159,12 @@ class Deal extends Component {
   }
 
   render() {
-    const {formOptions, noteOptions, ...other} = this.props;
-    const {isShow} = this.props;
+    const {formOptions, noteOptions,isShow, item, ...other} = this.props;
     const buttonOption = {
       buttons: [
         {
           key: 'submit',
-          name: '提交返货',
+          name: '提交发货',
           type: 'primary'
         },
         {
@@ -179,32 +186,32 @@ class Deal extends Component {
     }
     return (
       <div>
-        <Collapse defaultActiveKey={['1']}>
+        <Collapse defaultActiveKey={['5']}>
           <Panel header="基本信息" key="1">
-            <BasicView />
+            <BasicView basicInfo={item}/>
           </Panel>
           <Panel header="买家信息" key="2">
-            <BuyersView />
+            <BuyersView buyersInfo={item}/>
           </Panel>
           <Panel header="收货信息" key="3">
-            <ReceivingView />
+            <ReceivingView receivingInfo={item}/>
           </Panel>
           <Panel header="发票要求" key="4">
-            <InvoiceView />
+            <InvoiceView invoiceInfo={item}/>
           </Panel>
           <Panel header="其他信息" key="5">
             <Tabs defaultActiveKey="1">
               <TabPane tab="商品明细" key="1">
-                <ProductView />
+                <ProductView productInfo={item}/>
               </TabPane>
               <TabPane tab="支付详情" key="2">
-                <PayView />
+                <PayView payInfo={item}/>
               </TabPane>
               <TabPane tab="促销信息" key="3">
-                <PromView />
+                <PromView promInfo={item}/>
               </TabPane>
               <TabPane tab="物流快递" key="4">
-                <ReceivingView />
+                <ReceivingView receivingInfo={item}/>
                 <div style={{ position: 'absolute',top: 0,right: 0 }}>
                   <Button type="ghost" onClick={this.editLogsic.bind(this)}>
                     修改物流信息
@@ -216,7 +223,7 @@ class Deal extends Component {
                 </div>
               </TabPane>
               <TabPane tab="订单处理记录" key="5">
-                <LogView />
+                <LogView LogInfo={item}/>
               </TabPane>
             </Tabs>
           </Panel>
@@ -236,6 +243,8 @@ Deal.propTypes = {
 }
 
 export default Deal;
+
+
 
 
 

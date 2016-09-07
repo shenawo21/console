@@ -24,7 +24,7 @@ export function appList(params) {
 
 /**
  * 历史订单查询
- *
+ *api-tradesInfo.historyOrders
  * @export
  * @param params (description)
  * @returns (description)
@@ -32,7 +32,7 @@ export function appList(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('/', params)
+    promise: (client) => client.post('api-tradesInfo.historyOrders', params)
   }
 }
 

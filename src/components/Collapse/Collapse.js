@@ -7,12 +7,16 @@ class Collapse extends Component {
         super(props)
         this.toggle = this.toggle.bind(this);
         this.state = {
-            toggleFlag : false
+            toggleFlag : !props.hasArrow ? true : props.initFocus ? true : false
         } 
     }
 
     toggle(e) {
         const {toggleFlag} = this.state
+        const {hasArrow} = this.props
+        if(!hasArrow){
+            return
+        }
         this.setState({
             toggleFlag : toggleFlag ? false : true
         })
@@ -28,7 +32,7 @@ class Collapse extends Component {
                     btns.map((val, index) => {
                         const {className, name, handle, ...other} = val;
                         return <Button key={index} className="fr" onClick={(e)=>{
-                            e.cancelBubble = true
+                            //e.cancelBubble = true
                             e.stopPropagation && e.stopPropagation();
                             handle(e)
                         }} {...other}>{name}</Button>

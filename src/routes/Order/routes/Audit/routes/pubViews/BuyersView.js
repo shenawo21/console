@@ -13,36 +13,35 @@ class Buyers extends Component {
   /**
    * name
    * @param name
-   * @param productOrder
+   * @param buyersInfo
    * @returns {XML}
    * @private
    */
-  _showTitle(name,productOrder){
+  _showTitle(name,buyersInfo){
     switch(name){
       case "buyerNick":
-        return <span>{productOrder.buyerNick}</span>
+        return <span>{buyersInfo.buyerNick}</span>
         break;
       case "receiverPhone":
-        return <span>{productOrder.receiverPhone}</span>
+        return <span>{buyersInfo.receiverPhone}</span>
         break;
       case "buyerMessage":
-        return <span>{productOrder.buyerMessage}</span>
+        return <span>{buyersInfo.buyerMessage}</span>
         break;
       case "buyerMemo":
-        return <span>{productOrder.buyerMemo}</span>
+        return <span>{buyersInfo.buyerMemo}</span>
         break;
     }
   }
   render() {
-    //const {productOrder} = this.props;
-    //if(!productOrder)return null;
-    const productOrder = {}
+    const {buyersInfo} = this.props;
+    if(!buyersInfo)return null;
     return <Row>
       {
         config.map((item, i) => {
           return <Col key={i} span="12">
             <div className={classes.orderInfo}>
-              <label>{item.label}</label>{this._showTitle(item.name,productOrder)}
+              <label>{item.label}</label>{this._showTitle(item.name,buyersInfo)}
             </div>
           </Col>
         })
@@ -52,3 +51,5 @@ class Buyers extends Component {
 }
 
 export default Buyers;
+
+

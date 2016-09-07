@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import AuditView from '../components/AuditView'
 import Panel from 'components/Panel'
-import {giveItem, deleteItem, appList,queryList } from '../modules/AuditReducer'
+import {giveItem, deleteItem, appList, queryList} from '../modules/AuditReducer'
 
 class Audit extends Component {
 
@@ -15,8 +15,32 @@ class Audit extends Component {
     }
   }
 
-  componentDidMount() {
+  /**
+   * 放弃合并
+   * @param row
+   */
+  notMerge(row) {
+    const context = this;
+    const {deleteItem} = context.props;
+    deleteItem({
+      mergeStatus: '放弃合并',
+      tid: row.tid
+    })
+  }
 
+  /**
+   * 直接发货
+   * @param row
+   */
+  isGive(row) {
+    const context = this;
+    const {giveItem} = context.props;
+    giveItem({
+      tid: row.tid
+    })
+  }
+
+  componentDidMount() {
     const {queryList, location, appList} = this.props;
     const {query} = location;
     let pageNumber = query.p ? Number(query.p) : 1;
@@ -96,7 +120,9 @@ class Audit extends Component {
       },
       loading,                                    //表格加载数据状态
       params,                                     //表格检索数据参数
-      //rowSelection : this.handleRowSelection()    //需要checkbox时填写
+      //rowSelection : this.handleRowSelection()，    //需要checkbox时填写
+      isGive: this.isGive.bind(this),
+      notMerge: this.notMerge.bind(this)
     }
     /**
      * 店铺列表
@@ -141,10 +167,8 @@ const mapActionCreators = {
   giveItem
 }
 
-
 const mapStateToProps = (state) => {
   const {result, loading, appResult} = state.audit;
-
   const {items = [], totalItems = 0} = result || {};
   return {items, totalItems, loading, appResult};
 

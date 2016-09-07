@@ -13,46 +13,41 @@ class Receiving extends Component {
   /**
    * name
    * @param name
-   * @param productOrder
+   * @param receivingInfo
    * @returns {XML}
    * @private
    */
-  _showTitle(name, productOrder) {
+  _showTitle(name, receivingInfo) {
     switch (name) {
       case "receiverName":
-        return <span>{productOrder.receiverName}</span>
+        return <span>{receivingInfo.receiverName}</span>
         break;
       case "receiverMobile":
-        return <span>{productOrder.receiverMobile}</span>
+        return <span>{receivingInfo.receiverMobile}</span>
         break;
       case "receiverZip":
-        return <span>{productOrder.receiverZip}</span>
+        return <span>{receivingInfo.receiverZip}</span>
         break;
       case "companyName":
-        return <span>{productOrder.companyName}</span>
+        return <span>{receivingInfo.companyName}</span>
         break;
       case "receiverAddress":
-        return <span>{productOrder.receiverAddress}</span>
+        return <span>
+          {receivingInfo.receiverState + receivingInfo.receiverCity + receivingInfo.receiverDistrict + receivingInfo.receiverAddress}
+        </span>
         break;
     }
   }
 
   render() {
-    //const {productOrder} = this.props;
-    //if(!productOrder)return null;
-    const productOrder = {
-      receiverName: '80000003',
-      receiverMobile: '尚龙天猫旗舰店',
-      receiverZip: '80000003',
-      companyName: '8000fdsfds0003',
-      receiverAddress: '广东省-深圳市-南山区-软件产业基地5E526',
-    }
+    const {receivingInfo} = this.props;
+    if (!receivingInfo)return null;
     return <Row>
       {
         config.map((item, i) => {
           return <Col key={i} span="12">
             <div className={classes.orderInfo}>
-              <label>{item.label}</label>{this._showTitle(item.name, productOrder)}
+              <label>{item.label}</label>{this._showTitle(item.name, receivingInfo)}
             </div>
           </Col>
         })

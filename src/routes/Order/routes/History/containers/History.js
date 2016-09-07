@@ -11,15 +11,20 @@ class History extends Component {
     this.getFormOptions = this.getFormOptions.bind(this);
     this.getQuickOptions = this.getQuickOptions.bind(this);
     this.state = {
-      params: {}
+      params: {
+        payTimeSort: '0'
+      },
+
     }
   }
 
   componentDidMount() {
     const {queryList, location, appList} = this.props;
+    const {params} = this.state;
     const {query} = location;
     let pageNumber = query.p ? Number(query.p) : 1;
-    queryList({pageNumber});
+    let payTimeSort = params.payTimeSort;
+    queryList({pageNumber, payTimeSort});
     /**
      * 获取该企业的所有店铺
      */
@@ -86,7 +91,6 @@ class History extends Component {
 
   render() {
     const {params} = this.state;
-
     const {items, queryList, totalItems, loading, appResult} = this.props;
     const tableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
@@ -122,8 +126,8 @@ class History extends Component {
       'formOptions': this.getFormOptions()
     }
 
-    return <Panel title=""><HistoryView {...tableOptions} {...formOptions} shopList={shopList}
-                                                                           quickOptions={this.getQuickOptions()}/></Panel>
+    return <Panel title=""><HistoryView {...tableOptions} downParams={params} {...formOptions} shopList={shopList}
+                                                          quickOptions={this.getQuickOptions()}/></Panel>
   }
 }
 
@@ -143,7 +147,6 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
   const {result, loading, appResult} = state.history;
-
   const {items = [], totalItems = 0} = result || {};
   return {items, totalItems, loading, appResult};
 
