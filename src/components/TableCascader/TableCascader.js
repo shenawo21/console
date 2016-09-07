@@ -172,7 +172,7 @@ class TableCascader extends Component {
         tableOptions = {
             rowSelection: this.handleRowSelection(),
             selectedItemsKeys,
-                ...tableOptions
+            ...tableOptions
         }
 
         return (
