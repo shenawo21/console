@@ -79,7 +79,7 @@ export function list() {
         promise: (client) => client.post('resources.get?path=static.resource.areas')
     }
 }
-export default function reducer(state = { result: [] }, action) {
+export default function reducer(state = { result: {} }, action) {
   state = {...state, loading: action.loading };
   switch (action.type) {
     case REQ_ADDRESS_LIST:

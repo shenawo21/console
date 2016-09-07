@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
-
+import { message } from 'hen';
 import Usercomponent from '../components/Addressmanage'
 import Panel from 'components/Panel'
 import {gitAddressList, delAddress,addAddress,editAddress,setDefault,getShopList,list,gitAddressItem} from '../modules/addressmanage'
@@ -26,7 +26,7 @@ class Container extends Component {
         const {gitAddressList, getShopList,list, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        gitAddressList();
+        gitAddressList({pageNumber});
         //获取店铺列表
         getShopList();
         // 获取地址列表
@@ -70,7 +70,7 @@ class Container extends Component {
         const {delAddress} = this.props;
         delAddress({...data}).then(function(res) {
             cb()
-            self.setState({selectedRowKeys:[]})
+            context.setState({selectedRowKeys:[]})
         });
     }
     // 获取单条地址信息
@@ -85,12 +85,6 @@ class Container extends Component {
         })        
     }
     handleOk (values,fresh) {
-        // fresh.getFieldProps('shopId',rules: [
-        //     { required: true, message: '请选择店铺' },
-        // ])
-        // fresh.validateFields('address', rules: [
-        //     { required: true, message: '请选择退货地址' },
-        // ])
         const self = this
         const {id} = this.state
         const {addAddress,editAddress,gitAddressList} = this.props
@@ -102,15 +96,24 @@ class Container extends Component {
         if (id) {
             values = {...values,id:id}
             editAddress(values).then(function(res) {
-                self.setState({visible: false})
-                fresh && fresh.resetFields()
-                gitAddressList()
+                if (res && res.status == 1) {
+                    self.setState({visible: false})
+                    fresh && fresh.resetFields()
+                    gitAddressList()
+                } else {
+                    message.error(res.message, 1)
+                }
+                
            })
         } else {
             addAddress(values).then(function(res) {
-                self.setState({visible: false})
-                fresh && fresh.resetFields()
-                gitAddressList()
+                if (res && res.status == 1) {
+                    self.setState({visible: false})
+                    fresh && fresh.resetFields()
+                    gitAddressList()
+                } else {
+                    message.error(res.message, 1)
+                }    
            })
         }
     }
@@ -129,14 +132,16 @@ class Container extends Component {
     
     render() {
         const self = this
-        const { shoplist,loading, gitAddressList,addresslist } = this.props;
-        const result = this.props.result ||  []
+        const {items,totalItems,shoplist,loading, gitAddressList,addresslist } = this.props;
         const {params, visible, selectedRowKeys, selectedRowId, addressItemState} = this.state;
         const tableOptions = {
-            dataSource: result,                         //加载组件时，表格从容器里获取初始值
+            dataSource: items,                         //加载组件时，表格从容器里获取初始值
             action: gitAddressList,                     //表格翻页时触发的action
             loading,                                     //表格加载数据状态
             params,                                     //表格检索数据参数
+            pagination: {                              //表格页码陪着，如果为false，则不展示页码
+                total: totalItems                      //数据总数
+            },
             selectedRowKeys,
             selectedRowId
         }
@@ -187,9 +192,11 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result= [],addresslist = [], shoplist,addressItem,loading} = state.addressmanage;
+    const {result,addresslist = [], shoplist,addressItem,loading} = state.addressmanage;
+    const {items = [], totalItems = 0} = result || {};
     return {
-          result,
+          items, 
+          totalItems,
           addresslist,
           shoplist,
           addressItem,
