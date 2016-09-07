@@ -3,15 +3,11 @@ import classes from './style.less'
 import {Row, Col} from 'hen';
 //订单状态
 const STATUS = {
-  'TRADE_NO_CREATE_PAY': "没有创建支付宝交易",
-  'WAIT_BUYER_PAY': "等待买家付款",
-  'WAIT_SELLER_SEND_GOODS': "等待卖家发货",
-  'WAIT_BUYER_CONFIRM_GOODS': "等待买家确认收货",
-  'TRADE_BUYER_SIGNED': "买家已签收",
-  'TRADE_FINISHED': "交易成功",
-  'TRADE_CLOSED': "付款以后用户退款成功，交易自动关闭",
-  'TRADE_CLOSED_BY_TAOBAO': "付款以前，卖家或买家主动关闭交易",
-  'PAY_PENDING': "国际信用卡支付付款确认中"
+  'ARRANGE_ORDER': "埋单中",
+  'REVIEW_ORDER': "审单中",
+  'WAIT_SEND_GOODS': "可发货",
+  'DELAYED_DELIVERY': "延迟发货",
+  'RE_ORDER': "重新理单"
 };
 //交易类型
 const TYPE = {
@@ -43,71 +39,61 @@ const FROM = {
 };
 //订单title配置
 const config = [
-  {label: "订单编号：", name: "orderId"},
-  {label: "店铺名称：", name: "shopName"},
+  {label: "订单编号：", name: "tid"},
+  {label: "店铺名称：", name: "title"},
   {label: "订单状态：", name: "offlineStatus"},
   {label: "交易类型：", name: "type"},
   {label: "交易来源：", name: "tradeFrom"},
   {label: "交易创建时间：", name: "created"},
   {label: "付款时间：", name: "payTime"},
-  {label: "到期时间：", name: "timeoutActionTime"},
   {label: "预计发货时间：", name: "estConTime"}
 ]
 class Basic extends Component {
   /**
    * name
    * @param name
-   * @param productOrder
+   * @param basicInfo
    * @returns {XML}
    * @private
    */
-  _showTitle(name, productOrder) {
+  _showTitle(name, basicInfo) {
     switch (name) {
-      case "orderId":
-        return <span>{productOrder.orderId}</span>
+      case "tid":
+        return <span>{basicInfo.tid}</span>
         break;
-      case "shopName":
-        return <span>{productOrder.shopName}</span>
+      case "title":
+        return <span>{basicInfo.title}</span>
         break;
       case "offlineStatus":
-        return <span>{STATUS[productOrder.offlineStatus]}</span>
+        return <span>{STATUS[basicInfo.offlineStatus]}</span>
         break;
       case "type":
-        return <span>{TYPE[productOrder.type]}</span>
+        return <span>{TYPE[basicInfo.type]}</span>
         break;
       case "tradeFrom":
-        return <span>{FROM[productOrder.tradeFrom]}</span>
+        return <span>{FROM[basicInfo.tradeFrom]}</span>
         break;
       case "created":
-        return <span>{productOrder.created}</span>
+        return <span>{basicInfo.created}</span>
         break;
       case "payTime":
-        return <span>{productOrder.payTime}</span>
-        break;
-      case "timeoutActionTime":
-        return <span>{productOrder.timeoutActionTime}</span>
+        return <span>{basicInfo.payTime}</span>
         break;
       case "estConTime":
-        return <span>{productOrder.estConTime}</span>
+        return <span>{basicInfo.estConTime}</span>
         break;
     }
   }
 
   render() {
-    //const {productOrder} = this.props;
-    //if(!productOrder)return null;
-    const productOrder = {
-      orderId: '80000003',
-      shopName: '尚龙天猫旗舰店',
-      offlineStatus: '80000003',
-      type: '8000fdsfds0003',
-    }
+    const {basicInfo} = this.props;
+    if(!basicInfo)return null;
     return <Row>
       {
         config.map((item, i) => {
           return <Col key={i} span="8">
             <div className={classes.orderInfo}>
-              <label>{item.label}</label>{this._showTitle(item.name, productOrder)}
+              <label>{item.label}</label>{this._showTitle(item.name, basicInfo)}
             </div>
           </Col>
         })

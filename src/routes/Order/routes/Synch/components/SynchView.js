@@ -2,7 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-
+//是否成功
+const ISSUCC = {
+  true: "成功",
+  false: "失败"
+};
 import {Row, Col, Button, Icon, DatePicker} from 'hen';
 class Synch extends Component {
   _getFormItems() {
@@ -50,7 +54,7 @@ class Synch extends Component {
     let columns = [{
       key: '0',
       title: 'ID',
-      dataIndex: 'tid'
+      dataIndex: '_index'
     }, {
       key: '1',
       title: '同步时间',
@@ -66,7 +70,10 @@ class Synch extends Component {
     }, {
       key: '4',
       title: '同步结果',
-      dataIndex: 'isSuccess'
+      dataIndex: 'isSuccess',
+      render(value){
+        return <span style={{color:value?'#0C3':'F00'}}>{ISSUCC[value]}</span>
+      }
     }, {
       key: '5',
       title: '操作人',
@@ -87,6 +94,7 @@ class Synch extends Component {
 
   render() {
     const {formOptions, quickOptions, ...other} = this.props;
+
     return (
       <div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
@@ -96,7 +104,6 @@ class Synch extends Component {
     )
   }
 }
-
 
 Synch.propTypes = {
 

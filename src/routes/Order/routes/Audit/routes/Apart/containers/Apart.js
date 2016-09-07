@@ -2,25 +2,42 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import ApartView from '../components/ApartView'
 import Panel from 'components/Panel'
-import {view, splitOrders} from '../modules/ApartReducer'
-import { message } from 'hen';
+import {view, splitOrders,unlock} from '../modules/ApartReducer'
+import {message} from 'hen';
 class Apart extends Component {
 
   constructor(props) {
     super(props);
-
     this.getFormOptions = this.getFormOptions.bind(this);
     this.state = {
       params: {},
+      item: {},
       selectList: []
     }
   }
 
   componentDidMount() {
-    const {view,params} = this.props;
+    const {view, params} = this.props;
     const id = params.id;
     if (id) {
-      view({tId: id})
+      view({tid: id})
+    }
+  }
+
+  componentWillReceiveProps(nextProps, preProps) {
+    if (!nextProps.params.id) {
+      this.setState({
+        item: {}
+      })
+    } else {
+      this.setState({
+        item: nextProps.result
+      })
+    }
+    if (nextProps.isJump) {
+      setTimeout(()=> {
+        nextProps.history.go(-1);
+      }, 800);
     }
   }
 
@@ -31,7 +48,7 @@ class Apart extends Component {
    */
   getFormOptions() {
     const context = this;
-    const {splitOrders,params} = context.props;
+    const {splitOrders, params,unlock} = context.props;
     const {selectList} = context.state;
     return {
       /**
@@ -40,17 +57,16 @@ class Apart extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        console.log(value)
         context.setState({
           params: value
         })
-        if(selectList==null){
-          message.error('请选择需要发货的商品！');
+        if (selectList.length == 0) {
+          message.error('请选择需要拆单发货的商品！');
           return false;
         }
         splitOrders({
           ...value,
-          TradesOrder:selectList,
+          tradesOrders: selectList,
           tid: params.id
         })
       },
@@ -59,16 +75,20 @@ class Apart extends Component {
        * (筛选表单重置)
        */
       handleReset() {
+        unlock({
+          tids: params.id.split(",")
+        })
       }
     }
   }
+
   handleRowSelection() {
     return {
       onSelect: (record, selected, selectedRows) => {
         let selectList = selectedRows.map(c => {
           return {
             orderId: c.orderId,
-            quantity: c.quantity
+            quantity: c.quantity ? c.quantity : c.num
           }
         });
         this.setState({selectList});
@@ -77,7 +97,7 @@ class Apart extends Component {
         let selectList = selectedRows.map(c => {
           return {
             orderId: c.orderId,
-            quantity: c.quantity
+            quantity: c.quantity ? c.quantity : c.num
           }
         });
         this.setState({selectList});
@@ -86,8 +106,7 @@ class Apart extends Component {
   }
 
   render() {
-    const {params} = this.state;
-
+    const {params, item, selectList} = this.state;
     const {loading, result} = this.props;
     const formOptions = {
       loading,
@@ -95,7 +114,8 @@ class Apart extends Component {
       'formOptions': this.getFormOptions()
     }
 
-    return <Panel title=""><ApartView handleRowSelection={this.handleRowSelection.bind(this)} {...formOptions} /></Panel>
+    return <Panel title=""><ApartView item={item}
+                                      handleRowSelection={this.handleRowSelection()} {...formOptions} /></Panel>
   }
 }
 
@@ -108,14 +128,15 @@ Apart.propTypes = {
 
 const mapActionCreators = {
   view,
-  splitOrders
+  splitOrders,
+  unlock
 }
 
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.apart;
+  const {result, loading, isJump} = state.apart;
 
-  return {'result': result, loading};
+  return {'result': result, loading, isJump};
 }
 export default connect(mapStateToProps, mapActionCreators)(Apart)
 

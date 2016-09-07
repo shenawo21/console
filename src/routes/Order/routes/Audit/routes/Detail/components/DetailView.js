@@ -25,38 +25,38 @@ class Detail extends Component {
   }
 
   render() {
-    const {formOptions, ...other} = this.props;
+    const {item} = this.props;
     return (
       <div>
         <Collapse defaultActiveKey={['5']}>
           <Panel header="基本信息" key="1">
-            <BasicView />
+            <BasicView basicInfo={item}/>
           </Panel>
           <Panel header="买家信息" key="2">
-            <BuyersView />
+            <BuyersView buyersInfo={item}/>
           </Panel>
           <Panel header="收货信息" key="3">
-            <ReceivingView />
+            <ReceivingView receivingInfo={item}/>
           </Panel>
           <Panel header="发票要求" key="4">
-            <InvoiceView />
+            <InvoiceView invoiceInfo={item}/>
           </Panel>
           <Panel header="其他信息" key="5">
             <Tabs defaultActiveKey="1">
               <TabPane tab="商品明细" key="1">
-                <ProductView />
+                <ProductView productInfo={item}/>
               </TabPane>
               <TabPane tab="支付详情" key="2">
-                <PayView />
+                <PayView payInfo={item}/>
               </TabPane>
               <TabPane tab="促销信息" key="3">
-                <PromView />
+                <PromView promInfo={item}/>
               </TabPane>
               <TabPane tab="物流快递" key="4">
-                <ReceivingView />
+                <ReceivingView receivingInfo={item}/>
               </TabPane>
               <TabPane tab="订单处理记录" key="5">
-                <LogView />
+                <LogView LogInfo={item}/>
               </TabPane>
             </Tabs>
           </Panel>

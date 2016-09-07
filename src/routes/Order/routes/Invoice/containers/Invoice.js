@@ -13,7 +13,8 @@ class Invoice extends Component {
 
     this.state = {
       params: {},
-      selectList: []
+      selectList: [],
+      tData: []
     }
   }
 
@@ -23,13 +24,13 @@ class Invoice extends Component {
    */
   isGive(row) {
     const context = this;
-    let ids = [];
-    /**
-     * {row.shoppId,.rowoutSid}
-     */
-    ids.push(id);
     const {deleteItem} = context.props;
-    //deleteItem({List: ids})
+    deleteItem({
+      sendGoods: [{
+        shoppId: row.shoppId,
+        outSid: row.outSid
+      }]
+    })
   }
 
   /**
@@ -40,14 +41,15 @@ class Invoice extends Component {
     const context = this;
     const {deleteItem} = context.props;
     const {selectList} = this.state;
-    //deleteItem({List: selectList});
+    deleteItem({sendGoods: selectList});
     context.setState({
       selectList: []
     })
   }
 
+
   componentDidMount() {
-    const {queryList, location,appList} = this.props;
+    const {queryList, location, appList} = this.props;
     const {query} = location;
     let pageNumber = query.p ? Number(query.p) : 1;
     queryList({pageNumber});
@@ -55,6 +57,17 @@ class Invoice extends Component {
      * 获取该企业的所有店铺
      */
     appList()
+  }
+
+  componentWillReceiveProps(nextProps, preProps) {
+    this.setState({
+      tData: nextProps.items
+    })
+    if (nextProps.isJump) {
+      setTimeout(()=> {
+        nextProps.history.go(-1);
+      }, 800);
+    }
   }
 
   /**
@@ -123,10 +136,10 @@ class Invoice extends Component {
   }
 
   render() {
-    const {params, selectList} = this.state;
+    const {params, selectList, tData} = this.state;
     const {items, queryList, totalItems, loading, appResult} = this.props;
     const tableOptions = {
-      dataSource: items,                         //加载组件时，表格从容器里获取初始值
+      dataSource: tData,                         //加载组件时，表格从容器里获取初始值
       action: queryList,                         //表格翻页时触发的action
       pagination: {                              //表格页码配置，如果为false，则不展示页码
         total: totalItems                        //数据总数
@@ -159,7 +172,7 @@ class Invoice extends Component {
     const formOptions = {
       'formOptions': this.getFormOptions()
     }
-    return <Panel title=""><InvoiceView {...tableOptions} {...formOptions} shopList={shopList} items={items}
+    return <Panel title=""><InvoiceView {...tableOptions} {...formOptions} shopList={shopList} tData={tData}
                                                                            hasSelected={selectList.length > 0}
                                                                            selectList={selectList}
                                                                            quickOptions={this.getQuickOptions()}/></Panel>
@@ -185,10 +198,8 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
   const {result, loading, appResult} = state.invoice;
-
   const {items = [], totalItems = 0} = result || {};
   return {items, totalItems, loading, appResult};
-
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Invoice)

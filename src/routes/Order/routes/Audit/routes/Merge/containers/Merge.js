@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import MergeView from '../components/MergeView'
 import Panel from 'components/Panel'
-import {view, mergeOrder} from '../modules/MergeReducer'
+import {view, mergeOrder,unlock} from '../modules/MergeReducer'
 
 class Merge extends Component {
 
@@ -10,15 +10,32 @@ class Merge extends Component {
     super(props);
     this.getFormOptions = this.getFormOptions.bind(this);
     this.state = {
-      params: {}
+      params: {},
+      item: {}
     }
   }
 
   componentDidMount() {
-    const {view,params} = this.props;
-    const id = params.id;
-    if (id) {
-      view({tId: id})
+    const {view, params} = this.props;
+    if (params.id) {
+      view({tids: params.id.split(",")})
+    }
+  }
+
+  componentWillReceiveProps(nextProps, preProps) {
+    if (!nextProps.params.id) {
+      this.setState({
+        item: {}
+      })
+    } else {
+      this.setState({
+        item: nextProps.result
+      })
+    }
+    if (nextProps.isJump) {
+      setTimeout(()=> {
+        nextProps.history.go(-1);
+      }, 800);
     }
   }
 
@@ -29,7 +46,7 @@ class Merge extends Component {
    */
   getFormOptions() {
     const context = this;
-    const {mergeOrder,params} = context.props;
+    const {mergeOrder, params,unlock} = context.props;
     return {
       /**
        * (筛选表单提交)
@@ -37,12 +54,12 @@ class Merge extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        console.log(value)
         context.setState({
           params: value
         })
         mergeOrder({
-          ...value
+          ...value,
+          tids: params.id.split(",")
         })
       },
 
@@ -50,14 +67,16 @@ class Merge extends Component {
        * (筛选表单重置)
        */
       handleReset() {
+        unlock({
+          tids: params.id.split(",")
+        })
       }
     }
   }
 
 
   render() {
-    const {params} = this.state;
-
+    const {params, item} = this.state;
     const {loading, result} = this.props;
     const formOptions = {
       loading,
@@ -66,7 +85,7 @@ class Merge extends Component {
     }
 
 
-    return <Panel title=""><MergeView  {...formOptions} /></Panel>
+    return <Panel title=""><MergeView  {...formOptions} item={item}/></Panel>
   }
 }
 
@@ -79,14 +98,15 @@ Merge.propTypes = {
 
 const mapActionCreators = {
   view,
-  mergeOrder
+  mergeOrder,
+  unlock
 }
 
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.merge;
+  const {result, loading, isJump} = state.merge;
 
-  return {'result': result, loading};
+  return {'result': result, loading, isJump};
 
 }
 

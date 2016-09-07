@@ -2,14 +2,12 @@ import React, {Component, PropTypes} from 'react';
 import {Collapse, Tabs, Button, Table} from 'hen';
 import Form from 'components/Form';
 
-//基本信息
-import BasicView from '../../pubViews/BasicView';
 //买家信息
 import BuyersView from '../../pubViews/BuyersView';
 //收货信息
 import ReceivingView from '../../pubViews/ReceivingView';
-//发票要求
-import InvoiceView from '../../pubViews/InvoiceView';
+//商品明细
+import ProductView from '../../pubViews/ProductView';
 
 const Panel = Collapse.Panel;
 class Merge extends Component {
@@ -34,76 +32,9 @@ class Merge extends Component {
     }
     return config;
   }
-  _getColumns() {
-    const context = this;
-    let columns = [{
-      title: '商品编码',
-      dataIndex: 'channelSku',
-    }, {
-      title: '商品名称',
-      dataIndex: 'spuName'
-    }, {
-      title: '淘宝销售价',
-      dataIndex: 'salePrice'
-    }, {
-      title: '数量',
-      dataIndex: 'num'
-    }, {
-      title: '促销ID',
-      dataIndex: 'promotionId'
-    }, {
-      title: '促销名称',
-      dataIndex: 'promotionName'
-    }, {
-      title: '行金额',
-      dataIndex: 'payment'
-    }];
-    return columns;
-  }
 
   render() {
-    const {formOptions, ...other} = this.props;
-    const proList = [
-      {
-        title:'111111111111',
-        skuList:[{
-          channelSku:'45646',
-          spuName:'45646',
-          salePrice:'45646',
-          num:'45646',
-          promotionId:'45646',
-          promotionName:'45646',
-          payment:'45646'
-        },{
-          channelSku:'45646',
-          spuName:'45646',
-          salePrice:'45646',
-          num:'45646',
-          promotionId:'45646',
-          promotionName:'45646',
-          payment:'45646'
-        }]
-      },{
-        title:'111111111111',
-        skuList:[{
-          channelSku:'45646',
-          spuName:'45646',
-          salePrice:'45646',
-          num:'45646',
-          promotionId:'45646',
-          promotionName:'45646',
-          payment:'45646'
-        },{
-          channelSku:'45646',
-          spuName:'45646',
-          salePrice:'45646',
-          num:'45646',
-          promotionId:'45646',
-          promotionName:'45646',
-          payment:'45646'
-        }]
-      }
-    ];
+    const {formOptions, item, ...other} = this.props;
     const buttonOption = {
       buttons: [
         {
@@ -118,29 +49,22 @@ class Merge extends Component {
     }
     return (
       <div>
-        <Collapse defaultActiveKey={['1']}>
-          <Panel header="基本信息" key="1">
-            <BasicView />
+        <Collapse defaultActiveKey={['1','2','3']}>
+          <Panel header="买家信息" key="1">
+            <BuyersView buyersInfo={item}/>
           </Panel>
-          <Panel header="买家信息" key="2">
-            <BuyersView />
+          <Panel header="收货信息" key="2">
+            <ReceivingView receivingInfo={item}/>
           </Panel>
-          <Panel header="收货信息" key="3">
-            <ReceivingView />
-          </Panel>
-          <Panel header="发票要求" key="4">
-            <InvoiceView />
-          </Panel>
-          <Panel header="商品拆分" key="5">
+          <Panel header="商品合并（下列商品将合并到一个发货单发货）" key="3">
             {
-              proList.map(s => {
-                return <div style={{marginBottom:'15'}}>
-                  <h3 style={{color:'#FF6633',fontSize:'14',fontWeight:'bold',marginBottom:'10'}}>订单编号：{s.title}</h3>
-                  <Table dataSource={s.skuList} columns={this._getColumns()} pagination={false} bordered/>
+              item.tradesOrderMap ? item.tradesOrderMap.map(s => {
+                return <div style={{marginBottom:'15px'}}>
+                  <h3 style={{color:'#FF6633',fontSize:'14px',fontWeight:'bold',marginBottom:'10px'}}>订单编号：{s.tid}</h3>
+                  <ProductView productInfo={s}/>
                 </div>
-              })
+              }) : ''
             }
-
           </Panel>
         </Collapse>
         <div style={{ marginTop: 16 }}>
@@ -153,7 +77,6 @@ class Merge extends Component {
 }
 
 Merge.propTypes = {
-
   loading: React.PropTypes.bool,
   params: React.PropTypes.object
 }

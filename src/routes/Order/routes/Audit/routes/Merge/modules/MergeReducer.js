@@ -1,15 +1,18 @@
-//订单详情
+//合并订单订单详情
 const VIEW = 'merge/VIEW';
 const VIEW_SUCCESS = 'merge/VIEW_SUCCESS';
 const VIEW_FAILURE = 'merge/VIEW_FAILURE';
 //合并订单
-const MERGE = 'apart/MERGE';
-const MERGE_SUCCESS = 'apart/MERGE_SUCCESS';
-const MERGE_FAILURE = 'apart/MERGE_FAILURE';
-
+const MERGE = 'merge/MERGE';
+const MERGE_SUCCESS = 'merge/MERGE_SUCCESS';
+const MERGE_FAILURE = 'merge/MERGE_FAILURE';
+//解锁订单
+const LOCK = 'merge/LOCK';
+const LOCK_SUCCESS = 'merge/LOCK_SUCCESS';
+const LOCK_FAILURE = 'merge/LOCK_FAILURE';
 /**
- * 订单详情
- *api-tradesInfo.orderDetial
+ * 合并订单订单详情
+ *api-tradesInfo.getCanCombinedOrder
  * @export
  * @param params (description)
  * @returns (description)
@@ -17,12 +20,12 @@ const MERGE_FAILURE = 'apart/MERGE_FAILURE';
 export function view(params) {
   return {
     types: [VIEW, VIEW_SUCCESS, VIEW_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.orderDetial', params)
+    promise: (client) => client.post('api-tradesInfo.getCanCombinedOrder', params)
   }
 }
 /**
  * 合并订单
- *api-tradesInfo.getCanCombinedOrder
+ *api-tradesOrder.combinedOrders
  * @export
  * @param params (description)
  * @returns (description)
@@ -30,12 +33,25 @@ export function view(params) {
 export function mergeOrder(params) {
   return {
     types: [MERGE, MERGE_SUCCESS, MERGE_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.getCanCombinedOrder', params)
+    promise: (client) => client.post('api-tradesInfo.combinedOrders', params)
+  }
+}
+/**
+ * 解锁订单
+ *api-tradesInfo.unlockTrades
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function unlock(params) {
+  return {
+    types: [LOCK, LOCK_SUCCESS, LOCK_FAILURE],
+    promise: (client) => client.post('api-tradesInfo.unlockTrades', params)
   }
 }
 
 export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+  state = {...state,isJump: false, loading : action.loading};
   switch (action.type) {
     case VIEW:
     case MERGE:
@@ -52,9 +68,18 @@ export default function reducer(state = {result:{}}, action) {
       }
     case MERGE_SUCCESS:
       return {
-        result: action.result
+        result: action.result,
+        isJump: true
       }
     case MERGE_FAILURE:
+      return {
+        ...state
+      }
+    case LOCK_SUCCESS:
+      return {
+        result: action.result
+      }
+    case LOCK_FAILURE:
       return {
         ...state
       }
