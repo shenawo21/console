@@ -1,6 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import Form from 'components/Form';
 import {Row, Col, Button, Icon, DatePicker} from 'hen';
+//是否成功
+const ISSUCC = {
+  true: "成功",
+  false: "失败"
+};
 class Manual extends Component {
 
   _getFormItems() {
@@ -10,22 +15,19 @@ class Manual extends Component {
       formItems: [{
         label: "选择店铺：",
         name: "shopId",
-        rules: [{required: true, type: 'number', message: '店铺必填'}],
         select: {
           placeholder: "请选择所属店铺",
           optionValue: shopList
         }
       }, {
         label: "按订单编号：",
-        name: "orderId",
+        name: "tId",
         wrapperCol: {span: 5},
-        rules: [{required: true, message: '订单编号必填'}],
         input: {}
       }, {
         label: "按日期查询：",
         labelCol: {span: 2},
         wrapperCol: {span: 19},
-        rules: [{required: true, message: '日期必填'}],
         custom(getCustomFieldProps, FormContext){
           return <div>
             <Col span="3">
@@ -42,7 +44,7 @@ class Manual extends Component {
       }],
       initValue: {
         shopId: null,
-        orderId: null,
+        tId: null,
         synStartTime: null,
         synEndTime: null
       }
@@ -61,7 +63,7 @@ class Manual extends Component {
             label: "是否成功：",
             custom(getCustomFieldProps) {
               return <label className="ant-checkbox-inline">
-                <span name="isSuccess">{getCustomFieldProps('isSuccess').value}</span>
+                <span name="isSuccess">ISSUCC[getCustomFieldProps('isSuccess').value]</span>
               </label>
             }
           }, {

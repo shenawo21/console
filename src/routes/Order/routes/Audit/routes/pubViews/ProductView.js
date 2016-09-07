@@ -1,12 +1,15 @@
 import React, {Component, PropTypes} from 'react';
-import {Table } from 'hen';
+import {Table} from 'hen';
 
 const columns = [{
   title: '商品编码',
-  dataIndex: 'channelSku',
+  dataIndex: 'outerSkuId',
 }, {
   title: '商品名称',
-  dataIndex: 'spuName'
+  dataIndex: 'title'
+}, {
+  title: '原价',
+  dataIndex: 'price'
 }, {
   title: '淘宝销售价',
   dataIndex: 'salePrice'
@@ -27,10 +30,10 @@ const columns = [{
 class Receiving extends Component {
 
   render() {
-    //const {productOrder} = this.props;
-    //if(!skuList)return null;
-    const context = this,skuList = [];
-    return <Table dataSource={skuList} columns={columns} bordered  />
+    const {productInfo} = this.props;
+    let skuList = productInfo.list ? productInfo.list : productInfo.tradesOrderList;
+    if (!skuList)return null;
+    return <Table dataSource={skuList} rowKey={record => record.oid} columns={columns} bordered pagination={false}/>
   }
 }
 

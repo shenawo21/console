@@ -13,7 +13,6 @@ const APPQUERY = 'applic/APPQUERY';
 const APPQUERY_SUCCESS = 'applic/APPQUERY_SUCCESS';
 const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 
-
 /**
  * 发货单查询
  *api-tradesInfo.selectWaitSendGoods
@@ -73,6 +72,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case QUERY_SUCCESS:
       return {
+        ...state,
         result: action.result
       }
     case QUERY_FAILURE:
@@ -92,3 +92,5 @@ export default function reducer(state = {result: {}}, action) {
       return state
   }
 }
+
+

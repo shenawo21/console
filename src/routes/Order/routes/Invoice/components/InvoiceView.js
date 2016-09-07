@@ -3,15 +3,14 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader';
 import {UpLoader} from 'components/FileLoader';
-import {Row, Col, Button, Icon, DatePicker, Modal, message} from 'hen';
+import {Row, Col, Button, Icon, DatePicker, Modal, message, InputNumber, Table} from 'hen';
 const confirm = Modal.confirm;
-class Audit extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      outNumber: []
-    }
-  }
+//发票类型
+const KIND = {
+  '1': "电子发票",
+  '2': "纸质发票"
+};
+class Invoice extends Component {
 
   _getFormItems() {
     let context = this, config = {};
@@ -28,7 +27,7 @@ class Audit extends Component {
         }
       }, {
         label: "订单编号：",
-        name: "tId",
+        name: "tid",
         span: "5",
         labelCol: {span: 8},
         input: {}
@@ -77,7 +76,7 @@ class Audit extends Component {
       }],
       initValue: {
         shopId: null,
-        tId: null,
+        tid: null,
         buyerNick: null,
         createStartTime: null,
         createEndTime: null,
@@ -96,23 +95,17 @@ class Audit extends Component {
   showGive(row) {
     const context = this;
     const {isGive} = context.props;
-    const {outNumber} = context.state;
-    if (outNumber == null) {
-      message.warn('运单号不能为空');
-      return false;
-    }
     confirm({
       title: '发货确认',
       content: '你确定发货？',
       onOk() {
-        console.log(row);
-        isGive({
-          List: {
-            shoppId: row.row,
-            outSid: outNumber
-          }
-        });
-        context.refs && context.refs.dt.refresh();
+        if (row.outSid == null) {
+          message.warning('运单号不能为空');
+          return false;
+        } else {
+          isGive(row);
+          context.refs && context.refs.dt.refresh();
+        }
       },
       onCancel() {
       }
@@ -125,12 +118,20 @@ class Audit extends Component {
    */
   showGiveM(row) {
     const context = this;
+    const {isGiveM, selectList} = context.props;
     confirm({
       title: '发货确认',
       content: '你确定批量发货？',
       onOk() {
-        console.log(row);
-        context.refs && context.refs.dt.refresh();
+        selectList.map((s)=> {
+          if (s.outSid == null) {
+            message.warning('运单号不能为空！');
+            return false;
+          } else {
+            isGiveM();
+            context.refs && context.refs.dt.refresh();
+          }
+        })
       },
       onCancel() {
       }
@@ -139,10 +140,11 @@ class Audit extends Component {
 
   _getColumns() {
     const context = this;
+    const {tData} = context.props;
     let columns = [{
       key: '0',
       title: '店铺名称',
-      dataIndex: 'shopName'
+      dataIndex: 'title'
     }, {
       key: '1',
       title: '发货单号',
@@ -150,11 +152,11 @@ class Audit extends Component {
     }, {
       key: '2',
       title: '审单时间',
-      dataIndex: 'reviewTime'
+      dataIndex: 'auditTime'
     }, {
       key: '3',
       title: '包含订单',
-      dataIndex: 'orderIdS'
+      dataIndex: 'tids'
     }, {
       key: '4',
       title: '商品数量',
@@ -171,14 +173,19 @@ class Audit extends Component {
       key: '7',
       title: '运单号',
       dataIndex: 'outSid',
-      render(value){
-        return <Input placeholder="运单号" name='outSid' onChange={(e) => {
-                    context.setState({
-                        outNumber: e.target.value
-                    })
-                }} defaultValue={value}/>
+      render(value, row){
+        return <InputNumber placeholder="运单号" name='outSid' onChange={(e) => {
+                tData.forEach((val,index)=>{
+                    if(row.shoppId==val.shoppId){
+                      tData[index].outSid = e.target.value
+                    }
+                })
+                context.setState({
+                  tData
+                })
+        }}/>
       },
-      width: 100
+      width: 200
     }, {
       title: '操作',
       dataIndex: 'shopId',
@@ -198,11 +205,11 @@ class Audit extends Component {
     let columns = [{
       key: '0',
       title: '订单编号',
-      dataIndex: 'orderId'
+      dataIndex: 'tid'
     }, {
       key: '1',
       title: '商品编码',
-      dataIndex: 'skuId'
+      dataIndex: 'outerSkuId'
     }, {
       key: '2',
       title: '商品名称',
@@ -210,19 +217,22 @@ class Audit extends Component {
     }, {
       key: '3',
       title: '销售价',
-      dataIndex: 'price'
+      dataIndex: 'sales'
     }, {
       key: '4',
       title: '数量',
-      dataIndex: 'quantity'
+      dataIndex: 'num'
     }, {
       key: '5',
       title: '总金额',
-      dataIndex: 'totalPrice'
+      dataIndex: 'payment'
     }, {
       key: '6',
       title: '发票要求',
-      dataIndex: 'invoiceType'
+      dataIndex: 'invoiceKind',
+      render(key){
+        return <span>{key ? KIND[key] : '不开发票'}</span>
+      }
     }];
     return columns;
   }
@@ -233,9 +243,10 @@ class Audit extends Component {
 
   quickButton(quickOptions) {
     let context = this;
+    const {selectList}=context.props;
     return <Row>
       <Col span="3">
-        <DownLoader url='/api-tradesInfo.exportWaitSendGoods' title='导出待发货数据'/>
+        <DownLoader url='/api-tradesInfo.exportWaitSendGoods' params={selectList} title='导出待发货数据'/>
       </Col>
       <Col span="3">
         <UpLoader upConfig={{action: '/api-tradesInfo.importWaitSendGoods', onChangeFileList(){
@@ -246,14 +257,19 @@ class Audit extends Component {
   }
 
   render() {
-    const {formOptions, quickOptions, ...other, hasSelected, loading, items} = this.props;
+    const {formOptions, quickOptions, ...other, hasSelected, loading, tData} = this.props;
+    let customSource = [];
+    tData && tData.forEach((val, index)=> {
+      val.key = index;
+      customSource = val.shoppDetails;
+    })
     return (
       <div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
 
-        <DataTable bordered={true} columns={this._getColumns()} ref='dt'
+        <DataTable _uKey='orderId' bordered={true} columns={this._getColumns()} ref='dt'
                    quickButton={this.quickButton(quickOptions)} {...other} className="table"
-                   expandedRowRender={record => items.skuInfo ? <Table columns={this._customColumns()} dataSource={items.skuInfo} bordered />:'暂无数据'}/>
+                   expandedRowRender={record => <Table rowKey={record => record.orderId} size="small" columns={this._customColumns()} dataSource={customSource} bordered pagination={false} />}/>
         <div style={{ marginTop: 16 }}>
           <Button type="primary" loading={loading} disabled={!hasSelected}
                   onClick={this.showGiveM.bind(this)}>
@@ -265,14 +281,13 @@ class Audit extends Component {
   }
 }
 
-Audit.propTypes = {
-
+Invoice.propTypes = {
   dataSource: React.PropTypes.array.isRequired,
   action: React.PropTypes.func.isRequired,
-
   loading: React.PropTypes.bool,
   params: React.PropTypes.object
 }
 
+export default Invoice;
 
-export default Audit;
+

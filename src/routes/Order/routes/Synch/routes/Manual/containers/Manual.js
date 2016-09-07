@@ -5,10 +5,8 @@ import Panel from 'components/Panel'
 import {appList, modifyItem} from '../modules/ManualReducer'
 
 class Manual extends Component {
-
   constructor(props) {
     super(props);
-
     this.getFormOptions = this.getFormOptions.bind(this);
     this.state = {
       params: {},
