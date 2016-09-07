@@ -48,12 +48,12 @@ class InfoView extends Component {
                 }
             }, {
                 label: "拒绝退款凭证：",
-                name: "cwRefuseP",
+                name: "cwRefuseProof",
                 custom(getCustomFieldProps) {
                     upConfig.fileList = [];
                     return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:licenseImg}}
-                            {...getCustomFieldProps('cwRefuseP')} />
+                            {...getCustomFieldProps('cwRefuseProof')} />
                 }
             },{
                 label: "财务退款说明：",
@@ -70,7 +70,7 @@ class InfoView extends Component {
             initValue: {
                 cwRefuseReason : null,
                 cwRefuseRemark: null,
-                cwRefuseP: null,
+                cwRefuseProof: null,
                 cwRemark : null
             }
         }
@@ -79,13 +79,13 @@ class InfoView extends Component {
     
     render() {
         let {formOptions, result, isRequired} = this.props;
-	    const refundComment = result.refundComment || {}
+	    const refundComment = result.refundComment ? result.refundComment : {}
         const Goodsstatus = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
         const url = refundComment.picUrls || ''
         const src = url && url.split(',')
         const ArryStatus = [
-            {name:'货物状态:',status:Goodsstatus},
-            {name:'退款说明:',status:refundComment.content}
+            {name:'货物状态:', status:Goodsstatus},
+            {name:'退款说明:', status:refundComment.content}
         ]
         /**
          * 多个按钮配置如下：

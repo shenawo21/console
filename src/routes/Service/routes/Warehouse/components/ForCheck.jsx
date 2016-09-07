@@ -81,7 +81,17 @@ class ForCheck extends Component {
         }, {
             key: '4',
             title: '售后类型',
-            dataIndex: 'afterSaleType'
+            dataIndex: 'afterSaleType',
+            render(type) {
+                switch(type) {
+                    case 'REFUND_MONEY':
+                        return '退款'
+                    case 'REFUND_GOODS':
+                        return '退货'
+                    case 'CHANGE_GOODS':
+                        return '换货'        
+                }
+            }
         }, {
             key: '5',
             title: '操作',

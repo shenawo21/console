@@ -54,21 +54,23 @@ class Info extends Component {
                * @param value (description)
                */
               handleSubmit(value, key) {
-                  const {doAgreeRemit,  doRefuseRemit} = _this.props;
+                  const {doAgreeRemit,  doRefuseRemit, params} = _this.props;
                   if(key === 'review'){
                       let cwRemark = value.cwRemark || '';
                       doAgreeRemit({
+                          refundId: params.id,
                           cwRemark: cwRemark
                       });
                   }else if(key === 'refuse'){
                       
                       let cwRefuseReason = value.cwRefuseReason || '',
                           cwRefuseRemark = value.cwRefuseRemark || '',
-                          cwRefuseP = value.cwRefuseP || '';
+                          cwRefuseProof = value.cwRefuseProof || '';
                       doRefuseRemit({
+                          refundId: params.id,
                           cwRefuseReason : cwRefuseReason,
                           cwRefuseRemark : cwRefuseRemark,
-                          cwRefuseP: cwRefuseP
+                          cwRefuseProof: cwRefuseProof
                       })
                   }
 
