@@ -118,9 +118,9 @@ class Container extends Component {
         }
     }
     // 设为默认地址
-    setDefault(id,refresh) {
+    setDefault(id,shopId,refresh) {
         const {setDefault,gitAddressList} = this.props
-        setDefault({id:id})
+        setDefault({id:id,shopId:shopId})
         refresh()
     }
     //改变select选项回调

@@ -169,21 +169,28 @@ class ReturnGoods extends Component {
             key: '12',
             title: '操作',
             render(id,row) {
-                return <div>
-                            {
-                                row.processStatus == 'INIT' ? <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div> :
-                                    <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
-                                        {
-                                          row.afterSaleType == 'REFUND_GOODS' ?  <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>结束退货</Link> :               
-                                           <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>结束换货</Link>
-                                        }
-                                       
-                                           
-                                    </div>
-                            }
-                            
-                            
-                        </div>
+                console.log(row,'------ ')
+                if (row.afterSaleType == 'REFUND_GOODS') {
+                        if (row.processStatus == 'INIT') {
+                            return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
+                        } else {
+                            return 
+                            <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
+                                <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>结束退货</Link>                                    
+                            </div>
+                        }
+                        
+                    } else if (row.afterSaleType == 'CHANGE_GOODS') {
+                        if (row.processStatus == 'SUCCESS') {
+                            return <div><Link to={`/service/aftersale/change/${row.refundId}`}>换货登记</Link></div>
+                        } else {
+                            return 
+                            <div><span><Link to={`/service/aftersale/change/${row.refundId}`}>换货详情</Link><br /></span>
+                                <Link to={`/service/aftersale/change/${row.refundId}`}>结束换货</Link>                                    
+                            </div>
+                        }
+                        
+                    }
             }
         }];
         
