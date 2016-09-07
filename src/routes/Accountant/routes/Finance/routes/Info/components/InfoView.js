@@ -20,7 +20,8 @@ class InfoView extends Component {
         
     _getFormItems(){
         let context = this;
-        const {item, photoList, licenseImg, isRequired, ...other} = context.props;
+        const {isRequired, photoList, licenseImg } = context.props;
+        console.log(isRequired,'isRequired');
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -29,57 +30,62 @@ class InfoView extends Component {
         let config = {
             formItems: [{
                 label: "拒绝退款原因：",
-                name: "title",
+                name: "cwRefuseReason",
                 select: {
                     placeholder: "请输入商品名称",
-		            optionValue: RESON
+		            optionValue: RESON,
+                    disabled: isRequired
                 }
             },{
                 label: "拒绝退款说明：",
-                name: "remark",
+                name: "cwRefuseRemark",
                 wrapperCol: {span: 10},
                 input: {
                     rows: '5',
                     type: "textarea",
                     placeholder: "请输入审核描述",
+                    disabled: isRequired
                 }
             }, {
                 label: "拒绝退款凭证：",
-                name: "businessLicense",
+                name: "cwRefuseP",
                 custom(getCustomFieldProps) {
                     upConfig.fileList = [];
                     return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:licenseImg}}
-                            {...getCustomFieldProps('businessLicense')} />
+                            {...getCustomFieldProps('cwRefuseP')} />
                 }
             },{
                 label: "财务退款说明：",
-                name: "remark",
+                name: "cwRemark",
+                className: 'border-top',
                 wrapperCol: {span: 10},
                 input: {
                     rows: '5',
                     type: "textarea",
-                    placeholder: "请输入审核描述",
+                    placeholder: "请输入财务退款说明",
+                    disabled: isRequired
                 }
             }],
             initValue: {
-                title : null,
-                shopId: null,
-                categoryCode : null
+                cwRefuseReason : null,
+                cwRefuseRemark: null,
+                cwRefuseP: null,
+                cwRemark : null
             }
         }
         return config;
     }
     
     render() {
-        let {formOptions, result} = this.props;
-	const refundComment = result.refundComment || {}
+        let {formOptions, result, isRequired} = this.props;
+	    const refundComment = result.refundComment || {}
         const Goodsstatus = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
-        const url = refundComment.picUrls
+        const url = refundComment.picUrls || ''
         const src = url && url.split(',')
         const ArryStatus = [
             {name:'货物状态:',status:Goodsstatus},
-            {name:'退款说明:',status:Goodsstatus},
+            {name:'退款说明:',status:refundComment.content}
         ]
         /**
          * 多个按钮配置如下：
@@ -108,7 +114,7 @@ class InfoView extends Component {
             ]
         }
 
-        const buttonOptionS = {
+        const buttonBack = {
             buttons : [
                 {
                     key : 'back',
@@ -125,7 +131,7 @@ class InfoView extends Component {
 
                 <h3 className = 'titleName'>退款审批</h3>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} buttonOption={buttonOption} />
+                    onRest={formOptions.handleReset} buttonOption={isRequired ? buttonBack : buttonOption} />
             </div>
         )
     }

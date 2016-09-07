@@ -50,10 +50,10 @@ export function doAgreeRemit(params) {
  * @param params (description)
  * @returns (description)
  */
-export function doRefuseRemit() {
+export function doRefuseRemit(params) {
     return {
         types: [REFUSE, REFUSE_SUCCESS, REFUSE_FAILURE],
-        promise: (client) => client.post('api-offSale.doRefuseRemit')
+        promise: (client) => client.post('api-offSale.doRefuseRemit', params)
     }
 }
 

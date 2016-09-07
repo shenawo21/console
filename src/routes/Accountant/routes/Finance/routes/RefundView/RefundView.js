@@ -3,6 +3,7 @@ import './RefundView.less'
 // import Image from 'components/Image';
 
 export default (props) => {
+    console.log(props,'props');
   const result = props.result
   const ArryStatus = props.ArryStatus
   const src = props.src
