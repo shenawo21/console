@@ -3,11 +3,26 @@ import {Link} from 'react-router';
 
 import Collapse from 'components/Collapse';
 import DataTable from 'components/DataTable';
+import {message, Modal, Input} from 'hen'
 import {getSpecValue} from 'common/utils'
+import {DownLoader} from 'components/FileLoader'
 
 class product extends Component {
 
-    _getColumns(){
+    constructor(props) {
+        super(props)
+        this.handleOk = this.handleOk.bind(this)
+        this.handleCancel = this.handleCancel.bind(this)
+        this.state = {
+            selectItems: [],            //选中数据列表 selectItems[curIndex]
+            visible : false,            //modal框是否可见
+            curIndex : null,            //处理当前表格下标
+            remark : null,              //回复信息
+            selectedItemsKeys : []      //选中下标
+        }
+    }
+
+    _getColumns() {
         const context = this;
         let columns = [{
             key: '0',
@@ -20,7 +35,7 @@ class product extends Component {
         }, {
             key: '2',
             title: '所属店铺',
-            dataIndex: 'shopName'
+            dataIndex: 'relevantStore'
         }, {
             key: '3',
             title: '商品名称',
@@ -33,7 +48,7 @@ class product extends Component {
             key: '5',
             title: '规格',
             dataIndex: 'specOneValue',
-            render(val, row){
+            render(val, row) {
                 return getSpecValue(row)
             }
         }, {
@@ -47,68 +62,323 @@ class product extends Component {
         }, {
             key: '8',
             title: '待同步库存',
-            dataIndex: 'stock'
+            dataIndex: 'incoming'
         }, {
             key: '9',
             title: '状态',
             dataIndex: 'status'
         }];
-        
+
         return columns;
     }
 
-    render() {
-        const {formOptions, tableOptionsPro, compareListResult} = this.props;
-        console.log(this);
+     getBackColumns() {
+        const context = this;
+        let columns = [{
+            key: '0',
+            title: 'SPU编码',
+            dataIndex: 'spuId'
+        }, {
+            key: '1',
+            title: 'SKU编码',
+            dataIndex: 'skuId'
+        }, {
+            key: '2',
+            title: '所属店铺',
+            dataIndex: 'relevantStore'
+        }, {
+            key: '3',
+            title: '商品名称',
+            dataIndex: 'title'
+        }, {
+            key: '4',
+            title: '待同步库存',
+            dataIndex: 'incoming'
+        }, {
+            key: '5',
+            title: '回退数量',
+            width: 100,
+            dataIndex: 'backStock',
+            render(value, row) {
+                let {selectItems, curIndex} = context.state;
+                return <Input type="text" placeholder="请输入回退数量" style={{ width: 100 }} onChange={(e) => {
+                    let items = []
+                    selectItems[curIndex].every((val, num) => {
+                        if(val.skuId === row.skuId){
+                            selectItems[curIndex][num].backStock = e.target.value
+                            return false
+                        }
+                        return true
+                    })
+                    context.setState({
+                        selectItems
+                    })
+                }} value={value} />
+            }
+        }, {
+            key: '6',
+            title: '操作',
+            render(val, row){
+                return <a onClick={context.removeItems.bind(context, row) }>删除</a>
+            }   
+        }];
+        return columns;
+    }
 
-        let tableOptions = {
-            columns: this._getColumns(),
-            ...tableOptionsPro
+     /**
+     *  删除时，重新设置源选中数据
+     */
+    removeItems(curItem){
+        const {selectItems, curIndex} = this.state;
+        let sourceItems = selectItems[curIndex];
+        sourceItems.every((item, index) => {
+            if (item.skuId === curItem.skuId) {
+                sourceItems.splice(index, 1)
+                return false
+            }
+            return true
+        })
+        this.setState(this.getItems(selectItems, curIndex))
+    }
+
+    getItems(sourceItems, curIndex) {
+        const {compareListResult} = this.props
+        let selectItemKey = [], resItems = compareListResult.items[curIndex]
+        selectItemKey[curIndex] = []
+        if (sourceItems[curIndex]) {
+            sourceItems[curIndex].forEach((val) => {
+                resItems.items.every((item, index) => {
+                    if (item.skuId === val.skuId) {
+                        selectItemKey[curIndex].push(index)
+                        return false
+                    }
+                    return true
+                })
+            })
         }
-        
-        return (
-            
-            <div>
-                {
-                    compareListResult && compareListResult.map((val, i) => {
-                        tableOptions.dataSource = val.items
-                        let collapseOptions = {
-                            source : {
-                                key : i,
-                                titles:[{
-                                    name: '待对比商品:' + val.totalWaiting
-                                },{
-                                    name: '比对失败:'+ val.totalFail
-                                },{
-                                    name: '出库时间:'+ val.createTime
-                                }],
-                                btns:[{
-                                    name: '回退',
-                                    handle(e){
-                                        
-                                    }
-                                },{
-                                    name: '导出',
-                                    handle(e){
-                                        
-                                    }
-                                },{
-                                    name: '比对更新',
-                                    handle(e){
-                                        
-                                    }
-                                }],
-                                hasArrow: true
-                            }
-                        } 
-                        return <Collapse {...collapseOptions.source}>
-                                    <DataTable bordered={true} {...tableOptions} />
-                               </Collapse>
-                    })  
-                    
+        return {
+            selectItems: sourceItems,
+            selectedItemsKeys: selectItemKey
+        }
+    }
+
+    /**
+     * 
+     * 导出
+     * @param {any} index
+     */
+    exportHandle(index){
+        let {selectItems} = this.state, params = [];
+        selectItems[index].forEach(val => {
+            params.push({
+                recordId : val.recordId,
+                skuId : val.skuId
+            })
+        })
+        params = JSON.stringify(params)
+        location.href = '/suneee-cloud/api-shopStock.exportWaitingMatchSkus?params='+ params
+    }
+
+    /**
+     * 
+     * 回退
+     * @param {any} index
+     */
+    showBackHandle(index){
+        this.setState({
+            visible : true,
+            curIndex : index
+        });
+    }
+
+
+    /**
+     * 回退确认
+     */
+    handleOk() {
+        const {tableOptionsPro, compareList} = this.props, context = this;
+        let { selectItems,curIndex, remark } = this.state, flag = false;
+        let dtoList = selectItems[curIndex].map(val => {
+            if(!val.backStock){
+                if(!flag) {
+                    flag = true
                 }
+            }
+            return {
+                recordId : val.recordId,
+                skuId : val.skuId,
+                incoming : val.backStock
+            }
+        })
+        if(!dtoList.length || flag){
+            message.error('回退数量不能为空')
+            return
+        }
+        tableOptionsPro.fallBack({dtoList, remark}).then((res)=>{
+            if(res.status === 1){
+                selectItems[curIndex].forEach((val, num)=>{
+                    delete selectItems[curIndex][num].backStock
+                })
+                context.setState({
+                    ...context.getItems(selectItems, curIndex),
+                    visible: false,
+                    remark : ''
+                });
+                compareList()
+            }
+        })
+    }
+
+    /**
+     * 回退取消
+     */
+    handleCancel() {
+        this.setState({
+            visible: false,
+            remark : ''
+        });
+    }
+
+    /**
+     * 对比更新
+     */
+    updateHandle(index){
+        const {compareUpt} = this.props.tableOptionsPro
+        const { selectItems } = this.state;
+        let recordIdList = selectItems[index] ? selectItems[index].map(val => {
+            return val.recordId
+        }) : null
+        if(!recordIdList){
+            message.error('请先选择对比商品')
+            return
+        }
+        compareUpt({recordIdList})
+    }
+
+    /**
+     * 
+     *  勾选元素
+     */    
+    handleRowSelection(index) {
+        let {selectItems} = this.state
+        const context = this, {compareListResult} = this.props;
+        const {items = []} = compareListResult || {}
+        return {
+            onSelect(record, selected, selectedRows) {
+                context.getSelectedItems(selectItems, selectedRows, items[index], index)
+            },
+            onSelectAll(selected, selectedRows, changeRows) {
+                context.getSelectedItems(selectItems, selectedRows, items[index], index)
+            },
+        }
+    }
+
+    /**
+     * 计算选中元素及选中下标
+     */
+    getSelectedItems(selectItems, selectedRows, sourceItems, index){
+        let selectedItemsKeys = []
+        selectedItemsKeys[index] = []
+        selectItems[index] = selectedRows
+        selectedRows.length && selectedRows.forEach((val)=>{
+            sourceItems.items && sourceItems.items.every((item, num) => {
+                if(val.skuId === item.skuId){
+                    selectedItemsKeys[index].push(num)
+                    return false
+                }
+                return true
+            })
+        })
+        
+        this.setState({
+            selectItems,
+            selectedItemsKeys
+        })
+    }
+
+    /**
+     * 
+     * 文本框值修改
+     */
+    changeValue(e){
+        this.setState({
+            remark : e.target.value
+        })
+    }
+
+    /**
+     * 多个Collapse列表
+     */
+    getCollapseOptions(tableOptions, val, i, selectItem){
+        return {
+            tableOptions : {
+                ...tableOptions,
+                dataSource : val.items,
+                rowSelection : this.handleRowSelection(i)    //需要checkbox时填写
+            },
+            source : {
+                key : i,
+                titles: [{
+                    name: '待对比商品:'+ val.totalWaiting
+                }, {
+                    name: '比对失败:'+ val.totalFail
+                }, {
+                    name: '出库时间:'+ val.createTime
+                }],
+                btns: [{
+                    name: '回退',
+                    handle : this.showBackHandle.bind(this, i),
+                    disabled : selectItem && selectItem.length ? false : true,
+                }, {
+                    name: '导出',
+                    handle : this.exportHandle.bind(this, i),
+                    disabled : selectItem && selectItem.length ? false : true,
+                }, {
+                    name: '比对更新',
+                    handle : this.updateHandle.bind(this, i),
+                    disabled : selectItem && selectItem.length ? false : true,
+                }],
+                hasArrow: true,
+                initFocus : i === 0 ? true : false
+            }
+        }
+    }
+
+    render() {
+        const {formOptions, tableOptionsPro, compareListResult} = this.props, context = this;
+        const {selectItems, curIndex, visible, selectedItemsKeys, remark} = this.state
+        const {items = [], totalItems = 0} = compareListResult || {}
+        const {compareUpt, fallBack, ...other} = tableOptionsPro
+        let tableOptions = {
+            columns: context._getColumns(),
+            ...other
+        }
+        return (
+            <div>{items && items.map((val, i) => {
+                   let collapseOptions = context.getCollapseOptions(tableOptions, val, i, selectItems[i])
+                    return <Collapse {...collapseOptions.source}>
+                        {
+                            i === curIndex ? <DataTable bordered={true} {...collapseOptions.tableOptions} selectedItemsKeys={selectedItemsKeys[curIndex]} />:<DataTable bordered={true} {...collapseOptions.tableOptions} />
+                        }
+                    </Collapse>
+                })}
+                <Modal title="回退出库"
+                    closable={false}
+                    visible={visible}
+                    width={1000}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}>
+                    <div>
+                        <p>回退数量设置</p>
+                        <DataTable bordered={true} columns={context.getBackColumns()} dataSource={selectItems[curIndex]} {...other} />
+                        <div style={{marginTop:'12px'}}>
+                            <span>回退说明</span>
+                            <Input type='textarea' onChange={context.changeValue.bind(context)} value={remark} />
+                        </div>
+                    </div>
+                </Modal>
             </div>
-        ) 
+        )
     }
 }
 

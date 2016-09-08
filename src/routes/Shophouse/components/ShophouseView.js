@@ -10,21 +10,17 @@ const TabPane = Tabs.TabPane;
 
 class shopprice extends Component {
 	callback(key) {
-	     const {isStatus} = this.props.tableOptions;
-            isStatus(key);            
-        }
+        const {isStatus} = this.props.tableOptions;
+        isStatus(key);            
+    }
 
     render() {
-        const {formOptions, quickOptions, ...other} = this.props;
-        
         return (
             <div>
-
                 <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                    <TabPane tab="店铺仓库" key="1"><Shop formOptions={formOptions} {...other} /></TabPane>
-                    <TabPane tab="商品对比" key="2"><Product formOptions={formOptions} {...other} /></TabPane>
+                    <TabPane tab="店铺仓库" key="1"><Shop {...this.props} /></TabPane>
+                    <TabPane tab="商品对比" key="2"><Product {...this.props} /></TabPane>
                 </Tabs>
-
             </div>
         )
     }

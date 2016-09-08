@@ -180,6 +180,20 @@ const getMenu = menuLists => {
             url: '/accountant/offlineRegister'
           }
         ]
+      },
+      {
+        title: '物流管理',
+        icon: 'calculator',
+        children: [
+          {
+            title: '物流公司管理',
+            url: '/logistics'
+          },
+          {
+            title: '物流公司新增／修改',
+            url: '/logistics/edit'
+          }
+        ]
       }
     )
   }

@@ -52,7 +52,7 @@ export function shopQueryList(params) {
 export function compareList(params) {
   return {
     types: [COMPARELIST, COMPARELIST_SUCCESS, COMPARELIST_FAILURE],
-    promise: (client) => client.post('api-shopStock.getCompareList', params)
+    promise: (client) => client.post('api-shopStock.getCompareRecordPage', params)
   }
 }
 

@@ -49,7 +49,7 @@ class AdjustStock extends Component {
              * @param value (description)
              */
             handleSubmit(value) {
-		if(value.categoryCode){ value.categoryCode = value.categoryCode[value.categoryCode.length - 1]}
+		        if(value.categoryCode){ value.categoryCode = value.categoryCode[value.categoryCode.length - 1]}
                 context.setState({
                     params: { pageSize, ...value}
                 })

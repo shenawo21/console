@@ -1,7 +1,6 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
-import GoodsInfo from '../components/GoodsInfo'
 import Panel from 'components/Panel'
 import {view, doAgreeRemit, doRefuseRemit} from '../modules/InfoReducer'
 import { message } from 'hen';
@@ -33,10 +32,19 @@ class Info extends Component {
         view({
             refundId : params.id
         });
+        
         if(params.state != 1){
             this.setState({
                 isRequired: true
             })
+        }
+    }
+
+    componentWillReceiveProps(nextProps, preProps) {
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/accountant/finance')
+            },600)
         }
     }
     
@@ -54,21 +62,21 @@ class Info extends Component {
                * @param value (description)
                */
               handleSubmit(value, key) {
-                  const {doAgreeRemit,  doRefuseRemit} = _this.props;
+                  const {doAgreeRemit,  doRefuseRemit, params} = _this.props;
                   if(key === 'review'){
-                      let cwRemark = value.cwRemark || '';
                       doAgreeRemit({
-                          cwRemark: cwRemark
+                          refundId: params.id,
+                          cwRemark: value.cwRemark
                       });
                   }else if(key === 'refuse'){
-                      
-                      let cwRefuseReason = value.cwRefuseReason || '',
-                          cwRefuseRemark = value.cwRefuseRemark || '',
-                          cwRefuseP = value.cwRefuseP || '';
+                      if (_this.state.photoList) {
+                            value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+                      }
                       doRefuseRemit({
-                          cwRefuseReason : cwRefuseReason,
-                          cwRefuseRemark : cwRefuseRemark,
-                          cwRefuseP: cwRefuseP
+                          refundId: params.id,
+                          cwRefuseReason : value.cwRefuseReason,
+                          cwRefuseRemark : value.cwRefuseRemark,
+                          cwRefuseProof: value.cwRefuseProof
                       })
                   }
 
@@ -91,7 +99,7 @@ class Info extends Component {
             ...this.getFormOptions()
         }
         
-        return <Panel title="退款处理"><InfoView item={item} result={result} isRequired={isRequired} photoList={photoList} formOptions={formOptions} /></Panel>
+        return <Panel title="退款处理"><InfoView item={item} result={result} isRequired={isRequired} photoList={photoList} photoImg={this.photoImg} formOptions={formOptions} /></Panel>
     }
 }
 
@@ -108,13 +116,13 @@ const mapActionCreators = {
     doRefuseRemit, 
 }
 
-InfoView.contextTypes = {
+Info.contextTypes = {
     router: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.moneyinfo;    
-    return { result, loading };    
+    const {result, loading, jump} = state.info;    
+    return { result, loading, jump };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)
