@@ -79,7 +79,7 @@ class <%= pascalEntityName %> extends Component {
         }
     <% } %>
     render() {
-        const {<% if (hasSearch === 'true' || type === 'form') { %>formOptions,<% } %><% if (hasQuickButton === 'true') { %>quickOptions,<% } %> ...other} = this.props;
+        const {<% if (hasSearch === 'true' || type === 'form') { %>formOptions,<% } %><% if (hasQuickButton === 'true') { %>quickOptions,<% } %> tableOptions} = this.props;
         
         return (
             <div>
@@ -87,7 +87,7 @@ class <%= pascalEntityName %> extends Component {
                 <<% if (type === 'form') { %>Form horizontal <% }else{ %>Search <% } %> items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
             <% } %>
             <% if (type === 'table') { %>
-                <DataTable bordered={true} columns={this._getColumns()} <% if (hasQuickButton === 'true'){ %>quickButton={this.quickButton(quickOptions)}<% } %> {...other} />
+                <DataTable bordered={true} columns={this._getColumns()} <% if (hasQuickButton === 'true'){ %>quickButton={this.quickButton(quickOptions)}<% } %> {...tableOptions} />
             <% } %>
             </div>
         )

@@ -111,10 +111,10 @@ class <%= pascalEntityName %> extends Component {
         <% } %>
         <% if (hasSearch === 'true' && type !== 'form'){  %>
         const formOptions = {
-            'formOptions' : this.getFormOptions()
+            ...this.getFormOptions()
         }
         <% } %>
-        return <Panel title=""><<%= pascalEntityName %>View <% if (type === 'table') { %>{...tableOptions}<% } %><% if (hasSearch === 'true' || type === 'form') { %> {...formOptions}<% } %><% if (hasQuickButton === 'true') { %> quickOptions={this.getQuickOptions()} <% } %> /></Panel>
+        return <Panel title=""><<%= pascalEntityName %>View <% if (type === 'table') { %>tableOptions={tableOptions}<% } %><% if (hasSearch === 'true' || type === 'form') { %> formOptions={formOptions}<% } %><% if (hasQuickButton === 'true') { %> quickOptions={this.getQuickOptions()} <% } %> /></Panel>
     }
 }
 
