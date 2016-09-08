@@ -44,15 +44,15 @@ class Info extends Component {
             },600)
         }
 
-        if (!nextProps.params.id) {
+        if (!nextProps.params.skuid == 1) {
             this.setState({
                 item: {},
                 photoList: []
             })
         } else {
             this.setState({
-                item: nextProps.result,
-                photoList: nextProps.result ? nextProps.result.photo : []
+                item: nextProps.viewResult,
+                photoList: nextProps.viewResult ? nextProps.viewResult.photo : []
             })
         }
     }    
@@ -72,8 +72,12 @@ class Info extends Component {
                */
               handleSubmit(value) {
                   const { doCheck } = _this.props;
-                  console.log(value,'value');          
+                  let goodList = _this.refs.info.state.goodList[0];
+                  if (_this.state.photoList) {
+                            value.checkPics = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+                      }
                   doCheck({
+                      ...goodList,
                       ...value
                   })
               },
@@ -89,13 +93,19 @@ class Info extends Component {
     
     render() {
         const {item, photoList} = this.state;        
-        const {logisticResult, items, params, loading} = this.props;        
+        const {logisticResult, forchekResult, viewResult, params, loading} = this.props;
         const formOptions = {
             ...this.getFormOptions()
         }
+        const items = [];
+        if(params.skuid != 1){
+            forchekResult && items.push(forchekResult) || []
+        }else{
+            viewResult && items.push(viewResult) || [];
+        }      
         const tableOptions = {
-            dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            loading                                     //表格加载数据状态
+            dataSource : items,                          //加载组件时，表格从容器里获取初始值
+            loading                                      //表格加载数据状态
         }
 
         /**
@@ -118,7 +128,7 @@ class Info extends Component {
             }]
         }
 
-        return <Panel title="验收详情"><InfoView item={item} params={params} photoList={photoList} photoImg={this.photoImg} formOptions={formOptions} tableOptions={tableOptions} logiListItem={logiListItem} /></Panel>
+        return <Panel title="验收详情"><InfoView item={item} params={params} photoList={photoList} ref="info" photoImg={this.photoImg} formOptions={formOptions} tableOptions={tableOptions} logiListItem={logiListItem} /></Panel>
     }
 }
 
@@ -127,7 +137,7 @@ Info.propTypes = {
     view: React.PropTypes.func,
     viewForcheck: React.PropTypes.func,
     getLogisticsList: React.PropTypes.func,
-    items: React.PropTypes.array.isRequired,
+    items: React.PropTypes.array,
     loading: React.PropTypes.bool
 }
 
@@ -143,10 +153,8 @@ Info.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, checkResult, forchekResult, logisticResult, loading} = state.info;
-    const items = [];
-    forchekResult && items.push(forchekResult)
-    return { items, result, checkResult, forchekResult, logisticResult, loading };    
+    const {viewResult, checkResult, forchekResult, logisticResult, loading} = state.info;
+    return { viewResult, checkResult, forchekResult, logisticResult, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)
