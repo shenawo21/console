@@ -245,18 +245,12 @@ class Docs extends Component {
                     { // 目前不支持校验
                         label: "选择多个日期：",
                         labelCol: { span: 2 },
-                        wrapperCol: { span: 8 },
+                        wrapperCol: { span: 18 },
                         custom(getCustomFieldProps, FormContext) {
                             return <div>
-                                <Col span="8">
                                     <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('textbeginDate') } showTime={true} />
-                                </Col>
-                                <Col span="1">
-                                    <p className="ant-form-split">-</p>
-                                </Col>
-                                <Col span="8">
+                                    <span className="ant-form-split">-</span>
                                     <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('textendDate') } showTime={true}/>
-                                </Col>
                             </div>
                         }
                     }, {
