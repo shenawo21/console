@@ -158,6 +158,9 @@ class ReturnMoney extends Component {
         const {formOptions,dataSource,...other} = this.props;
         dataSource && dataSource.forEach((val, index)=>{
             val.key = index
+            val.refundApplyList && val.refundApplyList.forEach((val, index) => {
+                val.key = index
+            })
         })
         return (
             <div>

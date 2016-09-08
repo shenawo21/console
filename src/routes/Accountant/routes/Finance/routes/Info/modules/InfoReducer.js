@@ -64,7 +64,8 @@ export default function reducer(state = {result:{}}, action) {
     case AGREE:
     case REFUSE:
         return {
-            ...state
+            ...state,
+            jump : false
         }
     case VIEW_SUCCESS:
         return {
@@ -78,7 +79,8 @@ export default function reducer(state = {result:{}}, action) {
     case AGREE_SUCCESS:
         return {
             ...state,
-            result: action.result
+            result: action.result,
+            jump : true
         }    
     case AGREE_FAILURE:
         return {
@@ -87,7 +89,8 @@ export default function reducer(state = {result:{}}, action) {
     case REFUSE_SUCCESS:
         return {
             ...state,
-            result: action.result
+            result: action.result,
+            jump : true
         }    
     case REFUSE_FAILURE:
         return {

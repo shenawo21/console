@@ -20,8 +20,8 @@ class InfoView extends Component {
         
     _getFormItems(){
         let context = this;
-        const {isRequired, photoList, licenseImg } = context.props;
-        console.log(isRequired,'isRequired');
+        const {isRequired, photoList, photoImg } = context.props;
+
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -50,9 +50,9 @@ class InfoView extends Component {
                 label: "拒绝退款凭证：",
                 name: "cwRefuseProof",
                 custom(getCustomFieldProps) {
-                    upConfig.fileList = [];
+                    upConfig.photoList = [];
                     return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
-                            upConfig={{...upConfig, onChangeFileList:licenseImg}}
+                            upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('cwRefuseProof')} />
                 }
             },{
@@ -79,8 +79,8 @@ class InfoView extends Component {
     
     render() {
         let {formOptions, result, isRequired} = this.props;
-	    const refundComment = result.refundComment ? result.refundComment : {}
-        const Goodsstatus = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
+	    const refundComment = result && result.refundComment ? result.refundComment : {}
+        const Goodsstatus = result && result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
         const url = refundComment.picUrls || ''
         const src = url && url.split(',')
         const ArryStatus = [
@@ -127,7 +127,7 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} />
+                <RefundView title='客户退款申请' result={result} ArryStatus={ArryStatus} src={src} />
 
                 <h3 className = 'titleName'>退款审批</h3>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}

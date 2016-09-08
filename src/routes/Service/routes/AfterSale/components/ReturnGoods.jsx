@@ -203,6 +203,9 @@ class ReturnGoods extends Component {
 
         dataSource && dataSource.forEach((val, index)=>{
             val.key = index
+            val.refundApplyList && val.refundApplyList.forEach((val, index) => {
+                val.key = index
+            })
         })
         return (
             <div>

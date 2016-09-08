@@ -19,14 +19,14 @@ class InfoView extends Component {
         super();
         this.state = {
             photoList : [],
-            stockList: []
+            goodList: []
         }
     }
         
     _getColumns(){
         const context = this;
-	const {params} = context.props;
-	let isable = params.skuid == 1 ? true : false;
+        const {params} = context.props;
+        let isable = params.skuid == 1 ? true : false;
         let columns = [{
             key: '0',
             title: '商品名称',
@@ -46,19 +46,19 @@ class InfoView extends Component {
             render(id, row){
                 return <span>
                             <Input type="text" placeholder="请输入建议销售价" style={{ width: 120 }} disabled={isable} onChange={(e) => {
-                                let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], incoming = ''
-                                stockList.forEach((val) => {
-                                        if(val.skuId !== row.skuId){
+                                let {goodList} = context.state, stock = { title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], checkResult = ''
+                                goodList.forEach((val) => {
+                                        if(val.outerSkuId !== row.outerSkuId){
                                             selectItems.push(val)
                                         }else{
-                                            incoming = val.incoming
+                                            checkResult = val.checkResult
                                         }
                                     })
-                                    stock.price = e.target.value
-                                    stock.incoming = incoming
+                                    stock.realAmount = e.target.value
+                                    stock.checkResult = checkResult
                                     selectItems.push(stock)
                                     context.setState({
-                                        stockList: selectItems
+                                        goodList: selectItems
                                     })
                             }} /> 
                         </span>
@@ -70,19 +70,19 @@ class InfoView extends Component {
             render(id, row){
                 return <span>
                             <Input type="text" placeholder="请输入出库库存数" style={{ width: 120 }} disabled={isable} onChange={(e) => {
-                                let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
-                                    stockList.forEach((val) => {
+                                let {goodList} = context.state, stock = { title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], realAmount = '';
+                                    goodList.forEach((val) => {
                                         if(val.skuId !== row.skuId){
                                             selectItems.push(val)
                                         }else{
-                                            price = val.price
+                                            realAmount = val.realAmount
                                         }
                                     })
-                                    stock.incoming = e.target.value
-                                    stock.price = price
+                                    stock.checkResult = e.target.value
+                                    stock.realAmount = realAmount
                                     selectItems.push(stock)
                                     context.setState({
-                                        stockList: selectItems
+                                        goodList: selectItems
                                     })
                             }} />
                         </span>
@@ -94,7 +94,7 @@ class InfoView extends Component {
 
     _getFormItems(){
         let context = this;
-        const {item, photoList, licenseImg, tableOptions, logiListItem, params, ...other} = context.props;
+        const {item, photoList, photoImg, tableOptions, logiListItem, params, ...other} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -123,6 +123,7 @@ class InfoView extends Component {
                 }
             },{
                 label: "货物结果：",
+                name: 'goodList',
                 wrapperCol: { span: 24 },
                 custom() {
                      return <DataTable bordered={true} size="small" columns={context._getColumns()} {...tableOptions} />
@@ -142,16 +143,18 @@ class InfoView extends Component {
                 name: "businessLicense",
                 required: true,
                 custom(getCustomFieldProps) {
-                    upConfig.fileList = [];
+                    upConfig.photoList = [];
                     return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
-                            upConfig={{...upConfig, onChangeFileList:licenseImg}}
+                            upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('businessLicense')} />
                 }
             }],
             initValue: {
-                title : null,
-                shopId: null,
-                categoryCode : null
+                logisticsCode : null,
+                buyerPackageCode: null,
+                goodList : null,
+                remark: null,
+                businessLicense: null
             }
         }
         if (item) {    

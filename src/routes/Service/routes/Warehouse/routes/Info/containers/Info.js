@@ -118,7 +118,7 @@ class Info extends Component {
             }]
         }
 
-        return <Panel title="验收详情"><InfoView item={item} params={params} photoList={photoList} formOptions={formOptions} tableOptions={tableOptions} logiListItem={logiListItem} /></Panel>
+        return <Panel title="验收详情"><InfoView item={item} params={params} photoList={photoList} photoImg={this.photoImg} formOptions={formOptions} tableOptions={tableOptions} logiListItem={logiListItem} /></Panel>
     }
 }
 
