@@ -1,21 +1,39 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
-import { Button,InputNumber,DatePicker } from 'hen';
+import { Button,InputNumber,DatePicker,Modal,message} from 'hen';
 import DataTable from 'components/DataTable'
+import SearchSpu from "./SearchSpu"
 import {UploadImage} from 'components/FileLoader'
 
 const RESON = [
             {value:'已发货，买家未举证',title:'已发货，买家未举证'},
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
-        ]
- const COMPANY = [
-            {value:'已发货，买家未举证',title:'已发货，买家未举证'},
-            {value:'买家恶意申请退款',title:'买家恶意申请退款'}
-        ]       
+        ]     
 class InfoView extends Component {
+    constructor(props){
+        super(props);
+
+        this.showModal = this.showModal.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.onChange = this.onChange.bind(this);
+        // this.changeSpecValue = this.changeSpecValue.bind(this)
+        // this.setInputValue = this.setInputValue.bind(this);
+        this.state = {
+            visible : false,    //对话框是否显示
+            selectItem : null,  //搜索选中元素
+            numValue: '',       //退货数量
+            // specDataList: [],   //选中的规格及值
+            // rowList: [],         //sku列表
+            // totalStock : 0,     //库存
+            // salePrice : 0,      //
+            // submitFlag : ''     //提交数据时,skuList价格或库存是否为空
+        }
+    }
      _getColumns(){
         const context = this;
+        const {selectItem} = this.state
         let columns = [{
             key: '0',
             title: '商品编码',
@@ -46,7 +64,7 @@ class InfoView extends Component {
             dataIndex: 'refundNums',
             render(refundNums){
                 return <div>
-                            <InputNumber min={1} max={10} defaultValue={3}  />
+                            <InputNumber min={1} max={10}  onChange = {context.onChange} />
                         </div>
             }
         },{
@@ -55,7 +73,9 @@ class InfoView extends Component {
             dataIndex: 'changeSkuCode',
             render(changeSkuCode) {
                 return <div>
-                            <a>点击选择</a>
+                            {selectItem ?  <span>{context.state.selectItem.spuId}<a style = {{paddingLeft:10}} onClick = {context.showModal}>重新选择</a></span> : 
+                                           <a onClick = {context.showModal}>点击选择</a> }
+                           
                         </div>
             }
         }];
@@ -64,17 +84,36 @@ class InfoView extends Component {
     }   
     _getFormItems(){
         let context = this;
+        const {logisticList} = context.props
         let config = {
             formItems: [{
                 label: "换货原因：",
-                name: "refundReason",
+                name: "reason",
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择换货原因'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 select: {
                     placeholder:'请输入换货原因',
                     optionValue: RESON
                 }
             },{
                 label: "备注信息：",
-                name: "sellerRemark",
+                name: "description",
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请输入备注信息'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 input: {
                     rows: '5',
                     type: "textarea",
@@ -83,8 +122,15 @@ class InfoView extends Component {
             },{
                 label: "商品价值承担：",
                 name: "valueBearType",
-                required: true,
-                rules:[{required: true, message: '请选择商品价值承担'}],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择商品价值承担'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 radio: {
                         radioValue: [
                             { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
@@ -96,8 +142,15 @@ class InfoView extends Component {
             },{
                 label: "邮费承担：",
                 name: "postBearType",
-                required: true,
-                rules:[{required: true, message: '请选择邮费承担'}],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择邮费承担'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 radio: {
                         radioValue: [
                             { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
@@ -107,22 +160,49 @@ class InfoView extends Component {
                         ],
                     }
             },{
-                label:'包裹面单号：',
-                name:'refundReason',
+                label:'换货运单号：',
+                name:'sid',
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请输入换货运单号'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 input:{}
             },{
                 label:'快递公司：',
-                name:'logisticsCompany',
+                name:'companyName',
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择快递公司'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 select: {
                     placeholder:'请选择快递公司',
-                    optionValue: COMPANY
+                    optionValue: logisticList
                 }
             },{
                 label:'包裹投递时间：',
-                name:'sendTime',
+                name:'goodReturnTime',
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请输入包裹投递时间'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 custom(getCustomFieldProps, FormContext){
                     return <div>
-                            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('sendTime') } showTime={true}/>
+                            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('goodReturnTime') } showTime={true}/>
                         </div>}
             }],
             initValue: {
@@ -135,21 +215,69 @@ class InfoView extends Component {
 
         return config;
     }
-    
+    onChange(value) {
+        const {arrResult} = this.props
+        let {selectItem} = this.state
+        if (selectItem && value) {
+            if (Number(selectItem.total) < Number(value)) {
+                 message.error('库存不足，请重新输入！')
+            } else {
+                if(Number(selectItem.marketPrice) * Number(value) > Number(arrResult[0].totalFee)) {
+                    message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+                } else {
+                    this.setState({numValue:value})
+                } 
+            }
+        } else if (!selectItem ) {
+            this.setState({numValue:value})
+        }
+
+    }
+    showModal() {
+        const {tableOptions} = this.props;
+        const {action, pagination} = tableOptions
+        this.setState({
+            visible: true
+        });
+        action({pageNumber : pagination.current})
+    }
+    handleOk() {
+        const searchSpuState = this.refs.searchList
+        const {arrResult} = this.props
+        let {numValue} = this.state
+        let selectItem = null;
+        if(searchSpuState.state){
+            selectItem = searchSpuState.state.items
+        }
+        if (selectItem && numValue) {
+            if (Number(selectItem.total) < Number(numValue)) {
+                 message.error('库存不足，请重新选择！')
+            } else {
+                if(Number(selectItem.marketPrice) * Number(numValue) > arrResult[0].totalFee) {
+                    message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+                } else {
+                    this.setState({
+                        selectItem,
+                        visible: false
+                    })
+                } 
+            }
+        } else if (!numValue ) {
+            this.setState({
+                selectItem,
+                visible: false
+            })
+        }
+
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
     render() {
-        const {result, handleSubmit} = this.props;
-        const dataSource = [
-            {
-                outerId: '1',
-                title: 'yyy',
-                price: '22',
-                goodsNum: '西湖区湖底公园1号',
-                totalFee:'hh',
-                discountFee:'cc',
-                tGoodsNum:'aa',
-                refundFee:'e'
-                }
-             ]
+        const {arrResult,tableOptions,handleSubmit} = this.props;
+        let { selectItem } = this.state;
         const buttonOption = {
             buttons : [
                 {
@@ -157,10 +285,10 @@ class InfoView extends Component {
                     name :'确认无误，通知仓库退货入库',
                     type : 'primary',
                 },
-                {
-                    key : 'refuse',
-                    name : '重置',
-                },
+                // {
+                //     key : 'refuse',
+                //     name : '重置',
+                // },
                 {
                     key : 'back',
                     name : '返回',
@@ -172,9 +300,15 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <DataTable ref='theTable' columns={this._getColumns() } dataSource={dataSource} ></DataTable>
+                <DataTable ref='theTable' columns={this._getColumns() } dataSource={arrResult} ></DataTable>
+                <Modal visible={this.state.visible}
+                    closable={false}
+                    width={1020}
+                    onOk={this.handleOk} onCancel={this.handleCancel}>
+                    <SearchSpu tableOptions={tableOptions} selectItem={selectItem} ref='searchList' ></SearchSpu>
+                </Modal>
                 <br /><br />    
-                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />
+                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} ref='form' />
                 {/**{result.processStatus = 'PROCESS' ? 
                 <ul className = 'form-talbe'>
                     <li><b>退款审批说明:</b><span>{result.optRemark}</span></li>
