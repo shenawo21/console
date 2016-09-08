@@ -11,7 +11,7 @@ import {Row, Col} from 'hen';
 const STOCKTYPE = [
    { value: '手动添加', title: "手动添加" },
    { value: '店铺回退', title: "店铺回退" },
-   { value: '调正入库', title: "调正入库" }
+   { value: '调整入库', title: "调整入库" }
 ];
 
 class storageMgt extends Component {
