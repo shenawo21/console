@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
-import { Button,InputNumber,DatePicker } from 'hen';
+import { Button,InputNumber,DatePicker,Modal} from 'hen';
 import DataTable from 'components/DataTable'
+import SearchSpu from "./SearchSpu"
 import {UploadImage} from 'components/FileLoader'
 
 const RESON = [
@@ -14,8 +15,30 @@ const RESON = [
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
         ]       
 class InfoView extends Component {
+    constructor(props){
+        super(props);
+
+        this.showModal = this.showModal.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.onChange = this.onChange.bind(this);
+        // this.changeSpecValue = this.changeSpecValue.bind(this)
+        // this.setInputValue = this.setInputValue.bind(this);
+        this.state = {
+            visible : false,    //对话框是否显示
+            selectItem : null,  //搜索选中元素
+            numValue: '',       //退货数量
+            // specDataList: [],   //选中的规格及值
+            // rowList: [],         //sku列表
+            // totalStock : 0,     //库存
+            // salePrice : 0,      //
+            // submitFlag : ''     //提交数据时,skuList价格或库存是否为空
+        }
+    }
      _getColumns(){
         const context = this;
+        const {selectItem} = this.state
+        console.log(selectItem,'abcccccc')
         let columns = [{
             key: '0',
             title: '商品编码',
@@ -46,7 +69,7 @@ class InfoView extends Component {
             dataIndex: 'refundNums',
             render(refundNums){
                 return <div>
-                            <InputNumber min={1} max={10} defaultValue={3}  />
+                            <InputNumber min={1} max={10}  onChange = {context.onChange} />
                         </div>
             }
         },{
@@ -55,7 +78,9 @@ class InfoView extends Component {
             dataIndex: 'changeSkuCode',
             render(changeSkuCode) {
                 return <div>
-                            <a>点击选择</a>
+                            {selectItem ?  <span>{context.state.selectItem.spuId}<a style = {{paddingLeft:10}} onClick = {context.showModal}>重新选择</a></span> : 
+                                           <a onClick = {context.showModal}>点击选择</a> }
+                           
                         </div>
             }
         }];
@@ -135,21 +160,47 @@ class InfoView extends Component {
 
         return config;
     }
-    
+    onChange(value) {
+        console.log(value,'value')
+        this.setState({numValue:value})
+    }
+    showModal() {
+        const {tableOptions} = this.props;
+        console.log(tableOptions,'tableOptions')
+        const {action, pagination} = tableOptions
+        this.setState({
+            visible: true
+        });
+        action({pageNumber : pagination.current})
+    }
+    handleOk() {
+        const searchSpuState = this.refs.searchList
+        let selectItem = null;
+        if(searchSpuState.state){
+            selectItem = searchSpuState.state.items
+        }
+        if(selectItem){
+            //选着spu时，先重置表格
+            this.refs.form && this.refs.form.resetFields();
+            this.setState({
+                selectItem,
+                visible: false
+            });
+        }else{
+            this.setState({
+                selectItem,
+                visible: false
+            });
+        }
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
     render() {
-        const {result, handleSubmit} = this.props;
-        const dataSource = [
-            {
-                outerId: '1',
-                title: 'yyy',
-                price: '22',
-                goodsNum: '西湖区湖底公园1号',
-                totalFee:'hh',
-                discountFee:'cc',
-                tGoodsNum:'aa',
-                refundFee:'e'
-                }
-             ]
+        const {arrResult,tableOptions,handleSubmit} = this.props;
+        let { selectItem } = this.state;
         const buttonOption = {
             buttons : [
                 {
@@ -172,7 +223,13 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <DataTable ref='theTable' columns={this._getColumns() } dataSource={dataSource} ></DataTable>
+                <DataTable ref='theTable' columns={this._getColumns() } dataSource={arrResult} ></DataTable>
+                <Modal visible={this.state.visible}
+                    closable={false}
+                    width={1020}
+                    onOk={this.handleOk} onCancel={this.handleCancel}>
+                    <SearchSpu tableOptions={tableOptions} selectItem={selectItem} ref='searchList'></SearchSpu>
+                </Modal>
                 <br /><br />    
                 <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />
                 {/**{result.processStatus = 'PROCESS' ? 

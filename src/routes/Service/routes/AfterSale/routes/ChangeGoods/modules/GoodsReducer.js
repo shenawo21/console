@@ -14,6 +14,12 @@ const REQ_CHANGEEND = 'REQ_CHANGEEND';
 const SUC_CHANGEEND = 'SUC_CHANGEEND';
 const ERR_CHANGEEND = 'ERR_CHANGEEND';
 
+// 商品列表
+const REQ_LIST = 'REQ_LIST';
+const SUC_LIST = 'SUC_LIST';
+const ERR_LIST = 'ERR_LIST';
+
+
 export function chagenDetail(params) {
     return {
         types: [REQ_CHANGEDETAIL, SUC_CHANGEDETAIL, ERR_CHANGEDETAIL],
@@ -31,6 +37,13 @@ export function changeEnd(params) {
     return {
         types: [REQ_CHANGEEND, SUC_CHANGEEND, ERR_CHANGEEND],
         promise: (client) => client.post('api-offSale.getEndRefundPage',params)
+    }
+}
+
+export function shopList() {
+    return {
+        types: [REQ_LIST, SUC_LIST, ERR_LIST],
+        promise: (client) => client.post('api-productService.listView')
     }
 }
 export default function reducer(state = {result:{}}, action) {
@@ -74,7 +87,20 @@ export default function reducer(state = {result:{}}, action) {
     case ERR_CHANGEEND:
         return {
             ...state
-        }   
+        }
+    case REQ_LIST:
+        return {
+            ...state
+        }
+    case SUC_LIST:
+        return {
+            ...state,
+            list: action.result
+        }
+    case ERR_LIST:
+        return {
+            ...state
+        }         
     default:
       return state
   }
