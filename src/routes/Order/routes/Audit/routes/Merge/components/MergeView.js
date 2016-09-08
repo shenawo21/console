@@ -39,11 +39,13 @@ class Merge extends Component {
       buttons: [
         {
           name: '合并发货',
-          type: 'primary'
+          type: 'primary',
+          key: 'ok'
         },
         {
           name: '返回',
-          type: 'ghost'
+          type: 'ghost',
+          key: 'no'
         }
       ]
     }

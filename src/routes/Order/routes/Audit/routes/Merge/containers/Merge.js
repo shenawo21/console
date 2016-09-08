@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import MergeView from '../components/MergeView'
 import Panel from 'components/Panel'
-import {view, mergeOrder,unlock} from '../modules/MergeReducer'
+import {view, mergeOrder, unlock} from '../modules/MergeReducer'
 
 class Merge extends Component {
 
@@ -46,7 +46,7 @@ class Merge extends Component {
    */
   getFormOptions() {
     const context = this;
-    const {mergeOrder, params,unlock} = context.props;
+    const {mergeOrder, params, unlock} = context.props;
     return {
       /**
        * (筛选表单提交)
@@ -57,19 +57,24 @@ class Merge extends Component {
         context.setState({
           params: value
         })
-        mergeOrder({
-          ...value,
-          tids: params.id.split(",")
-        })
+        if (key == 'ok') {
+          mergeOrder({
+            ...value,
+            tids: params.id.split(",")
+          })
+        } else {
+          unlock({
+            tids: params.id.split(",")
+          })
+        }
+
       },
 
       /**
        * (筛选表单重置)
        */
       handleReset() {
-        unlock({
-          tids: params.id.split(",")
-        })
+
       }
     }
   }
@@ -104,9 +109,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading, isJump} = state.merge;
+  const {result, loading, isJump,mResult,lResult} = state.merge;
 
-  return {'result': result, loading, isJump};
+  return {'result': result, loading, isJump,mResult,lResult};
 
 }
 

@@ -25,8 +25,6 @@ class Apart extends Component {
         label: "客服备注：",
         name: "remark",
         wrapperCol: {span: 10},
-        hasFeedback: true,
-        rules: [{required: true, message: '请输入备注信息'}],
         input: {
           type: "textarea",
           rows: 5,
@@ -68,7 +66,7 @@ class Apart extends Component {
         /**
          * 如果是天猫店的话不可以修改
          */
-        return <InputNumber name='quantity' disabled={item.channelCode == 'TMALL' ? false : false} onChange={(e) => {
+        return <InputNumber name='quantity' disabled={item.channelCode == 'TMALL' ? true : false} onChange={(e) => {
                     item && item.tradesOrderList.forEach((val,index)=>{
                     if(row.outerSkuId==val.outerSkuId){
                       item.tradesOrderList[index].quantity = e.target.value
@@ -97,11 +95,13 @@ class Apart extends Component {
       buttons: [
         {
           name: '拆单发货',
-          type: 'primary'
+          type: 'primary',
+          key: 'ok'
         },
         {
           name: '返回',
-          type: 'ghost'
+          type: 'ghost',
+          key: 'no'
         }
       ]
     }
@@ -122,6 +122,7 @@ class Apart extends Component {
           </Panel>
           <Panel header="商品拆分" key="5">
             <Table bordered={true} dataSource={item.tradesOrderList} rowSelection={handleRowSelection}
+                   rowKey={record => record.orderId}
                    columns={this._getColumns()} pagination={false}/>
           </Panel>
         </Collapse>
