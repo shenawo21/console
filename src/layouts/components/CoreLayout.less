@@ -75,9 +75,6 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
-  .ant-form-inline .ant-input {
-    width: 100%!important;
-  }
 
   .tit-table{
     font-size: 14px;
@@ -121,7 +118,18 @@
       }
     }
   }
+  //搜索样式
 
+  .search-box {
+    & .ant-form-split{
+      display: inline-block;
+      padding: 0 10px;
+    }
+    & .ant-calendar-range-picker.ant-input{
+      width: 100%;
+      padding-right: 0;
+    }
+  }
 
   //弹出层内的样式
 

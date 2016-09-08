@@ -61,20 +61,16 @@ class OutgoView extends Component {
                 }
             },{
                 label: "出库日期：",
-                labelCol: { span: 2 },
-                wrapperCol: { span: 8 },
+                span: '11',
+                labelCol: { span: 4 },
+                wrapperCol: { span: 19 },
                 custom(getCustomFieldProps, FormContext) {
                     return <div>
-                        <Col span="8">
-                            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
-                        </Col>
-                        <Col span="1">
-                            <p className="ant-form-split">-</p>
-                        </Col>
-                        <Col span="8">
-                            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
-                        </Col>
-                    </div>
+                                <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
+
+                                <span className="ant-form-split">-</span>
+                                <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
+                            </div>
                 }
             }],
             initValue: {
