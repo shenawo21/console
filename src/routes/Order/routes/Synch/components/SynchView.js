@@ -23,20 +23,14 @@ class Synch extends Component {
         }
       }, {
         label: "按日期查询：",
-        span: "10",
-        labelCol: {span: 4},
-        wrapperCol: {span: 19},
+        span: '11',
+        labelCol: { span: 4 },
+        wrapperCol: { span: 19 },
         custom(getCustomFieldProps, FormContext){
           return <div>
-            <Col span="9">
               <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('synStartTime') } showTime={true}/>
-            </Col>
-            <Col span="1">
-              <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="9">
+              <span className="ant-form-split">~</span>
               <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('synEndTime') } showTime={true}/>
-            </Col>
           </div>
         }
       }],

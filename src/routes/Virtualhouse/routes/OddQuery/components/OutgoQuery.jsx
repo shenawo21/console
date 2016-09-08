@@ -67,7 +67,6 @@ class OutgoView extends Component {
                 custom(getCustomFieldProps, FormContext) {
                     return <div>
                                 <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
-
                                 <span className="ant-form-split">-</span>
                                 <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
                             </div>
