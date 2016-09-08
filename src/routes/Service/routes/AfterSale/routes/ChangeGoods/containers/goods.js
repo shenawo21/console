@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import ChangeGoods from '../components/GoodsView'
 import Panel from 'components/Panel'
-import {shopList,chagenDetail,changeVerify,changeEnd} from '../modules/GoodsReducer'
+import {shopList,chagenDetail,changeVerify,changeEnd,Logistic} from '../modules/GoodsReducer'
 import { message } from 'hen';
 
 class Goods extends Component {
@@ -14,30 +14,37 @@ class Goods extends Component {
     }
     
     componentDidMount() {  
-        const {shopList,chagenDetail,params} = this.props;
+        const {shopList,chagenDetail,Logistic,params} = this.props;
         //获取详情信息
         chagenDetail(params);
-        // 商品列表
-        shopList()
+
+        // 物流列表
+        Logistic()
     }
     // 退款详情处理
-    handleSubmit(value, key) {
-        console.log(this.refs.state)
+    handleSubmit(value, key, form) {
+        console.log(key,'key1111')
+        console.log(form,'key1111')
         const _this = this;
-        const {changeVerify,params} = _this.props;
-        if (!this.refs.state.numValue) {
-            message.error('请输入退货数量')
-        }
-        if (!this.refs.state.selectItem) {
-            message.error('请选择换后商品编码')
-        }
-        let refundNums = {refundNums:this.refs.state.numValue}
-        let changeSkuCode = {changeSkuCode:this.refs.state.selectItem}
-        Object.assign(value,params)
+        const {changeVerify} = _this.props;
+        let newValue = _this.refs.state.state
+        let newTable = _this.refs.state.props.arrResult
         if(key === 'review'){
-            Object.assign(value)
+            if (!newValue.numValue) {
+                message.error('请输入退货数量')
+            }
+            if (!newValue.selectItem) {
+                message.error('请选择换后商品编码')
+            }
+            let goodsNum = {goodsNum:newValue.numValue}
+            let changeSkuCode = {changeSkuCode:newValue.selectItem.spuId}
+            let changeSkuName = {changeSkuName:newValue.selectItem.title}
+            
+            Object.assign(value,goodsNum,changeSkuCode,changeSkuName,newTable[0])
+            delete value._index
             changeVerify(value).then(function(response) {
                     if (response && response.status == 1) {
+                        console.log(response,'response')
                         setTimeout(() => {
                             let pathname = '/service/aftersale';
                             _this.context.router.replace(pathname);
@@ -45,22 +52,6 @@ class Goods extends Component {
                     }
                 })
         } 
-        //else if(key === 'refuse'){
-        //     _this.setState({isRequired:true})
-        //     Object.assign(value,{processStatus:'DENY'})
-        //     if(value.cwRefuseReason) {
-        //         verify(value).then(function(response) {
-        //             if (response && response.status == 1) {
-        //                 setTimeout(() => {
-        //                     let pathname = '/service/aftersale';
-        //                     _this.context.router.replace(pathname);
-        //                 }, 1000);
-        //             }
-        //         })
-        //     } else {
-        //         message.error('请选择拒绝退款原因')
-        //     }
-        // }
     }
     /**
        * (表单功能配置项)
@@ -96,7 +87,7 @@ class Goods extends Component {
             result,
             ...this.getFormOptions()
         }
-        const { items, shopList, totalItems, result,loading} = this.props;
+        const { items, shopList, totalItems,logistic, result,loading,location} = this.props;
         const {query} = location;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -107,13 +98,38 @@ class Goods extends Component {
             },  
             loading,                                    //表格加载数据状态        
         }
-        let arrResult = [{outerId:result.outerId,title:result.title,price:result.price,goodsNum:result.goodsNum,totalFee:result.totalFee,discountFee:result.discountFee}]
+        let arrResult = [{
+                tid:result.tid,
+                oid:result.oid,
+                buyerNick:result.buyerNick,
+                outerId:result.outerId,
+                title:result.title,
+                price:result.price,
+                totalFee:result.totalFee,
+                discountFee:result.discountFee
+            }]
+        /*** 物流列表**/
+        let logisticList = [];
+        if (logistic) {
+            logisticList = logistic.map(c=> {
+            return {
+                value: c.companyCode,
+                title: c.companyName
+           }
+        });
+        } else {
+            logisticList = [{
+                value: null,
+                title: '正在加载中...'
+            }]
+        }    
         return <div>
                      <Panel title="商品换货"><ChangeGoods 
                                                 arrResult = {arrResult} 
                                                 handleSubmit = {this.handleSubmit}
                                                 formOptions={formOptions} 
                                                 tableOptions={tableOptions}
+                                                logisticList = {logisticList}
                                                 ref = 'state'/></Panel> 
               </div>                    
                 
@@ -133,7 +149,8 @@ const mapActionCreators = {
     shopList,
     chagenDetail,
     changeVerify,
-    changeEnd
+    changeEnd,
+    Logistic
 }
 
 Goods.contextTypes = {
@@ -142,9 +159,9 @@ Goods.contextTypes = {
 
 const mapStateToProps = (state) => {
     console.log(state,'state')
-    const {result,list, loading} = state.changegoods;  
+    const {result,list,logistic = [], loading} = state.changegoods;  
     const {items = [], totalItems = 0} = list || {}; 
-    return {items, totalItems, result, loading };    
+    return {items,totalItems, result,logistic,loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Goods)
