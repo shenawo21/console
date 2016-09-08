@@ -25,8 +25,8 @@ class SearchSpu extends Component {
                 }
             }, {
                 label: "创建日期：",
-                span: '11',
-                labelCol: { span: 4 },
+                span: '13',
+                labelCol: { span: 5 },
                 wrapperCol: { span: 19 },
                 custom(getCustomFieldProps, FormContext) {
                     return <div>
