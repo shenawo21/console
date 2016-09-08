@@ -12,7 +12,7 @@
 
       next(null, logistics)
     })
-  }
+  },
   getChildRoutes(location, next) {
     require.ensure([], (require) => {
       next(null, [

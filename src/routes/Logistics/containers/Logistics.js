@@ -42,7 +42,7 @@ class Logistics extends Component {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             loading                                     //表格加载数据状态
         }
-        return <Panel title=""><LogisticsView  tableOptions＝{tableOptions}  quickOptions={this.getQuickOptions()} /></Panel>
+        return <Panel title=""><LogisticsView  tableOptions={tableOptions}  quickOptions={this.getQuickOptions()} /></Panel>
     }
 }
 
