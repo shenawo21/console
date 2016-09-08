@@ -46,7 +46,7 @@ export const createRoutes = (store) => {
     breadcrumbName: "首页",
     path: '/',
     component: CoreLayout,
-    indexRoute: Home,
+    indexRoute: Home(store),
     // 取消注释开启登录检查
     onEnter: requireLogin,
     getChildRoutes(location, next) {
@@ -61,7 +61,7 @@ export const createRoutes = (store) => {
           require('./Order').default(store),
           require('./Service').default(store),
           require('./Accountant').default(store),
-          require('./Logistics').default(store)
+          // require('./Logistics').default(store)
         ];
         if (__DEV__) {
           asyncComponents.push(require('./Docs').default(store))
@@ -79,6 +79,7 @@ export const createRoutes = (store) => {
     Login(store),
     PubPassword(store),
     NotFound
+
   ]
 
   /**

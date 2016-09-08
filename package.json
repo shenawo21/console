@@ -22,6 +22,7 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
+    "m_deploy:prod": "better-npm-run deploy:prod && tar -zcvf ./release.tar.gz ./dist/",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "create": "node ./node_modules/.bin/redux g"
   },
