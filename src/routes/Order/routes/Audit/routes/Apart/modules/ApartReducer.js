@@ -61,7 +61,6 @@ export default function reducer(state = {result: {}}, action) {
       }
     case VIEW_SUCCESS:
       return {
-        ...state,
         result: action.result
       }
     case VIEW_FAILURE:
@@ -70,7 +69,8 @@ export default function reducer(state = {result: {}}, action) {
       }
     case SEND_SUCCESS:
       return {
-        result: action.result,
+        ...state,
+        sResult: action.result,
         isJump:true
       }
     case SEND_FAILURE:
@@ -79,7 +79,9 @@ export default function reducer(state = {result: {}}, action) {
       }
     case LOCK_SUCCESS:
       return {
-        result: action.result
+        ...state,
+        lResult: action.result,
+        isJump:true
       }
     case LOCK_FAILURE:
       return {

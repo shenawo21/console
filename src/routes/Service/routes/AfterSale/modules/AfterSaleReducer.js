@@ -10,7 +10,10 @@ const ERR_CHANGEGOODS = 'ERR_CHANGEGOODS';
 const REQ_SHOPLIST = 'REQ_SHOPLIST';
 const SUC_SHOPLIST = 'SUC_SHOPLIST';
 const ERR_SHOPLIST = 'ERR_SHOPLIST';
-
+// 查询需要换货订单
+const REQ_SEARCH = 'REQ_SEARCH';
+const SUC_SEARCH = 'SUC_SEARCH';
+const ERR_SEARCH = 'ERR_SEARCH';
 
 export function getRefund(params) {
   return {
@@ -28,6 +31,12 @@ export function getShopList() {
     return {
         types: [REQ_SHOPLIST, SUC_SHOPLIST, ERR_SHOPLIST],
         promise: (client) => client.post('api-shop.listEnterpriseShop')
+    }
+}
+export function getSearch(params) {
+    return {
+        types: [REQ_SEARCH, SUC_SEARCH, ERR_SEARCH],
+        promise: (client) => client.post('api-offSale.getChangeGoodsOrder',params)
     }
 }
 export default function reducer(state = {result:{}}, action) {
@@ -73,6 +82,20 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+
+    case REQ_SEARCH:
+        return {
+            ...state
+        }    
+    case SUC_SEARCH:
+        return {
+            ...state,
+            searchlist: action.result
+        }
+    case ERR_SEARCH:
+        return {
+            ...state
+        }    
     default:
       return state
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import GoodsInfo from '../components/GoodsInfo'
 import Panel from 'components/Panel'
-import {refundDetail,verify} from '../modules/InfoReducer'
+import {refundDetail,verify,addressList} from '../modules/InfoReducer'
 import { message } from 'hen';
 
 class Info extends Component {
@@ -27,9 +27,12 @@ class Info extends Component {
     }
     
     componentDidMount() {  
-        const {refundDetail,params} = this.props;
+        const {refundDetail,addressList,params} = this.props;
         //获取详情信息
         refundDetail(params);
+        
+        // 获取地址列表
+        addressList()
     }
     // 退款详情处理
     handleSubmit(value, key) {
@@ -65,11 +68,14 @@ class Info extends Component {
     }
     // 退货详情处理
     handleGoodSubmit(value, key) {
+        console.log(this.refs.form.state,'ressss')
         const _this = this;
         const {verify,params} = _this.props;
         Object.assign(value,params,{afterSaleType:'REFUND_GOODS'})
         if(key === 'review'){
+            console.log(value,'value====')
             Object.assign(value,{processStatus:'PROCESS'})
+            delete value.shortName
             verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
@@ -100,12 +106,27 @@ class Info extends Component {
     render() {
         // const {item, photoList} = this.state;
         const {isRequired,isDel} = this.state        
-        const {result, loading} = this.props;
-
+        const {result, loading,items} = this.props;
+        console.log(items,'item===')
+        /*** 地址列表*/
+        let addressList = [];
+        if (items) {
+            addressList = items.map(c=> {
+            return {
+                value: c.id,
+                title: c.shortName
+           }
+        });
+        } else {
+            addressList = [{
+                value: null,
+                title: '正在加载中...'
+            }]
+        }
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
                        <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} /></Panel> :
-                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} /></Panel> }  
+                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} items = {items} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form' /></Panel> }  
               </div>                    
                 
     }
@@ -122,7 +143,8 @@ Info.propTypes = {
 
 const mapActionCreators = {
     refundDetail,
-    verify
+    verify,
+    addressList
 }
 
 InfoView.contextTypes = {
@@ -130,8 +152,10 @@ InfoView.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.moneyinfo;    
-    return { result, loading };    
+    console.log(state,'999')
+    const {result,addressLlist,loading} = state.moneyinfo;
+    const {items} = addressLlist || []  
+    return { result, loading ,items};    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

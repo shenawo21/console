@@ -86,6 +86,23 @@ class Usermanage extends Component {
                     placeholder: "请输入联系人"
                 }
             },{
+                label: "地址简称：",
+                name: "shortName",
+                wrapperCol: { span: 10 },
+                labelCol: { span: 5},
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('地址简称'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
+                input: {
+                    placeholder: "地址简称"
+                }
+            },{
                 label: "联系电话：",
                 name: "phone",
                 wrapperCol: { span: 10 },
@@ -125,6 +142,7 @@ class Usermanage extends Component {
                 address:null,
                 receiverAddress: null,
                 name : null,
+                shortName:null,
                 phone: null,
                 postCode : null,
                 defaults: null,

@@ -3,7 +3,7 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader';
 import {UpLoader} from 'components/FileLoader';
-import {Row, Col, Button, Icon, DatePicker, Modal, message, InputNumber, Table} from 'hen';
+import {Row, Col, Button, Icon, DatePicker, Modal, message, Input, Table} from 'hen';
 const confirm = Modal.confirm;
 //发票类型
 const KIND = {
@@ -33,20 +33,14 @@ class Invoice extends Component {
         input: {}
       }, {
         label: "下单时间：",
-        span: "13",
-        labelCol: {span: 5},
+        span: '11',
+        labelCol: {span: 4},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createStartTime') } showTime={true}/>
-            </Col>
-            <Col span="3">
-              <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createEndTime') } showTime={true}/>
-            </Col>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createStartTime') } showTime={true}/>
+            <p className="ant-form-split">~</p>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createEndTime') } showTime={true}/>
           </div>
         }
       }, {
@@ -57,20 +51,14 @@ class Invoice extends Component {
         input: {}
       }, {
         label: "审单时间：",
-        span: "13",
-        labelCol: {span: 3},
+        span: '11',
+        labelCol: {span: 4},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
-          return <div>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('reviewStartTime') } showTime={true}/>
-            </Col>
-            <Col span="3">
-              <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('reviewEndTime') } showTime={true}/>
-            </Col>
+          return <div><DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('reviewStartTime') }
+                                  showTime={true}/>
+            <p className="ant-form-split">~</p>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('reviewEndTime') } showTime={true}/>
           </div>
         }
       }],
@@ -174,7 +162,7 @@ class Invoice extends Component {
       title: '运单号',
       dataIndex: 'outSid',
       render(value, row){
-        return <InputNumber placeholder="运单号" name='outSid' onChange={(e) => {
+        return <Input type="number" placeholder="运单号" name='outSid' onChange={(e) => {
                 tData.forEach((val,index)=>{
                     if(row.shoppId==val.shoppId){
                       tData[index].outSid = e.target.value

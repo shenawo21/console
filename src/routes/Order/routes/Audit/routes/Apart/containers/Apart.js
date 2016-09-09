@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import ApartView from '../components/ApartView'
 import Panel from 'components/Panel'
-import {view, splitOrders,unlock} from '../modules/ApartReducer'
+import {view, splitOrders, unlock} from '../modules/ApartReducer'
 import {message} from 'hen';
 class Apart extends Component {
 
@@ -48,7 +48,7 @@ class Apart extends Component {
    */
   getFormOptions() {
     const context = this;
-    const {splitOrders, params,unlock} = context.props;
+    const {splitOrders, params, unlock} = context.props;
     const {selectList} = context.state;
     return {
       /**
@@ -56,28 +56,32 @@ class Apart extends Component {
        *
        * @param value (description)
        */
-      handleSubmit(value) {
+      handleSubmit(value, key) {
         context.setState({
           params: value
         })
-        if (selectList.length == 0) {
-          message.error('请选择需要拆单发货的商品！');
-          return false;
+        if (key == 'ok') {
+          if (selectList.length == 0) {
+            message.error('请选择需要拆单发货的商品！');
+            return false;
+          }
+          splitOrders({
+            ...value,
+            tradesOrders: selectList,
+            tid: params.id
+          })
+        } else {
+          unlock({
+            tids: params.id.split(",")
+          })
         }
-        splitOrders({
-          ...value,
-          tradesOrders: selectList,
-          tid: params.id
-        })
       },
 
       /**
        * (筛选表单重置)
        */
       handleReset() {
-        unlock({
-          tids: params.id.split(",")
-        })
+
       }
     }
   }
@@ -134,9 +138,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading, isJump} = state.apart;
+  const {result, loading, isJump, lResult, sResult} = state.apart;
 
-  return {'result': result, loading, isJump};
+  return {'result': result, loading, isJump, lResult, sResult};
 }
 export default connect(mapStateToProps, mapActionCreators)(Apart)
 

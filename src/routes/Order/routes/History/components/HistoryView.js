@@ -8,7 +8,7 @@ import {Row, Col, Button, Icon, DatePicker, Modal, message} from 'hen';
 const TYPE =
 {
   'CONFIRM_GOODS': '已发货',
-  'TRADE_BUYER_SIGNE': '已签收',
+  'TRADE_BUYER_SIGNED': '已签收',
   'REFUND_GOODS': '退货',
   'CHANGE_GOODS': '换货',
   'REFUND': '退款'
@@ -60,45 +60,33 @@ class History extends Component {
         input: {}
       }, {
         label: "成交时间：",
-        span: "12",
-        labelCol: {span: 3},
+        span: '9',
+        labelCol: {span: 4},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('payStartTime') } showTime={true}/>
-            </Col>
-            <Col span="3">
-              <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('payEndTime') } showTime={true}/>
-            </Col>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('payStartTime') } showTime={true}/>
+            <p className="ant-form-split">~</p>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('payEndTime') } showTime={true}/>
           </div>
         }
       }, {
         label: "发货时间：",
-        span: "12",
-        labelCol: {span: 3},
+        span: '9',
+        labelCol: {span: 4},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div>
-            <Col span="8">
               <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('shoppStartTime') } showTime={true}/>
-            </Col>
-            <Col span="3">
               <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="8">
               <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('shoppEndTime') } showTime={true}/>
-            </Col>
           </div>
         }
       }, {
         label: "排序方式：",
         name: "payTimeSort",
-        span: "5",
-        labelCol: {span: 7},
+        span: "7",
+        labelCol: {span: 5},
         select: {
           placeholder: "请选择排序方式",
           optionValue: Object.keys(SORT).map((key) => {

@@ -206,9 +206,13 @@ class InfoView extends Component {
                         </div>}
             }],
             initValue: {
-                cwRefuseReason : null,
-                optRemark: null,
-                businessLicense : null
+                reason : null,
+                description: null,
+                valueBearType : null,
+                postBearType:null,
+                sid:null,
+                companyName:null,
+                goodReturnTime:null
             }
         }
 

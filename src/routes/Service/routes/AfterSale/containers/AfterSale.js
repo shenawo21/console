@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReturnGoods from '../components/ReturnGoods'
 import ReturnMoney from '../components/ReturnMoney'
 import Panel from 'components/Panel'
-import { getRefund, getChangeGoods,getShopList } from '../modules/AfterSaleReducer'
+import { getRefund, getChangeGoods,getShopList,searchlist } from '../modules/AfterSaleReducer'
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
@@ -14,9 +14,13 @@ class OddQuery extends Component {
   
     constructor(props) {
         super(props);
-        this.getFormOptions = this.getFormOptions.bind(this);               
+        this.getFormOptions = this.getFormOptions.bind(this);
+        // this.search = this.search.bind(this);  
+        this.handleOk = this.handleOk.bind(this);
+        // this.handleCancel = this.handleCancel.bind(this);         
         this.state = {
             curKey: 0,
+            visible: false,
             params: {}   //表格需要的筛选参数
         }
     }
@@ -38,11 +42,11 @@ class OddQuery extends Component {
        */
       getFormOptions() {
           const context = this;
+          const {searchlist} = this.props
+          console.log(searchlist,'this')
           return {
               /**
                * (筛选表单提交)
-               * 
-               * @param value (description)
                */
               handleSubmit(value) {
                   const {curKey} = context.state;
@@ -56,8 +60,27 @@ class OddQuery extends Component {
 		            } 
                   })
               },
+            search(formObj){
+                formObj && formObj.resetFields()
+                context.setState({
+                    visible: true,
+                })
+            },
+            handleCancel() {
+                context.setState({
+                    visible: false,
+                });
+            }   
           }
       }
+    handleOk (values,fresh) {
+        const {searchlist} = this.props
+        console.log(values,'999')
+        console.log(searchlist,'111')
+        // searchlist(values).then(function(res) {
+        //     console.log(res,'======')
+        // })
+    }  
     callback(key) {
         const {getRefund, getChangeGoods, getShopList } = this.props;
         if(key == 2) { 
@@ -70,8 +93,9 @@ class OddQuery extends Component {
         })
         
     }
+
     render() {
-        const {params} = this.state;
+        const {params,visible} = this.state;
         const {items, getRefund, shoplist, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -109,7 +133,7 @@ class OddQuery extends Component {
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                         <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} /></TabPane>
-                        <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} /></TabPane>
+                        <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} visible = {visible} handleOk = {this.handleOk}  /></TabPane>
                     </Tabs>
                 </Panel>
     }
@@ -129,11 +153,13 @@ OddQuery.propTypes = {
 const mapActionCreators = {
     getRefund, 
     getChangeGoods, 
-    getShopList
+    getShopList,
+    searchlist
 }
 
 
 const mapStateToProps = (state) => {
+    console.log(state,'state')
     const {result, changegoodsList, shoplist, loading} = state.aftersale;
     const {items = [], totalItems = 0} = result || {};
     return {items, changegoodsList, shoplist, totalItems, loading };

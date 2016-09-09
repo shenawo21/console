@@ -1,16 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {Row, Col, Badge} from 'hen';
+import Image from 'components/Image';
 import classes from './HomeView.less'
 class Home extends Component {
   /*
-   //平台
-   private Integer enterpriseNum;//企业数
-   private Integer productNum;//商品数
-   private Integer orderNum;//订单数
-   private Integer tradingVolumeNum; //成交数
-   private Integer buttJoinNum; //代办对接配置数
-
    //企业
    private String logo;//企业logo
    private String enterpriseName;//企业名称
@@ -42,7 +36,7 @@ class Home extends Component {
       <div>
         <header>
           <Row>
-            <Col span="4"><img src={item.logo} width="245" height="130"/></Col>
+            <Col span="4"><Image src={item.logo} width="245" height="130" /></Col>
             <Col span="20">
               <dl>
                 <dt>企业名称：{item.enterpriseName}</dt>

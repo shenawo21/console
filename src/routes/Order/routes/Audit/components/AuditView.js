@@ -39,20 +39,14 @@ class Audit extends Component {
         input: {}
       }, {
         label: "下单时间：",
-        span: "13",
-        labelCol: {span: 5},
+        span: '11',
+        labelCol: {span: 4},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
-          return <div>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createStartTime') } showTime={true}/>
-            </Col>
-            <Col span="3">
-              <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createEndTime') } showTime={true}/>
-            </Col>
+          return <div><DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createStartTime') }
+                                  showTime={true}/>
+            <p className="ant-form-split">~</p>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createEndTime') } showTime={true}/>
           </div>
         }
       }, {
@@ -63,20 +57,14 @@ class Audit extends Component {
         input: {}
       }, {
         label: "审单时间：",
-        span: "13",
-        labelCol: {span: 3},
+        span: '11',
+        labelCol: {span: 4},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
-          return <div>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('reviewStartTime') } showTime={true}/>
-            </Col>
-            <Col span="3">
-              <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="8">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('reviewEndTime') } showTime={true}/>
-            </Col>
+          return <div><DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('reviewStartTime') }
+                                  showTime={true}/>
+            <p className="ant-form-split">~</p>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('reviewEndTime') } showTime={true}/>
           </div>
         }
       }],
