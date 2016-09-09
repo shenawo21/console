@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReturnGoods from '../components/ReturnGoods'
 import ReturnMoney from '../components/ReturnMoney'
 import Panel from 'components/Panel'
-import { getRefund, getChangeGoods,getShopList,searchlist } from '../modules/AfterSaleReducer'
+import { getRefund, getChangeGoods,getShopList,getSearch } from '../modules/AfterSaleReducer'
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
@@ -42,8 +42,6 @@ class OddQuery extends Component {
        */
       getFormOptions() {
           const context = this;
-          const {searchlist} = this.props
-          console.log(searchlist,'this')
           return {
               /**
                * (筛选表单提交)
@@ -74,12 +72,12 @@ class OddQuery extends Component {
           }
       }
     handleOk (values,fresh) {
-        const {searchlist} = this.props
+        const {getSearch} = this.props
         console.log(values,'999')
-        console.log(searchlist,'111')
-        // searchlist(values).then(function(res) {
-        //     console.log(res,'======')
-        // })
+        console.log(getSearch,'111')
+        getSearch(values).then(function(res) {
+            console.log(res,'======')
+        })
     }  
     callback(key) {
         const {getRefund, getChangeGoods, getShopList } = this.props;
@@ -154,7 +152,7 @@ const mapActionCreators = {
     getRefund, 
     getChangeGoods, 
     getShopList,
-    searchlist
+    getSearch
 }
 
 
