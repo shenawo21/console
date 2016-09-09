@@ -104,30 +104,19 @@ class InfoView extends Component {
                 <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} />
 
                 <h3 className = 'titleName'>退款审批</h3>
-                {result.processStatus = 'PROCESS' ? 
+                { (result.processStatus == PROCESS || result.processStatus == DENY) ? 
                 <ul className = 'form-talbe'>
-                    <li><b>退款审批说明:</b><span>{result.optRemark}</span></li>
-                    <li><b>发货凭证:</b><span>
-                       {/**  {
-                            src && src.map((item, index)=>{
+                    {result.cwRefuseReason ? <li><b>拒绝退款原因:</b><span>{result.cwRefuseReason}</span></li> : '' }
+                    {result.optRemark ? <li><b>退款审批说明:</b><span>{result.optRemark}</span></li> : '' }
+                    {src ? <li><b>发货凭证:</b><span>
+                      {
+                        src && src.map((item, index)=>{
                             return <img src={item} width= '80' style={{marginRight:10}} />
-                            })
-                        }    */ }
-                    </span></li>
+                         })
+                     }
+                    </span></li> : '' }
                     <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
-                </ul> : 
-                result.processStatus = 'DENY' ? 
-                <ul className = 'form-talbe'>
-                    <li><b>拒绝退款原因:</b><span>{result.cwRefuseReason}</span></li>
-                    <li><b>发货凭证:</b><span>
-                       {/**  {
-                            src && src.map((item, index)=>{
-                            return <img src={item} width= '80' style={{marginRight:10}} />
-                            })
-                        }    */ }
-                    </span></li>
-                    <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
-                </ul> : 
+                </ul> :                 
                 <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />}
             </div>
         )
