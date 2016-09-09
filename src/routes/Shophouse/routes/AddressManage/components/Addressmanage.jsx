@@ -142,6 +142,7 @@ class Usermanage extends Component {
                 address:null,
                 receiverAddress: null,
                 name : null,
+                shortName:null,
                 phone: null,
                 postCode : null,
                 defaults: null,

@@ -2,10 +2,32 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
-import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
+import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table,Modal} from 'hen';
+import Form from 'components/Form';
 
 class ReturnGoods extends Component {
+    _getFormIModal(){
 
+        let context = this;
+        const {shopListItem,addresslist,addressItem} = context.props;
+        let config = {
+            formItems: [{
+                label: "请输入订单号进行查询：",
+                name: "tid",
+                wrapperCol: { span: 15 },
+                labelCol: { span: 7},
+                input: {
+                    placeholder: "请输入订单号进行查询",
+                }
+            }],
+            initValue: {
+                tid : null,
+            }
+        }
+
+        return config;
+        
+    }
     _getFormItems(){
     	let context = this;
         const {shopListItem} = context.props;
@@ -169,14 +191,12 @@ class ReturnGoods extends Component {
             key: '12',
             title: '操作',
             render(id,row) {
-                console.log(row,'------ ')
-                
+                console.log(row,'row')                
                 if (row.afterSaleType == 'REFUND_GOODS') {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
                         } else {
-                            return 
-                            <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
+                            return <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
                                 <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>结束退货</Link>                                    
                             </div>
                         }
@@ -185,9 +205,7 @@ class ReturnGoods extends Component {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/change/${row.refundId}`}>换货登记</Link></div>
                         } else {
-                            console.log(233333)
-                            return 
-                            <div><span><Link to={`/service/aftersale/change/${row.refundId}`}>换货详情</Link><br /></span>
+                            return <div><span><Link to={`/service/aftersale/change/${row.refundId}`}>换货详情</Link><br /></span>
                                 <Link to={`/service/aftersale/change/${row.refundId}`}>结束换货</Link>                                    
                             </div>
                         }
@@ -201,7 +219,7 @@ class ReturnGoods extends Component {
       
 
     render() {
-        const {formOptions,dataSource,...other} = this.props;
+        const {formOptions,dataSource,...other,visible,handleOk} = this.props;
 
         dataSource && dataSource.forEach((val, index)=>{
             val.key = index
@@ -211,9 +229,25 @@ class ReturnGoods extends Component {
         })
         return (
             <div>
- 
-                <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
-
+                <Row>
+                    <Col span = '22'>
+                        <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
+                    </Col>
+                    <Col ><Button type="primary" style = {{marginTop:20}} onClick = {(e) =>{formOptions.search(this.refs.form)}}>查询订单</Button></Col>
+                </Row>
+                <Modal title="查询订单"
+                visible={visible}
+                onOk={()=>{
+                       this.refs.form && this.refs.form.validateFields((errors, values) => {
+                        if (!!errors) {
+                            return;
+                        }
+                        handleOk(values,this.refs.form);
+                    });
+                }}
+                onCancel={formOptions.handleCancel} >
+                <Form horizontal items={this._getFormIModal()} button={<span></span>} ref='form' />
+            </Modal>     
                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
                            expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
                            dataSource={dataSource} {...other}  />

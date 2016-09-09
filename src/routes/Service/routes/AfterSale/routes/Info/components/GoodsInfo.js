@@ -7,16 +7,31 @@ import {UploadImage} from 'components/FileLoader'
 import RefundView from 'routes/Service/routes/RefundView';
 
 class GoodsInfo extends Component {
-        
+    constructor(props) {
+        super(props);        
+        this.state = {
+            sellerName:'',
+            sellerPost:'',
+            sellerPhone:'',
+            fullAddress:''
+        }
+    }     
     _getFormItems(){
         let context = this;
-        const {isDel,addressList} = context.props;
+        const {isDel,addressList,items} = context.props;
         let config = {
             formItems: [{
                 label: "商品价值承担：",
                 name: "valueBearType",
-                required: true,
-                rules:[{required: true, message: '请选择商品价值承担'}],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择商品价值承担'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 radio: {
                         radioValue: [
                             { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
@@ -28,8 +43,15 @@ class GoodsInfo extends Component {
             },{
                 label: "邮费承担：",
                 name: "postBearType",
-                required: true,
-                rules:[{required: true, message: '请选择邮费承担'}],
+                 rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择邮费承担'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 radio: {
                         radioValue: [
                             { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
@@ -40,7 +62,7 @@ class GoodsInfo extends Component {
                     }
             },{
                 label: "退货地址：",
-                name: "fullAddress",
+                name: "shortName",
                 rules: [{
                     validator(rule, value, callback) {
                         if (!value) {
@@ -52,34 +74,79 @@ class GoodsInfo extends Component {
                 }],
                 select: {
                     placeholder:'请选择退货地址',
-                    optionValue: addressList
+                    optionValue: addressList,
+                    onSelect(value, option) { 
+                        let curItem = items && items.filter(function (item, index) {
+                            return item.id == value
+                        })
+                        context.setState({
+                            sellerName:curItem[0].name,
+                            sellerPost:curItem[0].postCode ? curItem[0].postCode : '',
+                            sellerPhone:curItem[0].phone,
+                            fullAddress:curItem[0].receiverState + curItem[0].receiverCity + curItem[0].receiverDistrict ,
+                        })
+                    }
                 }
             },{
                 label: "卖家姓名：",
                 name: "sellerName",
-                required: true,
-                rules:[{required: true, message: '请输入卖家姓名'}],
+                // rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请输入卖家姓名'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
                 input: {
+                    value:context.state.sellerName || ''
+                }
+            },,{
+                label: "详细地址",
+                name: "fullAddress",
+                // rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请输入详细地址'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
+                input: {
+                    value:context.state.fullAddress || ''
                 }
             },{
                 label: "邮编：",
                 name: "sellerPost",
-                input: {}
+                input: {
+                     value:context.state.sellerPost || ''
+                }
             },{
                 label: "座机号：",
                 name: "sellerTel",
-                input: {}
+                input: {
+
+                }
             },{
                 label: "手机号：",
                 name: "sellerPhone",
-                required: true,
-                rules:[{required: true, message: '请输入手机号码'}],
-                input: {}
+                // rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请输入手机号'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
+                input: {
+                    value:context.state.sellerPhone || ''
+                }
             },{
                 label: "卖家留言",
                 name: "sellerRemark",
-                wrapperCol: {span: 10},
-                rules:[{required: true, message: '请输入手机号码'}],
                 input: {
                     rows: '5',
                     type: "textarea",
@@ -89,7 +156,8 @@ class GoodsInfo extends Component {
             initValue: {
                 valueBearType : null,
                 postBearType: null,
-                fullAddress : null,
+                shortName:null,
+                fullAddress :null,
                 sellerName:null,
                 sellerPost:null,
                 sellerTel:null,
@@ -98,14 +166,13 @@ class GoodsInfo extends Component {
             }
         }
         if (isDel == true) {
-            console.log('qqqqqqqqq')
              config.formItems.splice(1, 7);
         }
         return config;
     }
     
     render() {
-        const {result, handleGoodSubmit} = this.props;
+        const {result, items, handleGoodSubmit} = this.props;
         const refundComment = result.refundComment || {}
         const url = refundComment.picUrls
         const src = url && url.split(',')
@@ -139,11 +206,10 @@ class GoodsInfo extends Component {
                 <RefundView title = '客户退货申请详情' result = {result} ArryStatus = {ArryStatus} src = {src} />
 
                 <h3 className = 'titleName'>退货申请处理</h3>
-                {/**{result.processStatus = 'PROCESS' ? 
+                {result.processStatus = 'PROCESS' ? 
                 <ul className = 'form-talbe'>
                     <li><b>退款审批说明:</b><span>{result.optRemark}</span></li>
-                    <li><b>发货凭证:</b><span>
-                    </span></li>
+                    <li><b>发货凭证:</b><span></span></li>
                     <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
                 </ul> : 
                 result.processStatus = 'DENY' ? 
@@ -152,8 +218,8 @@ class GoodsInfo extends Component {
                     <li><b>发货凭证:</b><span>
                     </span></li>
                     <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
-                </ul> :  */}
-                <Form horizontal items={this._getFormItems()} onSubmit={handleGoodSubmit}  buttonOption={buttonOption} /> 
+                </ul> : 
+                <Form horizontal items={this._getFormItems()} onSubmit={handleGoodSubmit}  buttonOption={buttonOption} />}
             </div>
         )
     }

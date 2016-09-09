@@ -68,11 +68,14 @@ class Info extends Component {
     }
     // 退货详情处理
     handleGoodSubmit(value, key) {
+        console.log(this.refs.form.state,'ressss')
         const _this = this;
         const {verify,params} = _this.props;
         Object.assign(value,params,{afterSaleType:'REFUND_GOODS'})
         if(key === 'review'){
+            console.log(value,'value====')
             Object.assign(value,{processStatus:'PROCESS'})
+            delete value.shortName
             verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
@@ -111,7 +114,7 @@ class Info extends Component {
             addressList = items.map(c=> {
             return {
                 value: c.id,
-                title: c.name
+                title: c.shortName
            }
         });
         } else {
@@ -123,7 +126,7 @@ class Info extends Component {
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
                        <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} /></Panel> :
-                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} /></Panel> }  
+                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} items = {items} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form' /></Panel> }  
               </div>                    
                 
     }
