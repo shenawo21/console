@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import GoodsInfo from '../components/GoodsInfo'
 import Panel from 'components/Panel'
-import {refundDetail,verify} from '../modules/InfoReducer'
+import {refundDetail,verify,addressList} from '../modules/InfoReducer'
 import { message } from 'hen';
 
 class Info extends Component {
@@ -27,9 +27,12 @@ class Info extends Component {
     }
     
     componentDidMount() {  
-        const {refundDetail,params} = this.props;
+        const {refundDetail,addressList,params} = this.props;
         //获取详情信息
         refundDetail(params);
+        
+        // 获取地址列表
+        addressList()
     }
     // 退款详情处理
     handleSubmit(value, key) {
@@ -100,8 +103,23 @@ class Info extends Component {
     render() {
         // const {item, photoList} = this.state;
         const {isRequired,isDel} = this.state        
-        const {result, loading} = this.props;
-
+        const {result, loading,items} = this.props;
+        console.log(items,'item===')
+        /*** 地址列表*/
+        let addressList = [];
+        if (items) {
+            addressList = items.map(c=> {
+            return {
+                value: c.id,
+                title: c.name
+           }
+        });
+        } else {
+            addressList = [{
+                value: null,
+                title: '正在加载中...'
+            }]
+        }
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
                        <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} /></Panel> :
@@ -122,7 +140,8 @@ Info.propTypes = {
 
 const mapActionCreators = {
     refundDetail,
-    verify
+    verify,
+    addressList
 }
 
 InfoView.contextTypes = {
@@ -130,8 +149,10 @@ InfoView.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.moneyinfo;    
-    return { result, loading };    
+    console.log(state,'999')
+    const {result,addressLlist,loading} = state.moneyinfo;
+    const {items} = addressLlist || []  
+    return { result, loading ,items};    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

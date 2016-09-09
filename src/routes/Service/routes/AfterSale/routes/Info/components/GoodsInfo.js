@@ -10,8 +10,7 @@ class GoodsInfo extends Component {
         
     _getFormItems(){
         let context = this;
-        const {isDel} = context.props;
-        console.log(isDel,'11')
+        const {isDel,addressList} = context.props;
         let config = {
             formItems: [{
                 label: "商品价值承担：",
@@ -42,13 +41,18 @@ class GoodsInfo extends Component {
             },{
                 label: "退货地址：",
                 name: "fullAddress",
-                required: true,
-                rules:[{required: true, message: '请输入退货地址'}],
-                // select: {
-                //     placeholder:'请选择拒绝退款原因',
-                //     optionValue: ''
-                // }
-                input: {
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请选择退货地址'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
+                select: {
+                    placeholder:'请选择退货地址',
+                    optionValue: addressList
                 }
             },{
                 label: "卖家姓名：",

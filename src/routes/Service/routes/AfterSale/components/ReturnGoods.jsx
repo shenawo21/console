@@ -170,6 +170,7 @@ class ReturnGoods extends Component {
             title: '操作',
             render(id,row) {
                 console.log(row,'------ ')
+                
                 if (row.afterSaleType == 'REFUND_GOODS') {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
@@ -181,9 +182,10 @@ class ReturnGoods extends Component {
                         }
                         
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
-                        if (row.processStatus == 'SUCCESS') {
+                        if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/change/${row.refundId}`}>换货登记</Link></div>
                         } else {
+                            console.log(233333)
                             return 
                             <div><span><Link to={`/service/aftersale/change/${row.refundId}`}>换货详情</Link><br /></span>
                                 <Link to={`/service/aftersale/change/${row.refundId}`}>结束换货</Link>                                    
