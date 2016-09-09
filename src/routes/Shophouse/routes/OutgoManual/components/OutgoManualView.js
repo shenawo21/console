@@ -117,7 +117,7 @@ class OutgoManual extends Component {
             dataIndex: 'incoming',
             render(value, row){
                 return <Input type="text" placeholder="请输入出库数量" style={{width:150}} onChange={(e) => {
-			let {outgoList} = context.state, outgo = { skuId: row.skuId, spuId: row.spuId, stockId: row.stockId, price: row.price, incoming: e.target.value }, selectItems = []
+			let {outgoList} = context.state, outgo = { skuId: row.skuId, spuId: row.spuId, stockId: row.stockId, shopId: row.shopId, price: row.price, incoming: e.target.value }, selectItems = []
                         selectItems = outgoList.filter((val) => {
                             return val.skuId !== row.skuId
                         })
