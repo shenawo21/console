@@ -4,7 +4,7 @@ import Form from 'components/Form';
 import { Button } from 'hen';
 import DataTable from 'components/DataTable'
 import {UploadImage} from 'components/FileLoader'
-import RefundView from 'routes/Service/routes/RefundView';
+import RefundView from '../../RefundView';
 const RESON = [
             {value:'已发货，买家未举证',title:'已发货，买家未举证'},
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
@@ -14,7 +14,6 @@ class InfoView extends Component {
     constructor() {
         super();
         this.state = {
-            photoList : []
         }
     }
         

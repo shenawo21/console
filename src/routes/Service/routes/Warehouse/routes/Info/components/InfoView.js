@@ -2,15 +2,15 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
-import {Input} from 'hen'
+import {Input, Select} from 'hen'
 import {UploadImage} from 'components/FileLoader'
 
-
-//快递公司
+//验收结果
 const STOCKTYPE = [
-   { value: '韵达快递', title: "韵达快递" },
-   { value: '顺丰快递', title: "顺丰快递" },
-   { value: '圆通速递', title: "圆通速递" }
+   { value: 'S001 - 运输途中损坏', title: "S001 - 运输途中损坏" },
+   { value: 'S002 - 完整（可重售）', title: "S002 - 完整（可重售）" },
+   { value: 'S003 - 完整（不可重售）', title: "S003 - 完整（不可重售）" },
+   { value: 'S004 -返回商品与请求商品不符', title: "S004 -返回商品与请求商品不符" }
 ];
 
 class InfoView extends Component {
@@ -18,7 +18,6 @@ class InfoView extends Component {
     constructor() {
         super();
         this.state = {
-            photoList : [],
             goodList: []
         }
     }
@@ -43,10 +42,10 @@ class InfoView extends Component {
             key: '3',
             title: '实际数量',
             dataIndex: 'realAmount',
-            render(id, row){
+            render(value, row){
                 return <span>
                             <Input type="text" placeholder="请输入建议销售价" style={{ width: 120 }} disabled={isable} onChange={(e) => {
-                                let {goodList} = context.state, stock = { title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], checkResult = ''
+                                let {goodList} = context.state, stock = { refundId: row.refundId, title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], checkResult = ''
                                 goodList.forEach((val) => {
                                         if(val.outerSkuId !== row.outerSkuId){
                                             selectItems.push(val)
@@ -60,17 +59,17 @@ class InfoView extends Component {
                                     context.setState({
                                         goodList: selectItems
                                     })
-                            }} /> 
+                            }} defaultValue = {value}/> 
                         </span>
             }
         }, {
             key: '4',
             title: '验收结果',
             dataIndex: 'checkResult',
-            render(id, row){
+            render(value, row){
                 return <span>
-                            <Input type="text" placeholder="请输入出库库存数" style={{ width: 120 }} disabled={isable} onChange={(e) => {
-                                let {goodList} = context.state, stock = { title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], realAmount = '';
+                            <Select searchPlaceholder="请选择验收结果" style={{ width: 300 }} disabled={isable} onChange={(e) => {
+                                let {goodList} = context.state, stock = { refundId: row.refundId, title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], realAmount = '';
                                     goodList.forEach((val) => {
                                         if(val.skuId !== row.skuId){
                                             selectItems.push(val)
@@ -78,13 +77,19 @@ class InfoView extends Component {
                                             realAmount = val.realAmount
                                         }
                                     })
-                                    stock.checkResult = e.target.value
+                                    stock.checkResult = e
+                                    
                                     stock.realAmount = realAmount
                                     selectItems.push(stock)
                                     context.setState({
                                         goodList: selectItems
                                     })
-                            }} />
+                            }} defaultValue = {value}>
+                                <Option value="S001 - 运输途中损坏1">S001 - 运输途中损坏</Option>
+                                <Option value="S002 - 完整（可重售）">S002 - 完整（可重售）</Option>
+                                <Option value="S003 - 完整（不可重售）">S003 - 完整（不可重售）</Option>
+                                <Option value="S004 -返回商品与请求商品不符">S004 -返回商品与请求商品不符</Option>
+                            </Select>
                         </span>
             }
         }];
@@ -123,7 +128,6 @@ class InfoView extends Component {
                 }
             },{
                 label: "货物结果：",
-                name: 'goodList',
                 wrapperCol: { span: 24 },
                 custom() {
                      return <DataTable bordered={true} size="small" columns={context._getColumns()} {...tableOptions} />
@@ -140,13 +144,12 @@ class InfoView extends Component {
                 }
             }, {
                 label: "验货凭证：",
-                name: "businessLicense",
-                required: true,
+                name: "checkPics",
                 custom(getCustomFieldProps) {
                     upConfig.photoList = [];
                     return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:photoImg}}
-                            {...getCustomFieldProps('businessLicense')} />
+                            {...getCustomFieldProps('checkPics')} />
                 }
             }],
             initValue: {
@@ -154,7 +157,7 @@ class InfoView extends Component {
                 buyerPackageCode: null,
                 goodList : null,
                 remark: null,
-                businessLicense: null
+                checkPics: null
             }
         }
         if (item) {    

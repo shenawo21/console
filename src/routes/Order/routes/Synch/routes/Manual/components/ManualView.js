@@ -27,20 +27,15 @@ class Manual extends Component {
         input: {}
       }, {
         label: "按日期查询：",
-        labelCol: {span: 2},
-        wrapperCol: {span: 19},
+        span: '11',
+        labelCol: { span: 4 },
+        wrapperCol: { span: 19 },
         custom(getCustomFieldProps, FormContext){
           return <div>
-            <Col span="3">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('startSynTime') } showTime={true}/>
-            </Col>
-            <Col span="2">
-              <p className="ant-form-split">~</p>
-            </Col>
-            <Col span="3">
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('endSynTime') } showTime={true}/>
-            </Col>
-          </div>
+                    <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('startSynTime') } showTime={true}/>
+                    <span className="ant-form-split">~</span>
+                    <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('endSynTime') } showTime={true}/>
+                </div>
         }
       }],
       initValue: {

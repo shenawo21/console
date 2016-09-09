@@ -87,7 +87,7 @@ export default function reducer(state = {result:{}}, action) {
     case VIEW_SUCCESS:
         return {
             ...state,
-            result: action.result
+            viewResult: action.result
         }
     case VIEW_FAILURE:
         return {

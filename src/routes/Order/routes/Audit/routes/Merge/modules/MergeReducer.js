@@ -68,7 +68,8 @@ export default function reducer(state = {result:{}}, action) {
       }
     case MERGE_SUCCESS:
       return {
-        result: action.result,
+        ...state,
+        mResult: action.result,
         isJump: true
       }
     case MERGE_FAILURE:
@@ -77,7 +78,9 @@ export default function reducer(state = {result:{}}, action) {
       }
     case LOCK_SUCCESS:
       return {
-        result: action.result
+        ...state,
+        lResult: action.result,
+        isJump: true
       }
     case LOCK_FAILURE:
       return {

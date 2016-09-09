@@ -25,18 +25,14 @@ class SearchSpu extends Component {
                 }
             }, {
                 label: "创建日期：",
-                span: '16',
+                span: '13',
+                labelCol: { span: 5 },
+                wrapperCol: { span: 19 },
                 custom(getCustomFieldProps, FormContext) {
                     return <div>
-                        <Col span="8">
                             <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
-                        </Col>
-                        <Col span="1">
-                            <p className="ant-form-split">-</p>
-                        </Col>
-                        <Col span="8">
+                            <span className="ant-form-split">-</span>
                             <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
-                        </Col>
                     </div>
                 }
             }, {
