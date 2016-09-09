@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="邮箱验证规则修改">
+    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_development.js" afterPath="$PROJECT_DIR$/config/_development.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Home/components/HomeView.js" afterPath="$PROJECT_DIR$/src/routes/Home/components/HomeView.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Home/components/HomeView.less" afterPath="$PROJECT_DIR$/src/routes/Home/components/HomeView.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js" />
     </list>
     <ignored path="console.iws" />
-    <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,71 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_base.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/_base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="_development.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/_development.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HomeView.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/Home/components/HomeView.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="50" column="6" selection-start-line="50" selection-start-column="6" selection-end-line="50" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/menu.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="814">
-              <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SynchView.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="27" column="33" selection-start-line="25" selection-start-column="8" selection-end-line="27" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuditView.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/components/AuditView.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1034">
-              <caret line="51" column="10" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvoiceView.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="814">
-              <caret line="42" column="114" selection-start-line="42" selection-start-column="114" selection-end-line="42" selection-end-column="114" />
+            <state relative-caret-position="286">
+              <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -98,8 +39,79 @@
       <file leaf-file-name="HistoryView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1804">
-              <caret line="87" column="16" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
+            <state relative-caret-position="550">
+              <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeView.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Home/components/HomeView.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Image.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Image/Image.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-453">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Login/containers/Login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1276">
+              <caret line="63" column="30" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#49#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/menu.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+              <folding>
+                <marker date="1473386741855" expanded="true" signature="29:90" ph="{...}" />
+                <marker date="1473386741855" expanded="true" signature="82:90" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeView.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Home/components/HomeView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Home.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Home/containers/Home.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="528">
+              <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -122,57 +134,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/routes/Edit/index.js" />
+        <option value="$PROJECT_DIR$/src/middleware/client.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/containers/Edit.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/routes/Edit/components/EditView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/modules/CategoryReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/routes/Edit/components/EditView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/routes/Edit/containers/Edit.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/routes/Edit/modules/EditReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/modules/IndustryReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/routes/Edit/components/EditView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/routes/Edit/modules/EditReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/routes/Edit/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/modules/SpecificateReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/routes/Edit/modules/EditReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/routes/Edit/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/routes/Edit/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/modules/ApplicateReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/containers/Applicate.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/routes/Edit/containers/Edit.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/routes/Edit/modules/EditReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/components/ApplicateView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/routes/Edit/containers/Edit.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Product/modules/ProductReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Product/containers/Product.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Product/components/ProductView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/routes/Edit/containers/Edit.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/containers/Industry.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/containers/Specificate.js" />
+        <option value="$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/routes/Edit/components/EditView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Docs/routes/Table/components/Table.jsx" />
         <option value="$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/History/modules/HistoryReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/History/containers/History.js" />
-        <option value="$PROJECT_DIR$/src/routes/Virtualhouse/routes/SpecificationMgt/components/SpecificationMgtView.jsx" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Invoice/modules/InvoiceReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/BuyersView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Detail/components/DetailView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/InvoiceView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/PayView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/PromView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/LogView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Detail/containers/Detail.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/BasicView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Merge/index.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/ProductView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/modules/DealReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/ReceivingView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/components/DealView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/containers/Deal.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/containers/Audit.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/modules/AuditReducer.js" />
-        <option value="$PROJECT_DIR$/src/components/Form/Form.jsx" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/modules/SynchReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/containers/Synch.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/modules/ManualReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/containers/Manual.js" />
-        <option value="$PROJECT_DIR$/src/routes/index.js" />
-        <option value="$PROJECT_DIR$/src/routes/Home/index.js" />
-        <option value="$PROJECT_DIR$/src/routes/Home/modules/HomeReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Logistics/index.js" />
-        <option value="$PROJECT_DIR$/src/routes/Home/containers/Home.js" />
-        <option value="$PROJECT_DIR$/src/routes/Home/components/HomeView.js" />
-        <option value="$PROJECT_DIR$/src/layouts/components/CoreLayout.less" />
         <option value="$PROJECT_DIR$/src/components/Form/Form.less" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Apart/components/ApartView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Merge/components/MergeView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Apart/containers/Apart.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Merge/modules/MergeReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Merge/containers/Merge.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Apart/modules/ApartReducer.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/components/ManualView.js" />
-        <option value="$PROJECT_DIR$/config/_development.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Industry/components/IndustryView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Specificate/components/SpecificateView.js" />
+        <option value="$PROJECT_DIR$/src/routes/index.js" />
+        <option value="$PROJECT_DIR$/src/routes/Home/containers/Home.js" />
+        <option value="$PROJECT_DIR$/src/routes/Home/modules/HomeReducer.js" />
+        <option value="$PROJECT_DIR$/src/routes/Login/containers/Login.js" />
         <option value="$PROJECT_DIR$/src/common/menu.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Audit/components/AuditView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js" />
-        <option value="$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js" />
-        <option value="$PROJECT_DIR$/config/_base.js" />
+        <option value="$PROJECT_DIR$/src/layouts/components/CoreLayout.less" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/components/CategoryView.js" />
+        <option value="$PROJECT_DIR$/src/routes/Goods/routes/Category/containers/Category.js" />
         <option value="$PROJECT_DIR$/src/routes/Home/components/HomeView.less" />
+        <option value="$PROJECT_DIR$/src/routes/Home/components/HomeView.js" />
+        <option value="$PROJECT_DIR$/config/_development.js" />
+        <option value="$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js" />
       </list>
     </option>
   </component>
@@ -208,15 +220,59 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <autoscrollToSource Scope="true" ProjectPane="true" />
-      <autoscrollFromSource Scope="true" ProjectPane="true" />
+      <autoscrollToSource />
+      <autoscrollFromSource />
       <sortByType />
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches">
+        <subPane />
+      </pane>
       <pane id="Scope">
-        <subPane subId="Problems" />
+        <subPane subId="Problems">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Changed Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="routes">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Login">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
         <subPane subId="Project Files">
           <PATH>
             <PATH_ELEMENT USER_OBJECT="Root">
@@ -277,7 +333,7 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Order">
+            <PATH_ELEMENT USER_OBJECT="Login">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -299,217 +355,7 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Order">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Synch">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Order">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Synch">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="components">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Order">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Applic">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Applic">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Applic">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Edit">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Applic">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Edit">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="modules">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Applic">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Edit">
+            <PATH_ELEMENT USER_OBJECT="Login">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -518,73 +364,20 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
+        </subPane>
+        <subPane subId="Default">
           <PATH>
             <PATH_ELEMENT USER_OBJECT="Root">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Applic">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Edit">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="components">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="components">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="config">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
+        <subPane subId="Tests" />
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -615,6 +408,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="store" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -676,7 +487,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Home" />
+              <option name="myItemId" value="Order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -698,7 +513,45 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Home" />
+              <option name="myItemId" value="Order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="History" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="History" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -720,7 +573,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -738,7 +591,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Image" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -756,9 +613,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -766,160 +636,47 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="D:\WWW\console\node_modules\mocha" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="SearchEverywhereHistoryKey" value="me&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;menu&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;men&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;m&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;ser&#9;FILE&#9;file://D:/WWW/console/bin/server.js" />
+    <property name="SearchEverywhereHistoryKey" value="menu&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;index&#9;FILE&#9;file://D:/WWW/console/src/routes/Goods/routes/Specificate/routes/Edit/index.js&#10;validatorContent&#9;null&#9;null&#10;me&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;store2&#9;FILE&#9;file://D:/WWW/console/node_modules/store2/dist/store2.js&#10;web&#9;FILE&#9;file://D:/WWW/console/build/webpack.config.js&#10;auth&#9;FILE&#9;file://D:/WWW/console/src/store/auth.js&#10;a&#9;FILE&#9;file://D:/WWW/console/src/store/auth.js&#10;men&#9;FILE&#9;file://D:/WWW/console/src/common/menu.js&#10;ser&#9;FILE&#9;file://D:/WWW/console/bin/server.js" />
     <property name="list.type.of.created.stylesheet" value="Less" />
     <property name="editor.config.accepted" value="true" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="163" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="162" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="193" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="192" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="193" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="192" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="986" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="985" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="181" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="180" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="187" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="186" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="187" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="186" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="980" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="979" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="E:/reactSPA" />
+    <property name="jsx.switch.disabled" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\WWW\console\src\routes\Order\routes\Audit\routes\pubInfo" />
-      <recent name="D:\WWW\console\src\routes\Order\routes" />
-      <recent name="D:\WWW\console\src\routes\Order\routes\Audit\routes" />
-      <recent name="D:\WWW\console\src\routes\Applic\routes" />
-      <recent name="D:\WWW\console\src\routes\Order\routes\Synch\routes" />
+      <recent name="D:\WWW\console\src\routes\Goods\routes\Category" />
+      <recent name="D:\WWW\console\src\routes\Enterprise\routes\Product\routes" />
+      <recent name="D:\WWW\console\src\routes\Enterprise\routes" />
+      <recent name="D:\WWW\console\src\routes\Goods\routes" />
+      <recent name="D:\WWW\console\src\routes\Enterprise\components" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\WWW\console\src\routes\Order\routes\Audit\routes\Detail" />
+      <recent name="D:\WWW\console\src\routes\Goods\routes\Specificate" />
+      <recent name="D:\WWW\console\src\routes\Goods\routes\Industry" />
+      <recent name="D:\WWW\console\src\routes\Enterprise\routes\Applicate" />
       <recent name="D:\WWW\console\src\routes\ManageApp\routes\Edit\assets" />
       <recent name="D:\WWW\console\src\routes\ManageApp\routes" />
-      <recent name="D:\WWW\console\src\routes\ManageApp\routes\Edit\components" />
-      <recent name="D:\WWW\console\src\routes\ManageApp\routes\Edit\routes\StepStart" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/components/ReturnGoods.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/ChangeGoods/components/GoodsView.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/Info/components/GoodsInfo.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/Info/containers/Info.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/Info/modules/InfoReducer.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Shophouse/routes/AddressManage/components/Addressmanage.jsx</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -1002,41 +759,64 @@
       <workItem from="1463366846065" duration="19586000" />
       <workItem from="1463447855034" duration="778000" />
       <workItem from="1463449147429" duration="20936000" />
-      <workItem from="1464245240447" duration="4476000" />
-      <workItem from="1464312097370" duration="8790000" />
-      <workItem from="1464659565709" duration="106000" />
-      <workItem from="1464659804455" duration="4048000" />
-      <workItem from="1464847090984" duration="1560000" />
-      <workItem from="1464918303992" duration="89000" />
-      <workItem from="1465867749848" duration="3313000" />
-      <workItem from="1465871388153" duration="1414000" />
-      <workItem from="1466649907085" duration="750000" />
-      <workItem from="1466652118006" duration="277000" />
-      <workItem from="1469510656575" duration="32000" />
-      <workItem from="1469510729694" duration="381000" />
-      <workItem from="1471574291820" duration="21183000" />
-      <workItem from="1471828700998" duration="22827000" />
-      <workItem from="1471914869494" duration="28973000" />
-      <workItem from="1472001084658" duration="1229000" />
-      <workItem from="1472005084409" duration="9675000" />
-      <workItem from="1472087540685" duration="446000" />
-      <workItem from="1472089238625" duration="28472000" />
-      <workItem from="1472174105936" duration="13689000" />
-      <workItem from="1472261988053" duration="21430000" />
-      <workItem from="1472432850579" duration="26479000" />
-      <workItem from="1472519520158" duration="26645000" />
-      <workItem from="1472605995961" duration="6851000" />
-      <workItem from="1472692339634" duration="31034000" />
-      <workItem from="1472778803711" duration="25486000" />
-      <workItem from="1472865579144" duration="17322000" />
-      <workItem from="1473038201656" duration="14831000" />
-      <workItem from="1473124161845" duration="902000" />
-      <workItem from="1473125081783" duration="27966000" />
-      <workItem from="1473210587411" duration="22483000" />
-      <workItem from="1473297098154" duration="10519000" />
-      <workItem from="1473312993477" duration="35000" />
-      <workItem from="1473325905748" duration="10731000" />
-      <workItem from="1473383169125" duration="1712000" />
+      <workItem from="1464244672958" duration="499000" />
+      <workItem from="1464666170437" duration="7147000" />
+      <workItem from="1464743874532" duration="6954000" />
+      <workItem from="1464830081084" duration="4945000" />
+      <workItem from="1464848964649" duration="6565000" />
+      <workItem from="1464916932684" duration="1126000" />
+      <workItem from="1464918434253" duration="3352000" />
+      <workItem from="1465175608614" duration="5987000" />
+      <workItem from="1465185482297" duration="8142000" />
+      <workItem from="1465262793377" duration="18211000" />
+      <workItem from="1465348880000" duration="8095000" />
+      <workItem from="1465693552637" duration="17132000" />
+      <workItem from="1465780484661" duration="8253000" />
+      <workItem from="1465867281637" duration="348000" />
+      <workItem from="1465867650691" duration="9000" />
+      <workItem from="1465871150966" duration="194000" />
+      <workItem from="1465872845916" duration="2311000" />
+      <workItem from="1465955274468" duration="2246000" />
+      <workItem from="1466039788013" duration="664000" />
+      <workItem from="1466063577634" duration="171000" />
+      <workItem from="1466070251211" duration="1169000" />
+      <workItem from="1466126180941" duration="1557000" />
+      <workItem from="1466153927395" duration="265000" />
+      <workItem from="1466155350735" duration="1789000" />
+      <workItem from="1466385515053" duration="595000" />
+      <workItem from="1466388742729" duration="139000" />
+      <workItem from="1466388981509" duration="9015000" />
+      <workItem from="1466471956172" duration="596000" />
+      <workItem from="1466500368020" duration="673000" />
+      <workItem from="1466558554826" duration="2092000" />
+      <workItem from="1466644882333" duration="2957000" />
+      <workItem from="1466650691573" duration="1390000" />
+      <workItem from="1469511159358" duration="6977000" />
+      <workItem from="1469669069611" duration="16116000" />
+      <workItem from="1469755275514" duration="19037000" />
+      <workItem from="1470014445728" duration="598000" />
+      <workItem from="1470015703112" duration="7543000" />
+      <workItem from="1470187415709" duration="14999000" />
+      <workItem from="1470272626186" duration="13342000" />
+      <workItem from="1470359184277" duration="5729000" />
+      <workItem from="1470447920447" duration="9262000" />
+      <workItem from="1470617980623" duration="15212000" />
+      <workItem from="1470705225254" duration="19790000" />
+      <workItem from="1470732000237" duration="5100000" />
+      <workItem from="1470791926073" duration="20374000" />
+      <workItem from="1470877659101" duration="15443000" />
+      <workItem from="1470964520601" duration="16417000" />
+      <workItem from="1471052313190" duration="9480000" />
+      <workItem from="1471222808148" duration="16101000" />
+      <workItem from="1471310422166" duration="17061000" />
+      <workItem from="1471396258463" duration="5858000" />
+      <workItem from="1471483293957" duration="629000" />
+      <workItem from="1471485421331" duration="8530000" />
+      <workItem from="1471569345441" duration="1480000" />
+      <workItem from="1472004100355" duration="891000" />
+      <workItem from="1473312946042" duration="4000" />
+      <workItem from="1473313054368" duration="8187000" />
+      <workItem from="1473386748145" duration="3201000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -1066,93 +846,156 @@
       <option name="project" value="LOCAL" />
       <updated>1463472066151</updated>
     </task>
-    <task id="LOCAL-00005" summary="企业">
-      <created>1464253915158</created>
+    <task id="LOCAL-00005" summary="update">
+      <created>1464245130774</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1464253915158</updated>
+      <updated>1464245130774</updated>
     </task>
-    <task id="LOCAL-00006" summary="企业编码不可编辑，地址和联系方式为必填项">
-      <created>1464847453460</created>
+    <task id="LOCAL-00006" summary="update">
+      <created>1464245161139</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1464847453460</updated>
+      <updated>1464245161139</updated>
     </task>
-    <task id="LOCAL-00007" summary="手机号、邮箱添加正则验证">
-      <created>1464848899919</created>
+    <task id="LOCAL-00007" summary="地址必填、点击“查看”在火狐浏览器中不起作用">
+      <created>1464680905953</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1464848899919</updated>
+      <updated>1464680905953</updated>
     </task>
-    <task id="LOCAL-00008" summary="邮箱验证规则修改">
-      <created>1464918385547</created>
+    <task id="LOCAL-00008" summary="企业编码自动生成问题">
+      <created>1464685956374</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1464918385547</updated>
+      <updated>1464685956374</updated>
     </task>
-    <task id="LOCAL-00009" summary="审单">
-      <created>1473218028009</created>
+    <task id="LOCAL-00009" summary="添加企业邮箱字段">
+      <created>1464772213113</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1473218028009</updated>
+      <updated>1464772213113</updated>
     </task>
-    <task id="LOCAL-00010" summary="订单同步">
-      <created>1473231032734</created>
+    <task id="LOCAL-00010" summary="登陆样式问题">
+      <created>1464831883684</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1473231032734</updated>
+      <updated>1464831883684</updated>
     </task>
-    <task id="LOCAL-00011" summary="日期">
-      <created>1473334224128</created>
+    <task id="LOCAL-00011" summary="update">
+      <created>1464847038801</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1473334224128</updated>
+      <updated>1464847038801</updated>
     </task>
-    <task id="LOCAL-00012" summary="日期">
-      <created>1473334630182</created>
+    <task id="LOCAL-00012" summary="邮箱、手机号添加正则验证">
+      <created>1464849092686</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1473334630182</updated>
+      <updated>1464849092686</updated>
     </task>
-    <task id="LOCAL-00013" summary="菜单">
-      <created>1473338407644</created>
+    <task id="LOCAL-00013" summary="邮箱、手机号添加正则验证">
+      <created>1464849251342</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1473338407644</updated>
+      <updated>1464849251342</updated>
     </task>
-    <task id="LOCAL-00014" summary="update">
-      <created>1473339651563</created>
+    <task id="LOCAL-00014" summary="邮箱验证规则">
+      <created>1464861249306</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1473339651563</updated>
+      <updated>1464861249306</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="update">
+      <created>1464918191117</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1464918191117</updated>
+    </task>
+    <task id="LOCAL-00016" summary="再次确认密码">
+      <created>1465267807061</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1465267807061</updated>
+    </task>
+    <task id="LOCAL-00017" summary="公共修改密码">
+      <created>1465290773100</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1465290773100</updated>
+    </task>
+    <task id="LOCAL-00018" summary="update">
+      <created>1465370394872</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1465370394872</updated>
+    </task>
+    <task id="LOCAL-00019" summary="图片上传、展示问题">
+      <created>1465719836821</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1465719836821</updated>
+    </task>
+    <task id="LOCAL-00020" summary="update">
+      <created>1469518837242</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1469518837242</updated>
+    </task>
+    <task id="LOCAL-00021" summary="menu update">
+      <created>1469674358186</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1469674358186</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Goods update">
+      <created>1469780625253</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1469780625253</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Home">
+      <created>1473387277399</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1473387277399</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="562571000" />
+    <option name="totallyTimeSpent" value="548364000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2243346" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20849176" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45683932" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28629032" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1180,212 +1023,62 @@
     <MESSAGE value="格式化" />
     <MESSAGE value="企业列表、激活、禁用" />
     <MESSAGE value="表格刷新" />
-    <MESSAGE value="企业" />
-    <MESSAGE value="企业编码不可编辑，地址和联系方式为必填项" />
-    <MESSAGE value="手机号、邮箱添加正则验证" />
-    <MESSAGE value="邮箱验证规则修改" />
-    <MESSAGE value="审单" />
-    <MESSAGE value="订单同步" />
-    <MESSAGE value="日期" />
-    <MESSAGE value="菜单" />
+    <MESSAGE value="地址必填、点击“查看”在火狐浏览器中不起作用" />
+    <MESSAGE value="企业编码自动生成问题" />
+    <MESSAGE value="添加企业邮箱字段" />
+    <MESSAGE value="登陆样式问题" />
+    <MESSAGE value="邮箱、手机号添加正则验证" />
+    <MESSAGE value="邮箱验证规则" />
+    <MESSAGE value="再次确认密码" />
+    <MESSAGE value="公共修改密码" />
+    <MESSAGE value="图片上传、展示问题" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="menu update" />
+    <MESSAGE value="Goods update" />
+    <MESSAGE value="Home" />
+    <option name="LAST_COMMIT_MESSAGE" value="Home" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="1" />
-    </breakpoint-manager>
+    <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js">
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/routes/Edit/modules/EditReducer.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Industry/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/containers/Applicate.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/routes/Edit/containers/Edit.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Specificate/routes/Edit/components/EditView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Edit/components/EditView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Specificate/routes/Edit/containers/Edit.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Product/modules/ProductReducer.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Product/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/Category/Category.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="174" column="100" selection-start-line="174" selection-start-column="95" selection-end-line="174" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/ProductView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/ReceivingView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="30" column="23" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/modules/DealReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="61" column="64" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/containers/Deal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="117" column="27" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/components/DealView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="181" column="19" selection-start-line="181" selection-start-column="17" selection-end-line="181" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/containers/Audit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/modules/AuditReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="89" column="7" selection-start-line="89" selection-start-column="7" selection-end-line="89" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/LogView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="35" column="3" selection-start-line="33" selection-start-column="2" selection-end-line="35" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3674">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/modules/SynchReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1034">
-          <caret line="47" column="14" selection-start-line="47" selection-start-column="14" selection-end-line="48" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/containers/Synch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2178">
-          <caret line="103" column="22" selection-start-line="103" selection-start-column="22" selection-end-line="103" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/modules/ManualReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Shophouse/routes/AddressManage/containers/AddressManage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-418">
-          <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/README.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider editor-type-id="MarkdownFxPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="418">
-            <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/containers/Manual.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="36" column="10" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Login/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-4115">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Home - 副本/index.js" />
-    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Industry/routes/Edit/components/EditView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Industry/routes/Edit/containers/Edit.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/FileLoader/FileLoader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66">
-          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+        <state relative-caret-position="220">
+          <caret line="19" column="100" selection-start-line="19" selection-start-column="100" selection-end-line="19" selection-end-column="100" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Home/index.js">
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Industry/modules/IndustryReducer.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Industry/containers/Industry.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Specificate/containers/Specificate.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Docs/routes/Table/components/Table.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="62" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
+        <state relative-caret-position="124">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Home/modules/HomeReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="67" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Home - 副本/components/HomeView.less" />
-    <entry file="file://$PROJECT_DIR$/src/routes/Home - 副本/components/HomeView.js" />
-    <entry file="file://$PROJECT_DIR$/blueprints/routes/files/__root__/routes/__name__/components/__name__View.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Logistics/containers/Logistics.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-666">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Logistics/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Home/containers/Home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Home/components/HomeView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="167" column="40" selection-start-line="167" selection-start-column="40" selection-end-line="167" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/components/Search/Search.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1394,163 +1087,206 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Form/Form.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Applic/components/ApplicView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="66" column="26" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jsconfig.json">
+    <entry file="file://$PROJECT_DIR$/src/components/Form/Form.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Docs/components/Docs.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7392">
+          <caret line="343" column="71" selection-start-line="343" selection-start-column="63" selection-end-line="343" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1088">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/webpack-compiler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/karma.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="109" column="8" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Form/Form.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/modules/InvoiceReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1254">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Apart/components/ApartView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Apart/containers/Apart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Merge/modules/MergeReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="71" column="15" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Merge/containers/Merge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2354">
-          <caret line="111" column="48" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Apart/modules/ApartReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="63" column="29" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Merge/components/MergeView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/layouts/components/CoreLayout.less">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
-          <caret line="79" column="3" selection-start-line="79" selection-start-column="3" selection-end-line="79" selection-end-column="3" />
+          <caret line="91" column="29" selection-start-line="91" selection-start-column="29" selection-end-line="91" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/components/ManualView.js">
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Specificate/components/SpecificateView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Industry/components/IndustryView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Product/containers/Product.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Category/routes/Edit/components/EditView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Category/routes/Edit/containers/Edit.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Product/components/ProductView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/components/ApplicateView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/routes/Edit/components/EditView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        <state relative-caret-position="396">
+          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/menu.js">
+    <entry file="file://$PROJECT_DIR$/src/routes/Home/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="27" column="33" selection-start-line="25" selection-start-column="8" selection-end-line="27" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Audit/components/AuditView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1034">
-          <caret line="51" column="10" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="42" column="114" selection-start-line="42" selection-start-column="114" selection-end-line="42" selection-end-column="114" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1804">
-          <caret line="87" column="16" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="220">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/_base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="25" column="21" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Login/components/Login.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="25" column="32" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Enterprise/routes/Applicate/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Home/modules/HomeReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          <folding>
+            <marker date="1473386742481" expanded="true" signature="720:727" ph="{...}" />
+            <marker date="1473386742481" expanded="true" signature="720:763" ph="{...}" />
+            <marker date="1473386742481" expanded="true" signature="720:765" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Home/containers/Home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Login/containers/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1276">
+          <caret line="63" column="30" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layouts/components/CoreLayout.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Category/components/CategoryView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1936">
+          <caret line="95" column="14" selection-start-line="95" selection-start-column="14" selection-end-line="95" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding>
+            <marker date="1473386741855" expanded="true" signature="29:90" ph="{...}" />
+            <marker date="1473386741855" expanded="true" signature="82:90" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Goods/routes/Category/containers/Category.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="596">
+          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Image/Image.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-453">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Home/components/HomeView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Home/components/HomeView.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="50" column="6" selection-start-line="50" selection-start-column="6" selection-end-line="50" selection-end-column="6" />
+        <state relative-caret-position="374">
+          <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/_development.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="38" />
+        <state relative-caret-position="286">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
           <folding />
         </state>
       </provider>
