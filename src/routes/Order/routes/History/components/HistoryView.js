@@ -85,8 +85,8 @@ class History extends Component {
       }, {
         label: "排序方式：",
         name: "payTimeSort",
-        span: "6",
-        labelCol: {span: 7},
+        span: "7",
+        labelCol: {span: 5},
         select: {
           placeholder: "请选择排序方式",
           optionValue: Object.keys(SORT).map((key) => {
