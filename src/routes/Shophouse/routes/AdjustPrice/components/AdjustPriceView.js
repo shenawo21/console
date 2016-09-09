@@ -116,7 +116,7 @@ class AdjustPrice extends Component {
             dataIndex: 'price',
             render(value, row){
                 return <Input type="text" placeholder="请输入建议销售价" style={{width:120}} onChange={(e) => {
-			let {priceList} = context.state, price = { skuId: row.skuId, stockId: row.stockId, price: e.target.value }, selectItems = []
+			let {priceList} = context.state, price = { skuId: row.skuId, stockId: row.stockId, shopId: row.shopId, price: e.target.value }, selectItems = []
                         selectItems = priceList.filter((val) => {
                             return val.skuId !== row.skuId
                         })
