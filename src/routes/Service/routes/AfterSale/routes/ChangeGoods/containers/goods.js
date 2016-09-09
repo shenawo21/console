@@ -44,7 +44,6 @@ class Goods extends Component {
             delete value._index
             changeVerify(value).then(function(response) {
                     if (response && response.status == 1) {
-                        console.log(response,'response')
                         setTimeout(() => {
                             let pathname = '/service/aftersale';
                             _this.context.router.replace(pathname);

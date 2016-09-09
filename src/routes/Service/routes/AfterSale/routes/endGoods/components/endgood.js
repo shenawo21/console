@@ -6,19 +6,11 @@ import DataTable from 'components/DataTable'
 import {UploadImage} from 'components/FileLoader'
 import RefundView from 'routes/Service/routes/RefundView';
 
-class GoodsInfo extends Component {
-    constructor(props) {
-        super(props);        
-        this.state = {
-            sellerName:'',
-            sellerPost:'',
-            sellerPhone:'',
-            fullAddress:''
-        }
-    }     
+class endGoods extends Component {
+    
     _getFormItems(){
         let context = this;
-        const {isDel,addressList,items} = context.props;
+        const { } = context.props;
         let config = {
             formItems: [{
                 label: "商品价值承担：",
@@ -90,30 +82,12 @@ class GoodsInfo extends Component {
             },{
                 label: "卖家姓名：",
                 name: "sellerName",
-                // rules: [{
-                //     validator(rule, value, callback) {
-                //         if (!value) {
-                //             callback(new Error('请输入卖家姓名'));
-                //         } else {
-                //             callback();
-                //         }
-                //     }
-                // }],
                 input: {
                     value:context.state.sellerName || ''
                 }
             },,{
                 label: "详细地址",
                 name: "fullAddress",
-                // rules: [{
-                //     validator(rule, value, callback) {
-                //         if (!value) {
-                //             callback(new Error('请输入详细地址'));
-                //         } else {
-                //             callback();
-                //         }
-                //     }
-                // }],
                 input: {
                     value:context.state.fullAddress || ''
                 }
@@ -172,7 +146,8 @@ class GoodsInfo extends Component {
     }
     
     render() {
-        const {result, items, handleGoodSubmit} = this.props;
+        const {result, handleSubmit} = this.props;
+        console.log(result,'-----')
         const refundComment = result.refundComment || {}
         const url = refundComment.picUrls
         const src = url && url.split(',')
@@ -185,12 +160,8 @@ class GoodsInfo extends Component {
             buttons : [
                 {
                     key : 'review',
-                    name :'同意退货，通知仓库退货入库',
+                    name :'退货申请处理',
                     type : 'primary',
-                },
-                {
-                    key : 'refuse',
-                    name : '拒绝退货',
                 },
                 {
                     key : 'back',
@@ -203,10 +174,10 @@ class GoodsInfo extends Component {
         }
         return (
             <div>
+                1111
                 <RefundView title = '客户退货申请详情' result = {result} ArryStatus = {ArryStatus} src = {src} />
 
                 <h3 className = 'titleName'>退货申请处理</h3>
-                { result.processStatus ? 
                 <ul className = 'form-talbe'>
                     {result.valueBearType ? <li><b>商品价值承担:</b><span>{result.valueBearType}</span></li> : '' }
                     {result.postBearType ? <li><b>邮费承担:</b><span>{result.postBearType}</span></li> : '' }
@@ -215,16 +186,16 @@ class GoodsInfo extends Component {
                     {result.sellerTel ? <li><b>卖家座机号:</b><span>{result.sellerTel}</span></li> : '' }
                     {result.sellerPhone ? <li><b>卖家手机号:</b><span>{result.sellerPhone}</span></li> : '' }
                     {result.sellerRemark ? <li><b>卖家留言:</b><span>{result.sellerRemark}</span></li> : '' }
-                    <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
-                </ul> : 
-                <Form horizontal items={this._getFormItems()} onSubmit={handleGoodSubmit}  buttonOption={buttonOption} />}
+                </ul>
+                <h3 className = 'titleName'>仓库反馈</h3>
+                <Form horizontal items={this._getFormItems()} onSubmit={handleGoodSubmit}  buttonOption={buttonOption} />
             </div>
         )
     }
 }
 
-GoodsInfo.propTypes = {       
+endGoods.propTypes = {       
     loading : React.PropTypes.bool
 }
 
-export default GoodsInfo;
+export default endGoods;

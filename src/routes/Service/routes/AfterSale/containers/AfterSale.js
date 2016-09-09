@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import ReturnGoods from '../components/ReturnGoods'
 import ReturnMoney from '../components/ReturnMoney'
 import Panel from 'components/Panel'
+import {message} from 'hen';
 import { getRefund, getChangeGoods,getShopList,getSearch } from '../modules/AfterSaleReducer'
 
 import {Tabs } from 'hen';
@@ -73,10 +74,20 @@ class OddQuery extends Component {
       }
     handleOk (values,fresh) {
         const {getSearch} = this.props
-        console.log(values,'999')
-        console.log(getSearch,'111')
+        const context = this;
         getSearch(values).then(function(res) {
-            console.log(res,'======')
+            if (res && res.data.items) {
+                message.success('有查询结果')
+                // setTimeout(() => {
+                //     let pathname = '/service/aftersale';
+                //     _this.context.router.replace(pathname);
+                // }, 1000);
+            } else {
+                message.error('无查询结果',2),
+                context.setState({
+                    visible: false,
+                });
+            }
         })
     }  
     callback(key) {
