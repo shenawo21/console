@@ -136,7 +136,7 @@ class OutgoView extends Component {
         }, {
             key: '11',
             title: '操作人',
-            dataIndex: 'createUser'
+            dataIndex: 'createUserName'
         }, {
             key: '12',
             title: '备注',

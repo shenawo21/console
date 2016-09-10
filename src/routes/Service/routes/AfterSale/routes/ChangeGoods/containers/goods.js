@@ -64,7 +64,6 @@ class Goods extends Component {
               handleSubmit(value) {
                   const {addPro} = _this.props;
                   let {skuData, categoryId, ...other} = value
-                  console.log('categoryCode',categoryId);
                   value = {...skuData, ...other, categoryId : typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
                   addPro(value).then((res)=>{
                       if(res.status === 1){

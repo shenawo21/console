@@ -40,7 +40,7 @@ class StorageQuery extends Component {
                 }
             },{
                 label: "商品类目：",
-                name: "categoryCode",
+                name: "categoryId",
                 wrapperCol: {span: 15},
                 cascader: {
                     options: cateList,

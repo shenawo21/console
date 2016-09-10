@@ -39,12 +39,20 @@ class OutgoManual extends Component {
         priceCateList();
         
     }
+
+    componentWillReceiveProps(nextProps, preProps) {
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/shophouse')
+            },600)
+        }
+    }
     
-      /**
-       * (表格功能配置项)
-       * 
-       * @returns (description)
-       */
+    /**
+     * (表格功能配置项)
+     * 
+     * @returns (description)
+     */
       getFormOptions() {
           const context = this;
           const {pageSize} = this.state;
@@ -152,12 +160,16 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result, houseListResult, shopListResult, cateResult, loading} = state.outgoManual;
+    const {result, houseListResult, shopListResult, cateResult, jump, loading} = state.outgoManual;
     
     const {items = [], totalItems = 0} = houseListResult || {};
-    return { items, totalItems, houseListResult, shopListResult, cateResult, result, loading };
+    return { items, totalItems, houseListResult, shopListResult, cateResult, jump, result, loading };
     
 }
+
+OutgoManual.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, mapActionCreators)(OutgoManual)
 

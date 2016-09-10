@@ -38,11 +38,11 @@ class InfoView extends Component {
         }, {
             key: '3',
             title: '实际数量',
-            dataIndex: 'categoryCode'
+            dataIndex: 'realAmount'
         }, {
             key: '4',
             title: '验收结果',
-            dataIndex: 'specOneValue'
+            dataIndex: 'checkResult'
         }];
         return columns;
     }
