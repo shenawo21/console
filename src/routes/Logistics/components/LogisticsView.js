@@ -2,63 +2,61 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import DataTable from 'components/DataTable';
-import {Row, Col, Button} from 'hen';
+import {Transfer, Button} from 'hen';
 
 class Logistics extends Component {
-    
-    _getColumns(){
-        const context = this;
-        let columns = [{
-            key: '0',
-            title: '物流公司',
-            dataIndex: 'companyName'
-        }, {
-            key: '1',
-            title: '联系人',
-            dataIndex: ''
-        }, {
-            key: '2',
-            title: '联系方式',
-            dataIndex: ''
-        }, {
-            key: '3',
-            title: '备注',
-            dataIndex: 'remark'
-        },{ 
-            key: '4',
-            title: '操作',
-            dataIndex: 'companyCode',
-            render(id,row){
-                return <span><Link to={`/logistics/edit/${id}`}>编辑</Link> 
-                    <Popconfirm title="确定要删除这个地址吗？" onConfirm={context.delLogistics.bind(context,id)}>
-                        <Button type="link">删除</Button>
-                    </Popconfirm>
-                </span>
+    constructor(props) {
+        super(props)
+        this.getMock = this.getMock.bind(this);
+        this.state = {
+            mockData: [],
+            targetKeys: []
+        } 
+    }
+    componentDidMount() {
+        this.getMock();
+    }
+    getMock() {
+        let targetKeys = [];
+        let mockData = [];
+        for (let i = 0; i < 20; i++) {
+            const data = {
+                key: i,
+                title: `内容${i + 1}`,
+                description: `内容${i + 1}的描述`,
+                chosen: Math.random() * 2 > 1
+            };
+            if (data.chosen) {
+                targetKeys.push(data.key);
             }
-        }];
-        return columns;
+            mockData.push(data);
+        }
+        this.setState({ mockData, targetKeys });
     }
-    
-    delLogistics(id){
-        const {del} = this.props.tableOptions;
-        del(id)
-        this.refs && this.refs.dt.refresh();
-    }
-
-    quickButton(quickOptions){
-        return <Row>
-                    <Col span='2'>
-                        <Button><Link to={`/logistics/edit`}>添加物流公司</Link></Button>
-                    </Col>
-                </Row>
+    handleChange(targetKeys, direction, moveKeys) {
+        console.log(targetKeys, direction, moveKeys);
+        this.setState({ targetKeys });
     }
 
     render() {
         const {quickOptions, tableOptions} = this.props;
-        
+        const {mockData} = this.state;
+        const title = ['选择物流公司', '选中的物流公司'];
+        const notFoundContent = '暂无数据';
+        console.log(mockData,'mockData');
         return (
             <div>
-                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...tableOptions} ref='dt' />
+                <Transfer
+                    titles={title} 
+                    listStyle={{
+                        width: 300,
+                        height: 500,
+                    }} 
+                    notFoundContent={notFoundContent} 
+                    dataSource={mockData}
+                    targetKeys={this.state.targetKeys}
+                    onChange={this.handleChange}
+                    render={item => item.title} />
             </div>
         )
     }
@@ -66,7 +64,7 @@ class Logistics extends Component {
 
 
 Logistics.propTypes = {
-    dataSource : React.PropTypes.array.isRequired,
+    dataSource : React.PropTypes.array,
     loading : React.PropTypes.bool
 }
 

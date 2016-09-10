@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import LogisticsView from '../components/LogisticsView'
 import Panel from 'components/Panel'
-import {queryList, deleteItem} from '../modules/LogisticsReducer'
+import {queryList, isDefault} from '../modules/LogisticsReducer'
 
 class Logistics extends Component {
   
@@ -10,10 +10,10 @@ class Logistics extends Component {
         super(props);
         this.state = {}
     }
-    //删除物流公司
-    _del(id){
-        const { deleteItem } = this.props;
-        deleteItem({id: id});
+    //设为默认
+    _isDefault(id){
+        const { isDefault } = this.props;
+        isDefault({configId: id});
     }
     
     componentDidMount() {
@@ -27,7 +27,7 @@ class Logistics extends Component {
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             loading,                                    //表格加载数据状态
-            del: this._del.bind(this)
+            isDefault: this._isDefault.bind(this)
         }
         return <Panel title=""><LogisticsView tableOptions={tableOptions} /></Panel>
     }
@@ -36,15 +36,17 @@ class Logistics extends Component {
 
 Logistics.propTypes = {
     queryList: React.PropTypes.func,
-    deleteItem: React.PropTypes.func,
+    isDefault: React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
+    add,
+    delete,
     queryList,
-    deleteItem
+    isDefault
 }
 
 const mapStateToProps = (state) => {
