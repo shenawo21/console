@@ -152,10 +152,6 @@ const mapActionCreators = {
     Logistic
 }
 
-Goods.contextTypes = {
-    router: React.PropTypes.object.isRequired,
-};
-
 const mapStateToProps = (state) => {
     console.log(state,'state')
     const {result,list,logistic = [], loading} = state.changegoods;  

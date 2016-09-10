@@ -2,57 +2,74 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {queryList, addItem, modifyItem, deleteItem} from '../modules/EditReducer'
+import {addItem, modifyItem, view} from '../modules/EditReducer'
 
 class Edit extends Component {
   
     constructor(props) {
         super(props);
         
-        this.getFormOptions = this.getFormOptions.bind(this);
-        
+        this.getFormOptions = this.getFormOptions.bind(this);       
         
         this.state = {
-            params: {}   //表格需要的筛选参数
+            item: {}
         }
     }
     
     componentDidMount() {
-        
+        const {view, params} = this.props;
+        if(params.id) {
+            view({
+                companyCode: params.id
+            });
+        }
+    }
+
+    componentWillReceiveProps(nextProps, preProps) {
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/logistics')
+            },600)
+        }
     }
     
-      /**
-       * (表格功能配置项)
-       * 
-       * @returns (description)
-       */
-      getFormOptions() {
-          const context = this;
-          return {
-              /**
-               * (筛选表单提交)
-               * 
-               * @param value (description)
-               */
-              handleSubmit(value) {
-                  console.log(value)
-                  context.setState({
-                      params: value
-                  })
-              },
+    /**
+     * (表单功能配置项)
+     * 
+     * @returns (description)
+     */
+    getFormOptions() {
+        const _this = this;
+        return {
+            /**
+             * (筛选表单提交)
+             * 
+             * @param value (description)
+             */
+            handleSubmit(value) {
+                const {addItem, modifyItem, params} = _this.props;
+                if(params.id){
+                    modifyItem({
+                        companyCode: params.id,
+                        ...value
+                    })
+                }else{
+                    addItem({
+                        ...value
+                    })
+                }
+            },
 
-              /**
-               * (筛选表单重置)
-               */
-              handleReset() {
-              }
-          }
-      }
-    
-    
+            /**
+             * (筛选表单重置)
+             */
+            handleReset() {
+            }
+        }
+    }
     
     render() {
-        const {params} = this.state;
+        const {item} = this.state;
         
            const {loading, result} = this.props;
            const formOptions = {
@@ -62,34 +79,31 @@ class Edit extends Component {
            }
         
         
-        return <Panel title=""><EditView  {...formOptions} /></Panel>
+        return <Panel title=""><EditView item={item} {...formOptions} /></Panel>
     }
 }
 
 
 Edit.propTypes = {
-    
-    result: React.PropTypes.object,
-    deleteItem: React.PropTypes.func,
     modifyItem: React.PropTypes.func,
     addItem : React.PropTypes.func,
-    
+    result: React.PropTypes.object,   
     loading: React.PropTypes.bool
 }
 
+Edit.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
+
 const mapActionCreators = {
-    queryList,
-    deleteItem,
     modifyItem,
     addItem
 }
 
-
 const mapStateToProps = (state) => {
-    const {result, loading} = state.edit;
+    const {result, jump, loading} = state.edit;
     
-    return { 'result' : result, loading };
-    
+    return { result, jump, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Edit)

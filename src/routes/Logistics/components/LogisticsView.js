@@ -11,7 +11,7 @@ class Logistics extends Component {
         let columns = [{
             key: '0',
             title: '物流公司',
-            dataIndex: ''
+            dataIndex: 'companyName'
         }, {
             key: '1',
             title: '联系人',
@@ -23,14 +23,14 @@ class Logistics extends Component {
         }, {
             key: '3',
             title: '备注',
-            dataIndex: ''
+            dataIndex: 'remark'
         },{ 
             key: '4',
             title: '操作',
-            dataIndex: '',
+            dataIndex: 'companyCode',
             render(id,row){
                 return <span><Link to={`/logistics/edit/${id}`}>编辑</Link> 
-                    <Popconfirm title="确定要删除这个地址吗？" onConfirm={context.deletedAccount.bind(context,id)}>
+                    <Popconfirm title="确定要删除这个地址吗？" onConfirm={context.delLogistics.bind(context,id)}>
                         <Button type="link">删除</Button>
                     </Popconfirm>
                 </span>
@@ -40,16 +40,17 @@ class Logistics extends Component {
     }
     
     delLogistics(id){
-
+        const {del} = this.props.tableOptions;
+        del(id)
+        this.refs && this.refs.dt.refresh();
     }
-
 
     quickButton(quickOptions){
         return <Row>
-                <Col span='2'>
-                    <Button><Link to={`/logistics/edit`}>添加物流公司</Link></Button>
-                </Col>
-        </Row>
+                    <Col span='2'>
+                        <Button><Link to={`/logistics/edit`}>添加物流公司</Link></Button>
+                    </Col>
+                </Row>
     }
 
     render() {
@@ -57,7 +58,7 @@ class Logistics extends Component {
         
         return (
             <div>
-                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...tableOptions} />
+                <DataTable bordered={true} columns={this._getColumns()} quickButton={this.quickButton(quickOptions)} {...tableOptions} ref='dt' />
             </div>
         )
     }
@@ -68,6 +69,5 @@ Logistics.propTypes = {
     dataSource : React.PropTypes.array.isRequired,
     loading : React.PropTypes.bool
 }
-
 
 export default Logistics;
