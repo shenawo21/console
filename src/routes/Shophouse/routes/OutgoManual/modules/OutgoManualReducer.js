@@ -82,12 +82,14 @@ export default function reducer(state = {result:{}}, action) {
     case GETSHOPLIST:
     case OUTCATELIST:
         return {
-            ...state
+            ...state,
+            jump: false
         }
     case OUTPROLIST_SUCCESS:
         return {
-            //...state,
-            result: action.result
+            ...state,
+            result: action.result,
+            jump: true
         }
     case OUTPROLIST_FAILURE:
         return {

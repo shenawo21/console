@@ -39,7 +39,7 @@ class OddQuery extends Component {
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         shopOddQueryList({pageNumber});
-	this.setState({
+	    this.setState({
             params: {
                 recordType : "出库"
             }
@@ -66,15 +66,15 @@ class OddQuery extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-	      const {params} = context.state;
-		  if(value.categoryCode){
-		  	value.categoryCode = value.categoryCode[value.categoryCode.length - 1] || '';
-		  }
+                const {params} = context.state;
+                if(value.categoryId){
+                    value.categoryId = value.categoryId[value.categoryId.length - 1] || '';
+                }
                   context.setState({
                       params: {
-		      	...params,
-			...value
-		      } 
+                        ...params,
+                        ...value
+		              } 
                   })
               },
 

@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
 
-import {Form, Button, Input, Select, message } from 'hen';
+import {Form, Button, Input, Select, message, InputNumber } from 'hen';
 import {getSpecValue} from 'common/utils'
 const FormItem = Form.Item;
 
@@ -116,8 +116,8 @@ class OutgoManual extends Component {
             title: '出库数量',
             dataIndex: 'incoming',
             render(value, row){
-                return <Input type="text" placeholder="请输入出库数量" style={{width:150}} onChange={(e) => {
-			let {outgoList} = context.state, outgo = { skuId: row.skuId, spuId: row.spuId, stockId: row.stockId, shopId: row.shopId, price: row.price, incoming: e.target.value }, selectItems = []
+                return <InputNumber type="text" min={1} max={row.stock} placeholder="请输入出库数量" style={{width:150}} onChange={(e) => {
+			            let {outgoList} = context.state, outgo = { skuId: row.skuId, spuId: row.spuId, stockId: row.stockId, shopId: row.shopId, price: row.price, incoming: e }, selectItems = [];
                         selectItems = outgoList.filter((val) => {
                             return val.skuId !== row.skuId
                         })

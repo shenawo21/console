@@ -1,5 +1,5 @@
  export default (store) => ({
-  breadcrumbName: "Logistics",
+  breadcrumbName: "物流管理",
   path: 'logistics',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
@@ -11,13 +11,6 @@
       store.injectReducer({ key: 'logistics', reducer })
 
       next(null, logistics)
-    })
-  },
-  getChildRoutes(location, next) {
-    require.ensure([], (require) => {
-      next(null, [
-        require('./routes/Edit').default(store)
-      ])
     })
   }
 })
