@@ -130,7 +130,7 @@ class History extends Component {
     }, {
       key: '4',
       title: '客服备注',
-      dataIndex: 'sellerMemo'
+      dataIndex: 'remark'
     }, {
       key: '5',
       title: '发货时间',

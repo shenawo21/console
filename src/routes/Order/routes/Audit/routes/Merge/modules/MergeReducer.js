@@ -68,7 +68,6 @@ export default function reducer(state = {result:{}}, action) {
       }
     case MERGE_SUCCESS:
       return {
-        ...state,
         mResult: action.result,
         isJump: true
       }
@@ -90,3 +89,5 @@ export default function reducer(state = {result:{}}, action) {
       return state
   }
 }
+
+

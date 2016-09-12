@@ -103,7 +103,7 @@ class Manual extends Component {
           name: '开始同步'
         },
         {
-          key: 'clear',
+          key: 'reset',
           name: '重置'
         }
       ]

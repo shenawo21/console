@@ -18,8 +18,6 @@ class Merge extends Component {
         label: "客服备注：",
         name: "remark",
         wrapperCol: {span: 10},
-        hasFeedback: true,
-        rules: [{required: true, message: '请输入备注信息'}],
         input: {
           type: "textarea",
           rows: 5,

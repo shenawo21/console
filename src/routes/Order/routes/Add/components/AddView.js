@@ -1,45 +1,23 @@
 import React, {Component, PropTypes} from 'react';
-
 import Form from 'components/Form';
-const PAYMENTTYPE = [
-  {value: 1, title: "京东"},
-  {value: 2, title: "财付通"},
-  {value: 3, title: "快钱支付"},
-  {value: 4, title: "微信支付"}
-];
-const address = [{
-  value: 'zhejiang',
-  label: '浙江',
-  children: [{
-    value: 'hangzhou',
-    label: '杭州',
-    children: [{
-      value: 'xihu',
-      label: '西湖',
-    }],
-  }],
-}, {
-  value: 'jiangsu',
-  label: '江苏',
-  children: [{
-    value: 'nanjing',
-    label: '南京',
-    children: [{
-      value: 'zhonghuamen',
-      label: '中华门',
-    }],
-  }],
-}];
+import {Button, Icon, Modal} from 'hen';
 class Add extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    }
+  }
 
   _getFormItems() {
     let config = {}, context = this;
+    const {shopList, cList, addrResult}=context.props;
     config.panels = [
       {
         title: '订单基本信息：',
         className: '',
         formItems: [{
-          label: "订单标题信息：",
+          label: "订单标题：",
           name: "title",
           span: '24',
           labelCol: {span: 2},
@@ -52,17 +30,16 @@ class Add extends Component {
         }, {
           label: "所属店铺：",
           name: "shopId",
-          rules: [{required: false, type: 'string', message: '所属店铺不能为空'}],
+          rules: [{required: true, type: 'number', message: '所属店铺不能为空'}],
           select: {
-            optionValue: PAYMENTTYPE
+            optionValue: shopList
           }
         }, {
-          label: "买家昵称：",
-          name: "buyerNick",
-          required: true,
-          rules: [{required: true, message: ''}],
-          input: {
-            placeholder: "请输入买家昵称",
+          label: "订单列表：",
+          name: "dtos",
+          rules: [{required: true, type: 'number', message: '所属店铺不能为空'}],
+          custom(getCustomFieldProps) {
+            return <Button type="ghost" onClick={context.showModal.bind(context)}><Icon type="search"/>选择订单商品</Button>
           }
         }]
       },
@@ -70,22 +47,29 @@ class Add extends Component {
         title: '订单信息处理',
         className: '',
         formItems: [{
-          label: "发票要求：",
-          name: "invoiceKind",
+          label: "用户昵称：",
+          name: "buyerNick",
           required: true,
+          rules: [{required: true, message: ''}],
+          input: {
+            placeholder: "请输入买家昵称",
+          }
+        }, {
+          label: "发票类型：",
+          name: "invoiceType",
           radio: {
             radioValue: [
-              {value: "0", title: '不要发票'},
-              {value: "1", title: '要发票'}
+              {value: "1", title: '电子发票'},
+              {value: "2", title: '纸质发票'}
             ],
           }
         }, {
           label: "省市区：",
           required: true,
-          name: 'receiverState',
-          rules: [{required: true, type: 'array', message: '请选择地址'}],
+          name: 'receiverAddr',
+          rules: [{required: true, type: 'array', message: '请选择省市区'}],
           cascader: {
-            options: address,
+            options: addrResult,
             placeholder: "请选择地区",
             changeOnSelect: false
           }
@@ -128,18 +112,16 @@ class Add extends Component {
           span: '8',
           labelCol: {span: 6},
           wrapperCol: {span: 13},
-          required: true,
-          rules: [{required: true, message: ''}],
           input: {
             placeholder: "请输入固定电话",
           }
         }, {
           label: "快递公司：",
-          name: "companyName",
+          name: "companyCode",
           required: true,
           rules: [{required: true, type: 'string', message: '快递公司不能为空'}],
           select: {
-            optionValue: PAYMENTTYPE
+            optionValue: cList
           }
         }, {
           label: "邮政编码：",
@@ -151,10 +133,11 @@ class Add extends Component {
           }
         }, {
           label: "备注信息：",
-          name: "buyerMemo",
-          required: true,
-          rules: [{required: true, message: ''}],
+          name: "remark",
+          wrapperCol: {span: 10},
           input: {
+            type: "textarea",
+            rows: 5,
             placeholder: "请输入备注信息",
           }
         }]
@@ -163,17 +146,38 @@ class Add extends Component {
     config.initValue = {
       title: null,
       shopId: null,
-      invoiceKind: null,
+      buyerNick: null,
+      invoiceType: null,
+      receiverAddr: null,
       receiverAddress: null,
-      receiverState: null,
       receiverName: null,
       receiverMobile: null,
       receiverPhone: null,
       receiverZip: null,
-      companyName: null,
-      buyerMemo: null,
+      companyCode: null,
+      remark: null,
     };
     return config;
+  }
+
+  showModal() {
+    this.setState({
+      visible: true
+    });
+  }
+
+  handleOk() {
+    this.setState({
+      visible: false
+    });
+    console.log('确定！');
+  }
+
+  handleCancel() {
+    this.setState({
+      visible: false
+    });
+    console.log('取消！');
   }
 
   render() {
@@ -195,6 +199,11 @@ class Add extends Component {
       <div>
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
               onReset={formOptions.handleReset} buttonOption={buttonOption}/>
+        <Modal visible={this.state.visible}
+               width={1024}
+               onOk={this.handleOk.bind(this)} onCancel={this.handleCancel.bind(this)}>
+          我是订单商品
+        </Modal>
       </div>
     )
   }

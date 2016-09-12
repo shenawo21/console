@@ -12,7 +12,7 @@ class Manual extends Component {
       params: {},
       //同步结果
       isVisible: false,
-      item:{}
+      item: {}
     }
   }
 
@@ -22,6 +22,7 @@ class Manual extends Component {
      */
     this.props.appList()
   }
+
   componentWillReceiveProps(nextProps, preProps) {
     this.setState({
       item: nextProps.result
@@ -30,23 +31,26 @@ class Manual extends Component {
       this.setState({
         isVisible: true
       });
-      setTimeout(()=>{
+      setTimeout(()=> {
         this.setState({
           isVisible: false
         });
-      },10000)
+      }, 10000)
     }
   }
+
   getFormOptions() {
     const context = this;
     const {modifyItem}=context.props;
     return {
-      handleSubmit(value) {
+      handleSubmit(value, key) {
         console.log(value)
         context.setState({
           params: value
         });
-        modifyItem({...value})
+        key == 'save' ? modifyItem({...value}) : context.setState({
+          params: ''
+        });
       },
       handleReset() {
       }
@@ -54,8 +58,8 @@ class Manual extends Component {
   }
 
   render() {
-    const {params,isVisible,item} = this.state;
-    const {loading, result,appResult} = this.props;
+    const {params, isVisible, item} = this.state;
+    const {loading, result, appResult} = this.props;
     const formOptions = {
       loading,
       result,
@@ -95,8 +99,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading,appResult,isJump} = state.manual;
-  return {'result': result, loading,appResult,isJump};
+  const {result, loading, appResult, isJump} = state.manual;
+  return {'result': result, loading, appResult, isJump};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Manual)

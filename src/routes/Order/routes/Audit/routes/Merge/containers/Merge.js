@@ -53,7 +53,7 @@ class Merge extends Component {
        *
        * @param value (description)
        */
-      handleSubmit(value) {
+      handleSubmit(value,key) {
         context.setState({
           params: value
         })

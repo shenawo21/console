@@ -36,21 +36,21 @@ class Home extends Component {
       <div>
         <header>
           <Row>
-            <Col span="4"><Image src={item.logo} width="245" height="130" /></Col>
-            <Col span="20">
+            <Col span="6"><Image src={item.logo} width="245" height="130" /></Col>
+            <Col span="18">
               <dl>
                 <dt>企业名称：{item.enterpriseName}</dt>
                 <dd>
                   <Row>
-                    <Col span="5">套餐：{item.packageName}</Col>
-                    <Col span="5">有效期：{item.validityDate}</Col>
+                    <Col span="6">套餐：{item.packageName}</Col>
+                    <Col span="6">有效期：{item.validityDate}</Col>
                   </Row>
                 </dd>
                 <dd>
                   <Row>
-                    <Col span="5">登陆账号: {item.name}</Col>
-                    <Col span="5">账号角色：{item.roleName}</Col>
-                    <Col span="5">最后登录时间: {item.lastLoginDate}</Col>
+                    <Col span="6">登陆账号: {item.name}</Col>
+                    <Col span="6">账号角色：{item.roleName}</Col>
+                    <Col span="6">最后登录时间: {item.lastLoginDate}</Col>
                   </Row>
                 </dd>
               </dl>

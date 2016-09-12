@@ -91,9 +91,9 @@ function CoreLayout(props) {
             {result ? result : props.children}
           </Page>
         </div>
-        <div className={classes['footer']}>
+        {/*<div className={classes['footer']}>
           Made with <i className="red-600 wb wb-heart" /> by <a href="#hen">Hen</a>
-        </div>
+        </div>*/}
       </div>
     </div>
 
