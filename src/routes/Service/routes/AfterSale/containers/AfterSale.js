@@ -74,7 +74,6 @@ class OddQuery extends Component {
         const {getSearch} = this.props
         const context = this;
         getSearch(values).then(function(res) {
-            console.log(res,'res=====')
             if (res && res.data) {
                 setTimeout(() => {
                     let pathname = '/service/aftersale/orderChange/'+ values.tid;

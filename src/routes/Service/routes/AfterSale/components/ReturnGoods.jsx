@@ -193,11 +193,11 @@ class ReturnGoods extends Component {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT') {
-                            return <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
+                            return <div>
                                 <Link to={`/service/aftersale/endGoods/${row.refundId}`}>通知财务退款</Link>                                    
                             </div>
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'SUCCESS') {
-                            return <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
+                            return <div>
                                 <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>                                   
                             </div>
                         } else {
@@ -205,10 +205,14 @@ class ReturnGoods extends Component {
                         }
 
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
+
                          if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT') {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
                         } else {
-                            return <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link>
+                            return <div>
+                                    <Link to={`/service/warehouse/`}>换货出库</Link><br />
+                                    <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link>
+                                </div>
                         }
                         
                     }
@@ -217,7 +221,6 @@ class ReturnGoods extends Component {
         
         return columns;
     }    
-      
 
     render() {
         const {formOptions,dataSource,...other,visible,handleOk} = this.props;

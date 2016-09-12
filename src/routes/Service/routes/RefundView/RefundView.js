@@ -18,23 +18,11 @@ export default (props) => {
                     <th>商品总价值</th>
                     <th>优惠金额</th>
                     {result.afterSaleType == 'CHANGE_GOODS' ?
-                    <th>
-                        <table style = {{width:'100%'}}>
-                            <tr>
-                                <th style = {{width:'50%',border:'none'}}>换货数量</th>
-                                <th style = {{width:'50%',border:'none'}}>换后商品编码</th>
-                            </tr>
-                        </table>
-                    </th>:
-                    <th>
-                        <table style = {{width:'100%'}}>
-                            <tr>
-                                <th style = {{width:'50%',border:'none'}}>退货数量</th>
-                                <th style = {{width:'50%',border:'none'}}>退货金额</th>
-                            </tr>
-                        </table>
-                    </th> 
-                    }
+                    <th>换货数量</th>:
+                    <th>退货数量</th> }
+                    {result.afterSaleType == 'CHANGE_GOODS' ?
+                    <th>换后商品编码</th>:
+                    <th>退货金额</th>}
                 </tr>
                 <tbody>
                     <tr>
@@ -45,23 +33,11 @@ export default (props) => {
                         <td>{result.totalFee}</td>
                         <td>{result.discountFee}</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ?
-                        <td>
-                            <table style = {{width:'100%'}}>
-                                <tr>
-                                    <td style = {{width:'50%',border:'none'}}>{result.tGoodsNum}</td>
-                                    <td style = {{width:'50%',border:'none'}}>{result.refundFee}</td>
-                                </tr>
-                            </table>
-                        </td>:
-                        <td>
-                            <table style = {{width:'100%'}}>
-                                <tr>
-                                    <td style = {{width:'50%',border:'none'}}>{result.goodsNum}</td>
-                                    <td style = {{width:'50%',border:'none'}}>{result.changeSkuCode}</td>
-                                </tr>
-                            </table>
-                        </td> 
-                        }
+                        <td>{result.tGoodsNum}</td>:
+                        <td>{result.goodsNum}</td> }
+                        {result.afterSaleType == 'CHANGE_GOODS' ?
+                        <td>{result.refundFee}</td>:
+                        <td>{result.changeSkuCode}</td>}
                     </tr>                       
                 </tbody>
             </table>

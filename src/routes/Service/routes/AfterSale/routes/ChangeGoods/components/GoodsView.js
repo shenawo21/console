@@ -7,8 +7,13 @@ import SearchSpu from "./SearchSpu"
 import {UploadImage} from 'components/FileLoader'
 
 const RESON = [
-            {value:'已发货，买家未举证',title:'已发货，买家未举证'},
-            {value:'买家恶意申请退款',title:'买家恶意申请退款'}
+            {value:'R01-商品质量问题',title:'R01-商品质量问题'},
+            {value:'R02-快递公司丢失',title:'R02-快递公司丢失'},
+            {value:'R03-运输中商品损坏',title:'R03-运输中商品损坏'},
+            {value:'R04-发货错误',title:'R04-发货错误'},
+            {value:'R05-签收后坏货',title:'R05-签收后坏货'},
+            {value:'R06-服务提供商问题',title:'R06-服务提供商问题'}
+
         ]     
 class InfoView extends Component {
     constructor(props){
