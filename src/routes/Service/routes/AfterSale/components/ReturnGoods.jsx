@@ -197,7 +197,7 @@ class ReturnGoods extends Component {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
                         } else {
                             return <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
-                                <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>结束退货</Link>                                    
+                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>                                    
                             </div>
                         }
                         

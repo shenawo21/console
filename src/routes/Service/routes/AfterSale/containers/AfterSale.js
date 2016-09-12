@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import ReturnGoods from '../components/ReturnGoods'
 import ReturnMoney from '../components/ReturnMoney'
 import Panel from 'components/Panel'
-import { getRefund, getChangeGoods,getShopList,searchlist } from '../modules/AfterSaleReducer'
+import {message} from 'hen';
+import { getRefund, getChangeGoods,getShopList,getSearch } from '../modules/AfterSaleReducer'
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
@@ -42,8 +43,6 @@ class OddQuery extends Component {
        */
       getFormOptions() {
           const context = this;
-          const {searchlist} = this.props
-          console.log(searchlist,'this')
           return {
               /**
                * (筛选表单提交)
@@ -74,12 +73,22 @@ class OddQuery extends Component {
           }
       }
     handleOk (values,fresh) {
-        const {searchlist} = this.props
-        console.log(values,'999')
-        console.log(searchlist,'111')
-        // searchlist(values).then(function(res) {
-        //     console.log(res,'======')
-        // })
+        const {getSearch} = this.props
+        const context = this;
+        getSearch(values).then(function(res) {
+            if (res && res.data.items) {
+                message.success('有查询结果')
+                // setTimeout(() => {
+                //     let pathname = '/service/aftersale';
+                //     _this.context.router.replace(pathname);
+                // }, 1000);
+            } else {
+                message.error('无查询结果',2),
+                context.setState({
+                    visible: false,
+                });
+            }
+        })
     }  
     callback(key) {
         const {getRefund, getChangeGoods, getShopList } = this.props;
@@ -154,7 +163,7 @@ const mapActionCreators = {
     getRefund, 
     getChangeGoods, 
     getShopList,
-    searchlist
+    getSearch
 }
 
 
