@@ -35,7 +35,7 @@ export function add(params) {
  * @param params (description)
  * @returns (description)
  */
-export function delete(params) {
+export function deleteItem(params) {
   return {
     types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
     promise: (client) => client.post('api-enterpriseIndustry.isDefault', params)

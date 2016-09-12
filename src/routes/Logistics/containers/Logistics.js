@@ -44,7 +44,7 @@ Logistics.propTypes = {
 
 const mapActionCreators = {
     add,
-    delete,
+    deleteItem,
     queryList,
     isDefault
 }
