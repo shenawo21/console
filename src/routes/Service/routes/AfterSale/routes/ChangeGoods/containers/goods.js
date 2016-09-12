@@ -15,18 +15,18 @@ class Goods extends Component {
     
     componentDidMount() {  
         const {shopList,chagenDetail,Logistic,params} = this.props;
+        console.log(params,'params')
         //获取详情信息
         chagenDetail(params);
 
         // 物流列表
         Logistic()
     }
-    // 退款详情处理
+    // 换货处理
     handleSubmit(value, key, form) {
-        console.log(key,'key1111')
-        console.log(form,'key1111')
         const _this = this;
-        const {changeVerify} = _this.props;
+        const {changeVerify,params} = _this.props;
+        console.log(params,'9999')
         let newValue = _this.refs.state.state
         let newTable = _this.refs.state.props.arrResult
         if(key === 'review'){
@@ -40,8 +40,10 @@ class Goods extends Component {
             let changeSkuCode = {changeSkuCode:newValue.selectItem.spuId}
             let changeSkuName = {changeSkuName:newValue.selectItem.title}
             
-            Object.assign(value,goodsNum,changeSkuCode,changeSkuName,newTable[0])
+            Object.assign(value,params,goodsNum,changeSkuCode,changeSkuName,newTable[0])
             delete value._index
+            delete value.discountFee
+            delete value.outerId
             changeVerify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
@@ -86,6 +88,7 @@ class Goods extends Component {
             ...this.getFormOptions()
         }
         const { items, shopList, totalItems,logistic, result,loading,location} = this.props;
+        console.log(result,'------@@@@')
         const {query} = location;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -99,7 +102,6 @@ class Goods extends Component {
         let arrResult = [{
                 tid:result.tid,
                 oid:result.oid,
-                buyerNick:result.buyerNick,
                 outerId:result.outerId,
                 title:result.title,
                 price:result.price,

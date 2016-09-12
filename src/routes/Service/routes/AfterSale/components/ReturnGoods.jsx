@@ -7,9 +7,6 @@ import Form from 'components/Form';
 
 class ReturnGoods extends Component {
     _getFormIModal(){
-
-        let context = this;
-        const {shopListItem,addresslist,addressItem} = context.props;
         let config = {
             formItems: [{
                 label: "请输入订单号进行查询：",
@@ -191,23 +188,27 @@ class ReturnGoods extends Component {
             key: '12',
             title: '操作',
             render(id,row) {
-                console.log(row,'row')                
+                console.log(row,'row')              
                 if (row.afterSaleType == 'REFUND_GOODS') {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
-                        } else {
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT') {
                             return <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
-                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>                                    
+                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>通知财务退款</Link>                                    
                             </div>
-                        }
-                        
-                    } else if (row.afterSaleType == 'CHANGE_GOODS') {
-                        if (row.processStatus == 'INIT') {
-                            return <div><Link to={`/service/aftersale/change/${row.refundId}`}>换货登记</Link></div>
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'SUCCESS') {
+                            return <div><span><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><br /></span>
+                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>                                   
+                            </div>
                         } else {
-                            return <div><span><Link to={`/service/aftersale/change/${row.refundId}`}>换货详情</Link><br /></span>
-                                <Link to={`/service/aftersale/change/${row.refundId}`}>结束换货</Link>                                    
-                            </div>
+                            return <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link>
+                        }
+
+                    } else if (row.afterSaleType == 'CHANGE_GOODS') {
+                         if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT') {
+                            return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
+                        } else {
+                            return <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link>
                         }
                         
                     }

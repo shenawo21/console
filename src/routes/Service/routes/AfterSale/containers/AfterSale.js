@@ -16,9 +16,7 @@ class OddQuery extends Component {
     constructor(props) {
         super(props);
         this.getFormOptions = this.getFormOptions.bind(this);
-        // this.search = this.search.bind(this);  
-        this.handleOk = this.handleOk.bind(this);
-        // this.handleCancel = this.handleCancel.bind(this);         
+        this.handleOk = this.handleOk.bind(this);        
         this.state = {
             curKey: 0,
             visible: false,
@@ -76,17 +74,15 @@ class OddQuery extends Component {
         const {getSearch} = this.props
         const context = this;
         getSearch(values).then(function(res) {
-            if (res && res.data.items) {
-                message.success('有查询结果')
-                // setTimeout(() => {
-                //     let pathname = '/service/aftersale';
-                //     _this.context.router.replace(pathname);
-                // }, 1000);
+            console.log(res,'res=====')
+            if (res && res.data) {
+                setTimeout(() => {
+                    let pathname = '/service/aftersale/orderChange/'+ values.tid;
+                    context.context.router.replace(pathname);
+                }, 100);
             } else {
-                message.error('无查询结果',2),
-                context.setState({
-                    visible: false,
-                });
+                message.error('无查询结果')
+               
             }
         })
     }  
@@ -99,8 +95,7 @@ class OddQuery extends Component {
         }
         this.setState({
             curKey : key - 1
-        })
-        
+        })   
     }
 
     render() {
@@ -147,7 +142,9 @@ class OddQuery extends Component {
                 </Panel>
     }
 }
-
+OddQuery.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 OddQuery.propTypes = {   
     // oddQueryList: React.PropTypes.func,

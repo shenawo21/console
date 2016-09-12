@@ -140,13 +140,13 @@ class ReturnMoney extends Component {
             key: '9',
             title: '操作',
             render(id,row) {
-                return <div>
-                            {
-                                row.processStatus == 'PROCESS'? <Link to={`/service/aftersale/info/${row.refundId}`}>已通过审核查看详情</Link> : 
-                                row.processStatus == 'DENY'? <Link to={`/service/aftersale/info/${row.refundId}`}>拒绝审核查看详情</Link> : <Link to={`/service/aftersale/info/${row.refundId}`}>订单退款处理</Link>  
-                            }
-                            
-                        </div>
+                   if (row.processStatus == 'INIT') {
+                            return <div><Link to={`/service/aftersale/info/${row.refundId}`}>订单退款</Link></div>
+                        } else if(row.processStatus == 'PROCESS') {
+                            return <div><Link to={`/service/aftersale/info/${row.refundId}`}>审核通过通知财务退款</Link></div>
+                        } else {
+                            return <Link to={`/service/aftersale/info/${row.refundId}`}>查看详情</Link>
+                        }
             }
         }];
         

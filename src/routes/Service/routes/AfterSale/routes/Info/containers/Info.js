@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import GoodsInfo from '../components/GoodsInfo'
 import Panel from 'components/Panel'
-import {refundDetail,verify,addressList} from '../modules/InfoReducer'
+import {refundDetail,verify,addressList,getMoney} from '../modules/InfoReducer'
 import { message } from 'hen';
 
 class Info extends Component {
@@ -11,7 +11,8 @@ class Info extends Component {
     constructor(props) {
         super(props);        
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleGoodSubmit = this.handleGoodSubmit.bind(this);      
+        this.handleGoodSubmit = this.handleGoodSubmit.bind(this);
+        this.returnMoney = this.returnMoney.bind(this);
         this.photoImg = this.photoImg.bind(this);
         this.state = {
             isRequired:false,
@@ -102,7 +103,19 @@ class Info extends Component {
             }
         }
     }
-    
+    // 通知财务退款
+    returnMoney () {
+        const _this = this;
+        const {getMoney,params} = _this.props;
+        getMoney(params).then(function(response) {
+                    if (response && response.status == 1) {
+                        setTimeout(() => {
+                            let pathname = '/service/aftersale';
+                            _this.context.router.replace(pathname);
+                        }, 1000);
+                    }
+                })
+    }
     render() {
         // const {item, photoList} = this.state;
         const {isRequired,isDel} = this.state        
@@ -125,7 +138,7 @@ class Info extends Component {
         }
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
-                       <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} /></Panel> :
+                       <Panel title="商品退款审批"><InfoView returnMoney = {this.returnMoney} result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} /></Panel> :
                        <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} items = {items} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form' /></Panel> }  
               </div>                    
                 
@@ -144,7 +157,8 @@ Info.propTypes = {
 const mapActionCreators = {
     refundDetail,
     verify,
-    addressList
+    addressList,
+    getMoney
 }
 
 InfoView.contextTypes = {
