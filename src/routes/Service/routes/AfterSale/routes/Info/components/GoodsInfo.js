@@ -206,7 +206,7 @@ class GoodsInfo extends Component {
                 <RefundView title = '客户退货申请详情' result = {result} ArryStatus = {ArryStatus} src = {src} />
 
                 <h3 className = 'titleName'>退货申请处理</h3>
-                { result.processStatus ? 
+                { (result.processStatus == 'PROCESS' || result.processStatus == 'DENY') ? 
                 <ul className = 'form-talbe'>
                     {result.valueBearType ? <li><b>商品价值承担:</b><span>{result.valueBearType}</span></li> : '' }
                     {result.postBearType ? <li><b>邮费承担:</b><span>{result.postBearType}</span></li> : '' }

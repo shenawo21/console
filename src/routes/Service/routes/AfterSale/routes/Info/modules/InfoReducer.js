@@ -14,6 +14,10 @@ const REQ_ADDRESS = 'REQ_ADDRESS';
 const SUC_ADDRESS = 'SUC_ADDRESS';
 const ERR_ADDRESS = 'ERR_ADDRESS';
 
+// 通知财务退款
+const REQ_MONEY = 'REQ_MONEY';
+const SUC_MONEY = 'SUC_MONEY';
+const ERR_MONEY = 'ERR_MONEY';
 
 export function refundDetail(params) {
     return {
@@ -34,7 +38,12 @@ export function addressList() {
         promise: (client) => client.post('api-refundAddress.refundAddressList')
     }
 }
-
+export function getMoney(params) {
+    return {
+        types: [REQ_MONEY, SUC_ADDRESS, ERR_ADDRESS],
+        promise: (client) => client.post('api-offSale.doRefundNotice',params)
+    }
+}
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
@@ -77,6 +86,19 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+
+    case REQ_MONEY:
+        return {
+            ...state
+        }
+    case SUC_MONEY:
+        return {
+            ...state,
+        }
+    case ERR_MONEY:
+        return {
+            ...state
+        }    
     default:
       return state
   }

@@ -188,7 +188,7 @@ class History extends Component {
                             {
                                 row.afterSaleType == 'REFUND_MONEY' ? <Link to={`/service/aftersale/info/${row.refundId}`}>退款详情</Link> :
                                 row.afterSaleType == 'REFUND_GOODS' ? <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link> :
-                                <Link to={`/service/history/info/${row.refundId}`}>换货详情</Link> 
+                                <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link> 
                             }
                         </div>
             }
