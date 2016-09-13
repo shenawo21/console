@@ -142,8 +142,6 @@ class ReturnMoney extends Component {
             render(id,row) {
                    if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/info/${row.refundId}`}>订单退款</Link></div>
-                        } else if(row.processStatus == 'PROCESS') {
-                            return <div><Link to={`/service/aftersale/info/${row.refundId}`}>审核通过通知财务退款</Link></div>
                         } else {
                             return <Link to={`/service/aftersale/info/${row.refundId}`}>查看详情</Link>
                         }

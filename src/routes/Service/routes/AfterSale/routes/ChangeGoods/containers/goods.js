@@ -15,7 +15,6 @@ class Goods extends Component {
     
     componentDidMount() {  
         const {shopList,chagenDetail,Logistic,params} = this.props;
-        console.log(params,'params')
         //获取详情信息
         chagenDetail(params);
 
@@ -26,7 +25,6 @@ class Goods extends Component {
     handleSubmit(value, key, form) {
         const _this = this;
         const {changeVerify,params} = _this.props;
-        console.log(params,'9999')
         let newValue = _this.refs.state.state
         let newTable = _this.refs.state.props.arrResult
         if(key === 'review'){
@@ -88,7 +86,6 @@ class Goods extends Component {
             ...this.getFormOptions()
         }
         const { items, shopList, totalItems,logistic, result,loading,location} = this.props;
-        console.log(result,'------@@@@')
         const {query} = location;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -154,7 +151,6 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state,'state')
     const {result,list,logistic = [], loading} = state.changegoods;  
     const {items = [], totalItems = 0} = list || {}; 
     return {items,totalItems, result,logistic,loading };    

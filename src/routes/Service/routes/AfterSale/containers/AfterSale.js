@@ -164,7 +164,6 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-    console.log(state,'state')
     const {result, changegoodsList, shoplist, loading} = state.aftersale;
     const {items = [], totalItems = 0} = result || {};
     return {items, changegoodsList, shoplist, totalItems, loading };
