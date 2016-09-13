@@ -17,11 +17,13 @@ class SearchSpu extends Component {
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "spu：",
+                label: "SPU：",
                 name: "spuId",
                 span: '8',
-                input: {                    
-                    placeholder: "请输入spu"
+                input: {
+                    type: 'number',                
+                    placeholder: "请输入SPU",
+                    type: 'number'
                 }
             }, {
                 label: "创建日期：",
@@ -81,7 +83,7 @@ class SearchSpu extends Component {
             }
         },{
             key: '1',
-            title: 'spu',
+            title: 'SPU',
             dataIndex: 'spuId'
         }, {
             key: '2',

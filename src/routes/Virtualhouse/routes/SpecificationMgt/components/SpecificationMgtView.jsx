@@ -151,14 +151,13 @@ class specificationMgt extends Component {
         const note = <ol>
             <li>1、选择企业经营的商品类目，以读取平台绑定的商品类目及类目下的规格类型，如类目：“服装”；规格类型：“颜色”、“尺码”等。</li>
             <li>2、添加所属规格类型下的规格值，已有规格值可以删除；新增的规格值必须填写，否则该行数据不会被更新或者保存。</li>
-            <li>3、可通过排序0-255改变规格值显示顺序。</li>
         </ol>
         return (
             <div>
                 <Alert message="操作提示：" description={note} type="info" closeText="不再提醒" />
                 <Form horizontal >
                     <FormItem
-                        label="操作提示："
+                        label="选择分类："
                         labelCol={{ span: 2 }}
                         wrapperCol={{ span: 16 }}
                         >
