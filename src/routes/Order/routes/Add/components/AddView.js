@@ -196,15 +196,17 @@ class Add extends Component {
       ]
     }
     const context = this;
-    const {shopList, cateList, addrResult}=context.props;
+    const {shopList, cateList, proResult,chooseTableOptions,chooseFormOption}=context.props;
     return (
       <div>
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
               onReset={formOptions.handleReset} buttonOption={buttonOption}/>
         <Modal visible={this.state.visible}
-               width={1024}
+               width={1366}
                onOk={this.handleOk.bind(this)} onCancel={this.handleCancel.bind(this)}>
-                <ChooseView shopList={shopList} cateList={cateList} />
+                <ChooseView shopList={shopList} cateList={cateList} proResult={proResult}
+                            chooseTableOptions={chooseTableOptions} chooseFormOption={chooseFormOption}
+                />
         </Modal>
       </div>
     )

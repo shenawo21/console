@@ -9,7 +9,7 @@ class Add extends Component {
     super(props);
     this.getFormOptions = this.getFormOptions.bind(this);
     this.state = {
-      params: {}   //表格需要的筛选参数
+      params: {}
     }
   }
 
@@ -75,10 +75,44 @@ class Add extends Component {
       }
     }
   }
-  
+
+  chooseFormOption(){
+    const context = this;
+    return {
+      handleSubmit(value) {
+        console.log(value)
+        context.setState({
+          params: value
+        })
+      },
+      handleReset() {
+      }
+    }
+  }
+  chooseRowSelection() {
+    return {
+      onSelect(record, selected, selectedRows) {
+        console.log(record, selected, selectedRows);
+      },
+      onSelectAll(selected, selectedRows, changeRows) {
+        console.log(selected, selectedRows, changeRows);
+      },
+    }
+  }
+
   render() {
     const {params} = this.state;
-    const {loading, result,appResult,cResult, addrResult,cateResult,proResult} = this.props;
+    const {loading,items, result,appResult,cResult,totalItems, addrResult,cateResult,proResult} = this.props;
+    const chooseTableOptions = {
+      dataSource: items,                         //加载组件时，表格从容器里获取初始值
+      action: proResult,                         //表格翻页时触发的action
+      pagination: {                              //表格页码配置，如果为false，则不展示页码
+        total: totalItems                        //数据总数
+      },
+      loading,                                   //表格加载数据状态
+      params,                                    //表格检索数据参数
+      rowSelection: this.chooseRowSelection()    //需要checkbox时填写
+    }
     /**
      * 店铺列表
      * @type {Array}
@@ -144,7 +178,8 @@ class Add extends Component {
       'formOptions': this.getFormOptions()
     }
 
-    return <Panel title=""><AddView  {...formOptions} cList={cList} addrResult={addrResult} 
+    return <Panel title=""><AddView  {...formOptions} cList={cList} addrResult={addrResult} proResult={proResult}
+                                                      chooseTableOptions={chooseTableOptions} chooseFormOption={this.chooseFormOption.bind(this)}
                                                       shopList={shopList} cateList={loop(cateResult)} /></Panel>
   }
 }
@@ -166,8 +201,8 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
   const {result, loading, appResult,cResult, addrResult,cateResult,proResult} = state.add;
-  return {'result': result, loading, appResult,cResult, addrResult,cateResult,proResult};
+  const {items = [], totalItems = 0} = proResult || {};
+  return {'result': result,items,totalItems, loading, appResult,cResult, addrResult,cateResult,proResult};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Add)
-
