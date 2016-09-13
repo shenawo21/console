@@ -77,13 +77,12 @@ class Choose extends Component {
   }
 
   render() {
-    const {shopList,cateList,formOptions, tableOptions} = this.props;
-    console.log(1111,cateList);
+    const {shopList,cateList,chooseTableOptions,chooseFormOption,proResult} = this.props;
+    console.log(11111,chooseFormOption,chooseFormOption.handleSubmit);
     return (
       <div>
-        选择商品
-        {/*<Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
-        <DataTable bordered={true} columns={this._getColumns()}  {...tableOptions} />*/}
+        <Search items={this._getFormItems()} onSubmit={chooseFormOption.handleSubmit} onReset={chooseFormOption.handleReset}/>
+        <DataTable bordered={true} columns={this._getColumns()} chooseTableOptions={chooseTableOptions} />
       </div>
     )
   }
