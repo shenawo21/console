@@ -73,7 +73,7 @@ class InfoView extends Component {
         const {result, handleSubmit} = this.props;
         const refundComment = result.refundComment || {}
         const Goodsstatus = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
-        const url = refundComment.picUrls
+        const url = refundComment.picUrls 
         const src = url && url.split(',')
         const ArryStatus = [
             {name:'货物状态:',status:Goodsstatus},
@@ -99,11 +99,12 @@ class InfoView extends Component {
                 }
             ]
         }
+        console.log(result,'result====')
         return (
             <div>
                 <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} />
                 <h3 className = 'titleName'>退款审批</h3>
-                { (result.processStatus == 'PROCESS' || result.processStatus == 'DENY') ? 
+                { (result.processStatus == 'PROCESS' && result.refundResult !== null ) ? 
                 <ul className = 'form-talbe'>
                     {result.cwRefuseReason ? <li><b>拒绝退款原因:</b><span>{result.cwRefuseReason}</span></li> : '' }
                     {result.optRemark ? <li><b>退款审批说明:</b><span>{result.optRemark}</span></li> : '' }

@@ -15,6 +15,13 @@ const REQ_SEARCH = 'REQ_SEARCH';
 const SUC_SEARCH = 'SUC_SEARCH';
 const ERR_SEARCH = 'ERR_SEARCH';
 
+// 结束/拒绝退款
+const REQ_ENDREFUND = 'REQ_ENDREFUND';
+const SUC_ENDREFUND = 'SUC_ENDREFUND';
+const ERR_ENDREFUND = 'ERR_ENDREFUND';
+
+
+
 export function getRefund(params) {
   return {
     types: [REQ_REFUND, SUC_REFUND, ERR_REFUND],
@@ -37,6 +44,12 @@ export function getSearch(params) {
     return {
         types: [REQ_SEARCH, SUC_SEARCH, ERR_SEARCH],
         promise: (client) => client.post('api-offSale.getChangeGoodsOrder',params)
+    }
+}
+export function getEndRefund(params) {
+    return {
+        types: [REQ_ENDREFUND, SUC_ENDREFUND, ERR_ENDREFUND],
+        promise: (client) => client.post('api-offSale.doEndRefund',params)
     }
 }
 export default function reducer(state = {result:{}}, action) {
@@ -95,7 +108,20 @@ export default function reducer(state = {result:{}}, action) {
     case ERR_SEARCH:
         return {
             ...state
+        }
+
+     case REQ_ENDREFUND:
+        return {
+            ...state
         }    
+    case SUC_ENDREFUND:
+        return {
+            ...state
+        }
+    case ERR_ENDREFUND:
+        return {
+            ...state
+        }       
     default:
       return state
   }

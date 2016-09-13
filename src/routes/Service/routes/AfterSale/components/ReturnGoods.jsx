@@ -165,7 +165,11 @@ class ReturnGoods extends Component {
                     case 'INIT':
                         return '待处理'
                     case 'PROCESS':
-                        return '处理中'    
+                        return '处理中'
+                   case 'SUCCESS':
+                        return '处理成功'
+                    case 'FAIL':
+                        return '处理失败'          
                 }
             }
         },{
@@ -196,7 +200,7 @@ class ReturnGoods extends Component {
                             return <div>
                                 <Link to={`/service/aftersale/endGoods/${row.refundId}`}>通知财务退款</Link>                                    
                             </div>
-                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'SUCCESS') {
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus !== null && row.refundResult !== null) {
                             return <div>
                                 <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>                                   
                             </div>
@@ -205,12 +209,12 @@ class ReturnGoods extends Component {
                         }
 
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
-                                
-                         if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT') {
+                         if(row.isNoticeStock == '0'){
+                             <Link to={`/service/warehouse/`}>换货出库</Link>
+                         } else if(row.processStatus == 'PROCESS' && row.feedbackStatus !== null) {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
-                        } else {
+                         } else {
                             return <div>
-                                    <Link to={`/service/warehouse/`}>换货出库</Link><br />
                                     <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link>
                                 </div>
                         }
