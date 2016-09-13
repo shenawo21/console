@@ -4,7 +4,7 @@ import ReturnGoods from '../components/ReturnGoods'
 import ReturnMoney from '../components/ReturnMoney'
 import Panel from 'components/Panel'
 import {message} from 'hen';
-import { getRefund, getChangeGoods,getShopList,getSearch } from '../modules/AfterSaleReducer'
+import { getRefund, getChangeGoods,getShopList,getSearch,getEndRefund } from '../modules/AfterSaleReducer'
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
@@ -16,7 +16,8 @@ class OddQuery extends Component {
     constructor(props) {
         super(props);
         this.getFormOptions = this.getFormOptions.bind(this);
-        this.handleOk = this.handleOk.bind(this);        
+        this.handleOk = this.handleOk.bind(this);  
+        this.confirm = this.confirm.bind(this);      
         this.state = {
             curKey: 0,
             visible: false,
@@ -96,7 +97,11 @@ class OddQuery extends Component {
             curKey : key - 1
         })   
     }
-
+    // 结束/拒绝退款
+    confirm(id){
+        const {getEndRefund} = this.props
+        getEndRefund({refundId:id})
+    }
     render() {
         const {params,visible} = this.state;
         const {items, getRefund, shoplist, totalItems, loading} = this.props;
@@ -135,7 +140,7 @@ class OddQuery extends Component {
         }
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                        <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} /></TabPane>
+                        <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} confirm={this.confirm}  /></TabPane>
                         <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} visible = {visible} handleOk = {this.handleOk}  /></TabPane>
                     </Tabs>
                 </Panel>
@@ -159,7 +164,8 @@ const mapActionCreators = {
     getRefund, 
     getChangeGoods, 
     getShopList,
-    getSearch
+    getSearch,
+    getEndRefund
 }
 
 

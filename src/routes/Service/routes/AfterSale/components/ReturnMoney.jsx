@@ -5,6 +5,10 @@ import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
 
 class ReturnMoney extends Component {
+    endReturn(id){
+      const {confirm} = this.props;
+      confirm(id);
+    }
 
     _getFormItems(){
     	let context = this;
@@ -138,10 +142,40 @@ class ReturnMoney extends Component {
             }
         }, {
             key: '9',
+            title: '订单状态',
+            dataIndex: 'processStatus',
+            render(type) {
+                switch(type) {
+                    case 'INIT':
+                        return '待处理'
+                    case 'PROCESS':
+                        return '处理中'
+                    case 'SUCCESS':
+                        return '处理成功'
+                    case 'FAIL':
+                        return '处理失败'    
+                }
+            }
+        }, {
+            key: '10',
             title: '操作',
             render(id,row) {
-                   if (row.processStatus == 'INIT') {
+                        if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/info/${row.refundId}`}>订单退款</Link></div>
+                        } else if(row.processStatus == 'PROCESS' && row.refundResult == 'ACCEPT') {
+                             return <div>
+                                        <Popconfirm title="确定要结束退款？" onConfirm={context.endReturn.bind(context,row.refundId)} >
+                                            <a href="javascript:;">结束退款</a>
+                                        </Popconfirm><em style = {{padding:'0 10px'}}></em>
+                                        <Link to={`/service/aftersale/info/${row.refundId}`}>查看详情</Link>
+                                    </div>
+                        } else if(row.processStatus == 'PROCESS' && row.refundResult == 'DENY') {
+                            return <div>
+                                         <Popconfirm title="确定要拒绝退款？" onConfirm={context.endReturn.bind(context,row.refundId)} >
+                                            <a href="javascript:;">拒绝退款</a>
+                                        </Popconfirm><em style = {{padding:'0 10px'}}></em>
+                                        <Link to={`/service/aftersale/info/${row.refundId}`}>查看详情</Link>
+                                   </div>     
                         } else {
                             return <Link to={`/service/aftersale/info/${row.refundId}`}>查看详情</Link>
                         }
