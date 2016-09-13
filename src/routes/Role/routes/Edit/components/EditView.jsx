@@ -51,7 +51,6 @@ class Edit extends Component {
           hasFeedback: true,
           rules: [{required: true, message: '请选择是否可用'}],
           select: {
-            tipValue: "请选择是否可用",
             optionValue: Object.keys(STATUS).map((key) => {
               return {'value': key, 'title': STATUS[key]}
             })
