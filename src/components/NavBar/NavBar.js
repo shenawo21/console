@@ -2,16 +2,21 @@ import React from 'react';
 import avatar from './avatar.png';
 import {Menu, Dropdown, Icon} from 'hen';
 import style from './navBar.less';
-
+import store from 'store2';
 export default (props) => { 
-
+  //account
+  const account = store.get('USER').account;
     const menu = (
       <Menu>
         <Menu.Item key="0">
-          <a href="#/accounts/updpwd?_k=n6ktwc" role="menuitem"><i className="icon wb-settings " aria-hidden="true"></i> 修改密码</a>
+          <i className="icon wb-user " aria-hidden="true"></i> {account}
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="1">
+          <a href="#/accounts/updpwd?_k=n6ktwc" role="menuitem"><i className="icon wb-settings " aria-hidden="true"></i> 修改密码</a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="2">
           <a href="javascript:void(0)" onClick={props.logout} role="menuitem"><i className="icon wb-power" aria-hidden="true"></i> 退出</a>
         </Menu.Item>
       </Menu>

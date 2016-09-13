@@ -80,8 +80,8 @@ class Login extends Component {
               <img className="brand-img" src={logo} alt="..."/>
               <h3 className="brand-text font-size-40">Hen</h3>
             </div>
-            <h3 className="font-size-24">登陆</h3>
-            <p>欢迎登陆翌商云平台</p>
+            <h3 className="font-size-24">登录</h3>
+            <p>欢迎登录翌商云平台</p>
 
 
             <div className="form-group">
