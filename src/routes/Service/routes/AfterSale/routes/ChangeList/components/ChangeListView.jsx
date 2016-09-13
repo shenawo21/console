@@ -84,7 +84,6 @@ class Change extends Component {
             key: '5',
             title: '操作',
             render(id,row) {
-                console.log(row,'row====')
                 return  <div><Link to={`/service/aftersale/change/${row.oid}/${row.buyerNick}`}>换货登记</Link></div>               
             }
         }];
@@ -102,7 +101,6 @@ class Change extends Component {
                 value.buyerNick = val.buyerNick;
             })
         })
-        console.log(tabelData,'tabelData');
         return (
             <div>
                 <Row>

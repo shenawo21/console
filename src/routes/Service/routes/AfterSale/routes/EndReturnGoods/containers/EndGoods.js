@@ -25,7 +25,6 @@ class InfoEnd extends Component {
         Object.assign(value,params)
         if(key === 'review'){
             end(value).then(function(response) {
-                console.log(value,'1')
                 if (response && response.status == 1) {
                     setTimeout(() => {
                         let pathname = '/service/aftersale';
@@ -42,7 +41,6 @@ class InfoEnd extends Component {
          Object.assign(value,params)
          if (key === 'notice') {
             getMoney(value).then(function(response) {
-                console.log(value,'2')
                 if (response && response.status == 1) {
                     setTimeout(() => {
                         let pathname = '/service/aftersale';

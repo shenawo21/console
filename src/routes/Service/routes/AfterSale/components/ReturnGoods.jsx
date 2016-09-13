@@ -205,7 +205,7 @@ class ReturnGoods extends Component {
                         }
 
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
-
+                                
                          if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT') {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
                         } else {

@@ -14,7 +14,6 @@ class Goods extends Component {
     
     componentDidMount() {  
         const {endDetail,params} = this.props;
-        console.log(params,'params')
         //获取详情信息
         endDetail(params);
 

@@ -70,7 +70,7 @@ class InfoView extends Component {
     }
     
     render() {
-        const {result, handleSubmit,returnMoney} = this.props;
+        const {result, handleSubmit} = this.props;
         const refundComment = result.refundComment || {}
         const Goodsstatus = result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
         const url = refundComment.picUrls
@@ -114,10 +114,7 @@ class InfoView extends Component {
                          })
                      }
                     </span></li> : '' }
-                    <li><b>&nbsp;</b>
-                        {result.processStatus == 'PROCESS' ? <div><Button type="primary" onClick = {returnMoney} style = {{marginRight:15}} >通知财务退款</Button><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></div> :
-                            <Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button>  }
-                    </li>
+                    <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
                 </ul> :                 
                 <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />}
             </div>
