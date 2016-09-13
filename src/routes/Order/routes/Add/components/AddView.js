@@ -1,11 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import Form from 'components/Form';
+import ChooseView from './ChooseView'
 import {Button, Icon, Modal} from 'hen';
 class Add extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
+      visible: false
     }
   }
 
@@ -159,7 +160,6 @@ class Add extends Component {
     };
     return config;
   }
-
   showModal() {
     this.setState({
       visible: true
@@ -195,6 +195,8 @@ class Add extends Component {
         }
       ]
     }
+    const context = this;
+    const {shopList, cateList, addrResult}=context.props;
     return (
       <div>
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
@@ -202,7 +204,7 @@ class Add extends Component {
         <Modal visible={this.state.visible}
                width={1024}
                onOk={this.handleOk.bind(this)} onCancel={this.handleCancel.bind(this)}>
-          我是订单商品
+                <ChooseView shopList={shopList} cateList={cateList} />
         </Modal>
       </div>
     )
@@ -215,4 +217,3 @@ Add.propTypes = {
 }
 
 export default Add;
-

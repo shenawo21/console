@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import AddView from '../components/AddView'
 import Panel from 'components/Panel'
-import {appList,companyList,addrList,addItem} from '../modules/AddReducer'
+import {appList,companyList,addrList,addItem,cateList,proList} from '../modules/AddReducer'
 
 class Add extends Component {
   constructor(props) {
@@ -14,19 +14,17 @@ class Add extends Component {
   }
 
   componentDidMount() {
-    const {appList,companyList,addrList}=this.props;
-    /**
-     * 店铺列表
-     */
+    const {appList,companyList,addrList,cateList,proList}=this.props;
+    //店铺列表
     appList();
-    /**
-     * 物流公司列表
-     */
+    //物流公司列表
     companyList();
-    /**
-     * 省市区列表
-     */
-    addrList()
+    //省市区列表
+    addrList();
+    //类目列表
+    cateList();
+    //仓库商品列表
+    proList()
   }
   /**
    * (表格功能配置项)
@@ -77,10 +75,10 @@ class Add extends Component {
       }
     }
   }
-
+  
   render() {
     const {params} = this.state;
-    const {loading, result,appResult,cResult, addrResult} = this.props;
+    const {loading, result,appResult,cResult, addrResult,cateResult,proResult} = this.props;
     /**
      * 店铺列表
      * @type {Array}
@@ -117,13 +115,37 @@ class Add extends Component {
         title: '正在加载中...'
       }]
     }
+    /**
+     * 类目列表
+     * @param lists
+     * @returns {*}
+     */
+    const loop = (lists) => {
+      return lists && lists.map(a => {
+          let children = a.level < 3 ? loop(a.children) : '';
+
+          if (children) {
+            return {
+              value: a.categoryCode + '',
+              label: a.name,
+              children
+            }
+          } else {
+            return {
+              value: a.categoryCode + '',
+              label: a.name
+            }
+          }
+        })
+    }
     const formOptions = {
       loading,
       result,
       'formOptions': this.getFormOptions()
     }
 
-    return <Panel title=""><AddView  {...formOptions} cList={cList} addrResult={addrResult} shopList={shopList} /></Panel>
+    return <Panel title=""><AddView  {...formOptions} cList={cList} addrResult={addrResult} 
+                                                      shopList={shopList} cateList={loop(cateResult)} /></Panel>
   }
 }
 
@@ -137,12 +159,14 @@ const mapActionCreators = {
   appList,
   companyList,
   addrList,
-  addItem
+  addItem,
+  cateList,
+  proList
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult,cResult, addrResult} = state.add;
-  return {'result': result, loading, appResult,cResult, addrResult};
+  const {result, loading, appResult,cResult, addrResult,cateResult,proResult} = state.add;
+  return {'result': result, loading, appResult,cResult, addrResult,cateResult,proResult};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Add)

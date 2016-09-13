@@ -14,8 +14,14 @@ const ADDR_FAILURE = 'add/ADDR_FAILURE';
 const ADD = 'add/ADD';
 const ADD_SUCCESS = 'add/ADD_SUCCESS';
 const ADD_FAILURE = 'add/ADD_FAILURE';
-
-
+//商品类目列表
+const CATEQUERY = 'add/CATEQUERY';
+const CATEQUERY_SUCCESS = 'add/CATEQUERY_SUCCESS';
+const CATEQUERY_FAILURE = 'add/CATEQUERY_FAILURE';
+//仓库商品列表
+const PRODUCT = 'add/PRODUCT';
+const PRODUCT_SUCCESS = 'add/PRODUCT_SUCCESS';
+const PRODUCT_FAILURE = 'add/PRODUCT_FAILURE';
 /**
  * 店铺列表
  *api-shop.listEnterpriseShop
@@ -68,7 +74,32 @@ export function addItem(params) {
     promise: (client) => client.post('api-tradesInfo.createOrder', params)
   }
 }
-
+/**
+ * 获取商品类目
+ *api-category.listAll
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function cateList(params) {
+  return {
+    types: [CATEQUERY, CATEQUERY_SUCCESS, CATEQUERY_FAILURE],
+    promise: (client) => client.post('api-category.listAll', params)
+  }
+}
+/**
+ * 仓库商品列表
+ * api-shopStock.getShopStocks
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function proList(params) {
+  return {
+    types: [PRODUCT, PRODUCT_SUCCESS, PRODUCT_FAILURE],
+    promise: (client) => client.post('api-shopStock.getShopStocks', params)
+  }
+}
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
@@ -76,6 +107,8 @@ export default function reducer(state = {result:{}}, action) {
     case COMPANY:
     case ADDR:
     case ADD:
+    case CATEQUERY:
+    case PRODUCT:
         return {
             ...state
         }
@@ -115,6 +148,24 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+    case CATEQUERY_SUCCESS:
+      return {
+        ...state,
+        cateResult: action.result
+      }
+    case CATEQUERY_FAILURE:
+      return {
+        ...state
+      }
+    case PRODUCT_SUCCESS:
+      return {
+        ...state,
+        proResult: action.result
+      }
+    case PRODUCT_FAILURE:
+      return {
+        ...state
+      }
     default:
       return state
   }
