@@ -37,11 +37,11 @@ class OutgoMgt extends Component {
     }
 
     componentWillReceiveProps(nextProps, preProps){
-        // if(nextProps.jump){
-        //     setTimeout(()=>{
-        //         this.context.router.push('/virtualhouse')
-        //     },600)
-        // }
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/virtualhouse')
+            },600)
+        }
     }  
 
     /**
@@ -155,12 +155,17 @@ const mapActionCreators = {
     outCateList
 }
 
+
+OutgoMgt.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
+
 const mapStateToProps = (state) => {
 
-    const {result, virListResult, shopListResult, cateResult, loading} = state.outgoMgt;
+    const {result, virListResult, shopListResult, cateResult, loading, jump} = state.outgoMgt;
     const {items = [], totalItems = 0} = virListResult || {};
 
-    return {items, totalItems, shopListResult, cateResult, result, loading};
+    return {items, totalItems, shopListResult, cateResult, result, loading, jump};
 
 }
 export default connect(mapStateToProps, mapActionCreators)(OutgoMgt)
