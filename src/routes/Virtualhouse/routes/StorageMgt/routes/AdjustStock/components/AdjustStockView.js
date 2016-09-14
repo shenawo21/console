@@ -31,13 +31,15 @@ class AdjustStock extends Component {
                 label: "SPU：",
                 name: "spuId",
                 input: {
-                    placeholder: "请输入SPU"
+                    placeholder: "请输入SPU",
+                    type: 'number'
                 }
             },{
                 label: "SKU：",
                 name: "skuId",
                 input: {
-                    placeholder: "请输入SKU"
+                    placeholder: "请输入SKU",
+                    type: 'number'
                 }
             },{
                 label: "商品类目：",

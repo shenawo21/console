@@ -61,7 +61,7 @@ class Edit extends Component {
         context.setState({
           params: value
         })
-        params.id ? modifyItem({...value}) : addItem({...value});
+        params.id ? modifyItem({roleId: params.id, ...value}) : addItem({...value});
       },
 
       /**

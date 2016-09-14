@@ -23,6 +23,15 @@ class StorageMgt extends Component {
         getProList();
     }
 
+    componentWillReceiveProps(nextProps, preProps){
+        //操作成功后跳转到列表页
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/virtualhouse')
+            },600)
+        }
+    }
+
     /**
      * handle submit
      * @param  {any} formData
@@ -104,9 +113,9 @@ StorageMgt.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const {result, proListResult, loading} = state.storageMgt;
+    const {result, proListResult, loading, jump} = state.storageMgt;
     const items = proListResult || [];
-    return { result, proListResult, items, loading };
+    return { result, proListResult, items, loading, jump };
 }
 
 export default connect(mapStateToProps, mapActionCreators)(StorageMgt)

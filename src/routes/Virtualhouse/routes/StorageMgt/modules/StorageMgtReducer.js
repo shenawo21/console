@@ -49,7 +49,8 @@ export default function reducer(state = {result:{}}, action) {
      case STORAGEMGT_SUCCESS:
         return {
             ...state,
-            result: action.result
+            result: action.result,
+            jump: true
         }
      case STORAGEMGT_FAILURE:
         return {

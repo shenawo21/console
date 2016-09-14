@@ -61,8 +61,8 @@ class Login extends Component {
     const vCodeProps = getFieldProps('validateCode', vCodeOptions);
 
     const formItemLayout = {
-      labelCol: {span: 4},
-      wrapperCol: {span: 20},
+      labelCol: {span: 5},
+      wrapperCol: {span: 19},
     };
 
     return <div className="page-login-v2 layout-full page-dark">
@@ -86,7 +86,7 @@ class Login extends Component {
 
             <div className="form-group">
               <Form horizontal form={form} ref='login'>
-	      	<FormItem
+	      	      <FormItem
                   {...formItemLayout}
                   label="企业名："
                   hasFeedback>
