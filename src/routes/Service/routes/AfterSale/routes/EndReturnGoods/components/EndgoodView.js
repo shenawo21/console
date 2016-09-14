@@ -118,7 +118,7 @@ class GoodsInfo extends Component {
                     {checkInfo.checkPics ? <li><b>验货凭证:</b><span>{result.checkPics}</span></li> : '' }
 
                 </ul>
-                { result.processStatus == 'PROCESS' && result.feedbackStatus == 'ACCEPT' && result.refundResult == 'SUCCESS' ? 
+                { result.processStatus == 'PROCESS' && result.feedbackStatus !== null && (result.refundResult == 'SUCCESS' || result.refundResult == 'DENY') ? 
                     <Form horizontal items={this._getFormEnd()} onSubmit={handleSubmit}  buttonOption={EndbuttonOption} /> :
                     <Form horizontal items={this._getFormNotice()} onSubmit={NoticehandleSubmit }  buttonOption={NoticebuttonOption} />
 

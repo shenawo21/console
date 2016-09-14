@@ -9,20 +9,21 @@ class InfoEnd extends Component {
         super(props);        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.NoticehandleSubmit = this.NoticehandleSubmit.bind(this);
+        this.state = {checkId:''}
     }
 
     
     componentDidMount() {  
         const {endDetail,params} = this.props;
         //获取详情信息
-        endDetail(params);
-        
+        endDetail(params);        
     }
     // 结束退货
     handleSubmit(value, key) {
         const _this = this;
-        const {end,params} = _this.props;
-        Object.assign(value,params)
+        const {end,params,result} = _this.props;
+        let checkId = result.checkInfo ? result.checkInfo.checkId : '' 
+        Object.assign(value,params,{checkId:checkId})
         if(key === 'review'){
             end(value).then(function(response) {
                 if (response && response.status == 1) {
