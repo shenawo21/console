@@ -103,6 +103,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case VIEW_SUCCESS:
       return {
+        ...state,
         result: action.result
       }
     case VIEW_FAILURE:
@@ -111,7 +112,8 @@ export default function reducer(state = {result: {}}, action) {
       }
     case ADD_SUCCESS:
       return {
-        result: action.result,
+        ...state,
+        addResult: action.result,
         isJump: true
       }
     case ADD_FAILURE:
@@ -139,7 +141,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case MODIFY_SUCCESS:
       return {
-        result: action.result,
+        modResult: action.result,
         isJump: true
       }
     case MODIFY_FAILURE:

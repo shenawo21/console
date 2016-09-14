@@ -62,18 +62,25 @@ class Edit extends Component {
        *
        * @param value (description)
        */
-      handleSubmit(value) {
+      handleSubmit(value,key) {
         const {addItem, params, modifyItem} = context.props;
         console.log(value)
         context.setState({
           params: value
         })
-        params.id ? modifyItem({
-          ...value,
-          shopId: params.id
-        }) : addItem({
-          ...value
-        })
+        if(key=='save'){
+          params.id ? modifyItem({
+            ...value,
+            shopId: params.id
+          }) : addItem({
+            ...value
+          })
+        }else {
+          context.setState({
+            value: ''
+          })
+        }
+
       },
 
       /**
@@ -156,8 +163,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, isJump, chResult, inResult} = state.edit;
-  return {'result': result, loading, isJump, chResult, inResult};
+  const {result, loading, isJump, chResult, inResult,modResult,addResult} = state.edit;
+  return {'result': result, loading, isJump, chResult, inResult,modResult,addResult};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Edit)

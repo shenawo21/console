@@ -146,9 +146,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.applic;
+    const {result, loading,deResult,enResult,disResult} = state.applic;
     const {items = [], totalItems = 0} = result || {};
-    return { items, totalItems, loading };
+    return { items, totalItems, loading,deResult,enResult,disResult};
 
 }
 
