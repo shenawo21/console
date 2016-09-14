@@ -196,24 +196,36 @@ class ReturnGoods extends Component {
                 if (row.afterSaleType == 'REFUND_GOODS') {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
-                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT') {
+                        } 
+                         else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == null ) {
                             return <div>
                                 <Link to={`/service/aftersale/endGoods/${row.refundId}`}>通知财务退款</Link>                                    
                             </div>
-                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus !== null && row.refundResult !== null) {
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'ACCEPT') {
                             return <div>
                                 <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>                                   
+                            </div>
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'INIT') {
+                            return <div>
+                               <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><em style = {{padding:'0 8px'}}></em> <span>已通知财务退款</span>                                 
+                            </div>
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'DENY' || row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'DENY') {
+                            return <div>
+                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>拒绝退货</Link>                                   
                             </div>
                         } else {
                             return <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link>
                         }
-
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
                          if(row.isNoticeStock == '0'){
                              <Link to={`/service/warehouse/`}>换货出库</Link>
                          } else if(row.processStatus == 'PROCESS' && row.feedbackStatus !== null) {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
-                         } else {
+                         } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == null) {
+                              return <div>
+                                 <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link><em style = {{padding:'0 8px'}}></em> <span>仓库未验收</span>                                 
+                            </div>
+                         }else {
                             return <div>
                                     <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link>
                                 </div>
