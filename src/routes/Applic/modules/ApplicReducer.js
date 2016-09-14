@@ -91,7 +91,8 @@ export default function reducer(state = {result: {}}, action) {
       }
     case DELETE_SUCCESS:
       return {
-        result: action.result
+        ...state,
+        deResult: action.result
       }
     case DELETE_FAILURE:
       return {
@@ -99,7 +100,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case ENADLED_SUCCESS:
       return {
-        result: action.result
+        enResult: action.result
       }
     case ENADLED_FAILURE:
       return {
@@ -107,7 +108,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case DISABLED_SUCCESS:
       return {
-        result: action.result
+        disResult: action.result
       }
     case DISABLED_FAILURE:
       return {
