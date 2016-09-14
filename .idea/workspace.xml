@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="功能修复">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Choose/components/ChooseView.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Choose/containers/Choose.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Choose/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Choose/modules/ChooseReducer.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_development.js" afterPath="$PROJECT_DIR$/config/_development.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Add/components/ChooseView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Add/components/ChooseView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js" />
     </list>
     <ignored path="console.iws" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,88 +21,72 @@
     <favorites_list name="console" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.6078067">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="ChooseView.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/ChooseView.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="118">
-                  <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="HistoryView.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="220">
-                  <caret line="160" column="11" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="_development.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/config/_development.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="110">
-                  <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/routes/Order/index.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="352">
-                  <caret line="16" column="46" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="46" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AddView.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="256">
-                  <caret line="207" column="84" selection-start-line="207" selection-start-column="68" selection-end-line="207" selection-end-column="84" />
-                  <folding>
-                    <element signature="e#0#50#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="Add.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="66">
-                  <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
-                  <folding>
-                    <element signature="e#0#49#0" expanded="true" />
-                    <element signature="e#3052#3096#0" expanded="false" />
-                    <element signature="e#3139#3271#0" expanded="false" />
-                    <element signature="e#3297#3353#0" expanded="false" />
-                    <element signature="e#3366#3412#0" expanded="false" />
-                    <element signature="e#3450#3589#0" expanded="false" />
-                    <element signature="e#3612#3668#0" expanded="false" />
-                    <element signature="e#3680#3743#0" expanded="false" />
-                    <element signature="e#3772#4183#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ChooseView.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/ChooseView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1540">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HistoryView.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3410">
+              <caret line="160" column="11" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_development.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/_development.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApplicView.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/routes/Applic/components/ApplicView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1047">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Order/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="16" column="46" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddView.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4488">
+              <caret line="207" column="84" selection-start-line="207" selection-start-column="68" selection-end-line="207" selection-end-column="84" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -220,9 +196,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
       <pane id="Scope">
         <subPane subId="Problems">
           <PATH>
@@ -371,6 +344,9 @@
           </PATH>
         </subPane>
         <subPane subId="Tests" />
+      </pane>
+      <pane id="Scratches">
+        <subPane />
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -676,6 +652,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Applic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Applic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -746,8 +770,28 @@
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
           <PATH vcs="Git" revision="">$PROJECT_DIR$/config/_development.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/components/NavBar/NavBar.js</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Login/components/Login.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Role/routes/Edit/components/EditView.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Role/routes/Edit/containers/Edit.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/components/ReturnGoods.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/components/ReturnMoney.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/containers/AfterSale.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/modules/AfterSaleReducer.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/EndReturnGoods/components/EndgoodView.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/EndReturnGoods/containers/EndGoods.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/Info/components/InfoView.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/Info/containers/Info.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Shophouse/routes/OddQuery/components/OutgoQuery.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Shophouse/routes/OddQuery/components/StorageQuery.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/components/VirtualhouseView.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/OutgoQuery.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/StorageQuery.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/OutgoMgt/components/OutgoMgtView.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/SpecificationMgt/components/SpecificationMgtView.jsx</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/StorageMgt/containers/StorageMgt.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/StorageMgt/modules/StorageMgtReducer.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/StorageMgt/routes/AdjustStock/components/AdjustStockView.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/StorageMgt/routes/CreateProduct/components/SearchSpu.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -986,6 +1030,7 @@
       <workItem from="1473642539824" duration="18278000" />
       <workItem from="1473729051605" duration="1501000" />
       <workItem from="1473732120835" duration="10908000" />
+      <workItem from="1473818343671" duration="1344000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -1180,29 +1225,29 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="604717000" />
+    <option name="totallyTimeSpent" value="606061000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23447402" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23447402" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28552458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28419656" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1243,13 +1288,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/routes/Home/components/HomeView.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1298">
-          <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-264">
@@ -1498,13 +1536,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/orderView.js" />
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="64" selection-start-line="4" selection-start-column="64" selection-end-line="4" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/index.js" />
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/History/containers/History.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2728">
@@ -1531,9 +1563,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2948">
           <caret line="138" column="169" selection-start-line="138" selection-start-column="142" selection-end-line="138" selection-end-column="169" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1545,33 +1574,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/components/ChooseView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/modules/ChooseReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="67" column="1" selection-start-line="67" selection-start-column="1" selection-end-line="67" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/components/ChooseView.js" />
+    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/modules/ChooseReducer.js" />
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/modules/AddReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2990">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
+        <state relative-caret-position="4488">
           <caret line="207" column="84" selection-start-line="207" selection-start-column="68" selection-end-line="207" selection-end-column="84" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
@@ -1579,17 +1593,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/containers/Choose.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-876">
-          <caret line="73" column="48" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Choose/containers/Choose.js" />
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/ChooseView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
+        <state relative-caret-position="1540">
           <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
         </state>
@@ -1597,7 +1604,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/History/components/HistoryView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
+        <state relative-caret-position="3410">
           <caret line="160" column="11" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
           <folding />
         </state>
@@ -1623,9 +1630,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/_development.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
+        <state relative-caret-position="286">
           <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Applic/components/ApplicView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1047">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
