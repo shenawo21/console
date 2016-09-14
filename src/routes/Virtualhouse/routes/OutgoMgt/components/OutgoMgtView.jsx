@@ -269,6 +269,7 @@ class outgoMgt extends Component {
     
   render() {
         let {formOptions, tableOptions, shopList, form} = this.props;
+        console.log(shopList,'shopList');
         let { getFieldProps, getFieldError, isFieldValidating } = form;
 
         tableOptions = {
@@ -312,7 +313,7 @@ class outgoMgt extends Component {
 
         const multiSelectProps = getFieldProps('relevantStore', {
             rules: [
-                { required: true, message: '请选择待出库店铺' },
+                { required: true, type: 'number', message: '请选择待出库店铺' },
             ],
         });
 
@@ -344,10 +345,9 @@ class outgoMgt extends Component {
                         {
                             shopList && shopList.map((val, i) => {
                                typeof val.value === 'boolean' && (val.value = '' + val.value);
-                                return <Option key={i} {...val}>{val.name}</Option>
+                                return <Option key={i} value={val.value}>{val.title}</Option>
                             })
-                        }                        
-                        <Option value="2">乐购天猫旗舰店</Option>
+                        }
                     </Select>
                     </FormItem>
 
