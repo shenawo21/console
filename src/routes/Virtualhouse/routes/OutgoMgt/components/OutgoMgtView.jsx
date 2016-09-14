@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import TableCascader from 'components/TableCascader';
 import {getSpecValue} from 'common/utils'
 
-import { Input, Select, Button, Form, message } from 'hen';
+import { Input, Select, Button, Form, message, InputNumber } from 'hen';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -177,7 +177,7 @@ class outgoMgt extends Component {
             title: '出库库存数',
             dataIndex: 'incoming',
             render(value, row){
-                return <Input type="text" placeholder="请输入出库库存数"  onChange={(e) => {
+                return <InputNumber type="text" min={0} max={row.stock} placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
                         stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){
@@ -186,7 +186,7 @@ class outgoMgt extends Component {
                                 price = val.price
                             }
                         })
-                        stock.incoming = e.target.value
+                        stock.incoming = e
                         stock.price = price
                         selectItems.push(stock)
                         context.setState({
@@ -312,7 +312,7 @@ class outgoMgt extends Component {
 
         const multiSelectProps = getFieldProps('relevantStore', {
             rules: [
-                { required: true, message: '请选择待出库店铺' },
+                { required: true, type: 'number', message: '请选择待出库店铺' },
             ],
         });
 
@@ -344,10 +344,9 @@ class outgoMgt extends Component {
                         {
                             shopList && shopList.map((val, i) => {
                                typeof val.value === 'boolean' && (val.value = '' + val.value);
-                                return <Option key={i} {...val}>{val.name}</Option>
+                                return <Option key={i} value={val.value}>{val.title}</Option>
                             })
-                        }                        
-                        <Option value="2">乐购天猫旗舰店</Option>
+                        }
                     </Select>
                     </FormItem>
 

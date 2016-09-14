@@ -47,9 +47,9 @@ class Login extends Component {
     };
     // 正式的时候此代码会被干掉
     if (__DEV__) {
-      enNamePropsOptions.initialValue = '111'
-      namePropsOptions.initialValue = 'shangwen'
-      passwdPropsOptions.initialValue = '123'
+      enNamePropsOptions.initialValue = '幸福时光'
+      namePropsOptions.initialValue = '15116015898@163.com'
+      passwdPropsOptions.initialValue = '123456'
     }
     
     const enNameProps = getFieldProps('enterpriseName', enNamePropsOptions);
