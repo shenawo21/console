@@ -64,6 +64,15 @@ class Login extends Component {
       labelCol: {span: 5},
       wrapperCol: {span: 19},
     };
+    const context = this;
+    document.onkeydown = function(e){
+        let eventCode = e.which || e.keyCode;
+        switch(eventCode){
+            case 13:
+                context.doSubmit(e)
+                break;
+        }
+    }
 
     return <div className="page-login-v2 layout-full page-dark">
       <div className="page animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">

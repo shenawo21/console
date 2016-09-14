@@ -55,17 +55,6 @@ export class Login extends Component {
       });
   }
 
-  componentDidMount() {
-    const context = this;
-    document.onkeydown = function (e) {
-      let eventCode = e.which || e.keyCode;
-      switch (eventCode) {
-        case 13:
-          //context.handleSubmit(e)
-          break;
-      }
-    }
-  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user !== null && nextProps.user !== undefined && nextProps.user !== false) {
