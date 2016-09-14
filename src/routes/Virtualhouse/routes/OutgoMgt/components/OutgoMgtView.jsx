@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import TableCascader from 'components/TableCascader';
 import {getSpecValue} from 'common/utils'
 
-import { Input, Select, Button, Form, message } from 'hen';
+import { Input, Select, Button, Form, message, InputNumber } from 'hen';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -177,7 +177,7 @@ class outgoMgt extends Component {
             title: '出库库存数',
             dataIndex: 'incoming',
             render(value, row){
-                return <Input type="text" placeholder="请输入出库库存数"  onChange={(e) => {
+                return <InputNumber type="text" min={1} max={row.stock} placeholder="请输入出库库存数" style={{width:150}} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
                         stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){
@@ -269,7 +269,6 @@ class outgoMgt extends Component {
     
   render() {
         let {formOptions, tableOptions, shopList, form} = this.props;
-        console.log(shopList,'shopList');
         let { getFieldProps, getFieldError, isFieldValidating } = form;
 
         tableOptions = {

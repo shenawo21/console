@@ -121,7 +121,6 @@ class specificationMgt extends Component {
 
     //tab切换
     callback(key) {
-        console.log(key);
         this.setState({
             curKey: key
         })
