@@ -57,7 +57,7 @@ class OutgoView extends Component {
                 }
             },{
                 label: "操作人：",
-                name: "createUser",
+                name: "account",
                 input: {
                    placeholder: "请输入操作人"
                 }
@@ -138,7 +138,7 @@ class OutgoView extends Component {
         }, {
             key: '11',
             title: '操作人',
-            dataIndex: 'createUserName'
+            dataIndex: 'account'
         }, {
             key: '12',
             title: '备注',

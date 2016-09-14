@@ -64,7 +64,7 @@ class StorageQuery extends Component {
                 }
             },{
                 label: "操作人：",
-                name: "createUser",
+                name: "account",
                 input: {
                    placeholder: "请输入操作人"
                 }
@@ -122,7 +122,7 @@ class StorageQuery extends Component {
         }, {
             key: '5',
             title: '商品类目',
-            dataIndex: 'categoryName'
+            dataIndex: 'category'
         }, {
             key: '6',
             title: '规格',
@@ -149,7 +149,7 @@ class StorageQuery extends Component {
         }, {
             key: '11',
             title: '操作人',
-            dataIndex: 'createUser'
+            dataIndex: 'account'
         }, {
             key: '12',
             title: '备注',
