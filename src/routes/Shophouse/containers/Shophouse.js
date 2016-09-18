@@ -154,7 +154,7 @@ Shophouse.propTypes = {
     items: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,
     compareItems: React.PropTypes.array,
-    comparetotalItems: React.PropTypes.number.isRequired,
+    comparetotalItems: React.PropTypes.number,
     loading: React.PropTypes.bool
 }
 

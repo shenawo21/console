@@ -48,10 +48,12 @@ class Home extends Component {
                 </dd>
                 <dd>
                   <Row>
-                    <Col span="6">登陆账号: {item.name}</Col>
-                    <Col span="6">账号角色：{item.roleName}</Col>
-                    <Col span="6">最后登录时间: {item.lastLoginDate}</Col>
+                    <Col span="6">登陆账号：{item.name}</Col>
+                    <Col span="6">最后登录时间：{item.lastLoginDate}</Col>
                   </Row>
+                </dd>
+                <dd>
+                  账号角色：{item.roleName}
                 </dd>
               </dl>
             </Col>
