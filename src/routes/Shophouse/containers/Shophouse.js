@@ -61,7 +61,8 @@ class Shophouse extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  console.log(value)
+                  //类目查询取值问题
+                  if(value.categoryCode){ value.categoryCode = value.categoryCode[value.categoryCode.length - 1]}
                   context.setState({
                       params: value
                   })

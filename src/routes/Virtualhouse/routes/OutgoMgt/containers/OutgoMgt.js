@@ -117,15 +117,16 @@ class OutgoMgt extends Component {
         }
 	
 	/**
-         * 店铺列表
-         * @param lists
-         * @returns {*}
-         */
+     * 店铺列表
+     * @param lists
+     * @returns {*}
+     */
 	const shopLoop = (lists) => {
             return lists && lists.map(a => {
                 return {
                     value: a.shopId,
-                    title: a.name
+                    title: a.name,
+                    disabled: (a.status != 'use' || a.enabled == false) ? true : false
                 }
             })
         }

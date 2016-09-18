@@ -15,8 +15,8 @@ class specificationMgt extends Component {
         this.callback = this.callback.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            specList: [],
-            delSpecList : [],
+            specList: [],      //规格列表
+            delSpecList : [],  //删除的规格值列表
             subFlag : false,
             curKey: 0
         }
@@ -37,7 +37,7 @@ class specificationMgt extends Component {
             title: '规格名称',
             dataIndex: 'specValue',
             render(val, row, index){
-                console.log(row)
+                //console.log(row)
                 let {specList, curKey} = context.state
                 return row.id ? <span>{val}</span> : <Input type='text' onChange={(e)=>{
                     specList[curKey].enterpriseSpecList[index].specValue = e.target.value
@@ -130,7 +130,7 @@ class specificationMgt extends Component {
     handleSubmit(e) {
         e.preventDefault();
         const { addSpec } = this.props;
-        let {specList, delSpecList} = this.state, addSpecList = []
+        let {specList, delSpecList} = this.state, addSpecList = [], addList= [];
         specList.forEach((val)=>{
             if(val.enterpriseSpecList){
                 val.enterpriseSpecList.forEach((item)=>{
@@ -138,10 +138,19 @@ class specificationMgt extends Component {
                 })
             }
         })
-        addSpec({
-            enterpriseSpecList: addSpecList,
-            deletes: delSpecList
-        });
+        addSpecList.forEach((val, i) => {
+            val.id == undefined && addList.push({specId:val.specId, specValue:val.specValue});
+        })
+        if(addList.length || delSpecList.length){
+            addSpec({
+                enterpriseSpecList: addSpecList,
+                deletes: delSpecList
+            })
+            
+        } else{
+            message.error('没有添加商品规格值或删除规格值！')
+        }
+        
     }
 
     render() {
@@ -160,7 +169,7 @@ class specificationMgt extends Component {
                         labelCol={{ span: 2 }}
                         wrapperCol={{ span: 16 }}
                         >
-                        <Cascader style={{ width: 200 }} options={cateList} onChange={this.getSpecCateList} expandTrigger="hover" placeholder="请选择" />
+                        <Cascader style={{ width: 200 }} options={cateList} onChange={this.getSpecCateList} changeOnSelect expandTrigger="click" placeholder="请选择" />
                     </FormItem>
                     {
                         specList.length ?
@@ -175,7 +184,7 @@ class specificationMgt extends Component {
                             </Tabs> : <p className="tc">没有选择分类或者该分类下没有属性，不能添加规格值</p>
                     }
                     {
-                        specList.length ? <div className="tc">
+                        specList.length ? <div className="tc" style={{marginTop:'20px'}}>
                             <Button type="primary" onClick={this.handleSubmit}>提交保存规格值</Button>
                         </div> : ''
                     }

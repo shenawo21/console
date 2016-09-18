@@ -148,6 +148,7 @@ class History extends Component {
 
   quickButton(quickOptions) {
     const {downParams} = this.props;
+    if(downParams.pageNumber) {delete downParams.pageNumber}
     return <Row>
       <Col span='2'>
         <DownLoader url='/api-tradesInfo.exportOrders' params={downParams} title='导出订单'/>

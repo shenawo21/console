@@ -121,11 +121,11 @@ class Accounts extends Component {
     quickButton(quickOptions){
         const {isAdmin} = this.props;
         if(isAdmin){
-        return <Row>
-                <Col span='2'>
-                    <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>新增帐号</Link>
-                </Col>
-        </Row>
+            return <Row>
+                    <Col span='2'>
+                        <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>新增帐号</Link>
+                    </Col>
+            </Row>
         }
     }
     

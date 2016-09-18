@@ -74,7 +74,8 @@ class Manual extends Component {
       shopList = appResult.map(c=> {
         return {
           value: c.shopId,
-          title: c.name
+          title: c.name,
+          disabled: (c.status != 'use' || c.enabled == false) ? true : false
         }
       });
     } else {

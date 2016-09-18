@@ -162,10 +162,10 @@ class Virtualhouse extends Component {
         }        
         
         const formOptions = {
-            'formOptions' : this.getFormOptions()
+            ...this.getFormOptions()
         }
         
-        return <Panel title=""><VirtualhouseView tableOptions={tableOptions} stockTableOptions={stockTableOptions} {...formOptions} quickOptions={this.getQuickOptions()} 
+        return <Panel title=""><VirtualhouseView tableOptions={tableOptions} stockTableOptions={stockTableOptions} formOptions={formOptions} downParam={params} quickOptions={this.getQuickOptions()} 
                                                  selectList={selectList} visible={visible} cateList={loop(cateResult)} /></Panel>
     }
 }
