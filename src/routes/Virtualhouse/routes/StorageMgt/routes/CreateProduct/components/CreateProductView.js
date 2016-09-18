@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-import {Row, Col, Button, Modal} from 'hen';
+import {Row, Col, Button, Modal,message} from 'hen';
 import Sku from "./Sku"
 import SearchSpu from "./SearchSpu"
 import Form from 'components/Form';
@@ -25,7 +25,8 @@ class CreateProduct extends Component {
             rowList: [],         //sku列表
             totalStock : 0,     //库存
             salePrice : 0,      //
-            submitFlag : ''     //提交数据时,skuList价格或库存是否为空
+            submitFlag : '',     //提交数据时,skuList价格或库存是否为空
+            market:''
         }
     }
 
@@ -92,6 +93,16 @@ class CreateProduct extends Component {
             label: "市场价(元)：",
             name: "marketPrice",
             infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
+            rules: [{
+                validator(rule, value, callback) {
+                    context.setState({market:value})
+                    if(value < context.state.salePrice) {
+                        callback(new Error('市场价必须大于或等于销售价！')); 
+                    } else {
+                        callback();
+                    }
+                }
+            }],
             input: {
                 placeholder: "请输入市场价",
                 disabled: selectItem ? true : false
@@ -120,7 +131,7 @@ class CreateProduct extends Component {
             label: "商品规格：",
             required: true,
             wrapperCol: {span: 15},
-            //rules: [{ required: true, message: '库存数量或销售价不能为空'}],
+            // rules: [{ required: true, message: '库存数量或销售价不能为空'}],
             name : 'skuData',
             custom(fieldProps) {
                 return <Sku specList={specList} specDataList={specDataList} rowList={rowList} setInputValue={context.setInputValue} changeSpecValue={context.changeSpecValue}  specType={SPECTYPE} {...fieldProps('skuData')}></Sku>

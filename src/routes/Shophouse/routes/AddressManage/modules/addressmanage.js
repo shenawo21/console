@@ -31,10 +31,10 @@ const REQ_LIST = 'REQ_LIST';
 const SUC_LIST = 'SUC_LIST';
 const ERR_LIST = 'ERR_LIST';
 
-export function gitAddressList() {
+export function gitAddressList(params) {
   return {
     types: [REQ_ADDRESS_LIST, SUC_ADDRESS_LIST, ERR_ADDRESS_LIST],
-    promise: (client) => client.post('api-refundAddress.refundAddressList')
+    promise: (client) => client.post('api-refundAddress.refundAddressList',params)
 }
 }
 export function gitAddressItem(params) {
