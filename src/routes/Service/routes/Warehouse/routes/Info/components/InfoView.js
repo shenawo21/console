@@ -44,7 +44,7 @@ class InfoView extends Component {
             dataIndex: 'realAmount',
             render(value, row){
                 return <span>
-                            <Input type="text" placeholder="请输入建议销售价" style={{ width: 120 }} disabled={isable} onChange={(e) => {
+                            <Input type="text" placeholder="请输入实际数量" style={{ width: 120 }} disabled={isable} onChange={(e) => {
                                 let {goodList} = context.state, stock = { refundId: row.refundId, title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], checkResult = ''
                                 goodList.forEach((val) => {
                                         if(val.outerSkuId !== row.outerSkuId){

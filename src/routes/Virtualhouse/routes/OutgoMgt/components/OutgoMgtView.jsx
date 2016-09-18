@@ -149,7 +149,7 @@ class outgoMgt extends Component {
         }, {
             key: '7',
             title: '建议销售价',
-            dataIndex: 'price',
+            dataIndex: 'advicePrice',
             render(value, row){
                 return <Input type="text" placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], incoming = ''

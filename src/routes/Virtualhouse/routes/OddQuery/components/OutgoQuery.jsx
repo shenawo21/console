@@ -98,7 +98,7 @@ class OutgoView extends Component {
         }, {
             key: '1',
             title: '出库店铺',
-            dataIndex: 'operateStore'
+            dataIndex: 'relevantStore'
         }, {
             key: '2',
             title: '出库类型',
@@ -126,7 +126,7 @@ class OutgoView extends Component {
         }, {
             key: '8',
             title: '建议销售价',
-            dataIndex: 'price'
+            dataIndex: 'advicePrice'
         }, {
             key: '9',
             title: '出库数量',

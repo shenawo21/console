@@ -130,10 +130,10 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading} = state.role;
+  const {result, loading,deResult} = state.role;
 
   const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading};
+  return {items, totalItems, loading,deResult};
 
 }
 

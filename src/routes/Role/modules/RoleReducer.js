@@ -48,8 +48,8 @@ export default function reducer(state = {result: {}}, action) {
 
     case DELETE_SUCCESS:
       return {
-        //...state,
-        result: action.result
+        ...state,
+        deResult: action.result
       }
     case DELETE_FAILURE:
       return {

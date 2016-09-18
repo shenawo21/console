@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {addItem, view, modifyItem,} from '../modules/EditReducer'
+import {addItem, view, modifyItem} from '../modules/EditReducer'
 
 
 class Edit extends Component {
@@ -25,7 +25,11 @@ class Edit extends Component {
   }
 
   componentWillReceiveProps(nextProps, preProps) {
-
+    if(nextProps.jump){
+      setTimeout(()=>{
+          this.context.router.push('/role')
+      },800)
+    }
     if (!nextProps.params.id) {
       this.setState({
         item: {}
@@ -35,11 +39,7 @@ class Edit extends Component {
         item: nextProps.result
       })
     }
-    if(nextProps.isJump){
-      setTimeout(()=> {
-        nextProps.history.go(-1);
-      }, 800);
-    }
+    
   }
 
   /**
@@ -61,7 +61,7 @@ class Edit extends Component {
         context.setState({
           params: value
         })
-        params.id ? modifyItem({roleId: params.id, ...value}) : addItem({...value});
+        params.id ? modifyItem({roleId:params.id, ...value}) : addItem({...value});
       },
 
       /**
@@ -91,20 +91,26 @@ class Edit extends Component {
 
 //数据限制类型
 Edit.propTypes = {
+  view: React.PropTypes.func,
+  addItem: React.PropTypes.func,  
   modifyItem: React.PropTypes.func,
   loading: React.PropTypes.bool,
   result: React.PropTypes.object,
 }
 
 const mapActionCreators = {
-  addItem,
   view,
+  addItem,  
   modifyItem,
 }
+ 
+Edit.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => {
-  const {result, loading,isJump} = state.edit;
-  return {'result': result, loading,isJump};
+  const {result, loading, jump} = state.edit;
+  return {result, loading, jump};
 
 }
 export default connect(mapStateToProps, mapActionCreators)(Edit)
