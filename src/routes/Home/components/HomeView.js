@@ -41,16 +41,7 @@ class Home extends Component {
               <dl>
                 <dt>企业名称：{item.enterpriseName}</dt>
                 <dd>
-                  <Row>
-                    <Col span="6">套餐：{item.packageName}</Col>
-                    <Col span="6">有效期：{item.validityDate}</Col>
-                  </Row>
-                </dd>
-                <dd>
-                  <Row>
-                    <Col span="6">登陆账号：{item.name}</Col>
-                    <Col span="6">最后登录时间：{item.lastLoginDate}</Col>
-                  </Row>
+                  登陆账号：{item.name}
                 </dd>
                 <dd>
                   账号角色：{item.roleName}
