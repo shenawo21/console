@@ -158,7 +158,7 @@ class ReturnMoney extends Component {
             }
         }, {
             key: '10',
-            title: '操作',
+            title: '操作  /  备注',
             render(id,row) {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/info/${row.refundId}`}>订单退款</Link></div>

@@ -38,6 +38,9 @@ class Info extends Component {
     handleSubmit(value, key) {
         const _this = this;
         const {verify,params} = _this.props;
+        // if (_this.state.photoList) {
+        //      value.businessLicense = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+        //  }
         Object.assign(value,params,{afterSaleType:'REFUND_MONEY'})
         if(key === 'review'){
             Object.assign(value,{processStatus:'PROCESS'})
@@ -100,7 +103,7 @@ class Info extends Component {
         }
     }
     render() {
-        // const {item, photoList} = this.state;
+        const { photoList} = this.state;
         const {isRequired,isDel} = this.state        
         const {result, loading,items} = this.props;
         /*** 地址列表*/
@@ -120,7 +123,7 @@ class Info extends Component {
         }
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
-                       <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit}></InfoView></Panel> :
+                       <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} photoImg = {this.photoImg} photoList = {photoList}></InfoView></Panel> :
                        <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} items = {items} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form'></GoodsInfo></Panel> }  
               </div>                    
                 

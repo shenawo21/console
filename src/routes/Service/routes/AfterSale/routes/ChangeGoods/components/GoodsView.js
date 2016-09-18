@@ -11,8 +11,11 @@ const RESON = [
             {value:'R02-快递公司丢失',title:'R02-快递公司丢失'},
             {value:'R03-运输中商品损坏',title:'R03-运输中商品损坏'},
             {value:'R04-发货错误',title:'R04-发货错误'},
-            {value:'R05-签收后坏货',title:'R05-签收后坏货'},
-            {value:'R06-服务提供商问题',title:'R06-服务提供商问题'}
+            {value:'R05-七天无理由',title:'R05-七天无理由'},
+            {value:'R06-买家责任',title:'R06-买家责任'},
+            {value:'R07-卖家缺货',title:'R07-卖家缺货'},
+            {value:'R08-虚拟发货',title:'R08-虚拟发货'},
+            {value:'R09-卖家未协商的情况下主动关闭交易，买家维权',title:'R09-卖家未协商的情况下主动关闭交易，买家维权'}
 
         ]     
 class InfoView extends Component {

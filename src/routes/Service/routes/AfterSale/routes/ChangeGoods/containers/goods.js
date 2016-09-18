@@ -16,7 +16,7 @@ class Goods extends Component {
     componentDidMount() {  
         const {shopList,chagenDetail,Logistic,params} = this.props;
         //获取详情信息
-        chagenDetail(params);
+        chagenDetail({oid:params.oid});
 
         // 物流列表
         Logistic()
