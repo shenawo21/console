@@ -190,7 +190,7 @@ class ReturnGoods extends Component {
             dataIndex: 'feedbackTime'
         }, {
             key: '12',
-            title: '操作',
+            title: '操作  /  备注',
             render(id,row) {
                 console.log(row,'row')              
                 if (row.afterSaleType == 'REFUND_GOODS') {

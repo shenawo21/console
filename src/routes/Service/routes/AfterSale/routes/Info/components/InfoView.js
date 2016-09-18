@@ -20,7 +20,7 @@ class InfoView extends Component {
         
     _getFormItems(){
         let context = this;
-        const {isRequired, photoList, licenseImg } = context.props;
+        const {isRequired, photoImg , photoList} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -40,9 +40,9 @@ class InfoView extends Component {
                 label: "发货凭证：",
                 name: "businessLicense",
                 custom(getCustomFieldProps) {
-                    upConfig.fileList = [];
+                    upConfig.fileList = photoList;
                     return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
-                            upConfig={{...upConfig, onChangeFileList:licenseImg}}
+                            upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('businessLicense')} />
                 }
             }],
