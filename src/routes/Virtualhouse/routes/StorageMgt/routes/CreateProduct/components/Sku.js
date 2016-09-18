@@ -47,7 +47,7 @@ class Sku extends Component {
             render(val, row) {
                 return <Input type='text' size="small" onChange={(e) => {
                     setInputValue(e, row, 'price')
-                }} value={val}/>
+                }} />
             }
         },{
             title: '库存数量',
