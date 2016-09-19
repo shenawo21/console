@@ -177,7 +177,7 @@ class outgoMgt extends Component {
             title: '出库库存数',
             dataIndex: 'incoming',
             render(value, row){
-                return <InputNumber type="text" min={0} max={row.stock} placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
+                return <InputNumber size="large"  min={0} max={row.stock} placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
                         stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){

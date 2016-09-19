@@ -65,6 +65,7 @@ class CreateProduct extends Component {
             label: "商品类目：",
             name: "categoryId",
             wrapperCol: {span: 15},
+            required: true,
             cascader: {
                 options: cateList,
                 placeholder: "请选择所属类目",

@@ -44,20 +44,33 @@ class CreateProduct extends Component {
               handleSubmit(value) {
                   const {addPro} = _this.props;
                   let {skuData, categoryId, ...other} = value
-                  console.log('categoryCode',categoryId);
-                  value = {...skuData, ...other, categoryId : typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
-                  addPro(value).then((res)=>{
-                      if(res.status === 1){
-                          setTimeout(()=>{history.go(-1)}, 1000)
+                  value = {...skuData, ...other, categoryId : categoryId && typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
+                  if (value.categoryId) {
+                      if (value.advicePrice && value.total) {
+                          if (value.advicePrice > value.marketPrice) {
+                                message.error('市场价必须大于或等于销售价！')
+                            } else {
+                                addPro(value).then((res)=>{
+                                    if(res.status === 1){
+                                        setTimeout(()=>{history.go(-1)}, 1000)
+                                    }
+                                })
+                            }
+                      } else {
+                          message.error('请填写SKU表！')
                       }
-                  })
+                  } else {
+                      message.error('请选择类目！')
+                  }
+                  
+                  
               },
 
               /**
                * (筛选表单重置)
                */
               handleReset() {
-                  //_this.context.router.push('/virtualhouse/storageMgt')
+                 
               }
           }
       }
