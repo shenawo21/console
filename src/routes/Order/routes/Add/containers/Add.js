@@ -123,7 +123,7 @@ class Add extends Component {
         return {
           value: c.shopId,
           title: c.name,
-          disabled: (c.status != 'use' || c.enabled == false) ? true : false
+          //disabled: (c.status != 'use' || c.enabled == false) ? true : false
         }
       });
     } else {

@@ -42,7 +42,7 @@ class Edit extends Component {
     }
     if (nextProps.isJump) {
       setTimeout(()=> {
-        const pathname = '/applic/joint/' + nextProps.result.shopId;
+        const pathname = '/applic/joint/' + nextProps.addResult.shopId;
         nextProps.history.replace(pathname);
       }, 800);
     }
