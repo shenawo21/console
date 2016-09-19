@@ -16,6 +16,8 @@ class product extends Component {
         this.state = {
             selectItems: [],            //选中数据列表 selectItems[curIndex]
             visible : false,            //modal框是否可见
+            resultVisible : false,      //对比更新处理结果显示
+            messageDataSource: [],      //对比更新处理结果
             curIndex : null,            //处理当前表格下标
             remark : null,              //回复信息
             selectedItemsKeys : []      //选中下标
@@ -123,7 +125,7 @@ class product extends Component {
             }   
         }];
         return columns;
-    }
+    }   
 
      /**
      *  删除时，重新设置源选中数据
@@ -239,12 +241,46 @@ class product extends Component {
         });
     }
 
+    _getStockColumns(){
+        const context = this;
+        let columns = [{
+            key: '0',
+            title: 'SPU',
+            dataIndex: 'title'
+        }, {
+            key: '1',
+            title: '处理结果',
+            dataIndex: 'status',
+            render(val){
+                return val ? '对比更新成功' : '对比失败'
+            }
+        }, {
+            key: '2',
+            title: '详细信息',
+            dataIndex: 'message'
+        }];
+        return columns;
+    }
+
+    /**
+     * 提示信息确认
+     */
+    handleOkMessage() {
+        console.log(this,'this');
+        this.setState({
+            resultVisible: false,
+            messageDataSource: []
+        });
+    }
+
+
     /**
      * 对比更新
      */
     updateHandle(index){
         const {compareUpt} = this.props.tableOptionsPro
         const { selectItems } = this.state;
+        const context = this;
         let recordIdList = selectItems[index] ? selectItems[index].map(val => {
             return val.recordId
         }) : null
@@ -252,7 +288,26 @@ class product extends Component {
             message.error('请先选择对比商品')
             return
         }
-        compareUpt({recordIdList})
+        compareUpt({recordIdList}).then(function(res){
+            if (res && res.data) {
+                context.setState({
+                    messageDataSource: res.data,
+                    resultVisible: true
+                })
+                // Modal.info({
+                //     title: '商品对比结果',
+                //     content: (
+                //         <div>
+                //             <DataTable bordered={true} columns={_getStockColumns} dataSource={res.data} />
+                //         </div>
+                //     ),
+                //     handleOkMessage() {}
+                // });
+            } else {
+                message.error(res.message)
+            }
+
+        })
     }
 
     /**
@@ -346,7 +401,7 @@ class product extends Component {
 
     render() {
         const {formOptions, tableOptionsPro, compareListResult} = this.props, context = this;
-        const {selectItems, curIndex, visible, selectedItemsKeys, remark} = this.state
+        const {selectItems, curIndex, visible, resultVisible, messageDataSource, selectedItemsKeys, remark} = this.state
         const {items = [], totalItems = 0} = compareListResult || {}
         const {compareUpt, fallBack, ...other} = tableOptionsPro
         let tableOptions = {
@@ -376,6 +431,9 @@ class product extends Component {
                             <Input type='textarea' onChange={context.changeValue.bind(context)} value={remark} />
                         </div>
                     </div>
+                </Modal>
+                <Modal title="处理结果" visible={resultVisible} onOk={this.handleOkMessage} onCancel={this.handleOkMessage}>
+                    <DataTable bordered={true} columns={this._getStockColumns()} size='small' dataSource={messageDataSource} />
                 </Modal>
             </div>
         )

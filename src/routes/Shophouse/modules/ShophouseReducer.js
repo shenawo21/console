@@ -66,7 +66,7 @@ export function compareList(params) {
 export function compareUpt(params) {
   return {
     types: [COMPAREUPT, COMPAREUPT_SUCCESS, COMPAREUPT_FAILURE],
-    promise: (client) => client.post('api-shopStock.updateWaitingMatchSkus', params)
+    promise: (client) => client.post('api-shopStock.updateWaitingMatchSkus', params, {'hasMsg' : true})
   }
 }
 
