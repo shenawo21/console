@@ -98,7 +98,7 @@ class virtualView extends Component {
             title: '已出库存',
             dataIndex: 'assignedStock',
             render(value, row){
-                return <a href="javascript:;" onClick={context.getAssignedStock.bind(context, row)} >{value}</a>
+                return <a href="javascript:;" style={{textDecoration:'underline' }} onClick={context.getAssignedStock.bind(context, row)} >{value}</a>
             }
         }, {
             key: '7',
@@ -130,13 +130,12 @@ class virtualView extends Component {
     quickButton(quickOptions){
         const context = this;
         const {selectList} = context.props;
-        const disabled = selectList && selectList.length ? false: true;
-        let params = {
-            skuId: selectList || []
+        let params = { 
+            skuId: selectList || [] 
         }
         return <Row>
                 <Col span="3">
-                    <DownLoader title='批量导出' disabled={disabled} url="/api-productService.exportFile" params={params} />
+                    <DownLoader title='批量导出' url="/api-productService.exportFile" params={params} />
                 </Col>
                 <Col span='2'>
                     <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/storageMgt`}>入库</Link>

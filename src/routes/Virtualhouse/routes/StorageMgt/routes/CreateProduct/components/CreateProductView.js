@@ -68,7 +68,9 @@ class CreateProduct extends Component {
             required: true,
             cascader: {
                 options: cateList,
-                placeholder: "请选择所属类目",
+                placeholder: '请选择所属类目',
+                changeOnSelect: true,
+                expandTrigger: 'click',
                 disabled: selectItem ? true : false,
                 displayRender(label) {
                     return label[label.length - 1];
@@ -84,7 +86,7 @@ class CreateProduct extends Component {
             label: "商品品牌：",
             name: "brandId",
             select: {
-                placeholder: "请选择商品品牌",
+                placeholder: '请选择商品品牌',
                 optionValue: brandList,
                 disabled: selectItem ? true : false
             }

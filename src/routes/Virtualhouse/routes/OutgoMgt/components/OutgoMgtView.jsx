@@ -344,7 +344,7 @@ class outgoMgt extends Component {
                         {
                             shopList && shopList.map((val, i) => {
                                typeof val.value === 'boolean' && (val.value = '' + val.value);
-                                return <Option key={i} value={val.value}>{val.title}</Option>
+                                return <Option key={i} value={val.value} disabled={val.disabled}>{val.title}</Option>
                             })
                         }
                     </Select>
