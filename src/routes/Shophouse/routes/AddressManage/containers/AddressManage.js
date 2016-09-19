@@ -74,8 +74,9 @@ class Container extends Component {
         });
     }
     // 获取单条地址信息
-    Edit(id) {
+    Edit(id,refresh) {
         const context = this;
+        refresh ? refresh.resetFields() : ''
         const {gitAddressItem} = this.props
         gitAddressItem({id:id}).then(function(res) {
             context.setState({
