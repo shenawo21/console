@@ -70,8 +70,8 @@ class outgoMgt extends Component {
         }
         return config;
     }
-    
-    
+
+
     _getColumns(){
         const context = this;
         let columns = [{
@@ -166,8 +166,8 @@ class outgoMgt extends Component {
                         context.setState({
                             stockList: selectItems
                         })
-                }} /> 
-            } 
+                }} />
+            }
         }, {
             key: '8',
             title: '剩余可分配库存',
@@ -192,15 +192,15 @@ class outgoMgt extends Component {
                         context.setState({
                             stockList: selectItems
                         })
-                }} /> 
-            } 
+                }} />
+            }
         }];
         return columns;
     }
 
 
     /**
-     * 
+     *
      * 选中后，获取的数据
      * @param {any} items
      */
@@ -221,7 +221,7 @@ class outgoMgt extends Component {
             })
         }
     }
-    
+
     //修改店铺时删除目标表格数据
 
     handleChange(value) {
@@ -235,7 +235,7 @@ class outgoMgt extends Component {
         const { storeManage, form } = context.props;
         const { stockList } = context.state;
         e.preventDefault();
-        
+
         form.validateFieldsAndScroll((errors, values) => {
 
             if (!!errors) {
@@ -246,11 +246,11 @@ class outgoMgt extends Component {
             }
 
             // 商品数量为0时提示选择商品并做库存及价格设置
-            if(!stockList.length){    
+            if(!stockList.length){
                 message.warning('请选择出库商品并做库存及价格设置', 10);
                 return;
             }
-           
+
             storeManage({
                 ...values,
                 recordType: '出库',
@@ -258,7 +258,7 @@ class outgoMgt extends Component {
             });
          });
 
-        
+
     }
 
     //返回
@@ -266,7 +266,7 @@ class outgoMgt extends Component {
         e.preventDefault();
         this.context.router.push('/virtualhouse')
     }
-    
+
   render() {
         let {formOptions, tableOptions, shopList, form} = this.props;
         let { getFieldProps, getFieldError, isFieldValidating } = form;
@@ -338,7 +338,7 @@ class outgoMgt extends Component {
 
                     <FormItem
                         label="待出库店铺："
-                        {...formItemLayout}                
+                        {...formItemLayout}
                     >
                     <Select {...multiSelectProps} placeholder="请选择待出库店铺" style={{ width: 200 }}>
                         {
@@ -364,7 +364,7 @@ class outgoMgt extends Component {
                     <Button type="ghost" onClick={this.goBack.bind()}>取消</Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
-                </div> 
+                </div>
 
             </div>
         );

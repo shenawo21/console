@@ -91,7 +91,7 @@ class Sku extends Component {
     render(){
         const {specList, rowList, specDataList} = this.state, context = this;
         const {changeSpecValue} = this.props;
-        console.log(specList, rowList, specDataList);
+
         return <div>
             {
                 specList.length ? specList.map((item, index) => {

@@ -3,7 +3,11 @@ import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
 
+<<<<<<< HEAD
 import {Button, Input, message, InputNumber} from 'hen';
+=======
+import {Button, Input, message,InputNumber} from 'hen';
+>>>>>>> e57e4eeebdb622ea3bc87aea1ffd12a467def217
 import {getSpecValue} from 'common/utils'
 class AdjustStock extends Component {
 

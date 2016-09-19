@@ -100,6 +100,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case ENADLED_SUCCESS:
       return {
+        ...state,
         enResult: action.result
       }
     case ENADLED_FAILURE:
@@ -108,6 +109,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case DISABLED_SUCCESS:
       return {
+        ...state,
         disResult: action.result
       }
     case DISABLED_FAILURE:

@@ -236,7 +236,7 @@ class Usermanage extends Component {
                         context.onDels(row.id);
                     }
                     const handEdit = () => {
-                        context.onhandEdit(row.id);
+                        context.onhandEdit(row.id,context.refs.form);
                     }
                      const isdefaults = () => {
                         context.ondefaults(row.id,row.shopId);
@@ -266,9 +266,9 @@ class Usermanage extends Component {
             context.refs.theTable.refresh();  //刷新数据
         })
     }
-    onhandEdit(id) {
+    onhandEdit(id,refresh) {
         const {Edit} = this.props;
-        Edit(id);
+        Edit(id,refresh);
     }
     ondefaults(id,shopId,refresh) {
         const {setDefault} = this.props;

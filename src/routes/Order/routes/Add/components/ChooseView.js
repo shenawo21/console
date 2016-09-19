@@ -78,10 +78,10 @@ class Choose extends Component {
 
   render() {
     const {shopList,cateList,chooseTableOptions,chooseFormOption,proResult} = this.props;
-    console.log(11111,chooseFormOption,chooseFormOption.handleSubmit);
+    const {handleSubmit, handleReset} = chooseFormOption();
     return (
       <div>
-        <Search items={this._getFormItems()} onSubmit={chooseFormOption.handleSubmit} onReset={chooseFormOption.handleReset}/>
+        <Search items={this._getFormItems()} onSubmit={chooseFormOption().handleSubmit} onReset={chooseFormOption().handleReset}/>
         <DataTable bordered={true} columns={this._getColumns()} chooseTableOptions={chooseTableOptions} />
       </div>
     )
