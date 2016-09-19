@@ -130,7 +130,7 @@ class OutgoView extends Component {
         }, {
             key: '9',
             title: '出库数量',
-            dataIndex: 'incoming'
+            dataIndex: 'stock'
         }, {
             key: '10',
             title: '出库时间',

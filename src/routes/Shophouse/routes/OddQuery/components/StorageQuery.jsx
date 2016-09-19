@@ -141,7 +141,7 @@ class StorageQuery extends Component {
         }, {
             key: '9',
             title: '入库数量',
-            dataIndex: 'incoming'
+            dataIndex: 'stock'
         },  {
             key: '10',
             title: '入库时间',
@@ -149,7 +149,7 @@ class StorageQuery extends Component {
         }, {
             key: '11',
             title: '操作人',
-            dataIndex: 'createUser'
+            dataIndex: 'createUserName'
         }, {
             key: '12',
             title: '备注',
