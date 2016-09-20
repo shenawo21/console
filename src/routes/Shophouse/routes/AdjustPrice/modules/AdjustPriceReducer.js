@@ -27,7 +27,7 @@ const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
 export function uptPrice(params) {
   return {
     types: [UPTPRICE, UPTPRICE_SUCCESS, UPTPRICE_FAILURE],
-    promise: (client) => client.post('api-shopStock.updatePrice', params)
+    promise: (client) => client.post('api-shopStock.updatePrice', params, {'hasMsg' : true})
   }
 }
 
@@ -87,8 +87,7 @@ export default function reducer(state = {result:{}}, action) {
     case UPTPRICE_SUCCESS:
         return {
             ...state,
-            result: action.result,
-            jump: true
+            result: action.result
         }
     case UPTPRICE_FAILURE:
         return {

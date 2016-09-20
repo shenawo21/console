@@ -151,7 +151,7 @@ class outgoMgt extends Component {
             title: '建议销售价',
             dataIndex: 'advicePrice',
             render(value, row){
-                return <InputNumber type="text" step={0.01} min={0.01} max={row.price} placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
+                return <InputNumber type="text" step={0.01} min={0.01} max={99999999} placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], incoming = ''
                        stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){

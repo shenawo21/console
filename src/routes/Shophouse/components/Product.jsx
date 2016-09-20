@@ -179,7 +179,7 @@ class product extends Component {
             })
         })
         params = JSON.stringify(params)
-        location.href = '/suneee-cloud/api-shopStock.exportWaitingMatchSkus?params='+ params
+        location.href = '/api-shopStock.exportWaitingMatchSkus?params='+ params
     }
 
     /**
@@ -275,7 +275,6 @@ class product extends Component {
         });
         compareList()
     }
-
 
     /**
      * 对比更新

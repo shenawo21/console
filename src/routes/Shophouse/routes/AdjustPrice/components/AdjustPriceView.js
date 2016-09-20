@@ -1,9 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-
+import DataTable from 'components/DataTable';
 import TableCascader from 'components/TableCascader';
-import {getSpecValue} from 'common/utils'
-import {Form, Button, Input, message, InputNumber} from 'hen';
+import {getSpecValue} from 'common/utils';
+import classes from './Product.less';
+import {Form, Button, Input, message, InputNumber, Modal} from 'hen';
 const FormItem = Form.Item;
 
 class AdjustPrice extends Component {
@@ -13,8 +14,11 @@ class AdjustPrice extends Component {
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.handleOkMessage = this.handleOkMessage.bind(this);
         this.state = {
-            priceList: []
+            priceList: [],
+            resultVisible : false,      //价格调整处理结果显示
+            messageDataSource: [],      //价格调整处理结果
         }
     }
 
@@ -82,8 +86,12 @@ class AdjustPrice extends Component {
             }
         }, {
             key: '5',
-            title: '库存',
-            dataIndex: 'stock'
+            title: '市场价',
+            dataIndex: 'marketPrice'
+        }, {
+            key: '6',
+            title: '销售价',
+            dataIndex: 'salePrice'
         }];
         return columns;
     }
@@ -109,9 +117,13 @@ class AdjustPrice extends Component {
         }, {
             key: '4',
             title: '销售价',
-            dataIndex: 'price'
+            dataIndex: 'salePrice'
         }, {
             key: '5',
+            title: '市场价',
+            dataIndex: 'marketPrice'
+        }, {
+            key: '6',
             title: '调整销售价',
             dataIndex: 'price',
             render(value, row){
@@ -154,6 +166,34 @@ class AdjustPrice extends Component {
         }
     }
 
+    
+    _getStockColumns(){
+        const context = this;
+        let columns = [{
+            key: '0',
+            title: 'SKU',
+            dataIndex: 'title'
+        }, {
+            key: '1',
+            title: '处理结果',
+            dataIndex: 'message'
+        }];
+        return columns;
+    }
+
+    /**
+     * 提示信息确认
+     */
+    handleOkMessage() {
+        const context = this;
+        context.setState({
+            resultVisible: false,
+            messageDataSource: []
+        });
+        //TODO 提示完跳转到列表界面
+        this.context.router.push('/shophouse')
+    }
+
     //提交数据
     handleSubmit(e) {
         const context = this;
@@ -178,6 +218,15 @@ class AdjustPrice extends Component {
             uptPrice({
                 ...values,
                 dtoList: priceList
+            }).then(function(res){
+                if(res && res.data) {
+                    context.setState({
+                        messageDataSource: res.data,
+                        resultVisible: true
+                    })
+                } else {
+                    message.error(res.message);
+                }
             });
          });
 
@@ -192,6 +241,7 @@ class AdjustPrice extends Component {
     
     render() {
         let {formOptions, tableOptions, form} = this.props;
+        let {resultVisible, messageDataSource} = this.state;
         let { getFieldProps, getFieldError, isFieldValidating } = form;
 
         tableOptions = {
@@ -247,6 +297,11 @@ class AdjustPrice extends Component {
                     &nbsp;&nbsp;&nbsp;
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
                 </div>
+                <Modal title="处理结果" visible={resultVisible} onOk={this.handleOkMessage} onCancel={this.handleOkMessage}>
+                    <div className={classes.modalResult}>
+                        <DataTable columns={this._getStockColumns()} size='small' dataSource={messageDataSource} />
+                    </div>
+                </Modal>
             </div>
         )
     }
