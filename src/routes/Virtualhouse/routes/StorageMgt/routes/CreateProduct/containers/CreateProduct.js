@@ -57,20 +57,13 @@ class CreateProduct extends Component {
                                 })
                             }
                       } else {
-                          message.error('请填写SKU表！')
+                          message.error('商品规格不能为空！')
                       }
                   } else {
                       message.error('请选择类目！')
                   }
                   
                   
-              },
-
-              /**
-               * (筛选表单重置)
-               */
-              handleReset() {
-                 
               }
           }
       }

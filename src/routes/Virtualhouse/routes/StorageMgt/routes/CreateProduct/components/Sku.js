@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Checkbox, Table, Input, Row, Col} from 'hen';
+import { Checkbox, Table, Input, Row, Col,InputNumber} from 'hen';
 
 class Sku extends Component {
 
@@ -45,9 +45,12 @@ class Sku extends Component {
             key: specList.length,
             width: 200,
             render(val, row) {
-                return <Input type='text' size="small" onChange={(e) => {
-                    setInputValue(e, row, 'price')
-                }} />
+                return <InputNumber min = {0} max = {9999999} step = {0.01} size="large" onChange={(e) => {
+                     setInputValue(e, row, 'price')
+                }} defaultValue = {0}  />
+                // return <Input type='text' size="small" onChange={(e) => {
+                //     setInputValue(e, row, 'price')
+                // }} />
             }
         },{
             title: '库存数量',
@@ -55,9 +58,9 @@ class Sku extends Component {
             key: specList.length + 1,
             width: 200,
             render(val, row) {
-                return <Input type='text' size="small" onChange={(e) => {
+                return <InputNumber  min = {0} max = {9999999} size="large" onChange={(e) => {
                     setInputValue(e, row, 'assignedStock')
-                }} value={val}/>
+                }} defaultValue = {0}/>
             }
         }]
         columns = [...columns, ...otherColumns]
@@ -91,7 +94,6 @@ class Sku extends Component {
     render(){
         const {specList, rowList, specDataList} = this.state, context = this;
         const {changeSpecValue} = this.props;
-
         return <div>
             {
                 specList.length ? specList.map((item, index) => {
