@@ -113,30 +113,34 @@ class History extends Component {
     const context = this;
     let columns = [{
       key: '0',
+      title: '序号',
+      dataIndex: '_index'
+    },{
+      key: '1',
       title: '订单号',
       dataIndex: 'tid'
     }, {
-      key: '1',
+      key: '2',
       title: '下单时间',
       dataIndex: 'created'
     }, {
-      key: '2',
+      key: '3',
       title: '买家昵称',
       dataIndex: 'buyerNick'
     }, {
-      key: '3',
+      key: '4',
       title: '买家备注',
       dataIndex: 'buyerMemo'
     }, {
-      key: '4',
+      key: '5',
       title: '客服备注',
       dataIndex: 'remark'
     }, {
-      key: '5',
+      key: '6',
       title: '发货时间',
       dataIndex: 'shoppTime'
     }, {
-      key: '6',
+      key: '7',
       title: '订单状态',
       dataIndex: 'tradeType',
       render(key){

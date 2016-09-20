@@ -93,6 +93,7 @@ class Enterprise extends Component {
           ],
           input: {
             type: "email",
+            disabled: true,
             placeholder: "请输入企业邮箱",
           }
         }, {
@@ -141,6 +142,7 @@ class Enterprise extends Component {
           label: "营业执照：",
           name: "businessLicense",
           required: true,
+          //rules: [{required: true, message: '营业执照为必选'}],
           custom(getCustomFieldProps) {
             upConfig.fileList = licenseList;
             return <UploadImage title="营业执照" className='upload-list-inline upload-fixed'

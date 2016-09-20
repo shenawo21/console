@@ -3,7 +3,7 @@ import avatar from './avatar.png';
 import {Menu, Dropdown, Icon} from 'hen';
 import style from './navBar.less';
 import store from 'store2';
-export default (props) => { 
+export default (props) => {
   //account
   const account = store.get('USER').account;
     const menu = (
@@ -21,7 +21,7 @@ export default (props) => {
         </Menu.Item>
       </Menu>
     )
-  
+
 
     return (
       <div className="nav navbar-toolbar navbar-right navbar-toolbar-right">

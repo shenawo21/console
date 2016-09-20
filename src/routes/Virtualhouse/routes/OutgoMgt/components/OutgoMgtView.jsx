@@ -70,8 +70,8 @@ class outgoMgt extends Component {
         }
         return config;
     }
-    
-    
+
+
     _getColumns(){
         const context = this;
         let columns = [{
@@ -151,7 +151,7 @@ class outgoMgt extends Component {
             title: '建议销售价',
             dataIndex: 'advicePrice',
             render(value, row){
-                return <Input type="text" placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
+                return <InputNumber type="text" step={0.01} min={0.01} max={row.price} placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], incoming = ''
                        stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){
@@ -160,14 +160,14 @@ class outgoMgt extends Component {
                                 incoming = val.incoming
                             }
                         })
-                        stock.price = e.target.value
+                        stock.price = e
                         stock.incoming = incoming
                         selectItems.push(stock)
                         context.setState({
                             stockList: selectItems
                         })
-                }} /> 
-            } 
+                }} />
+            }
         }, {
             key: '8',
             title: '剩余可分配库存',
@@ -177,7 +177,7 @@ class outgoMgt extends Component {
             title: '出库库存数',
             dataIndex: 'incoming',
             render(value, row){
-                return <InputNumber size="large"  min={0} max={row.stock} placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
+                return <InputNumber type="text" min={1} max={row.stock} placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
                         stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){
@@ -192,15 +192,15 @@ class outgoMgt extends Component {
                         context.setState({
                             stockList: selectItems
                         })
-                }} /> 
-            } 
+                }} />
+            }
         }];
         return columns;
     }
 
 
     /**
-     * 
+     *
      * 选中后，获取的数据
      * @param {any} items
      */
@@ -221,7 +221,7 @@ class outgoMgt extends Component {
             })
         }
     }
-    
+
     //修改店铺时删除目标表格数据
 
     handleChange(value) {
@@ -235,7 +235,7 @@ class outgoMgt extends Component {
         const { storeManage, form } = context.props;
         const { stockList } = context.state;
         e.preventDefault();
-        
+
         form.validateFieldsAndScroll((errors, values) => {
 
             if (!!errors) {
@@ -246,11 +246,11 @@ class outgoMgt extends Component {
             }
 
             // 商品数量为0时提示选择商品并做库存及价格设置
-            if(!stockList.length){    
+            if(!stockList.length){
                 message.warning('请选择出库商品并做库存及价格设置', 10);
                 return;
             }
-           
+
             storeManage({
                 ...values,
                 recordType: '出库',
@@ -258,7 +258,7 @@ class outgoMgt extends Component {
             });
          });
 
-        
+
     }
 
     //返回
@@ -266,7 +266,7 @@ class outgoMgt extends Component {
         e.preventDefault();
         this.context.router.push('/virtualhouse')
     }
-    
+
   render() {
         let {formOptions, tableOptions, shopList, form} = this.props;
         let { getFieldProps, getFieldError, isFieldValidating } = form;
@@ -312,7 +312,7 @@ class outgoMgt extends Component {
 
         const multiSelectProps = getFieldProps('relevantStore', {
             rules: [
-                { required: true, type: 'number', message: '请选择待出库店铺' },
+                { required: true, type: 'string', message: '请选择待出库店铺' },
             ],
         });
 
@@ -338,13 +338,13 @@ class outgoMgt extends Component {
 
                     <FormItem
                         label="待出库店铺："
-                        {...formItemLayout}                
+                        {...formItemLayout}
                     >
                     <Select {...multiSelectProps} placeholder="请选择待出库店铺" style={{ width: 200 }}>
                         {
                             shopList && shopList.map((val, i) => {
-                               typeof val.value === 'boolean' && (val.value = '' + val.value);
-                                return <Option key={i} value={val.value} disabled={val.disabled}>{val.title}</Option>
+                                typeof val.value === 'boolean' && (val.value = '' + val.value);
+                                return <Option key={i} value={val.title} disabled={val.disabled}>{val.title}</Option>
                             })
                         }
                     </Select>
@@ -364,7 +364,7 @@ class outgoMgt extends Component {
                     <Button type="ghost" onClick={this.goBack.bind()}>取消</Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
-                </div> 
+                </div>
 
             </div>
         );

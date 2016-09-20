@@ -105,7 +105,7 @@ class Applic extends Component {
       <div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
         <DataTable bordered={true} columns={this._getColumns()}
-                   quickButton={this.quickButton(quickOptions)} {...other} />
+                   quickButton={this.quickButton(quickOptions)} {...other} ref='dt' />
       </div>
     )
   }

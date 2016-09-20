@@ -87,7 +87,7 @@ class Edit extends Component {
           name: '保存并进入下一步'
         },
         {
-          key: 'clear',
+          key: 'reset',
           name: '重置'
         }
       ]

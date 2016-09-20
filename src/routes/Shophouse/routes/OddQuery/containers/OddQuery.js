@@ -29,7 +29,7 @@ class OddQuery extends Component {
         this.setState({
             params: {
                 pageNumber : 1,
-                recordType : key == 1 ? "出库" : "入库"
+                recordType : key == 1 ? "店铺出库" : "店铺入库"
             }
         })
     }
@@ -41,7 +41,7 @@ class OddQuery extends Component {
         shopOddQueryList({pageNumber});
 	    this.setState({
             params: {
-                recordType : "出库"
+                recordType : "店铺出库"
             }
         })
 	

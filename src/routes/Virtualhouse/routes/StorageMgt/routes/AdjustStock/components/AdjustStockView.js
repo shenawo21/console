@@ -2,8 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
-
-import {Button, Input, message,InputNumber} from 'hen';
+import {Button, Input, message, InputNumber} from 'hen';
 import {getSpecValue} from 'common/utils'
 class AdjustStock extends Component {
 
@@ -125,8 +124,8 @@ class AdjustStock extends Component {
             title: '增加库存',
             dataIndex: 'stock',
             render(value, row) {
-                return <InputNumber size="large" min={1} max={99999} placeholder="请输入出库库存数" style={{ width: 120 }} onChange={(e) => {
-                    let {stockList} = context.state, stock = { skuId: row.skuId, stock: e.target.value }, selectItems = []
+                return <InputNumber type="text" min={1} max={99999999} placeholder="请输入出库库存数" style={{ width: 120 }} onChange={(e) => {
+                    let {stockList} = context.state, stock = { skuId: row.skuId, stock: e }, selectItems = []
                     selectItems = stockList.filter((val) => {
                         return val.skuId !== row.skuId
                     })
