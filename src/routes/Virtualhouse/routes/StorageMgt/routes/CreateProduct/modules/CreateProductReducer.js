@@ -145,7 +145,7 @@ export default function reducer(state = {result:{}}, action) {
     case SPUSPECLIST_SUCCESS:
         return {
             ...state,
-            spuSpecListResult: action.result
+            specListResult: action.result
         }
     case SPUSPECLIST_FAILURE:
         return {
