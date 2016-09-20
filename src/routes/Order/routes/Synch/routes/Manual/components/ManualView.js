@@ -28,14 +28,14 @@ class Manual extends Component {
       }, {
         label: "按日期查询：",
         span: '11',
-        labelCol: { span: 4 },
-        wrapperCol: { span: 19 },
+        labelCol: {span: 4},
+        wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div>
-                    <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('startSynTime') } showTime={true}/>
-                    <span className="ant-form-split">~</span>
-                    <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('endSynTime') } showTime={true}/>
-                </div>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('startSynTime') } showTime={true}/>
+            <span className="ant-form-split">~</span>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('endSynTime') } showTime={true}/>
+          </div>
         }
       }],
       initValue: {
@@ -60,8 +60,8 @@ class Manual extends Component {
             label: "是否成功：",
             custom(getCustomFieldProps) {
               return <label className="ant-checkbox-inline">
-                <span style={{color:item.isSuccess?'#0C3':'#F00'}}
-                      name="isSuccess">{'同步'+ISSUCC[getCustomFieldProps('isSuccess').value]+'！'}</span>
+                {item.isSuccess ? <span style={{color:'#0C3'}} name="isSuccess">同步成功！</span> :
+                <span style={{color:'#F00'}} name="isSuccess">同步失败！</span>}
               </label>
             }
           }, {

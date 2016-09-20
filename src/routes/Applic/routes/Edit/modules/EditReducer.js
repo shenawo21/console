@@ -141,6 +141,7 @@ export default function reducer(state = {result: {}}, action) {
       }
     case MODIFY_SUCCESS:
       return {
+        ...state,
         modResult: action.result,
         isJump: true
       }

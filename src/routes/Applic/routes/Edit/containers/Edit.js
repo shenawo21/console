@@ -42,7 +42,12 @@ class Edit extends Component {
     }
     if (nextProps.isJump) {
       setTimeout(()=> {
-        const pathname = '/applic/joint/' + nextProps.addResult.shopId;
+        let pathname = null;
+        if (nextProps.modResult) {
+          pathname = '/applic/joint/' + nextProps.modResult.shopId;
+        } else {
+          pathname = '/applic/joint/' + nextProps.addResult.shopId;
+        }
         nextProps.history.replace(pathname);
       }, 800);
     }
@@ -62,9 +67,9 @@ class Edit extends Component {
        *
        * @param value (description)
        */
-      handleSubmit(value,key) {
+      handleSubmit(value, key) {
         const {addItem, params, modifyItem} = context.props;
-        if(key=='save'){
+        if (key == 'save') {
           params.id ? modifyItem({
             ...value,
             shopId: params.id
@@ -154,8 +159,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, isJump, chResult, inResult,modResult,addResult} = state.edit;
-  return {'result': result, loading, isJump, chResult, inResult,modResult,addResult};
+  const {result, loading, isJump, chResult, inResult, modResult, addResult} = state.edit;
+  return {'result': result, loading, isJump, chResult, inResult, modResult, addResult};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Edit)

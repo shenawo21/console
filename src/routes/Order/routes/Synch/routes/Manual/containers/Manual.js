@@ -48,9 +48,7 @@ class Manual extends Component {
         context.setState({
           params: value
         });
-        key == 'save' ? modifyItem({...value}) : context.setState({
-          params: ''
-        });
+        key == 'save' ? modifyItem({...value}) : '';
       },
       handleReset() {
       }

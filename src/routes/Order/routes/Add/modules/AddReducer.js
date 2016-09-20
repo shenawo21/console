@@ -141,7 +141,7 @@ export default function reducer(state = {result:{}}, action) {
       }
     case ADD_SUCCESS:
         return {
-            //...state,
+            ...state,
             result: action.result
         }
     case ADD_FAILURE:

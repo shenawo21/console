@@ -38,8 +38,9 @@ class Joint extends Component {
     }
     jsonInitStr += "}";
     config.initValue = JSON.parse(jsonInitStr);
-
-    config.initValue = kList;
+    if(kList){
+      config.initValue = kList;
+    }
     if (sName) {
       config.initValue.name = sName;
     }
