@@ -268,10 +268,12 @@ class product extends Component {
      */
     handleOkMessage() {
         const context = this;
+        const {compareList} = this.props
         context.setState({
             resultVisible: false,
             messageDataSource: []
         });
+        compareList()
     }
 
 
@@ -279,8 +281,8 @@ class product extends Component {
      * 对比更新
      */
     updateHandle(index){
-        const {compareUpt} = this.props.tableOptionsPro
-        const { selectItems } = this.state;
+        const {compareUpt} = this.props.tableOptionsPro;
+        const { selectItems } = this.state; 
         const context = this;
         let list = selectItems[index] ? selectItems[index].map(val => {
             return {

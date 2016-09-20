@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import CreateProductView from '../components/CreateProductView'
 import Panel from 'components/Panel'
-import {outCateList, getSpecByCateList, getBrandList, addPro, listView} from '../modules/CreateProductReducer'
+import {outCateList, getSpecByCateList, getSpecBySpu, getBrandList, addPro, listView} from '../modules/CreateProductReducer'
 import {message} from 'hen'
 
 class CreateProduct extends Component {
@@ -173,6 +173,7 @@ class CreateProduct extends Component {
 CreateProduct.propTypes = {    
     outCateList: React.PropTypes.func,
     getSpecByCateList: React.PropTypes.func,
+    getSpecBySpu: React.PropTypes.func,
     getBrandList: React.PropTypes.func,
     addPro : React.PropTypes.func,
     listView: React.PropTypes.func,
@@ -185,6 +186,7 @@ CreateProduct.propTypes = {
 const mapActionCreators = {
     outCateList,
     getSpecByCateList,
+    getSpecBySpu,
     getBrandList,
     addPro,
     listView
@@ -195,9 +197,9 @@ CreateProduct.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    let {result, cateResult, specListResult, brandResult, listViewResult, loading} = state.createProduct;
+    let {result, cateResult, specListResult, spuSpecListResult, brandResult, listViewResult, loading} = state.createProduct;
     const {items = [], totalItems = 0} = listViewResult || {};
-    return { result, cateResult, specListResult, brandResult, items, totalItems, loading };    
+    return { result, cateResult, specListResult, spuSpecListResult, brandResult, items, totalItems, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(CreateProduct)

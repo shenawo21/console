@@ -61,12 +61,14 @@ export default function reducer(state = {result:{}}, action) {
     case GETAIRLIST:
     case ADSTOCKCATELIST:
         return {
-            ...state
+            ...state,
+            jump: false
         }
     case ADJUSTSTOCK_SUCCESS:
         return {
             ...state,
-            result: action.result
+            result: action.result,
+            jump: true
         }
     case ADJUSTSTOCK_FAILURE:
         return {

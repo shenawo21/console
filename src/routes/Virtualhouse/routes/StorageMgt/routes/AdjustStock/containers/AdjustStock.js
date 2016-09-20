@@ -34,6 +34,15 @@ class AdjustStock extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps, preProps) {
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/virtualhouse/storageMgt')
+            },800)
+        }
+        
+    }
+
     /**
      * (表格功能配置项)
      * 
@@ -123,12 +132,17 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result, airListResult, cateResult, loading} = state.adjustStock;
+    const {result, airListResult, cateResult, loading, jump} = state.adjustStock;
 
     const {items = [], totalItems = 0} = airListResult || {};
-    return { items, totalItems, cateResult, result, loading };
+    return { items, totalItems, cateResult, result, loading, jump };
 
 }
+
+ 
+AdjustStock.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, mapActionCreators)(AdjustStock)
 

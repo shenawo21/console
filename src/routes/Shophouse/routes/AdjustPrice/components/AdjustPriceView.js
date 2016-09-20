@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
 import {getSpecValue} from 'common/utils'
-import {Form, Button, Input, message} from 'hen';
+import {Form, Button, Input, message, InputNumber} from 'hen';
 const FormItem = Form.Item;
 
 class AdjustPrice extends Component {
@@ -101,7 +101,7 @@ class AdjustPrice extends Component {
         }, {
             key: '2',
             title: '所属店铺',
-            dataIndex: 'shopId'
+            dataIndex: 'shopName'
         }, {
             key: '3',
             title: '商品名称',
@@ -115,8 +115,8 @@ class AdjustPrice extends Component {
             title: '调整销售价',
             dataIndex: 'price',
             render(value, row){
-                return <Input type="text" placeholder="请输入调整销售价" style={{width:120}} onChange={(e) => {
-			let {priceList} = context.state, price = { skuId: row.skuId, stockId: row.stockId, shopId: row.shopId, price: e.target.value }, selectItems = []
+                return <InputNumber type="text" min={0.01} max={9999999} step={0.01} placeholder="请输入调整销售价" style={{width:120}} onChange={(e) => {
+			        let {priceList} = context.state, price = { skuId: row.skuId, stockId: row.stockId, shopId: row.shopId, price: e }, selectItems = []
                         selectItems = priceList.filter((val) => {
                             return val.skuId !== row.skuId
                         })

@@ -64,15 +64,15 @@ class OddQuery extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-	      const {params} = context.state;
-		  if(value.categoryCode){
-		  	value.categoryCode = value.categoryCode[value.categoryCode.length - 1] || '';
-		  }
+                const {params} = context.state;
+                if(value.categoryCode){
+                    value.categoryCode = value.categoryCode[value.categoryCode.length - 1] || '';
+                }
                   context.setState({
                       params: {
-		      	...params,
-			...value
-		      } 
+		      	        ...params,
+                        ...value
+                      } 
                   })
               },
 
@@ -80,6 +80,12 @@ class OddQuery extends Component {
                * (筛选表单重置)
                */
               handleReset() {
+                  const {params} = context.state;
+                  context.setState({
+                      params: {
+		      	        ...params
+                      } 
+                  })
               }
           }
       }
