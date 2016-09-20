@@ -20,11 +20,10 @@ class Add extends Component {
         formItems: [{
           label: "订单标题：",
           name: "title",
-          span: '24',
           labelCol: {span: 2},
           wrapperCol: {span: 13},
           required: true,
-          rules: [{required: true, message: ''}],
+          rules: [{required: true, message: '订单标题为必填项'}],
           input: {
             placeholder: "请输入订单标题",
           }
@@ -33,10 +32,11 @@ class Add extends Component {
           name: "shopId",
           rules: [{required: true, type: 'number', message: '所属店铺不能为空'}],
           select: {
+            width: '400',
             optionValue: shopList
           }
         }, {
-          label: "订单列表：",
+          label: "订单商品：",
           name: "dtos",
           rules: [{required: true, type: 'number', message: '所属店铺不能为空'}],
           custom(getCustomFieldProps) {
@@ -77,42 +77,33 @@ class Add extends Component {
         }, {
           label: "详细地址：",
           name: "receiverAddress",
-          span: '24',
           labelCol: {span: 2},
           wrapperCol: {span: 13},
           required: true,
-          rules: [{required: true, message: ''}],
+          rules: [{required: true, message: '详细地址为必填项'}],
           input: {
             placeholder: "请输入详细地址",
           }
         }, {
           label: "收件人：",
           name: "receiverName",
-          span: '8',
-          labelCol: {span: 6},
-          wrapperCol: {span: 13},
+          wrapperCol: {span: 8},
           required: true,
-          rules: [{required: true, message: ''}],
+          rules: [{required: true, message: '收件人为必填项'}],
           input: {
             placeholder: "请输入收件人姓名",
           }
         }, {
           label: "手机号：",
           name: "receiverMobile",
-          span: '8',
-          labelCol: {span: 6},
-          wrapperCol: {span: 13},
           required: true,
-          rules: [{required: true, message: ''}],
+          rules: [{required: true, message: '手机号为必填项'}],
           input: {
             placeholder: "请输入手机号",
           }
         }, {
           label: "固定电话：",
           name: "receiverPhone",
-          span: '8',
-          labelCol: {span: 6},
-          wrapperCol: {span: 13},
           input: {
             placeholder: "请输入固定电话",
           }
@@ -128,7 +119,7 @@ class Add extends Component {
           label: "邮政编码：",
           name: "receiverZip",
           required: true,
-          rules: [{required: true, message: ''}],
+          rules: [{required: true, message: '邮政编码为必填项'}],
           input: {
             placeholder: "请输入邮政编码",
           }

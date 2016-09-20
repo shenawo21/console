@@ -5,7 +5,7 @@
  *
  */
 export default (store) => ({
-  breadcrumbName: "订单管理",
+  //breadcrumbName: "订单管理",
   path: 'order',
   getChildRoutes(location, next) {
     require.ensure([], (require) => {

@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import AddView from '../components/AddView'
 import Panel from 'components/Panel'
-import {appList,companyList,addrList,addItem,cateList,proList} from '../modules/AddReducer'
+import {appList, companyList, addrList, addItem, cateList, proList} from '../modules/AddReducer'
 
 class Add extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Add extends Component {
   }
 
   componentDidMount() {
-    const {appList,companyList,addrList,cateList,proList}=this.props;
+    const {appList, companyList, addrList, cateList, proList}=this.props;
     //店铺列表
     appList();
     //物流公司列表
@@ -26,6 +26,7 @@ class Add extends Component {
     //仓库商品列表
     proList()
   }
+
   /**
    * (表格功能配置项)
    *
@@ -40,7 +41,7 @@ class Add extends Component {
        *
        * @param value (description)
        */
-      handleSubmit(value,key) {
+      handleSubmit(value, key) {
         console.log(value)
         let P = '', C = '', D = '';
         if (value.receiverAddr) {
@@ -48,7 +49,7 @@ class Add extends Component {
           C = value.receiverAddr[1];
           D = value.receiverAddr[2]
         }
-        key=='commit'?addItem({
+        key == 'commit' ? addItem({
           title: value.title,
           shopId: value.shopId,
           buyerNick: value.buyerNick,
@@ -63,10 +64,10 @@ class Add extends Component {
           receiverZip: value.receiverZip,
           companyCode: value.companyCode,
           remark: value.remark
-        }):
-        context.setState({
-          params: ''
-        })
+        }) :
+          context.setState({
+            params: ''
+          })
       },
       /**
        * (筛选表单重置)
@@ -76,7 +77,7 @@ class Add extends Component {
     }
   }
 
-  chooseFormOption(){
+  chooseFormOption() {
     const context = this;
     return {
       handleSubmit(value) {
@@ -89,6 +90,7 @@ class Add extends Component {
       }
     }
   }
+
   chooseRowSelection() {
     return {
       onSelect(record, selected, selectedRows) {
@@ -102,7 +104,7 @@ class Add extends Component {
 
   render() {
     const {params} = this.state;
-    const {loading,items, result,appResult,cResult,totalItems, addrResult,cateResult,proResult} = this.props;
+    const {loading, items, result, appResult, cResult, totalItems, addrResult, cateResult, proResult} = this.props;
     const chooseTableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
       action: proResult,                         //表格翻页时触发的action
@@ -123,7 +125,7 @@ class Add extends Component {
         return {
           value: c.shopId,
           title: c.name,
-          //disabled: (c.status != 'use' || c.enabled == false) ? true : false
+          disabled: (c.status != 'use' || c.enabled == false) ? true : false
         }
       });
     } else {
@@ -131,7 +133,8 @@ class Add extends Component {
         value: null,
         title: '正在加载中...'
       }]
-    };
+    }
+    ;
     /**
      * 快递公司列表
      * @type {Array}
@@ -180,14 +183,16 @@ class Add extends Component {
     }
 
     return <Panel title=""><AddView  {...formOptions} cList={cList} addrResult={addrResult} proResult={proResult}
-                                                      chooseTableOptions={chooseTableOptions} chooseFormOption={this.chooseFormOption.bind(this)}
-                                                      shopList={shopList} cateList={loop(cateResult)} /></Panel>
+                                                      chooseTableOptions={chooseTableOptions}
+                                                      chooseFormOption={this.chooseFormOption.bind(this)}
+                                                      shopList={shopList} cList={cList}
+                                                      cateList={loop(cateResult)}/></Panel>
   }
 }
 
 Add.propTypes = {
   result: React.PropTypes.object,
-  addItem : React.PropTypes.func,
+  addItem: React.PropTypes.func,
   loading: React.PropTypes.bool
 }
 
@@ -201,9 +206,9 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult,cResult, addrResult,cateResult,proResult} = state.add;
+  const {result, loading, appResult, cResult, addrResult, cateResult, proResult} = state.add;
   const {items = [], totalItems = 0} = proResult || {};
-  return {'result': result,items,totalItems, loading, appResult,cResult, addrResult,cateResult,proResult};
+  return {'result': result, items, totalItems, loading, appResult, cResult, addrResult, cateResult, proResult};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Add)

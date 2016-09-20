@@ -48,7 +48,10 @@ class Synch extends Component {
     let columns = [{
       key: '0',
       title: 'ID',
-      dataIndex: '_index'
+      dataIndex: '_index',
+      render(key){
+        return <span>{key+1}</span>;
+      }
     }, {
       key: '1',
       title: '同步时间',

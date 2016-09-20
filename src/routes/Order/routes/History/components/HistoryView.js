@@ -11,7 +11,8 @@ const TYPE =
   'TRADE_BUYER_SIGNED': '已签收',
   'REFUND_GOODS': '退货',
   'CHANGE_GOODS': '换货',
-  'REFUND': '退款'
+  'REFUND': '退款',
+  'WAIT_SEND_GOODS': '待发货',
 }
 
 
@@ -114,15 +115,18 @@ class History extends Component {
     let columns = [{
       key: '0',
       title: '序号',
-      dataIndex: '_index'
+      dataIndex: '_index',
+      render(key){
+        return <span>{key+1}</span>;
+      }
     },{
       key: '1',
       title: '订单号',
       dataIndex: 'tid'
     }, {
       key: '2',
-      title: '下单时间',
-      dataIndex: 'created'
+      title: '成交时间',
+      dataIndex: 'payTime'
     }, {
       key: '3',
       title: '买家昵称',

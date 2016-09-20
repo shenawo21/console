@@ -42,12 +42,11 @@ class Joint extends Component {
        */
       handleSubmit(value) {
         value.name ? delete value.name : '';
-        console.log(value);
         const {params, modifyItem} = context.props;
         modifyItem({
-          ruleInfo: JSON.stringify(value),
-          shopId: params.id
-        })
+         ruleInfo: JSON.stringify(value),
+         shopId: params.id
+         })
       },
 
       /**
@@ -68,6 +67,7 @@ class Joint extends Component {
           return {
             label: c.displayName + "：",
             name: c.ruleCode,
+            rules: [{required: true, message: c.displayName+'为必填'}],
             input: {}
           }
         })
