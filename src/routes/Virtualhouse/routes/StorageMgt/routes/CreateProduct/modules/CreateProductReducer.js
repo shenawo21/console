@@ -23,6 +23,11 @@ const SPECLIST = 'virtualhouse/SPECLIST';
 const SPECLIST_SUCCESS = 'virtualhouse/SPECLIST_SUCCESS';
 const SPECLIST_FAILURE = 'virtualhouse/SPECLIST_FAILURE';
 
+//根据已选spuId获取该条数据的属性列表
+const SPUSPECLIST = 'virtualhouse/SPUSPECLIST';
+const SPUSPECLIST_SUCCESS = 'virtualhouse/SPUSPECLIST_SUCCESS';
+const SPUSPECLIST_FAILURE = 'virtualhouse/SPUSPECLIST_FAILURE';
+
 /**
  * 获取商品类目
  * 
@@ -48,6 +53,20 @@ export function getSpecByCateList(params) {
   return {
     types: [SPECLIST, SPECLIST_SUCCESS, SPECLIST_FAILURE],
     promise: (client) => client.post('api-enterpriseSpec.listView', params)
+  }
+}
+
+/**
+ * 根据已选spuId获取该条数据的属性列表
+ *
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function getSpecBySpu(params) {
+  return {
+    types: [SPUSPECLIST, SPUSPECLIST_SUCCESS, SPUSPECLIST_FAILURE],
+    promise: (client) => client.post('api-enterpriseSpec.getSpuSpecList', params)
   }
 }
 
@@ -98,6 +117,7 @@ export default function reducer(state = {result:{}}, action) {
   switch (action.type) {
     case OUTCATELIST:
     case SPECLIST:
+    case SPUSPECLIST:
     case BRANDLIST:
     case ADDPRO:
     case LISTVIEW:
@@ -119,6 +139,15 @@ export default function reducer(state = {result:{}}, action) {
             specListResult: action.result
         }
     case SPECLIST_FAILURE:
+        return {
+            ...state
+        }
+    case SPUSPECLIST_SUCCESS:
+        return {
+            ...state,
+            spuSpecListResult: action.result
+        }
+    case SPUSPECLIST_FAILURE:
         return {
             ...state
         }

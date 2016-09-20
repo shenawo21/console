@@ -72,7 +72,7 @@ class shop extends Component {
         }, {
             key: '5',
             title: '品牌',
-            dataIndex: 'brandId'
+            dataIndex: 'brandName'
         }, {
             key: '6',
             title: '规格',

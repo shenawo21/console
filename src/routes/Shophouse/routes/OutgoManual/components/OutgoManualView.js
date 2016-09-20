@@ -102,7 +102,7 @@ class OutgoManual extends Component {
         }, {
             key: '2',
             title: '所属店铺',
-            dataIndex: 'shopId'
+            dataIndex: 'shopName'
         }, {
             key: '3',
             title: '商品名称',
@@ -247,9 +247,8 @@ class OutgoManual extends Component {
                         {...formItemLayout}
                     >
                         <Select {...selectProps} defaultValue="调拨出库" placeholder="请选择出库类型" style={{ width: 200 }}>
-                            <Option value="调拨出库">调拨出库</Option>
-                            <Option value="耗损出库">耗损出库</Option>
-                            <Option value="盘点出库">盘点出库</Option>
+                            <Option value="回退出库">回退出库</Option>
+                            <Option value="损毁出库">损毁出库</Option>
                         </Select>
                     </FormItem>
                     <FormItem

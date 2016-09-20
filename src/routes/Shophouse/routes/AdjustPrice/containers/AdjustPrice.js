@@ -36,6 +36,15 @@ class AdjustPrice extends Component {
         priceCateList();
     }
     
+     componentWillReceiveProps(nextProps, preProps) {
+        if(nextProps.jump){
+            setTimeout(()=>{
+                this.context.router.push('/shophouse')
+            },800)
+        }
+        
+    }
+    
       /**
        * (表格功能配置项)
        * 
@@ -71,7 +80,7 @@ class AdjustPrice extends Component {
         const {params, pageSize} = this.state;
         
         const {items, priceShopHouseList, shopListResult, uptPrice, cateResult, totalItems, loading} = this.props;
-	const tableOptions = {
+	    const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : priceShopHouseList,                         //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
@@ -146,13 +155,16 @@ const mapActionCreators = {
     getShopList, 
     priceCateList
 }
-
+ 
+AdjustPrice.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => {
-    const {result, houseListResult, shopListResult, cateResult, loading} = state.adjustPrice;
+    const {result, houseListResult, shopListResult, cateResult, loading, jump} = state.adjustPrice;
     
     const {items = [], totalItems = 0} = houseListResult || {};
-    return { items, totalItems, houseListResult, shopListResult, cateResult, result, loading };
+    return { items, totalItems, houseListResult, shopListResult, cateResult, result, loading, jump };
     
 }
 
