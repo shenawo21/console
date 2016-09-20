@@ -105,7 +105,6 @@ class Add extends Component {
   render() {
     const {params} = this.state;
     const {loading, items, result, appResult, cResult, totalItems, addrResult, cateResult, proResult} = this.props;
-    console.log(1111111,items);
     const chooseTableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
       action: proResult,                         //表格翻页时触发的action
