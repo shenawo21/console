@@ -17,6 +17,7 @@ class CreateProduct extends Component {
         this.handleOk = this.handleOk.bind(this);
         this.changeSpecValue = this.changeSpecValue.bind(this)
         this.setInputValue = this.setInputValue.bind(this);
+        this.handleReset = this.handleReset.bind(this)
         this.state = {
             visible : false,    //对话框是否显示
             selectItem : null,  //搜索选中元素
@@ -148,7 +149,7 @@ class CreateProduct extends Component {
             brandId: null,
             marketPrice: null,
             advicePrice: null,
-            total: '0.01',
+            total: null,
             skuData : {}
         }
 
@@ -176,6 +177,7 @@ class CreateProduct extends Component {
     }
 
     setSkuConfig(specDataList, rowList, selectItem){
+
         let skuData = {skuList:[]}
         specDataList.forEach((val,index)=>{
             skuData['specId'+SPECTYPE[index]] = val.specId;
@@ -417,9 +419,9 @@ class CreateProduct extends Component {
      * 规格算法：取第一项的items为基础数据、进行递归组合
      * @param  {Array} items，例如：[{key:One,items:[1,2]}, {key:Two,items:['L','X','M']}]
      * @return {Array} 组合后的数据，如下
-     *        例如： [{"specOneValue":1,"specOneValue":"L"},{"specOneValue":1,"specOneValue":"X"}
-     *               {"specOneValue":1,"specOneValue":"M"},{"specOneValue":2,"specOneValue":"L"}
-     *               {"specOneValue":2,"specOneValue":"X"},{"specOneValue":2,"specOneValue":"M"}]
+     *        例如： [{"specOneValue":1,"specTwoValue":"L"},{"specOneValue":1,"specTwoValue":"X"}
+     *               {"specOneValue":1,"specTwoValue":"M"},{"specOneValue":2,"specTwoValue":"L"}
+     *               {"specOneValue":2,"specTwoValue":"X"},{"specOneValue":2,"specTwoValue":"M"}]
      */
     normalize(items) {
         if (items.length == 0) return [];
@@ -479,7 +481,7 @@ class CreateProduct extends Component {
      * params e
      */
     setInputValue(e, row, cKey){
-        let {rowList, totalStock, salePrice, submitFlag} = this.state, curValue = e.target.value || 0;
+        let {rowList, totalStock, salePrice, submitFlag} = this.state, curValue = e|| 0;
         const context = this;
         totalStock = 0
         submitFlag = false
@@ -518,13 +520,19 @@ class CreateProduct extends Component {
         }
         return salePrice
     }
-
+    /**
+     * (筛选表单重置)
+     */
+    handleReset() {
+        this.setState({specDataList:[],rowList:[],totalStock : 0, salePrice : 0})
+    }
     render() {
         let {formOptions, tableFormOptions, tableOptions} = this.props;
         const {selectItem} = this.state;
+        console.log(selectItem,'selectItem')
         return (
             <div>
-                <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} ref='form' />
+                <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={this.handleReset} ref='form' />
                 <Modal visible={this.state.visible}
                     closable={false}
                     width={1020}
