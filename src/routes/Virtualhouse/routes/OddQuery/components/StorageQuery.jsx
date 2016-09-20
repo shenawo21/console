@@ -16,6 +16,10 @@ const STOCKTYPE = [
 
 class StorageQuery extends Component {
 
+    // shouldComponentUpdate(nextProps, nextState){
+    //     return nextProps.params === this.props.params
+    // }
+
     _getFormItems(){
     	let context = this;
         const {cateList} = context.props;

@@ -25,7 +25,7 @@ class OddQuery extends Component {
      */
     _isQueryStatus(key){
         const { shopOddQueryList, location} = this.props;
-	let pageNumber = 1;
+	    let pageNumber = 1;
         this.setState({
             params: {
                 pageNumber : 1,

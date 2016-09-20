@@ -92,7 +92,7 @@ class CreateProduct extends Component {
     
     render() {
         const {params} = this.state; 
-        const {cateResult, brandResult, items, listView, totalItems, loading, result, specListResult, getSpecByCateList, location} = this.props;
+        const {cateResult, brandResult, items, listView, totalItems, loading, result, specListResult, getSpecByCateList, getSpecBySpu, location} = this.props;
         const {query} = location;
 
         const tableOptions = {
@@ -158,7 +158,9 @@ class CreateProduct extends Component {
                             cateList={loop(cateResult)} 
                             brandList={brandLoop(brandResult)}
                             specListResult = {specListResult}
-                            getSpecByCateList={getSpecByCateList} /></Panel>
+                            getSpecByCateList={getSpecByCateList}
+                            getSpecBySpu={getSpecBySpu}
+                             /></Panel>
     }
 }
 
@@ -190,9 +192,9 @@ CreateProduct.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
-    let {result, cateResult, specListResult, spuSpecListResult, brandResult, listViewResult, loading} = state.createProduct;
+    let {result, cateResult, specListResult, brandResult, listViewResult, loading} = state.createProduct;
     const {items = [], totalItems = 0} = listViewResult || {};
-    return { result, cateResult, specListResult, spuSpecListResult, brandResult, items, totalItems, loading };    
+    return { result, cateResult, specListResult, brandResult, items, totalItems, loading };    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(CreateProduct)

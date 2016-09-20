@@ -214,7 +214,8 @@ class CreateProduct extends Component {
 
     handleOk() {
         //selectItem获取选中spu数据
-        const {getSpecByCateList} = this.props;
+        const {getSpecBySpu, getSpecByCateList} = this.props;
+        //const {getSpecByCateList} = this.props;
         const searchSpuState = this.refs.searchList
         let selectItem = null;
         if(searchSpuState.state){
@@ -223,7 +224,8 @@ class CreateProduct extends Component {
         if(selectItem){
             //选着spu时，先重置表格
             this.refs.form && this.refs.form.resetFields();
-            getSpecByCateList({categoryCode: selectItem.categoryId})
+            getSpecBySpu({spuId: selectItem.spuId})
+            //getSpecByCateList({categoryCode: selectItem.categoryId})
             this.setState({
                 selectItem,
                 visible: false
