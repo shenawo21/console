@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-import {Row, Col, Button, Modal,message} from 'hen';
+import {Row, Col, Button, Modal,message,InputNumber} from 'hen';
 import Sku from "./Sku"
 import SearchSpu from "./SearchSpu"
 import Form from 'components/Form';
@@ -104,9 +104,12 @@ class CreateProduct extends Component {
                     }
                 }
             }],
-            input: {
+            inputNumber: {
                 placeholder: "请输入市场价",
-                disabled: selectItem ? true : false
+                disabled: selectItem ? true : false,
+                step:0.01,
+                min:0,
+                max:9999999
             }
         }, {
             label: "销售价(元)：",
@@ -145,7 +148,7 @@ class CreateProduct extends Component {
             brandId: null,
             marketPrice: null,
             advicePrice: null,
-            total: null,
+            total: '0.01',
             skuData : {}
         }
 
