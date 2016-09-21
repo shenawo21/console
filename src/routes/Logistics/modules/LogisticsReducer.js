@@ -1,10 +1,6 @@
-const ADD = 'logistics/ADD';
-const ADD_SUCCESS = 'logistics/ADD_SUCCESS';
-const ADD_FAILURE = 'logistics/ADD_FAILURE';
-
-const DELETE = 'logistics/DELETE';
-const DELETE_SUCCESS = 'logistics/DELETE_SUCCESS';
-const DELETE_FAILURE = 'logistics/DELETE_FAILURE';
+const LIST = 'logistics/LIST';
+const LIST_SUCCESS = 'logistics/LIST_SUCCESS';
+const LIST_FAILURE = 'logistics/LIST_FAILURE';
 
 const ISDEFAULT = 'logistics/ISDEFAULT';
 const ISDEFAULT_SUCCESS = 'logistics/ISDEFAULT_SUCCESS';
@@ -15,30 +11,16 @@ const QUERY_SUCCESS = 'logistics/QUERY_SUCCESS';
 const QUERY_FAILURE = 'logistics/QUERY_FAILURE';
 
 /**
- * 添加
+ * 获取平台物流列表
  * 
  * @export
  * @param params (description)
  * @returns (description)
  */
-export function add(params) {
+export function getListLogistic(params) {
   return {
-    types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('api-enterpriseIndustry.isDefault', params)
-  }
-}
-
-/**
- * 移除
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function deleteItem(params) {
-  return {
-    types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('api-enterpriseIndustry.isDefault', params)
+    types: [LIST, LIST_SUCCESS, LIST_FAILURE],
+    promise: (client) => client.post('api-logistic.listLogistic', params)
   }
 }
 
@@ -57,7 +39,7 @@ export function isDefault(params) {
 }
 
 /**
- * 物流公司列表
+ * 获取企业物流公司
  * 
  * @export
  * @param params (description)
@@ -66,35 +48,26 @@ export function isDefault(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('api-enterpriseIndustry.listEnterpriseIndustrys', params)
+    promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
   }
 }
+
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
-    case ADD:
-    case DELETE:
+    case LIST:
     case ISDEFAULT:
     case QUERY:
         return {
             ...state
         }
-     case ADD_SUCCESS:
+     case LIST_SUCCESS:
         return {
             //...state,
-            result: action.result
+            listResult: action.result
         }
-    case ADD_FAILURE:
-        return {
-            ...state
-        }
-    case DELETE_SUCCESS:
-        return {
-            //...state,
-            result: action.result
-        }
-    case DELETE_FAILURE:
+    case LIST_FAILURE:
         return {
             ...state
         }
@@ -110,7 +83,7 @@ export default function reducer(state = {result:{}}, action) {
     case QUERY_SUCCESS:
         return {
             ...state,
-            result: action.result
+            queryResult: action.result
         }
     case QUERY_FAILURE:
         return {
