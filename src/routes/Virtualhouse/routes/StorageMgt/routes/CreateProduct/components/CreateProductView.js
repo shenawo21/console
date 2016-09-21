@@ -170,14 +170,13 @@ class CreateProduct extends Component {
             config.initValue.advicePrice = salePrice
         }
         if(totalStock){
-            config.initValue.total = totalStock
+            config.initValue.total = totalStock 
         }
         config.initValue.skuData = this.setSkuConfig(specDataList, rowList, selectItem)
         return config;
     }
 
     setSkuConfig(specDataList, rowList, selectItem){
-
         let skuData = {skuList:[]}
         specDataList.forEach((val,index)=>{
             skuData['specId'+SPECTYPE[index]] = val.specId;
@@ -357,7 +356,9 @@ class CreateProduct extends Component {
      * @returns
      */
     changeSpecValue(num, specTitle, specId, specValue, e) {
-        let {specDataList, rowList, totalStock, salePrice, submitFlag} = this.state, curSpec = [];
+        let {specDataList, rowList, totalStock, salePrice, submitFlag,specList} = this.state, curSpec = [];
+        console.log(specList,'222222')
+         console.log(specDataList,'specDataList----')
         if (e.target.checked) {
             if (!specDataList[num]) {
                 specDataList[num] = {
@@ -376,7 +377,12 @@ class CreateProduct extends Component {
                 specDataList.splice(num, 1);
             }
         }
-        curSpec = this.normalize(specDataList)
+        let newArray = specDataList.filter((item) => {
+            return item
+        })
+        let rowData = (newArray && newArray.length) == (specList && specList.length) ? specDataList : ''
+        // console.log(rowData,'rowData')
+        curSpec = this.normalize(rowData)
         //当修改销售价或库存数量后，再次添加sku时，要将选中的组合与之前修改的rowList里面元素进行合并，用新的curSpec做表格源数据
         if(curSpec.length > 1){ //新增时，当列表只有一行数据时，选择规格值时不需要合并之前的rowList数据
             totalStock = 0
@@ -406,6 +412,7 @@ class CreateProduct extends Component {
                 })
             })
         }
+        console.log(curSpec,'33333')
         this.setState({
             specDataList,
             rowList : curSpec,
@@ -529,7 +536,6 @@ class CreateProduct extends Component {
     render() {
         let {formOptions, tableFormOptions, tableOptions} = this.props;
         const {selectItem} = this.state;
-        console.log(selectItem,'selectItem')
         return (
             <div>
                 <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={this.handleReset} ref='form' />
