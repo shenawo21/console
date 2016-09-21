@@ -148,23 +148,31 @@ export const UpLoader = (props) => {
       if (info.file.status === 'done') {
         if (info.file.response.status == '1') {
           message.success(info.file.name + ' 上传成功。');
-          let uploadFormItem = '';
+          let uploadFormItem = '', newFileLists = null;
           if (onlyFile) {
             info.fileList = info.fileList.slice(-1);
           }
-          let newFileLists = getFileList(info.fileList, info);
+          if(imgDomain){
+            newFileLists =  getFileList(info.fileList, info);
 
-          if (onlyFile) {
-            uploadFormItem = newFileLists[0]['name']
-          } else {
-            uploadFormItem = newFileLists.map(f => f.name).join(',')
+            if (onlyFile) {
+              uploadFormItem = newFileLists[0]['name']
+            } else {
+              uploadFormItem = newFileLists.map(f => f.name).join(',')
+            }
+          }else{
+            newFileLists = info.fileList.map((file, index) => {
+              if (file.response) {
+                return file.response.data;
+              }
+              return file
+            })
           }
           //返回图片显示对象newFileLists，及图片名称uploadFormItem
           onChangeFileList && onChangeFileList(newFileLists, uploadFormItem);
         } else {
           message.error(info.file.name + info.file.response.message);
         }
-        ;
       } else if (info.file.status === 'error') {
         message.error(info.file.name + ' 上传失败。');
       }
