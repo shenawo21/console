@@ -214,20 +214,24 @@ class AdjustPrice extends Component {
             //     message.warning('请选择出库商品并做库存及价格设置', 10);
             //     return;
             // }
-           
-            uptPrice({
-                ...values,
-                dtoList: priceList
-            }).then(function(res){
-                if(res && res.data) {
-                    context.setState({
-                        messageDataSource: res.data,
-                        resultVisible: true
-                    })
-                } else {
-                    message.error(res.message);
-                }
-            });
+            if (priceList.length) {
+                uptPrice({
+                    ...values,
+                    dtoList: priceList
+                }).then(function(res){
+                    if(res && res.data) {
+                        context.setState({
+                            messageDataSource: res.data,
+                            resultVisible: true
+                        })
+                    } else {
+                        message.error(res.message);
+                    }
+                })
+            } else {
+                message.error('请输入调整后价格！')
+            }
+            
          });
 
         

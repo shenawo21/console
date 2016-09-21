@@ -108,7 +108,7 @@ class Goods extends Component {
         /*** 物流列表**/
         let logisticList = [];
         if (logistic) {
-            logisticList = logistic.map(c=> {
+            logisticList = logistic && logistic.map(c=> {
             return {
                 value: c.companyCode,
                 title: c.companyName
