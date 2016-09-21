@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import LogisticsView from '../components/LogisticsView'
 import Panel from 'components/Panel'
-import {queryList, isDefault} from '../modules/LogisticsReducer'
+import {queryList, getListLogistic, isDefault} from '../modules/LogisticsReducer'
 
 class Logistics extends Component {
   
@@ -17,8 +17,8 @@ class Logistics extends Component {
     }
     
     componentDidMount() {
-        const {queryList} = this.props;
-        queryList();
+        const {getListLogistic} = this.props;
+        getListLogistic();
     }
 
     render() {
@@ -37,21 +37,21 @@ class Logistics extends Component {
 Logistics.propTypes = {
     queryList: React.PropTypes.func,
     isDefault: React.PropTypes.func,
+    getListLogistic : React.PropTypes.func,
     items: React.PropTypes.array.isRequired,
     totalItems: React.PropTypes.number.isRequired,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    add,
-    deleteItem,
+    getListLogistic,
     queryList,
     isDefault
 }
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.logistics;
-    const {items = [], totalItems = 0} = result || {};
+    const {listResult, queryResult, loading} = state.logistics;
+    const {items = [], totalItems = 0} = listResult || {};
     return { items, totalItems, loading };
     
 }
