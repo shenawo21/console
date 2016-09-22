@@ -100,6 +100,7 @@ class GoodsInfo extends Component {
                 //     }
                 // }],
                 input: {
+                    disabled: true,
                     value:context.state.sellerName || ''
                 }
             },,{
@@ -115,19 +116,21 @@ class GoodsInfo extends Component {
                 //     }
                 // }],
                 input: {
+                    disabled: true,
                     value:context.state.fullAddress || ''
                 }
             },{
                 label: "邮编：",
                 name: "sellerPost",
                 input: {
+                    disabled: true,
                      value:context.state.sellerPost || ''
                 }
             },{
                 label: "座机号：",
                 name: "sellerTel",
                 input: {
-
+                    disabled: true,
                 }
             },{
                 label: "手机号：",
@@ -142,6 +145,7 @@ class GoodsInfo extends Component {
                 //     }
                 // }],
                 input: {
+                    disabled: true,
                     value:context.state.sellerPhone || ''
                 }
             },{
