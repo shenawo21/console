@@ -21,9 +21,9 @@ const QUERY_FAILURE = 'logistics/QUERY_FAILURE';
  * @returns
  */
 
-export function addLogistic() {
+export function addLogistic(params) {
     return {
-        type: [ADD, ADD_SUCCESS, ADD_FAILURE],
+        types: [ADD, ADD_SUCCESS, ADD_FAILURE],
         promise: (client) => client.post('api-enterpriseLogistic.add', params)
     }
 }

@@ -90,7 +90,7 @@ class Checked extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <Link to={`/order/audit/detail/${id}`}>订单详情</Link>
+                return <Link to={`/service/aftersale/goodsdetail/${id}`}>订单详情</Link>
             }
         }];
         

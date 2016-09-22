@@ -49,7 +49,8 @@ class Change extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to="/order/audit/detail/1">订单详情</Link></span>
+                console.log(row,'row')
+                return <span><Link to={`/service/aftersale/goodsdetail/${id}`}>订单详情</Link></span>
             }
         }];
         

@@ -23,6 +23,7 @@
           require('./routes/ChangeGoods').default(store),               //换货登记处理
           require('./routes/ChangeList').default(store),                // 查询跳转换货列表
           require('./routes/ChangeDetail').default(store),              // 换货处理详情/结束换货
+          require('./routes/GoodsDetail').default(store)                // 退换货详情
         ])
       })
   }

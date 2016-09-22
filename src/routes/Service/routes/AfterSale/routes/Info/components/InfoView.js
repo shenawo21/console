@@ -99,7 +99,6 @@ class InfoView extends Component {
                 }
             ]
         }
-        console.log(result,'result====')
         return (
             <div>
                 <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} />

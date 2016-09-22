@@ -100,10 +100,11 @@ class GoodsInfo extends Component {
                 //     }
                 // }],
                 input: {
+                    disabled: true,
                     value:context.state.sellerName || ''
                 }
             },,{
-                label: "详细地址",
+                label: "详细地址：",
                 name: "fullAddress",
                 // rules: [{
                 //     validator(rule, value, callback) {
@@ -115,19 +116,21 @@ class GoodsInfo extends Component {
                 //     }
                 // }],
                 input: {
+                    disabled: true,
                     value:context.state.fullAddress || ''
                 }
             },{
                 label: "邮编：",
                 name: "sellerPost",
                 input: {
+                    disabled: true,
                      value:context.state.sellerPost || ''
                 }
             },{
                 label: "座机号：",
                 name: "sellerTel",
                 input: {
-
+                    disabled: true,
                 }
             },{
                 label: "手机号：",
@@ -142,10 +145,11 @@ class GoodsInfo extends Component {
                 //     }
                 // }],
                 input: {
+                    disabled: true,
                     value:context.state.sellerPhone || ''
                 }
             },{
-                label: "卖家留言",
+                label: "卖家留言：",
                 name: "sellerRemark",
                 input: {
                     rows: '5',
