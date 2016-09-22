@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import InvoiceView from '../components/InvoiceView'
 import Panel from 'components/Panel'
 import {queryList, deleteItem, appList} from '../modules/InvoiceReducer'
-
+import {getTimeStamp} from 'common/utils';
+import { message } from 'hen';
 class Invoice extends Component {
 
   constructor(props) {
@@ -84,10 +85,14 @@ class Invoice extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        console.log(value)
-        context.setState({
-          params: value
-        })
+        if (getTimeStamp(value.createStartTime) > getTimeStamp(value.createEndTime)) {
+          message.error('开始时间不能晚于结束时间！');
+          return false
+        } else {
+          context.setState({
+            params: value
+          })
+        }
       },
 
       /**

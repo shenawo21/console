@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import HistoryView from '../components/HistoryView'
 import Panel from 'components/Panel'
 import {queryList, appList} from '../modules/HistoryReducer'
-
+import {getTimeStamp} from 'common/utils';
+import {message} from 'hen';
 class History extends Component {
 
   constructor(props) {
@@ -45,10 +46,14 @@ class History extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        console.log(value)
-        context.setState({
-          params: value
-        })
+        if ((getTimeStamp(value.payStartTime) > getTimeStamp(value.payEndTime)) || (getTimeStamp(value.shoppStartTime) > getTimeStamp(value.shoppEndTime))) {
+          message.error('开始时间不能晚于结束时间！');
+          return false
+        } else {
+          context.setState({
+            params: value
+          })
+        }
       },
 
       /**

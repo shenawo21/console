@@ -81,8 +81,8 @@ class Choose extends Component {
     const {handleSubmit, handleReset} = chooseFormOption();
     return (
       <div>
-        <Search items={this._getFormItems()} onSubmit={chooseFormOption().handleSubmit} onReset={chooseFormOption().handleReset}/>
-        <DataTable bordered={true} columns={this._getColumns()} chooseTableOptions={chooseTableOptions} />
+        <Search items={this._getFormItems()} onSubmit={handleSubmit} onReset={handleReset}/>
+        <DataTable bordered={true} columns={this._getColumns()} {...chooseTableOptions} />
       </div>
     )
   }

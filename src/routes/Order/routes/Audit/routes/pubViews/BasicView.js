@@ -45,8 +45,7 @@ const config = [
   {label: "交易类型：", name: "type"},
   {label: "交易来源：", name: "tradeFrom"},
   {label: "交易创建时间：", name: "created"},
-  {label: "付款时间：", name: "payTime"},
-  {label: "预计发货时间：", name: "estConTime"}
+  {label: "付款时间：", name: "payTime"}
 ]
 class Basic extends Component {
   /**
@@ -79,15 +78,12 @@ class Basic extends Component {
       case "payTime":
         return <span>{basicInfo.payTime}</span>
         break;
-      case "estConTime":
-        return <span>{basicInfo.estConTime}</span>
-        break;
     }
   }
 
   render() {
     const {basicInfo} = this.props;
-    if(!basicInfo)return null;
+    if (!basicInfo)return null;
     return <Row>
       {
         config.map((item, i) => {

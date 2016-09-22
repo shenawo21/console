@@ -23,7 +23,7 @@ const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.selectWaitSendGoods', params)
+    promise: (client) => client.post('api-tradesInfo.selectWaitSendGoods', params,{hasMsg : true})
   }
 }
 /**
