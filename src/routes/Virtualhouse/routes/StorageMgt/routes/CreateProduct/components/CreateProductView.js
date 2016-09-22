@@ -25,7 +25,7 @@ class CreateProduct extends Component {
             specDataList: [],   //选中的规格及值
             rowList: [],         //sku列表
             totalStock : 0,     //库存
-            salePrice : 0,      //
+            salePrice : 0.01,      //
             submitFlag : '',     //提交数据时,skuList价格或库存是否为空
             market:''
         }
@@ -109,7 +109,7 @@ class CreateProduct extends Component {
                 placeholder: "请输入市场价",
                 disabled: selectItem ? true : false,
                 step:0.01,
-                min:0,
+                min:0.01,
                 max:9999999
             }
         }, {
@@ -147,7 +147,7 @@ class CreateProduct extends Component {
             title: null,
             categoryId: null,
             brandId: null,
-            marketPrice: null,
+            marketPrice: 0.01,
             advicePrice: null,
             total: null,
             skuData : {}
@@ -166,18 +166,17 @@ class CreateProduct extends Component {
             config.initValue.spuId = "";
         }
        
-        if(salePrice){
+        if(salePrice !== 'undefined'){
             config.initValue.advicePrice = salePrice
         }
-        if(totalStock){
-            config.initValue.total = totalStock
+        if(totalStock!== 'undefined'){
+            config.initValue.total = totalStock 
         }
         config.initValue.skuData = this.setSkuConfig(specDataList, rowList, selectItem)
         return config;
     }
 
     setSkuConfig(specDataList, rowList, selectItem){
-
         let skuData = {skuList:[]}
         specDataList.forEach((val,index)=>{
             skuData['specId'+SPECTYPE[index]] = val.specId;
@@ -236,7 +235,7 @@ class CreateProduct extends Component {
                 specDataList: [],   
                 rowList: [],
                 totalStock : 0,
-                salePrice : 0,
+                salePrice : 0.01,
                 selectItem,
                 visible: false
             });
@@ -330,11 +329,11 @@ class CreateProduct extends Component {
                     curSpec[index].items = uniq(curSpec[index].items)
                 })
             }else{
-                salePrice = 0
+                salePrice = 0.01
             }
         }else{
             totalStock = 0
-            salePrice = 0
+            salePrice = 0.01
         }
         
         this.setState({
@@ -357,7 +356,7 @@ class CreateProduct extends Component {
      * @returns
      */
     changeSpecValue(num, specTitle, specId, specValue, e) {
-        let {specDataList, rowList, totalStock, salePrice, submitFlag} = this.state, curSpec = [];
+        let {specDataList, rowList, totalStock, salePrice, submitFlag,specList} = this.state, curSpec = [];
         if (e.target.checked) {
             if (!specDataList[num]) {
                 specDataList[num] = {
@@ -376,7 +375,11 @@ class CreateProduct extends Component {
                 specDataList.splice(num, 1);
             }
         }
-        curSpec = this.normalize(specDataList)
+        let newArray = specDataList.filter((item) => {
+            return item
+        })
+        let rowData = (newArray && newArray.length) == (specList && specList.length) ? specDataList : ''
+        curSpec = this.normalize(rowData)
         //当修改销售价或库存数量后，再次添加sku时，要将选中的组合与之前修改的rowList里面元素进行合并，用新的curSpec做表格源数据
         if(curSpec.length > 1){ //新增时，当列表只有一行数据时，选择规格值时不需要合并之前的rowList数据
             totalStock = 0
@@ -490,12 +493,14 @@ class CreateProduct extends Component {
                 //每次修改当前input值，rowList状态会变更，price或assignedStock会保存上次修改状态
                 rowList[index][cKey] = Number(curValue) || 0
             }
+            console.log(rowList[index], index, salePrice,'val')
             totalStock = context.getStock(rowList[index], totalStock)
             salePrice = context.getPrice(rowList[index], index, salePrice)
             if(!rowList[index].assignedStock || !rowList[index].price){
                 submitFlag = true
             }
         })
+
         this.setState({
             rowList,
             totalStock,
@@ -511,7 +516,7 @@ class CreateProduct extends Component {
 
     getPrice(val, index, salePrice){
         //计算库存和获取sku最小售价
-        let curPrice = val.price
+        let curPrice = val.price || 0.01
         if(index > 0){
             //上一个price值与当前price对比，小的再赋给saleprice，循环遍历
             salePrice = salePrice > curPrice ? curPrice : salePrice
@@ -529,7 +534,6 @@ class CreateProduct extends Component {
     render() {
         let {formOptions, tableFormOptions, tableOptions} = this.props;
         const {selectItem} = this.state;
-        console.log(selectItem,'selectItem')
         return (
             <div>
                 <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={this.handleReset} ref='form' />
