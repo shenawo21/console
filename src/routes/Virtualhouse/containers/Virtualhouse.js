@@ -51,9 +51,11 @@ class Virtualhouse extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
+                  const {selectList} = context.state;
                   if(value.categoryCode){ value.categoryCode = value.categoryCode[value.categoryCode.length - 1]}
                   context.setState({
-                      params: value
+                      params: value,
+                      selectList: []
                   })
               },
 
@@ -63,8 +65,7 @@ class Virtualhouse extends Component {
               handleReset() {
               }
           }
-      }
-    
+      }    
     
     /**
      * (表格头部快捷按钮配功能置项)
@@ -76,9 +77,7 @@ class Virtualhouse extends Component {
         return {
             
         }
-    }
-    
-    
+    }    
     
     handleRowSelection() {
         return {

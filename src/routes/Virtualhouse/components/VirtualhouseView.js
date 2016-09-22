@@ -129,10 +129,9 @@ class virtualView extends Component {
     // 按钮
     quickButton(quickOptions){
         const context = this;
-        const {selectList} = context.props;
-        let params = { 
-            skuId: selectList || [] 
-        }
+        const {selectList, downParam} = context.props;
+        if(downParam.pageNumber) {delete downParam.pageNumber}
+        let params = selectList.length ? {skuId: selectList || []} : downParam;
         return <Row>
                 <Col span="3">
                     <DownLoader title='批量导出' url="/api-productService.exportFile" params={params} />
