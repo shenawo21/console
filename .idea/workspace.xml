@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="BUG修复">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_base.js" afterPath="$PROJECT_DIR$/config/_base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_development.js" afterPath="$PROJECT_DIR$/config/_development.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Accounts/components/AccountsView.js" afterPath="$PROJECT_DIR$/src/routes/Accounts/components/AccountsView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Applic/routes/Edit/components/EditView.js" afterPath="$PROJECT_DIR$/src/routes/Applic/routes/Edit/components/EditView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js" />
     </list>
     <ignored path="console.iws" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -787,7 +782,7 @@
       <workItem from="1474420302765" duration="31206000" />
       <workItem from="1474506506780" duration="1788000" />
       <workItem from="1474510829100" duration="2592000" />
-      <workItem from="1474537595643" duration="2356000" />
+      <workItem from="1474537595643" duration="2504000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -996,7 +991,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="651252000" />
+    <option name="totallyTimeSpent" value="651400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
