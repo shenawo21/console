@@ -22,7 +22,10 @@ export default (props) => {
                     <th>退货数量</th> }
                     {result.afterSaleType == 'CHANGE_GOODS' ?
                     <th>换后商品编码</th>:
-                    <th>退货金额</th>}
+                    result.afterSaleType == 'REFUND_MONEY' ?
+                        <th>退款金额</th>:
+                        <th>退货金额</th>
+                    }
                 </tr>
                 <tbody>
                     <tr>
@@ -34,10 +37,13 @@ export default (props) => {
                         <td>{result.discountFee}</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ?
                         <td>{result.tGoodsNum}</td>:
-                        <td>{result.goodsNum}</td> }
+                        result.afterSaleType == 'REFUND_MONEY' ?
+                            <td>无退货</td>:
+                            <td>{result.goodsNum}</td>
+                         }
                         {result.afterSaleType == 'CHANGE_GOODS' ?
-                        <td>{result.refundFee}</td>:
-                        <td>{result.changeSkuCode}</td>}
+                        <td>{result.changeSkuCode}</td>:
+                        <td>{result.refundFee}</td>}
                     </tr>                       
                 </tbody>
             </table>

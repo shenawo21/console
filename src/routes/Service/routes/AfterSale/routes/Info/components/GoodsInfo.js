@@ -103,7 +103,7 @@ class GoodsInfo extends Component {
                     value:context.state.sellerName || ''
                 }
             },,{
-                label: "详细地址",
+                label: "详细地址：",
                 name: "fullAddress",
                 // rules: [{
                 //     validator(rule, value, callback) {
@@ -145,7 +145,7 @@ class GoodsInfo extends Component {
                     value:context.state.sellerPhone || ''
                 }
             },{
-                label: "卖家留言",
+                label: "卖家留言：",
                 name: "sellerRemark",
                 input: {
                     rows: '5',

@@ -13,4 +13,4 @@
       next(null, Goodsinfo)
     })
   }
-})
+}) 
