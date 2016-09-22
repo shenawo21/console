@@ -10,8 +10,8 @@ const LOGTYPE = {
 };
 //是否成功
 const ISSUCC = {
-  true: "成功",
-  false: "失败"
+  1: "成功",
+  0: "失败"
 };
 const columns = [{
   title: '业务类型',

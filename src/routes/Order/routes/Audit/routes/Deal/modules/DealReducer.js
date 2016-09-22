@@ -125,7 +125,9 @@ export default function reducer(state = {result: {}}, action) {
       }
     case SEND_SUCCESS:
       return {
-        result: action.result
+        ...state,
+        sendResult: action.result,
+        isJump:true
       }
     case SEND_FAILURE:
       return {
@@ -133,7 +135,9 @@ export default function reducer(state = {result: {}}, action) {
       }
     case MODIFY_SUCCESS:
       return {
-        result: action.result
+        ...state,
+        modResult: action.result,
+        isJump:true
       }
     case MODIFY_FAILURE:
       return {
@@ -152,7 +156,7 @@ export default function reducer(state = {result: {}}, action) {
       return {
         ...state,
         lResult: action.result,
-        isJump:true
+        isLogis:true
       }
     case LOGIS_FAILURE:
       return {

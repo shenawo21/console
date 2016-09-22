@@ -55,27 +55,13 @@ class Audit extends Component {
         span: "5",
         labelCol: {span: 6},
         input: {}
-      }, {
-        label: "审单时间：",
-        span: '11',
-        labelCol: {span: 4},
-        wrapperCol: {span: 19},
-        custom(getCustomFieldProps, FormContext){
-          return <div><DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('reviewStartTime') }
-                                  showTime={true}/>
-            <p className="ant-form-split">~</p>
-            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('reviewEndTime') } showTime={true}/>
-          </div>
-        }
       }],
       initValue: {
         shopId: null,
-        tId: null,
+        tid: null,
         buyerNick: null,
         createStartTime: null,
         createEndTime: null,
-        synStartTime: null,
-        synEndTime: null
       }
     }
     return config;

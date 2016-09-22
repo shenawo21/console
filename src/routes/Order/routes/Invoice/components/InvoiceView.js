@@ -11,7 +11,6 @@ const KIND = {
   '2': "纸质发票"
 };
 class Invoice extends Component {
-
   _getFormItems() {
     let context = this, config = {};
     const {shopList} = context.props;
@@ -88,12 +87,12 @@ class Invoice extends Component {
       content: '你确定发货？',
       onOk() {
         if (row.outSid == null) {
-          message.warning('运单号不能为空');
-          return false;
-        } else {
-          isGive(row);
-          context.refs && context.refs.dt.refresh();
-        }
+         message.warning('运单号不能为空');
+         return false;
+         } else {
+         isGive(row);
+         context.refs && context.refs.dt.refresh();
+         }
       },
       onCancel() {
       }
@@ -132,11 +131,12 @@ class Invoice extends Component {
     let columns = [{
       key: '0',
       title: '店铺名称',
-      dataIndex: 'title'
+      dataIndex: 'name'
     }, {
       key: '1',
       title: '发货单号',
-      dataIndex: 'shoppId'
+      dataIndex: 'shoppId',
+      width: 80
     }, {
       key: '2',
       title: '审单时间',
@@ -148,7 +148,8 @@ class Invoice extends Component {
     }, {
       key: '4',
       title: '商品数量',
-      dataIndex: 'quantity'
+      dataIndex: 'quantity',
+      width: 80
     }, {
       key: '5',
       title: '客服备注',
@@ -156,13 +157,19 @@ class Invoice extends Component {
     }, {
       key: '6',
       title: '物流公司',
-      dataIndex: 'companyName'
+      dataIndex: 'companyName',
+      width: 80
     }, {
       key: '7',
       title: '运单号',
       dataIndex: 'outSid',
       render(value, row){
-        return <Input type="number" placeholder="运单号" name='outSid' onChange={(e) => {
+        return <Input placeholder="运单号" name='outSid' onChange={(e) => {
+                if (!(/^[a-zA-Z0-9]{1,32}$/.test(e.target.value))) {
+                  message.warning('请输入32位以内的运单号');
+                  e.target.value='';
+                  return false
+                }
                 tData.forEach((val,index)=>{
                     if(row.shoppId==val.shoppId){
                       tData[index].outSid = e.target.value
@@ -232,13 +239,21 @@ class Invoice extends Component {
   quickButton(quickOptions) {
     let context = this;
     const {selectList}=context.props;
+    let dParams = selectList.map((s)=> {
+      return s.shoppId
+    })
+    let params = {
+      shoppId: dParams
+    }
     return <Row>
       <Col span="3">
-        <DownLoader url='/api-tradesInfo.exportWaitSendGoods' params={selectList} title='导出待发货数据'/>
+        <DownLoader url='/api-tradesInfo.exportWaitSendGoods' params={params} title='导出待发货数据'/>
       </Col>
       <Col span="3">
-        <UpLoader upConfig={{action: '/api-tradesInfo.importWaitSendGoods', onChangeFileList(){
-                context._refresh();
+        <UpLoader upConfig={{action: '/api-tradesInfo.importWaitSendGoods', onChangeFileList(info){
+
+                message.info('导入结果：' + info[0].success + '条成功' + ',' + info[0].fail + '条失败',20);
+
             }}} title='导入待发货数据'/>
       </Col>
     </Row>
@@ -246,18 +261,20 @@ class Invoice extends Component {
 
   render() {
     const {formOptions, quickOptions, ...other, hasSelected, loading, tData} = this.props;
-    let customSource = [];
     tData && tData.forEach((val, index)=> {
       val.key = index;
-      customSource = val.shoppDetails;
+      val.shoppDetails && val.shoppDetails.forEach((val, index) => {
+        val.key = index
+      })
     })
+
     return (
       <div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
 
         <DataTable _uKey='orderId' bordered={true} columns={this._getColumns()} ref='dt'
                    quickButton={this.quickButton(quickOptions)} {...other} className="table"
-                   expandedRowRender={record => <Table rowKey={record => record.orderId} size="small" columns={this._customColumns()} dataSource={customSource} bordered pagination={false} />}/>
+                   expandedRowRender={record => <Table rowKey={record => record.orderId} size="small" columns={this._customColumns()} dataSource={record.shoppDetails} bordered pagination={false} />}/>
         <div style={{ marginTop: 16 }}>
           <Button type="primary" loading={loading} disabled={!hasSelected}
                   onClick={this.showGiveM.bind(this)}>

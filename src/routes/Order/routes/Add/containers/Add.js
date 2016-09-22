@@ -93,21 +93,42 @@ class Add extends Component {
 
   chooseRowSelection() {
     return {
-      onSelect(record, selected, selectedRows) {
-        console.log(record, selected, selectedRows);
+      onSelect: (record, selected, selectedRows) => {
+        /*let selectList = selectedRows.map(c => {
+          return {
+         spuId: c.spuId,
+         skuId: c.skuId,
+         title: c.title,
+         shopName: c.shopName,
+         stock: c.stock,
+         num: null
+          }
+        });
+        this.setState({selectList});*/
+        console.log(11111,selectedRows);
       },
-      onSelectAll(selected, selectedRows, changeRows) {
-        console.log(selected, selectedRows, changeRows);
-      },
+      onSelectAll: (selected, selectedRows, changeRows) => {
+        /*let selectList = selectedRows.map(c => {
+          return {
+         spuId: c.spuId,
+         skuId: c.skuId,
+         title: c.title,
+         shopName: c.shopName,
+         stock: c.stock,
+         num: null
+          }
+        });
+        this.setState({selectList});*/
+      }
     }
   }
 
   render() {
     const {params} = this.state;
-    const {loading, items, result, appResult, cResult, totalItems, addrResult, cateResult, proResult} = this.props;
+    const {loading, items, proList,result, appResult, cResult, totalItems, addrResult, cateResult, proResult} = this.props;
     const chooseTableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
-      action: proResult,                         //表格翻页时触发的action
+      action: proList,                         //表格翻页时触发的action
       pagination: {                              //表格页码配置，如果为false，则不展示页码
         total: totalItems                        //数据总数
       },

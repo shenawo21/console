@@ -40,6 +40,7 @@ class Edit extends Component {
           }
         ],
         input: {
+          disabled: item.shopId && item.status == 'audit' ? true : false,
           type: 'text',
           placeholder: "请输入正确的店铺名称"
         }
@@ -50,7 +51,10 @@ class Edit extends Component {
         hasFeedback: true,
         rules: [{required: true, message: '对接店铺类型为必填'}],
         select: {
-          optionValue: chList
+          optionValue: chList,
+          //创建中才能编辑
+          //disabled: item.shopId && item.status !== 'create' ? false : true
+          disabled: item.shopId  ? (item.status == 'create' ? false : true) : false
         }
       }, {
         label: "店铺描述：",
@@ -60,8 +64,7 @@ class Edit extends Component {
           type: "textarea",
           rows: 5,
           placeholder: "请输入店铺描述,20字以内",
-          disabled: false
-
+          disabled: item.shopId && item.status == 'audit' ? true : false
         }
       }],
       initValue: {
@@ -103,7 +106,6 @@ class Edit extends Component {
 }
 
 Edit.propTypes = {
-
   loading: React.PropTypes.bool,
   params: React.PropTypes.object
 }

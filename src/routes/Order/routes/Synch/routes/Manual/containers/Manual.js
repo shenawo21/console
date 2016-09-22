@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import ManualView from '../components/ManualView'
 import Panel from 'components/Panel'
 import {appList, modifyItem} from '../modules/ManualReducer'
-
+import {getTimeStamp} from 'common/utils';
+import { message } from 'hen';
 class Manual extends Component {
   constructor(props) {
     super(props);
@@ -44,10 +45,14 @@ class Manual extends Component {
     const {modifyItem}=context.props;
     return {
       handleSubmit(value, key) {
-        console.log(value)
-        context.setState({
-          params: value
-        });
+        if (getTimeStamp(value.startSynTime) > getTimeStamp(value.endSynTime)) {
+          message.error('开始时间不能晚于结束时间！');
+          return false
+        } else {
+          context.setState({
+            params: value
+          })
+        }
         key == 'save' ? modifyItem({...value}) : '';
       },
       handleReset() {
