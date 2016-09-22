@@ -11,8 +11,8 @@ import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 
 //是否可用
 const STATUS = [
-   { value: false, title: "不可用" },
-   { value: true, title: "可用" }
+   { value: 0, title: "不可用" },
+   { value: 1, title: "可用" }
 ];
 
 class Accounts extends Component {
@@ -68,7 +68,7 @@ class Accounts extends Component {
             title: '是否可用',
             dataIndex: 'enabled',
             render(status){
-                return status ? <span>可用</span> : <span>不可用</span>
+                return <span>{STATUS[status].title}</span>
             }
         }, {
             key: '4',
@@ -87,36 +87,36 @@ class Accounts extends Component {
             title: '创建人',
             dataIndex: 'createPerson'
         }];
-        
+
         let columOther = {
             key: '8',
             title: '操作',
             dataIndex: 'adminId',
             render(id,row){
-                return <span><Link to={`/accounts/edit/${id}`}>编辑</Link> 
+                return <span><Link to={`/accounts/edit/${id}`}>编辑</Link>
                     <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedAccount.bind(context,id)}>
                         <Button type="link">删除</Button>
                     </Popconfirm>
                 </span>
             }
         }
-        
+
         if(isAdmin){
             columns.push(columOther);
         }
-        
+
         return columns;
     }
 
-    
+
     //删除
     deletedAccount(id) {
         const {del} = this.props
         del(id)
         this.refs && this.refs.dt.refresh();
     }
-    
-    
+
+
     // 按钮
     quickButton(quickOptions){
         const {isAdmin} = this.props;
@@ -128,11 +128,11 @@ class Accounts extends Component {
             </Row>
         }
     }
-    
+
 
     render() {
         const {formOptions,quickOptions,_delAccount, ...other} = this.props;
-        
+
         return (
             <div>
 
