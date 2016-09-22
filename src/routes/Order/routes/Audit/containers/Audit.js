@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import AuditView from '../components/AuditView'
 import Panel from 'components/Panel'
 import {giveItem, deleteItem, appList, queryList} from '../modules/AuditReducer'
-
+import {getTimeStamp} from 'common/utils';
+import { message } from 'hen';
 class Audit extends Component {
 
   constructor(props) {
@@ -65,10 +66,14 @@ class Audit extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        console.log(value)
-        context.setState({
-          params: value
-        })
+        if (getTimeStamp(value.createStartTime) > getTimeStamp(value.createEndTime)) {
+          message.error('开始时间不能晚于结束时间！');
+          return false
+        } else {
+          context.setState({
+            params: value
+          })
+        }
       },
 
       /**
@@ -168,9 +173,9 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult} = state.audit;
+  const {result, loading, appResult,giveResult,delResult} = state.audit;
   const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading, appResult};
+  return {items, totalItems, loading, appResult,giveResult,delResult};
 
 }
 

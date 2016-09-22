@@ -43,11 +43,16 @@ class Deal extends Component {
         item: nextProps.result
       })
     }
-    if (nextProps.isJump) {
+    if (nextProps.isLogis) {
       this.setState({
         isShow: false,
         item: nextProps.lResult
       })
+    }
+    if (nextProps.isJump) {
+      setTimeout(()=> {
+        nextProps.history.go(-1);
+      }, 800);
     }
   }
 
@@ -136,7 +141,7 @@ class Deal extends Component {
 
   render() {
     const {params, isShow, item} = this.state;
-    const {loading, result, cResult, addrResult, lResult} = this.props;
+    const {loading, result, cResult, addrResult} = this.props;
     /**
      * 快递公司列表
      * @type {Array}
@@ -189,8 +194,8 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading, cResult, addrResult, lResult, isJump} = state.deal;
-  return {'result': result, loading, cResult, addrResult, lResult, isJump};
+  const {result, loading, cResult, addrResult, lResult, isJump,sendResult,modResult,isLogis} = state.deal;
+  return {'result': result, loading, cResult, addrResult, lResult, isJump,sendResult,modResult,isLogis};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Deal)

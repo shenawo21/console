@@ -46,7 +46,7 @@ class CreateProduct extends Component {
                   let {skuData, categoryId, ...other} = value
                   value = {...skuData, ...other, categoryId : categoryId && typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
                   if (value.categoryId) {
-                      if (value.advicePrice && value.total) {
+                      if (value.advicePrice && value.advicePrice !== 0 ) {
                           if (value.advicePrice > value.marketPrice) {
                                 message.error('市场价必须大于或等于销售价！')
                             } else {

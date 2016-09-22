@@ -2,58 +2,58 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import LogisticsView from '../components/LogisticsView'
 import Panel from 'components/Panel'
-import {queryList, isDefault} from '../modules/LogisticsReducer'
+import {queryList, getListLogistic, addLogistic, setDefault} from '../modules/LogisticsReducer'
 
 class Logistics extends Component {
-  
+
     constructor(props) {
         super(props);
         this.state = {}
     }
     //设为默认
-    _isDefault(id){
-        const { isDefault } = this.props;
-        isDefault({configId: id});
+    _isDefault(id) {
+        const { setDefault } = this.props;
+        setDefault({ configId: id });
     }
-    
+
     componentDidMount() {
-        const {queryList} = this.props;
+        const {getListLogistic, queryList} = this.props;
+        getListLogistic();
         queryList();
     }
 
     render() {
-        const {params} = this.state;
-        const {items, queryList, totalItems, loading} = this.props;
-        const tableOptions = {
-            dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            loading,                                    //表格加载数据状态
-            isDefault: this._isDefault.bind(this)
+        const {listResult, queryResult, loading, addLogistic } = this.props;
+        const options = {
+            sourceData: listResult,
+            distData: queryResult,                //加载组件时，表格从容器里获取初始值
+            setDefault: this._isDefault.bind(this),
+            addLogistic
         }
-        return <Panel title=""><LogisticsView tableOptions={tableOptions} /></Panel>
+
+        return <Panel title=""><LogisticsView {...options}/></Panel>
     }
 }
 
 
 Logistics.propTypes = {
     queryList: React.PropTypes.func,
-    isDefault: React.PropTypes.func,
-    items: React.PropTypes.array.isRequired,
-    totalItems: React.PropTypes.number.isRequired,
+    setDefault: React.PropTypes.func,
+    getListLogistic: React.PropTypes.func,
+    addLogistic : React.PropTypes.func,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    add,
-    deleteItem,
+    getListLogistic,
     queryList,
-    isDefault
+    setDefault,
+    addLogistic
 }
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.logistics;
-    const {items = [], totalItems = 0} = result || {};
-    return { items, totalItems, loading };
-    
+    const {listResult, queryResult, loading} = state.logistics;
+    return { listResult, queryResult, loading };
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Logistics)

@@ -45,9 +45,9 @@ class Sku extends Component {
             key: specList.length,
             width: 200,
             render(val, row) {
-                return <InputNumber min = {0} max = {9999999} step = {0.01} size="large" onChange={(e) => {
+                return <InputNumber min = {0.01} max = {9999999} step = {0.01} size="large" onChange={(e) => {
                      setInputValue(e, row, 'price')
-                }} defaultValue = {0}  />
+                }} defaultValue = {0.01}  />
                 // return <Input type='text' size="small" onChange={(e) => {
                 //     setInputValue(e, row, 'price')
                 // }} />

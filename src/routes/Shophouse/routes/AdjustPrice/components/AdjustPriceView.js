@@ -8,7 +8,7 @@ import {Form, Button, Input, message, InputNumber, Modal} from 'hen';
 const FormItem = Form.Item;
 
 class AdjustPrice extends Component {
-    
+
     constructor() {
         super();
         this.getData = this.getData.bind(this);
@@ -57,8 +57,8 @@ class AdjustPrice extends Component {
         }
         return config;
     }
-    
-    
+
+
     _getColumns(){
         const context = this;
         let columns = [{
@@ -91,11 +91,11 @@ class AdjustPrice extends Component {
         }, {
             key: '6',
             title: '销售价',
-            dataIndex: 'salePrice'
+            dataIndex: 'price'
         }];
         return columns;
     }
-    
+
     _getColumnsDist(){
         const context = this;
         let columns = [{
@@ -117,7 +117,7 @@ class AdjustPrice extends Component {
         }, {
             key: '4',
             title: '销售价',
-            dataIndex: 'salePrice'
+            dataIndex: 'price'
         }, {
             key: '5',
             title: '市场价',
@@ -137,14 +137,14 @@ class AdjustPrice extends Component {
                             priceList: selectItems
                         })
 
-                }} /> 
+                }} />
             }
         }];
         return columns;
     }
-    
+
     /**
-     * 
+     *
      * 选中后，获取的数据
      * @param {any} items
      */
@@ -166,7 +166,7 @@ class AdjustPrice extends Component {
         }
     }
 
-    
+
     _getStockColumns(){
         const context = this;
         let columns = [{
@@ -210,27 +210,31 @@ class AdjustPrice extends Component {
             }
 
             // 商品数量为0时提示选择商品并做库存及价格设置
-            // if(!priceList.length){    
+            // if(!priceList.length){
             //     message.warning('请选择出库商品并做库存及价格设置', 10);
             //     return;
             // }
-           
-            uptPrice({
-                ...values,
-                dtoList: priceList
-            }).then(function(res){
-                if(res && res.data) {
-                    context.setState({
-                        messageDataSource: res.data,
-                        resultVisible: true
-                    })
-                } else {
-                    message.error(res.message);
-                }
-            });
+            if (priceList.length) {
+                uptPrice({
+                    ...values,
+                    dtoList: priceList
+                }).then(function(res){
+                    if(res && res.data) {
+                        context.setState({
+                            messageDataSource: res.data,
+                            resultVisible: true
+                        })
+                    } else {
+                        message.error(res.message);
+                    }
+                })
+            } else {
+                message.error('请输入调整后价格！')
+            }
+
          });
 
-        
+
     }
 
     //返回
@@ -238,7 +242,7 @@ class AdjustPrice extends Component {
         e.preventDefault();
         this.context.router.push('/shophouse')
     }
-    
+
     render() {
         let {formOptions, tableOptions, form} = this.props;
         let {resultVisible, messageDataSource} = this.state;
@@ -307,8 +311,8 @@ class AdjustPrice extends Component {
     }
 }
 
-AdjustPrice.propTypes = {    
-    uptPrice:React.PropTypes.func,    
+AdjustPrice.propTypes = {
+    uptPrice:React.PropTypes.func,
     loading : React.PropTypes.bool,
     params : React.PropTypes.object
 }

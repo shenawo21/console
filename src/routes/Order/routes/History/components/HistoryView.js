@@ -18,8 +18,8 @@ const TYPE =
 
 //排序方式
 const SORT = [
-  {value: '0', title: '倒序'},
-  {value: '1', title: '升序'},
+  {value: '0', title: '按成交时间倒序'},
+  {value: '1', title: '按成交时间升序'},
 ]
 class History extends Component {
 
@@ -146,7 +146,7 @@ class History extends Component {
     }, {
       key: '7',
       title: '订单状态',
-      dataIndex: 'tradeType',
+      dataIndex: 'tradesStatus',
       render(key){
         return <span>{TYPE[key]}</span>;
       }

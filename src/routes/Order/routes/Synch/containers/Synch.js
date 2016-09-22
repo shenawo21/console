@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import SynchView from '../components/SynchView'
 import Panel from 'components/Panel'
 import {queryList, appList} from '../modules/SynchReducer'
-
+import {getTimeStamp} from 'common/utils';
+import { message } from 'hen';
 class Synch extends Component {
 
   constructor(props) {
@@ -40,10 +41,14 @@ class Synch extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        console.log(value)
-        context.setState({
-          params: value
-        })
+        if (getTimeStamp(value.synStartTime) > getTimeStamp(value.synEndTime)) {
+          message.error('开始时间不能晚于结束时间！');
+          return false
+        } else {
+          context.setState({
+            params: value
+          })
+        }
       },
 
       /**
