@@ -59,8 +59,8 @@ class Logistics extends Component {
             sourceData.every((val, index)=>{
                 if(index === num){
                     enLogisticsList.push({
-                        companyCode : val.companyCode,
-                        companyName : val.companyName
+                        companyCode : val.code,
+                        companyName : val.title
                     })
                     return false
                 }
@@ -94,13 +94,12 @@ class Logistics extends Component {
                     render={item => {
                         return item.title
                     }} />
-                
+                <div style={{marginTop : "10px"}}>
+                    <Button type='primary' onClick={this.saveData}>保存</Button>
+                </div>
             </div>
         )
     }
-    // <div style={{marginTop : "10px"}}>
-    //                 <Button type='primary' onClick={this.saveData}>保存</Button>
-    //             </div>
 }
 
 Logistics.propTypes = {
