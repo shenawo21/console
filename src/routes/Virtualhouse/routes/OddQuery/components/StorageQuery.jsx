@@ -165,14 +165,15 @@ class StorageQuery extends Component {
        
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, tableOptions, ...other} = this.props;
+        
         
         return (
             <div>
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} {...other} ref='dt' />
+                <DataTable bordered={true} columns={this._getColumns()} {...tableOptions} ref='dt' />
 
             </div>
         )

@@ -91,7 +91,7 @@ class virtualView extends Component {
             }
         }, {
             key: '5',
-            title: '价格',
+            title: '销售价',
             dataIndex: 'price'
         }, {
             key: '6',

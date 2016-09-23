@@ -34,7 +34,7 @@ export function deleteItem(params) {
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('api-administrator.list', params)
+    promise: (client) => client.post('api-administrator.listEn', params)
   }
 }
 

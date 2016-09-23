@@ -152,8 +152,9 @@ class outgoMgt extends Component {
             dataIndex: 'advicePrice',
             render(value, row){
                 return <InputNumber type="text" step={0.01} min={0.01} max={99999999} placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
-                    let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], incoming = ''
-                       stockList.forEach((val) => {
+                    let {stockList} = context.state, stock = { skuId: row.skuId }, selectItems = [], incoming = ''
+                        if(!e) return;
+                        stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){
                                 selectItems.push(val)
                             }else{
@@ -166,7 +167,7 @@ class outgoMgt extends Component {
                         context.setState({
                             stockList: selectItems
                         })
-                }} />
+                }} defaultValue={row.price} />
             }
         }, {
             key: '8',
@@ -178,7 +179,8 @@ class outgoMgt extends Component {
             dataIndex: 'incoming',
             render(value, row){
                 return <InputNumber type="text" min={1} max={row.stock} placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
-                    let {stockList} = context.state, stock = { skuId: row.skuId}, selectItems = [], price = '';
+                    let {stockList} = context.state, stock = { skuId: row.skuId }, selectItems = [], price = '';
+                        if(!e) return;
                         stockList.forEach((val) => {
                             if(val.skuId !== row.skuId){
                                 selectItems.push(val)
@@ -247,7 +249,7 @@ class outgoMgt extends Component {
 
             // 商品数量为0时提示选择商品并做库存及价格设置
             if(!stockList.length){
-                message.warning('请选择出库商品并做库存及价格设置', 10);
+                message.warning('请选择出库商品并做库存及价格设置', 5);
                 return;
             }
 

@@ -2,8 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import TableCascader from 'components/TableCascader';
-
-import {Form, Button, Input, Select, message, InputNumber } from 'hen';
+import DataTable from 'components/DataTable';
+import {Form, Button, Input, Select, message, InputNumber, Modal } from 'hen';
 import {getSpecValue} from 'common/utils'
 const FormItem = Form.Item;
 
@@ -13,9 +13,12 @@ class OutgoManual extends Component {
         super();
         this.getData = this.getData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleOkMessage = this.handleOkMessage.bind(this);
         this.goBack = this.goBack.bind(this);
         this.state = {
-            outgoList: []
+            outgoList: [],
+            resultVisible : false,      //手动出库处理结果显示
+            messageDataSource: [],      //手动出库处理结果
         }
     }
     
@@ -154,6 +157,33 @@ class OutgoManual extends Component {
         }
     }
 
+    _getStockColumns(){
+        const context = this;
+        let columns = [{
+            key: '0',
+            title: 'SKU',
+            dataIndex: 'title'
+        }, {
+            key: '1',
+            title: '处理结果',
+            dataIndex: 'message'
+        }];
+        return columns;
+    }
+
+    /**
+     * 提示信息确认
+     */
+    handleOkMessage() {
+        const context = this;
+        context.setState({
+            resultVisible: false,
+            messageDataSource: []
+        });
+        //提示完跳转到列表界面
+        this.context.router.push('/shophouse')
+    }
+
     //提交数据
     handleSubmit(e) {
         const context = this;
@@ -168,17 +198,25 @@ class OutgoManual extends Component {
                 }
                 return;
             }
+            if (outgoList.length) {
+                outManual({
+                    ...values,
+                    dtoList: outgoList
+                }).then(function(res){
+                    if(res && res.data) {
+                        context.setState({
+                            messageDataSource: res.data,
+                            resultVisible: true
+                        })
+                    } else {
+                        message.error(res.message);
+                    }
+                })
+            } else {
+                // 商品数量为0时提示选择商品并做库存及价格设置
+                message.error('手动出库的商品列表为空，请选择出库商品并做库存及价格设置', 10)
+            }
 
-            // 商品数量为0时提示选择商品并做库存及价格设置
-            // if(!outgoList.length){    
-            //     message.warning('请选择出库商品并做库存及价格设置', 10);
-            //     return;
-            // }
-           
-            outManual({
-                ...values,
-                dtoList: outgoList
-            });
          });
 
         
@@ -193,7 +231,7 @@ class OutgoManual extends Component {
     render() {
         let {formOptions, tableOptions, form} = this.props;
         let { getFieldProps, getFieldError, isFieldValidating } = form;
-
+        let {resultVisible, messageDataSource} = this.state;
         tableOptions = {
             columns: this._getColumns(),
             ...tableOptions
@@ -266,11 +304,15 @@ class OutgoManual extends Component {
                     &nbsp;&nbsp;&nbsp;
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
                 </div>
+                <Modal title="处理结果" visible={resultVisible} onOk={this.handleOkMessage} onCancel={this.handleOkMessage}>
+                    <div className="modalResult">
+                        <DataTable columns={this._getStockColumns()} size='small' dataSource={messageDataSource} />
+                    </div>
+                </Modal>
             </div>
         )
     }
 }
-
 
 OutgoManual.propTypes = {
     outManual:React.PropTypes.func,

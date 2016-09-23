@@ -28,7 +28,7 @@ const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
 export function outManual(params) {
   return {
     types: [OUTPROLIST, OUTPROLIST_SUCCESS, OUTPROLIST_FAILURE],
-    promise: (client) => client.post('api-shopStock.decreaseShopStocks', params)
+    promise: (client) => client.post('api-shopStock.decreaseShopStocks', params, {'hasMsg' : true})
   }
 }
 
@@ -82,14 +82,12 @@ export default function reducer(state = {result:{}}, action) {
     case GETSHOPLIST:
     case OUTCATELIST:
         return {
-            ...state,
-            jump: false
+            ...state
         }
     case OUTPROLIST_SUCCESS:
         return {
             ...state,
-            result: action.result,
-            jump: true
+            result: action.result
         }
     case OUTPROLIST_FAILURE:
         return {

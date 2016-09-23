@@ -68,7 +68,11 @@ instance.interceptors.response.use(function (res) {
   if(error.data){
       error.data.code !== "TIMEOUT_SESSION" &&  message.error('服务错误：［'+ error.data +'] 错误码：［'+error.status+ ']', 2);
   }else{
-      message.error('请求超时：［'+ error.message +'] 错误码：［'+error.code+ ']', 2);
+      if(error.code){
+          message.error('请求超时：［'+ error.message +'] 错误码：［'+error.code+ ']', 2);
+      }else{
+          message.error('请求超时：［'+ error.message +']', 2);
+      }      
   }
   return error.data
 })

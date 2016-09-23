@@ -1,8 +1,16 @@
 import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import OddQueryView from '../components/OddQueryView'
+import StorageQueryView from '../components/StorageQuery'
+import OutgoQueryView from '../components/OutgoQuery'
 import Panel from 'components/Panel'
+
 import { oddQueryList, getShopList, priceCateList } from '../modules/OddQueryReducer'
+
+import {Tabs } from 'hen';
+const TabPane = Tabs.TabPane;
+
+const TYPES = [{recordType : '总仓出库'},{recordType : '总仓入库'}];
+
 
 class OddQuery extends Component {
   
@@ -13,37 +21,18 @@ class OddQuery extends Component {
         
         this.state = {
             oddStatus: true,
+            curKey: 0,
             params: {}   //表格需要的筛选参数
         }
     }
     
-     /**
-     * (判断出库/入库)
-     * @params id
-     */
-    _isQueryStatus(key){
-        const { oddQueryList, location} = this.props;
-        let pageNumber = 1;
-        this.setState({
-            params: {
-                pageNumber : 1,
-                recordType : key == 1 ? "总仓出库" : "总仓入库"
-            }
-        })
-    }
 
     componentDidMount() {
         const { oddQueryList, getShopList, priceCateList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        oddQueryList({pageNumber});
-         this.setState({
-            params: {
-                recordType : "总仓出库"
-            }
-        })
-	
-	//获取店铺列表
+        oddQueryList(TYPES[0]);	
+	    //获取店铺列表
         getShopList();
         
         //获取分类列表
@@ -64,14 +53,16 @@ class OddQuery extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                const {params} = context.state;
+                const {curKey} = context.state;
+                const {pageNumber, ...other} = value;
                 if(value.categoryCode){
                     value.categoryCode = value.categoryCode[value.categoryCode.length - 1] || '';
                 }
                   context.setState({
                       params: {
-		      	        ...params,
-                        ...value
+		      	        ...other,
+                        ...TYPES[curKey],
+                        pageNumber
                       } 
                   })
               },
@@ -80,31 +71,26 @@ class OddQuery extends Component {
                * (筛选表单重置)
                */
               handleReset() {
-                  const {params} = context.state;
-                  context.setState({
-                      params: {
-		      	        ...params
-                      } 
-                  })
               }
           }
       }
-    
-    
-    
-    handleRowSelection() {
-        return {
-            onSelect(record, selected, selectedRows) {
-                console.log(record, selected, selectedRows);
-            },
-            onSelectAll(selected, selectedRows, changeRows) {
-                console.log(selected, selectedRows, changeRows);
-            },
+    /**
+     * Tab切换(判断出库/入库)
+     * @params key
+     */
+    callback(key) {
+        const {oddQueryList} = this.props;
+        if(key == 2) { 
+            oddQueryList(TYPES[key-1]);
+        } else {
+            oddQueryList(TYPES[key-1]);
         }
+        this.setState({
+            curKey : key - 1
+        })   
     }
-    
     render() {
-        const {params, oddStatus} = this.state;
+        const {params} = this.state;
         
         const {items, oddQueryList, shopListResult, cateResult, totalItems, loading} = this.props;
         const tableOptions = {
@@ -115,8 +101,6 @@ class OddQuery extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
-            isStatus: this._isQueryStatus.bind(this)        //判断出库/入库
-            //rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
         /**
@@ -147,6 +131,8 @@ class OddQuery extends Component {
          * 店铺列表
          * @param lists
          * @returns {*}
+         * 
+         * <OddQueryView {...tableOptions} {...formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} />
          */
         const shopLoop = (lists) => {
             return lists && lists.map(a => {
@@ -158,10 +144,15 @@ class OddQuery extends Component {
         }
 	
         const formOptions = {
-            'formOptions' : this.getFormOptions()
+            ...this.getFormOptions()
         }
         
-        return <Panel title=""><OddQueryView {...tableOptions} {...formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} /></Panel>
+        return <Panel title="">
+                    <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
+                        <TabPane tab="出库单查询" key="1"><OutgoQueryView formOptions={formOptions} tableOptions={tableOptions} shopList={shopLoop(shopListResult)} /></TabPane>
+                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={loop(cateResult)} /></TabPane>
+                    </Tabs>
+                </Panel>
     }
 }
 

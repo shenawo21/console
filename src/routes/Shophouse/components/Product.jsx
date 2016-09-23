@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import Collapse from 'components/Collapse';
 import DataTable from 'components/DataTable';
-import {message, Modal, Input} from 'hen'
+import {message, Modal, Input, InputNumber} from 'hen'
 import {getSpecValue} from 'common/utils'
 import {DownLoader} from 'components/FileLoader'
 import classes from './Product.less';
@@ -104,11 +104,11 @@ class product extends Component {
             dataIndex: 'backStock',
             render(value, row) {
                 let {selectItems, curIndex} = context.state;
-                return <Input type="text" placeholder="请输入回退数量" style={{ width: 100 }} onChange={(e) => {
+                return <InputNumber type="text" min={1} max={row.incoming} placeholder="请输入回退数量" style={{ width: 100 }} onChange={(e) => {
                     let items = []
                     selectItems[curIndex].every((val, num) => {
                         if(val.skuId === row.skuId){
-                            selectItems[curIndex][num].backStock = e.target.value
+                            selectItems[curIndex][num].backStock = e
                             return false
                         }
                         return true
@@ -116,7 +116,7 @@ class product extends Component {
                     context.setState({
                         selectItems
                     })
-                }} value={value} />
+                }} />
             }
         }, {
             key: '6',
@@ -148,7 +148,7 @@ class product extends Component {
         const {compareListResult} = this.props
         let selectItemKey = [], resItems = compareListResult.items[curIndex]
         selectItemKey[curIndex] = []
-        if (sourceItems[curIndex]) {
+        if (sourceItems[curIndex] && sourceItems[curIndex].length) {
             sourceItems[curIndex].forEach((val) => {
                 resItems.items.every((item, index) => {
                     if (item.skuId === val.skuId) {
@@ -194,7 +194,6 @@ class product extends Component {
         });
     }
 
-
     /**
      * 回退确认
      */
@@ -219,14 +218,17 @@ class product extends Component {
         }
         tableOptionsPro.fallBack({dtoList, remark}).then((res)=>{
             if(res.status === 1){
-                selectItems[curIndex].forEach((val, num)=>{
-                    delete selectItems[curIndex][num].backStock
-                })
+                // selectItems[curIndex].forEach((val, num)=>{
+                //     delete selectItems[curIndex][num].backStock
+                // })
+                //操作完成后将选中的数据设为空
+                selectItems[curIndex] = [];
                 context.setState({
                     ...context.getItems(selectItems, curIndex),
                     visible: false,
                     remark : ''
                 });
+                //重新获取列表数据
                 compareList()
             }
         })
@@ -405,6 +407,7 @@ class product extends Component {
             columns: context._getColumns(),
             ...other
         }
+        console.log(selectedItemsKeys,'selectedItemsKeys',selectItems[curIndex])
         return (
             <div>{items && items.map((val, i) => {
                    let collapseOptions = context.getCollapseOptions(tableOptions, val, i, selectItems[i])
@@ -430,7 +433,7 @@ class product extends Component {
                     </div>
                 </Modal>
                 <Modal title="处理结果" visible={resultVisible} onOk={this.handleOkMessage} onCancel={this.handleOkMessage}>
-                    <div className={classes.modalResult}>
+                    <div className="modalResult">
                         <DataTable columns={this._getStockColumns()} size='small' dataSource={messageDataSource} />
                     </div>
                 </Modal>

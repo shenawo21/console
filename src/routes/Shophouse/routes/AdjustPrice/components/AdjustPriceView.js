@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import TableCascader from 'components/TableCascader';
 import {getSpecValue} from 'common/utils';
-import classes from './Product.less';
 import {Form, Button, Input, message, InputNumber, Modal} from 'hen';
 const FormItem = Form.Item;
 
@@ -302,7 +301,7 @@ class AdjustPrice extends Component {
                     <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
                 </div>
                 <Modal title="处理结果" visible={resultVisible} onOk={this.handleOkMessage} onCancel={this.handleOkMessage}>
-                    <div className={classes.modalResult}>
+                    <div className="modalResult">
                         <DataTable columns={this._getStockColumns()} size='small' dataSource={messageDataSource} />
                     </div>
                 </Modal>
