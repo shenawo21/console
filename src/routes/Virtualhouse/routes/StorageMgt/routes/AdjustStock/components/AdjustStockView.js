@@ -168,6 +168,13 @@ class AdjustStock extends Component {
         const { adjustStock } = this.props;
         const { stockList } = this.state;
         e.preventDefault();
+
+        // 增加库存列表为空，请选择商品并进行库存修改
+        if(!stockList.length){
+            message.warning('增加库存列表为空，请选择商品并进行库存修改！', 10);
+            return;
+        }
+        
         adjustStock({
             stockList: stockList
         });

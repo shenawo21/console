@@ -68,7 +68,7 @@ export function modifyItem(params) {
 export function addItem(params) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-    promise: (client) => client.post('api-administrator.addAdmin', params)
+    promise: (client) => client.post('api-administrator.addAccount', params)
   }
 }
 

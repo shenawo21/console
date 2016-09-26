@@ -39,14 +39,6 @@ class OutgoManual extends Component {
         priceCateList();
         
     }
-
-    componentWillReceiveProps(nextProps, preProps) {
-        if(nextProps.jump){
-            setTimeout(()=>{
-                this.context.router.push('/shophouse')
-            },600)
-        }
-    }
     
     /**
      * (表格功能配置项)
@@ -160,10 +152,10 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result, houseListResult, shopListResult, cateResult, jump, loading} = state.outgoManual;
+    const {result, houseListResult, shopListResult, cateResult, loading} = state.outgoManual;
     
     const {items = [], totalItems = 0} = houseListResult || {};
-    return { items, totalItems, houseListResult, shopListResult, cateResult, jump, result, loading };
+    return { items, totalItems, houseListResult, shopListResult, cateResult, result, loading };
     
 }
 

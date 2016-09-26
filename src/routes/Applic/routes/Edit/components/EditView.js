@@ -44,6 +44,13 @@ class Edit extends Component {
           type: 'text',
           placeholder: "请输入正确的店铺名称"
         }
+      },{
+        label: "应用类型：",
+        custom(getCustomFieldProps) {
+          return <label className="ant-checkbox-inline">
+            <span name="type">第三方商城</span>
+          </label>
+        }
       }, {
         label: "对接店铺类型：",
         name: "channelCode",

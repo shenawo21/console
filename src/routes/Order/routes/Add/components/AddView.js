@@ -51,7 +51,7 @@ class Add extends Component {
           label: "用户昵称：",
           name: "buyerNick",
           required: true,
-          rules: [{required: true, message: ''}],
+          rules: [{required: true, message: '请输入买家昵称'}],
           input: {
             placeholder: "请输入买家昵称",
           }
