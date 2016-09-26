@@ -199,22 +199,29 @@ class OutgoManual extends Component {
                 return;
             }
             if (outgoList.length) {
-                outManual({
-                    ...values,
-                    dtoList: outgoList
-                }).then(function(res){
-                    if(res && res.data) {
-                        context.setState({
-                            messageDataSource: res.data,
-                            resultVisible: true
-                        })
-                    } else {
-                        message.error(res.message);
-                    }
-                })
+                console.log(outgoList,'outgoList')
+                if (outgoList.incoming) {
+                      outManual({
+                            ...values,
+                            dtoList: outgoList
+                        }).then(function(res){
+                            if(res && res.data) {
+                                context.setState({
+                                    messageDataSource: res.data,
+                                    resultVisible: true
+                                })
+                            } else {
+                                message.error(res.message);
+                            }
+                        })  
+
+                } else {
+                    message.error('请输入出库数量！')
+                }
+                
             } else {
                 // 商品数量为0时提示选择商品并做库存及价格设置
-                message.error('手动出库的商品列表为空，请选择出库商品并做库存及价格设置', 10)
+                message.error('手动出库的商品列表为空，请选择出库商品并做库存及价格设置', 1)
             }
 
          });
