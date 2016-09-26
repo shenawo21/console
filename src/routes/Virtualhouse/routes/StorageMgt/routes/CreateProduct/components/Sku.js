@@ -47,7 +47,7 @@ class Sku extends Component {
             render(val, row) {
                 return <InputNumber min = {0.01} max = {9999999} step = {0.01} size="large" onChange={(e) => {
                      setInputValue(e, row, 'price')
-                }} defaultValue = {0.01}  />
+                }} defaultValue = {val == null || undefined ? 0.01 : val}  />
                 // return <Input type='text' size="small" onChange={(e) => {
                 //     setInputValue(e, row, 'price')
                 // }} />
@@ -60,7 +60,7 @@ class Sku extends Component {
             render(val, row) {
                 return <InputNumber  min = {0} max = {9999999} size="large" onChange={(e) => {
                     setInputValue(e, row, 'assignedStock')
-                }} defaultValue = {0}/>
+                }} defaultValue = {val == null || undefined ? 0 : val}   />
             }
         }]
         columns = [...columns, ...otherColumns]

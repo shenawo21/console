@@ -42,28 +42,53 @@ class CreateProduct extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
+                  console.log(value,'value')
                   const {addPro} = _this.props;
                   let {skuData, categoryId, ...other} = value
                   value = {...skuData, ...other, categoryId : categoryId && typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
-                  if (value.categoryId) {
-                      if (value.advicePrice && value.advicePrice !== 0 ) {
-                          if (value.advicePrice > value.marketPrice) {
-                                message.error('市场价必须大于或等于销售价！')
-                            } else {
-                                addPro(value).then((res)=>{
-                                    if(res.status === 1){
-                                        setTimeout(()=>{history.go(-1)}, 1000)
+                   if (_this.refs.view.state.flag == true) {
+                       if(value.categoryId && value.categoryId.length > 0 ) {
+                           if(_this.refs.view.state.hasSpec == true) {
+                                if (value.skuList && value.skuList.length > 0) {
+                                        if (value.advicePrice && value.advicePrice !== 0 ) {
+                                            if (value.advicePrice > value.marketPrice) {
+                                                    message.error('市场价必须大于或等于销售价！')
+                                                } else {
+                                                    addPro(value).then((res)=>{
+                                                        if(res.status === 1){
+                                                            setTimeout(() => {
+                                                                let pathname = '/virtualhouse/storageMgt';
+                                                                _this.context.router.replace(pathname);
+                                                            }, 1000);
+                                                        }
+                                                    })
+                                                }
+                                        } else {
+                                            message.error('SKU列表不能为空！')
+                                        }
+                                    } else {
+                                        message.error('商品规格不能为空！')
                                     }
-                                })
+                            } else {
+                                if (value.advicePrice > value.marketPrice) {
+                                        message.error('市场价必须大于或等于销售价！')
+                                    } else {
+                                        addPro(value).then((res)=>{
+                                            if(res.status === 1){
+                                                setTimeout(() => {
+                                                    let pathname = '/virtualhouse/storageMgt';
+                                                    _this.context.router.replace(pathname);
+                                                }, 1000);
+                                            }
+                                        })
+                                 }
                             }
-                      } else {
-                          message.error('商品规格不能为空！')
-                      }
-                  } else {
-                      message.error('请选择类目！')
-                  }
-                  
-                  
+                       } else {
+                           message.error('请选择商品类目！')
+                       }
+                   } else {
+                       message.error('商品规格为空，无法提交！')
+                   }
               }
           }
       }
@@ -94,7 +119,6 @@ class CreateProduct extends Component {
         const {params} = this.state; 
         const {cateResult, brandResult, items, listView, totalItems, loading, result, specListResult, getSpecByCateList, getSpecBySpu, location} = this.props;
         const {query} = location;
-
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : listView,                          //表格翻页时触发的action
@@ -150,7 +174,6 @@ class CreateProduct extends Component {
                 }
             })
         }
-        
         return <Panel title=""><CreateProductView 
                             formOptions={formOptions} 
                             tableFormOptions={tableFormOptions} 
@@ -160,6 +183,7 @@ class CreateProduct extends Component {
                             specListResult = {specListResult}
                             getSpecByCateList={getSpecByCateList}
                             getSpecBySpu={getSpecBySpu}
+                            ref = 'view'
                              /></Panel>
     }
 }

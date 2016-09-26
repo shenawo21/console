@@ -133,7 +133,7 @@ class AdjustStock extends Component {
                     context.setState({
                         stockList: selectItems
                     })
-                } } />
+                } } defaultValue = {1} />
             }
         }];
         return columns;
@@ -146,6 +146,7 @@ class AdjustStock extends Component {
      */
     getData(items) {
         const {stockList} = this.state, curStockList = [];
+    
         if (items) {
             items.forEach((item) => {
                 stockList.every((val) => {
