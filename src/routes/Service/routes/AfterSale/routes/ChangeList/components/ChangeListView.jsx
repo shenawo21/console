@@ -43,7 +43,7 @@ class Change extends Component {
         }, {
             key: '3',
             title: '店铺名称',
-            dataIndex: 'shopName'
+            dataIndex: 'title'
         },{
             key: '5',
             title: '操作',
