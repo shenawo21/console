@@ -342,7 +342,6 @@ class CreateProduct extends Component {
             totalStock = 0
             salePrice = 0.01
         }
-        
         this.setState({
             specList,
             specDataList : curSpec,
