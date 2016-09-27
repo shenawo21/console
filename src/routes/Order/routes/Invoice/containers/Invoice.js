@@ -64,6 +64,9 @@ class Invoice extends Component {
     this.setState({
       tData: nextProps.items
     })
+    if(nextProps.dResult){
+      message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败',20);
+    }
     if (nextProps.isJump) {
       setTimeout(()=> {
         nextProps.history.go(-1);
@@ -113,7 +116,7 @@ class Invoice extends Component {
        * (description)
        */
       doUp() {
-        console.log('快捷按钮');
+        console.log('');
       },
     }
   }
@@ -204,9 +207,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult} = state.invoice;
+  const {result, loading, appResult,dResult} = state.invoice;
   const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading, appResult};
+  return {items, totalItems, loading, appResult,dResult};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Invoice)
