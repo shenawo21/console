@@ -6,6 +6,10 @@ import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table,Modal} from 'hen';
 import Form from 'components/Form';
 
 class Change extends Component {
+    check(id){
+      const {confirm} = this.props;
+      confirm(id);
+    }
     _getFormIModal(){
         let config = {
             formItems: [{
@@ -84,7 +88,11 @@ class Change extends Component {
             key: '5',
             title: '操作',
             render(id,row) {
-                return  <div><Link to={`/service/aftersale/change/${row.oid}/${row.buyerNick}`}>换货登记</Link></div>               
+                return  <div>
+                            <Popconfirm title="确定要换货登记？" onConfirm={context.check.bind(context,row.oid)}>
+                                <a href="javascript:;">换货登记</a>
+                            </Popconfirm>
+                        </div>               
             }
         }];
         

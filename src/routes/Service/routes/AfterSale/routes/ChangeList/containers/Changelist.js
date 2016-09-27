@@ -10,7 +10,8 @@ class ChangeView extends Component {
     constructor(props) {
         super(props);
         this.getFormOptions = this.getFormOptions.bind(this);
-        this.handleOk = this.handleOk.bind(this);       
+        this.handleOk = this.handleOk.bind(this);
+        this.confirm = this.confirm.bind(this);        
         this.state = {
             newData: [],
             visible: false,
@@ -39,6 +40,25 @@ class ChangeView extends Component {
             }   
           }
       }
+      confirm(id){
+        const {tabelData} = this.props
+        const context = this
+        let tradesOrderList = tabelData[0].tradesOrderList
+        let newObj = tradesOrderList && tradesOrderList.filter((item,index) => {
+           return item.oid = id
+        })
+       if (newObj[0].isAfterSale = false) {
+            setTimeout(() => {
+                let pathname = '/service/aftersale/change/'+ newObj[0].oid + '/' + newObj[0].buyerNick ;
+                context.context.router.replace(pathname);
+            }, 100);
+        } else {
+            message.error('该订单已在退款或退货或换货中，不能重复申请售后服务！')
+            
+        }
+
+
+    }
       handleOk (values,fresh) {
         const {getSearch,params} = this.props
         const context = this;
@@ -64,11 +84,13 @@ class ChangeView extends Component {
             'formOptions' : this.getFormOptions()
         }
         return <Panel title="">
-                    <ChangeListView {...formOptions} tabelData = {dataResult} visible = {visible} handleOk = {this.handleOk}  />
+                    <ChangeListView {...formOptions} tabelData = {dataResult} visible = {visible} handleOk = {this.handleOk} confirm={this.confirm} />
                 </Panel>
     }
 }
-
+ChangeView.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 const mapActionCreators = {
     getSearchList,
