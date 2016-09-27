@@ -10,8 +10,8 @@ const LOGTYPE = {
 };
 //是否成功
 const ISSUCC = {
-  1: "成功",
-  0: "失败"
+  '1': "成功",
+  '0': "失败"
 };
 const columns = [{
   title: '业务类型',
@@ -30,7 +30,7 @@ const columns = [{
   dataIndex: 'createTime'
 }, {
   title: '是否成功',
-  dataIndex: 'success',
+  dataIndex: 'isSuccess',
   render(value){
     return <span>{ISSUCC[value]}</span>
   }
@@ -43,11 +43,10 @@ const columns = [{
 }];
 class Receiving extends Component {
 
-
   render() {
     const {LogInfo} = this.props;
     if (!LogInfo)return null;
-    let logList = LogInfo.orderLogList
+    let logList = LogInfo.orderLogList;
     return <Table dataSource={logList} rowKey={record => record.logId} columns={columns} bordered pagination={false}/>
   }
 }

@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 
@@ -9,7 +8,7 @@ import {Row, Col, Button, Icon} from 'hen';
 class Choose extends Component {
   _getFormItems() {
     const context = this;
-    const {shopList,cateList}=context.props;
+    const {shopList, cateList}=context.props;
     let config = {
       formItems: [{
         label: "商品名称：",
@@ -63,13 +62,25 @@ class Choose extends Component {
       dataIndex: 'categoryName'
     }, {
       key: '4',
+      title: '商品编码',
+      dataIndex: 'categoryCode'
+    }, {
+      key: '5',
+      title: '销售价',
+      dataIndex: 'price'
+    }, {
+      key: '6',
+      title: '市场价',
+      dataIndex: 'marketPrice'
+    }, {
+      key: '7',
       title: '规格',
       dataIndex: 'specOneValue',
       render(val, row){
         return getSpecValue(row)
       }
     }, {
-      key: '5',
+      key: '8',
       title: '在售库存',
       dataIndex: 'stock'
     }];
@@ -77,7 +88,7 @@ class Choose extends Component {
   }
 
   render() {
-    const {shopList,cateList,chooseTableOptions,chooseFormOption,proResult} = this.props;
+    const {shopList, cateList, chooseTableOptions, chooseFormOption, proResult} = this.props;
     const {handleSubmit, handleReset} = chooseFormOption();
     return (
       <div>

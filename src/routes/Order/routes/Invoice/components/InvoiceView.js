@@ -67,8 +67,8 @@ class Invoice extends Component {
         buyerNick: null,
         createStartTime: null,
         createEndTime: null,
-        synStartTime: null,
-        synEndTime: null
+        reviewStartTime: null,
+        reviewEndTime: null
       }
     }
     return config;

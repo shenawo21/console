@@ -55,6 +55,12 @@ class Audit extends Component {
         span: "5",
         labelCol: {span: 6},
         input: {}
+      }, {
+        label: "客服备注：",
+        name: "remark",
+        span: "5",
+        labelCol: {span: 6},
+        input: {}
       }],
       initValue: {
         shopId: null,
@@ -62,6 +68,7 @@ class Audit extends Component {
         buyerNick: null,
         createStartTime: null,
         createEndTime: null,
+        remark: null,
       }
     }
     return config;
