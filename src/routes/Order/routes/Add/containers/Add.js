@@ -3,13 +3,18 @@ import {connect} from 'react-redux'
 import AddView from '../components/AddView'
 import Panel from 'components/Panel'
 import {appList, companyList, addrList, addItem, cateList, proList} from '../modules/AddReducer'
+import {message} from 'hen';
+import {getSpecValue} from 'common/utils';
 
 class Add extends Component {
   constructor(props) {
     super(props);
     this.getFormOptions = this.getFormOptions.bind(this);
     this.state = {
-      params: {}
+      params: {},
+      selectList: {},
+      tabDataSource: [],
+      selectTable: []
     }
   }
 
@@ -27,6 +32,15 @@ class Add extends Component {
     proList()
   }
 
+  componentWillReceiveProps(nextProps, preProps) {
+    if (nextProps.isJump) {
+      setTimeout(()=> {
+        nextProps.history.replace('/order/invoice');
+      }, 800);
+    }
+  }
+
+
   /**
    * (表格功能配置项)
    *
@@ -35,6 +49,7 @@ class Add extends Component {
   getFormOptions() {
     const context = this;
     const {addItem} = context.props;
+    const {selectTable} = context.state;
     return {
       /**
        * (筛选表单提交)
@@ -42,7 +57,12 @@ class Add extends Component {
        * @param value (description)
        */
       handleSubmit(value, key) {
-        console.log(value)
+        if (selectTable.length > 0) {
+          value.dtos = selectTable;
+        } else {
+          message.warning('请勾选订单商品！');
+          return false;
+        }
         let P = '', C = '', D = '';
         if (value.receiverAddr) {
           P = value.receiverAddr[0];
@@ -51,8 +71,9 @@ class Add extends Component {
         }
         key == 'commit' ? addItem({
           title: value.title,
-          shopId: value.shopId,
+          //shopId: value.shopId,
           buyerNick: value.buyerNick,
+          dtos: value.dtos,
           invoiceType: value.invoiceType,
           receiverState: P,
           receiverCity: C,
@@ -64,10 +85,7 @@ class Add extends Component {
           receiverZip: value.receiverZip,
           companyCode: value.companyCode,
           remark: value.remark
-        }) :
-          context.setState({
-            params: ''
-          })
+        }) : ''
       },
       /**
        * (筛选表单重置)
@@ -77,11 +95,17 @@ class Add extends Component {
     }
   }
 
+  isOK(data) {
+    const context = this;
+    context.setState({
+      tabDataSource: data
+    })
+  }
+
   chooseFormOption() {
     const context = this;
     return {
       handleSubmit(value) {
-        console.log(value)
         context.setState({
           params: value
         })
@@ -91,41 +115,117 @@ class Add extends Component {
     }
   }
 
+  rowtabSelection() {
+    return {
+      onSelect: (record, selected, selectedRows) => {
+        selectedRows.map((s)=> {
+          if (s.num == null) {
+           message.warning('购买数量不能为空！');
+           return false;
+           }
+        })
+        let selectTable = selectedRows.map(c => {
+          return {
+            outerIid: c.outerIid,
+            outerSkuId: c.outerSkuId,
+            title: c.title,
+            cid: c.cid,
+            price: c.price,
+            num: c.num,
+            skuPropertiesName: getSpecValue(c),
+            stockId:c.stockId,
+            shopId:c.shopId
+          }
+        });
+        this.setState({selectTable});
+      },
+      onSelectAll: (selected, selectedRows, changeRows) => {
+        selectedRows.map((s)=> {
+          if (s.num == null) {
+           message.warning('购买数量不能为空！');
+           return false;
+           }
+        })
+        let selectTable = selectedRows.map(c => {
+          return {
+            outerIid: c.outerIid,
+            outerSkuId: c.outerSkuId,
+            title: c.title,
+            cid: c.cid,
+            price: c.price,
+            num: c.num,
+            skuPropertiesName: getSpecValue(c),
+            stockId:c.stockId,
+            shopId:c.shopId
+          }
+        });
+        this.setState({selectTable});
+      }
+    }
+  }
+
   chooseRowSelection() {
     return {
       onSelect: (record, selected, selectedRows) => {
-        /*let selectList = selectedRows.map(c => {
+        let selectList = selectedRows.map(c => {
           return {
-         spuId: c.spuId,
-         skuId: c.skuId,
-         title: c.title,
-         shopName: c.shopName,
-         stock: c.stock,
-         num: null
+            //Spu ID
+            outerIid: c.spuId,
+            //Sku ID
+            outerSkuId: c.skuId,
+            //商品名称
+            title: c.title,
+            //商品类目
+            cid: c.categoryCode,
+            //销售价
+            price: c.price,
+            //在售库存
+            stock: c.stock,
+            //属性...
+            specOneValue: c.specOneValue,
+            specTwoValue: c.specTwoValue,
+            specThreeValue: c.specThreeValue,
+            specFourValue: c.specFourValue,
+            stock: c.stock,
+            stockId:c.stockId,
+            shopId:c.shopId,
+            //购买数量
+            num: null,
+            //Sku属性
+            //商品金额
+            totalFee: null
           }
         });
-        this.setState({selectList});*/
-        console.log(11111,selectedRows);
+        this.setState({selectList});
       },
       onSelectAll: (selected, selectedRows, changeRows) => {
-        /*let selectList = selectedRows.map(c => {
+        let selectList = selectedRows.map(c => {
           return {
-         spuId: c.spuId,
-         skuId: c.skuId,
-         title: c.title,
-         shopName: c.shopName,
-         stock: c.stock,
-         num: null
+            outerIid: c.spuId,
+            outerSkuId: c.skuId,
+            title: c.title,
+            cid: c.categoryCode,
+            price: c.price,
+            marketPrice: c.marketPrice,
+            stock: c.stock,
+            specOneValue: c.specOneValue,
+            specTwoValue: c.specTwoValue,
+            specThreeValue: c.specThreeValue,
+            specFourValue: c.specFourValue,
+            num: null,
+            totalFee: null,
+            shopId: null,
+            stockId:c.stockId
           }
         });
-        this.setState({selectList});*/
+        this.setState({selectList});
       }
     }
   }
 
   render() {
-    const {params} = this.state;
-    const {loading, items, proList,result, appResult, cResult, totalItems, addrResult, cateResult, proResult} = this.props;
+    const {params, selectList, tabDataSource} = this.state;
+    const {loading, items, proList, result, appResult, cResult, totalItems, addrResult, cateResult, proResult} = this.props;
     const chooseTableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
       action: proList,                         //表格翻页时触发的action
@@ -146,7 +246,7 @@ class Add extends Component {
         return {
           value: c.shopId,
           title: c.name,
-          disabled: (c.status != 'use' || c.enabled == false) ? true : false
+          //disabled: (c.status != 'use' || c.enabled == false) ? true : false
         }
       });
     } else {
@@ -154,8 +254,7 @@ class Add extends Component {
         value: null,
         title: '正在加载中...'
       }]
-    }
-    ;
+    };
     /**
      * 快递公司列表
      * @type {Array}
@@ -206,8 +305,11 @@ class Add extends Component {
     return <Panel title=""><AddView  {...formOptions} cList={cList} addrResult={addrResult} proResult={proResult}
                                                       chooseTableOptions={chooseTableOptions}
                                                       chooseFormOption={this.chooseFormOption.bind(this)}
+                                                      rowtabSelection={this.rowtabSelection.bind(this)}
+                                                      isOK={this.isOK.bind(this)}
                                                       shopList={shopList} cList={cList}
-                                                      cateList={loop(cateResult)}/></Panel>
+                                                      tabDataSource={tabDataSource}
+                                                      selectList={selectList} cateList={loop(cateResult)}/></Panel>
   }
 }
 
@@ -227,9 +329,9 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult, cResult, addrResult, cateResult, proResult} = state.add;
+  const {result, loading, appResult, cResult, addrResult, cateResult, proResult,isJump} = state.add;
   const {items = [], totalItems = 0} = proResult || {};
-  return {'result': result, items, totalItems, loading, appResult, cResult, addrResult, cateResult, proResult};
+  return {'result': result, items, totalItems, loading, appResult, cResult, addrResult, cateResult, proResult,isJump};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Add)

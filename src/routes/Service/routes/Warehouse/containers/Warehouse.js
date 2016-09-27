@@ -115,7 +115,7 @@ class Warehouse extends Component {
         if (platlistResult) {
             platListItem = platlistResult.map(c=> {
                 return {
-                    value: c.shopId,
+                    value: c.channelCode,
                     title: c.name
             }
             });

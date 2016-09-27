@@ -101,7 +101,7 @@ export function proList(params) {
   }
 }
 export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+  state = {...state,isJump: false, loading : action.loading};
   switch (action.type) {
     case APPQUERY:
     case COMPANY:
@@ -142,7 +142,8 @@ export default function reducer(state = {result:{}}, action) {
     case ADD_SUCCESS:
         return {
             ...state,
-            result: action.result
+            result: action.result,
+            isJump: true
         }
     case ADD_FAILURE:
         return {

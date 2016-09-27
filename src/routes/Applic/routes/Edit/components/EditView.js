@@ -59,18 +59,34 @@ class Edit extends Component {
         rules: [{required: true, message: '对接店铺类型为必填'}],
         select: {
           optionValue: chList,
-          //创建中才能编辑
-          //disabled: item.shopId && item.status !== 'create' ? false : true
           disabled: item.shopId  ? (item.status == 'create' ? false : true) : false
         }
       }, {
         label: "店铺描述：",
         name: "remark",
         wrapperCol: {span: 10},
+        rules: [
+          {required: true, message: '请输入店铺描述,100字符以内'},
+          {
+            validator(rule, value, callback) {
+              if (!value) {
+                callback();
+              } else {
+                setTimeout(()=> {
+                  if (!(/^[\u4e00-\u9fa5a-zA-Z0-9]{0,1000}$/.test(value))) {
+                    callback([new Error('请输入店铺描述,1000字符以内')]);
+                  } else {
+                    callback();
+                  }
+                }, 800);
+              }
+            }
+          }
+        ],
         input: {
           type: "textarea",
           rows: 5,
-          placeholder: "请输入店铺描述,20字以内",
+          placeholder: "请输入店铺描述,1000字以内",
           disabled: item.shopId && item.status == 'audit' ? true : false
         }
       }],

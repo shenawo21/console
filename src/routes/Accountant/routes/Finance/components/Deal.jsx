@@ -104,7 +104,7 @@ class Deal extends Component {
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                return <span><Link to={`/order/audit/detail/${row.id}`}>订单详情</Link></span>
+                return <span><Link to={`/order/audit/detail/${row.tid}`}>订单详情</Link></span>
             }
         }];
         
@@ -144,7 +144,9 @@ class Deal extends Component {
         }, {
             key: '8',
             title: '退货金额',
-            dataIndex: 'refundFee'
+            render(id,row) {
+                return row.price * row.tGoodsNum
+            }
         }, {
             key: '9',
             title: '操作',

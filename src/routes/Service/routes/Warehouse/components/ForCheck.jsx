@@ -4,19 +4,12 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {Table} from 'hen';
 
-//所属平台
-const STOCKTYPE = [
-   { value: '淘宝', title: "淘宝" },
-   { value: '天猫', title: "天猫" },
-   { value: '京东', title: "京东" }
-];
-
 class ForCheck extends Component {
 
     _getFormItems(){
     	let context = this;
         const {platListItem} = context.props;
-        let config = {
+        let config = { 
             formItems: [ {
                 label: "订单编号：",
                 name: "tid",

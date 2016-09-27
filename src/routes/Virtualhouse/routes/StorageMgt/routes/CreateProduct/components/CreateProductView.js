@@ -27,7 +27,9 @@ class CreateProduct extends Component {
             totalStock : 0,     //库存
             salePrice : 0.01,      //
             submitFlag : '',     //提交数据时,skuList价格或库存是否为空
-            market:''
+            market:'',
+            flag:true,
+            hasSpec:false
         }
     }
 
@@ -80,7 +82,17 @@ class CreateProduct extends Component {
             fieldOptions: {
                 onChange:function(value) {
                     let val = value.slice(0)
-                    getSpecByCateList({categoryCode: val.pop()})
+                    getSpecByCateList({categoryCode: val.pop()}).then(function(res){
+                        let valueArray = res.data && res.data.filter((item) => {
+                                return item.enterpriseSpecList.length > 0
+                            })
+                        if(valueArray.length >0) {
+                            context.setState({hasSpec:true})
+                        } else {
+                           context.setState({hasSpec:false}) 
+                        }
+
+                    })
                 }
             }
         }, {
@@ -95,16 +107,6 @@ class CreateProduct extends Component {
             label: "市场价(元)：",
             name: "marketPrice",
             infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
-            rules: [{
-                validator(rule, value, callback) {
-                    context.setState({market:value})
-                    if(value < context.state.salePrice) {
-                        callback(new Error('市场价必须大于或等于销售价！')); 
-                    } else {
-                        callback();
-                    }
-                }
-            }],
             inputNumber: {
                 placeholder: "请输入市场价",
                 disabled: selectItem ? true : false,
@@ -167,7 +169,7 @@ class CreateProduct extends Component {
         }
        
         if(salePrice !== 'undefined'){
-            config.initValue.advicePrice = salePrice
+            config.initValue.advicePrice = salePrice == 0 ? 0.01 :salePrice
         }
         if(totalStock!== 'undefined'){
             config.initValue.total = totalStock 
@@ -194,7 +196,7 @@ class CreateProduct extends Component {
             })
             curSku = {
                 ...curSku,
-                price : val.price,
+                price : val.price || 0.01,
                 assignedStock : val.assignedStock
             }
             return curSku
@@ -219,6 +221,11 @@ class CreateProduct extends Component {
         let selectItem = null;
         if(searchSpuState.state){
             selectItem = searchSpuState.state.items
+            if(selectItem.specOneName == null) {
+                this.setState({flag:false})
+            } else {
+                this.setState({flag:true})
+            }
         }
         if(selectItem){
             //选着spu时，先重置表格
@@ -493,7 +500,6 @@ class CreateProduct extends Component {
                 //每次修改当前input值，rowList状态会变更，price或assignedStock会保存上次修改状态
                 rowList[index][cKey] = Number(curValue) || 0
             }
-            console.log(rowList[index], index, salePrice,'val')
             totalStock = context.getStock(rowList[index], totalStock)
             salePrice = context.getPrice(rowList[index], index, salePrice)
             if(!rowList[index].assignedStock || !rowList[index].price){
@@ -533,7 +539,7 @@ class CreateProduct extends Component {
     }
     render() {
         let {formOptions, tableFormOptions, tableOptions} = this.props;
-        const {selectItem} = this.state;
+        const {selectItem,flag,hasSpec} = this.state;
         return (
             <div>
                 <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={this.handleReset} ref='form' />
@@ -541,7 +547,7 @@ class CreateProduct extends Component {
                     closable={false}
                     width={1020}
                     onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <SearchSpu tableFormOptions={tableFormOptions} tableOptions={tableOptions} selectItem={selectItem} ref='searchList'></SearchSpu>
+                    <SearchSpu tableFormOptions={tableFormOptions} flag = {flag} hasSpec = {hasSpec} tableOptions={tableOptions} selectItem={selectItem} ref='searchList'></SearchSpu>
                 </Modal>
             </div>
         )

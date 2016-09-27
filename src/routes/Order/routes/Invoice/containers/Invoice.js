@@ -4,7 +4,7 @@ import InvoiceView from '../components/InvoiceView'
 import Panel from 'components/Panel'
 import {queryList, deleteItem, appList} from '../modules/InvoiceReducer'
 import {getTimeStamp} from 'common/utils';
-import { message } from 'hen';
+import {message} from 'hen';
 class Invoice extends Component {
 
   constructor(props) {
@@ -85,7 +85,9 @@ class Invoice extends Component {
        * @param value (description)
        */
       handleSubmit(value) {
-        if (getTimeStamp(value.createStartTime) > getTimeStamp(value.createEndTime)) {
+        const csTime = getTimeStamp(value.createStartTime), ceTime = getTimeStamp(value.createEndTime),
+          rsTime = getTimeStamp(value.reviewStartTime), reTime = getTimeStamp(value.reviewEndTime)
+        if (( csTime > ceTime) || (rsTime > reTime)) {
           message.error('开始时间不能晚于结束时间！');
           return false
         } else {

@@ -143,6 +143,7 @@ class Enterprise extends Component {
           name: "businessLicense",
           required: true,
           //rules: [{required: true, message: '营业执照为必选'}],
+          disabled:true,
           custom(getCustomFieldProps) {
             upConfig.fileList = licenseList;
             return <UploadImage title="营业执照" className='upload-list-inline upload-fixed'
@@ -206,30 +207,6 @@ class Enterprise extends Component {
             showTime: true
           }
         }]
-      }, {
-        title: '备注',
-        className: '',
-        formItems: [{
-          label: "审核状态：",
-          name: "reviewStatue",
-          select: {
-            disabled: true,
-            tipValue: "请选择企业类型",
-            optionValue: Object.keys(REVIEW).map((key) => {
-              return {'value': key, 'title': REVIEW[key]}
-            })
-          }
-        }, {
-          label: "审核描述：",
-          name: "reviewDesctiption",
-          wrapperCol: {span: 10},
-          input: {
-            disabled: true,
-            rows: '5',
-            type: "textarea",
-            placeholder: "请输入审核描述",
-          }
-        }]
       }];
     config.initValue = {
       enterpriseCode: null,
@@ -245,8 +222,6 @@ class Enterprise extends Component {
       lealPerson: null,
       telephone: null,
       createTime: null,
-      reviewStatue: null,
-      reviewDesctiption: null
     };
     if (item) {
       config.initValue = item;

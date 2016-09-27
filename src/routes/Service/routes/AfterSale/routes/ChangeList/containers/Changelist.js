@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ChangeListView from '../components/ChangeListView'
 import Panel from 'components/Panel'
 import {message} from 'hen';
-import {getSearch } from '../modules/changeslist'
+import {getSearchList,getSearch } from '../modules/changeslist'
 
 
 class ChangeView extends Component {
@@ -12,15 +12,16 @@ class ChangeView extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);
         this.handleOk = this.handleOk.bind(this);       
         this.state = {
+            newData: [],
             visible: false,
         }
     }
     
     componentDidMount() {
-        const {getSearch, location,params } = this.props;
+        const {getSearchList, location,params } = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        getSearch(params)
+        getSearchList(params)
     }
     getFormOptions() {
           const context = this;
@@ -39,12 +40,15 @@ class ChangeView extends Component {
           }
       }
       handleOk (values,fresh) {
-        const {getSearch} = this.props
+        const {getSearch,params} = this.props
         const context = this;
         getSearch(values).then(function(res) {
             if (res && res.data) {
+                let data = []
+                data.push(res.data)
                 context.setState({
                     visible: false,
+                    newData:data
                 });
             } else {
                 message.error('无查询结果')
@@ -53,19 +57,21 @@ class ChangeView extends Component {
         })
     }
     render() {
-        const {visible} = this.state;
+        const {visible,newData} = this.state;
         const {tabelData, loading} = this.props;
+        let dataResult = newData.length > 0 ? newData : tabelData
         const formOptions = {
             'formOptions' : this.getFormOptions()
         }
         return <Panel title="">
-                    <ChangeListView {...formOptions} tabelData = {tabelData} visible = {visible} handleOk = {this.handleOk}  />
+                    <ChangeListView {...formOptions} tabelData = {dataResult} visible = {visible} handleOk = {this.handleOk}  />
                 </Panel>
     }
 }
 
 
 const mapActionCreators = {
+    getSearchList,
     getSearch
 }
 const mapStateToProps = (state) => {

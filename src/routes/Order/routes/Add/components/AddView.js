@@ -1,18 +1,76 @@
 import React, {Component, PropTypes} from 'react';
 import Form from 'components/Form';
 import ChooseView from './ChooseView'
-import {Button, Icon, Modal} from 'hen';
+import {Button, Icon, Modal, Table, Input, message} from 'hen';
+import {getSpecValue} from 'common/utils';
 class Add extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      tabDataSource: []
     }
   }
 
   _getFormItems() {
     let config = {}, context = this;
-    const {shopList, cList, addrResult}=context.props;
+    const {shopList, cList, addrResult, tabDataSource, rowtabSelection}=context.props;
+    const columns = [{
+      key: '0',
+      title: 'SPU编码',
+      dataIndex: 'outerIid'
+    }, {
+      key: '1',
+      title: 'SKU编码',
+      dataIndex: 'outerSkuId'
+    }, {
+      key: '2',
+      title: '商品名称',
+      dataIndex: 'title'
+    }, {
+      key: '3',
+      title: '商品类目编码',
+      dataIndex: 'cid'
+    }, {
+      key: '4',
+      title: '销售价',
+      dataIndex: 'price'
+    }, {
+      key: '5',
+      title: 'Sku属性',
+      dataIndex: 'skuPropertiesName',
+      render(val, row){
+        return getSpecValue(row)
+      }
+    }, {
+      key: '6',
+      title: '在售库存',
+      dataIndex: 'stock',
+    }, {
+      key: '7',
+      title: '购买数量',
+      dataIndex: 'num',
+      render(value, row){
+        return <Input type="number" min="1" placeholder="请输入购买数量" name='num' onChange={(e) => {
+                tabDataSource.forEach((val,index)=>{
+                    if(row.outerSkuId==val.outerSkuId){
+                      tabDataSource[index].num = e.target.value
+                    }
+                })
+                context.setState({
+                  tabDataSource
+                })
+        }}/>
+      },
+      width: 150
+    }, {
+      key: '8',
+      title: '商品金额',
+      dataIndex: 'totalFee',
+      render(val, row){
+        return <span>{row.num * row.price}</span>
+      }
+    }];
     config.panels = [
       {
         title: '订单基本信息：',
@@ -27,20 +85,29 @@ class Add extends Component {
           input: {
             placeholder: "请输入订单标题",
           }
-        }, {
+        }, /*{
           label: "所属店铺：",
           name: "shopId",
           rules: [{required: true, type: 'number', message: '所属店铺不能为空'}],
           select: {
-            width: '400',
+            style:{width: '200'},
             optionValue: shopList
           }
-        }, {
+        },*/ {
           label: "订单商品：",
           name: "dtos",
-          rules: [{required: true, type: 'number', message: '所属店铺不能为空'}],
+          wrapperCol: {span: 18},
+          required: true,
           custom(getCustomFieldProps) {
-            return <Button type="ghost" onClick={context.showModal.bind(context)}><Icon type="search"/>选择订单商品</Button>
+            return <div>
+              <Button type="ghost" onClick={context.showModal.bind(context)}><Icon type="search"/>选择订单商品</Button>
+              {
+                tabDataSource.length > 0 ?
+                  <Table rowKey={record => record._index} rowSelection={rowtabSelection()} columns={columns}
+                         dataSource={tabDataSource} bordered
+                         pagination={false} size="middle" style={{marginTop:'20px'}}/> : ''
+              }
+            </div>
           }
         }]
       },
@@ -72,6 +139,7 @@ class Add extends Component {
           cascader: {
             options: addrResult,
             placeholder: "请选择地区",
+            style:{width: '350'},
             changeOnSelect: false
           }
         }, {
@@ -137,7 +205,8 @@ class Add extends Component {
 
     config.initValue = {
       title: null,
-      shopId: null,
+      //shopId: null,
+      dtos: null,
       buyerNick: null,
       invoiceType: null,
       receiverAddr: null,
@@ -151,6 +220,7 @@ class Add extends Component {
     };
     return config;
   }
+
   showModal() {
     this.setState({
       visible: true
@@ -158,21 +228,23 @@ class Add extends Component {
   }
 
   handleOk() {
-    this.setState({
+    const context = this;
+    const {selectList, isOK}=context.props;
+    context.setState({
       visible: false
     });
-    console.log('确定！');
+    isOK(selectList);
   }
 
   handleCancel() {
     this.setState({
       visible: false
     });
-    console.log('取消！');
   }
 
   render() {
-    const {formOptions, ...other} = this.props;
+    const context = this;
+    const {formOptions, ...other} = context.props;
     const buttonOption = {
       buttons: [
         {
@@ -186,8 +258,7 @@ class Add extends Component {
         }
       ]
     }
-    const context = this;
-    const {shopList, cateList, proResult,chooseTableOptions,chooseFormOption}=context.props;
+    const {shopList, cateList, proResult, chooseTableOptions, chooseFormOption}=context.props;
     return (
       <div>
         <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
@@ -195,9 +266,9 @@ class Add extends Component {
         <Modal visible={this.state.visible}
                width={1366}
                onOk={this.handleOk.bind(this)} onCancel={this.handleCancel.bind(this)}>
-                <ChooseView shopList={shopList} cateList={cateList} proResult={proResult}
-                            chooseTableOptions={chooseTableOptions} chooseFormOption={chooseFormOption}
-                />
+          <ChooseView shopList={shopList} cateList={cateList} proResult={proResult}
+                      chooseTableOptions={chooseTableOptions} chooseFormOption={chooseFormOption}
+          />
         </Modal>
       </div>
     )

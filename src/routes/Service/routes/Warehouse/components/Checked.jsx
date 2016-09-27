@@ -26,7 +26,6 @@ class Checked extends Component {
                 label: "所属平台：",
                 name: "channelCode",
                 select: {
-                    placeholder: "请选择所属平台",
                     optionValue: platListItem
                 }
             },{

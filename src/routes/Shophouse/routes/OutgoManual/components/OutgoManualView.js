@@ -120,10 +120,12 @@ class OutgoManual extends Component {
             dataIndex: 'incoming',
             render(value, row){
                 return <InputNumber type="text" min={1} max={row.stock} placeholder="请输入出库数量" style={{width:150}} onChange={(e) => {
-			            let {outgoList} = context.state, outgo = { skuId: row.skuId, spuId: row.spuId, stockId: row.stockId, shopId: row.shopId, price: row.price, incoming: e }, selectItems = [];
+			            let {outgoList} = context.state, outgo = { skuId: row.skuId, spuId: row.spuId, stockId: row.stockId, shopId: row.shopId, price: row.price }, selectItems = [];
+                        if(!e) return;
                         selectItems = outgoList.filter((val) => {
                             return val.skuId !== row.skuId
                         })
+                        outgo.incoming = e;
                         selectItems.push(outgo)
                         context.setState({
                             outgoList: selectItems
@@ -199,6 +201,7 @@ class OutgoManual extends Component {
                 return;
             }
             if (outgoList.length) {
+
                 outManual({
                     ...values,
                     dtoList: outgoList
@@ -214,7 +217,7 @@ class OutgoManual extends Component {
                 })
             } else {
                 // 商品数量为0时提示选择商品并做库存及价格设置
-                message.error('手动出库的商品列表为空，请选择出库商品并做库存及价格设置', 10)
+                message.error('手动出库的商品列表为空，请选择出库商品并做库存及价格设置', 1)
             }
 
          });

@@ -43,13 +43,12 @@ class Change extends Component {
         }, {
             key: '3',
             title: '店铺名称',
-            dataIndex: 'shopName'
+            dataIndex: 'title'
         },{
             key: '5',
             title: '操作',
             dataIndex: 'tid',
             render(id, row) {
-                console.log(row,'row')
                 return <span><Link to={`/service/aftersale/goodsdetail/${id}`}>订单详情</Link></span>
             }
         }];
