@@ -45,7 +45,7 @@ class CreateProduct extends Component {
     _getFormItems() {
         let config = {}, context = this;
         const {cateList, brandList, getSpecByCateList} = this.props;
-        let { selectItem, specList, specDataList, rowList, totalStock, salePrice, categoryId} = this.state;
+        let { selectItem, specList, specDataList, rowList, totalStock, salePrice, categoryId,flag,hasSpec} = this.state;
 	    config.formItems = [{
             label: "SPU：",
             name: "spuId",
@@ -122,7 +122,7 @@ class CreateProduct extends Component {
             infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
             input: {
                 placeholder: "请输入销售价",
-                disabled:true
+                disabled:context.state.hasSpec == true ? true : false
             }
         }, {
             label: "库存数量：",
@@ -132,7 +132,7 @@ class CreateProduct extends Component {
             infoLabel: <span>必须是0～999999999之间整数</span>,
             input: {
                 placeholder: "请输入库存数量",
-                disabled:true
+                disabled:context.state.hasSpec == true ? true : false
             }
         }, {
             label: "商品规格：",
@@ -154,7 +154,7 @@ class CreateProduct extends Component {
             total: null,
             skuData : {}
         }
-
+        console.log(hasSpec,'hasSpec======')
         if( selectItem ){
             //阻止selectItem的状态被串改
             selectItem = {...selectItem}
@@ -223,6 +223,7 @@ class CreateProduct extends Component {
             selectItem = searchSpuState.state.items
             if(selectItem.specOneName == null) {
                 this.setState({flag:false})
+
             } else {
                 this.setState({flag:true})
             }
