@@ -140,7 +140,8 @@ export default function reducer(state = {result:{}}, action) {
         return {
             //...state,
             loading : action.loading,
-            result: action.result
+            result: action.result,
+            jump : true,
         }
     case ADD_FAILURE:
         return {
@@ -148,9 +149,10 @@ export default function reducer(state = {result:{}}, action) {
         }
     case MODIFY_SUCCESS:
         return {
-            ...state,
+            //...state,
+            loading : action.loading,
             jump : true,
-            result: action.result
+            modResult: action.result
         }
     case MODIFY_FAILURE:
         return {

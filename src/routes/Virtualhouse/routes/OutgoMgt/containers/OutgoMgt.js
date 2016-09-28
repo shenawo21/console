@@ -17,7 +17,10 @@ class OutgoMgt extends Component {
         };  //定义初始状态
     }
 
-    //获取分页页码
+    /**
+     * 获取分页页码
+     * @params location
+     */
     getPageNumber(location) {
         const {query} = location;
         return query && query.p ? Number(query.p) : 1;
@@ -28,7 +31,7 @@ class OutgoMgt extends Component {
         const {pageSize} = this.state;
         let pageNumber = this.getPageNumber(location);
         getVirList({ pageNumber, pageSize });
-	//获取店铺列表
+	    //获取店铺列表
         getShopList();
 
         //获取分类列表
@@ -40,7 +43,7 @@ class OutgoMgt extends Component {
         if(nextProps.jump){
             setTimeout(()=>{
                 this.context.router.push('/virtualhouse')
-            },600)
+            },100)
         }
     }  
 

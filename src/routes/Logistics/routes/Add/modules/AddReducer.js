@@ -24,7 +24,7 @@ export function addLogistic(params) {
     }
 }
 /**
- * 获取平台物流列表
+ * 获取平台物流列表（不分页）
  * 
  * @export
  * @param params (description)
@@ -33,7 +33,7 @@ export function addLogistic(params) {
 export function getListLogistic(params) {
     return {
         types: [LIST, LIST_SUCCESS, LIST_FAILURE],
-        promise: (client) => client.post('api-logistic.listLogistic', params)
+        promise: (client) => client.post('api-logistic.listLogisticEn', params)
     }
 }
 
