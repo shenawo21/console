@@ -73,7 +73,7 @@ class Edit extends Component {
                 callback();
               } else {
                 setTimeout(()=> {
-                  if (!(/^[\u4e00-\u9fa5a-zA-Z0-9]{0,1000}$/.test(value))) {
+                  if (value.length>1000) {
                     callback([new Error('请输入店铺描述,1000字符以内')]);
                   } else {
                     callback();
