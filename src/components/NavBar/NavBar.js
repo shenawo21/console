@@ -3,6 +3,8 @@ import avatar from './avatar.png';
 import {Menu, Dropdown, Icon} from 'hen';
 import style from './navBar.less';
 import store from 'store2';
+import Image from 'components/Image';
+
 export default (props) => {
   //account
   const account = store.get('USER').account;
@@ -28,7 +30,9 @@ export default (props) => {
         <Dropdown className={style.navDown} overlay={menu} trigger={['click']}>
           <a className="ant-dropdown-link" href="#">
             <span className="avatar avatar-online">
-              <img src={avatar} alt="..." />
+              {
+                props.pic ? <Image src={props.pic} thumbnail='100x100' alt="头像"/> : <img src={avatar} alt="头像"/>
+              }
               <i></i>
             </span>
           </a>

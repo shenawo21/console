@@ -42,7 +42,8 @@ function CoreLayout(props) {
   const menuList = store.get('USER') && store.get('USER').menuList;
   //修改菜单数据格式
   let menus = getMenu(menuList);
-
+  //获取图像
+  const pic = store.get('USER') && store.get('USER').photo
   return (
     <div className={classes.corelayout}>
       <div className={classes.header + ' site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse'}>
@@ -51,7 +52,7 @@ function CoreLayout(props) {
               <img src={logo} height="46"/>
             </Link>
           </div>
-          <NavBar logout={handleLogout} />
+          <NavBar logout={handleLogout} pic={pic} />
       </div>
       <div className={classes.aside}>
         <aside className={classes.sider + ' site-menu-horizontal'}>
