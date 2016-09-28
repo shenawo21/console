@@ -23,7 +23,8 @@ class outgoMgt extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.goBack = this.goBack.bind(this);
     this.state = {
-        stockList: []
+        stockList: [],
+        itemsList: [] //初始价格、库存集合
     }
   }
 
@@ -151,13 +152,6 @@ class outgoMgt extends Component {
             title: '建议销售价',
             dataIndex: 'advicePrice',
             render(value, row, index){
-                //let {stockList} = context.state;
-                //stockList[index] = {}
-                //stockList[index].price = stockList[index].price || row.price;
-                // context.setState({
-                //     stockList
-                // })
-                //console.log(stockList,'stockList');
                 return <InputNumber type="text" step={0.01} min={0.01} max={99999999} placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId }, selectItems = [], incoming = ''
                         if(e) {
@@ -222,15 +216,24 @@ class outgoMgt extends Component {
      */
     getData(items) {
         const {stockList} = this.state, curStockList = [];
+        console.log(items, stockList,curStockList,11111)
         if (items) {
             items.forEach((item) => {
-                stockList.every((val) => {
-                    if (val.skuId == item.skuId) {
-                        curStockList.push(val)
-                        return false
-                    }
-                    return true
-                })
+                if(stockList.length){
+                    stockList.every((val) => {
+                        if (val.skuId == item.skuId) {
+                            curStockList.push(val)
+                            return false
+                        }
+                        return true
+                    })
+                }else{
+                    curStockList.push({
+                        skuId : item.skuId,
+                        price : item.price,
+                        incoming : 0
+                    })
+                }
             })
             this.setState({
                 stockList: curStockList

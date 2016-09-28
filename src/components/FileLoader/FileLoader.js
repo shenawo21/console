@@ -30,7 +30,7 @@ export const DownLoader = (props) => {
           if (Array.isArray(value)) {
             mapParams.push(value.map(_id=>key + '=' + _id).join('&'));
           } else {
-            mapParams.push(key + '=' + value);
+            mapParams.push(key + '=' + encodeURIComponent(value));
           }
         }
       }
