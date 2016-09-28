@@ -110,7 +110,7 @@ class Audit extends Component {
       dataIndex: 'buyerNick'
     }, {
       key: '4',
-      title: '买家备注',
+      title: '买家留言',
       dataIndex: 'buyerMessage'
     }, {
       key: '5',

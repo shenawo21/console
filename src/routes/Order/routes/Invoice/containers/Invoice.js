@@ -65,7 +65,7 @@ class Invoice extends Component {
       tData: nextProps.items
     })
     if(nextProps.dResult){
-      message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败',10);
+      message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败',5);
     }
     if (nextProps.isJump) {
       setTimeout(()=> {

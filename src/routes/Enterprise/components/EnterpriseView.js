@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Col, DatePicker} from 'hen';
 import Form from 'components/Form';
+import Image from 'components/Image';
 import {UploadImage} from 'components/FileLoader'
 //企业类型
 const TYPE = {
@@ -142,8 +143,6 @@ class Enterprise extends Component {
           label: "营业执照：",
           name: "businessLicense",
           required: true,
-          //rules: [{required: true, message: '营业执照为必选'}],
-          disabled:true,
           custom(getCustomFieldProps) {
             upConfig.fileList = licenseList;
             return <UploadImage title="营业执照" className='upload-list-inline upload-fixed'

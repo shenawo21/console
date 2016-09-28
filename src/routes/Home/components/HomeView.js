@@ -36,14 +36,14 @@ class Home extends Component {
     /**
      * 控制台权限控制，临时解决方案，只是临时的。。。
      * @type {null}
-       */
+     */
     let applicPermis = null,
       shopPermis = null,
       auditPermis = null,
       sendPermis = null,
       servicePermis = null;
     if (store('USER')) {
-      store('USER').menuList.map((m)=> {
+      store('USER').menuList && store('USER').menuList.map((m)=> {
         if (m.name == '应用管理') {
           applicPermis = m.name
         }
@@ -123,14 +123,16 @@ class Home extends Component {
               <Row>
                 <Col span="12">
                   <Badge count={item.toBeButtShop} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/applic'} className={classes.headExample} disabled={applicPermis =='应用管理' ? false : true}>
+                    <Link to={'/applic'} className={classes.headExample}
+                          disabled={applicPermis =='应用管理' ? false : true}>
                       待店铺对接
                     </Link>
                   </Badge>
                 </Col>
                 <Col span="12">
                   <Badge count={item.compairsNum} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/shophouse'} className={classes.headExample} disabled={shopPermis =='店铺仓库管理' ? false : true}>
+                    <Link to={'/shophouse'} className={classes.headExample}
+                          disabled={shopPermis =='店铺仓库管理' ? false : true}>
                       待对比商品
                     </Link>
                   </Badge>
@@ -147,14 +149,16 @@ class Home extends Component {
               <Row>
                 <Col span="12">
                   <Badge count={item.dealWithOrder} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/order/audit'} className={classes.headExample} disabled={auditPermis =='审单' ? false : true}>
+                    <Link to={'/order/audit'} className={classes.headExample}
+                          disabled={auditPermis =='审单' ? false : true}>
                       待处理订单
                     </Link>
                   </Badge>
                 </Col>
                 <Col span="12">
                   <Badge count={item.toSendOrderNum} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/order/invoice'} className={classes.headExample} disabled={sendPermis =='打单发货' ? false : true}>
+                    <Link to={'/order/invoice'} className={classes.headExample}
+                          disabled={sendPermis =='打单发货' ? false : true}>
                       待发货订单
                     </Link>
                   </Badge>
@@ -171,35 +175,40 @@ class Home extends Component {
               <Row>
                 <Col span="4">
                   <Badge count={item.toReimburse} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/aftersale'} className={classes.headExample} disabled={servicePermis =='售后服务' ? false : true}>
+                    <Link to={'/service/aftersale'} className={classes.headExample}
+                          disabled={servicePermis =='售后服务' ? false : true}>
                       订单待退款
                     </Link>
                   </Badge>
                 </Col>
                 <Col span="4">
                   <Badge count={item.toReturnSales} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/aftersale'} className={classes.headExample} disabled={servicePermis =='售后服务' ? false : true}>
+                    <Link to={'/service/aftersale'} className={classes.headExample}
+                          disabled={servicePermis =='售后服务' ? false : true}>
                       待退货
                     </Link>
                   </Badge>
                 </Col>
                 <Col span="4">
                   <Badge count={item.toExchange} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/warehouse'} className={classes.headExample} disabled={servicePermis =='售后服务' ? false : true}>
+                    <Link to={'/service/warehouse'} className={classes.headExample}
+                          disabled={servicePermis =='售后服务' ? false : true}>
                       待换货出库
                     </Link>
                   </Badge>
                 </Col>
                 <Col span="4">
                   <Badge count={item.toEndOfSales} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/history'} className={classes.headExample} disabled={servicePermis =='售后服务' ? false : true}>
+                    <Link to={'/service/history'} className={classes.headExample}
+                          disabled={servicePermis =='售后服务' ? false : true}>
                       待结束退货
                     </Link>
                   </Badge>
                 </Col>
                 <Col span="5">
                   <Badge count={item.toFinancialRefund} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/history'} className={classes.headExample} disabled={servicePermis =='售后服务' ? false : true}>
+                    <Link to={'/service/history'} className={classes.headExample}
+                          disabled={servicePermis =='售后服务' ? false : true}>
                       待通知财务退款
                     </Link>
                   </Badge>
