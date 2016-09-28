@@ -54,7 +54,7 @@ class Home extends Component {
           servicePermis = m.name
         }
         if (m.name == '订单管理') {
-          m.childrenList.map((n)=> {
+          m.childrenList && m.childrenList.map((n)=> {
             if (n.name == '审单') {
               auditPermis = n.name
             }
@@ -122,7 +122,8 @@ class Home extends Component {
               </div>
               <Row>
                 <Col span="12">
-                  <Badge count={item.toBeButtShop} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.toBeButtShop} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/applic'} className={classes.headExample}
                           disabled={applicPermis =='应用管理' ? false : true}>
                       待店铺对接
@@ -130,7 +131,8 @@ class Home extends Component {
                   </Badge>
                 </Col>
                 <Col span="12">
-                  <Badge count={item.compairsNum} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.compairsNum} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/shophouse'} className={classes.headExample}
                           disabled={shopPermis =='店铺仓库管理' ? false : true}>
                       待对比商品
@@ -148,7 +150,8 @@ class Home extends Component {
               </div>
               <Row>
                 <Col span="12">
-                  <Badge count={item.dealWithOrder} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.dealWithOrder} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/order/audit'} className={classes.headExample}
                           disabled={auditPermis =='审单' ? false : true}>
                       待处理订单
@@ -156,7 +159,8 @@ class Home extends Component {
                   </Badge>
                 </Col>
                 <Col span="12">
-                  <Badge count={item.toSendOrderNum} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.toSendOrderNum} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/order/invoice'} className={classes.headExample}
                           disabled={sendPermis =='打单发货' ? false : true}>
                       待发货订单
@@ -174,7 +178,8 @@ class Home extends Component {
               </div>
               <Row>
                 <Col span="4">
-                  <Badge count={item.toReimburse} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.toReimburse} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/service/aftersale'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       订单待退款
@@ -182,7 +187,8 @@ class Home extends Component {
                   </Badge>
                 </Col>
                 <Col span="4">
-                  <Badge count={item.toReturnSales} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.toReturnSales} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/service/aftersale'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待退货
@@ -190,7 +196,8 @@ class Home extends Component {
                   </Badge>
                 </Col>
                 <Col span="4">
-                  <Badge count={item.toExchange} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.toExchange} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/service/warehouse'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待换货出库
@@ -198,7 +205,8 @@ class Home extends Component {
                   </Badge>
                 </Col>
                 <Col span="4">
-                  <Badge count={item.toEndOfSales} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.toEndOfSales} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/service/history'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待结束退货
@@ -206,7 +214,8 @@ class Home extends Component {
                   </Badge>
                 </Col>
                 <Col span="5">
-                  <Badge count={item.toFinancialRefund} className={classes.exbadge} style={{top:'0px',right: '-10px'}}>
+                  <Badge count={item.toFinancialRefund} overflowCount={99} className={classes.exbadge}
+                         style={{top:'0px',right: '-10px'}}>
                     <Link to={'/service/history'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待通知财务退款
