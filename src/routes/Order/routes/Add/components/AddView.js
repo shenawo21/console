@@ -85,15 +85,7 @@ class Add extends Component {
           input: {
             placeholder: "请输入订单标题",
           }
-        }, /*{
-          label: "所属店铺：",
-          name: "shopId",
-          rules: [{required: true, type: 'number', message: '所属店铺不能为空'}],
-          select: {
-            style:{width: '200'},
-            optionValue: shopList
-          }
-        },*/ {
+        }, {
           label: "订单商品：",
           name: "dtos",
           wrapperCol: {span: 18},
@@ -139,7 +131,7 @@ class Add extends Component {
           cascader: {
             options: addrResult,
             placeholder: "请选择地区",
-            style:{width: '350'},
+            style:{width: '350px'},
             changeOnSelect: false
           }
         }, {
@@ -205,7 +197,6 @@ class Add extends Component {
 
     config.initValue = {
       title: null,
-      //shopId: null,
       dtos: null,
       buyerNick: null,
       invoiceType: null,

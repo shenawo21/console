@@ -6,6 +6,7 @@ export default (props) => {
   const result = props.result
   const ArryStatus = props.ArryStatus
   const src = props.src
+  let outerSkuId = result.tradesOrder ? result.tradesOrder.outerSkuId : ''
   return (
     <div className="table-box">
             <table className = 'border-table' style = {{width:'100%'}}>
@@ -29,7 +30,7 @@ export default (props) => {
                 </tr>
                 <tbody>
                     <tr>
-                        <td>{result.outerId}</td>
+                        <td>{outerSkuId}</td>
                         <td>{result.title}</td>
                         <td>{result.price}</td>
                         <td>{result.goodsNum}</td>

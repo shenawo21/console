@@ -79,11 +79,11 @@ class InfoView extends Component {
     render() {
         let {formOptions, result, isRequired} = this.props;
 	    const refundComment = result && result.refundComment ? result.refundComment : {}
-        const Goodsstatus = result && result.refund_phase == 'onsale' ? '售前退款' : '收货退款'
+        const Goodsstatus = result.afterSaleType == 'REFUND_MONEY' ? '等待退款' : '等待退货'
         const url = refundComment.picUrls || ''
         const src = url && url.split(',')
         const ArryStatus = [
-            {name:'货物状态:', status:Goodsstatus},
+            {name:'订单状态:', status:Goodsstatus},
             {name:'退款说明:', status:refundComment.content}
         ]
         /**

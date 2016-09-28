@@ -59,6 +59,14 @@ class Add extends Component {
       handleSubmit(value, key) {
         if (selectTable.length > 0) {
           value.dtos = selectTable;
+          selectTable.map((s)=> {
+            if (s.num == null) {
+              message.warning('请重新输入并勾选商品！');
+              return false;
+            }else {
+              console.log(3333333,s.num);
+            }
+          })
         } else {
           message.warning('请勾选订单商品！');
           return false;
@@ -71,7 +79,6 @@ class Add extends Component {
         }
         key == 'commit' ? addItem({
           title: value.title,
-          //shopId: value.shopId,
           buyerNick: value.buyerNick,
           dtos: value.dtos,
           invoiceType: value.invoiceType,
@@ -120,9 +127,9 @@ class Add extends Component {
       onSelect: (record, selected, selectedRows) => {
         selectedRows.map((s)=> {
           if (s.num == null) {
-           message.warning('购买数量不能为空！');
-           return false;
-           }
+            message.warning('购买数量不能为空！');
+            return false;
+          }
         })
         let selectTable = selectedRows.map(c => {
           return {
@@ -133,8 +140,8 @@ class Add extends Component {
             price: c.price,
             num: c.num,
             skuPropertiesName: getSpecValue(c),
-            stockId:c.stockId,
-            shopId:c.shopId
+            stockId: c.stockId,
+            shopId: c.shopId
           }
         });
         this.setState({selectTable});
@@ -142,9 +149,9 @@ class Add extends Component {
       onSelectAll: (selected, selectedRows, changeRows) => {
         selectedRows.map((s)=> {
           if (s.num == null) {
-           message.warning('购买数量不能为空！');
-           return false;
-           }
+            message.warning('购买数量不能为空！');
+            return false;
+          }
         })
         let selectTable = selectedRows.map(c => {
           return {
@@ -155,8 +162,8 @@ class Add extends Component {
             price: c.price,
             num: c.num,
             skuPropertiesName: getSpecValue(c),
-            stockId:c.stockId,
-            shopId:c.shopId
+            stockId: c.stockId,
+            shopId: c.shopId
           }
         });
         this.setState({selectTable});
@@ -186,12 +193,10 @@ class Add extends Component {
             specTwoValue: c.specTwoValue,
             specThreeValue: c.specThreeValue,
             specFourValue: c.specFourValue,
-            stock: c.stock,
-            stockId:c.stockId,
-            shopId:c.shopId,
+            stockId: c.stockId,
+            shopId: c.shopId,
             //购买数量
             num: null,
-            //Sku属性
             //商品金额
             totalFee: null
           }
@@ -215,7 +220,7 @@ class Add extends Component {
             num: null,
             totalFee: null,
             shopId: null,
-            stockId:c.stockId
+            stockId: c.stockId
           }
         });
         this.setState({selectList});
@@ -254,7 +259,8 @@ class Add extends Component {
         value: null,
         title: '正在加载中...'
       }]
-    };
+    }
+    ;
     /**
      * 快递公司列表
      * @type {Array}
@@ -329,9 +335,9 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult, cResult, addrResult, cateResult, proResult,isJump} = state.add;
+  const {result, loading, appResult, cResult, addrResult, cateResult, proResult, isJump} = state.add;
   const {items = [], totalItems = 0} = proResult || {};
-  return {'result': result, items, totalItems, loading, appResult, cResult, addrResult, cateResult, proResult,isJump};
+  return {'result': result, items, totalItems, loading, appResult, cResult, addrResult, cateResult, proResult, isJump};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Add)

@@ -42,12 +42,31 @@ class CreateProduct extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  console.log(value,'value')
                   const {addPro} = _this.props;
+                  let newArray = []                
                   let {skuData, categoryId, ...other} = value
                   value = {...skuData, ...other, categoryId : categoryId && typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
+                 // 忽略SPU中带出来的SKU列表
+                  let oldSku = _this.refs.view.state.selectItem.skuList ? _this.refs.view.state.selectItem.skuList : ''
+                  let newSku = value.skuList ? value.skuList : ''
+                  newSku && newSku.forEach((val, num) => {
+                    !val.specOneValue && delete newSku[num].specOneValue
+                    !val.specTwoValue && delete newSku[num].specTwoValue
+                    !val.specThreeValue && delete newSku[num].specThreeValue
+                    !val.specFourValue && delete newSku[num].specFourValue
+                    oldSku.every((item,index) => {
+                        if(val.specOneValue == item.specOneValue && val.specTwoValue == item.specTwoValue && val.specThreeValue == item.specThreeValue && val.specFourValue == item.specFourValue){
+                            return false 
+                        }
+                        val.assignedStock = 'undefined' ? 0 : val.assignedStock
+                        newArray[index] = {...val}
+                        return true
+                    })
+                })
+                value.skuList = newArray   //过滤后新的SKU列表
+
                    if (_this.refs.view.state.flag == true) {
-                       if(value.categoryId && value.categoryId.length > 0 ) {
+                       if(value.categoryId && value.categoryId.length > 0 ) { 
                            if(_this.refs.view.state.hasSpec == true) {
                                 if (value.skuList && value.skuList.length > 0) {
                                         if (value.advicePrice && value.advicePrice !== 0 ) {
