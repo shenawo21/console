@@ -44,10 +44,13 @@ class ChangeView extends Component {
         const {tabelData} = this.props
         const context = this
         let tradesOrderList = tabelData[0].tradesOrderList
-        let newObj = tradesOrderList && tradesOrderList.filter((item,index) => {
-           return item.oid = id
+        console.log(id,'id')
+        let newObj = tradesOrderList && tradesOrderList.filter(item => {
+           return item.oid == id
         })
-       if (newObj[0].isAfterSale = false) {
+        console.log(newObj,'newObj')
+
+       if (newObj[0].isAfterSale == false) {
             setTimeout(() => {
                 let pathname = '/service/aftersale/change/'+ newObj[0].oid + '/' + newObj[0].buyerNick ;
                 context.context.router.replace(pathname);

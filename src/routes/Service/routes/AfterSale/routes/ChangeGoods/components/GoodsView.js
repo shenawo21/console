@@ -45,7 +45,7 @@ class InfoView extends Component {
         let columns = [{
             key: '0',
             title: '商品编码',
-            dataIndex: 'outerId'
+            dataIndex: 'outerSkuId'
         }, {
             key: '1',
             title: '商品名称',

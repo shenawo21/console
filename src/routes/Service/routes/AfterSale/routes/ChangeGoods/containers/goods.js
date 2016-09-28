@@ -99,7 +99,7 @@ class Goods extends Component {
         let arrResult = [{
                 tid:result.tid,
                 oid:result.oid,
-                outerId:result.outerId,
+                outerSkuId:result.outerSkuId,
                 title:result.title,
                 price:result.price,
                 totalFee:result.totalFee,
