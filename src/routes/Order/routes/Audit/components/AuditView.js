@@ -111,7 +111,7 @@ class Audit extends Component {
     }, {
       key: '4',
       title: '买家备注',
-      dataIndex: 'buyerMemo'
+      dataIndex: 'buyerMessage'
     }, {
       key: '5',
       title: '到期时间',
@@ -151,7 +151,9 @@ class Audit extends Component {
           }
           <Link to={`/order/audit/detail/${row.tid}`}>&nbsp;&nbsp; | &nbsp;&nbsp;查看详情</Link>
         </div>;
-      }
+      },
+      width:'260'
+
     }];
     return columns;
   }

@@ -14,7 +14,8 @@ class Add extends Component {
       params: {},
       selectList: {},
       tabDataSource: [],
-      selectTable: []
+      selectTable: [],
+      realPrice:null
     }
   }
 
@@ -63,8 +64,6 @@ class Add extends Component {
             if (s.num == null) {
               message.warning('请重新输入并勾选商品！');
               return false;
-            }else {
-              console.log(3333333,s.num);
             }
           })
         } else {
@@ -145,6 +144,16 @@ class Add extends Component {
           }
         });
         this.setState({selectTable});
+        if (selectTable.length > 0) {
+          let sum = selectTable.map((s)=> {
+            return s.num * s.price
+          })
+          let amount = 0;
+          for (var i = 0; i < sum.length; i++) {
+            amount += sum[i];
+          }
+          this.setState({realPrice:amount});
+        }
       },
       onSelectAll: (selected, selectedRows, changeRows) => {
         selectedRows.map((s)=> {
@@ -167,6 +176,16 @@ class Add extends Component {
           }
         });
         this.setState({selectTable});
+        if (selectTable.length > 0) {
+          let sum = selectTable.map((s)=> {
+            return s.num * s.price
+          })
+          let amount = 0;
+          for (var i = 0; i < sum.length; i++) {
+            amount += sum[i];
+          }
+          this.setState({realPrice:amount});
+        }
       }
     }
   }
@@ -229,7 +248,7 @@ class Add extends Component {
   }
 
   render() {
-    const {params, selectList, tabDataSource} = this.state;
+    const {params, selectList, tabDataSource, realPrice} = this.state;
     const {loading, items, proList, result, appResult, cResult, totalItems, addrResult, cateResult, proResult} = this.props;
     const chooseTableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
@@ -313,8 +332,10 @@ class Add extends Component {
                                                       chooseFormOption={this.chooseFormOption.bind(this)}
                                                       rowtabSelection={this.rowtabSelection.bind(this)}
                                                       isOK={this.isOK.bind(this)}
-                                                      shopList={shopList} cList={cList}
+                                                      cList={cList}
                                                       tabDataSource={tabDataSource}
+                                                      shopList={shopList}
+                                                      realPrice={realPrice}
                                                       selectList={selectList} cateList={loop(cateResult)}/></Panel>
   }
 }

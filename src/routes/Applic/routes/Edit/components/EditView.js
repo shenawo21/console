@@ -66,7 +66,7 @@ class Edit extends Component {
         name: "remark",
         wrapperCol: {span: 10},
         rules: [
-          {required: true, message: '请输入店铺描述,100字符以内'},
+          {required: true, message: '请输入店铺描述,1000字符以内'},
           {
             validator(rule, value, callback) {
               if (!value) {

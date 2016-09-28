@@ -14,7 +14,7 @@ class Add extends Component {
 
   _getFormItems() {
     let config = {}, context = this;
-    const {shopList, cList, addrResult, tabDataSource, rowtabSelection}=context.props;
+    const {cList, addrResult, tabDataSource, rowtabSelection, realPrice}=context.props;
     const columns = [{
       key: '0',
       title: 'SPU编码',
@@ -97,8 +97,9 @@ class Add extends Component {
                 tabDataSource.length > 0 ?
                   <Table rowKey={record => record._index} rowSelection={rowtabSelection()} columns={columns}
                          dataSource={tabDataSource} bordered
-                         pagination={false} size="middle" style={{marginTop:'20px'}}/> : ''
+                         pagination={false} size="middle" style={{marginTop:'20px',marginBottom:'20px'}}/> : ''
               }
+              <p>实付金额: <b>{(realPrice || 0).toFixed(2)} 元</b></p>
             </div>
           }
         }]
@@ -131,7 +132,7 @@ class Add extends Component {
           cascader: {
             options: addrResult,
             placeholder: "请选择地区",
-            style:{width: '350px'},
+            style: {width: '350px'},
             changeOnSelect: false
           }
         }, {
