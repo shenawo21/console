@@ -1,8 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
 import {Checkbox, Row, Col, Button, Icon, Tree} from 'hen';
-
-import Form from 'components/Form';
 
 const TreeNode = Tree.TreeNode;
 class Permis extends Component {
@@ -20,7 +17,7 @@ class Permis extends Component {
     const loop = data => data && data.map((i) => {
       if (i.childrenList) {
         return (
-          <TreeNode key={i.permissionId} title={i.name}>
+          <TreeNode key={i.permissionId} title={i.name} disableCheckbox>
             {loop(i.childrenList) }
           </TreeNode>
         );

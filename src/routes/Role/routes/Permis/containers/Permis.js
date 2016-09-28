@@ -71,12 +71,29 @@ class Permis extends Component {
   }
 
   onSave() {
+    /**
+     * 数组去重
+     * @param arr
+     * @returns {Array}
+     */
+    let unique = (arr)=> {
+      var result = [], hash = {};
+      for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+        if (!hash[elem]) {
+          result.push(elem);
+          hash[elem] = true;
+        }
+      }
+      return result;
+    }
     const {modifyItem, params} = this.props;
+    const {checkedKeys, expandedKeys} = this.state.keys;
+
     modifyItem({
       roleId: parseInt(params.id),
-      permissionIdList: this.state.keys.checkedKeys
+      permissionIdList: unique(checkedKeys.concat(expandedKeys))
     })
-    history.go(-1);
+
   }
 
   componentWillReceiveProps(nextProps, preProps) {
