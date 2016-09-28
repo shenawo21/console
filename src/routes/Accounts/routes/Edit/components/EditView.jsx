@@ -10,8 +10,8 @@ const SEX = [
 ];
 //帐号是否可用
 const STATUS = [
-    {title : '不可用', value : false},
-    {title : '可用', value : true}
+    {title : '不可用', value : '0'},
+    {title : '可用', value : '1'}
 ];
 
 class Edit extends Component {
@@ -41,7 +41,7 @@ class Edit extends Component {
                 name: "account",
                 required: true,
                 hasFeedback: true,
-                rules: [{ required: true, max: 64, message: '最多为64个字符' }],
+                rules: [{ required: true, min: 4, max: 64, message: '帐号最少为4个字符，最多为64个字符' }],
                 input: {
                     type: 'text',
                     disabled: (item != null && item.adminId) ? true : false,
@@ -112,7 +112,7 @@ class Edit extends Component {
                     placeholder: "请输入手机号码",
                 }
         },{
-            label: "角色",
+            label: "角色：",
             name: "roleIdList",
             labelCol: { span: 3 },
             wrapperCol: { span: 8 },
@@ -127,8 +127,8 @@ class Edit extends Component {
             password: null,
             name: null,
             photo: null,
-            sex: false,
-            enabled: true,
+            sex: null,
+            enabled: null,
             email: null,
             mobile: null,
             roleIdList: []
@@ -156,8 +156,6 @@ class Edit extends Component {
             config.formItems.splice(1, 1);
         }
         
-        
-
         return config;
     }
 

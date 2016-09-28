@@ -54,10 +54,11 @@ class OddQuery extends Component {
                */
               handleSubmit(value) {
                 const {curKey} = context.state;
-                const {pageNumber, ...other} = value;
                 if(value.categoryCode){
                     value.categoryCode = value.categoryCode[value.categoryCode.length - 1] || '';
                 }
+                const {pageNumber, ...other} = value;
+                
                   context.setState({
                       params: {
 		      	        ...other,

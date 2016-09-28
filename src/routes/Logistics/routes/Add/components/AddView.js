@@ -73,6 +73,8 @@ class Add extends Component {
 
     checkedItem(sourceData, targetKeys){
         let enLogisticsList = [];
+        console.log(sourceData,'sourceData')
+        console.log(targetKeys,'targetKeys');
         targetKeys.forEach((item, num)=>{
             sourceData.every((val, index)=>{
                 if(index === num){

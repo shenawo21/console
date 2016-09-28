@@ -150,23 +150,36 @@ class outgoMgt extends Component {
             key: '7',
             title: '建议销售价',
             dataIndex: 'advicePrice',
-            render(value, row){
+            render(value, row, index){
+                //let {stockList} = context.state;
+                //stockList[index] = {}
+                //stockList[index].price = stockList[index].price || row.price;
+                // context.setState({
+                //     stockList
+                // })
+                //console.log(stockList,'stockList');
                 return <InputNumber type="text" step={0.01} min={0.01} max={99999999} placeholder="请输入建议销售价" style={{ width: 120 }} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId }, selectItems = [], incoming = ''
-                        if(!e) return;
-                        stockList.forEach((val) => {
-                            if(val.skuId !== row.skuId){
-                                selectItems.push(val)
+                        if(e) {
+                            stockList.forEach((val) => {
+                                if(val.skuId !== row.skuId){
+                                    selectItems.push(val)
+                                }else{
+                                    incoming = val.incoming
+                                }
+                            })
+                            if(e == '' || e == 0){
+                                stock.price = row.stock
                             }else{
-                                incoming = val.incoming
+                                stock.price = e
                             }
-                        })
-                        stock.price = e
-                        stock.incoming = incoming
-                        selectItems.push(stock)
-                        context.setState({
-                            stockList: selectItems
-                        })
+                            
+                            stock.incoming = incoming
+                            selectItems.push(stock)
+                            context.setState({
+                                stockList: selectItems
+                            })
+                        }
                 }} defaultValue={row.price} />
             }
         }, {
@@ -178,22 +191,23 @@ class outgoMgt extends Component {
             title: '出库库存数',
             dataIndex: 'incoming',
             render(value, row){
-                return <InputNumber type="text" min={1} max={row.stock} placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
+                return <InputNumber type="text" min={1} max={row.stock >= 0 ? row.stock:0 } placeholder="请输入出库库存数" style={{width:100}} onChange={(e) => {
                     let {stockList} = context.state, stock = { skuId: row.skuId }, selectItems = [], price = '';
-                        if(!e) return;
-                        stockList.forEach((val) => {
-                            if(val.skuId !== row.skuId){
-                                selectItems.push(val)
-                            }else{
-                                price = val.price
-                            }
-                        })
-                        stock.incoming = e
-                        stock.price = price
-                        selectItems.push(stock)
-                        context.setState({
-                            stockList: selectItems
-                        })
+                        if(e>=0) {
+                            stockList.forEach((val) => {
+                                if(val.skuId !== row.skuId){
+                                    selectItems.push(val)
+                                }else{
+                                    price = val.price
+                                }
+                            })
+                            stock.incoming = e
+                            stock.price = price
+                            selectItems.push(stock)
+                            context.setState({
+                                stockList: selectItems
+                            })
+                        }
                 }} />
             }
         }];

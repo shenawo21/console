@@ -46,10 +46,10 @@ class Edit extends Component {
         if(nextProps.jump){
             setTimeout(()=>{
                 this.context.router.push('/accounts')
-            },600)
+            },100)
         }
 
-        if (!nextProps.params.id) {
+        if (!nextProps.params.id) { 
             this.setState({
                 item: {},
                 photoList: []
@@ -96,7 +96,7 @@ class Edit extends Component {
                 params: value
             })
             if (_this.state.photoList) {
-                value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : [];
+                value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
             }
             if(params.id) { 
                 modifyItem({
@@ -156,8 +156,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-  const {result, roleListResult, loading, jump} = state.edit;
-  return {result, roleListResult, loading, jump};
+  const {result, modResult, roleListResult, loading, jump} = state.edit;
+  return {result, modResult, roleListResult, loading, jump};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Edit)

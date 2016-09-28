@@ -133,7 +133,7 @@ class History extends Component {
       dataIndex: 'buyerNick'
     }, {
       key: '4',
-      title: '买家备注',
+      title: '买家留言',
       dataIndex: 'buyerMemo'
     }, {
       key: '5',

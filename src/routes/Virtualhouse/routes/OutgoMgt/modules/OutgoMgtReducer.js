@@ -96,10 +96,10 @@ export default function reducer(state = {result:{}}, action) {
         }
     case STOREMANAGE_SUCCESS:
         return {
-            //...state,
-            jump : true,
+            //...state,            
             loading : action.loading,
             result: action.result,
+            jump : true,
         }
     case STOREMANAGE_FAILURE:
         return {
