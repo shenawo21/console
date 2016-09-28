@@ -41,7 +41,7 @@ class Edit extends Component {
                 name: "account",
                 required: true,
                 hasFeedback: true,
-                rules: [{ required: true, max: 64, message: '最多为64个字符' }],
+                rules: [{ required: true, min: 4, max: 64, message: '帐号最少为4个字符，最多为64个字符' }],
                 input: {
                     type: 'text',
                     disabled: (item != null && item.adminId) ? true : false,
