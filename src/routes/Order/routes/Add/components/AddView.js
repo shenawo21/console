@@ -80,10 +80,26 @@ class Add extends Component {
           name: "title",
           labelCol: {span: 2},
           wrapperCol: {span: 13},
-          required: true,
-          rules: [{required: true, message: '订单标题为必填项'}],
+          rules: [
+            {required: true, message: '请输入正确的订单标题，50个字符以内，汉字、英文或数字'},
+            {
+              validator(rule, value, callback) {
+                if (!value) {
+                  callback();
+                } else {
+                  setTimeout(()=> {
+                    if (!(/^[\u4e00-\u9fa5a-zA-Z0-9]{1,50}$/.test(value))) {
+                      callback([new Error('请输入正确的订单标题，50个字符以内，汉字、英文或数字')]);
+                    } else {
+                      callback();
+                    }
+                  }, 800);
+                }
+              }
+            }
+          ],
           input: {
-            placeholder: "请输入订单标题",
+            placeholder: "请输入订单标题，50个字符以内，汉字、英文或数字",
           }
         }, {
           label: "订单商品：",
@@ -110,10 +126,27 @@ class Add extends Component {
         formItems: [{
           label: "用户昵称：",
           name: "buyerNick",
-          required: true,
-          rules: [{required: true, message: '请输入买家昵称'}],
+          wrapperCol: {span: 10},
+          rules: [
+            {required: true, message: '请输入正确的用户昵称，20个字符以内，汉字或英文'},
+            {
+              validator(rule, value, callback) {
+                if (!value) {
+                  callback();
+                } else {
+                  setTimeout(()=> {
+                    if (!(/^[\u4e00-\u9fa5a-zA-Z]{1,20}$/.test(value))) {
+                      callback([new Error('请输入正确的用户昵称，20个字符以内，汉字或英文')]);
+                    } else {
+                      callback();
+                    }
+                  }, 800);
+                }
+              }
+            }
+          ],
           input: {
-            placeholder: "请输入买家昵称",
+            placeholder: "请输入用户昵称，20个字符以内，汉字或英文",
           }
         }, {
           label: "发票类型：",
@@ -148,17 +181,49 @@ class Add extends Component {
         }, {
           label: "收件人：",
           name: "receiverName",
-          wrapperCol: {span: 8},
-          required: true,
-          rules: [{required: true, message: '收件人为必填项'}],
+          wrapperCol: {span: 10},
+          rules: [
+            {required: true, message: '请输入正确的收件人姓名，20个字符以内，汉字或英文'},
+            {
+              validator(rule, value, callback) {
+                if (!value) {
+                  callback();
+                } else {
+                  setTimeout(()=> {
+                    if (!(/^[\u4e00-\u9fa5a-zA-Z]{1,20}$/.test(value))) {
+                      callback([new Error('请输入正确的收件人姓名，20个字符以内，汉字或英文')]);
+                    } else {
+                      callback();
+                    }
+                  }, 800);
+                }
+              }
+            }
+          ],
           input: {
-            placeholder: "请输入收件人姓名",
+            placeholder: "请输入收件人姓名,20个字符以内，汉字或英文",
           }
         }, {
           label: "手机号：",
           name: "receiverMobile",
-          required: true,
-          rules: [{required: true, message: '手机号为必填项'}],
+          rules: [
+            {required: true, message: '请输入正确的 11 位数手机号'},
+            {
+              validator(rule, value, callback) {
+                if (!value) {
+                  callback();
+                } else {
+                  setTimeout(function () {
+                    if (!(/^1[3|4|5|7|8]\d{9}$/.test(value))) {
+                      callback([new Error('请输入正确的 11 位数手机号')]);
+                    } else {
+                      callback();
+                    }
+                  }, 800);
+                }
+              }
+            }
+          ],
           input: {
             placeholder: "请输入手机号",
           }
@@ -179,8 +244,24 @@ class Add extends Component {
         }, {
           label: "邮政编码：",
           name: "receiverZip",
-          required: true,
-          rules: [{required: true, message: '邮政编码为必填项'}],
+          rules: [
+            {required: true, message: '请输入正确的 6 位数邮政编码'},
+            {
+              validator(rule, value, callback) {
+                if (!value) {
+                  callback();
+                } else {
+                  setTimeout(function () {
+                    if (!(/^[1-9][0-9]{5}$/.test(value))) {
+                      callback([new Error('请输入正确的 6 位数邮政编码')]);
+                    } else {
+                      callback();
+                    }
+                  }, 800);
+                }
+              }
+            }
+          ],
           input: {
             placeholder: "请输入邮政编码",
           }
