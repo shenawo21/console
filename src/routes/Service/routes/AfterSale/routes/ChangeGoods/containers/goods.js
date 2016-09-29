@@ -11,6 +11,10 @@ class Goods extends Component {
         super(props);
         this.getFormOptions = this.getFormOptions.bind(this);            
         this.handleSubmit = this.handleSubmit.bind(this); 
+        this.tablegetFormOptions = this.tablegetFormOptions.bind(this);
+        this.state = {
+            params: {}   //表格需要的筛选参数
+        }
     }
     
     componentDidMount() {  
@@ -35,13 +39,15 @@ class Goods extends Component {
                 message.error('请选择换后商品编码')
             }
             let goodsNum = {goodsNum:newValue.numValue}
-            let changeSkuCode = {changeSkuCode:newValue.selectItem.spuId}
+            let changeSkuCode = {changeSkuCode:newValue.selectItem.skuId}
             let changeSkuName = {changeSkuName:newValue.selectItem.title}
             
             Object.assign(value,params,goodsNum,changeSkuCode,changeSkuName,newTable[0])
             delete value._index
             delete value.discountFee
             delete value.outerId
+            delete value.num
+            delete value.outerSkuId
             changeVerify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
@@ -79,12 +85,36 @@ class Goods extends Component {
               }
           }
       }
+       /**
+       * (表格功能配置项)
+       * 
+       * @returns (description)
+       */
+      tablegetFormOptions() {
+          const _this = this;
+          return {
+              /**
+               * (筛选表单提交)
+               * 
+               * @param value (description)
+               */
+              handleSubmit(value) {
+                  _this.setState({
+                      params: value
+                  })
+              }
+          }
+      }
     render() {
         const formOptions = {
             loading, 
             result,
             ...this.getFormOptions()
         }
+        const tableFormOptions = {
+            ...this.tablegetFormOptions()
+        }
+        const {params} = this.state; 
         const { items, shopList, totalItems,logistic, result,loading,location} = this.props;
         const {query} = location;
         const tableOptions = {
@@ -94,13 +124,15 @@ class Goods extends Component {
                 total : totalItems,                      //数据总数,
                 current : query && query.p ? Number(query.p) : 1
             },  
-            loading,                                    //表格加载数据状态        
+            loading,
+            params                                     //表格加载数据状态        
         }
         let arrResult = [{
                 tid:result.tid,
                 oid:result.oid,
                 outerSkuId:result.outerSkuId,
                 title:result.title,
+                num:result.num,
                 price:result.price,
                 totalFee:result.totalFee,
                 discountFee:result.discountFee
@@ -126,6 +158,7 @@ class Goods extends Component {
                                                 handleSubmit = {this.handleSubmit}
                                                 formOptions={formOptions} 
                                                 tableOptions={tableOptions}
+                                                tableFormOptions={tableFormOptions} 
                                                 logisticList = {logisticList}
                                                 ref = 'state'/></Panel> 
               </div>                    
@@ -151,7 +184,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result,list,logistic = [], loading} = state.changegoods;  
+    const {result,list,logistic = [], loading} = state.changegoods;
+    console.log(state.changegoods,'========')  
     const {items = [], totalItems = 0} = list || {}; 
     return {items,totalItems, result,logistic,loading };    
 }

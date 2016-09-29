@@ -47,7 +47,7 @@ export function changeEnd(params) {
 export function shopList(params) {
     return {
         types: [REQ_LIST, SUC_LIST, ERR_LIST],
-        promise: (client) => client.post('api-productService.listView',params)
+        promise: (client) => client.post('api-productService.mapView',params)
     }
 }
 

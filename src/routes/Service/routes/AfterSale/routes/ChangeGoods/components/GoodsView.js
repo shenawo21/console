@@ -57,7 +57,7 @@ class InfoView extends Component {
         }, {
             key: '3',
             title: '数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'num'
         },{
             key: '4',
             title: '商品总价值',
@@ -81,7 +81,7 @@ class InfoView extends Component {
             dataIndex: 'changeSkuCode',
             render(changeSkuCode) {
                 return <div>
-                            {selectItem ?  <span>{context.state.selectItem.spuId}<a style = {{paddingLeft:10}} onClick = {context.showModal}>重新选择</a></span> : 
+                            {selectItem ?  <span>{context.state.selectItem.skuId}<a style = {{paddingLeft:10}} onClick = {context.showModal}>重新选择</a></span> : 
                                            <a onClick = {context.showModal}>点击选择</a> }
                            
                         </div>
@@ -231,10 +231,10 @@ class InfoView extends Component {
         const {arrResult} = this.props
         let {selectItem} = this.state
         if (selectItem && value) {
-            if (Number(selectItem.total) < Number(value)) {
+            if (Number(selectItem.stock) < Number(value)) {
                  message.error('库存不足，请重新输入！')
             } else {
-                if(Number(selectItem.marketPrice) * Number(value) > Number(arrResult[0].totalFee)) {
+                if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
                     message.error('换后商品总价值大于原来商品总价值，请重新选择！')
                 } else {
                     this.setState({numValue:value})
@@ -262,10 +262,10 @@ class InfoView extends Component {
             selectItem = searchSpuState.state.items
         }
         if (selectItem && numValue) {
-            if (Number(selectItem.total) < Number(numValue)) {
+            if (Number(selectItem.stock) < Number(numValue)) {
                  message.error('库存不足，请重新选择！')
             } else {
-                if(Number(selectItem.marketPrice) * Number(numValue) > arrResult[0].totalFee) {
+                if(Number(selectItem.price) * Number(numValue) > arrResult[0].totalFee) {
                     message.error('换后商品总价值大于原来商品总价值，请重新选择！')
                 } else {
                     this.setState({
@@ -288,7 +288,7 @@ class InfoView extends Component {
         });
     }
     render() {
-        const {arrResult,tableOptions,handleSubmit} = this.props;
+        const {arrResult,tableOptions,handleSubmit,tableFormOptions} = this.props;
         let { selectItem } = this.state;
         const buttonOption = {
             buttons : [
@@ -317,7 +317,7 @@ class InfoView extends Component {
                     closable={false}
                     width={1020}
                     onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <SearchSpu tableOptions={tableOptions} selectItem={selectItem} ref='searchList' ></SearchSpu>
+                    <SearchSpu tableFormOptions={tableFormOptions} tableOptions={tableOptions} selectItem={selectItem} ref='searchList' ></SearchSpu>
                 </Modal>
                 <br /><br />    
                 <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} ref='form' />

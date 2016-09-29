@@ -31,9 +31,10 @@ class Logistics extends Component {
             dataIndex: 'configId',
             render(id, row){
                 return <span>
-                    <Popconfirm title="确认设为默认物流公司" onConfirm={context.isDefault.bind(context, id)}>
-                        <Button type="link">设为默认</Button>
-                    </Popconfirm>
+                    {row.defaults == true ? <span>设为默认</span> :  
+                     <Popconfirm title="确认设为默认物流公司" onConfirm={context.isDefault.bind(context, id)}>
+                        <a href="javascript:;">设为默认</a>
+                    </Popconfirm>}
                 </span>
             }
         }];

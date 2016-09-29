@@ -153,14 +153,16 @@ class History extends Component {
             title: '处理状态',
             dataIndex: 'processStatus',
             render(type) {
-                // switch(type) {
-                //     case 'REFUND_MONEY':
-                //         return '退款'
-                //     case 'REFUND_GOODS':
-                //         return '退货'
-                //     case 'CHANGE_GOODS':
-                //         return '换货'
-                // }
+                switch(type) {
+                    case 'INIT':
+                        return '待处理'
+                    case 'PROCESS':
+                        return '处理中'
+                    case 'SUCCESS':
+                        return '处理成功'
+                    case 'FAIL':
+                        return '处理失败'    
+                }
             }
         },{
             key: '10',

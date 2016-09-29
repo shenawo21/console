@@ -76,7 +76,7 @@ class Add extends Component {
         title: '订单基本信息：',
         className: '',
         formItems: [{
-          label: "订单标题：",
+          label: "店铺名称：",
           name: "title",
           labelCol: {span: 2},
           wrapperCol: {span: 13},
