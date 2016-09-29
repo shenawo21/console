@@ -31,7 +31,7 @@ const TYPE = {
 };
 //交易来源
 const FROM = {
-  'WAP': "手机",
+  'WAP,WAP': "手机",
   'HITAO': "嗨淘",
   'TOP': "TOP平台",
   'TAOBAO': "普通淘宝",
