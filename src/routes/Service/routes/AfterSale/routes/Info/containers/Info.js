@@ -73,7 +73,8 @@ class Info extends Component {
     handleGoodSubmit(value, key) {
         const _this = this;
         const {verify,params} = _this.props;
-        Object.assign(value,params,{afterSaleType:'REFUND_GOODS'})
+        let addressObj = _this.refs.form.state
+        Object.assign(value,params,addressObj,{afterSaleType:'REFUND_GOODS'})
         if(key === 'review'){
             Object.assign(value,{processStatus:'PROCESS'})
             delete value.shortName

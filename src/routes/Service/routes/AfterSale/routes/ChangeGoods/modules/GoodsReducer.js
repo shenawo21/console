@@ -54,7 +54,7 @@ export function shopList(params) {
 export function Logistic() {
     return {
         types: [REQ_LOGISTIC, SUC_LOGISTIC, ERR_LOGISTIC],
-        promise: (client) => client.post('api-logistic.listLogistic')
+        promise: (client) => client.post('api-logistic.listLogisticEn')
     }
 }
 export default function reducer(state = {result:{}}, action) {

@@ -28,8 +28,10 @@ class CreateProduct extends Component {
             salePrice : 0.01,      //
             submitFlag : '',     //提交数据时,skuList价格或库存是否为空
             market:'',
-            flag:true,
-            hasSpec:false
+            chooseSpu:false,
+            flag:false,
+            hasSpec:false,
+            chooseMenu:false
         }
     }
 
@@ -45,7 +47,7 @@ class CreateProduct extends Component {
     _getFormItems() {
         let config = {}, context = this;
         const {cateList, brandList, getSpecByCateList} = this.props;
-        let { selectItem, specList, specDataList, rowList, totalStock, salePrice, categoryId,flag,hasSpec} = this.state;
+        let { selectItem, specList, specDataList, rowList, totalStock, salePrice, categoryId,flag,hasSpec,chooseMenu,chooseSpu} = this.state;
 	    config.formItems = [{
             label: "SPU：",
             name: "spuId",
@@ -83,6 +85,7 @@ class CreateProduct extends Component {
                 onChange:function(value) {
                     let val = value.slice(0)
                     getSpecByCateList({categoryCode: val.pop()}).then(function(res){
+                        context.setState({chooseMenu:true})
                         let valueArray = res.data && res.data.filter((item) => {
                                 return item.enterpriseSpecList.length > 0
                             })
@@ -122,7 +125,7 @@ class CreateProduct extends Component {
             infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
             input: {
                 placeholder: "请输入销售价",
-                disabled:context.state.hasSpec == true ? true : false
+                disabled:hasSpec = true ? true : false
             }
         }, {
             label: "库存数量：",
@@ -132,7 +135,7 @@ class CreateProduct extends Component {
             infoLabel: <span>必须是0～999999999之间整数</span>,
             input: {
                 placeholder: "请输入库存数量",
-                disabled:context.state.hasSpec == true ? true : false
+                disabled:hasSpec = true ? true : false
             }
         }, {
             label: "商品规格：",
@@ -154,7 +157,6 @@ class CreateProduct extends Component {
             total: null,
             skuData : {}
         }
-        console.log(hasSpec,'hasSpec======')
         if( selectItem ){
             //阻止selectItem的状态被串改
             selectItem = {...selectItem}
@@ -220,6 +222,7 @@ class CreateProduct extends Component {
         const searchSpuState = this.refs.searchList
         let selectItem = null;
         if(searchSpuState.state){
+            this.setState({chooseSpu:true})
             selectItem = searchSpuState.state.items
             if(selectItem.specOneName == null) {
                 this.setState({flag:false})
@@ -539,7 +542,7 @@ class CreateProduct extends Component {
     }
     render() {
         let {formOptions, tableFormOptions, tableOptions} = this.props;
-        const {selectItem,flag,hasSpec} = this.state;
+        const {selectItem,flag,hasSpec,chooseMenu,chooseSpu} = this.state;
         return (
             <div>
                 <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={this.handleReset} ref='form' />

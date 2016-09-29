@@ -407,7 +407,6 @@ class product extends Component {
             columns: context._getColumns(),
             ...other
         }
-        console.log(selectedItemsKeys,'selectedItemsKeys',selectItems[curIndex])
         return (
             <div>{items && items.map((val, i) => {
                    let collapseOptions = context.getCollapseOptions(tableOptions, val, i, selectItems[i])

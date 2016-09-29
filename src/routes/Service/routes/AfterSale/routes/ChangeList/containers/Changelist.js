@@ -44,7 +44,6 @@ class ChangeView extends Component {
         const {tabelData} = this.props
         const context = this
         let tradesOrderList = tabelData[0].tradesOrderList
-        console.log(id,'id')
         let newObj = tradesOrderList && tradesOrderList.filter(item => {
            return item.oid == id
         })
