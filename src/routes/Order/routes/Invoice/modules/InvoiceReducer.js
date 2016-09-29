@@ -23,7 +23,7 @@ const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.selectWaitSendGoods', params,{hasMsg : true})
+    promise: (client) => client.post('api-tradesInfo.selectWaitSendGoods', params, {hasMsg: true})
   }
 }
 /**
@@ -54,7 +54,7 @@ export function appList(params) {
 }
 
 export default function reducer(state = {result: {}}, action) {
-  state = {...state, loading: action.loading};
+  state = {...state, loading: action.loading,isRefresh: false};
   switch (action.type) {
     case DELETE:
     case QUERY:
@@ -65,7 +65,8 @@ export default function reducer(state = {result: {}}, action) {
     case DELETE_SUCCESS:
       return {
         ...state,
-        dResult: action.result
+        dResult: action.result,
+        isRefresh: true
       }
     case DELETE_FAILURE:
       return {

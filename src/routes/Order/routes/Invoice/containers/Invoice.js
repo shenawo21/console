@@ -64,12 +64,12 @@ class Invoice extends Component {
     this.setState({
       tData: nextProps.items
     })
-    if(nextProps.dResult){
-      message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败',5);
+    if (nextProps.dResult) {
+      message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败', 5);
     }
-    if (nextProps.isJump) {
+    if (nextProps.isRefresh) {
       setTimeout(()=> {
-        nextProps.history.go(-1);
+        nextProps.history.replace('/order/invoice');
       }, 800);
     }
   }
@@ -207,9 +207,9 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult,dResult} = state.invoice;
+  const {result, loading, appResult, dResult, isRefresh} = state.invoice;
   const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading, appResult,dResult};
+  return {items, totalItems, loading, appResult, dResult, isRefresh};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Invoice)
