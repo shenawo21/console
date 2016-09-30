@@ -35,8 +35,8 @@ class GoodsInfo extends Component {
         const url = refundComment.picUrls
         const src = url && url.split(',')
         const ArryStatus = [
-            {name:'换货原因:',status:result.refundReason},
-            {name:'备注信息:',status:refundComment.content},
+            {name:'换货原因:',status:result.reason},
+            {name:'备注信息:',status:result.description},
         ]
         const EndbuttonOption = {
             buttons : [

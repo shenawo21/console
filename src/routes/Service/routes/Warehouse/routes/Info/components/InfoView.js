@@ -18,7 +18,8 @@ class InfoView extends Component {
     constructor() {
         super();
         this.state = {
-            goodList: []
+            goodList: [],
+            photoList : []
         }
     }
         
@@ -100,6 +101,7 @@ class InfoView extends Component {
     _getFormItems(){
         let context = this;
         const {item, photoList, photoImg, tableOptions, logiListItem, params, ...other} = context.props;
+        console.log(photoList,'photoList111')  
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -146,7 +148,7 @@ class InfoView extends Component {
                 label: "验货凭证：",
                 name: "checkPics",
                 custom(getCustomFieldProps) {
-                    upConfig.photoList = [];
+                    upConfig.fileList = photoList;
                     return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('checkPics')} />

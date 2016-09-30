@@ -37,7 +37,7 @@ export default (props) => {
                         <td>{result.totalFee}</td>
                         <td>{result.discountFee}</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ?
-                        <td>{result.tGoodsNum}</td>:
+                        <td>{result.goodsNum}</td>:
                         result.afterSaleType == 'REFUND_MONEY' ?
                             <td>无退货</td>:
                             <td>{result.goodsNum}</td>
@@ -54,14 +54,17 @@ export default (props) => {
                         return <li><b>{item.name}</b><span>{item.status}</span></li>
                         })
                     }
-                    <li><b>凭证：</b>
-                    <span>
-                        {
-                            src && src.map((item, index)=>{
-                            return <img src={item} width= '80' style={{marginRight:10}} />
-                            })
-                        }
-                    </span></li>
+                    {result.afterSaleType == 'CHANGE_GOODS' ?
+                    '' :  <li><b>凭证：</b>
+                                <span>
+                                    {
+                                        src && src.map((item, index)=>{
+                                        return <img src={item} width= '80' style={{marginRight:10}} />
+                                        })
+                                    }
+                          </span></li>
+                    }
+                   
 
             </ul>
         </div>

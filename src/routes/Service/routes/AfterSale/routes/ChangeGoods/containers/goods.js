@@ -56,7 +56,7 @@ class Goods extends Component {
                         }, 1000);
                     }
                 })
-        } 
+        }
     }
     /**
        * (表单功能配置项)
@@ -185,7 +185,6 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
     const {result,list,logistic = [], loading} = state.changegoods;
-    console.log(state.changegoods,'========')  
     const {items = [], totalItems = 0} = list || {}; 
     return {items,totalItems, result,logistic,loading };    
 }

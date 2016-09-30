@@ -1,5 +1,5 @@
  export default (store) => ({
-  breadcrumbName: "价格调整",
+  breadcrumbName: "验收详情",
   path: 'info(/:id/:skuid)',
   getComponent(nextState, next) {
     require.ensure([], (require) => {

@@ -68,7 +68,7 @@ class InfoView extends Component {
             dataIndex: 'discountFee'
         },{
             key: '6',
-            title: '退货数量',
+            title: '换货数量',
             dataIndex: 'refundNums',
             render(refundNums){
                 return <div>
@@ -241,7 +241,11 @@ class InfoView extends Component {
                 } 
             }
         } else if (!selectItem ) {
-            this.setState({numValue:value})
+            if(arrResult[0].num < Number(value)) {
+                 message.error('换货数量大于退货数量，请重新输入！')
+             } else {
+                 this.setState({numValue:value})
+             }
         }
 
     }
@@ -297,10 +301,10 @@ class InfoView extends Component {
                     name :'确认无误，通知仓库退货入库',
                     type : 'primary',
                 },
-                // {
-                //     key : 'refuse',
-                //     name : '重置',
-                // },
+                {
+                    key : 'reset',   //重置时，key为reset
+                    name : '重置'
+                },
                 {
                     key : 'back',
                     name : '返回',

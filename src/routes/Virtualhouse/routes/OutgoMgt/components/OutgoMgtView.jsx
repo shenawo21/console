@@ -11,8 +11,8 @@ const Option = Select.Option;
 //出库类型
 const STOCKTYPE = [
    { value: '调拨出库', title: "调拨出库" },
-   { value: '损耗出库', title: "损耗出库" },
-   { value: '盘点出库', title: "盘点出库" }
+//    { value: '损耗出库', title: "损耗出库" },
+//    { value: '盘点出库', title: "盘点出库" }
 ];
 
 class outgoMgt extends Component {
@@ -365,8 +365,8 @@ class outgoMgt extends Component {
                         {...formItemLayout}>
                         <Select {...selectProps} defaultValue="调拨出库" placeholder="请选择出库类型" style={{ width: 200 }} >
                             <Option value="调拨出库">调拨出库</Option>
-                            <Option value="损耗出库">损耗出库</Option>
-                            <Option value="盘点出库">盘点出库</Option>
+                            {/**<Option value="损耗出库">损耗出库</Option>
+                            <Option value="盘点出库">盘点出库</Option> */}
                         </Select>
                     </FormItem>
 

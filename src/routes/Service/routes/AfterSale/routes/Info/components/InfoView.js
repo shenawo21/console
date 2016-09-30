@@ -38,18 +38,18 @@ class InfoView extends Component {
                 }
             }, {
                 label: "发货凭证：",
-                name: "businessLicense",
+                name: "cwRefuseProof",
                 custom(getCustomFieldProps) {
                     upConfig.fileList = photoList;
                     return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:photoImg}}
-                            {...getCustomFieldProps('businessLicense')} />
+                            {...getCustomFieldProps('cwRefuseProof')} />
                 }
             }],
             initValue: {
                 cwRefuseReason : null,
                 optRemark: null,
-                businessLicense : null
+                cwRefuseProof : null
             }
         }
         if (isRequired == true) {

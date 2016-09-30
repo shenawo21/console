@@ -52,7 +52,7 @@ class Info extends Component {
         } else {
             this.setState({
                 item: nextProps.viewResult,
-                photoList: nextProps.viewResult ? nextProps.viewResult.photo : []
+                // photoList: nextProps.viewResult ? nextProps.viewResult.photo : []
             })
         }
     }    
@@ -92,7 +92,7 @@ class Info extends Component {
       }
     
     render() {
-        const {item, photoList} = this.state;        
+        const {item, photoList} = this.state;       
         const {logisticResult, forchekResult, viewResult, params, loading} = this.props;
         const formOptions = {
             ...this.getFormOptions()

@@ -38,9 +38,9 @@ class Info extends Component {
     handleSubmit(value, key) {
         const _this = this;
         const {verify,params} = _this.props;
-        // if (_this.state.photoList) {
-        //      value.businessLicense = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
-        //  }
+        if (_this.state.photoList) {
+             value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+         }
         Object.assign(value,params,{afterSaleType:'REFUND_MONEY'})
         if(key === 'review'){
             Object.assign(value,{processStatus:'PROCESS'})

@@ -113,11 +113,11 @@ class ForCheck extends Component {
         }, {
             key: '3',
             title: '数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'num'
         }, {
             key: '4',
             title: '退货数量',
-            dataIndex: 'goodsNum'
+            dataIndex: 'tGoodsNum'
         }, {
             key: '5',
             title: '操作',
