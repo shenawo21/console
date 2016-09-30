@@ -181,7 +181,7 @@ class GoodsInfo extends Component {
         const url = refundComment.picUrls
         const src = url && url.split(',')
         const ArryStatus = [
-            {name:'申请退款金额:',status:result.refundFee},
+            {name:'申请退款金额:',status:result.totalFee},
             {name:'退货原因:',status:result.cwRefuseReason},
             {name:'退货说明:',status:refundComment.content},
         ]

@@ -30,7 +30,7 @@ class Shophouse extends Component {
             shopQueryList({ pageNumber:1 });
             _this.setState({ oddStatus: true });
         }else{
-	        compareList();
+	        compareList({pageSize:9999});
         }	
     }
 

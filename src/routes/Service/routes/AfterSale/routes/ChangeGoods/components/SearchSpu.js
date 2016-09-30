@@ -16,7 +16,7 @@ class SearchSpu extends Component {
     _getFormItems(){
         let config = {
             formItems: [{
-                label: "skuId：",
+                label: "sku：",
                 name: "skuId",
                 span: '8',
                 input: {

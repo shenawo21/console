@@ -44,7 +44,7 @@ export default (props) => {
                          }
                         {result.afterSaleType == 'CHANGE_GOODS' ?
                         <td>{result.changeSkuCode}</td>:
-                        <td>{result.refundFee}</td>}
+                        <td>{result.totalFee}</td>}
                     </tr>                       
                 </tbody>
             </table>

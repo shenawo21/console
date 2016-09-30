@@ -24,7 +24,8 @@ class outgoMgt extends Component {
     this.goBack = this.goBack.bind(this);
     this.state = {
         stockList: [],
-        itemsList: [] //初始价格、库存集合
+        itemsList: [], //初始价格、库存集合
+        nextHide:true
     }
   }
 
@@ -216,7 +217,6 @@ class outgoMgt extends Component {
      */
     getData(items) {
         const {stockList} = this.state, curStockList = [];
-        console.log(items, stockList,curStockList,11111)
         if (items) {
             items.forEach((item) => {
                 if(stockList.length){
@@ -243,10 +243,6 @@ class outgoMgt extends Component {
 
     //修改店铺时删除目标表格数据
 
-    handleChange(value) {
-        console.log(`selected ${value}`);
-    }
-
 
     //提交数据
     handleSubmit(e) {
@@ -269,12 +265,20 @@ class outgoMgt extends Component {
                 message.warning('请选择出库商品并做库存及价格设置', 5);
                 return;
             }
+            console.log(stockList,'stockList')
+            stockList && stockList.every((item,index) => {
+                console.log(item,'item')
+                if (item.incoming == 0) {
+                    message.warning('出库库存数为0，无法出库！')
+                } else {
+                    storeManage({
+                        ...values,
+                        recordType: '出库',
+                        stockDetailList: stockList
+                    });
+                }
 
-            storeManage({
-                ...values,
-                recordType: '出库',
-                stockDetailList: stockList
-            });
+            })
          });
 
 
@@ -289,7 +293,8 @@ class outgoMgt extends Component {
   render() {
         let {formOptions, tableOptions, shopList, form} = this.props;
         let { getFieldProps, getFieldError, isFieldValidating } = form;
-
+        let {nextHide} = this.state
+        const self = this
         tableOptions = {
             columns: this._getColumns(),
             ...tableOptions
@@ -326,14 +331,25 @@ class outgoMgt extends Component {
         const selectProps = getFieldProps('stockType', {
             rules: [
                 { required: true, message: '请选择出库类型' },
+                {
+                    validator(rule, value, callback) {
+                        if (value == '调拨出库') {
+                            self.setState({nextHide:false})
+                            callback()
+                        } else {
+                             self.setState({nextHide:true})
+                             callback()
+                        }
+                    }
+                }
             ],
         });
 
-        const multiSelectProps = getFieldProps('relevantStore', {
+        let multiSelectProps = this.state.nextHide == false ? getFieldProps('relevantStore', {
             rules: [
                 { required: true, type: 'string', message: '请选择待出库店铺' },
             ],
-        });
+        }) : getFieldProps('relevantStore', {  });
 
         const textareaProps = getFieldProps('remark', {
             rules: [
@@ -346,11 +362,10 @@ class outgoMgt extends Component {
                 <Form horizontal form={this.props.form} >
                     <FormItem
                         label="出库类型："
-                        {...formItemLayout}
-                    >
-                        <Select {...selectProps} defaultValue="调拨出库" placeholder="请选择出库类型" style={{ width: 200 }}>
+                        {...formItemLayout}>
+                        <Select {...selectProps} defaultValue="调拨出库" placeholder="请选择出库类型" style={{ width: 200 }} >
                             <Option value="调拨出库">调拨出库</Option>
-                            <Option value="耗损出库">耗损出库</Option>
+                            <Option value="损耗出库">损耗出库</Option>
                             <Option value="盘点出库">盘点出库</Option>
                         </Select>
                     </FormItem>
@@ -359,7 +374,7 @@ class outgoMgt extends Component {
                         label="待出库店铺："
                         {...formItemLayout}
                     >
-                    <Select {...multiSelectProps} placeholder="请选择待出库店铺" style={{ width: 200 }}>
+                    <Select {...multiSelectProps} placeholder="请选择待出库店铺" style={{ width: 200 }} disabled = {this.state.nextHide == false ? false : true}>
                         {
                             shopList && shopList.map((val, i) => {
                                 typeof val.value === 'boolean' && (val.value = '' + val.value);
