@@ -129,8 +129,9 @@ class specificationMgt extends Component {
     //提交数据
     handleSubmit(e) {
         e.preventDefault();
-        const { addSpec } = this.props;
+        const { addSpec, getSpecList } = this.props;
         let {specList, delSpecList} = this.state, addSpecList = [], addList= [];
+        
         specList.forEach((val)=>{
             if(val.enterpriseSpecList){
                 val.enterpriseSpecList.forEach((item)=>{
@@ -145,6 +146,16 @@ class specificationMgt extends Component {
             addSpec({
                 enterpriseSpecList: addSpecList,
                 deletes: delSpecList
+            }).then((res)=>{
+                if(res.status === 1){
+                    message.success(res.message);                    
+                    setTimeout(() => {
+                        let id = specList[0].categoryCode;
+                        getSpecList(id);
+                    }, 500);
+                }else{
+                    message.error(res.message)
+                }
             })
             
         } else{

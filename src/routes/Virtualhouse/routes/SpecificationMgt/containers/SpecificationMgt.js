@@ -23,15 +23,13 @@ class specificationMgt extends Component {
     }
 
     componentDidMount() {
-        const {params, getCateList} = this.props;
-        
-        const context = this;
+        const {getCateList} = this.props;
         //获取商品类目列表
         getCateList();
     }
       
     render() {
-        const {cateListResult, specListResult, isLoader, loading, items, checkIsUsed, addSpec, result} = this.props;
+        const {cateListResult, specListResult, getCateList, isLoader, loading, items, checkIsUsed, addSpec, result} = this.props;
         const options = {
             loading,        //表格加载数据状态
             checkIsUsed,    //检查是否可以删除
@@ -64,7 +62,7 @@ class specificationMgt extends Component {
                 }
             })
         }
-        return <Panel><SpecificationMgtView {...options} cateList={loop(cateListResult)} /></Panel>
+        return <Panel><SpecificationMgtView {...options} cateList={loop(cateListResult)} getCateList={getCateList} /></Panel>
     }
 }
 
