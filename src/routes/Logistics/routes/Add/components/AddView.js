@@ -12,8 +12,9 @@ class Add extends Component {
         this.state = {
             sourceData: [],
             targetKeys: [],
-            enLogisticsList : [], //选中的物流企业
-            distData : []
+            cheackLogisticsList : [], //选中的物流企业
+            distData : [],
+            Edit:false,   //移动操作
         }
     }
 
@@ -60,8 +61,21 @@ class Add extends Component {
     }
 
     saveData(){
-        const {addLogistic} = this.props;
-        const {enLogisticsList} = this.state;
+        const {addLogistic,distData} = this.props;
+        const {cheackLogisticsList,Edit} = this.state;
+        let distDataItem = distData && distData.map(c => {
+            return {
+                 companyCode : c.companyCode,
+                 companyName : c.companyName,
+                 defaults : c.defaults
+            }
+        })
+        let enLogisticsList = []
+        if (Edit == false) {
+             enLogisticsList = distDataItem
+        } else {
+            enLogisticsList = cheackLogisticsList
+        }
         addLogistic({enLogisticsList}).then((res)=>{
             if(res.status === 1){
                 setTimeout(() => {
@@ -72,15 +86,20 @@ class Add extends Component {
     }
 
     checkedItem(sourceData, targetKeys){
-        let enLogisticsList = [];
-        console.log(sourceData,'sourceData')
-        console.log(targetKeys,'targetKeys');
+        this.setState({Edit:true})
+        let enLogisticsLists = [];
+        const {distData} = this.props
+        let defaultArray = distData.filter((item,index) => {
+             return item.defaults == true            
+        })
+        let defaultCode = defaultArray.length > 0 ? defaultArray[0].companyCode : ''
         targetKeys.forEach((item, num)=>{
-            sourceData.every((val, index)=>{
-                if(index === num){
-                    enLogisticsList.push({
+            sourceData.map((val, index)=>{
+                if(index === item){
+                    enLogisticsLists.push({
                         companyCode : val.companyCode,
-                        companyName : val.title
+                        companyName : val.title,
+                        defaults : defaultCode == val.companyCode ? true : false
                     })
                     return false
                 }
@@ -88,7 +107,7 @@ class Add extends Component {
             })
         })
         this.setState({
-            enLogisticsList,
+            cheackLogisticsList:enLogisticsLists,
             targetKeys
         })
     }
@@ -97,7 +116,6 @@ class Add extends Component {
         const {sourceData, targetKeys} = this.state;
         const title = ['选择物流公司', '选中的物流公司'];
         const notFoundContent = '暂无数据';
-        // console.log(sourceData,targetKeys,'sourceData');
         return (
             <div>
                 <Transfer

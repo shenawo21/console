@@ -45,7 +45,6 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
     const {listResult, queryResult} = state.addLogistics;
-    console.log(state.addLogistics,121221212)
     return { listResult, queryResult};
 }
 
