@@ -14,6 +14,7 @@ class InfoView extends Component {
     constructor() {
         super();
         this.state = {
+            photoList : []
         }
     }
         
@@ -49,7 +50,7 @@ class InfoView extends Component {
                 label: "拒绝退款凭证：",
                 name: "cwRefuseProof",
                 custom(getCustomFieldProps) {
-                    upConfig.photoList = [];
+                    upConfig.fileList = photoList;
                     return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('cwRefuseProof')} />

@@ -76,7 +76,7 @@ class Info extends Component {
                           refundId: params.id,
                           cwRefuseReason : value.cwRefuseReason,
                           cwRefuseRemark : value.cwRefuseRemark,
-                          cwRefuseProof: value.cwRefuseProof
+                        //   cwRefuseProof: value.cwRefuseProof
                       })
                   }
 
