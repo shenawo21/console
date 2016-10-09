@@ -82,9 +82,7 @@ class CreateProduct extends Component {
                                             }
                                         })
                                     }
-                            } else {
-                                message.error('SKU列表不能为空！')
-                            }
+                            } 
                         } else {
                             message.error('商品规格不能为空！')
                         }

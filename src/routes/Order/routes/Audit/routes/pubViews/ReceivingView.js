@@ -18,6 +18,10 @@ class Receiving extends Component {
    * @private
    */
   _showTitle(name, receivingInfo) {
+        receivingInfo.receiverState = receivingInfo.receiverState == null  ? '' : receivingInfo.receiverState
+        receivingInfo.receiverCity = receivingInfo.receiverCity == null  ? '' : receivingInfo.receiverCity
+        receivingInfo.receiverDistrict = receivingInfo.receiverDistrict == null  ? '' : receivingInfo.receiverDistrict
+        receivingInfo.receiverAddress = receivingInfo.receiverAddress == null  ? '' : receivingInfo.receiverAddress
     switch (name) {
       case "receiverName":
         return <span>{receivingInfo.receiverName}</span>

@@ -48,7 +48,8 @@ class CreateProduct extends Component {
         let config = {}, context = this;
         const {cateList, brandList, getSpecByCateList} = this.props;
         let { selectItem, specList, specDataList, rowList, totalStock, salePrice, categoryId,flag,hasSpec,chooseMenu,chooseSpu} = this.state;
-	    config.formItems = [{
+        let isEdit = chooseMenu == true && hasSpec == false ? false : true
+        config.formItems = [{
             label: "SPU：",
             name: "spuId",
             disabled: 'disabled',
@@ -125,7 +126,7 @@ class CreateProduct extends Component {
             infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
             input: {
                 placeholder: "请输入销售价",
-                disabled:hasSpec = true ? true : false
+                disabled:isEdit
             }
         }, {
             label: "库存数量：",
@@ -135,7 +136,7 @@ class CreateProduct extends Component {
             infoLabel: <span>必须是0～999999999之间整数</span>,
             input: {
                 placeholder: "请输入库存数量",
-                disabled:hasSpec = true ? true : false
+                disabled:isEdit
             }
         }, {
             label: "商品规格：",
@@ -367,7 +368,7 @@ class CreateProduct extends Component {
      */
     changeSpecValue(num, specTitle, specId, specValue, e) {
         let {specDataList, rowList, totalStock, salePrice, submitFlag,specList} = this.state, curSpec = [];
-        if (e.target.checked) {
+        if (e.target.checked == true) {
             if (!specDataList[num]) {
                 specDataList[num] = {
                     key: SPECTYPE[num],
@@ -381,6 +382,7 @@ class CreateProduct extends Component {
             specDataList[num].items = specDataList[num].items.filter((val) => {
                 return val !== specValue
             })
+
             if(!specDataList[num].items.length){
                 specDataList.splice(num, 1);
             }
