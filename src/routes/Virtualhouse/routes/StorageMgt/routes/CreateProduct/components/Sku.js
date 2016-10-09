@@ -54,7 +54,7 @@ class Sku extends Component {
             }
         },{
             title: '库存数量',
-            dataIndex: 'assignedStock',
+            dataIndex: 'stock',
             key: specList.length + 1,
             width: 200,
             render(val, row) {

@@ -200,7 +200,7 @@ class CreateProduct extends Component {
             curSku = {
                 ...curSku,
                 price : val.price || 0.01,
-                assignedStock : val.assignedStock
+                assignedStock : val.assignedStock || 0
             }
             return curSku
         })
@@ -347,6 +347,7 @@ class CreateProduct extends Component {
             totalStock = 0
             salePrice = 0.01
         }
+        console.log(rowList,'=====')
         this.setState({
             specList,
             specDataList : curSpec,

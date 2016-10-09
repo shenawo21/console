@@ -134,7 +134,7 @@ class History extends Component {
     }, {
       key: '4',
       title: '买家留言',
-      dataIndex: 'buyerMemo'
+      dataIndex: 'buyerMessage'
     }, {
       key: '5',
       title: '客服备注',
