@@ -56,7 +56,7 @@ export function viewForcheck(params) {
 export function getLogisticsList(params) {
   return {
     types: [LOGISTICSlIST, LOGISTICSlIST_SUCCESS, LOGISTICSlIST_FAILURE],
-    promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
+    promise: (client) => client.post('api-logistic.listLogisticEn', params)
   }
 }
 

@@ -101,7 +101,6 @@ class InfoView extends Component {
     _getFormItems(){
         let context = this;
         const {item, photoList, photoImg, tableOptions, logiListItem, params, ...other} = context.props;
-        console.log(photoList,'photoList111')  
         let upConfig = {
             listType: 'picture',
             showUploadList: true,

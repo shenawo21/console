@@ -71,15 +71,23 @@ class Info extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  const { doCheck } = _this.props;
+                  const { doCheck,forchekResult } = _this.props;
                   let goodList = _this.refs.info.state.goodList[0];
                   if (_this.state.photoList) {
                             value.checkPics = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
                       }
+                  value.refundId = forchekResult.refundId
                   doCheck({
                       ...goodList,
                       ...value
-                  })
+                  }).then(function(response) {
+                    if (response && response.status == 1) {
+                        setTimeout(() => {
+                            let pathname = '/service/warehouse';
+                            _this.context.router.replace(pathname);
+                        }, 1000);
+                    }
+                })
               },
 
               /**
