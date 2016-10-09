@@ -57,7 +57,7 @@ export function getSpecByCateList(params) {
 export function addSpec(params) {
   return {
     types: [ADDSPEC, ADDSPEC_SUCCESS, ADDSPEC_FAILURE],
-    promise: (client) => client.post('api-enterpriseSpec.addEnterpriseSpec', params)
+    promise: (client) => client.post('api-enterpriseSpec.addEnterpriseSpec', params, {hasMsg : true})
   }
 }
 

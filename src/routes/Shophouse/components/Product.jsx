@@ -216,6 +216,10 @@ class product extends Component {
             message.error('回退数量不能为空')
             return
         }
+        if(remark==''|| remark == null){
+            message.error('回退说明不能为空')
+            return
+        }
         tableOptionsPro.fallBack({dtoList, remark}).then((res)=>{
             if(res.status === 1){
                 // selectItems[curIndex].forEach((val, num)=>{
@@ -270,8 +274,14 @@ class product extends Component {
      */
     handleOkMessage() {
         const context = this;
+        const {selectItems, curIndex} = context.state;
         const {compareList} = this.props
+        //操作完成后将选中的数据设为空
+        selectItems[curIndex] = [];
         context.setState({
+            ...context.getItems(selectItems, curIndex),
+            selectItems: [],
+            selectedItemsKeys: [],
             resultVisible: false,
             messageDataSource: []
         });
@@ -284,6 +294,7 @@ class product extends Component {
     updateHandle(index){
         const {compareUpt} = this.props.tableOptionsPro;
         const { selectItems } = this.state; 
+        
         const context = this;
         let list = selectItems[index] ? selectItems[index].map(val => {
             return {
@@ -296,7 +307,7 @@ class product extends Component {
             return
         }
         compareUpt({list}).then(function(res){
-            if (res && res.data) {
+            if (res && res.data) {                
                 context.setState({
                     messageDataSource: res.data,
                     resultVisible: true
