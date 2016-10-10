@@ -920,7 +920,7 @@
       <workItem from="1475064634883" duration="2361000" />
       <workItem from="1475111254332" duration="4342000" />
       <workItem from="1475121211082" duration="1017000" />
-      <workItem from="1476062028246" duration="15525000" />
+      <workItem from="1476062028246" duration="15543000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -1136,10 +1136,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="660573000" />
+    <option name="totallyTimeSpent" value="660591000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="886" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19328263" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
