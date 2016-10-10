@@ -31,31 +31,32 @@ class Goods extends Component {
         const {changeVerify,params} = _this.props;
         let newValue = _this.refs.state.state
         let newTable = _this.refs.state.props.arrResult
+        console.log(newValue,'newValue')
         if(key === 'review'){
             if (!newValue.numValue) {
                 message.error('请输入退货数量')
-            }
-            if (!newValue.selectItem) {
+            } else if (!newValue.selectItem) {
                 message.error('请选择换后商品编码')
-            }
-            let goodsNum = {goodsNum:newValue.numValue}
-            let changeSkuCode = {changeSkuCode:newValue.selectItem.skuId}
-            let changeSkuName = {changeSkuName:newValue.selectItem.title}
-            
-            Object.assign(value,params,goodsNum,changeSkuCode,changeSkuName,newTable[0])
-            delete value._index
-            delete value.discountFee
-            delete value.outerId
-            delete value.num
-            delete value.outerSkuId
-            changeVerify(value).then(function(response) {
-                    if (response && response.status == 1) {
-                        setTimeout(() => {
-                            let pathname = '/service/aftersale';
-                            _this.context.router.replace(pathname);
-                        }, 1000);
-                    }
+            } else {
+                let goodsNum = {goodsNum:newValue.numValue}
+                let changeSkuCode = {changeSkuCode:newValue.selectItem.skuId}
+                let changeSkuName = {changeSkuName:newValue.selectItem.title}
+                
+                Object.assign(value,params,goodsNum,changeSkuCode,changeSkuName,newTable[0])
+                delete value._index
+                delete value.discountFee
+                delete value.outerId
+                delete value.num
+                delete value.outerSkuId
+                changeVerify(value).then(function(response) {
+                        if (response && response.status == 1) {
+                            setTimeout(() => {
+                                let pathname = '/service/aftersale';
+                                _this.context.router.replace(pathname);
+                            }, 1000);
+                        }
                 })
+            }
         }
     }
     /**
