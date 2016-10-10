@@ -4,6 +4,7 @@ import EnterpriseView from '../components/EnterpriseView'
 import Panel from 'components/Panel'
 import {view, modifyItem} from '../modules/EnterpriseReducer'
 import store from 'store2';
+import {message} from 'hen'
 class Enterprise extends Component {
   constructor(props) {
     super(props);
@@ -67,7 +68,11 @@ class Enterprise extends Component {
         if (context.state.logoList) {
           value.logo = (typeof context.state.logoList) === 'string' ? context.state.logoList : context.state.logoList.length ? context.state.logoList[0].name : '';
         }
-        modifyItem({...value})
+        if (!value.businessLicense) {
+          message.error('营业执照不能为空！')
+        } else {
+          modifyItem({...value})
+        }        
       },
       /**
        * (筛选表单重置)

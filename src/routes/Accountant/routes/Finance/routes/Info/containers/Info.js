@@ -61,6 +61,7 @@ class Info extends Component {
                * 
                * @param value (description)
                */
+              
               handleSubmit(value, key) {
                   const {doAgreeRemit,  doRefuseRemit, params} = _this.props;
                   if(key === 'review'){
