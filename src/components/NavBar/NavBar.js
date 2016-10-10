@@ -29,9 +29,9 @@ export default (props) => {
       <div className="nav navbar-toolbar navbar-right navbar-toolbar-right">
         <Dropdown className={style.navDown} overlay={menu} trigger={['click']}>
           <a className="ant-dropdown-link" href="#">
-            <span className="avatar avatar-online">
+            <span className="avatar avatar-online" style={{overflow:'hidden',height:'41',width:'41'}}>
               {
-                props.pic ? <Image src={props.pic} thumbnail='100x100' alt="头像"/> : <img src={avatar} alt="头像"/>
+                props.pic ? <Image src={props.pic} alt="头像"/> : <img src={avatar} alt="头像"/>
               }
               <i></i>
             </span>
