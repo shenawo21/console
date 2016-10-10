@@ -35,15 +35,6 @@ class CreateProduct extends Component {
         }
     }
 
-
-    // shouldComponentUpdate(nextProps, nextState){
-    //     if(nextState.visible !== this.state.visible){
-    //         return false
-    //     }else{
-    //         return true
-    //     }
-    // }
-
     _getFormItems() {
         let config = {}, context = this;
         const {cateList, brandList, getSpecByCateList} = this.props;
@@ -383,13 +374,9 @@ class CreateProduct extends Component {
             specDataList[num].items = specDataList[num].items.filter((val) => {
                 return val !== specValue
             })
-
-            if(!specDataList[num].items.length){
-                specDataList.splice(num, 1);
-            }
         }
-        let newArray = specDataList.filter((item) => {
-            return item
+        let newArray = specDataList.filter((val) => {
+            return val.items.length > 0
         })
         let rowData = (newArray && newArray.length) == (specList && specList.length) ? specDataList : ''
         curSpec = this.normalize(rowData)
