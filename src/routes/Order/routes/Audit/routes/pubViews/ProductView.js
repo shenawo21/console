@@ -17,6 +17,9 @@ const columns = [{
   title: '数量',
   dataIndex: 'num'
 }, {
+  title: '已拆单数量',
+  dataIndex: 'splitNum'
+}, {
   title: '促销ID',
   dataIndex: 'promotionId'
 }, {

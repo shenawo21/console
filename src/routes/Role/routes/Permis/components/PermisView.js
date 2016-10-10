@@ -17,7 +17,7 @@ class Permis extends Component {
     const loop = data => data && data.map((i) => {
       if (i.childrenList) {
         return (
-          <TreeNode key={i.permissionId} title={i.name} disableCheckbox>
+          <TreeNode key={i.permissionId} title={i.name}>
             {loop(i.childrenList) }
           </TreeNode>
         );

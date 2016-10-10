@@ -251,8 +251,8 @@ class Invoice extends Component {
       </Col>
       <Col span="3">
         <UpLoader upConfig={{action: '/api-tradesInfo.importWaitSendGoods', onChangeFileList(info){
-
-                message.info('导入结果：' + info[0].success + '条成功' + ',' + info[0].fail + '条失败',5);
+                message.info('导入结果：' + info[0].success + '条成功' + ',' + info[0].fail + '条失败',1);
+                context._refresh();
 
             }}} title='导入待发货数据'/>
       </Col>

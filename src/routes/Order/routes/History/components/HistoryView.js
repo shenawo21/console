@@ -7,12 +7,10 @@ import {Row, Col, Button, Icon, DatePicker, Modal, message} from 'hen';
 //订单状态
 const TYPE =
 {
-  'CONFIRM_GOODS': '已发货',
   'TRADE_BUYER_SIGNED': '已签收',
   'REFUND_GOODS': '退货',
   'CHANGE_GOODS': '换货',
   'REFUND': '退款',
-  'WAIT_SEND_GOODS': '待发货',
 }
 
 

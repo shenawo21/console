@@ -60,6 +60,9 @@ class Apart extends Component {
       title: '总金额',
       dataIndex: 'payment'
     }, {
+      title: '已拆单数量',
+      dataIndex: 'splitNum'
+    }, {
       title: '发货数量',
       dataIndex: 'quantity',
       render(value, row){

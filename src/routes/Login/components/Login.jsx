@@ -32,7 +32,7 @@ class Login extends Component {
     }
     let namePropsOptions = {
       rules: [
-        {required: true, min: 5, message: '用户名至少为 5 个字符'}
+        {required: true, min: 3, message: '用户名至少为 3 个字符'}
       ]
     }
     let passwdPropsOptions = {
