@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
 import {view, viewForcheck, getLogisticsList, doCheck} from '../modules/InfoReducer'
+import {message} from 'hen'
 
 class Info extends Component {
   
@@ -77,17 +78,28 @@ class Info extends Component {
                             value.checkPics = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
                       }
                   value.refundId = forchekResult.refundId
-                  doCheck({
-                      ...goodList,
-                      ...value
-                  }).then(function(response) {
-                    if (response && response.status == 1) {
-                        setTimeout(() => {
-                            let pathname = '/service/warehouse';
-                            _this.context.router.replace(pathname);
-                        }, 1000);
-                    }
-                })
+                  let num = _this.refs.info.state.goodList.length > 0 ? _this.refs.info.state.goodList[0].realAmount : ''
+                  let reason = _this.refs.info.state.goodList.length > 0 ? _this.refs.info.state.goodList[0].checkResult : ''
+                  value.realAmount = num
+                  value.checkResult = reason
+                  if(!value.realAmount) {
+                      message.error('请输入商品实际数量！')
+                  } else if (!value.checkResult) {
+                      message.error('请输入验收结果！')
+                  } else {
+                      doCheck({
+                        ...goodList,
+                        ...value
+                    }).then(function(response) {
+                        if (response && response.status == 1) {
+                            setTimeout(() => {
+                                let pathname = '/service/warehouse';
+                                _this.context.router.replace(pathname);
+                            }, 1000);
+                        }
+                    })
+                  }
+                  
               },
 
               /**

@@ -192,9 +192,9 @@ class Usermanage extends Component {
         const context = this;
         let columns = [
             {
-                key: 'receiverAddress',
-                title: '退货地址',
-                dataIndex: 'receiverAddress'
+                key: 'shortName',
+                title: '地址简称',
+                dataIndex: 'shortName'
             },
             {
                 key: 'shopName',

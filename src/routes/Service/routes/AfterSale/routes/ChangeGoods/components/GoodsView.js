@@ -170,28 +170,28 @@ class InfoView extends Component {
             },{
                 label:'换货运单号：',
                 name:'sid',
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请输入换货运单号'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                // rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请输入换货运单号'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
                 input:{}
             },{
                 label:'快递公司：',
                 name:'companyName',
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请选择快递公司'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                // rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请选择快递公司'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
                 select: {
                     placeholder:'请选择快递公司',
                     optionValue: logisticList
@@ -234,11 +234,11 @@ class InfoView extends Component {
             if (Number(selectItem.stock) < Number(value)) {
                  message.error('库存不足，请重新输入！')
             } else {
-                if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
-                    message.error('换后商品总价值大于原来商品总价值，请重新选择！')
-                } else {
-                    this.setState({numValue:value})
-                } 
+                this.setState({numValue:value})
+                // if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
+                //     message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+                // } else {  
+                // } 
             }
         } else if (!selectItem ) {
             if(arrResult[0].num < Number(value)) {
@@ -269,14 +269,15 @@ class InfoView extends Component {
             if (Number(selectItem.stock) < Number(numValue)) {
                  message.error('库存不足，请重新选择！')
             } else {
-                if(Number(selectItem.price) * Number(numValue) > arrResult[0].totalFee) {
-                    message.error('换后商品总价值大于原来商品总价值，请重新选择！')
-                } else {
-                    this.setState({
-                        selectItem,
-                        visible: false
-                    })
-                } 
+                this.setState({
+                    selectItem,
+                    visible: false
+                })
+                // if(Number(selectItem.price) * Number(numValue) > arrResult[0].totalFee) {
+                //     message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+                // } else {
+                    
+                // } 
             }
         } else if (!numValue ) {
             this.setState({
@@ -309,7 +310,7 @@ class InfoView extends Component {
                     key : 'back',
                     name : '返回',
                     handle(){
-                        history.go(-1);
+                        // history.go(-1);
                     }
                 }
             ]
