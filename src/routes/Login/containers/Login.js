@@ -45,7 +45,11 @@ export class Login extends Component {
       }
       store.clearAll();
       Cookie.remove(sessionId);
-      this.props.login(values);
+      this.props.login(values).then((res) => {
+        if(res.message == "验证码错误!"){
+          this.uptVcode()
+        }
+      });
     });
   }
   
