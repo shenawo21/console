@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
-import { Button } from 'hen';
+import { Button,Modal } from 'hen';
 import DataTable from 'components/DataTable'
 import {UploadImage} from 'components/FileLoader'
 import RefundView from '../../RefundView';
@@ -76,9 +76,27 @@ class InfoView extends Component {
         }
         return config;
     }
-    
+    _getFormIModal(){
+        let config = {
+            formItems: [{
+                label: "请输入验证码：",
+                name: "msgCode",
+                wrapperCol: { span: 15 },
+                labelCol: { span: 7},
+                input: {
+                    placeholder: "请输入收到的验证码",
+                }
+            }],
+            initValue: {
+                msgCode : null,
+            }
+        }
+
+        return config;
+        
+    }
     render() {
-        let {formOptions, result, isRequired} = this.props;
+        let {formOptions, result, isRequired,visible,handleOk} = this.props;
 	    const refundComment = result && result.refundComment ? result.refundComment : {}
         const Goodsstatus = result.afterSaleType == 'REFUND_MONEY' ? '等待退款' : '等待退货'
         const url = refundComment.picUrls || ''
@@ -132,6 +150,19 @@ class InfoView extends Component {
                 <h3 className = 'titleName'>退款审批</h3>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
                     onRest={formOptions.handleReset} buttonOption={isRequired ? buttonBack : buttonOption} />
+                <Modal title="输入验证码"
+                    visible={visible} closable = {false}
+                    onOk={()=>{
+                        this.refs.form && this.refs.form.validateFields((errors, values) => {
+                            if (!!errors) {
+                                return;
+                            }
+                            handleOk(values,this.refs.form);
+                        });
+                    }}
+                    onCancel={formOptions.handleCancel} >
+                    <Form horizontal items={this._getFormIModal()} button={<span></span>} ref='form' />
+            </Modal>    
             </div>
         )
     }
