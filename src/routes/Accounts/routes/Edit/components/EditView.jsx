@@ -63,7 +63,7 @@ class Edit extends Component {
                 required: true,
                 hasFeedback: true,
                 rules: [
-                    { required: true, max: 32, message: '最多为32个字符' }
+                    { required: true, min:3, max: 32, message: '3~32个字符以内' }
                 ],
                 input: {
                     placeholder: "请输入用户姓名",
@@ -147,15 +147,15 @@ class Edit extends Component {
         //         }
         //     })
         // }
-        
-        if (item) {    
-            config.initValue = item;            
+
+        if (item) {
+            config.initValue = item;
         }
-        
+
         if(item != null && item.adminId){
             config.formItems.splice(1, 1);
         }
-        
+
         return config;
     }
 
