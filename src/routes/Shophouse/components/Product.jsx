@@ -280,8 +280,6 @@ class product extends Component {
         selectItems[curIndex] = [];
         context.setState({
             ...context.getItems(selectItems, curIndex),
-            selectItems: [],
-            selectedItemsKeys: [],
             resultVisible: false,
             messageDataSource: []
         });
@@ -317,6 +315,9 @@ class product extends Component {
                 message.error(res.message)
             }
 
+        })
+        this.setState({
+            curIndex : index
         })
     }
 
