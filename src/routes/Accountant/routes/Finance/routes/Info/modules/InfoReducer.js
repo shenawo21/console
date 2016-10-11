@@ -39,7 +39,7 @@ export function view(params) {
 export function doAgreeRemit(params) {
   return {
     types: [AGREE, AGREE_SUCCESS, AGREE_FAILURE],
-    promise: (client) => client.post('api-offSale.doAgreeRemit', params)
+    promise: (client) => client.post('api-offSale.doAgreeRemit', params,{'hasMsg' : true})
   }
 }
 
