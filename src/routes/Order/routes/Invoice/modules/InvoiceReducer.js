@@ -36,7 +36,7 @@ export function queryList(params) {
 export function deleteItem(params) {
   return {
     types: [DELETE, DELETE_SUCCESS, DELETE_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.sendGoods', params)
+    promise: (client) => client.post('api-tradesInfo.sendGoods', params,{hasMsg: true})
   }
 }
 /**
