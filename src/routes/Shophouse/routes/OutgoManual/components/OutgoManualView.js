@@ -217,7 +217,7 @@ class OutgoManual extends Component {
                 })
             } else {
                 // 商品数量为0时提示选择商品并做库存及价格设置
-                message.error('手动出库的商品列表为空，请选择出库商品并做库存及价格设置', 1)
+                message.error('手动出库的商品列表为空，请选择出库商品并做库存设置', 1)
             }
 
          });
