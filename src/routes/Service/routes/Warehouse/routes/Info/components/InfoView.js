@@ -161,8 +161,16 @@ class InfoView extends Component {
                 checkPics: null
             }
         }
-        if (item) {    
-            config.initValue = item;            
+        if (item) {
+            for (let i in config.initValue) {
+                if(i == 'logisticsCode'){
+                    config.initValue[i] = item.companyName;
+                } else if(i == 'buyerPackageCode') {
+                    config.initValue[i] = item.sid;
+                } else {
+                    config.initValue = item;
+                }
+            }           
         }
         return config;
     }

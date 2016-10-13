@@ -294,7 +294,9 @@ class InfoView extends Component {
     }
     render() {
         const {arrResult,tableOptions,handleSubmit,tableFormOptions} = this.props;
+        console.log(arrResult[0].oid,'-')
         let { selectItem } = this.state;
+        const _this = this
         const buttonOption = {
             buttons : [
                 {
@@ -310,6 +312,9 @@ class InfoView extends Component {
                     key : 'back',
                     name : '返回',
                     handle(){
+                         let pathname = '/service/aftersale/orderChange/' + arrResult[0].oid;
+                         _this.context.router.replace(pathname);  
+                         console.log(_this,'')
                         // history.go(-1);
                     }
                 }
@@ -349,5 +354,8 @@ class InfoView extends Component {
 InfoView.propTypes = {       
     loading : React.PropTypes.bool
 }
+InfoView.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 export default InfoView;
