@@ -157,7 +157,7 @@ class Deal extends Component {
   }
 
   render() {
-    const {formOptions, noteOptions,isShow, item, ...other} = this.props;
+    const {formOptions, noteOptions,isShow,result, item, ...other} = this.props;
     const buttonOption = {
       buttons: [
         {
@@ -221,7 +221,7 @@ class Deal extends Component {
                 </div>
               </TabPane>
               <TabPane tab="订单处理记录" key="5">
-                <LogView LogInfo={item}/>
+                <LogView LogInfo={result}/>
               </TabPane>
             </Tabs>
           </Panel>

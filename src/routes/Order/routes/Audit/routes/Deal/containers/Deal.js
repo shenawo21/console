@@ -34,6 +34,7 @@ class Deal extends Component {
   }
 
   componentWillReceiveProps(nextProps, preProps) {
+    console.log(111111,nextProps.lResult);
     if (!nextProps.params.id) {
       this.setState({
         item: {}
@@ -171,7 +172,7 @@ class Deal extends Component {
       'noteOptions': this.getNoteOptions()
     }
 
-    return <Panel title=""><DealView isShow={isShow} item={item} cList={cList} addrResult={addrResult}
+    return <Panel title=""><DealView isShow={isShow} result={result} item={item} cList={cList} addrResult={addrResult}
                                      edited={this.edited.bind(this)} {...formOptions} {...noteOptions} /></Panel>
   }
 }
