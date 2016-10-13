@@ -94,103 +94,43 @@ class CreateProduct extends Component {
                 
                 // 选择商品类目时提交
                 /*chooseMenu = true   从商品类目中选择   hasSpec == true  有规格 */
-                if (_this.refs.view.state.chooseMenu == true ) {
-                    if (_this.refs.view.state.hasSpec == true) {
-                        if (value.skuList && value.skuList.length > 0) {
-                            if (value.advicePrice && value.advicePrice !== 0 ) {
-                                if (value.advicePrice > value.marketPrice) {
-                                        message.error('市场价必须大于或等于销售价！')
-                                    } else {
-                                        addPro(value).then((res)=>{
-                                            if(res.status === 1){
-                                                setTimeout(() => {
-                                                    let pathname = '/virtualhouse/storageMgt';
-                                                    _this.context.router.replace(pathname);
-                                                }, 1000);
-                                            }
-                                        })
-                                    }
+                if (value.brandId) {
+                    if (_this.refs.view.state.chooseMenu == true ) {
+                        if (_this.refs.view.state.hasSpec == true) {
+                            if (value.skuList && value.skuList.length > 0) {
+                                if (value.advicePrice && value.advicePrice !== 0 ) {
+                                    if (value.advicePrice > value.marketPrice) {
+                                            message.error('市场价必须大于或等于销售价！')
+                                        } else {
+                                            addPro(value).then((res)=>{
+                                                if(res.status === 1){
+                                                    setTimeout(() => {
+                                                        let pathname = '/virtualhouse/storageMgt';
+                                                        _this.context.router.replace(pathname);
+                                                    }, 1000);
+                                                }
+                                            })
+                                        }
+                                }
+                            } else {
+                                message.error('SKU列表不能为空！')
                             }
                         } else {
-                            message.error('SKU列表不能为空！')
+                            addPro(value).then((res)=>{
+                                if(res.status === 1){
+                                    setTimeout(() => {
+                                        let pathname = '/virtualhouse/storageMgt';
+                                        _this.context.router.replace(pathname);
+                                    }, 1000);
+                                }
+                            })
                         }
-                    } else {
-                        addPro(value).then((res)=>{
-                            if(res.status === 1){
-                                setTimeout(() => {
-                                    let pathname = '/virtualhouse/storageMgt';
-                                    _this.context.router.replace(pathname);
-                                }, 1000);
-                            }
-                        })
+                    } else if (_this.refs.view.state.chooseSpu == false && _this.refs.view.state.chooseMenu == false) {
+                        message.error('请选择商品类目！')
                     }
-                } else if (_this.refs.view.state.chooseSpu == false && _this.refs.view.state.chooseMenu == false) {
-                     message.error('请选择商品类目！')
+                } else {
+                    message.error('商品品牌不能为空！')
                 }
-                
-                
-                //   // 忽略SPU中带出来的SKU列表
-                //   let oldSku = _this.refs.view.state.selectItem.skuList ? _this.refs.view.state.selectItem.skuList : ''
-                //   let newSku = value.skuList ? value.skuList : ''
-                //   newSku && newSku.forEach((val, num) => {
-                //     !val.specOneValue && delete newSku[num].specOneValue
-                //     !val.specTwoValue && delete newSku[num].specTwoValue
-                //     !val.specThreeValue && delete newSku[num].specThreeValue
-                //     !val.specFourValue && delete newSku[num].specFourValue
-                //     oldSku.every((item,index) => {
-                //         if(val.specOneValue == item.specOneValue && val.specTwoValue == item.specTwoValue && val.specThreeValue == item.specThreeValue && val.specFourValue == item.specFourValue){
-                //             return false 
-                //         }
-                //         val.assignedStock = 'undefined' ? 0 : val.assignedStock
-                //         newArray[index] = {...val}
-                //         return true
-                //     })
-                // })
-                // value.skuList = newArray   //过滤后新的SKU列表
-
-                //    if (_this.refs.view.state.flag == true) {
-                //        if(value.categoryId && value.categoryId.length > 0 ) { 
-                //            if(_this.refs.view.state.hasSpec == true) {
-                //                 if (value.skuList && value.skuList.length > 0) {
-                //                         if (value.advicePrice && value.advicePrice !== 0 ) {
-                //                             if (value.advicePrice > value.marketPrice) {
-                //                                     message.error('市场价必须大于或等于销售价！')
-                //                                 } else {
-                //                                     addPro(value).then((res)=>{
-                //                                         if(res.status === 1){
-                //                                             setTimeout(() => {
-                //                                                 let pathname = '/virtualhouse/storageMgt';
-                //                                                 _this.context.router.replace(pathname);
-                //                                             }, 1000);
-                //                                         }
-                //                                     })
-                //                                 }
-                //                         } else {
-                //                             message.error('SKU列表不能为空！')
-                //                         }
-                //                     } else {
-                //                         message.error('商品规格不能为空！')
-                //                     }
-                //             } else {
-                //                 if (value.advicePrice > value.marketPrice) {
-                //                         message.error('市场价必须大于或等于销售价！')
-                //                     } else {
-                //                         addPro(value).then((res)=>{
-                //                             if(res.status === 1){
-                //                                 setTimeout(() => {
-                //                                     let pathname = '/virtualhouse/storageMgt';
-                //                                     _this.context.router.replace(pathname);
-                //                                 }, 1000);
-                //                             }
-                //                         })
-                //                  }
-                //             }
-                //        } else {
-                //            message.error('请选择商品类目！')
-                //        }
-                //    } else {
-                //        message.error('商品规格为空，无法提交！')
-                //    }
               }
           }
       }

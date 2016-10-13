@@ -93,6 +93,7 @@ class CreateProduct extends Component {
         }, {
             label: "商品品牌：",
             name: "brandId",
+            required: true,
             select: {
                 placeholder: '请选择商品品牌',
                 optionValue: brandList,
