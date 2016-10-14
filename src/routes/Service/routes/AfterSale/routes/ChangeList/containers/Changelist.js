@@ -51,7 +51,7 @@ class ChangeView extends Component {
        if (isAfterSale == false) {
             setTimeout(() => {
                 let pathname = '/service/aftersale/change/'+ id + '/' + buyerNick ;
-                context.context.router.replace(pathname);
+                context.context.router.push(pathname);
             }, 100);
         } else {
             message.error('该订单已在退款或退货或换货中，不能重复申请售后服务！')

@@ -117,6 +117,13 @@ class ReturnGoods extends Component {
         return columns;
     }
 
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.params.type == '退款') {
+            return false
+        }
+        return true
+    }
+
     _getSubColumns() {
         const {isAdmin} = this.props;
         const context = this;

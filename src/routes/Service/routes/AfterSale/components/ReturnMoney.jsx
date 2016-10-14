@@ -58,6 +58,13 @@ class ReturnMoney extends Component {
         return config;
     }
 
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.params.type == '退换货') {
+            return false
+        }
+        return true
+    }
+
     _getColumns(){
         const context = this;
         let columns = [{

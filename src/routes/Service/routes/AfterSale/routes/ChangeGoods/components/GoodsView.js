@@ -312,10 +312,7 @@ class InfoView extends Component {
                     key : 'back',
                     name : '返回',
                     handle(){
-                         let pathname = '/service/aftersale/orderChange/' + arrResult[0].oid;
-                         _this.context.router.replace(pathname);  
-                         console.log(_this,'')
-                        // history.go(-1);
+                          history.go(-1);
                     }
                 }
             ]
