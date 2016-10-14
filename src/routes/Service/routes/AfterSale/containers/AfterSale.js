@@ -21,7 +21,9 @@ class OddQuery extends Component {
         this.state = {
             curKey: 0,
             visible: false,
-            params: {}   //表格需要的筛选参数
+            params: {
+                // type: TYPES[0].type
+            }   //表格需要的筛选参数
         }
     }
     

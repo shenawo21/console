@@ -59,8 +59,20 @@ instance.interceptors.response.use(function (res) {
               }
           }
       }
-  }else{
-      message.error(res.data.message || '获取数据失败');
+  } else if(res.data.status == 2) {
+      if(!res.config.hasMsg){
+          message.error(res.data.message || '获取数据失败');
+      }else{
+          if (res.config.hasMsg !== true){
+              if(!res.config.msgStatus){
+                  message.success(res.config.hasMsg || '数据获取成功');
+              }else{
+                  message.error(res.config.hasMsg || '数据异常');
+              }
+          }
+      }
+  } else {
+       message.error(res.data.message || '获取数据失败');
   }
   return res.data;
 }, function (error) {

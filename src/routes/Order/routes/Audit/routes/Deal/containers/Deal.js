@@ -43,12 +43,13 @@ class Deal extends Component {
         item: nextProps.result
       })
     }
+
     if (nextProps.isLogis) {
       this.setState({
-        isShow: false,
-        item: nextProps.lResult
+        isShow: false
       })
     }
+    
     if (nextProps.isJump) {
       setTimeout(()=> {
         nextProps.history.go(-1);
@@ -171,7 +172,7 @@ class Deal extends Component {
       'noteOptions': this.getNoteOptions()
     }
 
-    return <Panel title=""><DealView isShow={isShow} item={item} cList={cList} addrResult={addrResult}
+    return <Panel title=""><DealView isShow={isShow} result={result} item={item} cList={cList} addrResult={addrResult}
                                      edited={this.edited.bind(this)} {...formOptions} {...noteOptions} /></Panel>
   }
 }

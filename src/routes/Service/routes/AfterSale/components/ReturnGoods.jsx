@@ -117,6 +117,13 @@ class ReturnGoods extends Component {
         return columns;
     }
 
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.params.type == '退款') {
+            return false
+        }
+        return true
+    }
+
     _getSubColumns() {
         const {isAdmin} = this.props;
         const context = this;
@@ -192,7 +199,10 @@ class ReturnGoods extends Component {
             key: '12',
             title: '操作  /  备注',
             render(id,row) {
-                console.log(row,'row')              
+                console.log(row,'row')
+                const changeOut = () => {
+                    context.OnchangeOut(row.tid,row.refundId)
+                }              
                 if (row.afterSaleType == 'REFUND_GOODS') {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
@@ -217,8 +227,11 @@ class ReturnGoods extends Component {
                             return <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link>
                         }
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
-                         if(row.isNoticeStock == '0'){
-                             <Link to={`/service/warehouse/`}>换货出库</Link>
+                         if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT'){
+                             <Popconfirm title="确定要换货出库？" onConfirm={changeOut} >
+                                <a href="javascript:;">换货出库</a>
+                            </Popconfirm>
+                            //  <Link to={`/service/warehouse/`}>换货出库</Link>
                          } else if(row.processStatus == 'PROCESS' && row.feedbackStatus !== null) {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
                          } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == null) {
@@ -237,7 +250,9 @@ class ReturnGoods extends Component {
         
         return columns;
     }    
-
+    OnchangeOut(tid,id) {
+        console.log(tid,id,'aaaaa')
+    }    
     render() {
         const {formOptions,dataSource,...other,visible,handleOk} = this.props;
         dataSource && dataSource.forEach((val, index)=>{

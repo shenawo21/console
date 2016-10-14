@@ -57,7 +57,7 @@ class Goods extends Component {
                         }
                 })
             }
-        }
+        } 
     }
     /**
        * (表单功能配置项)

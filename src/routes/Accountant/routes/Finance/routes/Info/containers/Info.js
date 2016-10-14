@@ -73,6 +73,8 @@ class Info extends Component {
                       doAgreeRemit(submintValue).then((res) =>{
                             if (res.status == 2 && res.message == 'VALIDATE_MEESSAGE_NEED') {
                                 _this.setState({visible:true})
+                            }else {
+                                message.error(res.message);
                             }
                         });
                   } else if(key === 'refuse'){

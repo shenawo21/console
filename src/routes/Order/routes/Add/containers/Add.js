@@ -62,7 +62,8 @@ class Add extends Component {
           value.dtos = selectTable;
           selectTable.map((s)=> {
             if (s.num == null) {
-              message.warning('请重新输入并勾选商品！');
+              alert(0);
+              message.error('请重新输入并勾选商品！',5);
               return false;
             }
           })

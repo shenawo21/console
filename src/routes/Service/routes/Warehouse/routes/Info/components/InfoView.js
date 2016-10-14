@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
-import {Input, Select} from 'hen'
+import {Input, Select,InputNumber} from 'hen'
 import {UploadImage} from 'components/FileLoader'
 
 //验收结果
@@ -45,7 +45,7 @@ class InfoView extends Component {
             dataIndex: 'realAmount',
             render(value, row){
                 return <span>
-                            <Input type="text" placeholder="请输入实际数量" style={{ width: 120 }} disabled={isable} onChange={(e) => {
+                            <InputNumber min = {1} max = {9999999} size="large" placeholder="请输入实际数量" style={{ width: 120 }} disabled={isable} onChange={(e) => {
                                 let {goodList} = context.state, stock = { refundId: row.refundId, title: row.title, outerSkuId: row.outerSkuId, num: row.num}, selectItems = [], checkResult = ''
                                 goodList.forEach((val) => {
                                         if(val.outerSkuId !== row.outerSkuId){
@@ -54,7 +54,7 @@ class InfoView extends Component {
                                             checkResult = val.checkResult
                                         }
                                     })
-                                    stock.realAmount = e.target.value
+                                    stock.realAmount = e
                                     stock.checkResult = checkResult
                                     selectItems.push(stock)
                                     context.setState({
@@ -161,8 +161,16 @@ class InfoView extends Component {
                 checkPics: null
             }
         }
-        if (item) {    
-            config.initValue = item;            
+        if (item) {
+            for (let i in config.initValue) {
+                if(i == 'logisticsCode'){
+                    config.initValue[i] = item.companyName;
+                } else if(i == 'buyerPackageCode') {
+                    config.initValue[i] = item.sid;
+                } else {
+                    config.initValue = item;
+                }
+            }           
         }
         return config;
     }
