@@ -40,10 +40,14 @@ const columns = [{
 }];
 
 class Receiving extends Component {
-
   render() {
     const {productInfo} = this.props;
-    let skuList = productInfo.list ? productInfo.list : productInfo.tradesOrderList;
+    let skuList=null;
+    if(productInfo.list){
+      skuList = productInfo.list
+    }else {
+      skuList = productInfo.tradesOrderList
+    }
     if (!skuList)return null;
     return <Table dataSource={skuList} rowKey={record => record.oid} columns={columns} bordered pagination={false}/>
   }

@@ -34,7 +34,6 @@ class Deal extends Component {
   }
 
   componentWillReceiveProps(nextProps, preProps) {
-    console.log(111111,nextProps.lResult);
     if (!nextProps.params.id) {
       this.setState({
         item: {}
@@ -44,12 +43,13 @@ class Deal extends Component {
         item: nextProps.result
       })
     }
+
     if (nextProps.isLogis) {
       this.setState({
-        isShow: false,
-        item: nextProps.lResult
+        isShow: false
       })
     }
+    
     if (nextProps.isJump) {
       setTimeout(()=> {
         nextProps.history.go(-1);

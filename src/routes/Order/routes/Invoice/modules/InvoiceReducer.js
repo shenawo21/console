@@ -75,7 +75,8 @@ export default function reducer(state = {result: {}}, action) {
     case QUERY_SUCCESS:
       return {
         ...state,
-        result: action.result
+        result: action.result,
+        dResult:null
       }
     case QUERY_FAILURE:
       return {

@@ -155,7 +155,7 @@ export default function reducer(state = {result: {}}, action) {
     case LOGIS_SUCCESS:
       return {
         ...state,
-        lResult: action.result,
+        result: action.result,
         isLogis:true
       }
     case LOGIS_FAILURE:
@@ -175,6 +175,8 @@ export default function reducer(state = {result: {}}, action) {
       return state
   }
 }
+
+
 
 
 

@@ -119,9 +119,9 @@ class Deal extends Component {
     };
     if (item) {
       config.initValue = item
-      if (item.receiverState && item.receiverCity && item.receiverDistrict) {
-        const addr=[];
-        addr.push(item.receiverState,item.receiverCity,item.receiverDistrict);
+      if (item.receiverState && item.receiverCity || item.receiverDistrict) {
+        const addr = [];
+        addr.push(item.receiverState, item.receiverCity, item.receiverDistrict);
         config.initValue.receiverAddr = addr;
       }
     }
@@ -145,7 +145,7 @@ class Deal extends Component {
         remark: null
       }
     }
-    if(item){
+    if (item) {
       config.initValue = item
     }
     return config;
@@ -157,7 +157,7 @@ class Deal extends Component {
   }
 
   render() {
-    const {formOptions, noteOptions,isShow,result, item, ...other} = this.props;
+    const {formOptions, noteOptions, isShow, result, item, ...other} = this.props;
     const buttonOption = {
       buttons: [
         {
@@ -186,27 +186,27 @@ class Deal extends Component {
       <div>
         <Collapse defaultActiveKey={['5']}>
           <Panel header="基本信息" key="1">
-            <BasicView basicInfo={item}/>
+            <BasicView basicInfo={result}/>
           </Panel>
           <Panel header="买家信息" key="2">
-            <BuyersView buyersInfo={item}/>
+            <BuyersView buyersInfo={result}/>
           </Panel>
           <Panel header="收货信息" key="3">
             <ReceivingView receivingInfo={item}/>
           </Panel>
           <Panel header="发票要求" key="4">
-            <InvoiceView invoiceInfo={item}/>
+            <InvoiceView invoiceInfo={result}/>
           </Panel>
           <Panel header="其他信息" key="5">
             <Tabs defaultActiveKey="1">
               <TabPane tab="商品明细" key="1">
-                <ProductView productInfo={item}/>
+                <ProductView productInfo={result}/>
               </TabPane>
               <TabPane tab="支付详情" key="2">
-                <PayView payInfo={item}/>
+                <PayView payInfo={result}/>
               </TabPane>
               <TabPane tab="促销信息" key="3">
-                <PromView promInfo={item}/>
+                <PromView promInfo={result}/>
               </TabPane>
               <TabPane tab="物流快递" key="4">
                 <ReceivingView receivingInfo={item}/>

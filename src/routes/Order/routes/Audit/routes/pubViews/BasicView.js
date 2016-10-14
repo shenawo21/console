@@ -51,7 +51,7 @@ const FROM = {
 const config = [
   {label: "订单编号：", name: "tid"},
   {label: "店铺名称：", name: "title"},
-  {label: "订单状态：", name: "offlineStatus"},
+  {label: "订单状态：", name: "status"},
   {label: "交易类型：", name: "type"},
   {label: "交易来源：", name: "tradeFrom"},
   {label: "交易创建时间：", name: "created"},
