@@ -4,7 +4,7 @@ import InvoiceView from '../components/InvoiceView'
 import Panel from 'components/Panel'
 import {queryList, deleteItem, appList} from '../modules/InvoiceReducer'
 import {getTimeStamp} from 'common/utils';
-import {message} from 'hen';
+import {Modal,message} from 'hen';
 class Invoice extends Component {
 
   constructor(props) {
@@ -66,6 +66,13 @@ class Invoice extends Component {
     })
     if (nextProps.dResult) {
       message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败', 1);
+      /*Modal.info({
+        title: '发货结果',
+        content: <div>
+          <p>成功：{nextProps.dResult.success} 条</p>
+          <p>失败：{nextProps.dResult.fail} 条</p>
+        </div>
+      });*/
     }
     if (nextProps.isRefresh) {
       setTimeout(()=> {
@@ -109,7 +116,6 @@ class Invoice extends Component {
   }
 
   getQuickOptions() {
-    const contex = this;
     return {
       /**
        *

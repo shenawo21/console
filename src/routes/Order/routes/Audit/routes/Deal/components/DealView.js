@@ -38,6 +38,7 @@ class Deal extends Component {
           cascader: {
             options: addrResult,
             placeholder: "请选择省市区",
+            style: {width: '350px'},
             changeOnSelect: false
           }
         }, {
