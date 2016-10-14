@@ -38,7 +38,7 @@ export function getListLogistic(params) {
 }
 
 /**
- * 获取企业物流公司
+ * 获取企业物流公司（不分页）
  * 
  * @export
  * @param params (description)

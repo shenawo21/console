@@ -50,7 +50,7 @@ class OutgoView extends Component {
                 }
             },{
                 label: "出库类型：",
-                name: "recordType",
+                name: "stockType",
                 select: {
 		        placeholder: "请选择出库类型",
                    optionValue : STOCKTYPE

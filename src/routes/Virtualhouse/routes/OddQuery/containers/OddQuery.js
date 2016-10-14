@@ -138,7 +138,7 @@ class OddQuery extends Component {
         const shopLoop = (lists) => {
             return lists && lists.map(a => {
                 return {
-                    value: a.shopId,
+                    value: a.name,
                     title: a.name
                 }
             })
