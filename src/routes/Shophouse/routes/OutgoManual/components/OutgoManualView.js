@@ -289,7 +289,6 @@ class OutgoManual extends Component {
                     >
                         <Select {...selectProps} defaultValue="调拨出库" placeholder="请选择出库类型" style={{ width: 200 }}>
                             <Option value="回退出库">回退出库</Option>
-                            <Option value="损毁出库">损毁出库</Option>
                         </Select>
                     </FormItem>
                     <FormItem

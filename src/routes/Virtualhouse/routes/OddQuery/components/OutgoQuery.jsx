@@ -9,9 +9,9 @@ import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 
 //出库类型
 const STOCKTYPE = [
-   { value: '调拨出库', title: "调拨出库" },
-   { value: '损耗出库', title: "损耗出库" },
-   { value: '盘点出库', title: "盘点出库" }
+   { value: '调拨出库', title: "调拨出库" }
+//    { value: '损耗出库', title: "损耗出库" },
+//    { value: '盘点出库', title: "盘点出库" }
 ];
 
 
@@ -50,7 +50,7 @@ class OutgoView extends Component {
                 }
             },{
                 label: "出库类型：",
-                name: "recordType",
+                name: "stockType",
                 select: {
 		        placeholder: "请选择出库类型",
                    optionValue : STOCKTYPE

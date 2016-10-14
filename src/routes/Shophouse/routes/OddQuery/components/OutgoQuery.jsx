@@ -10,7 +10,6 @@ import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 //出库类型
 const STOCKTYPE = [
    { value: '回退出库', title: "回退出库" },
-   { value: '损毁出库', title: "损毁出库" },
    { value: '销售出库', title: "销售出库" }
 ];
 

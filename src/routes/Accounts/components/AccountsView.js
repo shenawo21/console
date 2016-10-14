@@ -3,9 +3,7 @@ import {Link} from 'react-router';
 
 import DataTable from 'components/DataTable';
 
-
 import Search from 'components/Search';
-
 
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 

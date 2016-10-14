@@ -265,9 +265,7 @@ class outgoMgt extends Component {
                 message.warning('请选择出库商品并做库存及价格设置', 5);
                 return;
             }
-            console.log(stockList,'stockList')
             stockList && stockList.every((item,index) => {
-                console.log(item,'item')
                 if (item.incoming == 0) {
                     message.warning('出库库存数为0，无法出库！')
                 } else {

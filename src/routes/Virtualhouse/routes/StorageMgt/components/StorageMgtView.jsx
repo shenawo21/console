@@ -133,7 +133,6 @@ class storageMgt extends Component {
 
     render() {
         const {formOptions} = this.props;
-        console.log(this.props,'formOptions');
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit} buttonOption = {formOptions.buttonOption} />

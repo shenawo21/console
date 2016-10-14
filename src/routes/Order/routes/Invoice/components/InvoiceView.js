@@ -87,12 +87,12 @@ class Invoice extends Component {
       content: '你确定发货？',
       onOk() {
         if (row.outSid == null) {
-         message.warning('运单号不能为空');
-         return false;
-         } else {
-         isGive(row);
-         context.refs && context.refs.dt.refresh();
-         }
+          message.warning('运单号不能为空');
+          return false;
+        } else {
+          isGive(row);
+          context.refs && context.refs.dt.refresh();
+        }
       },
       onCancel() {
       }
@@ -112,12 +112,11 @@ class Invoice extends Component {
       onOk() {
         selectList.map((s)=> {
           if (s.outSid == null) {
-            message.warning('运单号不能为空！');
-            return false;
+            message.error('请先输入运单号，再勾选且运单号不能为空！', 2);
           } else {
             isGiveM();
-            context.refs && context.refs.dt.refresh();
           }
+          context.refs && context.refs.dt.refresh();
         })
       },
       onCancel() {
@@ -236,6 +235,7 @@ class Invoice extends Component {
     this.refs.dt.refresh();
   }
 
+
   quickButton(quickOptions) {
     let context = this;
     const {selectList}=context.props;
@@ -251,7 +251,13 @@ class Invoice extends Component {
       </Col>
       <Col span="3">
         <UpLoader upConfig={{action: '/api-tradesInfo.importWaitSendGoods', onChangeFileList(info){
-                message.info('导入结果：' + info[0].success + '条成功' + ',' + info[0].fail + '条失败',2);
+                Modal.info({
+                  title: '导入结果',
+                  content: <div>
+                            <p>成功：{info[0].success} 条</p>
+                            <p>失败：{info[0].fail} 条</p>
+                          </div>
+                });
                 context._refresh();
             }}} title='导入待发货数据'/>
       </Col>
