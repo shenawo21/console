@@ -7,7 +7,7 @@ import Image from 'components/Image';
 
 export default (props) => {
   //account
-  const account = store.get('USER').account;
+  const account = store.get('USER') && store.get('USER').account;
     const menu = (
       <Menu>
         <Menu.Item key="0">
