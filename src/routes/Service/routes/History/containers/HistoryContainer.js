@@ -42,10 +42,11 @@ class HistoryList extends Component {
               handleSubmit(value) {
                   const {curKey} = context.state;
                   const {pageNumber, ...other} = value;
-                  let condition = {condition:{...other}}
+                //   console.log(value,'value')
+                //   let condition = {condition:{...other}}
                   context.setState({
                       params: {
-                      ...condition,
+                      ...other,
                       pageNumber
 		            } 
                   })

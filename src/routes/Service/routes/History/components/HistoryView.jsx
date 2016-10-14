@@ -48,7 +48,7 @@ class History extends Component {
                 }
             },{
                 label: "售后类型：",
-                name: "offSaleType",
+                name: "afterSaleType",
                 select: {
                     placeholder: "请选择售后类型",
                     optionValue: TYPE
@@ -60,7 +60,7 @@ class History extends Component {
                 shopName: null,
                 outerSkuId: null,
                 title: null,
-                offSaleType:null
+                afterSaleType:null
             }
         }
         return config;
