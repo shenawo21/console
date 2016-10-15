@@ -23,7 +23,7 @@ class OddQuery extends Component {
             curKey: 0,
             visible: false,
             params: {
-                //  type: TYPES[0].type
+                type: TYPES[0].type
             }   //表格需要的筛选参数
         }
     }
@@ -99,7 +99,15 @@ class OddQuery extends Component {
         } else {
             getRefund(TYPES[key-1]);
         }
+
+        const {location,router} = this.context.props
+
+        router.replace({...location, query : { p: 1 }});
+
         this.setState({
+            params: {
+                type: TYPES[key-1].type
+            }, 
             curKey : key - 1
         })   
     }
@@ -157,8 +165,10 @@ class OddQuery extends Component {
                 </Panel>
     }
 }
+
 OddQuery.contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    props: React.PropTypes.object.isRequired,
+    router: React.PropTypes.object.isRequired
 };
 
 OddQuery.propTypes = {   
@@ -185,6 +195,7 @@ const mapStateToProps = (state) => {
     //debugger
     const {result, changegoodsList, shoplist, loading} = state.aftersale;
     const {items = [], totalItems = 0} = result || {};
+
     return {items, changegoodsList, shoplist, totalItems, loading };
 }
 

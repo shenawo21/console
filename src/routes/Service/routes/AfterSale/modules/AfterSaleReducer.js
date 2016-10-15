@@ -75,13 +75,11 @@ export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {    
     case REQ_REFUND:
-    //debugger
         return {
             ...state,
             loading: true
         }    
     case SUC_REFUND:
-    //debugger
         return {
             ...state,
             result: action.result,
