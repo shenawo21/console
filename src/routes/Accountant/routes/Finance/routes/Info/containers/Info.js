@@ -68,9 +68,10 @@ class Info extends Component {
               handleSubmit(value, key) {
                   const {doAgreeRemit,  doRefuseRemit, params} = _this.props;
                   if(key === 'review'){
-                      let submintValue = { refundId: params.id,cwRemark: value.cwRemark}
-                      _this.setState({submintValue})
-                      doAgreeRemit(submintValue).then((res) =>{
+                      if (value.cwRemark) {
+                        let submintValue = { refundId: params.id,cwRemark: value.cwRemark}
+                        _this.setState({submintValue})
+                        doAgreeRemit(submintValue).then((res) =>{
                             if (res.status == 2 && res.message == 'VALIDATE_MEESSAGE_NEED') {
                                 _this.refs.theForm.refs.form && _this.refs.theForm.refs.form.resetFields()
                                 _this.setState({visible:true})
@@ -78,21 +79,28 @@ class Info extends Component {
                                 message.error(res.message);
                             }
                         });
+                      } else {
+                          message.error('请输入财务退款说明!')
+                      }
+                      
                   } else if(key === 'refuse'){
                       if (_this.state.photoList) {
                             value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
                       }
-                      if (value.cwRefuseProof) {
-                          doRefuseRemit({
-                            refundId: params.id,
-                            cwRefuseReason : value.cwRefuseReason,
-                            cwRefuseRemark : value.cwRefuseRemark,
-                            cwRefuseProof: value.cwRefuseProof
-                        })
+                      if(!value.cwRefuseReason) {
+                           message.error('请输入拒绝退款原因!')
+                      } else if(!value.cwRefuseRemark) {
+                           message.error('请输入拒绝退款说明!')
+                      } else if(!value.cwRefuseProof) {
+                           message.error('请上传拒绝退款凭证!')
                       } else {
-                          message.error('请上传拒绝退款凭证!')
-                      }
-                      
+                          doRefuseRemit({
+                                refundId: params.id,
+                                cwRefuseReason : value.cwRefuseReason,
+                                cwRefuseRemark : value.cwRefuseRemark,
+                                cwRefuseProof: value.cwRefuseProof
+                            })
+                      }                      
                   }
 
               },

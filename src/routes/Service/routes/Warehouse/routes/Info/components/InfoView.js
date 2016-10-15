@@ -167,9 +167,7 @@ class InfoView extends Component {
                     config.initValue[i] = item.companyName;
                 } else if(i == 'buyerPackageCode') {
                     config.initValue[i] = item.sid;
-                } else {
-                    config.initValue = item;
-                }
+                } 
             }           
         }
         return config;

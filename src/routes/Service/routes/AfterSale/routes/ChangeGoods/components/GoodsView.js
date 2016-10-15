@@ -196,23 +196,25 @@ class InfoView extends Component {
                     placeholder:'请选择快递公司',
                     optionValue: logisticList
                 }
-            },{
-                label:'包裹投递时间：',
-                name:'goodReturnTime',
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请输入包裹投递时间'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
-                custom(getCustomFieldProps, FormContext){
-                    return <div>
-                            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('goodReturnTime') } showTime={true}/>
-                        </div>}
-            }],
+            }
+            // {
+            //     label:'包裹投递时间：',
+            //     name:'goodReturnTime',
+            //     rules: [{
+            //         validator(rule, value, callback) {
+            //             if (!value) {
+            //                 callback(new Error('请输入包裹投递时间'));
+            //             } else {
+            //                 callback();
+            //             }
+            //         }
+            //     }],
+            //     custom(getCustomFieldProps, FormContext){
+            //         return <div>
+            //                 <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('goodReturnTime') } showTime={true}/>
+            //             </div>}
+            // }
+            ],
             initValue: {
                 reason : null,
                 description: null,
@@ -220,7 +222,7 @@ class InfoView extends Component {
                 postBearType:null,
                 sid:null,
                 companyName:null,
-                goodReturnTime:null
+                // goodReturnTime:null
             }
         }
 

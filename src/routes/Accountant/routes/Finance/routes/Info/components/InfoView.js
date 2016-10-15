@@ -31,24 +31,27 @@ class InfoView extends Component {
             formItems: [{
                 label: "拒绝退款原因：",
                 name: "cwRefuseReason",
+                required: true,
                 select: {
-                    placeholder: "请输入商品名称",
+                    placeholder: "请输入拒绝退款原因",
 		            optionValue: RESON,
                     disabled: isRequired
                 }
             },{
                 label: "拒绝退款说明：",
                 name: "cwRefuseRemark",
+                required: true,
                 wrapperCol: {span: 10},
                 input: {
                     rows: '5',
                     type: "textarea",
-                    placeholder: "请输入审核描述",
+                    placeholder: "请输入拒绝退款说明",
                     disabled: isRequired
                 }
             }, {
                 label: "拒绝退款凭证：",
                 name: "cwRefuseProof",
+                required: true,
                 custom(getCustomFieldProps) {
                     upConfig.fileList = photoList;
                     return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
@@ -58,6 +61,7 @@ class InfoView extends Component {
             },{
                 label: "财务退款说明：",
                 name: "cwRemark",
+                required: true,
                 className: 'border-top',
                 wrapperCol: {span: 10},
                 input: {
