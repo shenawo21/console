@@ -27,7 +27,7 @@ class Invoice extends Component {
       }, {
         label: "订单编号：",
         name: "tid",
-        span: "5",
+        span: "7",
         labelCol: {span: 8},
         input: {}
       }, {
@@ -51,7 +51,7 @@ class Invoice extends Component {
       }, {
         label: "审单时间：",
         span: '11',
-        labelCol: {span: 4},
+        labelCol: {span: 5},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div><DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('reviewStartTime') }

@@ -23,6 +23,8 @@ class Applic extends Component {
       formItems: [{
         label: "应用名称：",
         name: "name",
+        span: "7",
+        labelCol: {span: 5},
         input: {}
       }],
       initValue: {
@@ -71,7 +73,7 @@ class Applic extends Component {
           <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
             <Link to={`/applic/edit/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>编辑</Link>
           </Button>
-          
+
           <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
             <Link to={`/applic/joint/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>对接设置</Link>
           </Button>
