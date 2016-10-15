@@ -100,8 +100,13 @@ class StorageQuery extends Component {
         return config;
     }
 
+    // shouldComponentUpdate(nextProps) {
+    //     if (nextProps.tableOptions.params.recordType == '总仓出库') {
+    //         return false
+    //     }
+    //     return true
+    // }
     _getColumns(){
-        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',
@@ -162,7 +167,8 @@ class StorageQuery extends Component {
         
         return columns;
     }    
-       
+    
+    
 
     render() {
         const {formOptions, tableOptions, ...other} = this.props;

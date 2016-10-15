@@ -146,7 +146,14 @@ class OutgoView extends Component {
         }];
         
         return columns;
-    }    
+    } 
+    
+    // shouldComponentUpdate(nextProps) {
+    //     if (nextProps.tableOptions.params.recordType == '总仓入库') {
+    //         return false
+    //     }
+    //     return true
+    // }
 
     render() {
         const {formOptions, tableOptions, ...other} = this.props;

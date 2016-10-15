@@ -110,7 +110,7 @@ export function getEnterList(params) {
 export function getRoleList(params) {
   return {
     types: [GETROLELIST, GETROLELIST_SUCCESS, GETROLELIST_FAILURE],
-    promise: (client) => client.post('api-roleService.roleListResult', params)
+    promise: (client) => client.post('api-roleService.roleListResult', params, {'hasMsg': true})
   }
 }
 

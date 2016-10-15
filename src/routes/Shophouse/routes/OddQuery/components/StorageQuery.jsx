@@ -85,8 +85,8 @@ class StorageQuery extends Component {
                 recordId: null,
                 spuId: null,
                 skuId : null,
-		categoryCode: null,
-		title: null,
+                categoryCode: null,
+                title: null,
                 stockType: null,
                 createUser : null,
                 createTimeStart : null,
@@ -95,9 +95,15 @@ class StorageQuery extends Component {
         }
         return config;
     }
+    // shouldComponentUpdate(nextProps) {
+    //     console.log(nextProps,'nextProps');
+    //     if (nextProps.params.recordType == '店铺入库') {
+    //         return false
+    //     }
+    //     return true
+    // }
 
     _getColumns(){
-        const {isAdmin} = this.props;
         const context = this;
         let columns = [{
             key: '0',

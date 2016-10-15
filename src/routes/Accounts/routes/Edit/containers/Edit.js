@@ -22,7 +22,6 @@ class Edit extends Component {
 
         this.state = {
             item: {},
-            roleList: [],
             photoList: []
         };  //定义初始状态
     }
@@ -38,7 +37,7 @@ class Edit extends Component {
         if(params.id){
             view({adminId: params.id})
         }
-
+        //获取角色列表
         getRoleList();
     }
 
@@ -51,7 +50,7 @@ class Edit extends Component {
 
         if (!nextProps.params.id) { 
             this.setState({
-                item: {},
+                item: null,
                 photoList: []
             })
         } else {
@@ -61,18 +60,18 @@ class Edit extends Component {
             })
         }
 	
-        if(nextProps.result && nextProps.roleListResult){
-            const lists = nextProps.roleListResult;
-            var list = lists.map(a => {
-                return {
-                    value: a.roleId,
-                    label: a.name
-                }
-            })
-            this.setState({
-                roleList: list
-            })
-        }
+        // if(nextProps.result && nextProps.roleListResult){
+        //     const lists = nextProps.roleListResult;
+        //     var list = lists.map(a => {
+        //         return {
+        //             value: a.roleId,
+        //             label: a.name
+        //         }
+        //     })
+        //     this.setState({
+        //         roleList: list
+        //     })
+        // }
     }    
 
     /**
@@ -123,14 +122,22 @@ class Edit extends Component {
     }
 
     render() {
-        const { item, roleList, photoList} = this.state;
-        const {loading, result} = this.props;
+        const { item, photoList} = this.state;
+        const {loading, result, roleListResult} = this.props;
+
+        //角色列表
+        let list = roleListResult && roleListResult.map(a => {
+            return {
+                value: a.roleId,
+                label: a.name
+            }
+        }) || [];
         const formOptions = {
             loading,
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><EditView item={item} photoList={photoList} roleList={roleList} photoImg={this.photoImg} {...formOptions} /></Panel>
+        return <Panel><EditView item={item} photoList={photoList} roleList={list} photoImg={this.photoImg} {...formOptions} /></Panel>
     }
 }
 

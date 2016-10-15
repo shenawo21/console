@@ -20,7 +20,6 @@ class OddQuery extends Component {
         this.getFormOptions = this.getFormOptions.bind(this);       
         
         this.state = {
-            oddStatus: true,
             curKey: 0,
             params: {}   //表格需要的筛选参数
         }
@@ -96,7 +95,7 @@ class OddQuery extends Component {
         const {items, oddQueryList, shopListResult, cateResult, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : oddQueryList,                  //表格翻页时触发的action
+            action : oddQueryList,                      //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
@@ -135,13 +134,20 @@ class OddQuery extends Component {
          * 
          * <OddQueryView {...tableOptions} {...formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} />
          */
-        const shopLoop = (lists) => {
-            return lists && lists.map(a => {
+	 
+	    let shopListItem = [];
+        if (shopListResult) {
+            shopListItem = shopListResult.map(c=> {
                 return {
-                    value: a.name,
-                    title: a.name
-                }
-            })
+                    value: c.name,
+                    title: c.name
+            }
+            });
+        } else {
+            shopListItem = [{
+                value: null,
+                title: '正在加载中...'
+            }]
         }
 	
         const formOptions = {
@@ -150,8 +156,8 @@ class OddQuery extends Component {
         
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                        <TabPane tab="出库单查询" key="1"><OutgoQueryView formOptions={formOptions} tableOptions={tableOptions} shopList={shopLoop(shopListResult)} /></TabPane>
-                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={loop(cateResult)} /></TabPane>
+                        <TabPane tab="出库单查询" key="1"><OutgoQueryView formOptions={formOptions} tableOptions={tableOptions} shopList={shopListItem} /></TabPane>
+                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={shopListItem} /></TabPane>
                     </Tabs>
                 </Panel>
     }

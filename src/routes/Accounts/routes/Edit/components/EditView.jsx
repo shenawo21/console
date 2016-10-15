@@ -16,11 +16,18 @@ const STATUS = [
 
 class Edit extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            photoList : []
+            photoList : [],
+            roleChecked: []
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            test: 1
+        })
     }
 
     /**
@@ -30,12 +37,29 @@ class Edit extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item, formOptions, roleList, photoImg, photoList} = context.props;
+        const {item, formOptions, roleList, photoImg, photoList, result} = context.props;
+
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
             onlyFile: true
         };
+
+        const roleListNew = roleList.map((item) => {
+            return item.label
+        })
+
+        const getChecked = () => {
+
+            const checked = item && item.roleList && item.roleList.map((rItem) => {
+                return rItem.name
+            })
+
+            return this.state.roleChecked.length ? this.state.roleChecked : (checked || [])
+        }
+
+        console.log(roleList,'roleList');
+        
         config.formItems = [{
                 label: "帐号：",
                 name: "account",
@@ -44,18 +68,8 @@ class Edit extends Component {
                 rules: [{ required: true, min: 4, max: 64, message: '帐号最少为4个字符，最多为64个字符' }],
                 input: {
                     type: 'text',
-                    disabled: (item != null && item.adminId) ? true : false,
+                    //disabled: (item != null && item.adminId) ? true : false,
                     placeholder: "请输入帐号",
-                }
-            }, {
-                label: "密码：",
-                name: "password",
-                rules: [
-                    { required: true, min: 3, message: '至少为3个字符' }
-                ],
-                input: {
-                    type: "password",
-                    placeholder: "请输入密码",
                 }
             }, {
                 label: "用户姓名：",
@@ -111,49 +125,57 @@ class Edit extends Component {
                     type: "text",
                     placeholder: "请输入手机号码",
                 }
-        },{
+        }, {
             label: "角色：",
             name: "roleIdList",
             labelCol: { span: 3 },
             wrapperCol: { span: 8 },
             rules: [{required: false, type: 'array'}],
             checkboxGroup: {
-                options: roleList
+                options: roleListNew,
+                value: getChecked(),
+                onChange: (value) => {
+                    this.setState({
+                        roleChecked: value
+                    })
+                }
             }
         }];
 
-        config.initValue = {
-            account: null,
-            password: null,
-            name: null,
-            photo: null,
-            sex: null,
-            enabled: null,
-            email: null,
-            mobile: null,
-            roleIdList: []
-        };
-
-        // if(roleList.length){
-        //     console.log(roleList,'roleList');
-        //     config.formItems.push({
-        //         label: "角色",
-        //         name: "roleIdList",
-        //         labelCol: { span: 3 },
-        //         wrapperCol: { span: 8 },
-        //         rules: [{required: false, type: 'array'}],
-        //         checkboxGroup: {
-        //             options: roleList
-        //         }
-        //     })
-        // }
+        config.initValue = {}
 
         if (item) {
             config.initValue = item;
+
+            const roleIdList = []
+
+            this.state.roleChecked.forEach((cItem) => {
+                roleList.forEach((item) => {
+                    if (item.label == cItem) {
+                        roleIdList.push(item.value)
+                    }
+                })
+            })
+
+            config.initValue.roleIdList = roleIdList
+        } else {
+            config.formItems.splice(1, 1, {
+                label: "密码：",
+                name: "password",
+                rules: [
+                    { required: true, min: 3, message: '至少为3个字符' }
+                ],
+                input: {
+                    type: "password",
+                    placeholder: "请输入密码",
+                }
+            });
         }
 
-        if(item != null && item.adminId){
-            config.formItems.splice(1, 1);
+        for (var key in config.initValue) {
+            if (config.initValue[key] == null) {
+                delete config.initValue[key]
+            }
         }
 
         return config;
