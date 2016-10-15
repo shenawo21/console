@@ -22,12 +22,15 @@ class Role extends Component {
       formItems: [{
         label: "名称：",
         name: "name",
+        span: '5',
+        labelCol: {span: 4},
         input: {
           placeholder: "请输入名称"
         }
       }, {
         label: "是否可用：",
         name: "enabled",
+        span: '7',
         select: {
           placeholder: "请选择是否可用",
           optionValue: STATUS

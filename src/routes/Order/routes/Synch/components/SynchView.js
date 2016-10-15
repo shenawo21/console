@@ -15,7 +15,8 @@ class Synch extends Component {
     let config = {
       formItems: [{
         label: "选择店铺：",
-        span: '5',
+        span: "5",
+        labelCol: {span: 6},
         name: "shopId",
         select: {
           placeholder: "请选择所属店铺",

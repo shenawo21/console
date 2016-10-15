@@ -36,14 +36,14 @@ class Applic extends Component {
 
   //删除
   del(id) {
-    const {delApp} = this.props
-    delApp(id)
+    const {delApp} = this.props;
+    delApp(id);
     this.refs && this.refs.dt.refresh();
   }
   //激活 禁用
   handleAction(row, id) {
-    const {isAble} = this.props
-    isAble(row, id)
+    const {isAble} = this.props;
+    isAble(row, id);
     this.refs && this.refs.dt.refresh();
   }
 
