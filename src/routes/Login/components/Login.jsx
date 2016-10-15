@@ -103,7 +103,7 @@ class Login extends Component {
                 </FormItem>
                 <FormItem
                   {...formItemLayout}
-                  label="账户："
+                  label="账号："
                   hasFeedback>
                   <Input {...nameProps} />
                 </FormItem>
