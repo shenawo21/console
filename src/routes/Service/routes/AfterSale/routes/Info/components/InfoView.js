@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import Form from 'components/Form';
 import { Button } from 'hen';
 import DataTable from 'components/DataTable'
+import Image from 'components/Image';
 import {UploadImage} from 'components/FileLoader'
 import RefundView from 'routes/Service/routes/RefundView';
 const RESON = [
@@ -30,6 +31,7 @@ class InfoView extends Component {
             formItems: [{
                 label: "退款审批说明：",
                 name: "optRemark",
+                required: true,
                 wrapperCol: {span: 10},
                 input: {
                     rows: '5',
@@ -38,6 +40,7 @@ class InfoView extends Component {
                 }
             }, {
                 label: "发货凭证：",
+                required: true,
                 name: "cwRefuseProof",
                 custom(getCustomFieldProps) {
                     upConfig.fileList = photoList;
@@ -57,7 +60,7 @@ class InfoView extends Component {
                 label: "拒绝退款原因：",
                 name: "cwRefuseReason",
                 required: true,
-                rules: [{ required: true, message: '请选择快递公司' }],
+                // rules: [{ required: true, message: '请选择拒绝退款原因' }],
                 select: {
                     placeholder:'请选择拒绝退款原因',
                     optionValue: RESON
@@ -75,6 +78,10 @@ class InfoView extends Component {
         const Goodsstatus = result.afterSaleType == 'REFUND_MONEY' ? '等待退款' : '等待退货'
         const url = refundComment.picUrls 
         const src = url && url.split(',')
+
+        const returnUrl = result.cwRefuseProof 
+        const returnSrc = returnUrl && returnUrl.split(',')
+
         const ArryStatus = [
             {name:'订单状态:',status:Goodsstatus},
             {name:'退款说明:',status:result.description},
@@ -107,10 +114,10 @@ class InfoView extends Component {
                 <ul className = 'form-talbe'>
                     {result.cwRefuseReason ? <li><b>拒绝退款原因:</b><span>{result.cwRefuseReason}</span></li> : '' }
                     {result.optRemark ? <li><b>退款审批说明:</b><span>{result.optRemark}</span></li> : '' }
-                    {src ? <li><b>发货凭证:</b><span>
+                    {returnSrc ? <li><b>发货凭证:</b><span>
                       {
-                        src && src.map((item, index)=>{
-                            return <img src={item} width= '80' style={{marginRight:10}} />
+                        returnSrc && returnSrc.map((item, index)=>{
+                            return  <Image src={item} width= '80' style={{marginRight:10}} /> 
                          })
                      }
                     </span></li> : '' }

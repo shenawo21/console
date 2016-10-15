@@ -43,8 +43,13 @@ class Info extends Component {
          }
         Object.assign(value,params,{afterSaleType:'REFUND_MONEY'})
         if(key === 'review'){
-            Object.assign(value,{processStatus:'PROCESS'})
-            verify(value).then(function(response) {
+            if(!value.optRemark) {
+                message.error('请填写退款审批说明!')
+            } else if(!value.cwRefuseProof) {
+                 message.error('请上传发货凭证!')
+            } else {
+                Object.assign(value,{processStatus:'PROCESS'})
+                verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
                             let pathname = '/service/aftersale';
@@ -52,6 +57,7 @@ class Info extends Component {
                         }, 1000);
                     }
                 })
+            }
         } else if(key === 'refuse'){
             _this.setState({isRequired:true})
             Object.assign(value,{processStatus:'DENY'})
@@ -65,7 +71,7 @@ class Info extends Component {
                     }
                 })
             } else {
-                message.error('请选择拒绝退款原因')
+                message.error('请选择拒绝退款原因!')
             }
         }
     }

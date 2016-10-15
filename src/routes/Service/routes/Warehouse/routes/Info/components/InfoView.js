@@ -100,7 +100,7 @@ class InfoView extends Component {
 
     _getFormItems(){
         let context = this;
-        const {item, photoList, photoImg, tableOptions, logiListItem, params, ...other} = context.props;
+        const {item,viewResult, photoList, photoImg, tableOptions, logiListItem, params, ...other} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -124,7 +124,7 @@ class InfoView extends Component {
                 required: true,
                 rules: [{ required: true, message: '请输入快递单号' }],
                 input: {
-                    placeholder: "请输入商品名称",
+                    placeholder: "请输入退货快递单号",
                     disabled: isable
                 }
             },{
@@ -161,16 +161,18 @@ class InfoView extends Component {
                 checkPics: null
             }
         }
+        if (viewResult) {
+            config.initValue = viewResult
+        }
         if (item) {
             for (let i in config.initValue) {
                 if(i == 'logisticsCode'){
                     config.initValue[i] = item.companyName;
                 } else if(i == 'buyerPackageCode') {
                     config.initValue[i] = item.sid;
-                } else {
-                    config.initValue = item;
-                }
-            }           
+                } 
+            }
+                      
         }
         return config;
     }
