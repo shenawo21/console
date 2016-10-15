@@ -126,7 +126,7 @@ class Edit extends Component {
         }, {
             label: "角色：",
             name: "roleIdList",
-            labelCol: { span: 3 },
+            labelCol: { span: 2 },
             wrapperCol: { span: 8 },
             rules: [{required: false, type: 'array'}],
             checkboxGroup: {
