@@ -30,6 +30,7 @@ class Manual extends Component {
         span: '11',
         labelCol: {span: 4},
         wrapperCol: {span: 19},
+        infoLabel: <div style={{color:'#ccc'}}>建议使用30分钟以内的时间跨度，时间跨度不能大于一天</div>,
         custom(getCustomFieldProps, FormContext){
           return <div>
             <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('startSynTime') } showTime={true}/>
