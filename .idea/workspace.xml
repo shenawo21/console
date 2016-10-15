@@ -2,55 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="BUG修复">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/components/Manage.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/containers/manage.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/modules/manage.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/assets/App.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/assets/AppcateImage1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/assets/AppcateImage2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/assets/BusiImage.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/components/Add.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/containers/Add.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Add/modules/add.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/AppIntro/Intro.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/AppIntro/Intro.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/AppList/components/List.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/AppList/components/List.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/AppList/containers/List.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/AppList/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/AppList/modules/list.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/Edit.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/cool.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/metal.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/mobileScreen.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/mobileShell.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/startImg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/assets/tempImg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/components/Basic.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/components/Edit.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/components/Generate.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/components/Start.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/components/Template.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/components/Widget.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/containers/edit.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/Edit/modules/edit.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/TrashList/components/List.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/TrashList/components/List.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/TrashList/containers/List.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/TrashList/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/TrashList/modules/list.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/routes/ManageApp/routes/index.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_base.js" afterPath="$PROJECT_DIR$/config/_base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_development.js" afterPath="$PROJECT_DIR$/config/_development.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/components/DealView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/Deal/components/DealView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/BasicView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Audit/routes/pubViews/BasicView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js" />
     </list>
     <ignored path="console.iws" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -83,7 +35,7 @@
       <file leaf-file-name="_base.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/_base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
+            <state relative-caret-position="418">
               <caret line="21" column="25" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="25" />
               <folding />
             </state>
@@ -107,7 +59,7 @@
       <file leaf-file-name="AddView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
+            <state relative-caret-position="3586">
               <caret line="167" column="36" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="36" />
               <folding />
             </state>
@@ -117,7 +69,7 @@
       <file leaf-file-name="InvoiceView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5698">
+            <state relative-caret-position="5588">
               <caret line="259" column="19" selection-start-line="253" selection-start-column="16" selection-end-line="259" selection-end-column="19" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
@@ -129,7 +81,7 @@
       <file leaf-file-name="InvoiceReducer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/modules/InvoiceReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
+            <state relative-caret-position="1474">
               <caret line="67" column="15" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="15" />
               <folding />
             </state>
@@ -139,7 +91,7 @@
       <file leaf-file-name="Invoice.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
+            <state relative-caret-position="1474">
               <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
@@ -260,155 +212,6 @@
     <panes>
       <pane id="Scratches">
         <subPane />
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Problems">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Changed Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Login">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Login">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Login">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="containers">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Default">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="console">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Tests" />
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -902,6 +705,155 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Problems">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Changed Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="routes">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Login">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="routes">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="routes">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Login">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="routes">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Login">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="containers">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Default">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="console">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Tests" />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -950,118 +902,6 @@
       <recent name="D:\WWW\console\src\routes\Goods\routes" />
       <recent name="D:\WWW\console\src\routes\Enterprise\components" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/common/apiClient.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accountant/routes/Finance/routes/Info/containers/Info.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accountant/routes/Finance/routes/Info/modules/InfoReducer.js</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -1228,6 +1068,8 @@
       <workItem from="1476358859857" duration="1171000" />
       <workItem from="1476407188471" duration="7888000" />
       <workItem from="1476424984049" duration="6681000" />
+      <workItem from="1476438600349" duration="614000" />
+      <workItem from="1476493172096" duration="616000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -1443,7 +1285,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="695395000" />
+    <option name="totallyTimeSpent" value="696625000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1455,26 +1297,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1616" height="886" extended-state="7" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22370088" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22370088" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26560426" sideWeight="0.50506973" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26560426" sideWeight="0.4949303" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1746,13 +1588,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5698">
+        <state relative-caret-position="5588">
           <caret line="259" column="19" selection-start-line="253" selection-start-column="16" selection-end-line="259" selection-end-column="19" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
@@ -1762,7 +1603,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/modules/InvoiceReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
+        <state relative-caret-position="1474">
           <caret line="67" column="15" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="15" />
           <folding />
         </state>
@@ -1770,7 +1611,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
+        <state relative-caret-position="1474">
           <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
@@ -1788,7 +1629,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/_base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
+        <state relative-caret-position="418">
           <caret line="21" column="25" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="25" />
           <folding />
         </state>
@@ -1796,7 +1637,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/components/AddView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
+        <state relative-caret-position="3586">
           <caret line="167" column="36" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="36" />
           <folding />
         </state>
