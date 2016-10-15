@@ -10,7 +10,9 @@ import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 //出库类型
 const STOCKTYPE = [
    { value: '回退出库', title: "回退出库" },
-   { value: '销售出库', title: "销售出库" }
+   { value: '销售出库', title: "销售出库" },
+   { value: '换货出库', title: "换货出库" },
+   { value: '新建订单', title: "新建订单" }
 ];
 
 class OutgoView extends Component {
