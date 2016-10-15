@@ -35,12 +35,12 @@ class Audit extends Component {
         label: "订单编号：",
         name: "tid",
         span: "5",
-        labelCol: {span: 8},
+        labelCol: {span: 9},
         input: {}
       }, {
         label: "下单时间：",
         span: '11',
-        labelCol: {span: 4},
+        labelCol: {span: 5},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div><DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createStartTime') }
@@ -58,8 +58,8 @@ class Audit extends Component {
       }, {
         label: "客服备注：",
         name: "remark",
-        span: "5",
-        labelCol: {span: 6},
+        span: "9",
+        labelCol: {span: 5},
         input: {}
       }],
       initValue: {

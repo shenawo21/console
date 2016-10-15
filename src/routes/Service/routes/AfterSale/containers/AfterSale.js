@@ -4,7 +4,7 @@ import ReturnGoods from '../components/ReturnGoods'
 import ReturnMoney from '../components/ReturnMoney'
 import Panel from 'components/Panel'
 import {message} from 'hen';
-import { getRefund, getChangeGoods,getShopList,getSearch,getEndRefund } from '../modules/AfterSaleReducer'
+import { getRefund, getChangeGoods,getShopList,getSearch,getEndRefund,getOut} from '../modules/AfterSaleReducer'
 
 import {Tabs } from 'hen';
 const TabPane = Tabs.TabPane;
@@ -17,12 +17,13 @@ class OddQuery extends Component {
         super(props);
         this.getFormOptions = this.getFormOptions.bind(this);
         this.handleOk = this.handleOk.bind(this);  
-        this.confirm = this.confirm.bind(this);      
+        this.confirm = this.confirm.bind(this);
+        this.getOut = this.getOut.bind(this);      
         this.state = {
             curKey: 0,
             visible: false,
             params: {
-                // type: TYPES[0].type
+                type: TYPES[0].type
             }   //表格需要的筛选参数
         }
     }
@@ -32,7 +33,10 @@ class OddQuery extends Component {
         const {getRefund, getChangeGoods, getShopList, location } = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        getRefund(TYPES[0]);
+        getRefund({
+            type: TYPES[0].type,
+            pageNumber: pageNumber
+        });
         //获取店铺列表
         getShopList();
     }
@@ -95,7 +99,15 @@ class OddQuery extends Component {
         } else {
             getRefund(TYPES[key-1]);
         }
+
+        const {location,router} = this.context.props
+
+        router.replace({...location, query : { p: 1 }});
+
         this.setState({
+            params: {
+                type: TYPES[key-1].type
+            }, 
             curKey : key - 1
         })   
     }
@@ -103,6 +115,11 @@ class OddQuery extends Component {
     confirm(id){
         const {getEndRefund} = this.props
         getEndRefund({refundId:id})
+    }
+    // 换货出库
+    getOut (tid,id) {
+        const {getOut} = this.props
+        getOut({tid:tid,refundId:id})
     }
     render() {
         const {params,visible} = this.state;
@@ -143,13 +160,15 @@ class OddQuery extends Component {
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                         <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} confirm={this.confirm}  /></TabPane>
-                        <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} visible = {visible} handleOk = {this.handleOk}  /></TabPane>
+                        <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} visible = {visible} handleOk = {this.handleOk} getOut = {this.getOut}  /></TabPane>
                     </Tabs>
                 </Panel>
     }
 }
+
 OddQuery.contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    props: React.PropTypes.object.isRequired,
+    router: React.PropTypes.object.isRequired
 };
 
 OddQuery.propTypes = {   
@@ -167,15 +186,17 @@ const mapActionCreators = {
     getChangeGoods, 
     getShopList,
     getSearch,
-    getEndRefund
+    getEndRefund,
+    getOut
 }
 
 
 const mapStateToProps = (state) => {
+    //debugger
     const {result, changegoodsList, shoplist, loading} = state.aftersale;
     const {items = [], totalItems = 0} = result || {};
+
     return {items, changegoodsList, shoplist, totalItems, loading };
-    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(OddQuery)

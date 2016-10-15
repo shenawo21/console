@@ -23,7 +23,7 @@ class ReturnGoods extends Component {
         }
 
         return config;
-        
+
     }
     _getFormItems(){
     	let context = this;
@@ -102,7 +102,7 @@ class ReturnGoods extends Component {
                     case 'REFUND_GOODS':
                         return '退货'
                     case 'CHANGE_GOODS':
-                        return '换货'        
+                        return '换货'
                 }
             }
         }, {
@@ -113,7 +113,7 @@ class ReturnGoods extends Component {
                 return <span><Link to={`/service/aftersale/goodsdetail/${id}`}>订单详情</Link></span>
             }
         }];
-        
+
         return columns;
     }
 
@@ -176,7 +176,7 @@ class ReturnGoods extends Component {
                    case 'SUCCESS':
                         return '处理成功'
                     case 'FAIL':
-                        return '处理失败'          
+                        return '处理失败'
                 }
             }
         },{
@@ -188,7 +188,7 @@ class ReturnGoods extends Component {
                     case 'ACCEPT':
                         return '允许入库'
                     case 'DENY':
-                        return '拒绝入库'    
+                        return '拒绝入库'
                 }
             }
         },{
@@ -202,37 +202,36 @@ class ReturnGoods extends Component {
                 console.log(row,'row')
                 const changeOut = () => {
                     context.OnchangeOut(row.tid,row.refundId)
-                }              
+                }
                 if (row.afterSaleType == 'REFUND_GOODS') {
                         if (row.processStatus == 'INIT') {
                             return <div><Link to={`/service/aftersale/applyGoods/${row.refundId}`}>处理申请</Link></div>
-                        } 
+                        }
                          else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == null ) {
                             return <div>
-                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>通知财务退款</Link>                                    
+                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>通知财务退款</Link>
                             </div>
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'ACCEPT') {
                             return <div>
-                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>                                   
+                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>结束退货</Link>
                             </div>
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'INIT') {
                             return <div>
-                               <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><em style = {{padding:'0 8px'}}></em> <span>已通知财务退款</span>                                 
+                               <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><em style = {{padding:'0 8px'}}></em> <span>已通知财务退款</span>
                             </div>
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'DENY' || row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'DENY') {
                             return <div>
-                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>拒绝退货</Link>                                   
+                                <Link to={`/service/aftersale/endGoods/${row.refundId}`}>拒绝退货</Link>
                             </div>
                         } else {
                             return <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link>
                         }
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
-                         if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT'){
-                             <Popconfirm title="确定要换货出库？" onConfirm={changeOut} >
+                         if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.shoppId == null){
+                             return <Popconfirm title="确定要换货出库？" onConfirm={changeOut} >
                                 <a href="javascript:;">换货出库</a>
                             </Popconfirm>
-                            //  <Link to={`/service/warehouse/`}>换货出库</Link>
-                         } else if(row.processStatus == 'PROCESS' && row.feedbackStatus !== null) {
+                         } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.shoppId !== null) {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
                          } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == null) {
                               return <div>
@@ -247,12 +246,12 @@ class ReturnGoods extends Component {
                     }
             }
         }];
-        
+
         return columns;
-    }    
+    }
     OnchangeOut(tid,id) {
         console.log(tid,id,'aaaaa')
-    }    
+    }
     render() {
         const {formOptions,dataSource,...other,visible,handleOk} = this.props;
         dataSource && dataSource.forEach((val, index)=>{
@@ -267,7 +266,7 @@ class ReturnGoods extends Component {
                     <Col span = '22'>
                         <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
                     </Col>
-                    <Col ><Button type="primary" style = {{marginTop:20}} onClick = {(e) =>{formOptions.search(this.refs.form)}}>查询订单</Button></Col>
+                    <Col ><Button type="primary" style = {{marginTop:42}} onClick = {(e) =>{formOptions.search(this.refs.form)}}>查询订单</Button></Col>
                 </Row>
                 <Modal title="查询订单"
                 visible={visible}
@@ -281,9 +280,9 @@ class ReturnGoods extends Component {
                 }}
                 onCancel={formOptions.handleCancel} >
                 <Form horizontal items={this._getFormIModal()} button={<span></span>} ref='form' />
-            </Modal>     
-               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
-                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
+            </Modal>
+               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()}
+                           expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />}
                            dataSource={dataSource} {...other}  />
 
             </div>

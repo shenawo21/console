@@ -20,9 +20,22 @@ const REQ_ENDREFUND = 'REQ_ENDREFUND';
 const SUC_ENDREFUND = 'SUC_ENDREFUND';
 const ERR_ENDREFUND = 'ERR_ENDREFUND';
 
-
+// 换货出库
+const REQ_OUT = 'REQ_OUT';
+const SUC_OUT = 'SUC_OUT';
+const ERR_OUT = 'ERR_OUT';
 
 export function getRefund(params) {
+  if (params.pageNumber) {
+      params = {
+          type: params.type,
+          condition: {
+              pageNumber: params.pageNumber,
+              pageSize: params.pageSize,
+              ...params.condition
+          }
+      }
+  }  
   return {
     types: [REQ_REFUND, SUC_REFUND, ERR_REFUND],
     promise: (client) => client.post('api-offSale.getRefundApplysByCondition', params)
@@ -52,21 +65,30 @@ export function getEndRefund(params) {
         promise: (client) => client.post('api-offSale.doEndRefund',params)
     }
 }
+export function getOut(params) {
+    return {
+        types: [REQ_OUT, SUC_OUT, ERR_OUT],
+        promise: (client) => client.post('api-warehouseDispose.doSendGoodsOfChange',params)
+    }
+}
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {    
     case REQ_REFUND:
         return {
-            ...state
+            ...state,
+            loading: true
         }    
     case SUC_REFUND:
         return {
             ...state,
-            result: action.result
+            result: action.result,
+            loading: false
         }
     case ERR_REFUND:
         return {
-            ...state
+            ...state,
+            loading: false
         }
    case REQ_CHANGEGOODS:
         return {
@@ -121,7 +143,19 @@ export default function reducer(state = {result:{}}, action) {
     case ERR_ENDREFUND:
         return {
             ...state
-        }       
+        }
+     case REQ_OUT:
+        return {
+            ...state
+        }    
+    case SUC_OUT:
+        return {
+            ...state
+        }
+    case ERR_OUT:
+        return {
+            ...state
+        }          
     default:
       return state
   }

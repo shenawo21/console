@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import AddView from '../components/AddView'
 import Panel from 'components/Panel'
 import {appList, companyList, addrList, addItem, cateList, proList} from '../modules/AddReducer'
-import {message} from 'hen';
+import {message, Modal} from 'hen';
 import {getSpecValue} from 'common/utils';
 
 class Add extends Component {
@@ -15,7 +15,7 @@ class Add extends Component {
       selectList: {},
       tabDataSource: [],
       selectTable: [],
-      realPrice:null
+      realPrice: null
     }
   }
 
@@ -62,13 +62,18 @@ class Add extends Component {
           value.dtos = selectTable;
           selectTable.map((s)=> {
             if (s.num == null) {
-              alert(0);
-              message.error('请重新输入并勾选商品！',5);
+              Modal.info({
+                title: '温馨提示',
+                content: '购买数量不能为空，请先输入数量并勾选商品！！'
+              });
               return false;
             }
           })
         } else {
-          message.warning('请勾选订单商品！');
+          Modal.info({
+            title: '温馨提示',
+            content: '请勾选订单商品！'
+          });
           return false;
         }
         let P = '', C = '', D = '';
@@ -127,7 +132,10 @@ class Add extends Component {
       onSelect: (record, selected, selectedRows) => {
         selectedRows.map((s)=> {
           if (s.num == null) {
-            message.warning('购买数量不能为空！');
+            Modal.info({
+              title: '温馨提示',
+              content: '购买数量不能为空，请先输入数量并勾选商品！'
+            });
             return false;
           }
         })
@@ -153,13 +161,16 @@ class Add extends Component {
           for (var i = 0; i < sum.length; i++) {
             amount += sum[i];
           }
-          this.setState({realPrice:amount});
+          this.setState({realPrice: amount});
         }
       },
       onSelectAll: (selected, selectedRows, changeRows) => {
         selectedRows.map((s)=> {
           if (s.num == null) {
-            message.warning('购买数量不能为空！');
+            Modal.info({
+              title: '温馨提示',
+              content: '购买数量不能为空，请先输入数量并勾选商品！'
+            });
             return false;
           }
         })
@@ -185,7 +196,7 @@ class Add extends Component {
           for (var i = 0; i < sum.length; i++) {
             amount += sum[i];
           }
-          this.setState({realPrice:amount});
+          this.setState({realPrice: amount});
         }
       }
     }

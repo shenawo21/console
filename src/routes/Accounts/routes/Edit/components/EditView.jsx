@@ -5,13 +5,13 @@ import Form from 'components/Form';
 
 //性别
 const SEX = [
-    {title : '女', value : false},
-    {title : '男', value : true}
+  {title: '女', value: false},
+  {title: '男', value: true}
 ];
 //帐号是否可用
 const STATUS = [
-    {title : '不可用', value : '0'},
-    {title : '可用', value : '1'}
+  {title: '不可用', value: '0'},
+  {title: '可用', value: '1'}
 ];
 
 class Edit extends Component {
@@ -57,8 +57,6 @@ class Edit extends Component {
 
             return this.state.roleChecked.length ? this.state.roleChecked : (checked || [])
         }
-
-        console.log(roleList,'roleList');
         
         config.formItems = [{
                 label: "帐号：",
@@ -68,7 +66,7 @@ class Edit extends Component {
                 rules: [{ required: true, min: 4, max: 64, message: '帐号最少为4个字符，最多为64个字符' }],
                 input: {
                     type: 'text',
-                    //disabled: (item != null && item.adminId) ? true : false,
+                    disabled: (item != null && item.adminId) ? true : false,
                     placeholder: "请输入帐号",
                 }
             }, {
@@ -179,24 +177,24 @@ class Edit extends Component {
         }
 
         return config;
-    }
+  }
 
-    render() {
-        const {formOptions, item, ...other} = this.props;
-        return (
-            <div>
-                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} />
-            </div>
-        );
-    }
+  render() {
+    const {formOptions, item, ...other} = this.props;
+    return (
+      <div>
+        <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
+              onRest={formOptions.handleReset}/>
+      </div>
+    );
+  }
 
 }
 
 Edit.proptype = {
 
-loading: React.PropTypes.bool,
-params: React.PropTypes.object
+  loading: React.PropTypes.bool,
+  params: React.PropTypes.object
 
 }
 

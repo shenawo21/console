@@ -72,6 +72,7 @@ class Info extends Component {
                       _this.setState({submintValue})
                       doAgreeRemit(submintValue).then((res) =>{
                             if (res.status == 2 && res.message == 'VALIDATE_MEESSAGE_NEED') {
+                                _this.refs.theForm.refs.form && _this.refs.theForm.refs.form.resetFields()
                                 _this.setState({visible:true})
                             }else {
                                 message.error(res.message);
@@ -122,7 +123,13 @@ class Info extends Component {
                 context.setState({
                     visible: false,
                 });
-            } 
+                message.success(res.message)
+            } else {
+                context.setState({
+                    visible: false,
+                });
+                message.error(res.message)
+            }
         })
       }
     
@@ -133,7 +140,7 @@ class Info extends Component {
             ...this.getFormOptions()
         }
         
-        return <Panel title="退款处理"><InfoView visible = {visible} handleOk = {this.handleOk} item={item} result={result} isRequired={isRequired} photoList={photoList} photoImg={this.photoImg} formOptions={formOptions} /></Panel>
+        return <Panel title="退款处理"><InfoView ref = 'theForm' visible = {visible} handleOk = {this.handleOk} item={item} result={result} isRequired={isRequired} photoList={photoList} photoImg={this.photoImg} formOptions={formOptions} /></Panel>
     }
 }
 

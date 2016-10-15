@@ -28,8 +28,8 @@ class History extends Component {
       formItems: [{
         label: "选择店铺：",
         name: "shopId",
-        span: "5",
-        labelCol: {span: 7},
+        span: "6",
+        labelCol: {span: 5},
         select: {
           placeholder: "请选择所属店铺",
           optionValue: shopList
@@ -37,7 +37,7 @@ class History extends Component {
       }, {
         label: "订单状态：",
         name: "tradeType",
-        span: "5",
+        span: "6",
         labelCol: {span: 7},
         select: {
           placeholder: "请选择订单状态",
@@ -48,20 +48,20 @@ class History extends Component {
       }, {
         label: "订单编号：",
         name: "tid",
-        span: "5",
+        span: "6",
         labelCol: {span: 7},
         input: {}
       }, {
         label: "买家账号：",
         name: "buyerNick",
-        span: "5",
+        span: "6",
         labelCol: {span: 7},
         input: {}
       }, {
         label: "成交时间：",
-        span: '9',
-        labelCol: {span: 4},
-        wrapperCol: {span: 19},
+        span: '10',
+        labelCol: {span: 3},
+        wrapperCol: {span: 18},
         custom(getCustomFieldProps, FormContext){
           return <div>
             <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('payStartTime') } showTime={true}/>
@@ -71,9 +71,9 @@ class History extends Component {
         }
       }, {
         label: "发货时间：",
-        span: '9',
-        labelCol: {span: 4},
-        wrapperCol: {span: 19},
+        span: '10',
+        labelCol: {span: 3},
+        wrapperCol: {span: 18},
         custom(getCustomFieldProps, FormContext){
           return <div>
               <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('shoppStartTime') } showTime={true}/>
@@ -84,7 +84,7 @@ class History extends Component {
       }, {
         label: "排序方式：",
         name: "payTimeSort",
-        span: "7",
+        span: "6",
         labelCol: {span: 5},
         select: {
           placeholder: "请选择排序方式",

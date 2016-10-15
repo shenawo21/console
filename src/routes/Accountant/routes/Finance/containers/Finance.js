@@ -71,7 +71,7 @@ class finance extends Component {
         const {items, getForRefund, getRefund, shopListResult, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : curKey == 2 ? getRefund : getForRefund,                         //表格翻页时触发的action
+            action : curKey == 1 ? getRefund : getForRefund,                         //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
