@@ -228,10 +228,9 @@ class ReturnGoods extends Component {
                         }
                     } else if (row.afterSaleType == 'CHANGE_GOODS') {
                          if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT'){
-                             <Popconfirm title="确定要换货出库？" onConfirm={changeOut} >
+                             return <Popconfirm title="确定要换货出库？" onConfirm={changeOut} >
                                 <a href="javascript:;">换货出库</a>
                             </Popconfirm>
-                            //  <Link to={`/service/warehouse/`}>换货出库</Link>
                          } else if(row.processStatus == 'PROCESS' && row.feedbackStatus !== null) {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
                          } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == null) {
@@ -251,7 +250,8 @@ class ReturnGoods extends Component {
         return columns;
     }    
     OnchangeOut(tid,id) {
-        console.log(tid,id,'aaaaa')
+        const {getOut} = this.props
+        getOut(tid,id)
     }    
     render() {
         const {formOptions,dataSource,...other,visible,handleOk} = this.props;
