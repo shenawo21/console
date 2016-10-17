@@ -14,7 +14,24 @@ const REFUSE = 'accountant/REFUSE';
 const REFUSE_SUCCESS = 'accountant/REFUSE_SUCCESS';
 const REFUSE_FAILURE = 'accountant/REFUSE_FAILURE';
 
+// 退货通过
+const REQ_AGREE = 'REQ_AGREE';
+const SUC_AGREE = 'SUC_AGREE';
+const ERR_AGREE = 'ERR_AGREE';
 
+/**
+ * 退货通过
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function getAgree(params) {
+  return {
+    types: [REQ_AGREE, SUC_AGREE, ERR_AGREE],
+    promise: (client) => client.post('api-offSale.cwDoAgreeRefundGoods', params, {'hasMsg' : true})
+  }
+}
 /**
  * 获取单笔退款详情
  * 
@@ -96,6 +113,18 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+       case REQ_AGREE:
+        return {
+            ...state
+        }    
+    case SUC_AGREE:
+        return {
+            ...state
+        }    
+    case ERR_AGREE:
+        return {
+            ...state
+        }   
     default:
       return state
   }

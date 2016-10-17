@@ -13,6 +13,7 @@ const SHOPLIST = 'accountant/SHOPLIST';
 const SHOPLIST_SUCCESS = 'accountant/SHOPLIST_SUCCESS';
 const SHOPLIST_FAILURE = 'accountant/SHOPLIST_FAILURE';
 
+
 /**
  * 获取待退款列表
  * 
