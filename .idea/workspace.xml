@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="">
+    <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="新建订单">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_base.js" afterPath="$PROJECT_DIR$/config/_base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_development.js" afterPath="$PROJECT_DIR$/config/_development.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Synch/modules/SynchReducer.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Synch/modules/SynchReducer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/components/ManualView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/components/ManualView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/containers/Manual.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/containers/Manual.js" />
     </list>
     <ignored path="console.iws" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,23 +22,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_development.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_development.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/_development.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+            <state relative-caret-position="154">
+              <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
               <folding>
-                <marker date="1476535437521" expanded="true" signature="623:710" ph="{...}" />
+                <marker date="1476672669748" expanded="true" signature="623:710" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_base.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="_base.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/_base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="21" column="25" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="25" />
+            <state relative-caret-position="308">
+              <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -54,7 +47,7 @@
       <file leaf-file-name="Add.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
+            <state relative-caret-position="1518">
               <caret line="75" column="19" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
               <folding />
             </state>
@@ -64,7 +57,7 @@
       <file leaf-file-name="SynchView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="1364">
               <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
               <folding />
             </state>
@@ -74,7 +67,7 @@
       <file leaf-file-name="SynchReducer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/modules/SynchReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
+            <state relative-caret-position="1276">
               <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
               <folding />
             </state>
@@ -84,7 +77,7 @@
       <file leaf-file-name="ManualView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/components/ManualView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-748">
+            <state relative-caret-position="660">
               <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
@@ -96,7 +89,7 @@
       <file leaf-file-name="Manual.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/containers/Manual.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
+            <state relative-caret-position="1848">
               <caret line="90" column="80" selection-start-line="90" selection-start-column="71" selection-end-line="90" selection-end-column="80" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
@@ -108,7 +101,7 @@
       <file leaf-file-name="ManualReducer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/modules/ManualReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
+            <state relative-caret-position="1188">
               <caret line="54" column="14" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="14" />
               <folding />
             </state>
@@ -118,7 +111,7 @@
       <file leaf-file-name="Synch.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/containers/Synch.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-484">
+            <state relative-caret-position="110">
               <caret line="5" column="40" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="40" />
               <folding />
             </state>
@@ -128,7 +121,7 @@
       <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/utils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
+            <state relative-caret-position="5170">
               <caret line="235" column="66" selection-start-line="235" selection-start-column="53" selection-end-line="235" selection-end-column="66" />
               <folding />
             </state>
@@ -201,8 +194,8 @@
         <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js" />
         <option value="$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/containers/Manual.js" />
         <option value="$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js" />
-        <option value="$PROJECT_DIR$/config/_base.js" />
         <option value="$PROJECT_DIR$/config/_development.js" />
+        <option value="$PROJECT_DIR$/config/_base.js" />
       </list>
     </option>
   </component>
@@ -937,9 +930,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
       <pane id="Scope">
         <subPane subId="Problems">
           <PATH>
@@ -1089,6 +1079,9 @@
         </subPane>
         <subPane subId="Tests" />
       </pane>
+      <pane id="Scratches">
+        <subPane />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1152,25 +1145,9 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accountant/routes/Finance/routes/Info/components/InfoView.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accountant/routes/Finance/modules/FinanceReducer.js</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accountant/routes/Finance/routes/Info/containers/Info.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/components/EditView.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/containers/Edit.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accounts/routes/Edit/modules/EditReducer.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Login/components/Login.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/components/ReturnGoods.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/containers/AfterSale.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/modules/AfterSaleReducer.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/ChangeGoods/components/GoodsView.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/Info/components/InfoView.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/AfterSale/routes/Info/containers/Info.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/Warehouse/routes/Info/components/InfoView.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Service/routes/Warehouse/routes/Info/containers/Info.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Shophouse/routes/OddQuery/components/OutgoQuery.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Shophouse/routes/OddQuery/components/StorageQuery.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/OutgoQuery.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/StorageQuery.jsx</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/containers/OddQuery.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Accountant/routes/Finance/routes/Info/modules/InfoReducer.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -1185,7 +1162,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/OddQueryView.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -1435,7 +1411,8 @@
       <workItem from="1476438600349" duration="614000" />
       <workItem from="1476493172096" duration="616000" />
       <workItem from="1476498050453" duration="1877000" />
-      <workItem from="1476500779700" duration="13517000" />
+      <workItem from="1476500779700" duration="14195000" />
+      <workItem from="1476665800402" duration="2370000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -1661,11 +1638,18 @@
       <option name="project" value="LOCAL" />
       <updated>1476509017700</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="新建订单">
+      <created>1476535504709</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1476535504709</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="712019000" />
+    <option name="totallyTimeSpent" value="715067000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1678,13 +1662,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22370088" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26560426" sideWeight="0.50506973" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26560426" sideWeight="0.4949303" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26560426" sideWeight="0.4949303" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1734,7 +1718,8 @@
     <MESSAGE value="用户图像" />
     <MESSAGE value="分辨率样式调整" />
     <MESSAGE value="新建订单修改提示方式" />
-    <option name="LAST_COMMIT_MESSAGE" value="新建订单修改提示方式" />
+    <MESSAGE value="新建订单" />
+    <option name="LAST_COMMIT_MESSAGE" value="新建订单" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1894,9 +1879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1904,9 +1886,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1914,27 +1893,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/OddQueryView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/OddQueryView.js" />
     <entry file="file://$PROJECT_DIR$/src/routes/Virtualhouse/routes/OddQuery/components/OutgoQuery.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1942,9 +1908,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1952,9 +1915,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-88">
           <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1962,7 +1922,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
           <caret line="87" column="28" selection-start-line="86" selection-start-column="8" selection-end-line="87" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1970,9 +1929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="20" column="28" selection-start-line="19" selection-start-column="8" selection-end-line="20" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1980,9 +1936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="269" column="71" selection-start-line="269" selection-start-column="71" selection-end-line="269" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1990,9 +1943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2000,9 +1950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
           <caret line="42" column="28" selection-start-line="41" selection-start-column="8" selection-end-line="42" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2010,9 +1957,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="32" column="18" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2020,9 +1964,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
           <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2030,9 +1971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
           <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2040,9 +1978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="572">
           <caret line="74" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2050,9 +1985,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
           <caret line="259" column="19" selection-start-line="253" selection-start-column="16" selection-end-line="259" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2060,9 +1992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2070,7 +1999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
           <caret line="116" column="26" selection-start-line="116" selection-start-column="6" selection-end-line="116" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2078,13 +2006,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="989">
           <caret line="167" column="36" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/common/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
+        <state relative-caret-position="5170">
           <caret line="235" column="66" selection-start-line="235" selection-start-column="53" selection-end-line="235" selection-end-column="66" />
           <folding />
         </state>
@@ -2092,7 +2019,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/modules/SynchReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
+        <state relative-caret-position="1276">
           <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
           <folding />
         </state>
@@ -2100,7 +2027,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="1364">
           <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
           <folding />
         </state>
@@ -2108,7 +2035,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/containers/Synch.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-484">
+        <state relative-caret-position="110">
           <caret line="5" column="40" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="40" />
           <folding />
         </state>
@@ -2116,7 +2043,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/modules/ManualReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
+        <state relative-caret-position="1188">
           <caret line="54" column="14" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="14" />
           <folding />
         </state>
@@ -2124,7 +2051,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/containers/Manual.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
+        <state relative-caret-position="1848">
           <caret line="90" column="80" selection-start-line="90" selection-start-column="71" selection-end-line="90" selection-end-column="80" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
@@ -2134,7 +2061,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Synch/routes/Manual/components/ManualView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-748">
+        <state relative-caret-position="660">
           <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
@@ -2144,27 +2071,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/Order/routes/Add/containers/Add.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
+        <state relative-caret-position="1518">
           <caret line="75" column="19" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/_base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="21" column="25" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/_development.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        <state relative-caret-position="154">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
           <folding>
-            <marker date="1476535437521" expanded="true" signature="623:710" ph="{...}" />
+            <marker date="1476672669748" expanded="true" signature="623:710" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/_base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
