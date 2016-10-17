@@ -149,9 +149,21 @@ class InfoView extends Component {
                 name: "checkPics",
                 custom(getCustomFieldProps) {
                     upConfig.fileList = photoList;
-                    return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
+                    if (params.skuid == 1) {
+                        const url = viewResult && viewResult.checkPics
+                        const src = url && url.split(',')
+                        console.log(src,'src')
+                         {
+                            src && src.map((item, index)=>{
+                            return <Image src={item} width= '80' style={{marginRight:10}} />
+                            })
+                        }
+                    } else {
+                        return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('checkPics')} />
+                    }
+                    
                 }
             }],
             initValue: {
@@ -162,28 +174,33 @@ class InfoView extends Component {
                 checkPics: null
             }
         }
-        const obj = {
-                label: "验货凭证：",
-                name: "checkPics",
-                render(value) {
-                   return <Image src={value} width= '80' style={{marginRight:10}} />
-                }
-           }
-        if (viewResult) {
-            config.formItems.splice(4, 1);
-            config.formItems.push(obj)
+        // const obj = {
+        //         label: "验货凭证：",
+        //         name: "checkPics",
+        //         render(value) {
+        //             debugger
+        //            return <Image src={value} width= '80' style={{marginRight:10}} />
+        //         }
+        //    }
+        if (params.skuid == 1 && viewResult) {
+            // config.formItems.splice(4, 1);
+            // config.formItems.push(obj)
             config.initValue = viewResult
-        }
-        if (item) {
-            for (let i in config.initValue) {
+        } else {
+            if (item) {
+                for (let i in config.initValue) {
                 if(i == 'logisticsCode'){
                     config.initValue[i] = item.companyName;
-                } else if(i == 'buyerPackageCode') {
-                    config.initValue[i] = item.sid;
-                } 
-            }
+                    } else if(i == 'buyerPackageCode') {
+                        config.initValue[i] = item.sid;
+                    } else {
+                        config.initValue = item
+                    } 
+                }
                       
+            }
         }
+        
         return config;
     }
     
