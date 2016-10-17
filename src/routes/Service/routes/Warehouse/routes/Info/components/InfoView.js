@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
+import Image from 'components/Image'
 import {Input, Select,InputNumber} from 'hen'
 import {UploadImage} from 'components/FileLoader'
 
@@ -161,7 +162,16 @@ class InfoView extends Component {
                 checkPics: null
             }
         }
+        const obj = {
+                label: "验货凭证：",
+                name: "checkPics",
+                render(value) {
+                   return <Image src={value} width= '80' style={{marginRight:10}} />
+                }
+           }
         if (viewResult) {
+            config.formItems.splice(4, 1);
+            config.formItems.push(obj)
             config.initValue = viewResult
         }
         if (item) {
