@@ -90,8 +90,14 @@ class OutgoView extends Component {
     return config;
   }
 
+    // shouldComponentUpdate(nextProps) {
+    //     console.log(nextProps.params,'nextProps.params.recordType');
+    //     if (nextProps.tableOptions.params.recordType == '总仓入库') {
+    //         return false
+    //     }
+    //     return true
+    // }
   _getColumns() {
-    const {isAdmin} = this.props;
     const context = this;
     let columns = [{
       key: '0',

@@ -90,7 +90,7 @@ class OutgoView extends Component {
 
     // shouldComponentUpdate(nextProps) {
     //     console.log(nextProps.params,'nextProps.params.recordType');
-    //     if (nextProps.params.recordType == '店铺出库') {
+    //     if (nextProps.tableOptions.params.recordType == '总仓入库') {
     //         return false
     //     }
     //     return true
@@ -156,13 +156,13 @@ class OutgoView extends Component {
     }    
 
     render() {
-        const {formOptions, ...other} = this.props;
+        const {formOptions, tableOptions, ...other} = this.props;
         return (
             <div>
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-                <DataTable bordered={true} columns={this._getColumns()} {...other} ref='dt' />
+                <DataTable bordered={true} columns={this._getColumns()} {...tableOptions} ref='dt' />
 
             </div>
         )
