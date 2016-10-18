@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import Form from 'components/Form';
 import { Button } from 'hen';
 import DataTable from 'components/DataTable'
+import Image from 'components/Image'
 import {UploadImage} from 'components/FileLoader'
 import RefundView from 'routes/Service/routes/RefundView';
 
@@ -58,6 +59,8 @@ class GoodsInfo extends Component {
         const refundComment = result.refundComment || {}
         // 仓库验货信息
         const checkInfo = result.checkInfo || {}
+        const returnUrl = checkInfo.checkPics || ''
+        const returnSrc = returnUrl && returnUrl.split(',')
         const url = refundComment.picUrls
         const src = url && url.split(',')
         const ArryStatus = [
@@ -115,10 +118,16 @@ class GoodsInfo extends Component {
                     {checkInfo.buyerPackageCode ? <li><b>退货快递单号:</b><span>{checkInfo.buyerPackageCode}</span></li> : '' }
                     {checkInfo.checkResult ? <li><b>货物结果:</b><span>{checkInfo.checkResult}</span></li> : '' }
                     {checkInfo.remark ? <li><b>仓库验收备注:</b><span>{checkInfo.remark}</span></li> : '' }
-                    {checkInfo.checkPics ? <li><b>验货凭证:</b><span>{checkInfo.checkPics}</span></li> : '' }
+                    {returnSrc ? <li><b>验货凭证:</b><span>
+                      {
+                        returnSrc && returnSrc.map((item, index)=>{
+                            return  <Image src={item} width= '80' style={{marginRight:10}} /> 
+                         })
+                     }
+                    </span></li> : '' }
 
                 </ul>
-                { result.processStatus == 'PROCESS' && result.feedbackStatus !== null && (result.refundResult == 'SUCCESS' || result.refundResult == 'DENY') ? 
+                { result.processStatus == 'PROCESS' && result.feedbackStatus !== null && result.refundResult !== null ? 
                     <Form horizontal items={this._getFormEnd()} onSubmit={handleSubmit}  buttonOption={EndbuttonOption} /> :
                     <Form horizontal items={this._getFormNotice()} onSubmit={NoticehandleSubmit }  buttonOption={NoticebuttonOption} />
 
