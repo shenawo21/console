@@ -152,17 +152,17 @@ class InfoView extends Component {
                     if (params.skuid == 1) {
                         const url = viewResult && viewResult.checkPics
                         const src = url && url.split(',')
-                        console.log(src,'src')
                          {
-                            src && src.map((item, index)=>{
-                            return <Image src={item} width= '80' style={{marginRight:10}} />
+                            return src && src.map((item, index)=>{
+                                return <Image src={item} width='80' style={{marginRight:10}} />
                             })
                         }
                     } else {
-                        return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
+                       return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('checkPics')} />
                     }
+                     
                     
                 }
             }],
@@ -174,17 +174,7 @@ class InfoView extends Component {
                 checkPics: null
             }
         }
-        // const obj = {
-        //         label: "验货凭证：",
-        //         name: "checkPics",
-        //         render(value) {
-        //             debugger
-        //            return <Image src={value} width= '80' style={{marginRight:10}} />
-        //         }
-        //    }
         if (params.skuid == 1 && viewResult) {
-            // config.formItems.splice(4, 1);
-            // config.formItems.push(obj)
             config.initValue = viewResult
         } else {
             if (item) {
