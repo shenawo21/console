@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import Form from 'components/Form';
 import { Button,Modal } from 'hen';
 import DataTable from 'components/DataTable'
+import Image from 'components/Image'
 import {UploadImage} from 'components/FileLoader'
 import RefundView from '../../RefundView';
 const RESON = [
@@ -20,8 +21,7 @@ class InfoView extends Component {
         
     _getFormItems(){
         let context = this;
-        const {isRequired, photoList, photoImg } = context.props;
-
+        const {isRequired, photoList, photoImg,result} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -33,7 +33,7 @@ class InfoView extends Component {
                 name: "cwRefuseReason",
                 required: true,
                 select: {
-                    placeholder: "请输入拒绝退款原因",
+                    placeholder: "",
 		            optionValue: RESON,
                     disabled: isRequired
                 }
@@ -45,7 +45,7 @@ class InfoView extends Component {
                 input: {
                     rows: '5',
                     type: "textarea",
-                    placeholder: "请输入拒绝退款说明",
+                    placeholder: "",
                     disabled: isRequired
                 }
             }, {
@@ -54,9 +54,20 @@ class InfoView extends Component {
                 required: true,
                 custom(getCustomFieldProps) {
                     upConfig.fileList = photoList;
-                    return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
+                     if (isRequired) {
+                        const url = result && result.cwRefuseProof
+                        const src = url && url.split(',')
+                         {
+                            return src && src.map((item, index)=>{
+                                return <Image src={item} width='80' style={{marginRight:10}} />
+                            })
+                        }
+                     } else {
+                         return <UploadImage title="拒绝退款凭证" className='upload-list-inline upload-fixed'
                             upConfig={{...upConfig, onChangeFileList:photoImg}}
                             {...getCustomFieldProps('cwRefuseProof')} />
+                     }
+                    
                 }
             },{
                 label: "财务退款说明：",
@@ -67,7 +78,7 @@ class InfoView extends Component {
                 input: {
                     rows: '5',
                     type: "textarea",
-                    placeholder: "请输入财务退款说明",
+                    placeholder: "",
                     disabled: isRequired
                 }
             }],
@@ -77,6 +88,12 @@ class InfoView extends Component {
                 cwRefuseProof: null,
                 cwRemark : null
             }
+        }
+        if (isRequired) {
+            config.initValue.cwRefuseReason = result.cwRefuseReason || ''
+            config.initValue.cwRefuseRemark = result.cwRefuseRemark || ''
+            config.initValue.cwRefuseProof = result.cwRemark || ''
+            config.initValue.cwRemark = result.cwRemark || ''
         }
         return config;
     }
@@ -102,12 +119,12 @@ class InfoView extends Component {
     render() {
         let {formOptions, result, isRequired,visible,handleOk} = this.props;
 	    const refundComment = result && result.refundComment ? result.refundComment : {}
-        const Goodsstatus = result.afterSaleType == 'REFUND_MONEY' ? '等待退款' : '等待退货'
+        const Goodsstatus = result && result.afterSaleType == 'REFUND_MONEY' ? '等待退款' : '等待退货'
         const url = refundComment.picUrls || ''
         const src = url && url.split(',')
         const ArryStatus = [
             {name:'订单状态:', status:Goodsstatus},
-            {name:'退款说明:', status:refundComment.content}
+            {name:'退款说明:', status:result.reason || ''}
         ]
         /**
          * 多个按钮配置如下：

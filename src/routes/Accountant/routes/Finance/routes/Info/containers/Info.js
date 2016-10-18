@@ -71,7 +71,7 @@ class Info extends Component {
                       if (value.cwRemark) {
                         let submintValue = { refundId: params.id,cwRemark: value.cwRemark}
                         _this.setState({submintValue})
-                        if (result.afterSaleType == 'REFUND_GOODS') {
+                        if (result && result.afterSaleType == 'REFUND_GOODS') {
                             getAgree(submintValue).then((res) =>{
                                 if (res.status == 2 && res.message == 'VALIDATE_MEESSAGE_NEED') {
                                     _this.refs.theForm.refs.form && _this.refs.theForm.refs.form.resetFields()

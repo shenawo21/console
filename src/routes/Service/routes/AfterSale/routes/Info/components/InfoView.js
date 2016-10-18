@@ -83,8 +83,8 @@ class InfoView extends Component {
         const returnSrc = returnUrl && returnUrl.split(',')
 
         const ArryStatus = [
-            {name:'订单状态:',status:Goodsstatus},
-            {name:'退款说明:',status:result.description},
+            {name:'订单状态:',status:Goodsstatus || ''},
+            {name:'退款说明:',status:result.reason ? result.reason : ''},
         ]
         const buttonOption = {
             buttons : [
