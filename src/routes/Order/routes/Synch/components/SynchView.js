@@ -25,13 +25,13 @@ class Synch extends Component {
       }, {
         label: "按日期查询：",
         span: '11',
-        labelCol: { span: 4 },
-        wrapperCol: { span: 19 },
+        labelCol: {span: 4},
+        wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div>
-              <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('synStartTime') } showTime={true}/>
-              <span className="ant-form-split">~</span>
-              <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('synEndTime') } showTime={true}/>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('synStartTime') } showTime={true}/>
+            <span className="ant-form-split">~</span>
+            <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('synEndTime') } showTime={true}/>
           </div>
         }
       }],
@@ -51,7 +51,7 @@ class Synch extends Component {
       title: 'ID',
       dataIndex: '_index',
       render(key){
-        return <span>{key+1}</span>;
+        return <span>{key + 1}</span>;
       }
     }, {
       key: '1',
@@ -70,7 +70,7 @@ class Synch extends Component {
       title: '同步结果',
       dataIndex: 'isSuccess',
       render(value){
-        return <span style={{color:value?'#0C3':'F00'}}>{ISSUCC[value]}</span>
+        return value ? <span style={{color:'#0C3'}}>成功</span> : <span style={{color:'F00'}}>失败</span>
       }
     }, {
       key: '5',

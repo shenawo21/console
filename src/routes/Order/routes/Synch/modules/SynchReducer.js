@@ -36,14 +36,14 @@ export function queryList(params) {
   }
 }
 
-export default function reducer(state = {result:{}}, action) {
-  state = {...state, loading : action.loading};
+export default function reducer(state = {result: {}}, action) {
+  state = {...state, loading: action.loading};
   switch (action.type) {
     case APPQUERY:
     case QUERY:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     case APPQUERY_SUCCESS:
       return {
         ...state,
@@ -54,14 +54,14 @@ export default function reducer(state = {result:{}}, action) {
         ...state
       }
     case QUERY_SUCCESS:
-        return {
-            ...state,
-            result: action.result
-        }
+      return {
+        ...state,
+        result: action.result
+      }
     case QUERY_FAILURE:
-        return {
-            ...state
-        }
+      return {
+        ...state
+      }
     default:
       return state
   }

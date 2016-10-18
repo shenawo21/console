@@ -250,7 +250,8 @@ class ReturnGoods extends Component {
         return columns;
     }
     OnchangeOut(tid,id) {
-        console.log(tid,id,'aaaaa')
+        const {getOut} = this.props
+        getOut(tid,id)
     }
     render() {
         const {formOptions,dataSource,...other,visible,handleOk} = this.props;

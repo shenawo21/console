@@ -7,7 +7,7 @@ export default (config) => ({
     enabled: true,
     options: {
       // koa-proxy options
-      //host: 'http://172.19.5.281:8088/',
+      //host: 'http://172.19.5.148:8088/',
       host: 'http://172.19.6.151:8088/',
       fileServiceUrl: 'http://172.19.6.133:8898/',
       fileProxyFlag: 'file-service',

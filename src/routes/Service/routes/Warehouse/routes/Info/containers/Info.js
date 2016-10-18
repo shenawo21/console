@@ -26,13 +26,13 @@ class Info extends Component {
     componentDidMount() {        
         const {view, viewForcheck, getLogisticsList, params} = this.props;
         //获取详情信息
-        if(params.skuid != 1){
+        if(params.skuid == 1){
+            view({refundId:params.id});               
+        }else{
             viewForcheck({
                 tid: params.id,
                 outerSkuId: params.skuid
-            });            
-        }else{
-            view({refundId:params.id});
+            });
         }
         //获取物流公司列表
         getLogisticsList();   

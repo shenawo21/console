@@ -207,7 +207,7 @@ class Home extends Component {
                 <Col span="4">
                   <Badge count={item.toEndOfSales} overflowCount={99} className={classes.exbadge}
                          style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/history'} className={classes.headExample}
+                    <Link to={'/service/aftersale'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待结束退货
                     </Link>

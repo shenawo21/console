@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import Panel from 'components/Panel'
-import {view, doAgreeRemit, doRefuseRemit} from '../modules/InfoReducer'
+import {view, doAgreeRemit, doRefuseRemit,getAgree} from '../modules/InfoReducer'
 import { message,Modal} from 'hen';
 
 class Info extends Component {
@@ -66,19 +66,30 @@ class Info extends Component {
                */
               
               handleSubmit(value, key) {
-                  const {doAgreeRemit,  doRefuseRemit, params} = _this.props;
+                  const {getAgree,doAgreeRemit,  doRefuseRemit, params,result} = _this.props;
                   if(key === 'review'){
                       if (value.cwRemark) {
                         let submintValue = { refundId: params.id,cwRemark: value.cwRemark}
                         _this.setState({submintValue})
-                        doAgreeRemit(submintValue).then((res) =>{
-                            if (res.status == 2 && res.message == 'VALIDATE_MEESSAGE_NEED') {
-                                _this.refs.theForm.refs.form && _this.refs.theForm.refs.form.resetFields()
-                                _this.setState({visible:true})
-                            }else {
-                                message.error(res.message);
-                            }
-                        });
+                        if (result.afterSaleType == 'REFUND_GOODS') {
+                            getAgree(submintValue).then((res) =>{
+                                if (res.status == 2 && res.message == 'VALIDATE_MEESSAGE_NEED') {
+                                    _this.refs.theForm.refs.form && _this.refs.theForm.refs.form.resetFields()
+                                    _this.setState({visible:true})
+                                }else {
+                                    message.error(res.message);
+                                }
+                            })
+                        } else {
+                            doAgreeRemit(submintValue).then((res) =>{
+                                if (res.status == 2 && res.message == 'VALIDATE_MEESSAGE_NEED') {
+                                    _this.refs.theForm.refs.form && _this.refs.theForm.refs.form.resetFields()
+                                    _this.setState({visible:true})
+                                }else {
+                                    message.error(res.message);
+                                }
+                            })
+                        }
                       } else {
                           message.error('请输入财务退款说明!')
                       }
@@ -162,7 +173,8 @@ Info.propTypes = {
 const mapActionCreators = {
     view, 
     doAgreeRemit, 
-    doRefuseRemit, 
+    doRefuseRemit,
+    getAgree 
 }
 
 Info.contextTypes = {

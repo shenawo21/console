@@ -58,6 +58,12 @@ class Add extends Component {
        * @param value (description)
        */
       handleSubmit(value, key) {
+        let P = '', C = '', D = '';
+        if (value.receiverAddr) {
+          P = value.receiverAddr[0];
+          C = value.receiverAddr[1];
+          D = value.receiverAddr[2]
+        }
         if (selectTable.length > 0) {
           value.dtos = selectTable;
           selectTable.map((s)=> {
@@ -67,6 +73,24 @@ class Add extends Component {
                 content: '购买数量不能为空，请先输入数量并勾选商品！！'
               });
               return false;
+            }else {
+              key == 'commit' ? addItem({
+                title: value.title,
+                buyerNick: value.buyerNick,
+                dtos: value.dtos,
+                invoiceType: value.invoiceType,
+                receiverState: P,
+                receiverCity: C,
+                receiverDistrict: D,
+                receiverAddress: value.receiverAddress,
+                receiverName: value.receiverName,
+                receiverMobile: value.receiverMobile,
+                receiverPhone: value.receiverPhone,
+                receiverZip: value.receiverZip,
+                companyCode: value.companyCode,
+                remark: value.remark
+              }) : ''
+
             }
           })
         } else {
@@ -76,28 +100,7 @@ class Add extends Component {
           });
           return false;
         }
-        let P = '', C = '', D = '';
-        if (value.receiverAddr) {
-          P = value.receiverAddr[0];
-          C = value.receiverAddr[1];
-          D = value.receiverAddr[2]
-        }
-        key == 'commit' ? addItem({
-          title: value.title,
-          buyerNick: value.buyerNick,
-          dtos: value.dtos,
-          invoiceType: value.invoiceType,
-          receiverState: P,
-          receiverCity: C,
-          receiverDistrict: D,
-          receiverAddress: value.receiverAddress,
-          receiverName: value.receiverName,
-          receiverMobile: value.receiverMobile,
-          receiverPhone: value.receiverPhone,
-          receiverZip: value.receiverZip,
-          companyCode: value.companyCode,
-          remark: value.remark
-        }) : ''
+
       },
       /**
        * (筛选表单重置)

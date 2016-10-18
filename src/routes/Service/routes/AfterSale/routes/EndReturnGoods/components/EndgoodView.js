@@ -62,7 +62,7 @@ class GoodsInfo extends Component {
         const src = url && url.split(',')
         const ArryStatus = [
             {name:'申请退款金额:',status:result.refundFee},
-            {name:'退货原因:',status:result.cwRefuseReason},
+            {name:'退货原因:',status:result.reason},
             {name:'退货说明:',status:refundComment.content},
         ]
         const EndbuttonOption = {
@@ -112,10 +112,10 @@ class GoodsInfo extends Component {
                 </ul>
                 <h3 className = 'titleName'>仓库反馈</h3>
                  <ul className = 'form-talbe'>
-                    {checkInfo.buyerPackageCode ? <li><b>退货快递单号:</b><span>{result.buyerPackageCode}</span></li> : '' }
-                    {checkInfo.logisticsCompany ? <li><b>货物结果:</b><span>{result.logisticsCompany}</span></li> : '' }
-                    {checkInfo.remark ? <li><b>仓库验收备注:</b><span>{result.remark}</span></li> : '' }
-                    {checkInfo.checkPics ? <li><b>验货凭证:</b><span>{result.checkPics}</span></li> : '' }
+                    {checkInfo.buyerPackageCode ? <li><b>退货快递单号:</b><span>{checkInfo.buyerPackageCode}</span></li> : '' }
+                    {checkInfo.checkResult ? <li><b>货物结果:</b><span>{checkInfo.checkResult}</span></li> : '' }
+                    {checkInfo.remark ? <li><b>仓库验收备注:</b><span>{checkInfo.remark}</span></li> : '' }
+                    {checkInfo.checkPics ? <li><b>验货凭证:</b><span>{checkInfo.checkPics}</span></li> : '' }
 
                 </ul>
                 { result.processStatus == 'PROCESS' && result.feedbackStatus !== null && (result.refundResult == 'SUCCESS' || result.refundResult == 'DENY') ? 

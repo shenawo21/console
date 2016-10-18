@@ -19,7 +19,8 @@ class offlineRegister extends Component {
         
         this.state = {
             curKey: 0,
-            params: {}   //表格需要的筛选参数
+            activeKey:'1',
+            params: {}   //表 格需要的筛选参数
         }
     }
 
@@ -57,6 +58,11 @@ class offlineRegister extends Component {
                 console.log(value.outTimeTemp,'value.outTime');
                 register({
                     ...value
+                }).then((res) => {
+                    if (res.status == 1) {
+                        
+                    }
+                    console.log(res,'res')
                 })
             },
 
@@ -109,13 +115,15 @@ class offlineRegister extends Component {
             getRecordedList({pageNumber});
         }
         this.setState({
-            curKey : key - 1
+            curKey : key - 1,
+            activeKey:key
         })
         
     }
 
     render() {
-        const {params} = this.state;        
+        const {params,activeKey} = this.state;
+        console.log(activeKey,'activeKey')     
         const {items, getRecordedList, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -133,7 +141,7 @@ class offlineRegister extends Component {
         }
         
         return <Panel title="">
-                    <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
+                    <Tabs defaultActiveKey={activeKey} onChange={this.callback.bind(this)}>
                         <TabPane tab="登记" key="1"><Register formOptions={formOptions} /></TabPane>
                         <TabPane tab="登记记录" key="2"><List formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
                     </Tabs>
