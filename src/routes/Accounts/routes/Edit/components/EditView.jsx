@@ -158,7 +158,7 @@ class Edit extends Component {
             config.initValue.roleIdList = roleIdList
 
         } else {
-            config.formItems.splice(1, 1, {
+            config.formItems.splice(1, 0, {
                 label: "密码：",
                 name: "password",
                 rules: [
