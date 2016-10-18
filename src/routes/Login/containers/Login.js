@@ -21,6 +21,15 @@ export class Login extends Component {
     }
   }
 
+  componentDidMount() {
+    this.uptVcode();
+    // setTimeout(() => {
+    //   alert(1);
+    //   this.uptVcode();
+    // }, 6000)
+    
+  }
+
   getValidateStatus(field) {
     const { isFieldValidating, getFieldError, getFieldValue } = this.props.form;
     if (isFieldValidating(field)) {
@@ -30,7 +39,7 @@ export class Login extends Component {
     } else if (getFieldValue(field)) {
       return 'success';
     }
-  }
+  } 
 
   handleReset(e, form) {
     e.preventDefault();
@@ -45,11 +54,12 @@ export class Login extends Component {
       }
       store.clearAll();
       Cookie.remove(sessionId);
-      this.props.login(values).then((res) => {
-        if(res.message == "验证码错误!"){
-          this.uptVcode()
-        }
-      });
+      this.props.login(values);
+      // .then((res) => {
+      //   if(res.message == "验证码错误!"){
+      //     this.uptVcode()
+      //   }
+      // });
     });
   }
   
