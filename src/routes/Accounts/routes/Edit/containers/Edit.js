@@ -99,6 +99,7 @@ class Edit extends Component {
             }
             if(params.id) { 
                 modifyItem({
+                    admin: true,
                     adminId: params.id,
                     enterpriseCode: enterpriseCode,
                     ...value

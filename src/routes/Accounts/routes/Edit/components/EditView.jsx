@@ -142,20 +142,21 @@ class Edit extends Component {
 
         config.initValue = {}
 
-        if (item) {
-            config.initValue = item;
-
-            const roleIdList = []
-
-            this.state.roleChecked.forEach((cItem) => {
-                roleList.forEach((item) => {
-                    if (item.label == cItem) {
-                        roleIdList.push(item.value)
-                    }
-                })
+        const roleIdList = []
+        this.state.roleChecked.forEach((cItem) => {
+            roleList.forEach((item) => {
+                if (item.label == cItem) {
+                    roleIdList.push(item.value)
+                }
             })
+        })
 
+        config.initValue.roleIdList = roleIdList
+        if (item) {
+            config.initValue = item; 
+            
             config.initValue.roleIdList = roleIdList
+
         } else {
             config.formItems.splice(1, 1, {
                 label: "密码：",

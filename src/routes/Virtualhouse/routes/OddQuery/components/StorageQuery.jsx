@@ -18,7 +18,7 @@ class StorageQuery extends Component {
 
     // shouldComponentUpdate(nextProps, nextState){
     //     return nextProps.params === this.props.params
-    // }
+    // } 
 
     _getFormItems(){
     	let context = this;
@@ -167,12 +167,10 @@ class StorageQuery extends Component {
         
         return columns;
     }    
-    
-    
+       
 
     render() {
         const {formOptions, tableOptions, ...other} = this.props;
-        
         
         return (
             <div>

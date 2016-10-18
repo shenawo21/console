@@ -11,7 +11,6 @@ const TabPane = Tabs.TabPane;
 
 const TYPES = [{recordType : '总仓出库'},{recordType : '总仓入库'}];
 
-
 class OddQuery extends Component {
   
     constructor(props) {
