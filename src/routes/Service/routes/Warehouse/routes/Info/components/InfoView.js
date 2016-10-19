@@ -39,7 +39,7 @@ class InfoView extends Component {
         }, {
             key: '2',
             title: '退货数量',
-            dataIndex: 'num'
+            dataIndex: 'tGoodsNum'
         }, {
             key: '3',
             title: '实际数量',
@@ -183,9 +183,7 @@ class InfoView extends Component {
                     config.initValue[i] = item.companyName;
                     } else if(i == 'buyerPackageCode') {
                         config.initValue[i] = item.sid;
-                    } else {
-                        config.initValue = item
-                    } 
+                    }
                 }
                       
             }

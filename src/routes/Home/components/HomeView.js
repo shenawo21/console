@@ -216,7 +216,7 @@ class Home extends Component {
                 <Col span="5">
                   <Badge count={item.toFinancialRefund} overflowCount={99} className={classes.exbadge}
                          style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/history'} className={classes.headExample}
+                    <Link to={'/service/aftersale'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待通知财务退款
                     </Link>

@@ -124,7 +124,7 @@ class InfoView extends Component {
         const src = url && url.split(',')
         const ArryStatus = [
             {name:'订单状态:', status:Goodsstatus},
-            {name:'退款说明:', status:result.reason || ''}
+            {name:'退款说明:', status:result.description || ''}
         ]
         /**
          * 多个按钮配置如下：
