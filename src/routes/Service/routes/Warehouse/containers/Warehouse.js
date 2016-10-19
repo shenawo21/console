@@ -32,7 +32,6 @@ class Warehouse extends Component {
 	    //获取平台列表
         getPlatList();
     }
-    
       /**
        * (表格功能配置项)
        * 
@@ -103,6 +102,7 @@ class Warehouse extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
+            key: curKey==1 ? 1 : 2
             //rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
