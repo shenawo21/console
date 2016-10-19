@@ -70,7 +70,7 @@ class Synch extends Component {
       title: '同步结果',
       dataIndex: 'isSuccess',
       render(value){
-        return value ? <span style={{color:'#0C3'}}>成功</span> : <span style={{color:'F00'}}>失败</span>
+        return <span style={{color:value?'#0C3':'#F00'}}>{ISSUCC[value]}</span>
       }
     }, {
       key: '5',

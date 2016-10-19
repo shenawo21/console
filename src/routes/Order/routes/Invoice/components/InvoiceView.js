@@ -91,7 +91,7 @@ class Invoice extends Component {
           return false;
         } else {
           isGive(row);
-          context.refs && context.refs.dt.refresh();
+          //context.refs && context.refs.dt.refresh();
         }
       },
       onCancel() {
