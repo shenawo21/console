@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="266ee631-699b-479b-a826-b9a60ae20e03" name="Default" comment="BUG修复">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_base.js" afterPath="$PROJECT_DIR$/config/_base.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/_development.js" afterPath="$PROJECT_DIR$/config/_development.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/components/InvoiceView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Invoice/containers/Invoice.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js" afterPath="$PROJECT_DIR$/src/routes/Order/routes/Synch/components/SynchView.js" />
     </list>
     <ignored path="console.iws" />
@@ -920,7 +918,7 @@
       <workItem from="1476674278720" duration="6529000" />
       <workItem from="1476770918963" duration="1552000" />
       <workItem from="1476776438040" duration="4383000" />
-      <workItem from="1476839206737" duration="4913000" />
+      <workItem from="1476839206737" duration="5059000" />
     </task>
     <task id="LOCAL-00001" summary="格式化">
       <created>1463391903214</created>
@@ -1108,7 +1106,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="671501000" />
+    <option name="totallyTimeSpent" value="671647000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1612" height="877" extended-state="0" />
