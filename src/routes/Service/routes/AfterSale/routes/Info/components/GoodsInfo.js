@@ -13,25 +13,31 @@ class GoodsInfo extends Component {
             sellerName:'',
             sellerPost:'',
             sellerPhone:'',
-            fullAddress:''
+            fullAddress:'',
+            photoList : []
         }
     }     
     _getFormItems(){
         let context = this;
-        const {isDel,addressList,items,result} = context.props;
+        const {isDel,addressList,items,result,photoList, photoImg} = context.props;
+        let upConfig = {
+            listType: 'picture',
+            showUploadList: true,
+            onlyFile: true
+        }
         let config = {
             formItems: [{
                 label: "商品价值承担：",
                 name: "valueBearType",
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请选择商品价值承担'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                // rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请选择商品价值承担'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
                 radio: {
                         radioValue: [
                             { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
@@ -43,15 +49,15 @@ class GoodsInfo extends Component {
             },{
                 label: "邮费承担：",
                 name: "postBearType",
-                 rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请选择邮费承担'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                //  rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请选择邮费承担'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
                 radio: {
                         radioValue: [
                             { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
@@ -63,15 +69,15 @@ class GoodsInfo extends Component {
             },{
                 label: "退货地址：",
                 name: "shortName",
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请选择退货地址'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                // rules: [{
+                //     validator(rule, value, callback) {
+                //         if (!value) {
+                //             callback(new Error('请选择退货地址'));
+                //         } else {
+                //             callback();
+                //         }
+                //     }
+                // }],
                 select: {
                     placeholder:'请选择退货地址',
                     optionValue: addressList,
@@ -90,15 +96,6 @@ class GoodsInfo extends Component {
             },{
                 label: "卖家姓名：",
                 name: "sellerName",
-                // rules: [{
-                //     validator(rule, value, callback) {
-                //         if (!value) {
-                //             callback(new Error('请输入卖家姓名'));
-                //         } else {
-                //             callback();
-                //         }
-                //     }
-                // }],
                 input: {
                     disabled: true,
                     value:context.state.sellerName || result.sellerName
@@ -106,15 +103,6 @@ class GoodsInfo extends Component {
             },,{
                 label: "详细地址：",
                 name: "fullAddress",
-                // rules: [{
-                //     validator(rule, value, callback) {
-                //         if (!value) {
-                //             callback(new Error('请输入详细地址'));
-                //         } else {
-                //             callback();
-                //         }
-                //     }
-                // }],
                 input: {
                     disabled: true,
                     value:context.state.fullAddress || result.fullAddress
@@ -135,15 +123,6 @@ class GoodsInfo extends Component {
             },{
                 label: "手机号：",
                 name: "sellerPhone",
-                // rules: [{
-                //     validator(rule, value, callback) {
-                //         if (!value) {
-                //             callback(new Error('请输入手机号'));
-                //         } else {
-                //             callback();
-                //         }
-                //     }
-                // }],
                 input: {
                     disabled: true,
                     value:context.state.sellerPhone || result.sellerPhone
@@ -151,6 +130,16 @@ class GoodsInfo extends Component {
             },{
                 label: "卖家留言：",
                 name: "sellerRemark",
+                required: true,
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (!value) {
+                            callback(new Error('请输入卖家留言！'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 input: {
                     rows: '5',
                     type: "textarea",
@@ -170,7 +159,20 @@ class GoodsInfo extends Component {
             }
         }
         if (isDel == true) {
-             config.formItems.splice(1, 7);
+            const obj = {
+                label: "拒绝退货凭证：",
+                name: "cwRefuseProof",
+                required: true,
+                custom(getCustomFieldProps) {
+                    upConfig.fileList = photoList;
+                    return <UploadImage title="拒绝退货凭证" className='upload-list-inline upload-fixed'
+                            upConfig={{...upConfig, onChangeFileList:photoImg}}
+                            {...getCustomFieldProps('cwRefuseProof')} /> 
+                    
+                }
+             }
+            //  config.formItems.splice(0, 9)
+             config.formItems.push(obj) 
         }
         return config;
     }
