@@ -207,7 +207,7 @@ class InfoView extends Component {
                 },
                 {
                     key : 'reset',   //重置时，key为reset
-                    name : '重置'
+                    name : '重置',
                 },
                 {
                     key : 'back',   
@@ -231,7 +231,7 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
+                <Form submitAfterReset horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
                       onRest={formOptions.handleReset} buttonOption={ params.skuid == 1? buttonBack:buttonOption } />
             </div>
         )

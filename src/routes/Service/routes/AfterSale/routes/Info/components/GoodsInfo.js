@@ -18,7 +18,7 @@ class GoodsInfo extends Component {
     }     
     _getFormItems(){
         let context = this;
-        const {isDel,addressList,items} = context.props;
+        const {isDel,addressList,items,result} = context.props;
         let config = {
             formItems: [{
                 label: "商品价值承担：",
@@ -101,7 +101,7 @@ class GoodsInfo extends Component {
                 // }],
                 input: {
                     disabled: true,
-                    value:context.state.sellerName || ''
+                    value:context.state.sellerName || result.sellerName
                 }
             },,{
                 label: "详细地址：",
@@ -117,14 +117,14 @@ class GoodsInfo extends Component {
                 // }],
                 input: {
                     disabled: true,
-                    value:context.state.fullAddress || ''
+                    value:context.state.fullAddress || result.fullAddress
                 }
             },{
                 label: "邮编：",
                 name: "sellerPost",
                 input: {
                     disabled: true,
-                     value:context.state.sellerPost || ''
+                     value:context.state.sellerPost || result.sellerPost
                 }
             },{
                 label: "座机号：",
@@ -146,7 +146,7 @@ class GoodsInfo extends Component {
                 // }],
                 input: {
                     disabled: true,
-                    value:context.state.sellerPhone || ''
+                    value:context.state.sellerPhone || result.sellerPhone
                 }
             },{
                 label: "卖家留言：",
@@ -181,9 +181,9 @@ class GoodsInfo extends Component {
         const url = refundComment.picUrls
         const src = url && url.split(',')
         const ArryStatus = [
-            {name:'申请退款金额:',status:result.totalFee},
-            {name:'退货原因:',status:result.cwRefuseReason},
-            {name:'退货说明:',status:refundComment.content},
+            {name:'申请退款金额:',status:result.totalFee || ''},
+            {name:'退款原因:',status:result.reason || ''},
+            {name:'退货说明:',status:refundComment.content || ''},
         ]
         const buttonOption = {
             buttons : [
