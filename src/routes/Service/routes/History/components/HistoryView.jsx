@@ -161,7 +161,9 @@ class History extends Component {
                     case 'SUCCESS':
                         return '处理成功'
                     case 'FAIL':
-                        return '处理失败'    
+                        return '处理失败'
+                    case 'DENY':
+                        return '拒绝'        
                 }
             }
         },{
@@ -169,19 +171,17 @@ class History extends Component {
             title: '仓库反馈',
             dataIndex: 'feedbackStatus',
             render(type) {
-                // switch(type) {
-                //     case 'REFUND_MONEY':
-                //         return '退款'
-                //     case 'REFUND_GOODS':
-                //         return '退货'
-                //     case 'CHANGE_GOODS':
-                //         return '换货'
-                // }
+                switch(type) {
+                    case 'ACCEPT':
+                        return '允许入库'
+                    case 'DENY':
+                        return '拒绝入库'
+                }
             }
         },{
             key: '11',
             title: '仓库反馈时间',
-            dataIndex: 'refundFee'
+            dataIndex: 'feedbackTime'
         }, {
             key: '12',
             title: '操作',
