@@ -28,7 +28,10 @@ class InfoView extends Component {
             photoList : []
         }
     }
-        
+    showBigPhoto (item) {
+        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        showBigPic({imgSrc:src})
+    }  
     _getFormItems(){
         let context = this;
         const {isRequired, photoList, photoImg,result} = context.props;
@@ -69,7 +72,7 @@ class InfoView extends Component {
                         const src = url && url.split(',')
                          {
                             return src && src.map((item, index)=>{
-                                return <Image src={item} width='80' style={{marginRight:10}} onClick={this.showBigPhoto.bind(this,item)} />
+                                return <Image src={item} width='80' style={{marginRight:10}} onClick={context.showBigPhoto.bind(context,item)} />
                             })
                         }
                      } else {
@@ -125,10 +128,6 @@ class InfoView extends Component {
 
         return config;
         
-    }
-    showBigPhoto (item) {
-        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
-        showBigPic({imgSrc:src})
     }
     showBig (item) {
         showBigPic({imgSrc:item})
