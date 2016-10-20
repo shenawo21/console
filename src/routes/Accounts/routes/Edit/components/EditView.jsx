@@ -70,6 +70,8 @@ class Edit extends Component {
                     placeholder: "请输入帐号",
                 }
             }, {
+                className: 'noItem'
+            }, {
                 label: "用户姓名：",
                 name: "name",
                 required: true,
@@ -158,7 +160,7 @@ class Edit extends Component {
             config.initValue.roleIdList = roleIdList
 
         } else {
-            config.formItems.splice(1, 0, {
+            config.formItems.splice(1, 1, {
                 label: "密码：",
                 name: "password",
                 rules: [
