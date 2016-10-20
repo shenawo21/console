@@ -4,6 +4,7 @@ import Form from 'components/Form';
 import { Button,Modal } from 'hen';
 import DataTable from 'components/DataTable'
 import Image from 'components/Image'
+import showBigPic from 'components/BigPic'
 import {UploadImage} from 'components/FileLoader'
 import RefundView from '../../RefundView';
 const RESON = [
@@ -59,7 +60,7 @@ class InfoView extends Component {
                         const src = url && url.split(',')
                          {
                             return src && src.map((item, index)=>{
-                                return <Image src={item} width='80' style={{marginRight:10}} />
+                                return <Image src={item} width='80' style={{marginRight:10}} onClick={this.showBigPhoto.bind(this,item)} />
                             })
                         }
                      } else {
@@ -116,6 +117,16 @@ class InfoView extends Component {
         return config;
         
     }
+    showBigPhoto (item) {
+        console.log(item,'item')
+        
+        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        console.log(src,'src===')
+        showBigPic({imgSrc:src})
+    }
+    showBig (item) {
+        showBigPic({imgSrc:item})
+    }
     render() {
         let {formOptions, result, isRequired,visible,handleOk} = this.props;
 	    const refundComment = result && result.refundComment ? result.refundComment : {}
@@ -166,7 +177,7 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <RefundView title='客户退款申请' result={result} ArryStatus={ArryStatus} src={src} />
+                <RefundView title='客户退款申请' result={result} ArryStatus={ArryStatus} src={src} showBig = {this.showBig.bind(this)} />
 
                 <h3 className = 'titleName'>退款审批</h3>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}

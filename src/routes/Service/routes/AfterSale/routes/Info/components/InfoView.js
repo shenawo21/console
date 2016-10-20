@@ -4,6 +4,7 @@ import Form from 'components/Form';
 import { Button } from 'hen';
 import DataTable from 'components/DataTable'
 import Image from 'components/Image';
+import showBigPic from 'components/BigPic'
 import {UploadImage} from 'components/FileLoader'
 import RefundView from 'routes/Service/routes/RefundView';
 const RESON = [
@@ -71,7 +72,10 @@ class InfoView extends Component {
 
         return config;
     }
-    
+    showBigPhoto (item) {
+        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        showBigPic({imgSrc:src})
+    }
     render() {
         const {result, handleSubmit} = this.props;
         const refundComment = result.refundComment || {}
@@ -117,7 +121,7 @@ class InfoView extends Component {
                     {returnSrc ? <li><b>发货凭证:</b><span>
                       {
                         returnSrc && returnSrc.map((item, index)=>{
-                            return  <Image src={item} width= '80' style={{marginRight:10}} /> 
+                            return  <Image src={item} width= '80' style={{marginRight:10}} onClick={this.showBigPhoto.bind(this,item)} /> 
                          })
                      }
                     </span></li> : '' }

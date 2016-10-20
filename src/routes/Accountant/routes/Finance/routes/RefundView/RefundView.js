@@ -1,9 +1,10 @@
 import React from 'react'
 import './RefundView.less'
+import showBigPic from 'components/BigPic'
 // import Image from 'components/Image';
 
-export default (props) => {
-    console.log(props,'props');
+export default (props) => {  
+  const showBig = props.showBig   
   const result = props.result
   const ArryStatus = props.ArryStatus
   const src = props.src
@@ -55,11 +56,11 @@ export default (props) => {
                         return <li><b>{item.name}</b><span>{item.status}</span></li>
                         })
                     }
-                    <li><b>凭证：</b>
+                    <li><b>凭证：</b> 
                     <span>
                         {
-                            src && src.map((item, index)=>{
-                            return <img src={item} width= '80' style={{marginRight:10}} />
+                            src && src.map((item, index)=>{                                
+                            return <img src={item} width= '80' style={{marginRight:10}}  onClick={(e) => {showBig(e.target.currentSrc)}}  />
                             })
                         }
                     </span></li>
