@@ -339,7 +339,6 @@ class CreateProduct extends Component {
             totalStock = 0
             salePrice = 0.01
         }
-        console.log(rowList,'=====')
         this.setState({
             specList,
             specDataList : curSpec,

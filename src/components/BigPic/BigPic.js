@@ -27,12 +27,12 @@ class BigPic extends Component {
             show: classes.show,
             hide: classes.hide
         }, {imgSrc} = this.props
-       
+
         return <div className={isShow[this.state.isShow]}>
                    <div className={classes.grayBg}></div>
                     <div className={classes.bigPicBox}>
                         <img className={classes.close} src={close} onClick={this.close.bind(this)}/>
-                        <div class={classes.bigPicCon}>
+                        <div className={classes.bigPicCon}>
                             <img className={classes.bigPic} src={imgSrc}/>
                         </div>
                     </div>                           
