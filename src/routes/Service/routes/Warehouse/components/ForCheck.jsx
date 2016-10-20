@@ -120,7 +120,7 @@ class ForCheck extends Component {
       dataIndex: 'num'
     }, {
       key: '4',
-      title: '退货数量',
+      title: '退 / 换货数量',
       dataIndex: 'tGoodsNum'
     }, {
       key: '5',
@@ -129,8 +129,8 @@ class ForCheck extends Component {
       render(id, row, record) {
         return (
           <span>
-                        <Link to={`/service/warehouse/info/${id}/${row.outerSkuId}`}>验收商品</Link>
-                    </span>
+              <Link to={`/service/warehouse/info/${id}/${row.outerSkuId}`}>验收商品</Link>
+          </span>
         );
       }
     }];
@@ -152,9 +152,10 @@ class ForCheck extends Component {
       val.refundApplyList && val.refundApplyList.forEach((val, index) => {
         val.key = index;
         val.id = val.tid;
+        val.afterSaleType = val.afterSaleType;
       })
     })
-
+    console.log(dataSource,'val.refundApplyList');
     return (
       <div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
