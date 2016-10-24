@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable'
 import Image from 'components/Image'
+import showBigPic from 'components/BigPic'
 import {Input, Select,InputNumber} from 'hen'
 import {UploadImage} from 'components/FileLoader'
 
@@ -23,6 +24,11 @@ class InfoView extends Component {
             photoList : []
         }
     }
+    showBigPhoto (item) {
+        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        showBigPic({imgSrc:src})
+    }
+
         
     _getColumns(){
         const context = this;
@@ -154,7 +160,7 @@ class InfoView extends Component {
                         const src = url && url.split(',')
                          {
                             return src && src.map((item, index)=>{
-                                return <Image src={item} width='80' style={{marginRight:10}} />
+                                return <Image src={item} width='80' style={{marginRight:10}} onClick={context.showBigPhoto.bind(context,item)} />
                             })
                         }
                     } else {

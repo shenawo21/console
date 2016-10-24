@@ -4,6 +4,7 @@ import Form from 'components/Form';
 import { Button } from 'hen';
 import DataTable from 'components/DataTable'
 import {UploadImage} from 'components/FileLoader'
+import showBigPic from 'components/BigPic'
 import RefundView from 'routes/Service/routes/RefundView';
 
 class GoodsInfo extends Component {
@@ -176,7 +177,9 @@ class GoodsInfo extends Component {
         }
         return config;
     }
-    
+    showBig (item) {
+        showBigPic({imgSrc:item})
+    }
     render() {
         const {result, items, handleGoodSubmit} = this.props;
         const refundComment = result.refundComment || {}
@@ -209,7 +212,7 @@ class GoodsInfo extends Component {
         }
         return (
             <div>
-                <RefundView title = '客户退货申请详情' result = {result} ArryStatus = {ArryStatus} src = {src} />
+                <RefundView title = '客户退货申请详情' result = {result} ArryStatus = {ArryStatus} src = {src} showBig = {this.showBig.bind(this)} />
 
                 <h3 className = 'titleName'>退货申请处理</h3>
                 { (result.processStatus == 'PROCESS' || result.processStatus == 'DENY') ? 

@@ -4,6 +4,7 @@ import Form from 'components/Form';
 import { Button } from 'hen';
 import DataTable from 'components/DataTable'
 import {UploadImage} from 'components/FileLoader'
+import showBigPic from 'components/BigPic'
 import Image from 'components/Image'
 import RefundView from 'routes/Service/routes/RefundView';
 
@@ -27,6 +28,15 @@ class GoodsInfo extends Component {
         }
         return config;
     }
+
+    showBigPhoto (item) {
+        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        showBigPic({imgSrc:src})
+    }
+    showBig (item) {
+        showBigPic({imgSrc:item})
+    }
+
     render() {
         const {result, items, handleSubmit} = this.props;
         // 买家退款申请留言和凭证
@@ -60,7 +70,7 @@ class GoodsInfo extends Component {
         } 
         return (
             <div>
-                <RefundView title = '结束商品换货' result = {result} ArryStatus = {ArryStatus} src = {src} />
+                <RefundView title = '结束商品换货' result = {result} ArryStatus = {ArryStatus} src = {src} showBig = {this.showBig.bind(this)}  />
                 <h3 className = 'titleName'>换货申请处理</h3>
                 <ul className = 'form-talbe'>
                     {result.valueBearType ? <li><b>商品价值承担:</b><span>{result.valueBearType}</span></li> : '' }
@@ -79,7 +89,7 @@ class GoodsInfo extends Component {
                     {returnSrc ? <li><b>验货凭证:</b><span>
                       {
                         returnSrc && returnSrc.map((item, index)=>{
-                            return  <Image src={item} width= '80' style={{marginRight:10}} /> 
+                            return  <Image src={item} width= '80' style={{marginRight:10}} onClick={this.showBigPhoto.bind(this,item)} /> 
                          })
                      }
                     </span></li> : '' }
