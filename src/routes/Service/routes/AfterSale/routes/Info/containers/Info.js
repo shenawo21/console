@@ -43,6 +43,7 @@ class Info extends Component {
          }
         Object.assign(value,params,{afterSaleType:'REFUND_MONEY'})
         if(key === 'review'){
+            delete value.cwRefuseProof
             if(!value.optRemark) {
                 message.error('请填写退款审批说明!')
             } else {
@@ -59,13 +60,13 @@ class Info extends Component {
         } else if(key === 'refuse'){
             _this.setState({isRequired:true})
             Object.assign(value,{processStatus:'DENY'})
-            if(!value.cwRefuseReason) {
+            if (!value.cwRefuseProof) {
+                message.error('请上传发货凭证!')
+            } else if(!value.cwRefuseReason) {
                 message.error('请选择拒绝退款原因!')
             } else if (!value.optRemark) {
                 message.error('请输入退款审批说明!')
-            } else if (!value.cwRefuseProof) {
-                message.error('请上传发货凭证!')
-            } else {
+            } else  {
                 verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
