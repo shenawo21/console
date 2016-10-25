@@ -177,7 +177,6 @@ class GoodsInfo extends Component {
                     
                 }
              }
-            //  config.formItems.splice(0, 9)
              config.formItems.push(obj) 
         }
         return config;
