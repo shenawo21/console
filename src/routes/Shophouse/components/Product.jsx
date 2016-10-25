@@ -65,7 +65,11 @@ class product extends Component {
         }, {
             key: '8',
             title: '待同步库存',
-            dataIndex: 'incoming'
+            dataIndex: 'incoming',
+            render(val,row) {
+                let fallback = row.fallback ? row.fallback : 0
+                return val - fallback
+            }
         }, {
             key: '9',
             title: '状态',

@@ -27,12 +27,15 @@ class Info extends Component {
     }
     
     componentDidMount() {  
-        const {refundDetail,addressList,params} = this.props;
+        const {refundDetail,addressList,params,result} = this.props;
         //获取详情信息
-        refundDetail(params);
-        
-        // 获取地址列表
-        addressList()
+        refundDetail(params).then((res) => {
+            if (res && res.data) {
+                let shopid = res.data.shop ? res.data.shop.shopId : ''
+                // 获取地址列表
+                addressList({shopId:shopid}) 
+            }
+        });
     }
     // 退款详情处理
     handleSubmit(value, key) {
@@ -134,11 +137,11 @@ class Info extends Component {
     render() {
         const { photoList} = this.state;
         const {isRequired,isDel} = this.state        
-        const {result, loading,items} = this.props;
+        const {result, loading,addressLlist} = this.props;
         /*** 地址列表*/
         let addressList = [];
-        if (items) {
-            addressList = items.map(c=> {
+        if (addressLlist) {
+            addressList = addressLlist.map(c=> {
             return {
                 value: c.id,
                 title: c.shortName
@@ -150,10 +153,14 @@ class Info extends Component {
                 title: '正在加载中...'
             }]
         }
+        let defaultAddress = addressLlist && addressLlist.filter((item) => {
+
+           return item.defaults == true
+        })
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
                        <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} photoImg = {this.photoImg} photoList = {photoList}></InfoView></Panel> :
-                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} items = {items} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form' photoImg = {this.photoImg} photoList = {photoList}></GoodsInfo></Panel> }  
+                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} addressLlist = {addressLlist}  defaultAddress = {defaultAddress} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form' photoImg = {this.photoImg} photoList = {photoList}></GoodsInfo></Panel> }  
               </div>                    
                 
     }
@@ -181,8 +188,8 @@ InfoView.contextTypes = {
 
 const mapStateToProps = (state) => {
     const {result,addressLlist,loading} = state.moneyinfo;
-    const {items} = addressLlist || []  
-    return { result, loading ,items};    
+    // const {items} = addressLlist || []  
+    return { result, loading ,addressLlist};    
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Info)

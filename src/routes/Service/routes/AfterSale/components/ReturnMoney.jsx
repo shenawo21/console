@@ -5,9 +5,9 @@ import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm, DatePicker,Table} from 'hen';
 
 class ReturnMoney extends Component {
-    endReturn(id){
+    endReturn(id,refresh){
       const {confirm} = this.props;
-      confirm(id);
+      confirm(id, this.refs.theTable.refresh);
     }
 
     _getFormItems(){
@@ -208,7 +208,7 @@ class ReturnMoney extends Component {
 
                <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
                            expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
-                           dataSource={dataSource} {...other}  />
+                           dataSource={dataSource} {...other} ref = 'theTable'  />
 
             </div>
         )

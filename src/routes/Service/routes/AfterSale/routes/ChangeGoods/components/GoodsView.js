@@ -232,18 +232,23 @@ class InfoView extends Component {
     onChange(value) {
         const {arrResult} = this.props
         let {selectItem} = this.state
+        const _this = this
         if (selectItem && value) {
             if (Number(selectItem.stock) < Number(value)) {
                  message.error('库存不足，请重新输入！')
-            } else {
+            } else if(arrResult[0].num < Number(value)) {
+                //  this.refs.theTable.refresh()
+                 message.error('换货数量大于退货数量，请重新输入！')
+             } else {
                 this.setState({numValue:value})
                 // if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
                 //     message.error('换后商品总价值大于原来商品总价值，请重新选择！')
                 // } else {  
                 // } 
             }
-        } else if (!selectItem ) {
+        } else if (!selectItem) {
             if(arrResult[0].num < Number(value)) {
+                //  _this.refs.theTable.refresh
                  message.error('换货数量大于退货数量，请重新输入！')
              } else {
                  this.setState({numValue:value})
@@ -296,7 +301,6 @@ class InfoView extends Component {
     }
     render() {
         const {arrResult,tableOptions,handleSubmit,tableFormOptions} = this.props;
-        console.log(arrResult[0].oid,'-')
         let { selectItem } = this.state;
         const _this = this
         const buttonOption = {

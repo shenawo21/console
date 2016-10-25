@@ -32,10 +32,10 @@ export function verify(params) {
         promise: (client) => client.post('api-offSale.doVerify',params)
     }
 }
-export function addressList() {
+export function addressList(params) {
     return {
         types: [REQ_ADDRESS, SUC_ADDRESS, ERR_ADDRESS],
-        promise: (client) => client.post('api-refundAddress.refundAddressList')
+        promise: (client) => client.post('api-refundAddress.getEnterpriseRefundList',params)
     }
 }
 export function getMoney(params) {
