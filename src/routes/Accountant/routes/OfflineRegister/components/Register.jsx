@@ -91,11 +91,10 @@ class ForCheck extends Component {
     }
     render() {
         const {formOptions} = this.props;
-
         return (
             <div>
                 <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
-                    onRest={formOptions.handleReset} />
+                    onRest={formOptions.handleReset} ref='fr' />
             </div>
         )
     }

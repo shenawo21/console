@@ -34,7 +34,7 @@ class offlineRegister extends Component {
     }
 
     componentDidMount() {
-	
+        
     }
     
     
@@ -52,17 +52,20 @@ class offlineRegister extends Component {
              * @param value (description)
              */
             handleSubmit(value) {
-                const { register } = context.props;
+                const { register, getRecordedList } = context.props;
                 //getTimeStamp
                 value.outTimeTemp = value.outTimeTemp && getTimeStamp(value.outTimeTemp);
-                console.log(value.outTimeTemp,'value.outTime');
                 register({
                     ...value
                 }).then((res) => {
                     if (res.status == 1) {
-                        
+                        setTimeout(() => {
+                            context.setState({
+                                activeKey: '2'
+                            })
+                            getRecordedList();
+                        }, 1000)
                     }
-                    console.log(res,'res')
                 })
             },
 
@@ -85,7 +88,6 @@ class offlineRegister extends Component {
              * (表单重置)
              */
             handleReset() {
-
             }
         }
     }
@@ -110,20 +112,23 @@ class offlineRegister extends Component {
     callback(key) {
         const { getRecordedList, location } = this.props;
         const {query} = location;
+        //console.log(this.refs.fr,'_this.refs');
         let pageNumber = query.p ? Number(query.p) : 1;
         if(key == 2) { 
             getRecordedList({pageNumber});
+        } else {
+            this.refs.register.refs.fr.resetFields();
         }
+
         this.setState({
             curKey : key - 1,
-            activeKey:key
+            activeKey: key
         })
         
     }
 
     render() {
-        const {params,activeKey} = this.state;
-        console.log(activeKey,'activeKey')     
+        const {params,activeKey} = this.state;  
         const {items, getRecordedList, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
@@ -141,8 +146,8 @@ class offlineRegister extends Component {
         }
         
         return <Panel title="">
-                    <Tabs defaultActiveKey={activeKey} onChange={this.callback.bind(this)}>
-                        <TabPane tab="登记" key="1"><Register formOptions={formOptions} /></TabPane>
+                    <Tabs activeKey={this.state.activeKey} onChange={this.callback.bind(this)}>
+                        <TabPane tab="登记" key="1"><Register formOptions={formOptions} ref='register' /></TabPane>
                         <TabPane tab="登记记录" key="2"><List formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
                     </Tabs>
                 </Panel>

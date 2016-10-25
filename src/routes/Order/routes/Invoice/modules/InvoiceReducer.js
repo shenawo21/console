@@ -3,6 +3,11 @@ const QUERY = 'invoice/QUERY';
 const QUERY_SUCCESS = 'invoice/QUERY_SUCCESS';
 const QUERY_FAILURE = 'invoice/QUERY_FAILURE';
 
+//已打单发货列表
+const FORQUERY = 'invoice/FORQUERY';
+const FORQUERY_SUCCESS = 'invoice/FORQUERY_SUCCESS';
+const FORQUERY_FAILURE = 'invoice/FORQUERY_FAILURE';
+
 //发货
 const DELETE = 'invoice/DELETE';
 const DELETE_SUCCESS = 'invoice/DELETE_SUCCESS';
@@ -24,6 +29,19 @@ export function queryList(params) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
     promise: (client) => client.post('api-tradesInfo.selectWaitSendGoods', params, {hasMsg: true})
+  }
+}
+/**
+ * 已打单发货列表
+ * api-tradesInfo.sendGoods
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function forQuery(params) {
+  return {
+    types: [FORQUERY, FORQUERY_SUCCESS, FORQUERY_FAILURE],
+    promise: (client) => client.post('api-tradesInfo.selectSendGoods', params,{hasMsg: true})
   }
 }
 /**
@@ -58,6 +76,7 @@ export default function reducer(state = {result: {}}, action) {
   switch (action.type) {
     case DELETE:
     case QUERY:
+    case FORQUERY:
     case APPQUERY:
       return {
         ...state
@@ -79,6 +98,16 @@ export default function reducer(state = {result: {}}, action) {
         dResult:null
       }
     case QUERY_FAILURE:
+      return {
+        ...state
+      }
+    case FORQUERY_SUCCESS:
+      return {
+        ...state,
+        result: action.result,
+        dResult:null
+      }
+    case FORQUERY_FAILURE:
       return {
         ...state
       }

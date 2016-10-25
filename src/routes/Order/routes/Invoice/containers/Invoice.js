@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import InvoiceView from '../components/InvoiceView'
 import Panel from 'components/Panel'
-import {queryList, deleteItem, appList} from '../modules/InvoiceReducer'
+import {queryList, forQuery, deleteItem, appList} from '../modules/InvoiceReducer'
 import {getTimeStamp} from 'common/utils';
 import {Modal,message} from 'hen';
 class Invoice extends Component {
@@ -195,22 +195,20 @@ class Invoice extends Component {
   }
 }
 
-
 Invoice.propTypes = {
-
   queryList: React.PropTypes.func,
+  forQuery: React.PropTypes.func,
   items: React.PropTypes.array.isRequired,
   totalItems: React.PropTypes.number.isRequired,
-
   loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
   queryList,
+  forQuery,
   deleteItem,
   appList
 }
-
 
 const mapStateToProps = (state) => {
   const {result, loading, appResult, dResult, isRefresh} = state.invoice;

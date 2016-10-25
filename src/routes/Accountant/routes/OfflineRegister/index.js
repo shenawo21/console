@@ -1,6 +1,6 @@
  export default (store) => ({
   breadcrumbName: "线下登记",
-  path: 'offlineRegister(/:activeKey)',
+  path: 'offlineRegister',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and
