@@ -20,7 +20,9 @@ class GoodsInfo extends Component {
     }     
     _getFormItems(){
         let context = this;
-        const {isDel,addressList,items,result,photoList, photoImg} = context.props;
+        const {isDel,addressList,addressLlist,result,photoList, photoImg,defaultAddress} = context.props;
+        let addressObj = defaultAddress && defaultAddress[0]
+        let detailAddress = addressObj && (addressObj.receiverState + addressObj.receiverCity + addressObj.receiverDistrict + addressObj.receiverAddress)
         let name = result && result.shop ? result.shop.name : ''
         let upConfig = {
             listType: 'picture',
@@ -86,14 +88,14 @@ class GoodsInfo extends Component {
                     placeholder:'请选择退货地址',
                     optionValue: addressList,
                     onSelect(value, option) { 
-                        let curItem = items && items.filter(function (item, index) {
+                        let curItem = addressLlist && addressLlist.filter(function (item, index) {
                             return item.id == value
                         })
                         context.setState({
                             sellerName:curItem[0].name,
                             sellerPost:curItem[0].postCode ? curItem[0].postCode : '',
                             sellerPhone:curItem[0].phone,
-                            fullAddress:curItem[0].receiverState + curItem[0].receiverCity + curItem[0].receiverDistrict ,
+                            fullAddress:curItem[0].receiverState + curItem[0].receiverCity + curItem[0].receiverDistrict + curItem[0].receiverAddress,
                         })
                     }
                 }
@@ -102,21 +104,21 @@ class GoodsInfo extends Component {
                 name: "sellerName",
                 input: {
                     disabled: true,
-                    value:context.state.sellerName || result.sellerName
+                    value:context.state.sellerName || addressObj && addressObj.name
                 }
             },,{
                 label: "详细地址：",
                 name: "fullAddress",
                 input: {
                     disabled: true,
-                    value:context.state.fullAddress || result.fullAddress
+                    value:context.state.fullAddress || detailAddress 
                 }
             },{
                 label: "邮编：",
                 name: "sellerPost",
                 input: {
                     disabled: true,
-                     value:context.state.sellerPost || result.sellerPost
+                     value:context.state.sellerPost || addressObj && addressObj.postCode
                 }
             },{
                 label: "座机号：",
@@ -129,7 +131,7 @@ class GoodsInfo extends Component {
                 name: "sellerPhone",
                 input: {
                     disabled: true,
-                    value:context.state.sellerPhone || result.sellerPhone
+                    value:context.state.sellerPhone || addressObj && addressObj.phone
                 }
             },{
                 label: "卖家留言：",
@@ -153,7 +155,7 @@ class GoodsInfo extends Component {
             initValue: {
                 valueBearType : null,
                 postBearType: null,
-                shortName:null,
+                shortName:null || addressObj && addressObj.shortName,
                 fullAddress :null,
                 sellerName:null,
                 sellerPost:null,
@@ -184,7 +186,7 @@ class GoodsInfo extends Component {
         showBigPic({imgSrc:item})
     }
     render() {
-        const {result, items, handleGoodSubmit} = this.props;
+        const {result, addressLlist, handleGoodSubmit} = this.props;
         const refundComment = result.refundComment || {}
         const url = refundComment.picUrls
         const src = url && url.split(',')
