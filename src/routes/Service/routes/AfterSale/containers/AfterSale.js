@@ -112,9 +112,10 @@ class OddQuery extends Component {
         })   
     }
     // 结束/拒绝退款
-    confirm(id){
+    confirm(id,refresh){
         const {getEndRefund} = this.props
         getEndRefund({refundId:id})
+        refresh()
     }
     // 换货出库
     getOut (tid,id) {
@@ -159,7 +160,7 @@ class OddQuery extends Component {
         }
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                        <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} confirm={this.confirm}  /></TabPane>
+                        <TabPane tab="订单退款" key="1"><ReturnMoney shopListItem={shopListItem}  {...formOptions} {...tableOptions} confirm={this.confirm} /></TabPane>
                         <TabPane tab="退换货" key="2"><ReturnGoods shopListItem={shopListItem}  {...formOptions} {...tableOptions} visible = {visible} handleOk = {this.handleOk} getOut = {this.getOut}  /></TabPane>
                     </Tabs>
                 </Panel>
