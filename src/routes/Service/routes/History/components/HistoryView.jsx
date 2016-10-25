@@ -138,49 +138,51 @@ class History extends Component {
             render(id,row) {
                 return row.price * row.num
             }
-        }, {
-            key: '7',
-            title: '退货数量',
-            dataIndex: 'tGoodsNum'
-        }, {
-            key: '8',
-            title: '退货金额',
-            render(id,row) {
-                return row.price * row.tGoodsNum
-            }
-        },{
-            key: '9',
-            title: '处理状态',
-            dataIndex: 'processStatus',
-            render(type) {
-                switch(type) {
-                    case 'INIT':
-                        return '待处理'
-                    case 'PROCESS':
-                        return '处理中'
-                    case 'SUCCESS':
-                        return '处理成功'
-                    case 'FAIL':
-                        return '处理失败'
-                    case 'DENY':
-                        return '拒绝'        
-                }
-            }
-        },{
-            key: '10',
-            title: '仓库反馈',
-            dataIndex: 'feedbackStatus',
-            render(type) {
-                switch(type) {
-                    case 'ACCEPT':
-                        return '允许入库'
-                    case 'DENY':
-                        return '拒绝入库'
-                }
-            }
-        },{
+        }, 
+        // {
+        //     key: '7',
+        //     title: '退货数量',
+        //     dataIndex: 'tGoodsNum'
+        // }, {
+        //     key: '8',
+        //     title: '退货金额',
+        //     render(id,row) {
+        //         return row.price * row.tGoodsNum
+        //     }
+        // },{
+        //     key: '9',
+        //     title: '处理状态',
+        //     dataIndex: 'processStatus',
+        //     render(type) {
+        //         switch(type) {
+        //             case 'INIT':
+        //                 return '待处理'
+        //             case 'PROCESS':
+        //                 return '处理中'
+        //             case 'SUCCESS':
+        //                 return '处理成功'
+        //             case 'FAIL':
+        //                 return '处理失败'
+        //             case 'DENY':
+        //                 return '拒绝'        
+        //         }
+        //     }
+        // },{
+        //     key: '10',
+        //     title: '仓库反馈',
+        //     dataIndex: 'feedbackStatus',
+        //     render(type) {
+        //         switch(type) {
+        //             case 'ACCEPT':
+        //                 return '允许入库'
+        //             case 'DENY':
+        //                 return '拒绝入库'
+        //         }
+        //     }
+        // }
+        {
             key: '11',
-            title: '仓库反馈时间',
+            title: '处理完成时间',
             dataIndex: 'feedbackTime'
         }, {
             key: '12',

@@ -21,6 +21,7 @@ class GoodsInfo extends Component {
     _getFormItems(){
         let context = this;
         const {isDel,addressList,items,result,photoList, photoImg} = context.props;
+        let name = result && result.shop ? result.shop.name : ''
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -30,6 +31,7 @@ class GoodsInfo extends Component {
             formItems: [{
                 label: "商品价值承担：",
                 name: "valueBearType",
+                wrapperCol: { span: 8 },
                 // rules: [{
                 //     validator(rule, value, callback) {
                 //         if (!value) {
@@ -41,7 +43,7 @@ class GoodsInfo extends Component {
                 // }],
                 radio: {
                         radioValue: [
-                            { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
+                            { value: name, title: name },
                             { value: "买家", title: '买家' },
                             { value: "快递公司", title: '快递公司' },
                             { value: "服务商", title: '服务商' }
@@ -50,6 +52,7 @@ class GoodsInfo extends Component {
             },{
                 label: "邮费承担：",
                 name: "postBearType",
+                wrapperCol:{span:8},
                 //  rules: [{
                 //     validator(rule, value, callback) {
                 //         if (!value) {
@@ -61,7 +64,7 @@ class GoodsInfo extends Component {
                 // }],
                 radio: {
                         radioValue: [
-                            { value: "屈臣氏淘宝旗舰店", title: '屈臣氏淘宝旗舰店' },
+                            { value: name, title: name },
                             { value: "买家", title: '买家' },
                             { value: "快递公司", title: '快递公司' },
                             { value: "服务商", title: '服务商' }
