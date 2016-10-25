@@ -10,7 +10,8 @@ import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 //入库类型
 const STOCKTYPE = [
    { value: '换货入库', title: "换货入库" },
-   { value: '总库调拨', title: "总库调拨" }
+   { value: '总库调拨', title: "总库调拨" },
+   { value: '回退入库', title:'回退入库' }
 ];
 
 class StorageQuery extends Component {

@@ -11,6 +11,15 @@ const RESON = [
             {value:'已发货，买家未举证',title:'已发货，买家未举证'},
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
         ]
+const status = {
+  'WAIT_SELLER_AGREE': "买家已经申请退款，等待卖家同意",
+  'WAIT_BUYER_RETURN_GOODS': "卖家已经同意退款，等待买家退货",
+  'WAIT_SELLER_CONFIRM_GOODS': "买家已经退货，等待卖家确认收货",
+  'SELLER_REFUSE_BUYER': "卖家拒绝退款",
+  'CLOSED': "退款关闭",
+  'SUCCESS': "退款成功",
+  'STOCK_AGREE' : '仓库验收通过'
+};       
 class InfoView extends Component {
     
     constructor() {
@@ -19,7 +28,10 @@ class InfoView extends Component {
             photoList : []
         }
     }
-        
+    showBigPhoto (item) {
+        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        showBigPic({imgSrc:src})
+    }  
     _getFormItems(){
         let context = this;
         const {isRequired, photoList, photoImg,result} = context.props;
@@ -60,7 +72,7 @@ class InfoView extends Component {
                         const src = url && url.split(',')
                          {
                             return src && src.map((item, index)=>{
-                                return <Image src={item} width='80' style={{marginRight:10}} onClick={this.showBigPhoto.bind(this,item)} />
+                                return <Image src={item} width='80' style={{marginRight:10}} onClick={context.showBigPhoto.bind(context,item)} />
                             })
                         }
                      } else {
@@ -117,20 +129,14 @@ class InfoView extends Component {
         return config;
         
     }
-    showBigPhoto (item) {
-        console.log(item,'item')
-        
-        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
-        console.log(src,'src===')
-        showBigPic({imgSrc:src})
-    }
     showBig (item) {
         showBigPic({imgSrc:item})
     }
+
     render() {
         let {formOptions, result, isRequired,visible,handleOk} = this.props;
 	    const refundComment = result && result.refundComment ? result.refundComment : {}
-        const Goodsstatus = result && result.afterSaleType == 'REFUND_MONEY' ? '等待退款' : '等待退货'
+        const Goodsstatus = result && status[result.status]
         const url = refundComment.picUrls || ''
         const src = url && url.split(',')
         const ArryStatus = [

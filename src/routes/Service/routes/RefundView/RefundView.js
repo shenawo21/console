@@ -4,6 +4,7 @@ import './RefundView.less'
 
 export default (props) => {
   const result = props.result
+  const showBig = props.showBig   
   const ArryStatus = props.ArryStatus
   const src = props.src
   let outerSkuId = result.tradesOrder ? result.tradesOrder.outerSkuId : ''
@@ -59,7 +60,7 @@ export default (props) => {
                                 <span>
                                     {
                                         src && src.map((item, index)=>{
-                                        return <img src={item} width= '80' style={{marginRight:10}} />
+                                        return <img src={item} width= '80' style={{marginRight:10}} onClick={(e) => {showBig(e.target.currentSrc)}} />
                                         })
                                     }
                           </span></li>

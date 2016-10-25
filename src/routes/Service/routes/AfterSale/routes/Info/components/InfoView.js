@@ -39,16 +39,6 @@ class InfoView extends Component {
                     type: "textarea",
                     placeholder: "请输入审核描述",
                 }
-            }, {
-                label: "发货凭证：",
-                required: true,
-                name: "cwRefuseProof",
-                custom(getCustomFieldProps) {
-                    upConfig.fileList = photoList;
-                    return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
-                            upConfig={{...upConfig, onChangeFileList:photoImg}}
-                            {...getCustomFieldProps('cwRefuseProof')} />
-                }
             }],
             initValue: {
                 cwRefuseReason : null,
@@ -67,7 +57,18 @@ class InfoView extends Component {
                     optionValue: RESON
                 }
             }
-             config.formItems.unshift(obj)
+            const objfirst = {
+                label: "拒绝凭证：",
+                required: true,
+                name: "cwRefuseProof",
+                custom(getCustomFieldProps) {
+                    upConfig.fileList = photoList;
+                    return <UploadImage title="验货凭证" className='upload-list-inline upload-fixed'
+                            upConfig={{...upConfig, onChangeFileList:photoImg}}
+                            {...getCustomFieldProps('cwRefuseProof')} />
+                }
+            }
+             config.formItems.unshift(objfirst,obj)
         }
 
         return config;
@@ -75,6 +76,9 @@ class InfoView extends Component {
     showBigPhoto (item) {
         let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
         showBigPic({imgSrc:src})
+    }
+    showBig (item) {
+        showBigPic({imgSrc:item})
     }
     render() {
         const {result, handleSubmit} = this.props;
@@ -112,9 +116,9 @@ class InfoView extends Component {
         }
         return (
             <div>
-                <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} />
+                <RefundView title ='客户退款申请' result = {result} ArryStatus = {ArryStatus} src = {src} showBig = {this.showBig.bind(this)} />
                 <h3 className = 'titleName'>退款审批</h3>
-                { ((result.processStatus == 'PROCESS' || result.processStatus == 'SUCCESS') && result.refundResult !== null ) ? 
+                { ((result.processStatus == 'PROCESS' || result.processStatus == 'DENY') && result.refundResult !== null ) ? 
                 <ul className = 'form-talbe'>
                     {result.cwRefuseReason ? <li><b>拒绝退款原因:</b><span>{result.cwRefuseReason}</span></li> : '' }
                     {result.optRemark ? <li><b>退款审批说明:</b><span>{result.optRemark}</span></li> : '' }

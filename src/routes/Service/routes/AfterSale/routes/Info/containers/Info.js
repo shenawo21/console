@@ -43,10 +43,9 @@ class Info extends Component {
          }
         Object.assign(value,params,{afterSaleType:'REFUND_MONEY'})
         if(key === 'review'){
+            delete value.cwRefuseProof
             if(!value.optRemark) {
                 message.error('请填写退款审批说明!')
-            } else if(!value.cwRefuseProof) {
-                 message.error('请上传发货凭证!')
             } else {
                 Object.assign(value,{processStatus:'PROCESS'})
                 verify(value).then(function(response) {
@@ -61,7 +60,13 @@ class Info extends Component {
         } else if(key === 'refuse'){
             _this.setState({isRequired:true})
             Object.assign(value,{processStatus:'DENY'})
-            if(value.cwRefuseReason) {
+            if (!value.cwRefuseProof) {
+                message.error('请上传发货凭证!')
+            } else if(!value.cwRefuseReason) {
+                message.error('请选择拒绝退款原因!')
+            } else if (!value.optRemark) {
+                message.error('请输入退款审批说明!')
+            } else  {
                 verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
@@ -70,9 +75,7 @@ class Info extends Component {
                         }, 1000);
                     }
                 })
-            } else {
-                message.error('请选择拒绝退款原因!')
-            }
+            } 
         }
     }
     // 退货详情处理
@@ -83,8 +86,16 @@ class Info extends Component {
         Object.assign(value,params,addressObj,{afterSaleType:'REFUND_GOODS'})
         if(key === 'review'){
             Object.assign(value,{processStatus:'PROCESS'})
-            delete value.shortName
-            verify(value).then(function(response) {
+            delete value.photoList
+            if (!value.valueBearType) {
+                message.error('请选择商品价值承担！')
+            } else if (!value.postBearType) {
+                message.error('请选择邮费承担！')
+            } else if (! value.shortName) {
+                message.error('请选择退货地址！')
+            }else {
+                delete value.shortName
+                verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
                             let pathname = '/service/aftersale';
@@ -92,10 +103,21 @@ class Info extends Component {
                         }, 1000);
                     }
                 })
+            }
+            
         } else if(key === 'refuse'){
+            if (_this.state.photoList) {
+                value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+            }
             _this.setState({isDel:true})
             Object.assign(value,{processStatus:'DENY'})
-            if(value.sellerRemark) {
+            delete value.shortName
+            delete value.fullAddress
+            delete value.photoList
+            delete value.sellerName
+            delete value.sellerPhone
+            delete value.sellerPost
+            if(value.cwRefuseProof) {
                 verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
@@ -105,7 +127,7 @@ class Info extends Component {
                     }
                 })
             } else {
-                message.error('请选择拒绝退货原因')
+                message.error('请上传退货凭证！')
             }
         }
     }
@@ -131,7 +153,7 @@ class Info extends Component {
         return <div>
                   {result.afterSaleType == 'REFUND_MONEY' ? 
                        <Panel title="商品退款审批"><InfoView result = {result} isRequired = {isRequired} handleSubmit = {this.handleSubmit} photoImg = {this.photoImg} photoList = {photoList}></InfoView></Panel> :
-                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} items = {items} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form'></GoodsInfo></Panel> }  
+                       <Panel title="商品退货处理详情"><GoodsInfo result = {result} addressList = {addressList} items = {items} isDel = {isDel} handleGoodSubmit = {this.handleGoodSubmit} ref = 'form' photoImg = {this.photoImg} photoList = {photoList}></GoodsInfo></Panel> }  
               </div>                    
                 
     }
