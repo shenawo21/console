@@ -34,9 +34,11 @@ class Goods extends Component {
         console.log(newValue,'newValue')
         if(key === 'review'){
             if (!newValue.numValue) {
-                message.error('请输入退货数量')
+                message.error('请输入换货数量')
             } else if (!newValue.selectItem) {
                 message.error('请选择换后商品编码')
+            } else if (newValue.numValue > newTable[0].num) {
+                message.error('换货数量大于退货数量，请重新输入！')
             } else {
                 let goodsNum = {goodsNum:newValue.numValue}
                 let changeSkuCode = {changeSkuCode:newValue.selectItem.skuId}
