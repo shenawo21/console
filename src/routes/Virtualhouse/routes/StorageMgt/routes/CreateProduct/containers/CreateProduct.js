@@ -48,6 +48,7 @@ class CreateProduct extends Component {
                   value = {...skuData, ...other, categoryId : categoryId && typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}   
                 //从spu选择时，falg为true代表有规格类目，为false代表无规格类目
                 /*chooseSpu = true   从SPU中选择   flag == true  有规格和SKU列表  */
+                debugger
                 if (_this.refs.view.state.chooseSpu == true) {
                     if (_this.refs.view.state.flag == true) {
                       // 忽略SPU中带出来的SKU列表
@@ -68,11 +69,24 @@ class CreateProduct extends Component {
                             })
                         })
                         value.skuList = newArray   //过滤后新的SKU列表
+
                         if (newArray && newArray.length > 0) {
                             if (value.advicePrice && value.advicePrice !== 0 ) {
                                 if (value.advicePrice > value.marketPrice) {
                                         message.error('市场价必须大于或等于销售价！')
                                     } else {
+                                        //value.skuList 循环对比市场价
+                                        let  list = value.skuList, isTrue = false;
+                                        list && list.every(i => {
+                                            if(i.price > value.marketPrice) {
+                                                message.error('市场价必须大于或等于销售价！')
+                                                isTrue = true;
+                                                return false;
+                                            }
+                                            isTrue = false;
+                                            return true;
+                                        })
+                                        if(isTrue) return;
                                         addPro(value).then((res)=>{
                                             if(res.status === 1){
                                                 setTimeout(() => {
@@ -100,23 +114,39 @@ class CreateProduct extends Component {
                             if (value.skuList && value.skuList.length > 0) {
                                 if (value.advicePrice && value.advicePrice !== 0 ) {
                                     if (value.advicePrice > value.marketPrice) {
-                                            message.error('市场价必须大于或等于销售价！')
-                                        } else {
-                                            addPro(value).then((res)=>{
-                                                if(res.status === 1){
-                                                    setTimeout(() => {
-                                                        let pathname = '/virtualhouse/storageMgt';
-                                                        _this.context.router.replace(pathname);
-                                                    }, 1000);
-                                                }
-                                            })
-                                        }
+                                        message.error('市场价必须大于或等于销售价！')
+                                        return
+                                    } else {
+                                        //value.skuList 循环对比市场价
+                                        let  list = value.skuList, isTrue = false;
+                                        list && list.every(i => {
+                                            if(i.price > value.marketPrice) {
+                                                message.error('市场价必须大于或等于销售价！')
+                                                isTrue = true;
+                                                return false;
+                                            }
+                                            isTrue = false;
+                                            return true;
+                                        })
+                                        if(isTrue) return;
+                                        addPro(value).then((res)=>{
+                                            if(res.status === 1){
+                                                setTimeout(() => {
+                                                    let pathname = '/virtualhouse/storageMgt';
+                                                    _this.context.router.replace(pathname);
+                                                }, 1000);
+                                            }
+                                        })
+                                       
+                                    }
                                 }
+                                
                             } else {
                                 message.error('SKU列表不能为空！')
                             }
                         } else {
-                            addPro(value).then((res)=>{
+                            return
+                            addPro(value).then((res)=>{ 
                                 if(res.status === 1){
                                     setTimeout(() => {
                                         let pathname = '/virtualhouse/storageMgt';

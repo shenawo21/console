@@ -25,7 +25,8 @@ class outgoMgt extends Component {
     this.state = {
         stockList: [],
         itemsList: [], //初始价格、库存集合
-        nextHide:true
+        nextHide:true,
+        btnFlag: false
     }
   }
 
@@ -248,9 +249,11 @@ class outgoMgt extends Component {
     handleSubmit(e) {
         const context = this;
         const { storeManage, form } = context.props;
-        const { stockList } = context.state;
+        const { stockList, btnFlag } = context.state;
         e.preventDefault();
-
+        context.setState({
+            btnFlag: true
+        })
         form.validateFieldsAndScroll((errors, values) => {
 
             if (!!errors) {
@@ -290,6 +293,7 @@ class outgoMgt extends Component {
 
   render() {
         let {formOptions, tableOptions, shopList, form} = this.props;
+        let {btnFlag} = this.state;
         let { getFieldProps, getFieldError, isFieldValidating } = form;
         let {nextHide} = this.state
         const self = this
@@ -395,7 +399,7 @@ class outgoMgt extends Component {
                 <div className="tc">
                     <Button type="ghost" onClick={this.goBack.bind()}>取消</Button>
                     &nbsp;&nbsp;&nbsp;
-                    <Button type="primary" onClick={this.handleSubmit.bind()}>确认</Button>
+                    <Button type="primary" onClick={this.handleSubmit.bind()} disabled={btnFlag}>确认</Button>
                 </div>
 
             </div>
