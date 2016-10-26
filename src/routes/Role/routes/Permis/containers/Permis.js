@@ -26,11 +26,11 @@ class Permis extends Component {
     let curCheckedKeys = []
     const loop = (data) => {
       let expandedKeys = data && data.map(p => {
-          if (p.selected) {
+          if (p.selected && !p.childrenList) {
             curCheckedKeys.push('' + p.permissionId);
           }
           if (p.childrenList) {
-            loop(p.children);
+            loop(p.childrenList);
           }
           return p.permissionId + '';
         }) || [];
@@ -111,7 +111,7 @@ class Permis extends Component {
       }
       if(nextProps.result){
         let keys = this.getFilterExpandedKeys(nextProps.result.permissionList);
-
+        console.log( keys)
         this.setState({
           item: nextProps.result,
           keys
