@@ -165,7 +165,7 @@ class Container extends Component {
         }
         return <Panel>
             <Usercomponent
-                {...tableOptions}
+                tableOptions={tableOptions}
                 visible = {visible}
                 addresslist = {addresslist}
                 shopListItem={shopListItem}

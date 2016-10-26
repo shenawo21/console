@@ -1,5 +1,5 @@
-export default (store) => ({
-  breadcrumbName: "店铺创建",
+export default (store, location) => ({
+  breadcrumbName: location.pathname.split('edit/')[1] ? "编辑店铺" : "创建店铺",
   path: 'edit(/:id)',
   getComponent(nextState, next) {
     require.ensure([], (require) => {

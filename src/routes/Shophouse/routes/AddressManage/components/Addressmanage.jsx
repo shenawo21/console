@@ -276,7 +276,8 @@ class Usermanage extends Component {
     }
     
     render() {
-        const {selectedRowKeys,formOptions, onSelectChange, dataSource, loading,handleOk,visible,...other} = this.props;
+        const {formOptions, tableOptions, onSelectChange, dataSource, loading,handleOk,visible,...other} = this.props;
+        let {selectedRowKeys} = tableOptions;
         const context = this;
         const rowSelection = {
             selectedRowKeys,
@@ -305,7 +306,7 @@ class Usermanage extends Component {
                 onCancel={formOptions.handleCancel} >
                 <Form horizontal items={this._getFormIModal()} button={<span></span>} ref='form' />
             </Modal>
-            <DataTable {...other} ref='theTable' columns={this._getColumns() } rowSelection={rowSelection} ></DataTable>
+            <DataTable {...tableOptions} ref='theTable' columns={this._getColumns() } rowSelection={rowSelection} ></DataTable>
             <Popconfirm  title="确定要删除此条地址信息？" onConfirm={this.onDels} >
                 <Button type="primary" disabled = {!hasSelected} loading={loading} style={{ marginTop:-80 }}>删除</Button>
             </Popconfirm>
