@@ -22,34 +22,7 @@ class Invoice extends Component {
             tData: []        
         }
     }
-    /**
-   * 单个发货
-   * @param {row.shoppId,row.outSid}
-   */
-    isGive(row) {
-      const context = this;
-      const {deleteItem} = context.props;
-      deleteItem({
-        sendGoods: [{
-          shoppId: row.shoppId,
-          outSid: row.outSid
-        }]
-      })
-    }
-
-    /**
-     * 批量发货
-     * @param {row.shoppId,row.outSid}
-     */
-    isGiveM() {
-      const context = this;
-      const {deleteItem} = context.props;
-      const {selectList} = this.state;
-      deleteItem({sendGoods: selectList});
-      context.setState({
-        selectList: []
-      })
-    }
+    
 
     componentDidMount() {
         const {queryList, getShopList, location } = this.props;
@@ -65,20 +38,47 @@ class Invoice extends Component {
           tData: nextProps.items
         })
         if (nextProps.dResult) {
-          message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败', 1);
-          /*Modal.info({
-            title: '发货结果',
-            content: <div>
-              <p>成功：{nextProps.dResult.success} 条</p>
-              <p>失败：{nextProps.dResult.fail} 条</p>
-            </div>
-          });*/
+          if (nextProps.dResult.failMessage) {
+             message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败' + ',' + '失败原因：' + nextProps.dResult.failMessage , 1);
+          } else {
+            message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败', 1);
+          }
         }
-        if (nextProps.isRefresh) {
-          setTimeout(()=> {
-            this.context.router.push('/order/invoice')
-          }, 800);
-        }
+        // if (nextProps.isRefresh) {
+        //   setTimeout(()=> {
+        //     this.context.router.push('/order/invoice')
+        //   }, 800);
+        // }
+    }
+    /**
+   * 单个发货
+   * @param {row.shoppId,row.outSid}
+   */
+    isGive(row) {
+      const context = this;
+      const {deleteItem} = context.props;
+      deleteItem({
+        sendGoods: [{
+          shoppId: row.shoppId,
+          outSid: row.outSid
+        }]
+      })
+      context.refs.theTalbe.refs.dt.refresh()
+    }
+
+    /**
+     * 批量发货
+     * @param {row.shoppId,row.outSid}
+     */
+    isGiveM() {
+      const context = this;
+      const {deleteItem} = context.props;
+      const {selectList} = this.state;
+      deleteItem({sendGoods: selectList});
+      context.setState({
+        selectList: []
+      })
+      context.refs.theTalbe.refs.dt.refresh()
     }
     
     /**
@@ -255,7 +255,7 @@ class Invoice extends Component {
                         <TabPane tab="打单发货" key="1"><ForInvoiceView shopListItem={shopListItem} formOptions={formOptions} tableOptions={tableOptions} tData={tData} hasSelected={selectList.length > 0}
                                                                            selectList={selectList}
                                                                            quickOptions={this.getQuickOptions()}
-                                                                           downParam={params} /></TabPane>
+                                                                           downParam={params}  ref = 'theTalbe'/></TabPane>
                         <TabPane tab="已打单发货" key="2"><InvoiceView shopListItem={shopListItem} getFormOptionsFor={getFormOptionsFor} tableOptionsFor={tableOptionsFor} /></TabPane>
                     </Tabs>
                 </Panel>
