@@ -92,11 +92,19 @@
     text-align: center;
   }
   //文本超长截取
+  .textOverflow span.labelOverflow{
+    display: block;
+    float: left;
+    width: 65px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .textOverflow .ant-checkbox-wrapper span+span{
     display: block;
     float: right;
-    width: 119px;
-    padding-right: 10px;
+    width: 117px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
