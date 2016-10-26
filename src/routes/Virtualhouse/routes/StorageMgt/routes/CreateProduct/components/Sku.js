@@ -97,13 +97,13 @@ class Sku extends Component {
         return <div>
             {
                 specList.length ? specList.map((item, index) => {
-                    return <Row><Col span='2'><label>{item.name + " "}: </label></Col>
+                    return <Row><Col span='2' className="textOverflow"><label><span className="labelOverflow" title={item.name}>{item.name + " "}</span>: </label></Col>
                         {
                             item.specValues.length ? item.specValues.map((v, i) => {
                                 let spec = context.getfilterStatus(specDataList[index], v);
                                 return <Col span='4' className="textOverflow"><Checkbox key={`c-${i + item.specValues.length * index}`} onChange={(e)=>{
                                     changeSpecValue(index, item.name, item.specId, v, e)
-                                }} checked={spec.status} disabled={spec.disabledFlag}>{v}</Checkbox></Col>
+                                }} checked={spec.status} disabled={spec.disabledFlag}><span title={v}>{v}</span></Checkbox></Col>
                             }) : ''
                         }
                     </Row>
