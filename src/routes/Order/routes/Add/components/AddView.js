@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Form from 'components/Form';
 import ChooseView from './ChooseView'
-import {Button, Icon, Modal, Table, Input, message} from 'hen';
+import {Button, Icon, Modal, Table, Input, message,InputNumber} from 'hen';
 import {getSpecValue} from 'common/utils';
 class Add extends Component {
   constructor(props) {
@@ -51,10 +51,10 @@ class Add extends Component {
       title: '购买数量',
       dataIndex: 'num',
       render(value, row){
-        return <Input type="number" min="1" placeholder="请输入购买数量" name='num' onChange={(e) => {
+        return <InputNumber min={1} placeholder="请输入购买数量" name='num' onChange={(e) => {
                 tabDataSource.forEach((val,index)=>{
                     if(row.outerSkuId==val.outerSkuId){
-                      tabDataSource[index].num = e.target.value
+                      tabDataSource[index].num = e
                     }
                 })
                 context.setState({

@@ -49,6 +49,7 @@ class Add extends Component {
    */
   getFormOptions() {
     const context = this;
+    let newArray = []  
     const {addItem} = context.props;
     const {selectTable} = context.state;
     return {
@@ -58,6 +59,7 @@ class Add extends Component {
        * @param value (description)
        */
       handleSubmit(value, key) {
+        let tabDataSource = context.refs.theForm.state.tabDataSource      
         let P = '', C = '', D = '';
         if (value.receiverAddr) {
           P = value.receiverAddr[0];
@@ -65,39 +67,54 @@ class Add extends Component {
           D = value.receiverAddr[2]
         }
         if (selectTable.length > 0) {
-          value.dtos = selectTable;
-          selectTable.map((s)=> {
-            if (s.num == null) {
-              Modal.info({
-                title: '温馨提示',
-                content: '购买数量不能为空，请先输入数量并勾选商品！！'
-              });
-              return false;
-            }else {
-              key == 'commit' ? addItem({
-                title: value.title,
-                buyerNick: value.buyerNick,
-                dtos: value.dtos,
-                invoiceType: value.invoiceType,
-                receiverState: P,
-                receiverCity: C,
-                receiverDistrict: D,
-                receiverAddress: value.receiverAddress,
-                receiverName: value.receiverName,
-                receiverMobile: value.receiverMobile,
-                receiverPhone: value.receiverPhone,
-                receiverZip: value.receiverZip,
-                companyCode: value.companyCode,
-                remark: value.remark
-              }) : ''
-
-            }
+          tabDataSource && tabDataSource.forEach((val,num) => {
+            selectTable.every((item,index) => {     
+              if (val.outerSkuId == item.outerSkuId) {
+                  item.num = val.num
+               }
+              newArray[index] = {...item}
+              return true
+            })            
           })
+          value.dtos = newArray;
+          if (newArray.length) {
+              newArray.map((s)=> {
+                if (s.num == null) {
+                  message.info('购买数量不能为空，请先输入数量并勾选商品！')
+                  return
+                } 
+              })
+              let dataNull = newArray && newArray.filter((item,index) => {
+                return item.num == null
+              })
+              if (dataNull.length) {
+                 message.info('购买数量不能为空，请先输入数量并勾选商品！')
+              } else {
+                  key == 'commit' ? addItem({
+                        title: value.title,
+                        buyerNick: value.buyerNick,
+                        dtos: value.dtos,
+                        invoiceType: value.invoiceType,
+                        receiverState: P,
+                        receiverCity: C,
+                        receiverDistrict: D,
+                        receiverAddress: value.receiverAddress,
+                        receiverName: value.receiverName,
+                        receiverMobile: value.receiverMobile,
+                        receiverPhone: value.receiverPhone,
+                        receiverZip: value.receiverZip,
+                        companyCode: value.companyCode,
+                        remark: value.remark
+                      }) : ''
+              }
+              
+          } else {
+            message.info('购买数量不能为空，请先输入数量并勾选商品！')
+             return false;
+          }
+          
         } else {
-          Modal.info({
-            title: '温馨提示',
-            content: '请勾选订单商品！'
-          });
+          message.info('请勾选订单商品')
           return false;
         }
 
@@ -135,10 +152,7 @@ class Add extends Component {
       onSelect: (record, selected, selectedRows) => {
         selectedRows.map((s)=> {
           if (s.num == null) {
-            Modal.info({
-              title: '温馨提示',
-              content: '购买数量不能为空，请先输入数量并勾选商品！'
-            });
+            message.info('购买数量不能为空，请先输入数量并勾选商品！')
             return false;
           }
         })
@@ -170,10 +184,7 @@ class Add extends Component {
       onSelectAll: (selected, selectedRows, changeRows) => {
         selectedRows.map((s)=> {
           if (s.num == null) {
-            Modal.info({
-              title: '温馨提示',
-              content: '购买数量不能为空，请先输入数量并勾选商品！'
-            });
+            message.info('购买数量不能为空，请先输入数量并勾选商品！')
             return false;
           }
         })
@@ -253,7 +264,7 @@ class Add extends Component {
             specFourValue: c.specFourValue,
             num: null,
             totalFee: null,
-            shopId: null,
+            shopId: c.shopId,
             stockId: c.stockId
           }
         });
@@ -351,7 +362,7 @@ class Add extends Component {
                                                       tabDataSource={tabDataSource}
                                                       shopList={shopList}
                                                       realPrice={realPrice}
-                                                      selectList={selectList} cateList={loop(cateResult)}/></Panel>
+                                                      selectList={selectList} cateList={loop(cateResult)} ref = 'theForm'/></Panel>
   }
 }
 
