@@ -101,7 +101,7 @@ class Sku extends Component {
                         {
                             item.specValues.length ? item.specValues.map((v, i) => {
                                 let spec = context.getfilterStatus(specDataList[index], v);
-                                return <Col span='2'><Checkbox key={`c-${i + item.specValues.length * index}`} onChange={(e)=>{
+                                return <Col span='4' className="textOverflow"><Checkbox key={`c-${i + item.specValues.length * index}`} onChange={(e)=>{
                                     changeSpecValue(index, item.name, item.specId, v, e)
                                 }} checked={spec.status} disabled={spec.disabledFlag}>{v}</Checkbox></Col>
                             }) : ''

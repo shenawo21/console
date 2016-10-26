@@ -91,7 +91,16 @@
   .tc{
     text-align: center;
   }
-
+  //文本超长截取
+  .textOverflow .ant-checkbox-wrapper span+span{
+    display: block;
+    float: right;
+    width: 119px;
+    padding-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .page-header {
     padding: 15px 30px;
   }

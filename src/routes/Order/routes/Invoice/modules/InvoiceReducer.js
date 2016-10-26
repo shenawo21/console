@@ -14,9 +14,9 @@ const DELETE_SUCCESS = 'invoice/DELETE_SUCCESS';
 const DELETE_FAILURE = 'invoice/DELETE_FAILURE';
 
 //店铺列表
-const APPQUERY = 'applic/APPQUERY';
-const APPQUERY_SUCCESS = 'applic/APPQUERY_SUCCESS';
-const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
+const SHOPLIST = 'applic/SHOPLIST';
+const SHOPLIST_SUCCESS = 'applic/SHOPLIST_SUCCESS';
+const SHOPLIST_FAILURE = 'applic/SHOPLIST_FAILURE';
 
 /**
  * 发货单查询
@@ -38,10 +38,10 @@ export function queryList(params) {
  * @param params (description)
  * @returns (description)
  */
-export function forQuery(params) {
+export function forQueryList(params) {
   return {
     types: [FORQUERY, FORQUERY_SUCCESS, FORQUERY_FAILURE],
-    promise: (client) => client.post('api-tradesInfo.selectSendGoods', params,{hasMsg: true})
+    promise: (client) => client.post('api-tradesInfo.selectSendGoods', params)
   }
 }
 /**
@@ -64,9 +64,9 @@ export function deleteItem(params) {
  * @param params (description)
  * @returns (description)
  */
-export function appList(params) {
+export function getShopList(params) {
   return {
-    types: [APPQUERY, APPQUERY_SUCCESS, APPQUERY_FAILURE],
+    types: [SHOPLIST, SHOPLIST_SUCCESS, SHOPLIST_FAILURE],
     promise: (client) => client.post('api-shop.listEnterpriseShop', params)
   }
 }
@@ -77,7 +77,7 @@ export default function reducer(state = {result: {}}, action) {
     case DELETE:
     case QUERY:
     case FORQUERY:
-    case APPQUERY:
+    case SHOPLIST:
       return {
         ...state
       }
@@ -111,12 +111,12 @@ export default function reducer(state = {result: {}}, action) {
       return {
         ...state
       }
-    case APPQUERY_SUCCESS:
+    case SHOPLIST_SUCCESS:
       return {
         ...state,
-        appResult: action.result
+        shoplist: action.result
       }
-    case APPQUERY_FAILURE:
+    case SHOPLIST_FAILURE:
       return {
         ...state
       }
