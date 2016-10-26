@@ -26,6 +26,7 @@ class Permis extends Component {
     let curCheckedKeys = []
     const loop = (data) => {
       let expandedKeys = data && data.map(p => {
+          //显示时，只获取子节点selected选中状态，根据子节点状态影响父节点状态
           if (p.selected && !p.childrenList) {
             curCheckedKeys.push('' + p.permissionId);
           }
