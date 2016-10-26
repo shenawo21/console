@@ -73,7 +73,7 @@ class InfoView extends Component {
             render(refundNums){
                 return <div>
                             <InputNumber min={1} max={10}  onChange = {context.onChange} />
-                        </div>
+                       </div>
             }
         },{
             key: '7',
@@ -239,6 +239,7 @@ class InfoView extends Component {
             } else if(arrResult[0].num < Number(value)) {
                 //  this.refs.theTable.refresh()
                  message.error('换货数量大于退货数量，请重新输入！')
+
              } else {
                 this.setState({numValue:value})
                 // if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
@@ -334,21 +335,6 @@ class InfoView extends Component {
                 </Modal>
                 <br /><br />    
                 <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} ref='form' />
-                {/**{result.processStatus = 'PROCESS' ? 
-                <ul className = 'form-talbe'>
-                    <li><b>退款审批说明:</b><span>{result.optRemark}</span></li>
-                    <li><b>发货凭证:</b><span>
-                    </span></li>
-                    <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
-                </ul> : 
-                result.processStatus = 'DENY' ? 
-                <ul className = 'form-talbe'>
-                    <li><b>拒绝退款原因:</b><span>{result.cwRefuseReason}</span></li>
-                    <li><b>发货凭证:</b><span>
-                    </span></li>
-                    <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
-                </ul> : 
-                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />} */}
             </div>
         )
     }

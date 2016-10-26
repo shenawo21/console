@@ -46,8 +46,9 @@ class Manual extends Component {
     return {
       handleSubmit(value, key) {
         let timeMinus = getTimeStamp(value.endSynTime) - getTimeStamp(value.startSynTime);
-        if ((timeMinus < 0) || (timeMinus > 86400)) {
-          message.error('开始时间不能晚于结束时间且选择时间区间必须在24h内！');
+        console.log(timeMinus,'timeMinustimeMinus')
+        if ((timeMinus < 0) || (timeMinus > 86400000)) {
+          message.error('开始时间不能晚于结束时间，且选择时间区间必须在24h内！');
           return false
         } else {
           context.setState({

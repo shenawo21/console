@@ -31,7 +31,6 @@ class Goods extends Component {
         const {changeVerify,params} = _this.props;
         let newValue = _this.refs.state.state
         let newTable = _this.refs.state.props.arrResult
-        console.log(newValue,'newValue')
         if(key === 'review'){
             if (!newValue.numValue) {
                 message.error('请输入换货数量')
