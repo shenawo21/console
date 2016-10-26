@@ -26,11 +26,12 @@ class Permis extends Component {
     let curCheckedKeys = []
     const loop = (data) => {
       let expandedKeys = data && data.map(p => {
-          if (p.selected) {
+          //显示时，只获取子节点selected选中状态，根据子节点状态影响父节点状态
+          if (p.selected && !p.childrenList) {
             curCheckedKeys.push('' + p.permissionId);
           }
           if (p.childrenList) {
-            loop(p.children);
+            loop(p.childrenList);
           }
           return p.permissionId + '';
         }) || [];
@@ -103,19 +104,20 @@ class Permis extends Component {
         keys: {}
       })
     } else {
+      if(nextProps.isJump){
+          setTimeout(()=> {
+            nextProps.history.go(-1);
+          }, 800);
+          return
+      }
       if(nextProps.result){
         let keys = this.getFilterExpandedKeys(nextProps.result.permissionList);
-
+        console.log( keys)
         this.setState({
           item: nextProps.result,
           keys
         })
       }
-    }
-    if(nextProps.isJump){
-      setTimeout(()=> {
-        nextProps.history.go(-1);
-      }, 800);
     }
   }
 
@@ -140,7 +142,7 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading, modifyResult, isJump} = state.permis;
+  const {result, loading, isJump} = state.permis;
 
   return {'result': result, loading,isJump};
 
