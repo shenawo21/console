@@ -149,18 +149,28 @@ class AdjustStock extends Component {
     
         if (items) {
             items.forEach((item) => {
+                let isAdd = false
                 stockList.every((val) => {
                     if (val.skuId == item.skuId) {
+                        isAdd = true
+                        //添加已匹配的数据，主要是修改stock值
                         curStockList.push(val)
                         return false
                     }
                     return true
                 })
-            })
-            this.setState({
-                stockList: curStockList
+                //添加初始选中数据
+                if(!isAdd){
+                    curStockList.push({
+                        skuId: item.skuId, 
+                        stock: 1 
+                    })
+                }  
             })
         }
+        this.setState({
+            stockList: curStockList
+        })
     }
 
     //提交数据
@@ -174,7 +184,6 @@ class AdjustStock extends Component {
             message.warning('增加库存列表为空，请选择商品并进行库存修改！', 10);
             return;
         }
-        
         adjustStock({
             stockList: stockList
         });
