@@ -29,7 +29,7 @@ class Permis extends Component {
           if (p.selected) {
             curCheckedKeys.push('' + p.permissionId);
           }
-          if (p.children) {
+          if (p.childrenList) {
             loop(p.children);
           }
           return p.permissionId + '';
@@ -71,29 +71,29 @@ class Permis extends Component {
   }
 
   onSave() {
-    /**
-     * 数组去重
-     * @param arr
-     * @returns {Array}
-     */
-    let unique = (arr)=> {
-      var result = [], hash = {};
-      for (var i = 0, elem; (elem = arr[i]) != null; i++) {
-        if (!hash[elem]) {
-          result.push(elem);
-          hash[elem] = true;
-        }
-      }
-      return result;
-    }
-    const {modifyItem, params} = this.props;
-    const {checkedKeys, expandedKeys} = this.state.keys;
 
+    const {modifyItem, params, result} = this.props;
+    const {checkedKeys = []} = this.state.keys;
+    let curCheckedKeys = checkedKeys.slice(0);
+    //循环查找选中key值的的父节点permissionId
+    const loop = (data, item, parentId) => {
+        data && data.forEach(val => {
+            if(item == val.permissionId){
+              parentId && !curCheckedKeys.includes('' + parentId) && curCheckedKeys.push(parentId + '')
+            }
+            if (val.childrenList) {
+              loop(val.childrenList, item, val.permissionId);
+            }
+        })
+    }
+    checkedKeys.length && checkedKeys.forEach(p => {
+        loop(result.permissionList, p);
+    })
+    
     modifyItem({
       roleId: parseInt(params.id),
-      permissionIdList: unique(checkedKeys.concat(expandedKeys))
+      permissionIdList: curCheckedKeys
     })
-
   }
 
   componentWillReceiveProps(nextProps, preProps) {
@@ -103,12 +103,14 @@ class Permis extends Component {
         keys: {}
       })
     } else {
-      let keys = this.getFilterExpandedKeys(nextProps.result.permissionList);
+      if(nextProps.result){
+        let keys = this.getFilterExpandedKeys(nextProps.result.permissionList);
 
-      this.setState({
-        item: nextProps.result,
-        keys
-      })
+        this.setState({
+          item: nextProps.result,
+          keys
+        })
+      }
     }
     if(nextProps.isJump){
       setTimeout(()=> {
@@ -138,7 +140,7 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-  const {result, loading,isJump} = state.permis;
+  const {result, loading, modifyResult, isJump} = state.permis;
 
   return {'result': result, loading,isJump};
 

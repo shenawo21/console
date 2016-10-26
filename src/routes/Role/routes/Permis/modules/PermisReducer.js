@@ -39,8 +39,8 @@ export function modifyItem(params) {
 export default function reducer(state = {result: {}}, action) {
   state = {...state,isJump: false,loading: action.loading};
   switch (action.type) {
-    case MODIFY:
     case QUERY:
+    case MODIFY:
       return {
         ...state
       }
@@ -56,7 +56,7 @@ export default function reducer(state = {result: {}}, action) {
     case MODIFY_SUCCESS:
       return {
         ...state,
-        result: action.result,
+        modifyResult: action.result,
         isJump: true
       }
     case MODIFY_FAILURE:

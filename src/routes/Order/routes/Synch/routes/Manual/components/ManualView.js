@@ -95,7 +95,7 @@ class Manual extends Component {
   }
 
   render() {
-    const {formOptions, ...other, isVisible} = this.props;
+    const {formOptions, isVisible, ...other} = this.props;
     const buttonOptionNone = {
       buttons: [
         {

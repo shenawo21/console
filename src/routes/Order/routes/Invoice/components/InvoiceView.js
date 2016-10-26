@@ -265,7 +265,7 @@ class Invoice extends Component {
   }
 
   render() {
-    const {formOptions, quickOptions, ...other, hasSelected, loading, tData} = this.props;
+    const {formOptions, quickOptions, hasSelected, loading, tData, ...other} = this.props;
     tData && tData.forEach((val, index)=> {
       val.key = index;
       val.shoppDetails && val.shoppDetails.forEach((val, index) => {

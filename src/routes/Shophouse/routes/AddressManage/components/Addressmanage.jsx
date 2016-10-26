@@ -276,7 +276,7 @@ class Usermanage extends Component {
     }
     
     render() {
-        const {selectedRowKeys,formOptions, onSelectChange,...other, dataSource, loading,handleOk,visible} = this.props;
+        const {selectedRowKeys,formOptions, onSelectChange, dataSource, loading,handleOk,visible,...other} = this.props;
         const context = this;
         const rowSelection = {
             selectedRowKeys,

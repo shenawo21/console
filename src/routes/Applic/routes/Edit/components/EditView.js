@@ -104,7 +104,7 @@ class Edit extends Component {
   }
 
   render() {
-    const {formOptions, ...other, item} = this.props;
+    const {formOptions, item, ...other} = this.props;
     const buttonOptionNone = {
       buttons: [
         {

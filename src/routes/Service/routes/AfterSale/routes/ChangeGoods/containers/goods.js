@@ -72,7 +72,7 @@ class Goods extends Component {
               handleSubmit(value) {
                   const {addPro} = _this.props;
                   let {skuData, categoryId, ...other} = value
-                  value = {...skuData, ...other, categoryId : typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}
+                  value = {...skuData, categoryId : typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId, ...other}
                   addPro(value).then((res)=>{
                       if(res.status === 1){
                           setTimeout(()=>{history.go(-1)}, 1000)

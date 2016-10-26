@@ -254,7 +254,7 @@ class ReturnGoods extends Component {
         getOut(tid,id)
     }
     render() {
-        const {formOptions,dataSource,...other,visible,handleOk} = this.props;
+        const {formOptions,dataSource,visible,handleOk,...other} = this.props;
         dataSource && dataSource.forEach((val, index)=>{
             val.key = index
             val.refundApplyList && val.refundApplyList.forEach((val, index) => {

@@ -9,20 +9,6 @@ const UPDPWD_SUCCESS = 'accounts/UPDPWD_SUCCESS';
 const UPDPWD_FAILURE = 'accounts/UPDPWD_FAILURE';
 
 /**
- * 获取密码
- *
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function modifyItem(params) {
-  return {
-    types: [UPDPWD, UPDPWD_SUCCESS, UPDPWD_FAILURE],
-    promise: (client) => client.post('api-administrator.updPwd', params)
-  }
-}
-
-/**
  * 修改密码
  *
  * @export
