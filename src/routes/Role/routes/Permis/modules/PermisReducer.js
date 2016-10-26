@@ -37,12 +37,16 @@ export function modifyItem(params) {
 }
 
 export default function reducer(state = {result: {}}, action) {
-  state = {...state,isJump: false,loading: action.loading};
   switch (action.type) {
     case QUERY:
+      return {
+        ...state,
+        isJump: false,
+        loading: action.loading
+      }
     case MODIFY:
       return {
-        ...state
+         isJump: false
       }
     case QUERY_SUCCESS:
       return {
@@ -55,13 +59,10 @@ export default function reducer(state = {result: {}}, action) {
       }
     case MODIFY_SUCCESS:
       return {
-        ...state,
-        modifyResult: action.result,
         isJump: true
       }
     case MODIFY_FAILURE:
       return {
-        ...state,
         isJump: false
       }
     default:
