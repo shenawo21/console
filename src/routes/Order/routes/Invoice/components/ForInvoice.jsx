@@ -273,7 +273,7 @@ class ForInvoice extends Component {
   }
 
   render() {
-    const {formOptions, tableOptions, quickOptions, ...other, hasSelected, loading, tData} = this.props;
+    const {formOptions, tableOptions, quickOptions, hasSelected, loading, tData, ...other} = this.props;
     let { dataSource } = tableOptions;
     dataSource && dataSource.forEach((val, index)=> {
       val.key = index;
