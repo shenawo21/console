@@ -18,6 +18,11 @@ const SHOPLIST = 'applic/SHOPLIST';
 const SHOPLIST_SUCCESS = 'applic/SHOPLIST_SUCCESS';
 const SHOPLIST_FAILURE = 'applic/SHOPLIST_FAILURE';
 
+//获取物流公司列表
+const LOGISTICSlIST = 'service/LOGISTICSlIST';
+const LOGISTICSlIST_SUCCESS = 'service/LOGISTICSlIST_SUCCESS';
+const LOGISTICSlIST_FAILURE = 'service/LOGISTICSlIST_FAILURE';
+
 /**
  * 发货单查询
  *api-tradesInfo.selectWaitSendGoods
@@ -70,7 +75,19 @@ export function getShopList(params) {
     promise: (client) => client.post('api-shop.listEnterpriseShop', params)
   }
 }
-
+/**
+ * 获取物流公司列表
+ * 
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function getLogisticsList(params) {
+  return {
+    types: [LOGISTICSlIST, LOGISTICSlIST_SUCCESS, LOGISTICSlIST_FAILURE],
+    promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
+  }
+}
 export default function reducer(state = {result: {}}, action) {
   state = {...state, loading: action.loading,isRefresh: false};
   switch (action.type) {
@@ -78,6 +95,7 @@ export default function reducer(state = {result: {}}, action) {
     case QUERY:
     case FORQUERY:
     case SHOPLIST:
+    case LOGISTICSlIST:
       return {
         ...state
       }
@@ -119,6 +137,15 @@ export default function reducer(state = {result: {}}, action) {
     case SHOPLIST_FAILURE:
       return {
         ...state
+      }
+     case LOGISTICSlIST_SUCCESS:
+      return {
+          ...state,
+          logisticResult: action.result
+      }
+    case LOGISTICSlIST_FAILURE:
+      return {
+          ...state
       }
     default:
       return state

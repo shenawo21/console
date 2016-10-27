@@ -13,7 +13,7 @@ const KIND = {
 class ForInvoice extends Component {
   _getFormItems() {
     let context = this, config = {};
-    const { shopListItem } = context.props;
+    const { shopListItem,ListItem } = context.props;
     config = {
       formItems: [{
         label: "选择店铺：",
@@ -64,6 +64,15 @@ class ForInvoice extends Component {
             <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('reviewEndTime') } showTime={true}/>
           </div>
         }
+      },{
+        label: "物流公司：",
+        name: "companyCode",
+        span: "5",
+        labelCol: {span: 6},
+        select: {
+          placeholder: "请选择物流公司",
+          optionValue: ListItem
+        }
       }],
       initValue: {
         shopId: null,
@@ -72,7 +81,8 @@ class ForInvoice extends Component {
         createStartTime: null,
         createEndTime: null,
         reviewStartTime: null,
-        reviewEndTime: null
+        reviewEndTime: null,
+        companyCode:null
       }
     }
     return config;
