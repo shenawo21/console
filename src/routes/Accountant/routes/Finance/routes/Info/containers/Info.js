@@ -47,7 +47,7 @@ class Info extends Component {
         if(nextProps.jump){
             setTimeout(()=>{
                 this.context.router.push('/accountant/finance')
-            },600)
+            },1)
         }
     }
     

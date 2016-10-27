@@ -8,9 +8,10 @@ export default (props) => {
   const result = props.result
   const ArryStatus = props.ArryStatus
   const src = props.src
-  let outerSkuId = result.tradesOrder ? result.tradesOrder.outerSkuId : ''
+  let outerSkuId = result && result.tradesOrder ? result.tradesOrder.outerSkuId : ''
   return (
     <div className="table-box">
+            {result ?
             <table className = 'border-table' style = {{width:'100%'}}>
                 <caption>{props.title}</caption>
                 <tr>
@@ -49,7 +50,7 @@ export default (props) => {
                         <td>{result.refundFee}</td>}
                     </tr>                       
                 </tbody>
-            </table>
+            </table> : '' }
             <ul className = 'form-talbe'>
                     {
                         ArryStatus && ArryStatus.map((item, index)=>{

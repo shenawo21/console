@@ -18,6 +18,8 @@ class ForDeal extends Component {
       formItems: [{
         label: "订单编号：",
         name: "tid",
+
+
         input: {
           placeholder: "请输入订单编号"
         }
@@ -175,11 +177,11 @@ class ForDeal extends Component {
     return (
       <div>
 
-        <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
+        <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
         <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()}
-                   expandedRowRender={record => <Table size="small" bordered={true} columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />}
-                   dataSource={dataSource} {...tableOptions}  />
+                   expandedRowRender={record => <Table columns={this._getSubColumns()} size="middle" dataSource={record.refundApplyList} pagination={false} />}
+         {...tableOptions}  />
 
       </div>
     )

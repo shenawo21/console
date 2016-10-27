@@ -1,6 +1,6 @@
  export default (store) => ({
   breadcrumbName: "订单换货",
-  path: 'change(/:oid/:buyerNick)',
+  path: 'change(/:oid/:buyerNick/:skuId)',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
       /*  These modules are lazily evaluated using require hook, and

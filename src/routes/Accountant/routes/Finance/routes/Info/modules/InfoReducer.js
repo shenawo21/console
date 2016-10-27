@@ -20,7 +20,7 @@ const SUC_AGREE = 'SUC_AGREE';
 const ERR_AGREE = 'ERR_AGREE';
 
 /**
- * 退货通过
+ * 退货通过jump
  * 
  * @export
  * @param params (description)
@@ -96,8 +96,8 @@ export default function reducer(state = {result:{}}, action) {
     case AGREE_SUCCESS:
         return {
             ...state,
+            jump : true,
             result: action.result,
-            jump : true
         }    
     case AGREE_FAILURE:
         return {
@@ -106,8 +106,8 @@ export default function reducer(state = {result:{}}, action) {
     case REFUSE_SUCCESS:
         return {
             ...state,
+            jump : true,
             result: action.result,
-            jump : true
         }    
     case REFUSE_FAILURE:
         return {

@@ -163,8 +163,22 @@ class ReturnMoney extends Component {
                         return '处理失败'    
                 }
             }
-        }, {
+        },{
             key: '10',
+            title: '财务处理状态',
+            dataIndex: 'refundResult',
+            render(type) {
+                switch(type) {
+                    case 'INIT':
+                        return '待处理'
+                    case 'ACCEPT':
+                        return '财务同意退款'
+                    case 'DENY':
+                        return '财务拒绝退款'    
+                }
+            }
+        }, {
+            key: '11',
             title: '操作  /  备注',
             render(id,row) {
                         if (row.processStatus == 'INIT') {
