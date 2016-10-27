@@ -160,7 +160,7 @@ class ForDeal extends Component {
     return columns;
   }
 
-
+  
   render() {
     const {formOptions, tableOptions, ...other} = this.props;
     let {dataSource} = tableOptions;
