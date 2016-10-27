@@ -262,12 +262,13 @@ class InfoView extends Component {
 
     }
     showModal() {
-        const {tableOptions} = this.props;
+        const {tableOptions,result} = this.props;
         const {action, pagination} = tableOptions
+        let shopId = result && result.shop && result.shop.shopId
         this.setState({
             visible: true
         });
-        action({pageNumber : pagination.current})
+        action({pageNumber : pagination.current,shopId:shopId})
     }
     handleOk() {
         const searchSpuState = this.refs.searchList

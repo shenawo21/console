@@ -20,7 +20,7 @@ class Goods extends Component {
     componentDidMount() {  
         const {shopList,chagenDetail,Logistic,params} = this.props;
         //获取详情信息
-        chagenDetail({oid:params.oid});
+        chagenDetail({oid:params.oid,skuId:params.skuId});
 
         // 物流列表
         Logistic()
@@ -48,6 +48,7 @@ class Goods extends Component {
                 delete value.discountFee
                 delete value.outerId
                 delete value.num
+                delete value.skuId
                 delete value.outerSkuId
                 changeVerify(value).then(function(response) {
                         if (response && response.status == 1) {
