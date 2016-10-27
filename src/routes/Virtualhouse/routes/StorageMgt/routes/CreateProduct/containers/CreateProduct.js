@@ -48,7 +48,6 @@ class CreateProduct extends Component {
                   value = {...skuData, ...other, categoryId : categoryId && typeof categoryId === 'object' ? categoryId[categoryId.length - 1] :  categoryId}   
                 //从spu选择时，falg为true代表有规格类目，为false代表无规格类目
                 /*chooseSpu = true   从SPU中选择   flag == true  有规格和SKU列表  */
-                debugger
                 if (_this.refs.view.state.chooseSpu == true) {
                     if (_this.refs.view.state.flag == true) {
                       // 忽略SPU中带出来的SKU列表
@@ -145,8 +144,7 @@ class CreateProduct extends Component {
                                 message.error('SKU列表不能为空！')
                             }
                         } else {
-                            return
-                            addPro(value).then((res)=>{ 
+                            addPro(value).then((res)=>{
                                 if(res.status === 1){
                                     setTimeout(() => {
                                         let pathname = '/virtualhouse/storageMgt';
@@ -160,7 +158,7 @@ class CreateProduct extends Component {
                     }
                 } else {
                     message.error('商品品牌不能为空！')
-                }
+                } 
               }
           }
       }
