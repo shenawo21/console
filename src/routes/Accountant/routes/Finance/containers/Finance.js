@@ -44,11 +44,10 @@ class finance extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
+                  const {params, curKey} = context.state;
                   context.setState({
-                      params: {
-                        ...value
-                    } 
-                  })
+                    params: value
+                })
               },
           }
       }
@@ -62,7 +61,8 @@ class finance extends Component {
             getForRefund({pageNumber});
         }
         this.setState({
-            curKey : key - 1
+            curKey : key - 1,
+            params: {}
         })
         
     }
@@ -71,12 +71,13 @@ class finance extends Component {
         const {items, getForRefund, getRefund, shopListResult, totalItems, loading} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : curKey == 1 ? getRefund : getForRefund,                         //表格翻页时触发的action
+            action : curKey==1 ? getRefund : getForRefund,                         //表格翻页时触发的action
             pagination : {                              //表格页码陪着，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
-            params                                      //表格检索数据参数
+            params,                                      //表格检索数据参数
+            key: curKey==1 ? 1 : 2,
         }
         
         /**

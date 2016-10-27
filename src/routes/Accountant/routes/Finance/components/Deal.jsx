@@ -159,7 +159,7 @@ class Deal extends Component {
 
     return columns;
   }
-
+      
 
   render() {
     const {formOptions, tableOptions, ...other} = this.props;

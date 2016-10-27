@@ -155,7 +155,6 @@ class ForCheck extends Component {
         val.afterSaleType = val.afterSaleType;
       })
     })
-    console.log(dataSource,'val.refundApplyList');
     return (
       <div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
