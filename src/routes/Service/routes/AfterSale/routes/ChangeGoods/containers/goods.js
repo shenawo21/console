@@ -156,7 +156,8 @@ class Goods extends Component {
         }    
         return <div>
                      <Panel title="商品换货"><ChangeGoods 
-                                                arrResult = {arrResult} 
+                                                arrResult = {arrResult}
+                                                result = {result} 
                                                 handleSubmit = {this.handleSubmit}
                                                 formOptions={formOptions} 
                                                 tableOptions={tableOptions}
