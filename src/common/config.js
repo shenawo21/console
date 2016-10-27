@@ -2,7 +2,7 @@ export default {
   app: {
 
     title: "",
-    titleTemplate: "%s - 翌商云平台管理系统",
+    titleTemplate: "%s - 电商中台管理系统",
     defaultTitle: "",
 
     /* meta: {

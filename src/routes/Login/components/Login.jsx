@@ -80,9 +80,9 @@ class Login extends Component {
           <div className="page-brand-info">
             <div className="brand">
               <img className="brand-img" src={logo} alt="..."/>
-              <h2 className="brand-text font-size-40">翌商云</h2>
+              <h2 className="brand-text font-size-40">电商中台</h2>
             </div>
-            <p className="font-size-20">翌商云是对为满足满足翌商前端及未来规则的后台需求，翌商云平台项目是针对企业电商化的为主要导向，帮助企业实现企业互联化的目的。</p>
+            <p className="font-size-20">电商中台是对为满足满足翌商前端及未来规则的后台需求，电商中台项目是针对企业电商化的为主要导向，帮助企业实现企业互联化的目的。</p>
           </div>
           <div className="page-login-main">
             <div className="brand visible-xs">
@@ -90,7 +90,7 @@ class Login extends Component {
               <h3 className="brand-text font-size-40">Hen</h3>
             </div>
             <h3 className="font-size-24">登录</h3>
-            <p>欢迎登录翌商云平台</p>
+            <p>欢迎登录电商中台</p>
 
 
             <div className="form-group">
