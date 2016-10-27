@@ -46,6 +46,7 @@ class OddQuery extends Component {
        */
       getFormOptions() {
           const context = this;
+          const {shopListResult} = context.props
           return {
               /**
                * (筛选表单提交)
@@ -53,6 +54,10 @@ class OddQuery extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
+                let valueArray = shopListResult && shopListResult.filter((item,index) => {
+                    return item.name == value.shopId 
+                })
+                value.shopId = valueArray[0] && valueArray[0].shopId
                 const {params, curKey} = context.state;
                 if(value.categoryId){
                     value.categoryId = value.categoryId[value.categoryId.length - 1] || '';
@@ -158,7 +163,7 @@ class OddQuery extends Component {
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                         <TabPane tab="出库单查询" key="1"><OutgoQueryView formOptions={formOptions} tableOptions={tableOptions} shopList={shopListItem} /></TabPane>
-                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={shopListItem} /></TabPane>
+                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={shopListItem} shopList={shopListItem} /></TabPane>
                     </Tabs>
                 </Panel>
     }

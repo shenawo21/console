@@ -11,16 +11,23 @@ import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
 const STOCKTYPE = [
    { value: '换货入库', title: "换货入库" },
    { value: '总库调拨', title: "总库调拨" },
-   { value: '回退入库', title:'回退入库' }
+   { value: '退货入库', title:'退货入库' }
 ];
 
 class StorageQuery extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {cateList} = context.props;
+        const {cateList,shopList} = context.props;
         let config = {
             formItems: [{
+                label: "所属店铺：",
+                name: "operateStore",
+                select: {
+                    placeholder: "请选择所属店铺",
+                    optionValue: shopList
+                }
+            },{
                 label: "入库单号：",
                 name: "recordId",
                 input: {
@@ -82,6 +89,7 @@ class StorageQuery extends Component {
                 }
             }],
             initValue: {
+                operateStore:null,
                 recordId: null,
                 spuId: null,
                 skuId : null,
@@ -111,53 +119,57 @@ class StorageQuery extends Component {
             dataIndex: 'recordId'
         },{
             key: '1',
+            title: '所属店铺',
+            dataIndex: 'operateStore'
+        },{
+            key: '2',
             title: '入库类型',
             dataIndex: 'stockType'
         }, {
-            key: '2',
+            key: '3',
             title: 'SPU',
             dataIndex: 'spuId'
         }, {
-            key: '3',
+            key: '4',
             title: 'SKU',
             dataIndex: 'skuId'
         }, {
-            key: '4',
+            key: '5',
             title: '商品名称',
             dataIndex: 'title'
         }, {
-            key: '5',
+            key: '6',
             title: '商品类目',
             dataIndex: 'categoryName'
         }, {
-            key: '6',
+            key: '7',
             title: '规格',
             dataIndex: 'categoryName',
             render(val, row){
                 return getSpecValue(row)
             }
         }, {
-            key: '7',
+            key: '8',
             title: '市场价',
             dataIndex: 'marketPrice'
         }, {
-            key: '8',
+            key: '9',
             title: '销售价',
             dataIndex: 'price'
         }, {
-            key: '9',
+            key: '10',
             title: '入库数量',
             dataIndex: 'stock'
         },  {
-            key: '10',
+            key: '11',
             title: '入库时间',
             dataIndex: 'createTime'
         }, {
-            key: '11',
+            key: '12',
             title: '操作人',
             dataIndex: 'createUserName'
         }, {
-            key: '12',
+            key: '13',
             title: '备注',
             dataIndex: 'remark'
         }];
