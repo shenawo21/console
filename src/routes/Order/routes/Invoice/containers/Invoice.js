@@ -65,8 +65,11 @@ class Invoice extends Component {
           shoppId: row.shoppId,
           outSid: row.outSid
         }]
+      }).then(res => {
+        if (res.status && res.status == 1) {
+            context.refs.theTalbe.refs.dt.refresh()
+         }
       })
-      context.refs.theTalbe.refs.dt.refresh()
     }
 
     /**
@@ -80,8 +83,11 @@ class Invoice extends Component {
       deleteItem({sendGoods: selectList});
       context.setState({
         selectList: []
+      }).then(res => {
+        if (res.status && res.status == 1) {
+            context.refs.theTalbe.refs.dt.refresh()
+         }
       })
-      context.refs.theTalbe.refs.dt.refresh()
     }
     
     /**
