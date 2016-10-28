@@ -17,7 +17,8 @@
       require.ensure([], (require) => {
         next(null, [
           // Provide store for async reducers and middleware
-          require('./routes/Info').default(store)
+          require('./routes/Info').default(store),
+          require('./routes/FinanceDetail').default(store)                // 财务处理详情
         ])
       })
   }

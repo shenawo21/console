@@ -106,7 +106,7 @@ class ForDeal extends Component {
       title: '操作',
       dataIndex: 'tid',
       render(id, row) {
-        return <span><Link to={`/order/audit/detail/${row.tid}`}>订单详情</Link></span>
+        return <span><Link to={`/accountant/finance/goodsdetail/${id}`}>订单详情</Link></span>
       }
     }];
 
