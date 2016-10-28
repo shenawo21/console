@@ -53,7 +53,7 @@ class Invoice extends Component {
             placeholder: "请输入买家帐号"
         }
       }, {
-        label: "审单时间1111：",
+        label: "审单时间：",
         span: '11',
         labelCol: {span: 5},
         wrapperCol: {span: 19},
