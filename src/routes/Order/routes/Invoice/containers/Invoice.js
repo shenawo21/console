@@ -18,6 +18,7 @@ class Invoice extends Component {
         this.state = {
             params: {},
             paramsFor: {},
+            param:{},
             selectList: [],
             tData: []        
         }
@@ -90,6 +91,10 @@ class Invoice extends Component {
      */
     getFormOptions() {
         const context = this;
+        const {location} = context.props
+        const {query} = location;
+        let pageNumber = query.p ? Number(query.p) : 1;
+        
         return {
             /**
              * (筛选表单提交)
@@ -103,7 +108,7 @@ class Invoice extends Component {
                   return false
                 } else {
                   context.setState({
-                    params: value,
+                    param: {pageNumber:pageNumber,...value},
                     selectList: []
                   })
                 }
@@ -200,7 +205,7 @@ class Invoice extends Component {
         })   
     }
     render() {
-        const {params, paramsFor, selectList, tData} = this.state;
+        const {params,param, paramsFor, selectList, tData} = this.state; 
         const {items, queryList, forQueryList, shoplist, totalItems, loading,logisticResult} = this.props;
         const tableOptions = {
             dataSource : tData,                         //加载组件时，表格从容器里获取初始值
@@ -209,7 +214,7 @@ class Invoice extends Component {
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
-            params,                                     //表格检索数据参数
+            params:param,                                     //表格检索数据参数
             rowSelection: this.handleRowSelection(),    //需要checkbox时填写
             isGive: this.isGive.bind(this),
             isGiveM: this.isGiveM.bind(this)
