@@ -207,7 +207,10 @@ class Invoice extends Component {
         router.replace({...location, query : { p: 1 }});
 
         this.setState({
-            curKey : key - 1
+            curKey : key - 1,
+            param:{},
+            params:{},
+            paramsFor:{}
         })   
     }
     render() {
