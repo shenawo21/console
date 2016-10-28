@@ -183,12 +183,13 @@ class ReturnGoods extends Component {
             key: '10',
             title: '仓库反馈',
             dataIndex: 'feedbackStatus',
-            render(type) {
-                switch(type) {
-                    case 'ACCEPT':
-                        return '允许入库'
-                    case 'DENY':
-                        return '拒绝入库'
+            render(type,row) {
+                if (type == 'ACCEPT' && row.status !== 'STOCK_DENY') {
+                    return '允许入库'
+                } else if (type == 'DENY') {
+                    return '拒绝入库'
+                } else if (type == 'ACCEPT' && row.status == 'STOCK_DENY') {
+                    return '仓库验收通过，但拒绝入库'
                 }
             }
         },{

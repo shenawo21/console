@@ -107,8 +107,8 @@ class OddQuery extends Component {
          * @param lists
          * @returns {*}
          */
-        const loop = (lists) => {
-            return lists && lists.map(a => {
+        const loop = (cateResult) => {
+            return cateResult && cateResult.map(a => {
                 let children = a.level < 3 ? loop(a.children) : '';
 
                 if (children) {
@@ -125,6 +125,7 @@ class OddQuery extends Component {
                 }
             })
         }
+        let cateArray = loop(cateResult);
         
         /**
          * 店铺列表
@@ -156,7 +157,7 @@ class OddQuery extends Component {
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                         <TabPane tab="出库单查询" key="1"><OutgoQueryView formOptions={formOptions} tableOptions={tableOptions} shopList={shopListItem} /></TabPane>
-                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={shopListItem} /></TabPane>
+                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={cateArray} /></TabPane>
                     </Tabs>
                 </Panel>
     }
