@@ -200,7 +200,6 @@ class ReturnGoods extends Component {
             key: '12',
             title: '操作  /  备注',
             render(id,row) {
-                console.log(row,'row')
                 const changeOut = () => {
                     context.OnchangeOut(row.tid,row.refundId)
                 }
@@ -219,6 +218,10 @@ class ReturnGoods extends Component {
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'INIT') {
                             return <div>
                                <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><em style = {{padding:'0 8px'}}></em> <span>已通知财务退款</span>
+                            </div>
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == null ) {
+                            return <div>
+                               <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><em style = {{padding:'0 8px'}}></em> <span>已通知仓库验收</span>
                             </div>
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'DENY' || row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'DENY') {
                             return <div>
