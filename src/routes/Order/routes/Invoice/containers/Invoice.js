@@ -80,10 +80,7 @@ class Invoice extends Component {
       const context = this;
       const {deleteItem} = context.props;
       const {selectList} = this.state;
-      deleteItem({sendGoods: selectList});
-      context.setState({
-        selectList: []
-      }).then(res => {
+      deleteItem({sendGoods: selectList}).then(res => {
         if (res.status && res.status == 1) {
             context.refs.theTalbe.refs.dt.refresh()
          }

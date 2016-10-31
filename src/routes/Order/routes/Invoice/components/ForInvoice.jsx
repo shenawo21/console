@@ -125,7 +125,6 @@ class ForInvoice extends Component {
       title: '发货确认',
       content: '你确定批量发货？',
       onOk() {
-        debugger
         selectList.map((s)=> {
           if (s.outSid == null) {
             message.error('请先输入运单号，再勾选且运单号不能为空！', 2);
