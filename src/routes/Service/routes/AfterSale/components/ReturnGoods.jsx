@@ -253,9 +253,9 @@ class ReturnGoods extends Component {
 
         return columns;
     }
-    OnchangeOut(tid,id) {
+    OnchangeOut(tid,id,refresh) {
         const {getOut} = this.props
-        getOut(tid,id)
+        getOut(tid,id,this.refs.theTables.refresh)
     }
     render() {
         const {formOptions,dataSource,visible,handleOk,...other} = this.props;
@@ -286,7 +286,7 @@ class ReturnGoods extends Component {
                 onCancel={formOptions.handleCancel} >
                 <Form horizontal items={this._getFormIModal()} button={<span></span>} ref='form' />
             </Modal>
-               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()}
+               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} ref = 'theTables'
                            expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />}
                            dataSource={dataSource} {...other}  />
 
