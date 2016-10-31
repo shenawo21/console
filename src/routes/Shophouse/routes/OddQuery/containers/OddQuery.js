@@ -132,7 +132,7 @@ class OddQuery extends Component {
                 }
             })
         }
-        
+        let cateArray = loop(cateResult);
         /**
          * 店铺列表
          * @param lists
@@ -163,7 +163,7 @@ class OddQuery extends Component {
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                         <TabPane tab="出库单查询" key="1"><OutgoQueryView formOptions={formOptions} tableOptions={tableOptions} shopList={shopListItem} /></TabPane>
-                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={shopListItem} shopList={shopListItem} /></TabPane>
+                        <TabPane tab="入库单查询" key="2"><StorageQueryView formOptions={formOptions} tableOptions={tableOptions} cateList={cateArray} shopList={shopListItem} /></TabPane>
                     </Tabs>
                 </Panel>
     }
