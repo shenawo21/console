@@ -156,7 +156,7 @@ class StorageQuery extends Component {
         }, {
             key: '9',
             title: '销售价',
-            dataIndex: 'price'
+            dataIndex: 'advicePrice'
         }, {
             key: '10',
             title: '入库数量',

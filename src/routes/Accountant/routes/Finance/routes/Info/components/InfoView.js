@@ -12,13 +12,15 @@ const RESON = [
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
         ]
 const status = {
-  'WAIT_SELLER_AGREE': "买家已经申请退款，等待卖家同意",
-  'WAIT_BUYER_RETURN_GOODS': "卖家已经同意退款，等待买家退货",
-  'WAIT_SELLER_CONFIRM_GOODS': "买家已经退货，等待卖家确认收货",
-  'SELLER_REFUSE_BUYER': "卖家拒绝退款",
-  'CLOSED': "退款关闭",
-  'SUCCESS': "退款成功",
-  'STOCK_AGREE' : '仓库验收通过'
+    'WAIT_SELLER_AGREE':'买家已经申请退款，等待卖家同意',
+    'WAIT_BUYER_RETURN_GOODS':'卖家已经同意退款，等待买家退货',
+    'WAIT_SELLER_CONFIRM_GOODS':'买家已经退货，等待卖家确认收货',
+    'WAIT_BUYER_CONFIRM_GOODS':'等待买家确认收货',
+    'SELLER_REFUSE_BUYER':'卖家拒绝退款',
+    'SUCCESS':'退款成功',
+    'CLOSED':'退款关闭',
+    'STOCK_HAS_CHECKED':'仓库已验货',
+    'ALEADY_CHANGE_GOODS':'已换货出库'
 };       
 class InfoView extends Component {
     
