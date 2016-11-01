@@ -159,7 +159,12 @@ class Deal extends Component {
 
     return columns;
   }
-      
+  shouldComponentUpdate (nextProps, nextState) {
+        if(nextProps.tableOptions.key == 2) {
+          return false;
+        }
+        return true;
+    }    
 
   render() {
     const {formOptions, tableOptions, ...other} = this.props;
