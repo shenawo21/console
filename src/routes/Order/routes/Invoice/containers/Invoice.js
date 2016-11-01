@@ -83,6 +83,7 @@ class Invoice extends Component {
       deleteItem({sendGoods: selectList}).then(res => {
         if (res.status && res.status == 1) {
             context.refs.theTalbe.refs.dt.refresh()
+            context.setState({selectList: []})
          }
       })
     }

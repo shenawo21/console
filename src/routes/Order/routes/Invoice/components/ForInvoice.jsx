@@ -11,6 +11,12 @@ const KIND = {
   '2': "纸质发票"
 };
 class ForInvoice extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabDataSource: []
+    }
+  }
   _getFormItems() {
     let context = this, config = {};
     const { shopListItem,ListItem } = context.props;
@@ -88,58 +94,6 @@ class ForInvoice extends Component {
     return config;
   }
 
-  /**
-   * 单个发货
-   * @param row
-   * @returns {boolean}
-   */
-  showGive(row) {
-    const context = this;
-    const {isGive} = context.props.tableOptions;
-    confirm({
-      title: '发货确认',
-      content: '你确定发货？',
-      onOk() {
-        if (row.outSid == null) {
-          message.warning('运单号不能为空');
-          return false;
-        } else {
-          isGive(row);
-          //context.refs && context.refs.dt.refresh();
-        }
-      },
-      onCancel() {
-      }
-    });
-  }
-
-  /**
-   * 批量发货
-   * @param row
-   */
-  showGiveM(row) {
-    const context = this;
-    const {isGiveM} = context.props.tableOptions;
-    const {selectList} = context.props;
-    confirm({
-      title: '发货确认',
-      content: '你确定批量发货？',
-      onOk() {
-
-        selectList.map((s)=> {
-          if (s.outSid == null) {
-            message.error('请先输入运单号，再勾选且运单号不能为空！', 2);
-          } else {
-            isGiveM();
-          }
-          context.refs && context.refs.dt.refresh();
-        })
-      },
-      onCancel() {
-      }
-    });
-  }
-
   _getColumns() {
     const context = this;
     const {tData} = context.props;
@@ -191,7 +145,7 @@ class ForInvoice extends Component {
                     }
                 })
                 context.setState({
-                  tData
+                  tabDataSource:tData
                 })
         }}/>
       },
@@ -245,6 +199,71 @@ class ForInvoice extends Component {
       }
     }];
     return columns;
+  }
+  /**
+   * 单个发货
+   * @param row
+   * @returns {boolean}
+   */
+  showGive(row) {
+    const context = this;
+    const {isGive} = context.props.tableOptions;
+    confirm({
+      title: '发货确认',
+      content: '你确定发货？',
+      onOk() {
+        if (row.outSid == null) {
+          message.warning('运单号不能为空');
+          return false;
+        } else {
+          isGive(row);
+          //context.refs && context.refs.dt.refresh();
+        }
+      },
+      onCancel() {
+      }
+    });
+  }
+
+  /**
+   * 批量发货
+   * @param row
+   */
+  showGiveM(row) {
+    const context = this;
+    const {isGiveM} = context.props.tableOptions;
+    const {selectList} = context.props;
+    const {tabDataSource} = context.state
+    let newArray = []
+    confirm({
+      title: '发货确认',
+      content: '你确定批量发货？',
+      onOk() {
+        tabDataSource && tabDataSource.forEach((val,num) => {
+            selectList.every((item,index) => {     
+              if (val.shoppId == item.shoppId) {
+                  item.outSid = val.outSid
+               }
+              newArray[index] = {...item}
+              return true
+            })            
+          })
+          if (newArray.length) {
+              let dataNull = newArray && newArray.filter((item,index) => {
+                return item.outSid == null
+              })
+              if (dataNull.length) {
+                 message.info('勾选订单运单号不能为空！')
+              } else {
+                  isGiveM(newArray)
+              }
+          } else {
+            message.info('勾选订单运单号不能为空！')
+          }
+      },
+      onCancel() {
+      }
+    });
   }
 
   _refresh() {
