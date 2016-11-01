@@ -211,7 +211,7 @@ class Invoice extends Component {
         })   
     }
     render() {
-        const {params,param, paramsFor, selectList, tData} = this.state; 
+        const {params, param, paramsFor, selectList, tData} = this.state; 
         const {items, queryList, forQueryList, shoplist, totalItems, loading,logisticResult} = this.props;
         const tableOptions = {
             dataSource : tData,                         //加载组件时，表格从容器里获取初始值
@@ -220,7 +220,7 @@ class Invoice extends Component {
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
-            params:param,                                     //表格检索数据参数
+            params: param,                              //表格检索数据参数
             rowSelection: this.handleRowSelection(),    //需要checkbox时填写
             isGive: this.isGive.bind(this),
             isGiveM: this.isGiveM.bind(this)
@@ -288,7 +288,7 @@ class Invoice extends Component {
                         <TabPane tab="打单发货" key="1"><ForInvoiceView shopListItem={shopListItem} ListItem = {ListItem} formOptions={formOptions} tableOptions={tableOptions} tData={tData} hasSelected={selectList.length > 0}
                                                                            selectList={selectList}
                                                                            quickOptions={this.getQuickOptions()}
-                                                                           downParam={params}  ref = 'theTalbe'/></TabPane>
+                                                                           downParam={param}  ref = 'theTalbe'/></TabPane>
                         <TabPane tab="已打单发货" key="2"><InvoiceView shopListItem={shopListItem} ListItem = {ListItem} getFormOptionsFor={getFormOptionsFor} tableOptionsFor={tableOptionsFor} /></TabPane>
                     </Tabs>
                 </Panel>
