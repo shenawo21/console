@@ -54,7 +54,8 @@ class StorageQuery extends Component {
                 cascader: {
                     options: cateList,
                     placeholder: "请选择所属类目",
-                    changeOnSelect: true
+                    changeOnSelect: true,
+                    expandTrigger:'click'
                 }
             },{
                 label: "商品名称：",

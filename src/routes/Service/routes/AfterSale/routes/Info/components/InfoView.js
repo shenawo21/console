@@ -101,10 +101,10 @@ class InfoView extends Component {
                     name :'审核通过，通知财务退款',
                     type : 'primary',
                 },
-                {
-                    key : 'refuse',
-                    name : '拒绝退款',
-                },
+                // {
+                //     key : 'refuse',
+                //     name : '拒绝退款',
+                // },
                 {
                     key : 'back',
                     name : '返回',
