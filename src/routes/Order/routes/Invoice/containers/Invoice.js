@@ -13,14 +13,14 @@ class Invoice extends Component {
     constructor(props) {
         super(props);
         this.getFormOptions = this.getFormOptions.bind(this);
-        this.getFormOptionsFor = this.getFormOptionsFor.bind(this);
+        // this.getFormOptionsFor = this.getFormOptionsFor.bind(this);
         this.getQuickOptions = this.getQuickOptions.bind(this);
         this.state = {
             params: {},
-            paramsFor: {},
-            param:{},
+            // paramsFor: {},
+            // param:{},
             selectList: [],
-            tData: []        
+            // tData: []        
         }
     }
     
@@ -37,9 +37,9 @@ class Invoice extends Component {
     }
 
 	  componentWillReceiveProps(nextProps, preProps) {
-        this.setState({
-          tData: nextProps.items
-        })
+        // this.setState({
+        //   tData: nextProps.items
+        // })
         if (nextProps.dResult) {
           if (nextProps.dResult.failMessage) {
              message.info('发货结果：' + nextProps.dResult.success + '条成功' + ',' + nextProps.dResult.fail + '条失败' + ',' + '失败原因：' + nextProps.dResult.failMessage , 1);
@@ -112,7 +112,7 @@ class Invoice extends Component {
                   return false
                 } else {
                   context.setState({
-                    param: {pageNumber:pageNumber,...value},
+                    params: {pageNumber:pageNumber,...value},
                     selectList: []
                   })
                 }
@@ -130,33 +130,33 @@ class Invoice extends Component {
      * 
      * @returns (description)
      */
-    getFormOptionsFor() {
-        const context = this;
-        return {
-            /**
-             * (筛选表单提交)
-             * @param value (description)
-             */
-            handleSubmit(value) {
-                const csTime = getTimeStamp(value.createStartTime), ceTime = getTimeStamp(value.createEndTime),
-                rsTime = getTimeStamp(value.reviewStartTime), reTime = getTimeStamp(value.reviewEndTime)
-                if (( csTime > ceTime) || (rsTime > reTime)) {
-                  message.error('开始时间不能晚于结束时间！');
-                  return false
-                } else {
-                  context.setState({
-                    paramsFor: value
-                  })
-                }
-            },
-        /**
-         * (筛选表单重置)
-         */
-          handleReset() {
+    // getFormOptionsFor() {
+    //     const context = this;
+    //     return {
+    //         /**
+    //          * (筛选表单提交)
+    //          * @param value (description)
+    //          */
+    //         handleSubmit(value) {
+    //             const csTime = getTimeStamp(value.createStartTime), ceTime = getTimeStamp(value.createEndTime),
+    //             rsTime = getTimeStamp(value.reviewStartTime), reTime = getTimeStamp(value.reviewEndTime)
+    //             if (( csTime > ceTime) || (rsTime > reTime)) {
+    //               message.error('开始时间不能晚于结束时间！');
+    //               return false
+    //             } else {
+    //               context.setState({
+    //                 params: value
+    //               })
+    //             }
+    //         },
+    //     /**
+    //      * (筛选表单重置)
+    //      */
+    //       handleReset() {
     
-          }   
-        }
-    }
+    //       }   
+    //     }
+    // }
     /**
      * 快捷菜单
      */
@@ -206,36 +206,37 @@ class Invoice extends Component {
 
         this.setState({
             curKey : key - 1,
-            param:{},
+            // param:{},
             params:{},
-            paramsFor:{}
+            // paramsFor:{}
         })   
     }
     render() {
-        const {params, param, paramsFor, selectList, tData} = this.state; 
+        const {params, selectList,curKey} = this.state; 
         const {items, queryList, forQueryList, shoplist, totalItems, loading,logisticResult} = this.props;
         const tableOptions = {
-            dataSource : tData,                         //加载组件时，表格从容器里获取初始值
-            action : queryList,                         //表格翻页时触发的action
+            dataSource : items,                         //加载组件时，表格从容器里获取初始值
+            action : curKey==1 ? forQueryList : queryList,                        //表格翻页时触发的action
             pagination : {                              //表格页码配置，如果为false，则不展示页码
                 total : totalItems                      //数据总数
             },  
             loading,                                    //表格加载数据状态
-            params: param,                              //表格检索数据参数
+            params,                              //表格检索数据参数
+            key: curKey==1 ? 1 : 2,
             rowSelection: this.handleRowSelection(),    //需要checkbox时填写
             isGive: this.isGive.bind(this),
             isGiveM: this.isGiveM.bind(this)
         }
 	
-	      const tableOptionsFor = {
-            dataSource : items,                         //加载组件时，表格从容器里获取初始值
-            action : forQueryList,                      //表格翻页时触发的action
-            pagination : {                              //表格页码陪着，如果为false，则不展示页码
-                total : totalItems                      //数据总数
-            },  
-            loading,                                    //表格加载数据状态
-            params: paramsFor,                          //表格检索数据参数
-        }
+	      // const tableOptionsFor = {
+        //     dataSource : items,                         //加载组件时，表格从容器里获取初始值
+        //     action : forQueryList,                      //表格翻页时触发的action
+        //     pagination : {                              //表格页码陪着，如果为false，则不展示页码
+        //         total : totalItems                      //数据总数
+        //     },  
+        //     loading,                                    //表格加载数据状态
+        //     params: paramsFor,                          //表格检索数据参数
+        // }
         
         /**
          * 店铺列表
@@ -280,17 +281,17 @@ class Invoice extends Component {
         const formOptions = {
             ...this.getFormOptions()
         }
-        const getFormOptionsFor = {
-          ...this.getFormOptionsFor()
-        }
+        // const getFormOptionsFor = {
+        //   ...this.getFormOptionsFor()
+        // }
 	    //<InvoiceView {...tableOptions} {...formOptions} shopList={shopList} tData={tData} hasSelected={selectList.length > 0} selectList={selectList} quickOptions={this.getQuickOptions()}/>
         return <Panel title="">
                     <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                        <TabPane tab="打单发货" key="1"><ForInvoiceView shopListItem={shopListItem} ListItem = {ListItem} formOptions={formOptions} tableOptions={tableOptions} tData={tData} hasSelected={selectList.length > 0}
+                        <TabPane tab="打单发货" key="1"><ForInvoiceView items = {items} shopListItem={shopListItem} ListItem = {ListItem} formOptions={formOptions} tableOptions={tableOptions} hasSelected={selectList.length > 0}
                                                                            selectList={selectList}
                                                                            quickOptions={this.getQuickOptions()}
-                                                                           downParam={param}  ref = 'theTalbe'/></TabPane>
-                        <TabPane tab="已打单发货" key="2"><InvoiceView shopListItem={shopListItem} ListItem = {ListItem} getFormOptionsFor={getFormOptionsFor} tableOptionsFor={tableOptionsFor} /></TabPane>
+                                                                           downParam={params}  ref = 'theTalbe'/></TabPane>
+                        <TabPane tab="已打单发货" key="2"><InvoiceView shopListItem={shopListItem} ListItem = {ListItem} formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
                     </Tabs>
                 </Panel>
     }
