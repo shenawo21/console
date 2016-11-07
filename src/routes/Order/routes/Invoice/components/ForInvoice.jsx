@@ -96,7 +96,7 @@ class ForInvoice extends Component {
 
   _getColumns() {
     const context = this;
-    const {tData} = context.props;
+    const {items} = context.props;
     let columns = [{
       key: '0',
       title: '店铺名称',
@@ -139,13 +139,13 @@ class ForInvoice extends Component {
                   e.target.value='';
                   return false
                 }
-                tData.forEach((val,index)=>{
+                items.forEach((val,index)=>{
                     if(row.shoppId==val.shoppId){
-                      tData[index].outSid = e.target.value
+                      items[index].outSid = e.target.value
                     }
                 })
                 context.setState({
-                  tabDataSource:tData
+                  tabDataSource:items
                 })
         }}/>
       },
@@ -252,6 +252,7 @@ class ForInvoice extends Component {
               let dataNull = newArray && newArray.filter((item,index) => {
                 return item.outSid == null
               })
+              
               if (dataNull.length) {
                  message.info('勾选订单运单号不能为空！')
               } else {
@@ -302,9 +303,14 @@ class ForInvoice extends Component {
       </Col>
     </Row>
   }
-
+   shouldComponentUpdate (nextProps, nextState) {
+        if(nextProps.tableOptions.key == 1) {
+          return false;
+        }
+        return true;
+    }
   render() {
-    const {formOptions, tableOptions, quickOptions, hasSelected, loading, tData, ...other} = this.props;
+    const {formOptions, tableOptions, quickOptions, hasSelected, loading, items, ...other} = this.props;
     let { dataSource } = tableOptions;
     dataSource && dataSource.forEach((val, index)=> {
       val.key = index;

@@ -201,10 +201,15 @@ class Invoice extends Component {
       </Col>
     </Row>
   }
-
+  shouldComponentUpdate (nextProps, nextState) {
+        if(nextProps.tableOptions.key == 2) {
+          return false;
+        }
+        return true;
+    }
   render() {
-    const {getFormOptionsFor, tableOptionsFor, loading, ...other} = this.props;
-    let { dataSource } = tableOptionsFor;
+    const {formOptions, tableOptions, loading, ...other} = this.props;
+    let { dataSource } = tableOptions;
     dataSource && dataSource.forEach((val, index)=> {
       val.key = index;
       val.shoppDetails && val.shoppDetails.forEach((val, index) => {
@@ -214,9 +219,9 @@ class Invoice extends Component {
 
     return (
       <div>
-        <Search items={this._getFormItems()} onSubmit={getFormOptionsFor.handleSubmit} onReset={getFormOptionsFor.handleReset}/>
+        <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
 
-        <DataTable _uKey='orderId' bordered={true} columns={this._getColumns()} ref='dt' {...tableOptionsFor} className="table"
+        <DataTable _uKey='orderId' bordered={true} columns={this._getColumns()} ref='dt' {...tableOptions} className="table"
                   expandedRowRender={record => <Table rowKey={record => record.orderId} size="small" columns={this._customColumns()} dataSource={record.shoppDetails} bordered pagination={false} />}/>
       </div>
     )
