@@ -82,7 +82,7 @@ class Login extends Component {
               <img className="brand-img" src={logo} alt="..."/>
               <h2 className="brand-text font-size-40">电商中台</h2>
             </div>
-            <p className="font-size-20">电商中台是对为满足满足翌商前端及未来规则的后台需求，电商中台项目是针对企业电商化的为主要导向，帮助企业实现企业互联化的目的。</p>
+            <p className="font-size-20">传统B2C行业优势企业线上线下一体化互联网运营平台</p>
           </div>
           <div className="page-login-main">
             <div className="brand visible-xs">

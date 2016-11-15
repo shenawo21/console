@@ -14,7 +14,7 @@ class GoodsInfo extends Component {
         let context = this;
         let config = {
             formItems: [{
-                label: "结束退货备注：",
+                label: "结束换货备注：",
                 name: "endRemark",
                 input: {
                     rows: '5',

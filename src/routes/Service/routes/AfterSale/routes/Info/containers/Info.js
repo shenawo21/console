@@ -64,7 +64,7 @@ class Info extends Component {
             _this.setState({isRequired:true})
             Object.assign(value,{processStatus:'DENY'})
             if (!value.cwRefuseProof) {
-                message.error('请上传发货凭证!')
+                message.error('请上传拒绝凭证!')
             } else if(!value.cwRefuseReason) {
                 message.error('请选择拒绝退款原因!')
             } else if (!value.optRemark) {

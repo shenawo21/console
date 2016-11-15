@@ -34,7 +34,10 @@ export default (props) => {
                         <td>{outerSkuId}</td>
                         <td>{result.title}</td>
                         <td>{result.price}</td>
-                        <td>{result.goodsNum}</td>
+                        {result.afterSaleType == 'CHANGE_GOODS' ? 
+                        <td>{result.checkInfo && result.checkInfo.num }</td> :
+                        <td>{result.goodsNum}</td> 
+                        }
                         <td>{result.totalFee}</td>
                         <td>{result.discountFee}</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ?

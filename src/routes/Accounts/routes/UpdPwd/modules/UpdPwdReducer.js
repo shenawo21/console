@@ -18,7 +18,7 @@ const UPDPWD_FAILURE = 'accounts/UPDPWD_FAILURE';
 export function modifyItem(params) {
   return {
     types: [UPDPWD, UPDPWD_SUCCESS, UPDPWD_FAILURE],
-    promise: (client) => client.post('api-administrator.updPwd', params)
+    promise: (client) => client.post('api-administrator.updPwd', params, {'hasMsg': true})
   }
 }
 

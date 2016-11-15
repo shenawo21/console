@@ -22,7 +22,7 @@ class StorageQuery extends Component {
         let config = {
             formItems: [{
                 label: "所属店铺：",
-                name: "operateStore",
+                name: "relevantStore",
                 select: {
                     placeholder: "请选择所属店铺",
                     optionValue: shopList
@@ -54,7 +54,8 @@ class StorageQuery extends Component {
                 cascader: {
                     options: cateList,
                     placeholder: "请选择所属类目",
-                    changeOnSelect: true
+                    changeOnSelect: true,
+                    expandTrigger:'click'
                 }
             },{
                 label: "商品名称：",
@@ -120,7 +121,7 @@ class StorageQuery extends Component {
         },{
             key: '1',
             title: '所属店铺',
-            dataIndex: 'operateStore'
+            dataIndex: 'relevantStore'
         },{
             key: '2',
             title: '入库类型',
@@ -155,7 +156,7 @@ class StorageQuery extends Component {
         }, {
             key: '9',
             title: '销售价',
-            dataIndex: 'price'
+            dataIndex: 'advicePrice'
         }, {
             key: '10',
             title: '入库数量',

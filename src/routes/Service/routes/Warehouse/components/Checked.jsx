@@ -119,7 +119,7 @@ class Checked extends Component {
       dataIndex: 'num'
     }, {
       key: '4',
-      title: '退货数量',
+      title: '退 / 换货数量',
       dataIndex: 'tGoodsNum'
     }, {
       key: '5',

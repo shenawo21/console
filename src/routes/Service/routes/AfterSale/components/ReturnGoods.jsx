@@ -183,12 +183,13 @@ class ReturnGoods extends Component {
             key: '10',
             title: '仓库反馈',
             dataIndex: 'feedbackStatus',
-            render(type) {
-                switch(type) {
-                    case 'ACCEPT':
-                        return '允许入库'
-                    case 'DENY':
-                        return '拒绝入库'
+            render(type,row) {
+                if (type == 'ACCEPT' && row.status !== 'STOCK_DENY') {
+                    return '允许入库'
+                } else if (type == 'DENY') {
+                    return '拒绝入库'
+                } else if (type == 'ACCEPT' && row.status == 'STOCK_DENY') {
+                    return '仓库验收通过，但拒绝入库'
                 }
             }
         },{
@@ -199,7 +200,6 @@ class ReturnGoods extends Component {
             key: '12',
             title: '操作  /  备注',
             render(id,row) {
-                console.log(row,'row')
                 const changeOut = () => {
                     context.OnchangeOut(row.tid,row.refundId)
                 }
@@ -218,6 +218,10 @@ class ReturnGoods extends Component {
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'INIT') {
                             return <div>
                                <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><em style = {{padding:'0 8px'}}></em> <span>已通知财务退款</span>
+                            </div>
+                        } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == null ) {
+                            return <div>
+                               <Link to={`/service/aftersale/applyGoods/${row.refundId}`}>退货详情</Link><em style = {{padding:'0 8px'}}></em> <span>已通知仓库验收</span>
                             </div>
                         } else if (row.processStatus == 'PROCESS' && row.feedbackStatus == 'DENY' || row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.refundResult == 'DENY') {
                             return <div>
@@ -249,9 +253,9 @@ class ReturnGoods extends Component {
 
         return columns;
     }
-    OnchangeOut(tid,id) {
+    OnchangeOut(tid,id,refresh) {
         const {getOut} = this.props
-        getOut(tid,id)
+        getOut(tid,id,this.refs.theTables.refresh)
     }
     render() {
         const {formOptions,dataSource,visible,handleOk,...other} = this.props;
@@ -282,7 +286,7 @@ class ReturnGoods extends Component {
                 onCancel={formOptions.handleCancel} >
                 <Form horizontal items={this._getFormIModal()} button={<span></span>} ref='form' />
             </Modal>
-               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()}
+               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} ref = 'theTables'
                            expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />}
                            dataSource={dataSource} {...other}  />
 

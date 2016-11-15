@@ -118,9 +118,14 @@ class OddQuery extends Component {
         refresh()
     }
     // 换货出库
-    getOut (tid,id) {
+    getOut (tid,id,refresh) {
         const {getOut} = this.props
-        getOut({tid:tid,refundId:id})
+        getOut({tid:tid,refundId:id}).then(res => {
+            if (res.status == 1 ) {
+                refresh()
+            }
+        })
+        
     }
     render() {
         const {params,visible} = this.state;

@@ -23,7 +23,7 @@ class OutgoView extends Component {
         let config = {
             formItems: [ {
                 label: "出库店铺：",
-                name: "shopId",
+                name: "operateStore",
                 select: {
                     placeholder: "请选择所属店铺",
                     optionValue: shopList

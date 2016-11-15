@@ -11,7 +11,7 @@ import Panel from 'components/Panel'
 import {modifyItem} from '../modules/UpdPwdReducer'
 import store from 'store2';
 
-import {message} from 'hen';
+import {message, Modal, Button} from 'hen';
 
 class Setting extends Component {
     
@@ -41,7 +41,7 @@ class Setting extends Component {
    * @param  {any} e
    */
     getFormOptions() {
-        const context = this;
+        const _this = this;
         return {
        /**
        * (表单提交)
@@ -50,14 +50,28 @@ class Setting extends Component {
        */
       
         handleSubmit(value) {
-            const {modifyItem, params} = context.props;
+            const {modifyItem, params} = _this.props;
             const {adminId} = store.get('USER')
-            context.setState({
+            _this.setState({
                 params: value
             })
             modifyItem({
                 adminId: adminId,
                 ...value
+            }).then((res) => {
+                if(res.status == 1) {
+                    //message.success(res.message);
+                    Modal.success({
+                        title: '通知',
+                        content: '您已修成功修改帐号密码，请重新登录！'
+                    });
+                    setTimeout(() => {
+                        store.clearAll();
+                        _this.context.router.push('/login')
+                    },2000)
+                }else{
+                    message.error(res.message);
+                }
             });
           },
           
@@ -94,6 +108,10 @@ Setting.propTypes = {
     loading: React.PropTypes.bool,
     result: React.PropTypes.object,
 }
+
+Setting.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};
 
 const mapActionCreators = {
     modifyItem

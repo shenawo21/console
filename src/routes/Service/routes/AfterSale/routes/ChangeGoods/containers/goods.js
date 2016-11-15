@@ -95,6 +95,8 @@ class Goods extends Component {
        */
       tablegetFormOptions() {
           const _this = this;
+          const {result} = _this.props
+          let shopId = result && result.shop && result.shop.shopId
           return {
               /**
                * (筛选表单提交)
@@ -103,7 +105,7 @@ class Goods extends Component {
                */
               handleSubmit(value) {
                   _this.setState({
-                      params: value
+                      params: {shopId:shopId,...value}
                   })
               }
           }

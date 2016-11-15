@@ -5,7 +5,7 @@ import DataTable from 'components/DataTable';
 
 import Search from 'components/Search';
 import {getSpecValue} from 'common/utils'
-import {Row, Col, Button, Icon, Popconfirm, DatePicker} from 'hen';
+import {Row, Col, Button, Icon, Popconfirm, DatePicker,cascader} from 'hen';
 
 //入库类型
 const STOCKTYPE = [
@@ -51,7 +51,8 @@ class StorageQuery extends Component {
                 cascader: {
                     options: cateList,
                     placeholder: "请选择所属类目",
-                    changeOnSelect: true
+                    changeOnSelect: true,
+                    expandTrigger:'click'
                 }
             },{
                 label: "商品名称：",
