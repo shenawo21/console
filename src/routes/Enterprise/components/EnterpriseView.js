@@ -206,6 +206,16 @@ class Enterprise extends Component {
             showTime: true
           }
         }]
+      },{
+        title: '对接信息',
+        formItems: [{
+          label: "外部编码：",
+          infoLabel : <span style = {{color:"#ccc"}}>用以对接供销平台</span>,
+          name: "code",
+          input: {
+            type: "text",
+          }
+        }]
       }];
     config.initValue = {
       enterpriseCode: null,
@@ -221,6 +231,7 @@ class Enterprise extends Component {
       lealPerson: null,
       telephone: null,
       createTime: null,
+      code:null,
     };
     if (item) {
       config.initValue = item;
