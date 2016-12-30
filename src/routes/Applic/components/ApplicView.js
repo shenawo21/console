@@ -86,6 +86,9 @@ class Applic extends Component {
             <Button type="ghost" disabled={row.status == 'create' ? false : true}>删除</Button>
           </Popconfirm>
 
+          <Button type="ghost" disabled={row.status == 'use' ? false : true}>
+            <Link to={`/applic/add`}  className={classes.colors}  disabled={row.status == 'use' ? false : true} >授权管理</Link>
+          </Button>
 
         </ButtonGroup>
       }

@@ -13,7 +13,8 @@
      require.ensure([], (require) => {
        next(null, [
          require('./routes/Edit').default(store, location),
-         require('./routes/Joint').default(store)
+         require('./routes/Joint').default(store),
+         require('./routes/Add').default(store)
        ])
      })
    }
