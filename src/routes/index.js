@@ -56,6 +56,7 @@ export const createRoutes = (store) => {
           require('./Enterprise').default(store),
           require('./Accounts').default(store),
           require('./Role').default(store),
+          require('./Group').default(store),
           require('./Virtualhouse').default(store),
           require('./Shophouse').default(store),
           require('./Order').default(store),

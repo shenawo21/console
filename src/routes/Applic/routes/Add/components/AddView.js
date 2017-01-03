@@ -135,6 +135,7 @@ class Add extends Component {
             <div>
                  <Row>
                     <Col span='8'>
+                        <h3 className = 'title'>账号组</h3>
                          <Tree 
                             defaultExpandAll={this.state.defaultExpandAll}
                             onExpand={onExpand}
@@ -144,6 +145,7 @@ class Add extends Component {
                         </Tree>
                     </Col>
                     <Col span='16'>
+                        <h3 className = 'title'>授权设置</h3>
                          <Transfer
                             titles={title}
                             listStyle={{
