@@ -101,6 +101,14 @@ class Edit extends Component {
                     optionValue: SEX
                 }
             }, {
+                label: "所属账号组：",
+                name: "sex",
+                rules: [{ required: true, message: '请选择性别' }],
+                select: {
+                    placeholder: '请选择性别',
+                    optionValue: SEX
+                }
+            }, {
                 label: "是否可用：",
                 name: "enabled",
                 rules: [{ required: true, message: '请选择是否可用' }],

@@ -13,6 +13,14 @@ const STATUS = [
   {value: 1, title: "可用"}
 ];
 
+// 所属账号组
+const GROUP = [
+  {value:0,title:'董事长'},
+  {value:1,title:'产品部'},
+  {value:2,title:'开发部'},
+  {value:3,title:'行政部'},
+]
+
 class Accounts extends Component {
 
   _getFormItems() {
@@ -21,7 +29,7 @@ class Accounts extends Component {
         label: "账号：",
         name: "account",
         span: '5',
-        labelCol: {span: 4},
+        labelCol: {span: 6},
         input: {
           placeholder: "请输入昵称"
         }
@@ -38,10 +46,17 @@ class Accounts extends Component {
           placeholder: "请选择是否可用",
           optionValue: STATUS
         }
+      }, {
+        label: "所属账号组：",
+        name: "group",
+        select: {
+          optionValue: GROUP
+        }
       }],
       initValue: {
         name: null,
-        nick: null
+        nick: null,
+        group:null
       }
     }
     return config;
@@ -61,35 +76,39 @@ class Accounts extends Component {
       dataIndex: 'account'
     }, {
       key: '2',
+      title: '所属账号组',
+      dataIndex: 'account'
+    }, {
+      key: '3',
       title: '用户姓名',
       dataIndex: 'name'
     }, {
-      key: '3',
+      key: '4',
       title: '是否可用',
       dataIndex: 'enabled',
       render(status){
         return <span>{STATUS[status].title}</span>
       }
     }, {
-      key: '4',
+      key: '5',
       title: '邮箱',
       dataIndex: 'email'
     }, {
-      key: '5',
+      key: '6',
       title: '手机号码',
       dataIndex: 'mobile'
     }, {
-      key: '6',
+      key: '7',
       title: '注册时间',
       dataIndex: 'registerTime'
     }, {
-      key: '7',
+      key: '8',
       title: '创建人',
       dataIndex: 'createPersionName'
     }];
 
     let columOther = {
-      key: '8',
+      key: '9',
       title: '操作',
       dataIndex: 'adminId',
       render(id, row){
