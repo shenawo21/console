@@ -211,10 +211,13 @@ class Enterprise extends Component {
         formItems: [{
           label: "外部编码：",
           infoLabel : <span style = {{color:"#ccc"}}>用以对接供销平台</span>,
-          name: "code",
+          name: "outMallCode",
           input: {
             type: "text",
-          }
+          },
+          rules: [
+              { max: 32, message: '32个字符以内' }
+          ],
         }]
       }];
     config.initValue = {
@@ -231,7 +234,7 @@ class Enterprise extends Component {
       lealPerson: null,
       telephone: null,
       createTime: null,
-      code:null,
+      outMallCode:null,
     };
     if (item) {
       config.initValue = item;
