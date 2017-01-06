@@ -7,7 +7,7 @@ import store from 'store2';
 
 
 const sessionId = 'sessionId';
-const imgUrl = __PROD__ ? 'imageServlet' : 'suneee-cloud/imageServlet';
+const imgUrl = __PROD__ ? 'imageServlet' : 'suneee-cloud-ep/imageServlet';
 
 export class Login extends Component {
   constructor(props) {
