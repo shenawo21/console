@@ -11,7 +11,7 @@ const getMenu = menuLists => {
       const secondList = menu.childrenList && menu.childrenList.map(idx => {
           return {
             title: idx.name,
-            url: idx.url,
+            url: idx.uri,
             //children: thirdList || null
           }
         })

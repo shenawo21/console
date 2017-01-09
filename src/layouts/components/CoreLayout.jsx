@@ -25,7 +25,6 @@ var logo = require('./logo.png')
 // define it with a plain javascript function...
 function CoreLayout(props) {
   let result = null;
-
   let findNestedProp = (props)=>{
       let previousChildren = props.children;
 
@@ -44,6 +43,7 @@ function CoreLayout(props) {
   let menus = getMenu(menuList);
   //获取图像
   const pic = store.get('USER') && store.get('USER').photo
+  console.log(menus,'menus***************')
   return (
     <div className={classes.corelayout}>
       <div className={classes.header + ' site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse'}>
