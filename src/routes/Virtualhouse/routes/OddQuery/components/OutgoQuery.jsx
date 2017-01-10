@@ -58,6 +58,12 @@ class OutgoView extends Component {
           optionValue: STOCKTYPE
         }
       }, {
+        label: "渠道：",
+        name: "operateChannelCode",
+        input: {
+          placeholder: "请输入渠道"
+        }
+      }, {
         label: "操作人：",
         name: "account",
         input: {
@@ -82,6 +88,7 @@ class OutgoView extends Component {
         spuId: null,
         skuId: null,
         stockType: null,
+        operateChannelCode:null,
         createUser: null,
         createTimeStart: null,
         createTimeEnd: null
@@ -125,30 +132,34 @@ class OutgoView extends Component {
       dataIndex: 'title'
     }, {
       key: '6',
+      title: '渠道',
+      dataIndex: 'operateChannelCode'
+    }, {
+      key: '7',
       title: '市场价',
       dataIndex: 'marketPrice'
     }, {
-      key: '7',
+      key: '8',
       title: '销售价',
       dataIndex: 'price'
     }, {
-      key: '8',
+      key: '9',
       title: '建议销售价',
       dataIndex: 'advicePrice'
     }, {
-      key: '9',
+      key: '10',
       title: '出库数量',
       dataIndex: 'incoming'
     }, {
-      key: '10',
+      key: '11',
       title: '出库时间',
       dataIndex: 'createTime'
     }, {
-      key: '11',
+      key: '12',
       title: '操作人',
       dataIndex: 'account'
     }, {
-      key: '12',
+      key: '13',
       title: '备注',
       dataIndex: 'remark'
     }];

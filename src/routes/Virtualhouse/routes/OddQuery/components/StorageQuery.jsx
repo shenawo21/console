@@ -68,6 +68,12 @@ class StorageQuery extends Component {
                     optionValue: STOCKTYPE
                 }
             },{
+                label: "渠道：",
+                name: "relevantChannelCode",
+                input: {
+                placeholder: "请输入渠道"
+                }
+            },{
                 label: "操作人：",
                 name: "account",
                 input: {
@@ -93,6 +99,7 @@ class StorageQuery extends Component {
                 categoryCode: null,
                 title: null,
                 stockType: null,
+                relevantChannelCode:null,
                 createUser : null,
                 createTimeStart : null,
                 createTimeEnd : null
@@ -129,39 +136,43 @@ class StorageQuery extends Component {
             key: '4',
             title: '商品名称',
             dataIndex: 'title'
-        }, {
+        },{
             key: '5',
+            title: '渠道',
+            dataIndex: 'relevantChannelCode'
+         }, {
+            key: '6',
             title: '商品类目',
             dataIndex: 'category'
         }, {
-            key: '6',
+            key: '7',
             title: '规格',
             dataIndex: 'specOneValue',
             render(val, row){
                 return getSpecValue(row)
             }
         }, {
-            key: '7',
+            key: '8',
             title: '市场价',
             dataIndex: 'marketPrice'
         }, {
-            key: '8',
+            key: '9',
             title: '销售价',
             dataIndex: 'price'
         }, {
-            key: '9',
+            key: '10',
             title: '入库数量',
             dataIndex: 'incoming'
         },  {
-            key: '10',
+            key: '11',
             title: '入库时间',
             dataIndex: 'createTime'
         }, {
-            key: '11',
+            key: '12',
             title: '操作人',
             dataIndex: 'account'
         }, {
-            key: '12',
+            key: '13',
             title: '备注',
             dataIndex: 'remark'
         }];
