@@ -58,7 +58,7 @@ class Login extends Component {
 
     const passwdProps = getFieldProps('password', passwdPropsOptions);
     
-    const vCodeProps = getFieldProps('validateCode', vCodeOptions);
+    // const vCodeProps = getFieldProps('validateCode', vCodeOptions);
 
     const formItemLayout = {
       labelCol: {span: 5},
@@ -116,13 +116,13 @@ class Login extends Component {
                                           onContextMenu={noop} onPaste={noop} onCopy={noop} onCut={noop}/>
                 </FormItem>
                 
-                <FormItem 
+                {/**<FormItem 
                 {...formItemLayout}
                   label="验证码："
                   hasFeedback style={{ marginBottom: '8px' }}>
                   <Input {...vCodeProps} style={{width: '100px'}} />
                   <a href="javascript:void(0)" onClick={vCode} > <img src={vcodeUrl} height="30"/></a>
-                </FormItem>                
+                </FormItem>  */}               
                 
                 <FormItem wrapperCol={{ span: 23, offset: 1 }}>
                   <div className="form-group">

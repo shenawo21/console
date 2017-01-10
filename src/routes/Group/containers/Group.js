@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import GroupyView from '../components/GroupView'
 import Panel from 'components/Panel'
-import {queryList, deleteItem} from '../modules/GroupReducer'
+import {queryList,addItem, deleteItem,editItem} from '../modules/GroupReducer'
 import {message} from 'hen'
 class Group extends Component {
 
@@ -11,16 +11,23 @@ class Group extends Component {
     this.Edit = this.Edit.bind(this);
     this.EditNext = this.EditNext.bind(this);
     this.handleOk = this.handleOk.bind(this);
+    this.addOnTop = this.addOnTop.bind(this);
     this.state = {
       visible: false,
+      title:'新增账号组',
+      preName:'',
+      preCode:'',
+      editName:'',
+      editCode:'',
+      edit:false
     }
   }
-
+  
   //删除
   delCategory(id) {
     const context = this;
     const {deleteItem} = this.props;
-    deleteItem({categoryCode: id.split(",")}).then((res) => {
+    deleteItem({deptCode:id}).then((res) => {
       if(res && res.status == 1) {
         message.success(res.message);
         setTimeout(() => {
@@ -38,14 +45,13 @@ class Group extends Component {
   getFormOptions() {
         const context = this;
         return {
-            showModal(formObj){
-                formObj && formObj.resetFields()
-                context.setState({
-                    visible: true,
-                    // id:'',
-                    // addressItemState : {}
-                })
-            },
+            // showModal(formObj){
+            //     formObj && formObj.resetFields()
+            //     context.setState({
+            //         visible: true,
+            //         // id:'',
+            //     })
+            // },
             handleCancel() {
                 context.setState({
                     visible: false,
@@ -53,73 +59,72 @@ class Group extends Component {
             }
         }
   }
+  // 新增顶级
+  addOnTop (refresh) {
+    refresh ? refresh.resetFields() : ''
+    const context = this;
+    context.setState({
+          visible: true,
+          title:'新增账号组',
+          edit:false,
+          preCode:''
+      })  
+  }
   // 增加下级
-  EditNext(id,refresh) {
+  EditNext(name,code,refresh) {
+     refresh ? refresh.resetFields() : ''
       const context = this;
       context.setState({
           visible: true,
-      })
-      // refresh ? refresh.resetFields() : ''
-      // const {gitAddressItem} = this.props
-      // gitAddressItem({id:id}).then(function(res) {
-      //     context.setState({
-      //         visible: true,
-      //         id:id
-      //     })
-      // })        
+          title:'新增账号组',
+          preName:name,
+          preCode:code,
+          edit:false
+      })  
   }
   // 编辑
-  Edit(id,refresh) {
+  Edit(name,code,refresh) {
+      refresh ? refresh.resetFields() : ''
       const context = this;
       context.setState({
           visible: true,
+          title:'编辑账号组',
+          editCode:code,
+          edit:true
       })
-      // refresh ? refresh.resetFields() : ''
-      // const {gitAddressItem} = this.props
-      // gitAddressItem({id:id}).then(function(res) {
-      //     context.setState({
-      //         visible: true,
-      //         id:id
-      //     })
-      // })        
   }
   handleOk (values,fresh) {
-    console.log(values,'values')
-      // const self = this
-      // const {id} = this.state
-      // const {addAddress,editAddress,gitAddressList} = this.props
-      // const addArray = values.address
-      // values.receiverState = addArray[0] ? addArray[0] : ''
-      // values.receiverCity = addArray[1] ? addArray[1] : ''
-      // values.receiverDistrict = addArray[2] ? addArray[2] : ''
-      // delete values.address
-      // if (id) {
-      //     values = {...values,id:id}
-      //     editAddress(values).then(function(res) {
-      //         if (res && res.status == 1) {
-      //             self.setState({visible: false})
-      //             fresh && fresh.resetFields()
-      //             gitAddressList()
-      //         } else {
-      //             message.error(res.message, 1)
-      //         }
-              
-      //     })
-      // } else {
-      //     addAddress(values).then(function(res) {
-      //         if (res && res.status == 1) {
-      //             self.setState({visible: false})
-      //             fresh && fresh.resetFields()
-      //             gitAddressList()
-      //         } else {
-      //             message.error(res.message, 1)
-      //         }    
-      //     })
-      // }
+    const self = this;
+    const {addItem,queryList,editItem} = self.props
+    const {preCode,edit,editCode} = self.state
+    if (edit == true) {
+        let value = {...values,deptCode:editCode}
+        editItem(value).then(function(res) {
+        if (res && res.status == 1) {
+              self.setState({visible: false})
+              fresh && fresh.resetFields()
+              queryList()
+          } else {
+              message.error(res.message, 1)
+          }
+      })
+    } else {
+        delete values.nextName
+        let value = {...values,deptCode:preCode}
+        addItem(value).then(function(res) {
+          if (res && res.status == 1) {
+                self.setState({visible: false})
+                fresh && fresh.resetFields()
+                queryList()
+            } else {
+                message.error(res.message, 1)
+            }
+        })
+    }
   }
   render() {
     const {result, queryList, loading} = this.props;
-    const {visible} = this.state;
+    const {visible,preName,title} = this.state;
     const loop = (lists) => {
 
       return lists && lists.map(a => {
@@ -138,7 +143,10 @@ class Group extends Component {
                                 {...tableOptions} 
                                 ref="cateTable"
                                 visible = {visible}
+                                title = {title}
+                                preName = {preName}
                                 formOptions={this.getFormOptions()}
+                                addOnTop = {this.addOnTop}
                                 handleOk = {this.handleOk}
                                 Edit = {this.Edit}
                                 EditNext = {this.EditNext} 
@@ -152,7 +160,9 @@ Group.propTypes = {
 
 const mapActionCreators = {
   queryList,
-  deleteItem
+  addItem,
+  deleteItem,
+  editItem
 }
 
 const mapStateToProps = (state) => {

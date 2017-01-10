@@ -10,12 +10,5 @@ export default (store) => ({
 
       next(null, group)
     })
-  },
-  getChildRoutes(location, next) {
-    require.ensure([], (require) => {
-      next(null, [
-        require('./routes/Edit').default(store, location)
-      ])
-    })
   }
 })
