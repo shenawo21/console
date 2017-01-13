@@ -121,10 +121,10 @@ class Add extends Component {
         const notFoundContent = '暂无数据';
 
         const loop = data => data && data.map((i) => {
-        if (i.childrenList) {
+        if (i.children) {
             return (
             <TreeNode key={i.permissionId} title={i.name}>
-                {loop(i.childrenList) }
+                {loop(i.children) }
             </TreeNode>
             );
         }

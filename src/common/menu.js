@@ -8,7 +8,7 @@ const getMenu = menuLists => {
           }
         })*/
       //console.log('thirdList',thirdList);
-      const secondList = menu.childrenList && menu.childrenList.map(idx => {
+      const secondList = menu.children && menu.children.map(idx => {
           return {
             title: idx.name,
             url: idx.uri,

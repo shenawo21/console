@@ -54,7 +54,7 @@ class Home extends Component {
           servicePermis = m.name
         }
         if (m.name == '订单管理') {
-          m.childrenList && m.childrenList.map((n)=> {
+          m.children && m.children.map((n)=> {
             if (n.name == '审单') {
               auditPermis = n.name
             }

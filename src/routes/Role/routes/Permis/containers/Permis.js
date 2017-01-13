@@ -27,11 +27,11 @@ class Permis extends Component {
     const loop = (data) => {
       let expandedKeys = data && data.map(p => {
           //显示时，只获取子节点selected选中状态，根据子节点状态影响父节点状态
-          if (p.selected && !p.childrenList) {
+          if (p.selected && !p.children) {
             curCheckedKeys.push('' + p.permissionId);
           }
-          if (p.childrenList) {
-            loop(p.childrenList);
+          if (p.children) {
+            loop(p.children);
           }
           return p.permissionId + '';
         }) || [];
@@ -82,8 +82,8 @@ class Permis extends Component {
             if(item == val.permissionId){
               parentId && !curCheckedKeys.includes('' + parentId) && curCheckedKeys.push(parentId + '')
             }
-            if (val.childrenList) {
-              loop(val.childrenList, item, val.permissionId);
+            if (val.children) {
+              loop(val.children, item, val.permissionId);
             }
         })
     }

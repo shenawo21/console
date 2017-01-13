@@ -15,10 +15,10 @@ class Permis extends Component {
   render() {
     const {item, onSave, onCheck, keys, onExpand} = this.props;
     const loop = data => data && data.map((i) => {
-      if (i.childrenList) {
+      if (i.children) {
         return (
           <TreeNode key={i.permissionId} title={i.name}>
-            {loop(i.childrenList) }
+            {loop(i.children) }
           </TreeNode>
         );
       }

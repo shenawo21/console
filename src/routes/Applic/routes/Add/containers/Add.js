@@ -29,11 +29,11 @@ class Add extends Component {
     const loop = (data) => {
       let expandedKeys = data && data.map(p => {
           //显示时，只获取子节点selected选中状态，根据子节点状态影响父节点状态
-          if (p.selected && !p.childrenList) {
+          if (p.selected && !p.children) {
             curCheckedKeys.push('' + p.permissionId);
           }
-          if (p.childrenList) {
-            loop(p.childrenList);
+          if (p.children) {
+            loop(p.children);
           }
           return p.permissionId + '';
         }) || [];
