@@ -8,7 +8,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import EditView from '../components/EditView'
 import Panel from 'components/Panel'
-import {view, addItem, modifyItem, getRoleList} from '../modules/EditReducer'
+import {view, addItem, modifyItem, getRoleList,group} from '../modules/EditReducer'
 import store from 'store2';
 import {message} from 'hen';
 
@@ -32,13 +32,15 @@ class Edit extends Component {
     }
 
     componentDidMount() {
-        const {params, view, getRoleList} = this.props;
+        const {params, view, getRoleList,group} = this.props;
         const context = this;
         if(params.id){
             view({adminId: params.id})
         }
         //获取角色列表
         getRoleList();
+        // 获取账号组列表
+        group()
     }
 
     componentWillReceiveProps(nextProps, preProps){
@@ -91,24 +93,34 @@ class Edit extends Component {
         handleSubmit(value) {
             const {addItem, modifyItem, params} = _this.props;
             const enterpriseCode = store.get('USER').enterpriseCode;
-            _this.setState({
-                params: value
-            })
-            if (_this.state.photoList) {
-                value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
-            }
-            if(params.id) { 
-                modifyItem({
-                    admin: true,
-                    adminId: params.id,
-                    enterpriseCode: enterpriseCode,
-                    ...value
-                })
-            }else{ 
-                addItem({
-                    ...value,
-                    enterpriseCode: enterpriseCode
-                })
+            console.log(value.deptCode,'deptCode')
+            if (!value.deptCode) {
+                message.error('所属账号组不能为空！')
+            } else {
+                    let code = value.deptCode
+                    let deptCode = code[code.length -1]
+                    console.log(deptCode,'deptCode======')
+                    value = {...value,deptCode:deptCode}
+                    console.log(value,'value=====')
+                    _this.setState({
+                        params: value
+                    })
+                    if (_this.state.photoList) {
+                        value.photo = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+                    }
+                    if(params.id) { 
+                        modifyItem({
+                            admin: true,
+                            adminId: params.id,
+                            enterpriseCode: enterpriseCode,
+                            ...value
+                        })
+                    }else{ 
+                        addItem({
+                            ...value,
+                            enterpriseCode: enterpriseCode
+                        })
+                    }   
             }
           },
 
@@ -124,7 +136,7 @@ class Edit extends Component {
 
     render() {
         const { item, photoList} = this.state;
-        const {loading, result, roleListResult} = this.props;
+        const {loading, result, roleListResult,groupResult} = this.props;
 
         //角色列表
         let list = roleListResult && roleListResult.map(a => {
@@ -133,12 +145,32 @@ class Edit extends Component {
                 label: a.name
             }
         }) || [];
+        // 账号组列表
+        const loop = (groupResult) => {
+            return groupResult && groupResult.map(a => {
+                let children = loop(a.children)
+
+                if (children) {
+                    return {
+                        value: a.deptCode,
+                        label: a.name,
+                        children
+                    }
+                } else {
+                    return {
+                        value: a.deptCode,
+                        label: a.name
+                    }
+                }
+            })
+        }
+
         const formOptions = {
             loading,
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><EditView item={item} photoList={photoList} roleList={list} photoImg={this.photoImg} {...formOptions} /></Panel>
+        return <Panel><EditView item={item} photoList={photoList} roleList={list} groupList = {loop(groupResult)} photoImg={this.photoImg} {...formOptions} /></Panel>
     }
 }
 
@@ -160,12 +192,13 @@ const mapActionCreators = {
     view,
     addItem,
     modifyItem,
-    getRoleList
+    getRoleList,
+    group
 }
 
 const mapStateToProps = (state) => {
-  const {result, modResult, roleListResult, loading, jump} = state.edit;
-  return {result, modResult, roleListResult, loading, jump};
+  const {result, modResult, roleListResult, loading, jump,groupResult} = state.edit;
+  return {result, modResult, roleListResult, loading, jump,groupResult};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Edit)

@@ -37,8 +37,7 @@ class Edit extends Component {
      */
     _getFormItems() {
         let config = {}, context = this;
-        const {item, formOptions, roleList, photoImg, photoList, result} = context.props;
-
+        const {item, formOptions, roleList, photoImg, photoList, result,groupList} = context.props;
         let upConfig = {
             listType: 'picture',
             showUploadList: true,
@@ -102,11 +101,11 @@ class Edit extends Component {
                 }
             }, {
                 label: "所属账号组：",
-                name: "sex",
-                rules: [{ required: true, message: '请选择性别' }],
-                select: {
-                    placeholder: '请选择性别',
-                    optionValue: SEX
+                name: "deptCode",
+                cascader: {
+                    options: groupList,
+                    placeholder: "请选择所属账号组",
+                    changeOnSelect: true
                 }
             }, {
                 label: "是否可用：",
@@ -164,7 +163,6 @@ class Edit extends Component {
         config.initValue.roleIdList = roleIdList
         if (item) {
             config.initValue = item; 
-            
             config.initValue.roleIdList = roleIdList
 
         } else {

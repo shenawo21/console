@@ -29,6 +29,11 @@ const GETROLELIST = 'accounts/GETROLELIST';
 const GETROLELIST_SUCCESS = 'accounts/GETROLELIST_SUCCESS';
 const GETROLELIST_FAILURE = 'accounts/GETROLELIST_FAILURE';
 
+// 所属账号组
+const GROUP = 'accounts/GROUP';
+const GROUP_SUCCESS = 'accounts/GROUP_SUCCESS';
+const GROUP_FAILURE = 'accounts/GROUP_FAILURE';
+
 
 /**
  * 单条查看
@@ -114,9 +119,18 @@ export function getRoleList(params) {
   }
 }
 
+// 账号组
+export function group(params) {
+  return {
+    types: [GROUP, GROUP_SUCCESS, GROUP_FAILURE],
+    promise: (client) => client.post('api-department.getDeptNameList', params, {'hasMsg' : true})
+  }
+}
+
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
+    case GROUP:  
     case VIEW:
     case ADD:
     case MODIFY:
@@ -186,6 +200,15 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+    case GROUP_SUCCESS:
+        return {
+            ...state,
+            groupResult: action.result
+        }
+    case GROUP_FAILURE:
+        return {
+            ...state
+        }   
     default:
       return state
   }
