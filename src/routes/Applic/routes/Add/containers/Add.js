@@ -70,7 +70,6 @@ class Add extends Component {
     componentWillReceiveProps(nextProps, preProps) {
     if(nextProps.result){
         let keys = this.getFilterExpandedKeys(nextProps.result.permissionList);
-        console.log( keys,'9999')
         this.setState({
           item: nextProps.result,
           keys

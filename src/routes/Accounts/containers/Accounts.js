@@ -59,7 +59,6 @@ class Accounts extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                  console.log(value)
                   context.setState({
                       params: value
                   })

@@ -113,7 +113,6 @@ const mapActionCreators = {
 
 
 const mapStateToProps = (state) => {
-    console.log(state,'9999')
     const {result, shoplist, loading} = state.history;
     const {items = [], totalItems = 0} = result || {};
     return {items, shoplist, totalItems, loading };

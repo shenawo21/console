@@ -93,15 +93,12 @@ class Edit extends Component {
         handleSubmit(value) {
             const {addItem, modifyItem, params} = _this.props;
             const enterpriseCode = store.get('USER').enterpriseCode;
-            console.log(value.deptCode,'deptCode')
             if (!value.deptCode) {
                 message.error('所属账号组不能为空！')
             } else {
                     let code = value.deptCode
                     let deptCode = code[code.length -1]
-                    console.log(deptCode,'deptCode======')
                     value = {...value,deptCode:deptCode}
-                    console.log(value,'value=====')
                     _this.setState({
                         params: value
                     })
