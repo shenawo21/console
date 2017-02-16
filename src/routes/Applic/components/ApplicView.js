@@ -19,16 +19,24 @@ const STATUS = {
 class Applic extends Component {
 
   _getFormItems() {
+    const {chList} = this.props
     let config = {
       formItems: [{
-        label: "应用名称：",
+        label: "店铺名称：",
         name: "name",
         span: "7",
         labelCol: {span: 5},
         input: {}
+      },{
+        label: "所属渠道：",
+        name: "channelCode",
+        select: {
+          optionValue: chList,
+        }
       }],
       initValue: {
-        name: null
+        name: null,
+        channelCode:null
       }
     }
     return config;
@@ -51,17 +59,21 @@ class Applic extends Component {
     const context = this;
     let columns = [{
       key: '1',
-      title: '应用名称',
+      title: '店铺名称',
       dataIndex: 'name'
     }, {
       key: '2',
-      title: '应用状态',
+      title: '店铺状态',
       dataIndex: 'status',
       render(key){
         return <span>{STATUS[key]}</span>;
       }
-    }, {
+    },{
       key: '3',
+      title: '所属渠道',
+      dataIndex: 'channelName'
+    },{
+      key: '4',
       title: '更新时间',
       dataIndex: 'createTime'
     }, {
@@ -87,7 +99,7 @@ class Applic extends Component {
           </Popconfirm>
 
           <Button type="ghost" disabled={row.status == 'use' ? false : true}>
-            <Link to={`/applic/add`}  className={classes.colors}  disabled={row.status == 'use' ? false : true} >授权管理</Link>
+            <Link to={`/applic/add/${row.shopId}`}  className={classes.colors}  disabled={row.status == 'use' ? false : true} >授权管理</Link>
           </Button>
 
         </ButtonGroup>

@@ -52,11 +52,11 @@ class Edit extends Component {
           </label>
         }
       }, {
-        label: "对接店铺类型：",
+        label: "所属渠道：",
         name: "channelCode",
         infoLabel: <div style={{color:'#ccc'}}>不同类型的店铺对接信息不同，请选择正确的类型</div>,
         hasFeedback: true,
-        rules: [{required: true, message: '对接店铺类型为必填'}],
+        rules: [{required: true, message: '所属渠道类型为必填'}],
         select: {
           optionValue: chList,
           disabled: item.shopId  ? (item.status == 'create' ? false : true) : false

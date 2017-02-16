@@ -14,61 +14,40 @@ const QUERY = 'authorize/QUERY';
 const QUERY_SUCCESS = 'authorize/QUERY_SUCCESS';
 const QUERY_FAILURE = 'authorize/QUERY_FAILURE';
 
-/**
- * 权限列表
- *3.3.7
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function structure(params) {
+
+
+
+
+/**账号组列表 */
+export function structure() {
   return {
     types: [STRUCTURE, STRUCTURE_SUCCESS, STRUCTURE_FAILURE],
-    promise: (client) => client.post('api-roleService.roleDetail', params)
+    promise: (client) => client.post('api-department.getDeptNameList')
   }
 }
+/**授权设置/可选用户 */
+export function userList(params) {
+    return {
+        types: [LIST, LIST_SUCCESS, LIST_FAILURE],
+        promise: (client) => client.post('api-department.getDeptUnPermssion', params)
+    }
+}
 
-/**
- * 选中添加物流企业
- * 
- * @export
- * @returns
- */
+/**授权设置/已选用户 */
+export function queryList(params) {
+    return {
+        types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
+        promise: (client) => client.post('api-department.getDeptPermssion', params)
+    }
+}
+/**保存设置 */
 
 export function addLogistic(params) {
     return {
         types: [ADD, ADD_SUCCESS, ADD_FAILURE],
-        promise: (client) => client.post('api-enterpriseLogistic.add', params)
+        promise: (client) => client.post('api-department.insertadminRoleInfo', params)
     }
 }
-/**
- * 获取平台物流列表（不分页）
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function getListLogistic(params) {
-    return {
-        types: [LIST, LIST_SUCCESS, LIST_FAILURE],
-        promise: (client) => client.post('api-logistic.listLogisticEn', params)
-    }
-}
-
-/**
- * 获取企业物流公司（不分页）
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function queryList(params) {
-    return {
-        types: [QUERY, QUERY_SUCCESS, QUERY_FAILURE],
-        promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
-    }
-}
-
 
 export default function reducer(state = { result: {} }, action) {
     state = {...state};

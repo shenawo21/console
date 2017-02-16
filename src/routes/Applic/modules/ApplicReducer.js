@@ -15,6 +15,11 @@ const DISABLED = 'applic/DISABLED';
 const DISABLED_SUCCESS = 'applic/DISABLED_SUCCESS';
 const DISABLED_FAILURE = 'applic/DISABLED_FAILURE';
 
+//所属渠道
+const CHANNEL = 'edit/CHANNEL';
+const CHANNEL_SUCCESS = 'edit/CHANNEL_SUCCESS';
+const CHANNEL_FAILURE = 'edit/CHANNEL_FAILURE';
+
 /**
  * 列表查询
  *api-shop.findShop
@@ -70,6 +75,21 @@ export function disabledItem(params) {
     promise: (client) => client.post('api-shop.invisibleShop', params)
   }
 }
+
+/**
+ * 所属渠道
+ *api-channel.listChannel
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function channelList(params) {
+  return {
+    types: [CHANNEL, CHANNEL_SUCCESS, CHANNEL_FAILURE],
+    promise: (client) => client.post('api-channel.listChannel', params)
+  }
+}
+
 export default function reducer(state = {result: {}}, action) {
   state = {...state, loading: action.loading};
   switch (action.type) {
@@ -77,6 +97,7 @@ export default function reducer(state = {result: {}}, action) {
     case DELETE:
     case ENADLED:
     case DISABLED:
+    case CHANNEL:
       return {
         ...state
       }
@@ -116,6 +137,15 @@ export default function reducer(state = {result: {}}, action) {
       return {
         ...state
       }
+    case CHANNEL_SUCCESS:
+      return {
+        ...state,
+        chResult: action.result
+      }
+    case CHANNEL_FAILURE:
+      return {
+        ...state
+      }  
     default:
       return state
   }

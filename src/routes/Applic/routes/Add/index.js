@@ -1,7 +1,7 @@
 
 export default (store) => ({
   breadcrumbName: " 授权管理",
-  path: 'add',
+  path: 'add(/:id)',
   getComponent(nextState, next) {
     require.ensure([], (require) => {
       const permis = require('./containers/Add').default

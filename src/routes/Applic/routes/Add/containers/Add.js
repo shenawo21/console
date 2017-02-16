@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import AddView from '../components/AddView'
 import Panel from 'components/Panel'
-import {queryList, getListLogistic, addLogistic,structure} from '../modules/AddReducer'
+import {queryList, userList, addLogistic,structure} from '../modules/AddReducer'
 
 class Add extends Component {
 
@@ -11,16 +11,18 @@ class Add extends Component {
         this.onExpand = this.onExpand.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.state = {
-            item: {},
-            keys: {}
+            item: [],
+            keys: {},
+            shopId:props.params.id
         }
     }
 
     componentDidMount() {
-        const {getListLogistic, queryList, structure} = this.props;
-        getListLogistic();
-        queryList();
-        structure({roleId: '72'})
+        const {userList, queryList, structure,params} = this.props;
+        structure()
+        userList({shopId:params.id});   //可选用户  
+        queryList({shopId:params.id});  //已选用户
+       
         
     }
 
@@ -30,12 +32,12 @@ class Add extends Component {
       let expandedKeys = data && data.map(p => {
           //显示时，只获取子节点selected选中状态，根据子节点状态影响父节点状态
           if (p.selected && !p.children) {
-            curCheckedKeys.push('' + p.permissionId);
+            curCheckedKeys.push('' + p.deptCode);
           }
           if (p.children) {
             loop(p.children);
           }
-          return p.permissionId + '';
+          return p.deptCode + '';
         }) || [];
       return {
         expandedKeys,
@@ -63,13 +65,16 @@ class Add extends Component {
     });
   }
     onSelect(selectedKeys, e) {
-        console.log(selectedKeys,'selectedKeys')
-        
-
+        const _this = this
+        const {userList, queryList} = _this.props;
+        const {shopId} = _this.state;
+        let deptCode =  selectedKeys.join(',')
+        userList({deptCode:deptCode,shopId:shopId})
+        queryList({deptCode:deptCode,shopId:shopId})
     }
     componentWillReceiveProps(nextProps, preProps) {
     if(nextProps.result){
-        let keys = this.getFilterExpandedKeys(nextProps.result.permissionList);
+        let keys = this.getFilterExpandedKeys(nextProps.result);
         this.setState({
           item: nextProps.result,
           keys
@@ -79,29 +84,27 @@ class Add extends Component {
 
     render() {
         const {listResult, queryResult,addLogistic} = this.props;
-        const {item, keys} = this.state;
-
+        const {item, keys,shopId} = this.state;
         const options = {
             sourceData: listResult,
             distData: queryResult,
             addLogistic
         }
-
         return <Panel title=""><AddView {...options} keys={keys} onExpand={this.onExpand} onSelect = {this.onSelect}
-                  item={item} /></Panel>
+                  item={item} shopId = {shopId} /></Panel>
     }
 }
 
 
 Add.propTypes = {
     queryList: React.PropTypes.func,
-    getListLogistic: React.PropTypes.func, 
+    userList: React.PropTypes.func, 
     addLogistic : React.PropTypes.func,
     loading: React.PropTypes.bool
 }
 
 const mapActionCreators = {
-    getListLogistic,
+    userList,
     queryList,
     addLogistic,
     structure

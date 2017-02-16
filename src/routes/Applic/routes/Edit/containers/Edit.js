@@ -111,7 +111,7 @@ class Edit extends Component {
     }
     ;
     /**
-     * 对接店铺类型
+     * 所属渠道
      * @type {Array}
      */
     let chList = [];

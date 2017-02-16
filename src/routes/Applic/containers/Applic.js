@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import ApplicView from '../components/ApplicView'
 import Panel from 'components/Panel'
-import {queryList, enabledItem, disabledItem, deleteItem} from '../modules/ApplicReducer'
+import {queryList, enabledItem, disabledItem, deleteItem,channelList} from '../modules/ApplicReducer'
 
 class Applic extends Component {
 
@@ -35,10 +35,11 @@ class Applic extends Component {
 
     componentDidMount() {
 
-        const {queryList, location} = this.props;
+        const {queryList, location,channelList} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         queryList({ pageNumber });
+        channelList();
 
     }
 
@@ -103,7 +104,7 @@ class Applic extends Component {
     render() {
         const {params} = this.state;
 
-        const {items, queryList, totalItems, loading} = this.props;
+        const {items, queryList, totalItems, loading,chResult} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : queryList,                         //表格翻页时触发的action
@@ -116,13 +117,30 @@ class Applic extends Component {
           delApp: this.delApp.bind(this),
           isAble: this.isAble.bind(this)
         }
-
+        /**
+         * 所属渠道
+         * @type {Array}
+         */
+        let chList = [];
+        if (chResult) {
+            chList = chResult.map(c=> {
+                return {
+                value: c.channelCode,
+                title: c.name
+                }
+            });
+        } else {
+            chList = [{
+                value: null,
+                title: '正在加载中...'
+            }]
+        }
 
         const formOptions = {
             'formOptions' : this.getFormOptions()
         }
 
-        return <Panel title=""><ApplicView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()}  /></Panel>
+        return <Panel title=""><ApplicView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()} chList={chList} /></Panel>
     }
 }
 
@@ -140,14 +158,15 @@ const mapActionCreators = {
     queryList,
     deleteItem,
     enabledItem,
-    disabledItem
+    disabledItem,
+    channelList,
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, loading,deResult,enResult,disResult} = state.applic;
+    const {result, loading,deResult,enResult,disResult,chResult} = state.applic;
     const {items = [], totalItems = 0} = result || {};
-    return { items, totalItems, loading,deResult,enResult,disResult};
+    return { items, totalItems, loading,deResult,enResult,disResult,chResult};
 
 }
 

@@ -13,29 +13,32 @@ class Add extends Component {
         this.state = {
             sourceData: [],
             targetKeys: [],
-            cheackLogisticsList : [], //选中的物流企业
+            cheackUser : [], //选中的用户
             distData : [],
             Edit:false,   //移动操作
-            defaultExpandAll: true
+            defaultExpandAll: true,
         }
     }
 
     componentWillReceiveProps(nextProps){
         let sourceData = [], targetKeys = [], {distData} = this.state;
         if(nextProps.distData){
-            distData = nextProps.distData.map((val, index) => {
+            distData = nextProps.distData.map((val, index) => { 
                 return {
-                    companyCode  : val.companyCode,
-                    title : val.companyName
+                    key : index,
+                    deptCode  : val.deptCode,
+                    title : val.name,
+                    adminId:val.adminId
                 }
             })
+            
         }
 
         if(nextProps.sourceData){
             sourceData = nextProps.sourceData.map((val, index) => {
                 if(distData){
                     distData.every((item, num)=>{
-                        if(item.companyCode == val.companyCode){
+                        if(item.deptCode == val.deptCode){
                             targetKeys.push(index)
                             return false
                         }
@@ -44,12 +47,14 @@ class Add extends Component {
                 }
                 return {
                     key : index,
-                    companyCode  : val.companyCode,
-                    title : val.companyName
+                    deptCode  : val.deptCode,
+                    title : val.name,
+                    adminId:val.adminId
+
                 }
             })
         }
-
+        
         this.setState({
             sourceData,
             targetKeys,
@@ -63,22 +68,21 @@ class Add extends Component {
     }
 
     saveData(){
-        const {addLogistic,distData} = this.props;
-        const {cheackLogisticsList,Edit} = this.state;
+        const {addLogistic,distData,shopId} = this.props;
+        const {cheackUser,Edit} = this.state;
         let distDataItem = distData && distData.map(c => {
             return {
-                 companyCode : c.companyCode,
-                 companyName : c.companyName,
-                 defaults : c.defaults
+                 adminId : c.adminId,
+                 shopId : shopId,
             }
         })
-        let enLogisticsList = []
+        let checkList = []
         if (Edit == false) {
-             enLogisticsList = distDataItem
+             checkList = distDataItem
         } else {
-            enLogisticsList = cheackLogisticsList
+            checkList = cheackUser
         }
-        addLogistic({enLogisticsList}).then((res)=>{
+        addLogistic({checkList}).then((res)=>{
             if(res.status === 1){
                 setTimeout(() => {
                     history.go(-1)
@@ -89,19 +93,18 @@ class Add extends Component {
 
     checkedItem(sourceData, targetKeys){
         this.setState({Edit:true})
-        let enLogisticsLists = [];
-        const {distData} = this.props
+        let checkLists = [];
+        const {distData,shopId} = this.props
         let defaultArray = distData.filter((item,index) => {
              return item.defaults == true            
         })
-        let defaultCode = defaultArray.length > 0 ? defaultArray[0].companyCode : ''
+        let defaultCode = defaultArray.length > 0 ? defaultArray[0].deptCode : ''
         targetKeys.forEach((item, num)=>{
             sourceData.map((val, index)=>{
                 if(index === item){
-                    enLogisticsLists.push({
-                        companyCode : val.companyCode,
-                        companyName : val.title,
-                        defaults : defaultCode == val.companyCode ? true : false
+                    checkLists.push({
+                         adminId : val.adminId,
+                         shopId : shopId,
                     })
                     return false
                 }
@@ -109,7 +112,7 @@ class Add extends Component {
             })
         })
         this.setState({
-            cheackLogisticsList:enLogisticsLists,
+            cheackUser:checkLists,
             targetKeys
         })
     }
@@ -118,17 +121,16 @@ class Add extends Component {
         const {sourceData, targetKeys} = this.state;
         const {item, keys, onExpand,onSelect} = this.props;
         const title = ['可选用户', '已选用户'];
-        const notFoundContent = '暂无数据';
-
+        const notFoundContent = '暂无数据';      
         const loop = data => data && data.map((i) => {
         if (i.children) {
             return (
-            <TreeNode key={i.permissionId} title={i.name}>
+            <TreeNode key={i.deptCode} title={i.name}>
                 {loop(i.children) }
             </TreeNode>
             );
         }
-        return <TreeNode key={i.permissionId} title={i.name}/>;
+        return <TreeNode key={i.deptCode} title={i.name}/>;
         });
 
         return (
@@ -141,7 +143,7 @@ class Add extends Component {
                             onExpand={onExpand}
                             expandedKeys={keys.expandedKeys || []}
                             onSelect = {onSelect}>
-                            {loop(item.permissionList)}
+                            {loop(item)}
                         </Tree>
                     </Col>
                     <Col span='16'>
