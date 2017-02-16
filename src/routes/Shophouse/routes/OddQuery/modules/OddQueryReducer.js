@@ -13,7 +13,10 @@ const GETSHOPLIST_FAILURE = 'shophouse/GETSHOPLIST_FAILURE';
 const OUTCATELIST = 'shophouse/OUTCATELIST';
 const OUTCATELIST_SUCCESS = 'shophouse/OUTCATELIST_SUCCESS';
 const OUTCATELIST_FAILURE = 'shophouse/OUTCATELIST_FAILURE';
-
+//所属渠道
+const CHANNEL = 'edit/CHANNEL';
+const CHANNEL_SUCCESS = 'edit/CHANNEL_SUCCESS';
+const CHANNEL_FAILURE = 'edit/CHANNEL_FAILURE';
 /**
  * 入库单
  * 
@@ -56,7 +59,19 @@ export function priceCateList(params) {
     promise: (client) => client.post('api-category.listAll', params)
   }
 }
-
+/**
+ * 所属渠道
+ *api-channel.listChannel
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function channelList(params) {
+  return {
+    types: [CHANNEL, CHANNEL_SUCCESS, CHANNEL_FAILURE],
+    promise: (client) => client.post('api-channel.listChannel', params)
+  }
+}
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
@@ -94,6 +109,15 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+     case CHANNEL_SUCCESS:
+      return {
+        ...state,
+        chResult: action.result
+      }
+    case CHANNEL_FAILURE:
+      return {
+        ...state
+      }   
     default:
       return state
   }

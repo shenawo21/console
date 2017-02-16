@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import ShophouseView from '../components/ShophouseView'
 import Panel from 'components/Panel'
-import { shopQueryList, compareList, comparePage, compareUpt, fallBack, getShopList, priceCateList } from '../modules/ShophouseReducer'
+import { shopQueryList, compareList, comparePage, compareUpt, fallBack, getShopList, priceCateList,channelList } from '../modules/ShophouseReducer'
 
 class Shophouse extends Component {
   
@@ -35,7 +35,7 @@ class Shophouse extends Component {
     }
 
     componentDidMount() {
-        const {shopQueryList, compareList, getShopList, priceCateList, location} = this.props;
+        const {shopQueryList, compareList, getShopList, priceCateList, location,channelList} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         shopQueryList({ pageNumber });
@@ -45,6 +45,8 @@ class Shophouse extends Component {
         
         //获取分类列表
         priceCateList();
+        // 所属渠道
+        channelList();
     }
     
       /**
@@ -79,7 +81,7 @@ class Shophouse extends Component {
     render() {
         const {params, oddStatus} = this.state;
         
-        const {items, compareItems, shopQueryList, compareList, comparePage, compareListResult, shopListResult, cateResult, totalItems, comparetotalItems, loading, compareUpt, fallBack} = this.props;
+        const {items, compareItems, shopQueryList, compareList, comparePage, compareListResult, shopListResult, cateResult, totalItems, comparetotalItems, loading, compareUpt, fallBack,chResult} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : oddStatus ? shopQueryList : compareList,                  //表格翻页时触发的action
@@ -134,12 +136,29 @@ class Shophouse extends Component {
                 }
             })
         }
-        
+        /**
+         * 所属渠道
+         * @type {Array}
+         */
+        let chList = [];
+        if (chResult) {
+            chList = chResult.map(c=> {
+                return {
+                value: c.channelCode,
+                title: c.name
+                }
+            });
+        } else {
+            chList = [{
+                value: null,
+                title: '正在加载中...'
+            }]
+        }
         const formOptions = {
             ...this.getFormOptions()
         }
         
-        return <Panel title=""><ShophouseView tableOptions={tableOptions} tableOptionsPro={tableOptionsPro} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} compareListResult={compareListResult} compareList={compareList} /></Panel>
+        return <Panel title=""><ShophouseView tableOptions={tableOptions} tableOptionsPro={tableOptionsPro} formOptions={formOptions} shopList={shopLoop(shopListResult)} cateList={loop(cateResult)} compareListResult={compareListResult} compareList={compareList} chList={chList} /></Panel>
     }
 }
 
@@ -166,15 +185,16 @@ const mapActionCreators = {
     getShopList, 
     priceCateList,
     compareUpt,
-    fallBack
+    fallBack,
+    channelList,
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, shopListResult, compareListResult, comparePageResult, cateResult, loading} = state.shophouse;
+    const {result, shopListResult, compareListResult, comparePageResult, cateResult, loading,chResult} = state.shophouse;
     const {items = [], totalItems = 0} = result || {};
     //const {compareItems = [], comparetotalItems = 0} = comparePageResult || {};
-    return { items, shopListResult, compareListResult, comparePageResult, cateResult, totalItems, loading };
+    return { items, shopListResult, compareListResult, comparePageResult, cateResult, totalItems, loading,chResult};
     
 }
 

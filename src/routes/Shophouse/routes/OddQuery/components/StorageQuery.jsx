@@ -18,7 +18,7 @@ class StorageQuery extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {cateList,shopList} = context.props;
+        const {cateList,shopList,chList} = context.props;
         let config = {
             formItems: [{
                 label: "所属店铺：",
@@ -80,13 +80,19 @@ class StorageQuery extends Component {
                 label: "入库日期：",
                 span: '11',
                 labelCol: { span: 4 },
-                wrapperCol: { span: 19 },
+                wrapperCol: { span: 17 },
                 custom(getCustomFieldProps, FormContext) {
                     return <div>
                                 <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true} />
                                 <span className="ant-form-split">-</span>
                                 <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
                             </div>
+                }
+            },{
+                label: "所属渠道：",
+                name: "channelCode",
+                select: {
+                optionValue: chList,
                 }
             }],
             initValue: {
@@ -99,7 +105,8 @@ class StorageQuery extends Component {
                 stockType: null,
                 createUser : null,
                 createTimeStart : null,
-                createTimeEnd : null
+                createTimeEnd : null,
+                channelCode:null
             }
         }
         return config;
@@ -165,12 +172,16 @@ class StorageQuery extends Component {
             key: '11',
             title: '入库时间',
             dataIndex: 'createTime'
-        }, {
+        },{
             key: '12',
+            title: '所属渠道',
+            dataIndex: 'channelName'
+        },{
+            key: '13',
             title: '操作人',
             dataIndex: 'createUserName'
         }, {
-            key: '13',
+            key: '14',
             title: '备注',
             dataIndex: 'remark'
         }];

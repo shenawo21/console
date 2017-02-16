@@ -8,15 +8,12 @@ import Search from 'components/Search';
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
 import {getSpecValue} from 'common/utils'
 
-const channelList = [
-  {value:'TMALL',title:'天猫'},
-  {value:'JD',title:'京东'}
-]
+
 class shop extends Component {
 
   _getFormItems() {
     let context = this;
-    const {cateList, shopList} = context.props;
+    const {cateList, shopList,chList} = context.props;
     let config = {
       formItems: [{
         label: "所属店铺：",
@@ -44,13 +41,13 @@ class shop extends Component {
           changeOnSelect: true
         }
       },{
-        label: "渠道名称：",
+        label: "所属渠道：",
         name: "channelCode",
         span: "5",
         labelCol: {span: 6},
         select: {
           placeholder: "请选择渠道编码",
-          optionValue: channelList
+          optionValue: chList
         }
       }],
       initValue: {
@@ -88,8 +85,8 @@ class shop extends Component {
       dataIndex: 'categoryName'
     },{
       key: '5',
-      title: '渠道名称',
-      dataIndex: 'name'
+      title: '所属渠道',
+      dataIndex: 'channelName'
     }, {
       key: '6',
       title: '品牌',

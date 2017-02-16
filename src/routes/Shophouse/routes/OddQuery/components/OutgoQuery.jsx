@@ -19,7 +19,7 @@ class OutgoView extends Component {
 
     _getFormItems(){
     	let context = this;
-        const {shopList} = context.props;
+        const {shopList,chList} = context.props;
         let config = {
             formItems: [ {
                 label: "出库店铺：",
@@ -73,6 +73,12 @@ class OutgoView extends Component {
                                 <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createTimeEnd') } showTime={true}/>
                             </div>
                 }
+            },{
+                label: "所属渠道：",
+                name: "channelCode",
+                select: {
+                optionValue: chList,
+                }
             }],
             initValue: {
                 operateStore: null,
@@ -82,7 +88,8 @@ class OutgoView extends Component {
                 stockType: null,
                 createUser : null,
                 createTimeStart : null,
-                createTimeEnd : null
+                createTimeEnd : null,
+                channelCode:null
             }
         }
         return config;
@@ -142,12 +149,16 @@ class OutgoView extends Component {
             key: '10',
             title: '出库时间',
             dataIndex: 'createTime'
-        }, {
+        },{
             key: '11',
+            title: '所属渠道',
+            dataIndex: 'channelName'
+       },{
+            key: '12',
             title: '操作人',
             dataIndex: 'createUserName'
         }, {
-            key: '12',
+            key: '13',
             title: '备注',
             dataIndex: 'remark'
         }];
