@@ -164,7 +164,7 @@ class Edit extends Component {
         if (item) {
             config.initValue = item; 
             config.initValue.roleIdList = roleIdList
-
+            config.initValue.deptCode  = item.deptList     
         } else {
             config.formItems.splice(1, 1, {
                 label: "密码：",
