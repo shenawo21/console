@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import DataTable from 'components/DataTable';
-
+import {getPermissions} from 'common/utils'
 
 import Search from 'components/Search';
 
@@ -16,6 +16,13 @@ const STATUS = [
 ];
 
 class Role extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
 
   _getFormItems() {
     let config = {
@@ -70,13 +77,13 @@ class Role extends Component {
       key: '5',
       title: '操作',
       dataIndex: 'roleId',
-      render(id, row){
+      render:(id, row) => {
         return <span>
-                  <Link to={`/role/edit/${id}`}>编辑</Link>
-                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedRole.bind(context,id)}>
-                        <Button type="link">删除</Button>
-                    </Popconfirm>
-                  <Link to={`/role/permis/${id}`}>权限管理</Link>
+                  {this.check('编辑') ? <Link to={`/role/edit/${id}`}>编辑</Link> : ''}
+                  {this.check('删除') ? <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedRole.bind(context,id)}>
+                      <Button type="link">删除</Button>
+                  </Popconfirm> : ''}
+                  {this.check('权限管理') ? <Link to={`/role/permis/${id}`}>权限管理</Link> : ''}
                 </span>
 
       }
@@ -93,7 +100,9 @@ class Role extends Component {
 
   // 按钮
   quickButton(quickOptions) {
-    return <Row><Col span='2'><Link className="ant-btn ant-btn-primary" to={`/role/edit`}>增加角色</Link></Col></Row>
+    return <Row>
+              {this.check('增加角色') ? <Col span='2'><Link className="ant-btn ant-btn-primary" to={`/role/edit`}>增加角色</Link></Col> : <span></span>}
+            </Row>
   }
 
   render() {

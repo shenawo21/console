@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
+import {getPermissions} from 'common/utils'
+
 //是否成功
 const ISSUCC = {
   true: "成功",
@@ -9,6 +11,14 @@ const ISSUCC = {
 };
 import {Row, Col, Button, Icon, DatePicker} from 'hen';
 class Synch extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
+
   _getFormItems() {
     let context = this;
     const {shopList} = context.props;
@@ -82,11 +92,11 @@ class Synch extends Component {
 
   quickButton(quickOptions) {
     return <Row>
-      <Col span='2'>
+      {this.check('订单人工同步') ? <Col span='2'>
         <Link to={`/order/synch/manual`}>
           <Button type="primary"><Icon type="plus-circle"/>订单人工同步</Button>
         </Link>
-      </Col>
+      </Col> : <span></span>}
     </Row>
   }
 

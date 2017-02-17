@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-
+import {getPermissions} from 'common/utils'
 import DataTable from 'components/DataTable';
 
 import Search from 'components/Search';
@@ -22,6 +22,13 @@ const GROUP = [
 ]
 
 class Accounts extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
 
   _getFormItems() {
     let config = {
@@ -112,10 +119,11 @@ class Accounts extends Component {
       title: '操作',
       dataIndex: 'adminId',
       render(id, row){
-        return <span><Link to={`/accounts/edit/${id}`}>编辑</Link>
-                    <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedAccount.bind(context,id)}>
-                        <Button type="link">删除</Button>
-                    </Popconfirm>
+        return <span>
+                  {this.check('编辑') ? <Link to={`/accounts/edit/${id}`}>编辑</Link> : ''}
+                  {this.check('删除') ? <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedAccount.bind(context,id)}>
+                      <Button type="link">删除</Button>
+                  </Popconfirm> : ''}
                 </span>
       }
     }
@@ -141,9 +149,9 @@ class Accounts extends Component {
     const {isAdmin} = this.props;
     if (isAdmin) {
       return <Row>
-        <Col span='2'>
+        {this.check('新增账号') ? <Col span='2'>
           <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>新增帐号</Link>
-        </Col>
+        </Col> : <span></span>}
       </Row>
     }
   }

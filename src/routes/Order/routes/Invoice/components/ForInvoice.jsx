@@ -4,6 +4,8 @@ import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader';
 import {UpLoader} from 'components/FileLoader';
 import {Row, Col, Button, Icon, DatePicker, Modal, message, Input, Table} from 'hen';
+import {getPermissions} from 'common/utils'
+
 const confirm = Modal.confirm;
 //发票类型
 const KIND = {
@@ -16,6 +18,9 @@ class ForInvoice extends Component {
     this.state = {
       tabDataSource: []
     }
+
+    const url = location.hash.split('?')[0].split('#')[1]
+    this.check = getPermissions(url)
   }
   _getFormItems() {
     let context = this, config = {};
@@ -153,8 +158,8 @@ class ForInvoice extends Component {
     }, {
       title: '操作',
       dataIndex: 'shopId',
-      render(id, row){
-        return <Button type="primary" onClick={context.showGive.bind(context,row)}>确认发货</Button>
+      render:(id, row) => {
+        return <span>{this.check('打单发货') ? <Button type="primary" onClick={context.showGive.bind(context,row)}>确认发货</Button> : ''}</span>
       }
     }];
     return columns;
@@ -286,10 +291,10 @@ class ForInvoice extends Component {
     }
     let params = selectList.length ? {shoppId: dParams || []} : downParam;
     return <Row>
-      <Col span="3">
+      {this.check('导出待发货数据') ? <Col span="3">
         <DownLoader url='/api-tradesInfo.exportWaitSendGoods' params={params} title='导出待发货数据'/>
-      </Col>
-      <Col span="3">
+      </Col> : <span></span>}
+      {this.check('导入待发货数据') ? <Col span="3">
         <UpLoader upConfig={{action: '/api-tradesInfo.importWaitSendGoods', onChangeFileList(info){
                 Modal.info({
                   title: '导入结果',
@@ -300,7 +305,7 @@ class ForInvoice extends Component {
                 });
                 context._refresh();
             }}} title='导入待发货数据'/>
-      </Col>
+      </Col> : <span></span>}
     </Row>
   }
    shouldComponentUpdate (nextProps, nextState) {
@@ -326,12 +331,12 @@ class ForInvoice extends Component {
         <DataTable _uKey='orderId' bordered={true} columns={this._getColumns()} ref='dt'
                    quickButton={this.quickButton(quickOptions)} {...tableOptions} className="table"
                    expandedRowRender={record => <Table rowKey={record => record.orderId} size="small" columns={this._customColumns()} dataSource={record.shoppDetails} bordered pagination={false} />}/>
-        <div style={{ marginTop: 16 }}>
+        {this.check('打单发货') ? <div style={{ marginTop: 16 }}>
           <Button type="primary" loading={loading} disabled={!hasSelected}
                   onClick={this.showGiveM.bind(this)}>
             批量发货
           </Button>
-        </div>
+        </div> : ''}
       </div>
     )
   }

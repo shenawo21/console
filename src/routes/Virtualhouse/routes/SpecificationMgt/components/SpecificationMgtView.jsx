@@ -4,8 +4,11 @@ import DataTable from 'components/DataTable'
 
 import {Row, Col, Button, Icon, Alert, Cascader, Tabs, Form, Input, message } from 'hen';
 import {Link} from 'react-router';
+import {getPermissions} from 'common/utils'
+
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
+
 
 class specificationMgt extends Component {
 
@@ -20,6 +23,8 @@ class specificationMgt extends Component {
             subFlag : false,
             curKey: 0
         }
+        const url = location.hash.split('?')[0].split('#')[1]
+        this.check = getPermissions(url)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -61,7 +66,7 @@ class specificationMgt extends Component {
     // 添加属性规格
     quickButton() {
         const context = this;
-        return <Button onClick={context._addSpec.bind(this)}>添加属性规格</Button>
+        return <span>{this.check('价格调整') ? <Button onClick={context._addSpec.bind(this)}>添加属性规格</Button> : ''}</span>
     }
 
     //添加规格

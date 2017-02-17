@@ -6,9 +6,16 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader'
 import {Row, Col, Button, Icon, Popconfirm, Modal} from 'hen';
-import {getSpecValue} from 'common/utils'
+import {getSpecValue,getPermissions} from 'common/utils'
 
 class virtualView extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
 
   //获取单条已出库存信息
   getAssignedStock(row) {
@@ -139,15 +146,15 @@ class virtualView extends Component {
     }
     let params = selectList.length ? {skuIds: selectList || []} : downParam;
     return <Row>
-      <Col span="3">
+      {this.check('批量导出') ? <Col span="3">
         <DownLoader title='批量导出' url="/api-productService.exportFile" params={params}/>
-      </Col>
-      <Col span='2'>
+      </Col> : <span></span>}
+      {this.check('入库') ? <Col span='2'>
         <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/storageMgt`}>入库</Link>
-      </Col>
-      <Col span='2'>
+      </Col> : <span></span>}
+      {this.check('出库') ? <Col span='2'>
         <Link className="ant-btn ant-btn-primary" to={`/virtualhouse/outgoMgt`}>出库</Link>
-      </Col>
+      </Col> : <span></span>}
     </Row>
   }
 

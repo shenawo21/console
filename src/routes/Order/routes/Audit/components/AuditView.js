@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
+import {getPermissions} from 'common/utils'
 import {Row, Col, Button, Icon, DatePicker, Modal, message, Popconfirm} from 'hen';
 //订单状态
 const orderStatus = {
@@ -18,6 +19,14 @@ const mergeStatus = {
   'ACHIEVE_MERGE': "合并完成"
 };
 class Audit extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
+
   _getFormItems() {
     let context = this, config = {};
     const {shopList} = context.props;
@@ -127,29 +136,29 @@ class Audit extends Component {
     }, {
       title: '操作',
       dataIndex: 'shopId',
-      render(id, row) {
+      render:(id, row) => {
         return <div>
           {
             row.mergeStatus == 'CAN_MERGE' ? '' :
-              <Link to={`/order/audit/deal/${row.tid}`}>审单&nbsp;&nbsp; | &nbsp;&nbsp;</Link>
+              (this.check('审单') ? <Link to={`/order/audit/deal/${row.tid}`}>审单&nbsp;&nbsp; | &nbsp;&nbsp;</Link> : '')
           }
-          <Link to={`/order/audit/apart/${row.tid}`}>拆单</Link>
+          {this.check('拆单') ? <Link to={`/order/audit/apart/${row.tid}`}>拆单</Link> : ''}
           {
             row.mergeStatus !== 'CAN_MERGE' ? '' :
-              <Link to={`/order/audit/merge/${row.mergeTids}`}>&nbsp;&nbsp; | &nbsp;&nbsp;合并订单</Link>
+              (<Link to={`/order/audit/merge/${row.mergeTids}`}>&nbsp;&nbsp; | &nbsp;&nbsp;合并订单</Link>)
           }
           {
             row.mergeStatus !== 'CAN_MERGE' ? '' :
-              <Popconfirm title="确定要放弃合并订单吗？" onConfirm={context.noMerger.bind(context,row)}>
+              (<Popconfirm title="确定要放弃合并订单吗？" onConfirm={context.noMerger.bind(context,row)}>
                 <a href="#">&nbsp;&nbsp; | &nbsp;&nbsp;放弃合并</a>
-              </Popconfirm>
+              </Popconfirm>)
           }
           {
-            row.remark !== '无备注' ? '' : <Popconfirm title="确定要发货吗？" onConfirm={context.send.bind(context,row)}>
+            row.remark !== '无备注' ? '' : (this.check('直接发货') ? <Popconfirm title="确定要发货吗？" onConfirm={context.send.bind(context,row)}>
               <a href="#">&nbsp;&nbsp; | &nbsp;&nbsp;直接发货</a>
-            </Popconfirm>
+            </Popconfirm> : '')
           }
-          <Link to={`/order/audit/detail/${row.tid}`}>&nbsp;&nbsp; | &nbsp;&nbsp;查看详情</Link>
+          {this.check('查看详情') ? <Link to={`/order/audit/detail/${row.tid}`}>&nbsp;&nbsp; | &nbsp;&nbsp;查看详情</Link> : ''}
         </div>;
       },
       width:'260'
@@ -160,16 +169,16 @@ class Audit extends Component {
 
   quickButton(quickOptions) {
     return <Row>
-      <Col span='2'>
+      {this.check('新建订单') ? <Col span='2'>
         <Link to={`/order/add`}>
           <Button type="primary"><Icon type="plus-circle"/>新建订单</Button>
         </Link>
-      </Col>
-      <Col span='2'>
+      </Col> : <span></span>}
+      {this.check('同步订单') ? <Col span='2'>
         <Link to={`/order/synch`}>
           <Button type="primary"><Icon type="retweet"/>同步订单</Button>
         </Link>
-      </Col>
+      </Col> : <span></span>}
     </Row>
   }
 

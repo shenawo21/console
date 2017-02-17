@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import Collapse from 'components/Collapse';
 import DataTable from 'components/DataTable';
 import {message, Modal, Input, InputNumber} from 'hen'
-import {getSpecValue} from 'common/utils'
+import {getSpecValue,getPermissions} from 'common/utils'
 import {DownLoader} from 'components/FileLoader'
 import classes from './Product.less';
 class product extends Component {
@@ -23,6 +23,9 @@ class product extends Component {
             remark : null,              //回复信息
             selectedItemsKeys : []      //选中下标
         }
+
+        const url = location.hash.split('?')[0].split('#')[1]
+        this.check = getPermissions(url)
     }
 
     _getColumns() {
@@ -402,15 +405,15 @@ class product extends Component {
                 btns: [{
                     name: '回退',
                     handle : this.showBackHandle.bind(this, i),
-                    disabled : selectItem && selectItem.length ? false : true,
+                    disabled : selectItem && selectItem.length && this.check('回退') ? false : true,
                 }, {
                     name: '导出',
                     handle : this.exportHandle.bind(this, i),
-                    disabled : selectItem && selectItem.length ? false : true,
+                    disabled : selectItem && selectItem.length && this.check('导出') ? false : true,
                 }, {
                     name: '比对更新',
                     handle : this.updateHandle.bind(this, i),
-                    disabled : selectItem && selectItem.length ? false : true,
+                    disabled : selectItem && selectItem.length && this.check('对比更新') ? false : true,
                 }],
                 hasArrow: true,
                 initFocus : i === 0 ? true : false

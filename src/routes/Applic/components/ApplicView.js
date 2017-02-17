@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import DataTable from 'components/DataTable';
+import {getPermissions} from 'common/utils'
 
 import Search from 'components/Search';
 
@@ -17,6 +18,13 @@ const STATUS = {
   'create': "创建中"
 };
 class Applic extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
 
   _getFormItems() {
     const {chList} = this.props
@@ -80,23 +88,23 @@ class Applic extends Component {
       title: '操作',
       dataIndex: 'shopId',
       width: '25%',
-      render(id, row){
+      render:(id, row) => {
         return <ButtonGroup size="large">
-          <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
+          {this.check('编辑') ? <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
             <Link to={`/applic/edit/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>编辑</Link>
-          </Button>
+          </Button> : <span></span>}
 
-          <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
+          {this.check('对接设置') ? <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
             <Link to={`/applic/joint/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>对接设置</Link>
-          </Button>
+          </Button> : <span></span>}
 
-          <Button type="ghost" disabled={ row.status == 'audit' || row.status == 'create'? true : false} onClick={context.handleAction.bind(context,row,id)}>
+          {this.check('激活/禁用') ? <Button type="ghost" disabled={ row.status == 'audit' || row.status == 'create'? true : false} onClick={context.handleAction.bind(context,row,id)}>
            { row.enabled ? '禁用' : '激活' }
-          </Button>
+          </Button> : <span></span>}
 
-          <Popconfirm title="确定要删除这个应用吗？" onConfirm={context.del.bind(context,id)}>
+          {this.check('删除') ? <Popconfirm title="确定要删除这个应用吗？" onConfirm={context.del.bind(context,id)}>
             <Button type="ghost" disabled={row.status == 'create' ? false : true}>删除</Button>
-          </Popconfirm>
+          </Popconfirm> : <span></span>}
 
           <Button type="ghost" disabled={row.status == 'use' ? false : true}>
             <Link to={`/applic/add/${row.shopId}`}  className={classes.colors}  disabled={row.status == 'use' ? false : true} >授权管理</Link>
@@ -111,9 +119,9 @@ class Applic extends Component {
 
   quickButton(quickOptions) {
     return <Row>
-      <Col span='2'>
+      {this.check('创建店铺') ? <Col span='2'>
         <Link className="ant-btn ant-btn-primary" to={`/applic/edit`}>创建店铺</Link>
-      </Col>
+      </Col> : <span></span>}
     </Row>
   }
 

@@ -4,10 +4,14 @@ import { Button, Modal, Icon, Popconfirm, Row, Col} from 'hen';
 import Form from 'components/Form';
 import DataTable from 'components/DataTable';
 import Search from 'components/Search';
+import {getPermissions} from 'common/utils'
+
 class Usermanage extends Component {
     constructor(props) {
         super(props)
         this.onDels = this.onDels.bind(this);
+        const url = location.hash.split('?')[0].split('#')[1]
+        this.check = getPermissions(url)
     }
     _getFormIModal(){
 
@@ -231,7 +235,7 @@ class Usermanage extends Component {
             },
             {
                 title: '操作',
-                render(id, row) {
+                render:(id, row) => {
                     const dels = () => {
                         context.onDels(row.id);
                     }
@@ -242,14 +246,14 @@ class Usermanage extends Component {
                         context.ondefaults(row.id,row.shopId);
                     }
                     return <span>
-                        <a onClick={handEdit}>编辑</a>&nbsp; &nbsp; |&nbsp; &nbsp;
-                        <Popconfirm title="确定要删除此条地址信息？" onConfirm={dels} >
+                        {this.check('编辑') ? <span><a onClick={handEdit}>编辑</a>&nbsp; &nbsp; |&nbsp; &nbsp;</span> : ''}
+                        {this.check('删除') ? <span><Popconfirm title="确定要删除此条地址信息？" onConfirm={dels} >
                             <a href="javascript:;">删除</a>
-                        </Popconfirm>&nbsp; &nbsp; |&nbsp; &nbsp;
+                        </Popconfirm>&nbsp; &nbsp; |&nbsp; &nbsp;</span> : ''}
                         {row.defaults == true ? <span>设为默认</span> :  
-                            <Popconfirm title="确定要设为默认地址？" onConfirm={isdefaults} >
+                            (this.check('设为默认') ? <Popconfirm title="确定要设为默认地址？" onConfirm={isdefaults} >
                                 <a href="javascript:;">设为默认</a>
-                            </Popconfirm>}
+                            </Popconfirm> : '')}
                         </span>
                 }
             }];
@@ -288,9 +292,9 @@ class Usermanage extends Component {
         return <div>
             <Row>
                  <Col span='20'><Search onSubmit={formOptions.handleSubmit}  items={this._getFormItems() } /></Col>
-                 <Col><Button onClick={(e)=>{
+                 {this.check('添加地址') ? <Col><Button onClick={(e)=>{
                      formOptions.showModal(this.refs.form)
-                 }} type="primary" style = {{ marginBottom: 15, marginRight:10, float:'right' }}><Icon type="plus-circle"/>添加地址</Button></Col>
+                 }} type="primary" style = {{ marginBottom: 15, marginRight:10, float:'right' }}><Icon type="plus-circle"/>添加地址</Button></Col> : <span></span>}
             </Row>    
             <Modal title="添加退货地址"
                 visible={visible}

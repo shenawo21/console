@@ -2,8 +2,17 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import DataTable from 'components/DataTable';
 import {Popconfirm, Button, Row, Col, Icon} from 'hen'
+import {getPermissions} from 'common/utils'
+
 
 class Logistics extends Component {
+
+    constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
     
     isDefault(id){
         const {setDefault} = this.props, context = this;
@@ -29,12 +38,12 @@ class Logistics extends Component {
         }, {
             title: '操作',
             dataIndex: 'configId',
-            render(id, row){
+            render:(id, row) => {
                 return <span>
                     {row.defaults == true ? <span>设为默认</span> :  
-                     <Popconfirm title="确认设为默认物流公司" onConfirm={context.isDefault.bind(context, id)}>
+                     (this.check('设为默认') ? <Popconfirm title="确认设为默认物流公司" onConfirm={context.isDefault.bind(context, id)}>
                         <a href="javascript:;">设为默认</a>
-                    </Popconfirm>}
+                    </Popconfirm> : <span></span>)}
                 </span>
             }
         }];
@@ -43,11 +52,11 @@ class Logistics extends Component {
     
     quickButton() {
         return <Row>
-            <Col span='2'>
+            {this.check('选择物流公司') ? <Col span='2'>
                 <Link to={`/logistics/add`}>
                     <Button type="primary"><Icon type="plus-circle"/>选择物流公司</Button>
                 </Link>
-            </Col>
+            </Col> : <span></span>}
         </Row>
      }
 

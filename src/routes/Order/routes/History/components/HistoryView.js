@@ -4,6 +4,8 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader';
 import {Row, Col, Button, Icon, DatePicker, Modal, message} from 'hen';
+import {getPermissions} from 'common/utils'
+
 //订单状态
 const TYPE =
 {
@@ -20,6 +22,13 @@ const SORT = [
   {value: '1', title: '按成交时间升序'},
 ]
 class History extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
 
   _getFormItems() {
     let context = this, config = {};
@@ -156,9 +165,9 @@ class History extends Component {
     const {downParams} = this.props;
     if(downParams.pageNumber) {delete downParams.pageNumber}
     return <Row>
-      <Col span='2'>
+      {this.check('导出历史订单') ? <Col span='2'>
         <DownLoader url='/api-tradesInfo.exportOrders' params={downParams} title='导出订单'/>
-      </Col>
+      </Col> : <span></span>}
     </Row>
   }
 

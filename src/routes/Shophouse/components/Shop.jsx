@@ -6,10 +6,17 @@ import DataTable from 'components/DataTable';
 import Search from 'components/Search';
 
 import {Row, Col, Button, Icon, Popconfirm} from 'hen';
-import {getSpecValue} from 'common/utils'
+import {getSpecValue,getPermissions} from 'common/utils'
 
 
 class shop extends Component {
+
+  constructor(props) {
+      super(props)
+
+      const url = location.hash.split('?')[0].split('#')[1]
+      this.check = getPermissions(url)
+  }
 
   _getFormItems() {
     let context = this;
@@ -122,12 +129,12 @@ class shop extends Component {
       <div>
         <div style={{marginBottom:20}}>
           <Row>
-            <Col span='2'>
+            {this.check('价格调整') ? <Col span='2'>
               <Link className="ant-btn ant-btn-normal" to={`/shophouse/adjustPrice`}>价格调整</Link>
-            </Col>
-            <Col span='2'>
+            </Col> : <span></span>}
+            {this.check('手动出库') ? <Col span='2'>
               <Link className="ant-btn ant-btn-normal" to={`/shophouse/outgoManual`}>手动出库</Link>
-            </Col>
+            </Col> : <span></span>}
           </Row>
         </div>
         <Search items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset}/>
