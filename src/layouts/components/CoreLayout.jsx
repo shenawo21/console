@@ -9,7 +9,6 @@ const SubMenu = Menu.SubMenu
 const MenuItem = Menu.Item;
 
 import Page from '../../components/Page'
-import getMenu from '../../common/menu'
 import NavBar from '../../components/NavBar'
 
 var logo = require('./logo.png')
@@ -23,6 +22,27 @@ var logo = require('./logo.png')
 //
 // CoreLayout is a pure function of its props, so we can
 // define it with a plain javascript function...
+const getMenu = (menuLists) => {
+    return menuLists.map((menu, index) => {
+        if (menu.children && menu.children.length > 0 && menu.children[0].showType == 1) {
+            return (
+                <SubMenu key={`sub-${index}`} title={<span><Icon type={menu.icon} />{menu.name}</span>}>
+                {
+                    getMenu(menu.children)
+                }
+                </SubMenu>
+            )   
+        } else {              
+            return (
+                <MenuItem key={`${menu.uri}`}>
+                  <Link to={menu.uri}>{menu.name}</Link>
+                </MenuItem>
+            )
+        }
+    })
+}
+
+
 function CoreLayout(props) {
   let result = null;
   let findNestedProp = (props)=>{
@@ -39,11 +59,8 @@ function CoreLayout(props) {
 
   //获取本地存储的菜单信息
   const menuList = store.get('USER') && store.get('USER').menuList;
-  //修改菜单数据格式
-  let menus = getMenu(menuList);
   //获取图像
   const pic = store.get('USER') && store.get('USER').photo
-  console.log(menus,'menus***************')
   return (
     <div className={classes.corelayout}>
       <div className={classes.header + ' site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse'}>
@@ -59,29 +76,7 @@ function CoreLayout(props) {
 
           <Menu mode="horizontal" defaultOpenKeys={['sub0']}>
             {
-              menus.map((menu, index) => {
-                return <SubMenu key={`menu-${index}`} title={<span><Icon type={menu.icon} />{menu.title}</span>}>
-                  {
-                    menu.children.map((subMenu, subIndex) => {
-                      if(subMenu.children){
-                          return <SubMenu key={`sub-${subIndex}`} title={<span><Icon type={subMenu.icon} />{subMenu.title}</span>}>
-                          {
-                            subMenu.children.map((subChildMenu, subChildIndex) => {
-                                return <MenuItem key={`${subChildMenu.url}`}>
-                                   <Link to={subChildMenu.url}>{subChildMenu.title}</Link>
-                                </MenuItem>
-                            })
-                          }
-                          </SubMenu>
-                      }else{
-                        return <MenuItem key={`${subMenu.url}`}>
-                          <Link to={subMenu.url}>{subMenu.title}</Link>
-                        </MenuItem>
-                      }
-                    })
-                  }
-                </SubMenu>
-              })
+              getMenu(menuList)
             }
           </Menu>
 
