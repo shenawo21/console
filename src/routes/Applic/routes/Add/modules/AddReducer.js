@@ -19,10 +19,10 @@ const QUERY_FAILURE = 'authorize/QUERY_FAILURE';
 
 
 /**账号组列表 */
-export function structure() {
+export function structure(params) {
   return {
     types: [STRUCTURE, STRUCTURE_SUCCESS, STRUCTURE_FAILURE],
-    promise: (client) => client.post('api-department.getDeptNameList')
+    promise: (client) => client.post('api-department.getDeptNameList', params)
   }
 }
 /**授权设置/可选用户 */

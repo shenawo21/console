@@ -13,7 +13,8 @@ class Add extends Component {
         this.state = {
             item: [],
             keys: {},
-            shopId:props.params.id
+            shopId:props.params.id,
+            selected:false
         }
     }
 
@@ -31,7 +32,7 @@ class Add extends Component {
     const loop = (data) => {
       let expandedKeys = data && data.map(p => {
           //显示时，只获取子节点selected选中状态，根据子节点状态影响父节点状态
-          if (p.selected && !p.children) {
+          if (p.selected == "true" && !p.children) {
             curCheckedKeys.push('' + p.deptCode);
           }
           if (p.children) {
@@ -66,9 +67,11 @@ class Add extends Component {
   }
     onSelect(selectedKeys, e) {
         const _this = this
-        const {userList, queryList} = _this.props;
-        const {shopId} = _this.state;
+        const {userList, queryList,structure} = _this.props;
+        const {shopId,selected} = _this.state;
+        _this.state.selected = true
         let deptCode =  selectedKeys.join(',')
+        structure({deptCode:deptCode})
         userList({deptCode:deptCode,shopId:shopId})
         queryList({deptCode:deptCode,shopId:shopId})
     }
@@ -84,14 +87,14 @@ class Add extends Component {
 
     render() {
         const {listResult, queryResult,addLogistic} = this.props;
-        const {item, keys,shopId} = this.state;
+        const {item, keys,shopId,selected} = this.state;
         const options = {
             sourceData: listResult,
             distData: queryResult,
             addLogistic
         }
         return <Panel title=""><AddView {...options} keys={keys} onExpand={this.onExpand} onSelect = {this.onSelect}
-                  item={item} shopId = {shopId} /></Panel>
+                  item={item} shopId = {shopId} selected = {selected} /></Panel>
     }
 }
 

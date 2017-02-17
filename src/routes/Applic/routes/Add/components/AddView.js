@@ -21,6 +21,7 @@ class Add extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+
         let sourceData = [], targetKeys = [], {distData} = this.state;
         if(nextProps.distData){
             distData = nextProps.distData.map((val, index) => { 
@@ -36,15 +37,15 @@ class Add extends Component {
 
         if(nextProps.sourceData){
             sourceData = nextProps.sourceData.map((val, index) => {
-                if(distData){
-                    distData.every((item, num)=>{
-                        if(item.deptCode == val.deptCode){
-                            targetKeys.push(index)
-                            return false
-                        }
-                        return true
-                    })
-                }
+                    if(distData){
+                        distData.every((item, num)=>{
+                            if(item.deptCode == val.deptCode){
+                                targetKeys.push(index)
+                                return false
+                            }
+                            return true
+                        })
+                    }
                 return {
                     key : index,
                     deptCode  : val.deptCode,
@@ -119,9 +120,10 @@ class Add extends Component {
 
     render() {
         const {sourceData, targetKeys} = this.state;
-        const {item, keys, onExpand,onSelect} = this.props;
+        const {item, keys, onExpand,onSelect,selected} = this.props;
         const title = ['可选用户', '已选用户'];
-        const notFoundContent = '暂无数据';      
+        const notFoundContent = '暂无数据';    
+
         const loop = data => data && data.map((i) => {
         if (i.children) {
             return (
@@ -161,7 +163,8 @@ class Add extends Component {
                             targetKeys={targetKeys}
                             onChange={this.handleChange}
                             render={item => {
-                                return item.title
+                                // debugger
+                                return  item.title
                             }} />   
                     </Col>
                 </Row>                    
