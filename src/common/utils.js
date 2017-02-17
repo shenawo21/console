@@ -1,4 +1,35 @@
 /**
+ * 递归获取当前页面权限
+ * @param  {any} url 字符串
+ * @return {func}
+ */
+import store from 'store2';
+
+export function getPermissions(url) {
+    const menuData = store.get('USER') && store.get('USER').menuList;
+    let arr = []
+    const getMenu = (menuData) => {
+        menuData.map((menu, index) => {
+            if (url == menu.uri) {
+                menu.children && menu.children.map((item) => {
+                    arr.push(item.name)
+                })
+                return arr
+            } else {
+                menu.children && getMenu(menu.children)
+            }
+        })
+    }
+
+    getMenu(menuData);
+    
+    return (permission) => {
+        return arr.indexOf(permission) > -1
+    }
+}
+
+
+/**
  * 把数组格式转换成树形（移植自之前的项目）
  * @param  {any} arr 数组
  * @param  {any} transformer 自定义返回数据的函数
