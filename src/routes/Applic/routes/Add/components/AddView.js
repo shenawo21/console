@@ -25,6 +25,22 @@ class Add extends Component {
         let sourceData = [], targetKeys = [], {distData} = this.state;
         if(nextProps.distData){
             distData = nextProps.distData.map((val, index) => { 
+                let exist = false
+
+                if(nextProps.sourceData) {
+                    nextProps.sourceData.some((s) => {
+                        if (s.adminId == val.adminId) {
+                            exist = true
+
+                            return
+                        }
+                    })
+
+                    if (!exist) {
+                        nextProps.sourceData.push(val)
+                    }
+                }
+
                 return {
                     key : index,
                     deptCode  : val.deptCode,
@@ -35,11 +51,13 @@ class Add extends Component {
             
         }
 
+
         if(nextProps.sourceData){
+
             sourceData = nextProps.sourceData.map((val, index) => {
                     if(distData){
                         distData.every((item, num)=>{
-                            if(item.deptCode == val.deptCode){
+                            if(item.adminId == val.adminId){
                                 targetKeys.push(index)
                                 return false
                             }
@@ -54,6 +72,7 @@ class Add extends Component {
 
                 }
             })
+
         }
         
         this.setState({
