@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import AccountsView from '../components/AccountsView'
 import Panel from 'components/Panel';
 import store from 'store2';
-import {queryList, addItem, modifyItem, deleteItem} from '../modules/AccountsReducer'
+import {message} from 'hen';
+import {queryList, addItem, modifyItem, deleteItem,group,restPswd} from '../modules/AccountsReducer'
 
 class Accounts extends Component {
   
@@ -11,9 +12,8 @@ class Accounts extends Component {
         super(props);
         
         this.getFormOptions = this.getFormOptions.bind(this);
-        
-        
-        this.getQuickOptions = this.getQuickOptions.bind(this);
+
+        this.resetPsw = this.resetPsw.bind(this)
         
         this.state = {
             isAdmin: false,
@@ -34,11 +34,13 @@ class Accounts extends Component {
     
     componentDidMount() {
         
-        const {queryList, location} = this.props;
+        const {queryList, location,group} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
         queryList({ pageNumber });
-        
+        // 获取账号组列表
+        group()
+
         this.setState({
             isAdmin: store.get('USER').admin
         });
@@ -59,6 +61,7 @@ class Accounts extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
+                  value.deptCode = value.deptCode ? value.deptCode.join(',') : ''
                   context.setState({
                       params: value
                   })
@@ -71,36 +74,22 @@ class Accounts extends Component {
               }
           }
       }
-    
-    
-       /**
-       * (表格头部快捷按钮配功能置项)
-       * 
-       * @returns (description)
-       */
-      getQuickOptions(){
-          const contex = this;
-          return {
-             
-          }
-      }
-    
-    
-    handleRowSelection() {
-        return {
-            onSelect(record, selected, selectedRows) {
-                console.log(record, selected, selectedRows);
-            },
-            onSelectAll(selected, selectedRows, changeRows) {
-                console.log(selected, selectedRows, changeRows);
-            },
-        }
+    //   重置密码
+    resetPsw(id) {
+        const {restPswd} = this.props
+        restPswd(id).then(function(res) {
+            if(res.status == 1) {
+                message.success('密码已重置，当前账号的密码重置为初始密码"123456"',3)
+            }
+        })
     }
+    
     
     render() {
         const {params, isAdmin} = this.state;
         
-        const {items, queryList, totalItems, loading} = this.props;
+        const {items, queryList, totalItems, loading,groupResult} = this.props;
+        console.log(items,'/////')
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : queryList,                         //表格翻页时触发的action
@@ -110,15 +99,33 @@ class Accounts extends Component {
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
             del: this._delAccount.bind(this),                   //删除账户             
-            //rowSelection : this.handleRowSelection()    //需要checkbox时填写
         }
         
-        
+        // 账号组列表
+        const loop = (groupResult) => {
+            return groupResult && groupResult.map(a => {
+                let children = loop(a.children)
+
+                if (children) {
+                    return {
+                        value: a.deptCode,
+                        label: a.name,
+                        children
+                    }
+                } else {
+                    return {
+                        value: a.deptCode,
+                        label: a.name
+                    }
+                }
+            })
+        }
         const formOptions = {
             'formOptions' : this.getFormOptions()
         }
         
-        return <Panel title=""><AccountsView {...tableOptions} {...formOptions} isAdmin={isAdmin} quickOptions={this.getQuickOptions()}  /></Panel>
+        
+        return <Panel title=""><AccountsView  isAdmin={isAdmin} groupList = {loop(groupResult)} resetPsw = {this.resetPsw} {...tableOptions} {...formOptions} /></Panel>
     }
 }
 
@@ -134,15 +141,17 @@ Accounts.propTypes = {
 
 const mapActionCreators = {
     queryList,
-    deleteItem
+    deleteItem,
+    group,
+    restPswd
 }
 
 
 const mapStateToProps = (state) => {
-    const {result, loading} = state.accounts;
+    const {result, loading,groupResult} = state.accounts;
     
     const {items = [], totalItems = 0} = result || {};
-    return { items, totalItems, loading };
+    return { items, totalItems, loading,groupResult};
     
 }
 

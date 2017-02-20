@@ -13,14 +13,6 @@ const STATUS = [
   {value: 1, title: "可用"}
 ];
 
-// 所属账号组
-const GROUP = [
-  {value:0,title:'董事长'},
-  {value:1,title:'产品部'},
-  {value:2,title:'开发部'},
-  {value:3,title:'行政部'},
-]
-
 class Accounts extends Component {
 
   constructor(props) {
@@ -31,6 +23,7 @@ class Accounts extends Component {
   }
 
   _getFormItems() {
+    const {groupList} = this.props
     let config = {
       formItems: [{
         label: "账号：",
@@ -55,15 +48,18 @@ class Accounts extends Component {
         }
       }, {
         label: "所属账号组：",
-        name: "group",
-        select: {
-          optionValue: GROUP
-        }
+        name: "deptCode",
+        wrapperCol: { span: 10},
+        cascader: {
+              options: groupList,
+              placeholder: "请选择所属账号组",
+              changeOnSelect: true
+          }
       }],
       initValue: {
         name: null,
         nick: null,
-        group:null
+        deptCode:null
       }
     }
     return config;
@@ -84,7 +80,7 @@ class Accounts extends Component {
     }, {
       key: '2',
       title: '所属账号组',
-      dataIndex: 'account'
+      dataIndex: 'deptName'
     }, {
       key: '3',
       title: '用户姓名',
@@ -93,8 +89,13 @@ class Accounts extends Component {
       key: '4',
       title: '是否可用',
       dataIndex: 'enabled',
-      render(status){
-        return <span>{STATUS[status].title}</span>
+      render(type){
+        switch(type) {
+          case true:
+            return '是'
+          case false:
+            return '否'  
+        }
       }
     }, {
       key: '5',
@@ -114,20 +115,20 @@ class Accounts extends Component {
       dataIndex: 'createPersionName'
     }];
 
-    let columOther = {
+   let columOther = {
       key: '9',
       title: '操作',
       dataIndex: 'adminId',
       render(id, row){
         return <span>
-                  {this.check('编辑') ? <Link to={`/accounts/edit/${id}`}>编辑</Link> : ''}
-                  {this.check('删除') ? <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedAccount.bind(context,id)}>
+                  {context.check('编辑') ? <Link to={`/accounts/edit/${id}`}>编辑</Link> : ''}
+                  {context.check('删除') ? <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedAccount.bind(context,id)}>
                       <Button type="link">删除</Button>
                   </Popconfirm> : ''}
+                  {context.check('重置密码') ? <a onClick={context.reset.bind(context,id)}>重置密码</a> : ''}
                 </span>
       }
     }
-
     if (isAdmin) {
       columns.push(columOther);
     }
@@ -142,7 +143,12 @@ class Accounts extends Component {
     del(id)
     this.refs && this.refs.dt.refresh();
   }
-
+  // 重置密码
+  reset(id) {
+    const {resetPsw} = this.props
+    resetPsw(id)
+    // this.refs && this.refs.dt.refresh();
+  }
 
   // 按钮
   quickButton(quickOptions) {
@@ -159,7 +165,6 @@ class Accounts extends Component {
 
   render() {
     const {formOptions, quickOptions, _delAccount, ...other} = this.props;
-
     return (
       <div>
 

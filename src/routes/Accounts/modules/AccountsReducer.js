@@ -9,7 +9,15 @@ const QUERY = 'accounts/QUERY';
 const QUERY_SUCCESS = 'accounts/QUERY_SUCCESS';
 const QUERY_FAILURE = 'accounts/QUERY_FAILURE';
 
+// 所属账号组
+const GROUP = 'accounts/GROUP';
+const GROUP_SUCCESS = 'accounts/GROUP_SUCCESS';
+const GROUP_FAILURE = 'accounts/GROUP_FAILURE';
 
+// 重置密码
+const PASSWORD = 'accounts/PASSWORD';
+const PASSWORD_SUCCESS = 'accounts/PASSWORD_SUCCESS';
+const PASSWORD_FAILURE = 'accounts/PASSWORD_FAILURE';
 /**
  * 删除
  *
@@ -38,13 +46,28 @@ export function queryList(params) {
   }
 }
 
-
+// 账号组
+export function group(params) {
+  return {
+    types: [GROUP, GROUP_SUCCESS, GROUP_FAILURE],
+    promise: (client) => client.post('api-department.getDeptNameList', params, {'hasMsg' : true})
+  }
+}
+// 重置密码
+export function restPswd(params) {
+  return {
+    types: [PASSWORD, PASSWORD_SUCCESS, PASSWORD_FAILURE],
+    promise: (client) => client.post('api-administrator.resetPasswordEn', params,{'hasMsg' : true})
+  }
+}
 
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case DELETE:
     case QUERY:
+    case GROUP:
+    case PASSWORD:
         return {
             ...state
         }
@@ -67,6 +90,24 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+    case GROUP_SUCCESS:
+        return {
+            ...state,
+            groupResult: action.result
+        }
+    case GROUP_FAILURE:
+        return {
+            ...state
+     }
+    case PASSWORD_SUCCESS:
+        return {
+            ...state,
+            passwordResult: action.result
+        }
+    case PASSWORD_FAILURE:
+        return {
+            ...state
+     }     
     default:
       return state
   }
