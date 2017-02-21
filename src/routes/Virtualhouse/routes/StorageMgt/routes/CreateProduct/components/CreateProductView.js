@@ -111,6 +111,17 @@ class CreateProduct extends Component {
                 max:9999999
             }
         }, {
+            label: "采购价(元)：",
+            name: "purchasePrice",
+            infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
+            inputNumber: {
+                placeholder: "请输入采购价",
+                // disabled: selectItem ? true : false,
+                step:0.01,
+                min:0.01,
+                max:9999999
+            }
+        }, {
             label: "销售价(元)：",
             name: "advicePrice",
             required: true,
@@ -146,6 +157,7 @@ class CreateProduct extends Component {
             categoryId: null,
             brandId: null,
             marketPrice: 0.01,
+            purchasePrice:0.01,
             advicePrice: null,
             total: null,
             skuData : {}
