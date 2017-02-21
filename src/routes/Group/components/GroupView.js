@@ -14,7 +14,7 @@ class Group extends Component {
     this.addTop = this.addTop.bind(this)
     this.state = {
         eidtId:false,
-        eidtName:''
+        editName:''
     }
     const url = location.hash.split('?')[0].split('#')[1]
     this.check = getPermissions(url)
@@ -28,7 +28,7 @@ class Group extends Component {
   addTop(refresh) {
       const {addOnTop} = this.props;
       addOnTop(this.refs.form)
-     this.setState({ eidtId:true,eidtName:''})
+     this.setState({ eidtId:true,editName:''})
   }
   // 增加下级
   onhandNext(name,code,refresh) {
@@ -40,29 +40,31 @@ class Group extends Component {
   onhandEdit(name,code,refresh) {
       const {Edit} = this.props;
       Edit(name,code,refresh);
-      this.setState({eidtId:true,eidtName:name})
+      this.setState({eidtId:true,editName:name})
   }
 
    _getFormIModal(){
         let config = {}, context = this;
         const {preName} = context.props;
-        const {eidtId,eidtName} = context.state
+        const {eidtId,editName} = context.state
         config.formItems = [{
             label: "账号组名称：",
             name: "name",
             wrapperCol: { span: 10 },
             labelCol: { span: 5},
-            rules: [{
+           rules: [{
                 validator(rule, value, callback) {
                     if (!value) {
-                        callback(new Error('30个字符以内'));
+                        callback(new Error('请输入32个字符以内的名称'));
+                    } else if(value.length > 32){
+                        callback(new Error('名称长度不大于32个字符'));
                     } else {
                         callback();
                     }
                 }
             }],
             input: {
-                placeholder: "30个字符以内",
+                placeholder: "32个字符以内",
             }
         },{
             label: "上级账号组：",
@@ -79,7 +81,7 @@ class Group extends Component {
         }
          if (eidtId == true) {
             config.formItems.splice(1, 1);
-            config.initValue.name = eidtName
+            config.initValue.name = editName
         }
      return config;       
     }
@@ -115,6 +117,7 @@ class Group extends Component {
   render() {
     const context = this;
     const {formOptions, dataSource, loading,handleOk,visible,title, ...other} = this.props;
+    const {editName} = this.state
     let disabled = dataSource && dataSource.length
     return (
       <div>
@@ -129,7 +132,7 @@ class Group extends Component {
                             console.log('Errors in form!!!');
                             return;
                         }
-                        handleOk(values,this.refs.form);
+                        handleOk(values,this.refs.form,editName);
                     });
                 }}
                 onCancel={formOptions.handleCancel} >

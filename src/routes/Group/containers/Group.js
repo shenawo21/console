@@ -93,21 +93,25 @@ class Group extends Component {
           edit:true
       })
   }
-  handleOk (values,fresh) {
+  handleOk (values,fresh,editName) {
     const self = this;
     const {addItem,queryList,editItem} = self.props
     const {preCode,edit,editCode} = self.state
     if (edit == true) {
         let value = {...values,deptCode:editCode}
-        editItem(value).then(function(res) {
-        if (res && res.status == 1) {
-              self.setState({visible: false})
-              fresh && fresh.resetFields()
-              queryList()
-          } else {
-              message.error(res.message, 1)
-          }
-      })
+        if(editName != values.name) {
+          editItem(value).then(function(res) {
+            if (res && res.status == 1) {
+                  self.setState({visible: false})
+                  fresh && fresh.resetFields()
+                  queryList()
+              } else {
+                  message.error(res.message, 1)
+              }
+          })
+        } else {
+          self.setState({visible: false})
+        }
     } else {
         delete values.nextName
         let value = {...values,deptCode:preCode}
