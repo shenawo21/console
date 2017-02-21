@@ -7,6 +7,12 @@ import Search from 'components/Search';
 import {DownLoader} from 'components/FileLoader'
 import {Row, Col, Button, Icon, Popconfirm, Modal} from 'hen';
 import {getSpecValue,getPermissions} from 'common/utils'
+// 商品来源
+const STATUS = [
+  {value: 0, title: "内部"},
+  {value: 1, title: "企业"},
+  {value: 2, title: "商城"}
+];
 
 class virtualView extends Component {
 
@@ -61,12 +67,21 @@ class virtualView extends Component {
           placeholder: "请选择所属类目",
           changeOnSelect: true
         }
+      },{
+        label: "商品来源：",
+        labelCol: {span: 5},
+        name: "fromType",
+        select: {
+          placeholder: "请选择商品来源",
+          optionValue: STATUS
+        }
       }],
       initValue: {
         title: null,
         spuId: null,
         skuId: null,
-        categoryCode: null
+        categoryCode: null,
+        fromType:null
       }
     }
     return config;
@@ -93,18 +108,29 @@ class virtualView extends Component {
       title: '商品类目',
       dataIndex: 'categoryName'
     }, {
-      key: '4',
+      key:'4',
+      title:'商品来源',
+      dataIndex:'fromType',
+      render(status){
+        return <span>{STATUS[status].title}</span>
+      }   
+    },{
+      key: '5',
       title: '规格',
       dataIndex: 'specOneValue',
       render(val, row){
         return getSpecValue(row)
       }
     }, {
-      key: '5',
+      key: '6',
       title: '销售价',
       dataIndex: 'price'
     }, {
-      key: '6',
+      key: '7',
+      title: '采购价',
+      dataIndex: 'purchasePrice'
+    }, {
+      key: '8',
       title: '已出库存',
       dataIndex: 'assignedStock',
       render(value, row){
@@ -112,7 +138,7 @@ class virtualView extends Component {
                   onClick={context.getAssignedStock.bind(context, row)}>{value}</a>
       }
     }, {
-      key: '7',
+      key: '9',
       title: '剩余可分配库存',
       dataIndex: 'stock'
     }];
