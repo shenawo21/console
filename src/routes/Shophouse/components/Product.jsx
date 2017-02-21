@@ -61,12 +61,16 @@ class product extends Component {
             key: '6',
             title: '市场价',
             dataIndex: 'marketPrice'
-        }, {
+        },{
             key: '7',
+            title: '采购价',
+            dataIndex: 'purchasePrice'
+        },{
+            key: '8',
             title: '建议销售价',
             dataIndex: 'advicePrice'
         }, {
-            key: '8',
+            key: '9',
             title: '待同步库存',
             dataIndex: 'incoming',
             render(val,row) {
@@ -74,7 +78,7 @@ class product extends Component {
                 return val - fallback
             }
         }, {
-            key: '9',
+            key: '10',
             title: '状态',
             dataIndex: 'status'
         }];
