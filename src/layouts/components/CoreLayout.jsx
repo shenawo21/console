@@ -35,7 +35,7 @@ const getMenu = (menuLists) => {
         } else {              
             return (
                 <MenuItem key={`${menu.uri}`}>
-                  <Link to={menu.uri}>{menu.name}</Link>
+                  {new RegExp('http').test(menu.uri) ? <a href={menu.uri} target='blank'>{menu.name}</a> : <Link to={menu.uri}>{menu.name}</Link>}
                 </MenuItem>
             )
         }
