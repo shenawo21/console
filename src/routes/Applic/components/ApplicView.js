@@ -90,13 +90,13 @@ class Applic extends Component {
       width: '25%',
       render:(id, row) => {
         return <ButtonGroup size="large">
-          {this.check('编辑') ? <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
-            <Link to={`/applic/edit/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>编辑</Link>
-          </Button> : <span></span>}
+          {this.check('编辑') ? 
+            <Link to={`/applic/edit/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}><Button type="ghost" disabled={row.status == 'audit' ? true : false}>编辑</Button></Link>
+          : <span></span>}
 
-          {this.check('对接设置') ? <Button type="ghost" disabled={row.status == 'audit' ? true : false}>
-            <Link to={`/applic/joint/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}>对接设置</Link>
-          </Button> : <span></span>}
+          {this.check('对接设置') ? 
+            <Link to={`/applic/joint/${row.shopId}`}  className={classes.colors} disabled={row.status == 'audit' ? true : false}><Button type="ghost" disabled={row.status == 'audit' ? true : false}>对接设置</Button></Link>
+           : <span></span>}
 
           {this.check('激活/禁用') ? <Button type="ghost" disabled={ row.status == 'audit' || row.status == 'create'? true : false} onClick={context.handleAction.bind(context,row,id)}>
            { row.enabled ? '禁用' : '激活' }
@@ -106,9 +106,9 @@ class Applic extends Component {
             <Button type="ghost" disabled={row.status == 'create' ? false : true}>删除</Button>
           </Popconfirm> : <span></span>}
 
-          <Button type="ghost" disabled={row.status == 'use' ? false : true}>
-            <Link to={`/applic/add/${row.shopId}`}  className={classes.colors}  disabled={row.status == 'use' ? false : true} >授权管理</Link>
-          </Button>
+          {this.check('删除') ?
+            <Link to={`/applic/add/${row.shopId}`}  className={classes.colors}  disabled={row.status == 'use' ? false : true} ><Button type="ghost" disabled={row.status == 'use' ? false : true}>授权管理</Button></Link>
+          : <span></span>}
 
         </ButtonGroup>
       }
