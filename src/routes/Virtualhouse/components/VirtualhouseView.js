@@ -9,9 +9,9 @@ import {Row, Col, Button, Icon, Popconfirm, Modal} from 'hen';
 import {getSpecValue,getPermissions} from 'common/utils'
 // 商品来源
 const STATUS = [
-  {value: 0, title: "内部"},
-  {value: 1, title: "企业"},
-  {value: 2, title: "商城"}
+  {value: 0, title: "中台创建"},
+  {value: 1, title: "商城采购"},
+  {value: 2, title: "erp对接"}
 ];
 
 class virtualView extends Component {
@@ -131,7 +131,7 @@ class virtualView extends Component {
       dataIndex: 'purchasePrice'
     }, {
       key: '8',
-      title: '已出库存',
+      title: '已出库库存',
       dataIndex: 'assignedStock',
       render(value, row){
         return <a href="javascript:;" style={{textDecoration:'underline' }}
@@ -139,7 +139,7 @@ class virtualView extends Component {
       }
     }, {
       key: '9',
-      title: '剩余可分配库存',
+      title: '可分配库存',
       dataIndex: 'stock'
     }];
     return columns;
