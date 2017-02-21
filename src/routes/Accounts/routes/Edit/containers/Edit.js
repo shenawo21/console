@@ -42,7 +42,9 @@ class Edit extends Component {
         // 获取账号组列表
         group()
     }
-
+    getForm(form) {
+        this.form = form
+    }
     componentWillReceiveProps(nextProps, preProps){
         if(nextProps.jump){
             setTimeout(()=>{
@@ -93,6 +95,12 @@ class Edit extends Component {
         handleSubmit(value) {
             const {addItem, modifyItem, params} = _this.props;
             const enterpriseCode = store.get('USER').enterpriseCode;
+            const { roleIdList } = value
+
+            if (!roleIdList.length) {
+                _this.form.resetFields(['roleIdList'])
+            }
+
             if (!value.deptCode) {
                 message.error('所属账号组不能为空！')
             } else {
@@ -167,7 +175,7 @@ class Edit extends Component {
             result,
             'formOptions': this.getFormOptions()
         };
-        return <Panel><EditView item={item} photoList={photoList} roleList={list} groupList = {loop(groupResult)} photoImg={this.photoImg} {...formOptions} /></Panel>
+        return <Panel><EditView getForm={this.getForm.bind(this)} item={item} photoList={photoList} roleList={list} groupList = {loop(groupResult)} photoImg={this.photoImg} {...formOptions} /></Panel>
     }
 }
 

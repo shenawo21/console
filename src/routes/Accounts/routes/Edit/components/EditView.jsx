@@ -13,11 +13,12 @@ const STATUS = [
   {title: '不可用', value: '0'},
   {title: '可用', value: '1'}
 ];
-
+let initFlag = true
 class Edit extends Component {
 
     constructor(props){
         super(props);
+        initFlag = true
         this.state = {
             photoList : [],
             roleChecked: []
@@ -25,6 +26,7 @@ class Edit extends Component {
     }
 
     componentDidMount() {
+        this.props.getForm(this.refs.form)
         this.setState({
             test: 1
         })
@@ -54,7 +56,7 @@ class Edit extends Component {
                 return rItem.name
             })
 
-            return this.state.roleChecked.length ? this.state.roleChecked : (checked || [])
+            return this.state.roleChecked.length ? this.state.roleChecked : (initFlag ? checked || [] : this.state.roleChecked)
         }
         
         config.formItems = [{
@@ -127,7 +129,15 @@ class Edit extends Component {
                 label: "手机号码：",
                 name: "mobile",
                 hasFeedback: true,
-                rules: [{ required: false, message: '请输入正确的手机号码' }],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (value && !/^1[34578][0-9]\d{8}$/g.test(value)) {
+                                callback('请输入正确的手机号码');
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
                 input: {
                     type: "text",
                     placeholder: "请输入手机号码",
@@ -142,6 +152,7 @@ class Edit extends Component {
                 options: roleListNew,
                 value: getChecked(),
                 onChange: (value) => {
+                    initFlag = false
                     this.setState({
                         roleChecked: value
                     })
@@ -152,14 +163,23 @@ class Edit extends Component {
         config.initValue = {}
 
         const roleIdList = []
-        this.state.roleChecked.forEach((cItem) => {
+        let roleChecked = []
+        if (initFlag) {
+            roleChecked = getChecked()
+        } else {
+            roleChecked = this.state.roleChecked
+        }
+        roleChecked.forEach((cItem) => {
             roleList.forEach((item) => {
                 if (item.label == cItem) {
                     roleIdList.push(item.value)
                 }
             })
         })
-
+    //重置roleIdList
+      setTimeout(() => {
+           this.refs.form && this.refs.form.resetFields(['roleIdList'])
+       })
         config.initValue.roleIdList = roleIdList
         if (item) {
             config.initValue = item; 
@@ -192,7 +212,7 @@ class Edit extends Component {
     const {formOptions, item, ...other} = this.props;
     return (
       <div>
-        <Form horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
+        <Form ref="form" horizontal items={this._getFormItems()} onSubmit={formOptions.handleSubmit}
               onRest={formOptions.handleReset}/>
       </div>
     );
