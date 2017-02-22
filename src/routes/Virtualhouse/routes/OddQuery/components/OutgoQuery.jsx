@@ -14,7 +14,12 @@ const STOCKTYPE = [
 //    { value: '损耗出库', title: "损耗出库" },
 //    { value: '盘点出库', title: "盘点出库" }
 ];
-
+// 商品来源
+const STATUS = [
+  {value: 0, title: "中台创建"},
+  {value: 1, title: "商城采购"},
+  {value: 2, title: "erp对接"}
+];
 
 class OutgoView extends Component {
 
@@ -59,10 +64,11 @@ class OutgoView extends Component {
           optionValue: STOCKTYPE
         }
       }, {
-        label: "渠道：",
-        name: "operateChannelCode",
-        input: {
-          placeholder: "请输入渠道"
+        label: "商品来源：",
+        name: "fromType",
+        select: {
+          placeholder: "请选择商品来源",
+          optionValue: STATUS
         }
       }, {
         label: "操作人：",
@@ -89,7 +95,7 @@ class OutgoView extends Component {
         spuId: null,
         skuId: null,
         stockType: null,
-        operateChannelCode:null,
+        fromType:null,
         createUser: null,
         createTimeStart: null,
         createTimeEnd: null
@@ -133,8 +139,11 @@ class OutgoView extends Component {
       dataIndex: 'title'
     }, {
       key: '6',
-      title: '渠道',
-      dataIndex: 'operateChannelCode'
+      title:'商品来源',
+      dataIndex:'fromType',
+      render(status){
+        return <span>{STATUS[status].title}</span>
+      }
     }, {
       key: '7',
       title: '市场价',
@@ -143,24 +152,28 @@ class OutgoView extends Component {
       key: '8',
       title: '销售价',
       dataIndex: 'price'
-    }, {
+    },{
       key: '9',
+      title: '采购价',
+      dataIndex: 'purchasePrice'
+    }, {
+      key: '10',
       title: '建议销售价',
       dataIndex: 'advicePrice'
     }, {
-      key: '10',
+      key: '11',
       title: '出库数量',
       dataIndex: 'incoming'
     }, {
-      key: '11',
+      key: '12',
       title: '出库时间',
       dataIndex: 'createTime'
     }, {
-      key: '12',
+      key: '13',
       title: '操作人',
       dataIndex: 'account'
     }, {
-      key: '13',
+      key: '14',
       title: '备注',
       dataIndex: 'remark'
     }];

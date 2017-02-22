@@ -13,7 +13,12 @@ const STOCKTYPE = [
    { value: '店铺回退', title: "店铺回退" },
    { value: '调整入库', title: "调整入库" }
 ];
-
+// 商品来源
+const STATUS = [
+  {value: 0, title: "中台创建"},
+  {value: 1, title: "商城采购"},
+  {value: 2, title: "erp对接"}
+];
 class StorageQuery extends Component {
 
     // shouldComponentUpdate(nextProps, nextState){
@@ -68,10 +73,11 @@ class StorageQuery extends Component {
                     optionValue: STOCKTYPE
                 }
             },{
-                label: "渠道：",
-                name: "relevantChannelCode",
-                input: {
-                placeholder: "请输入渠道"
+                label: "商品来源：",
+                name: "fromType",
+                select: {
+                placeholder: "请选择商品来源",
+                    optionValue: STATUS
                 }
             },{
                 label: "操作人：",
@@ -99,7 +105,7 @@ class StorageQuery extends Component {
                 categoryCode: null,
                 title: null,
                 stockType: null,
-                relevantChannelCode:null,
+                fromType:null,
                 createUser : null,
                 createTimeStart : null,
                 createTimeEnd : null
@@ -138,8 +144,11 @@ class StorageQuery extends Component {
             dataIndex: 'title'
         },{
             key: '5',
-            title: '渠道',
-            dataIndex: 'relevantChannelCode'
+            title:'商品来源',
+            dataIndex:'fromType',
+            render(status){
+                return <span>{STATUS[status].title}</span>
+            }
          }, {
             key: '6',
             title: '商品类目',
@@ -159,20 +168,24 @@ class StorageQuery extends Component {
             key: '9',
             title: '销售价',
             dataIndex: 'price'
-        }, {
+        },{
             key: '10',
+            title: '采购价',
+            dataIndex: 'purchasePrice'
+        }, {
+            key: '11',
             title: '入库数量',
             dataIndex: 'incoming'
         },  {
-            key: '11',
+            key: '12',
             title: '入库时间',
             dataIndex: 'createTime'
         }, {
-            key: '12',
+            key: '13',
             title: '操作人',
             dataIndex: 'account'
         }, {
-            key: '13',
+            key: '14',
             title: '备注',
             dataIndex: 'remark'
         }];
