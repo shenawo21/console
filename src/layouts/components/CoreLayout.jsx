@@ -23,7 +23,7 @@ var logo = require('./logo.png')
 // CoreLayout is a pure function of its props, so we can
 // define it with a plain javascript function...
 const getMenu = (menuLists) => {
-    return menuLists.map((menu, index) => {
+    return menuLists && menuLists.map((menu, index) => {
         if (menu.children && menu.children.length > 0 && menu.children[0].showType == 1) {
             return (
                 <SubMenu key={`sub-${index}`} title={<span><Icon type={menu.icon} />{menu.name}</span>}>
