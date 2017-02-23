@@ -16,7 +16,7 @@ class Logistics extends Component {
     
     isDefault(id){
         const {setDefault} = this.props, context = this;
-        setDefault({ configId: id }).then((res)=>{
+        setDefault({ logisticId: id }).then((res)=>{
             res.status === 1 && context.refs.dt.refresh()
         });
     }
@@ -37,7 +37,7 @@ class Logistics extends Component {
             }
         }, {
             title: '操作',
-            dataIndex: 'configId',
+            dataIndex: 'logisticId',
             render:(id, row) => {
                 return <span>
                     {row.defaults == true ? <span>设为默认</span> :  
