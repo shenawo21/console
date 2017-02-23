@@ -14,6 +14,10 @@ const VIRCATELIST = 'virtualhouse/VIRCATELIST';
 const VIRCATELIST_SUCCESS = 'virtualhouse/VIRCATELIST_SUCCESS';
 const VIRCATELIST_FAILURE = 'virtualhouse/VIRCATELIST_FAILURE';
 
+// 删除
+const REQ_DELPRODUCT = 'REQ_DELPRODUCT';
+const SUC_DELPRODUCT = 'SUC_DELPRODUCT';
+const ERR_DELPRODUCT = 'ERR_DELPRODUCT';
 /**
  * 列表查询
  *
@@ -55,13 +59,20 @@ export function virCateList(params) {
     promise: (client) => client.post('api-category.listAll', params)
   }
 }
-
+// 删除
+export function delProduct(params) {
+    return {
+        types: [REQ_DELPRODUCT, SUC_DELPRODUCT, ERR_DELPRODUCT],
+        promise: (client) => client.post('api-productService.deleteSku',params)
+    }
+}
 export default function reducer(state = {result:{}}, action) {
   state = {...state, loading : action.loading};
   switch (action.type) {
     case VIRHOUSEQUERY:
     case SHOPSTOCK:
     case VIRCATELIST:
+    case REQ_DELPRODUCT:
         return {
             ...state
         }
@@ -92,6 +103,14 @@ export default function reducer(state = {result:{}}, action) {
         return {
             ...state
         }
+    case SUC_DELPRODUCT:
+      return {
+        ...state
+      }
+    case ERR_DELPRODUCT:
+      return {
+        ...state
+      }   
     default:
       return state
   }

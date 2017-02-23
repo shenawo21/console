@@ -90,16 +90,18 @@ class CreateProduct extends Component {
                     })
                 }
             }
-        }, {
-            label: "商品品牌：",
-            name: "brandId",
-            required: true,
-            select: {
-                placeholder: '请选择商品品牌',
-                optionValue: brandList,
-                disabled: selectItem ? true : false
-            }
-        }, {
+        }
+        // , {
+        //     label: "商品品牌：",
+        //     name: "brandId",
+        //     required: true,
+        //     select: {
+        //         placeholder: '请选择商品品牌',
+        //         optionValue: brandList,
+        //         disabled: selectItem ? true : false
+        //     }
+        // }
+        , {
             label: "市场价(元)：",
             name: "marketPrice",
             infoLabel: <span>价格必须是0.01～9999999之间数字</span>,

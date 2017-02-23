@@ -112,7 +112,9 @@ class virtualView extends Component {
       title:'商品来源',
       dataIndex:'fromType',
       render(status){
-        return <span>{STATUS[status].title}</span>
+        console.log(status,'------')
+        let name = status == null ? status : STATUS[status].title
+        return <span>{name}</span>
       }   
     },{
       key: '5',
@@ -141,6 +143,32 @@ class virtualView extends Component {
       key: '9',
       title: '可分配库存',
       dataIndex: 'stock'
+    }, {
+      key:'10',
+      title: '操作',
+      render(id, row) {
+         const dels = () => {
+              context.onDels(row.skuId,row.delStatus);
+         }
+         return <div>
+                  {row.synStatus == 0 || row.skuSynStatus == 0 ? '' :
+                      <span>
+                        <Link to={`/virtualhouse/createProduct/${row.spuId}`}>编辑</Link>&nbsp; &nbsp; |&nbsp; &nbsp;
+                        { row.delStatus == 0 ?
+                          <Popconfirm title="确定要禁用此条数据？" onConfirm={dels} >
+                              <a href="javascript:;" style = {{color:'red'}}>禁用</a>
+                          </Popconfirm> :  
+                          <Popconfirm title="确定要启用启用此条数据？" onConfirm={dels} >
+                              <a href="javascript:;">启用</a>
+                          </Popconfirm>
+                        }
+                       </span> 
+                  }    
+                 {/* <Popconfirm title="确定要删除此条数据？" onConfirm={dels} >
+                      <a href="javascript:;">删除</a>
+                  </Popconfirm> */}
+              </div>
+      }
     }];
     return columns;
   }
@@ -183,7 +211,11 @@ class virtualView extends Component {
       </Col> : <span></span>}
     </Row>
   }
-
+  onDels(id,status,refresh) {
+      const {delSubmit} = this.props
+      const context = this
+      delSubmit(id,status,context.refs.dt.refresh)
+  }
 
   render() {
     const {formOptions, quickOptions, visible, tableOptions, stockTableOptions} = this.props;

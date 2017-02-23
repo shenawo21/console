@@ -107,8 +107,7 @@ class CreateProduct extends Component {
                 
                 // 选择商品类目时提交
                 /*chooseMenu = true   从商品类目中选择   hasSpec == true  有规格 */
-                if (value.brandId) {
-                    if (_this.refs.view.state.chooseMenu == true ) {
+                if (_this.refs.view.state.chooseMenu == true ) {
                         if (_this.refs.view.state.hasSpec == true) {
                             if (value.skuList && value.skuList.length > 0) {
                                 if (value.advicePrice && value.advicePrice !== 0 ) {
@@ -156,9 +155,11 @@ class CreateProduct extends Component {
                     } else if (_this.refs.view.state.chooseSpu == false && _this.refs.view.state.chooseMenu == false) {
                         message.error('请选择商品类目！')
                     }
-                } else {
-                    message.error('商品品牌不能为空！')
-                } 
+                // if (value.brandId) {
+                    
+                // } else {
+                //     message.error('商品品牌不能为空！')
+                // } 
               }
           }
       }

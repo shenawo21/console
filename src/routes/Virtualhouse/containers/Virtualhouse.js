@@ -2,7 +2,7 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import VirtualhouseView from '../components/VirtualhouseView'
 import Panel from 'components/Panel'
-import { virhoustQueryList, getShopStocks, virCateList } from '../modules/virtualhouseReducer'
+import { virhoustQueryList, getShopStocks, virCateList,delProduct} from '../modules/virtualhouseReducer'
 
 class Virtualhouse extends Component {
   
@@ -10,7 +10,7 @@ class Virtualhouse extends Component {
         super(props);
         
         this.getFormOptions = this.getFormOptions.bind(this);  
-        
+        this.delSubmit = this.delSubmit.bind(this);
         this.getQuickOptions = this.getQuickOptions.bind(this);
         
         this.state = {
@@ -114,7 +114,16 @@ class Virtualhouse extends Component {
             }
         }
     }
-    
+    delSubmit (id,status,refresh) {
+        const context = this
+        const {delProduct,virhoustQueryList} = context.props
+        let delStatus = status == 0 ? 1 : 0
+         delProduct({skuId:id,delStatus:delStatus}).then((res) => {
+             if (res && res.status == 1) {
+                 refresh()
+             }
+         })
+    }
     render() {
         const {params, stockParams, selectList, visible} = this.state;        
         const {items, stockItems, virhoustQueryList, getShopStocks, cateResult, totalItems, loading} = this.props;
@@ -164,8 +173,8 @@ class Virtualhouse extends Component {
             ...this.getFormOptions()
         }
         
-        return <Panel title=""><VirtualhouseView tableOptions={tableOptions} stockTableOptions={stockTableOptions} formOptions={formOptions} downParam={params} quickOptions={this.getQuickOptions()} 
-                                                 selectList={selectList} visible={visible} cateList={loop(cateResult)} /></Panel>
+        return <Panel title=""><VirtualhouseView ref = 'theTable' tableOptions={tableOptions} stockTableOptions={stockTableOptions} formOptions={formOptions} downParam={params} quickOptions={this.getQuickOptions()} 
+                                                 selectList={selectList} visible={visible} cateList={loop(cateResult)} delSubmit = {this.delSubmit}/></Panel>
     }
 }
 
@@ -182,7 +191,8 @@ Virtualhouse.propTypes = {
 const mapActionCreators = {
     virhoustQueryList,
     getShopStocks,
-    virCateList
+    virCateList,
+    delProduct,
 }
 
 
