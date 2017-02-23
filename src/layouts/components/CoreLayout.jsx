@@ -36,7 +36,7 @@ const getMenu = (menuLists) => {
             let url = menu.uri || '#';
 
             return (
-                <MenuItem key={`${menu.uri}`}>
+                <MenuItem key={`item-${index}`}>
                   {new RegExp('http').test(menu.uri) ? <a href={menu.uri} target='blank'>{menu.name}</a> : <Link to={url}>{menu.name}</Link>}
                 </MenuItem>
             )
