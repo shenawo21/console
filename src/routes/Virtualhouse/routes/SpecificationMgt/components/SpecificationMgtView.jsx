@@ -66,7 +66,7 @@ class specificationMgt extends Component {
     // 添加属性规格
     quickButton() {
         const context = this;
-        return <span>{this.check('价格调整') ? <Button onClick={context._addSpec.bind(this)}>添加属性规格</Button> : ''}</span>
+        return <span>{this.check('添加属性规格') ? <Button onClick={context._addSpec.bind(this)}>添加属性规格</Button> : ''}</span>
     }
 
     //添加规格
