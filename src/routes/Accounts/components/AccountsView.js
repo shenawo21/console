@@ -31,7 +31,7 @@ class Accounts extends Component {
         span: '5',
         labelCol: {span: 6},
         input: {
-          placeholder: "请输入昵称"
+          placeholder: "请输入账号"
         }
       }, {
         label: "用户姓名：",

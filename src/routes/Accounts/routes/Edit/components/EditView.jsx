@@ -78,7 +78,7 @@ class Edit extends Component {
                 required: true,
                 hasFeedback: true,
                 rules: [
-                    { required: true, min:3, max: 32, message: '3~32个字符以内' }
+                    { required: true, min:1, max: 32, message: '请输入1~32个字符以内的用户名' }
                 ],
                 input: {
                     placeholder: "请输入用户姓名",
