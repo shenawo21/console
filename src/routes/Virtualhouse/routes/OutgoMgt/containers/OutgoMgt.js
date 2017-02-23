@@ -63,6 +63,7 @@ class OutgoMgt extends Component {
          */
 
             handleSubmit(value) {
+                value.categoryCode = value.categoryCode && value.categoryCode[value.categoryCode.length - 1] || '';
                 context.setState({
                     params: {pageSize, ...value}
                 })
