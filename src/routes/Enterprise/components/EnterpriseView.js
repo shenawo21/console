@@ -163,7 +163,7 @@ class Enterprise extends Component {
         title: '法定代表人信息',
         formItems: [{
           label: "姓名：",
-          name: "lealPerson",
+          name: "legalPerson",
           required: true,
           hasFeedback: true,
           rules: [{required: true, message: '法人代表为必填'}],
@@ -231,7 +231,7 @@ class Enterprise extends Component {
       remark: null,
       businessLicense: null,
       logo: null,
-      lealPerson: null,
+      legalPerson: null,
       telephone: null,
       createTime: null,
       outMallCode:null,
