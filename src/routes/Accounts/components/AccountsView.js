@@ -156,7 +156,7 @@ class Accounts extends Component {
     if (isAdmin) {
       return <Row>
         {this.check('新增账号') ? <Col span='2'>
-          <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>新增帐号</Link>
+          <Link className="ant-btn ant-btn-primary" to={`/accounts/edit`}>新增账号</Link>
         </Col> : <span></span>}
       </Row>
     }
