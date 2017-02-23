@@ -44,7 +44,7 @@ class Home extends Component {
       servicePermis = null;
     if (store('USER')) {
       store('USER').menuList && store('USER').menuList.map((m)=> {
-        if (m.name == '应用管理') {
+        if (m.name == '店铺管理') {
           applicPermis = m.name
         }
         if (m.name == '店铺仓库管理') {
@@ -125,7 +125,7 @@ class Home extends Component {
                   <Badge count={item.toBeButtShop} overflowCount={99} className={classes.exbadge}
                          style={{top:'0px',right: '-10px'}}>
                     <Link to={'/applic'} className={classes.headExample}
-                          disabled={applicPermis =='应用管理' ? false : true}>
+                          disabled={applicPermis =='店铺管理' ? false : true}>
                       待店铺对接
                     </Link>
                   </Badge>

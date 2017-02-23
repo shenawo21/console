@@ -1,5 +1,5 @@
  export default (store) => ({
-  breadcrumbName: "应用管理",
+  breadcrumbName: "店铺管理",
   path: 'applic',
   getComponent(nextState, next) {
     require.ensure([], (require) => {

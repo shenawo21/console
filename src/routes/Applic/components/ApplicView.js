@@ -102,11 +102,11 @@ class Applic extends Component {
            { row.enabled ? '禁用' : '激活' }
           </Button> : <span></span>}
 
-          {this.check('删除') ? <Popconfirm title="确定要删除这个应用吗？" onConfirm={context.del.bind(context,id)}>
+          {this.check('删除') ? <Popconfirm title="确定要删除这个店铺吗？" onConfirm={context.del.bind(context,id)}>
             <Button type="ghost" disabled={row.status == 'create' ? false : true}>删除</Button>
           </Popconfirm> : <span></span>}
 
-          {this.check('删除') ?
+          {this.check('授权管理') ?
             <Link to={`/applic/add/${row.shopId}`}  className={classes.colors}  disabled={row.status == 'use' ? false : true} ><Button type="ghost" disabled={row.status == 'use' ? false : true}>授权管理</Button></Link>
           : <span></span>}
 
