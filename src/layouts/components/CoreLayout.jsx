@@ -24,23 +24,37 @@ var logo = require('./logo.png')
 // define it with a plain javascript function...
 const getMenu = (menuLists) => {
     return menuLists && menuLists.map((menu, index) => {
-        if (menu.children && menu.children.length > 0 && menu.children[0].showType == 1) {
-            return (
-                <SubMenu key={`sub-${index}`} title={<span><Icon type={menu.icon} />{menu.name}</span>}>
-                {
-                    getMenu(menu.children)
-                }
-                </SubMenu>
-            )   
-        } else {              
-            let url = menu.uri || '#';
-
-            return (
-                <MenuItem key={`item-${index}`}>
-                  {new RegExp('http').test(menu.uri) ? <a href={menu.uri} target='blank'>{menu.name}</a> : <Link to={url}>{menu.name}</Link>}
-                </MenuItem>
-            )
-        }
+        return (
+            <SubMenu key={`sub-${index}`} title={<span><Icon type={menu.icon} />{menu.name}</span>}>
+            {
+                (menu.children && menu.children[0].showType == 1) && menu.children.map((item,index) => {
+                  if(item.children && item.children.length > 0 && item.children[0].showType == 1) {
+                    return (
+                      <SubMenu key={`group-${index}`} title={item.name}>
+                        {
+                          item.children.map((menuItem,index) => {
+                            let url = menuItem.uri || '#'
+                            return (
+                              <MenuItem key={`menuItem-${index}`}>
+                                {new RegExp('http').test(menu.uri) ? <a href={menu.uri} target='blank'>{menuItem.name}</a> : <Link to={url}>{menuItem.name}</Link>}
+                              </MenuItem>
+                            )
+                          })
+                        }
+                      </SubMenu>
+                    )
+                  } else {
+                    let url = item.uri || '#'
+                    return (
+                      <MenuItem key={`item-${index}`}>
+                        {new RegExp('http').test(item.uri) ? <a href={item.uri} target='blank'>{item.name}</a> : <Link to={url}>{item.name}</Link>}
+                      </MenuItem>
+                    )
+                  }
+                })
+            }
+            </SubMenu>
+        )
     })
 }
 
