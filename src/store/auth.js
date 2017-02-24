@@ -60,7 +60,8 @@ export default function reducer(state = {}, action = {}) {
     case LOGOUT:
     case VCODE:
       return {
-        ...state
+        ...state,
+        user : null
       };
     case LOAD_SUCCESS:
       return {

@@ -2,7 +2,8 @@ import React, { PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import PubPasswordView from '../components/PubPasswordView'
 import {modifyItem} from '../modules/PubPasswordReducer'
-
+import Cookie from 'js-cookie';
+import store from 'store2';
 class PubPassword extends Component {
 
     constructor(props) {
@@ -39,6 +40,8 @@ class PubPassword extends Component {
                   identity: params.type,
                   ...value
                 })
+                Cookie.remove('sessionId');
+                store.clearAll();
                 history.replace('/login')
               },
 

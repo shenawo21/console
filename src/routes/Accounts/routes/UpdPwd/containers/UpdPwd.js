@@ -10,7 +10,7 @@ import SettingView from '../components/UpdPwdView'
 import Panel from 'components/Panel'
 import {modifyItem} from '../modules/UpdPwdReducer'
 import store from 'store2';
-
+import Cookie from 'js-cookie';
 import {message, Modal, Button} from 'hen';
 
 class Setting extends Component {
@@ -50,7 +50,7 @@ class Setting extends Component {
        */
       
         handleSubmit(value) {
-            const {modifyItem, params} = _this.props;
+            const {modifyItem, params,history} = _this.props;
             const {adminId} = store.get('USER')
             _this.setState({
                 params: value
@@ -66,6 +66,7 @@ class Setting extends Component {
                         content: '您已修成功修改帐号密码，请重新登录！'
                     });
                     setTimeout(() => {
+                        Cookie.remove('sessionId');
                         store.clearAll();
                         _this.context.router.push('/login')
                     },2000)
