@@ -143,7 +143,8 @@ class virtualView extends Component {
       key: '9',
       title: '可分配库存',
       dataIndex: 'stock'
-    }, {
+    }
+    /*, {
       key:'10',
       title: '操作',
       render(id, row) {
@@ -164,12 +165,10 @@ class virtualView extends Component {
                         }
                        </span> 
                   }    
-                 {/* <Popconfirm title="确定要删除此条数据？" onConfirm={dels} >
-                      <a href="javascript:;">删除</a>
-                  </Popconfirm> */}
               </div>
       }
-    }];
+    }*/
+    ];
     return columns;
   }
 
