@@ -108,7 +108,8 @@ class Edit extends Component {
                     options: groupList,
                     placeholder: "请选择所属账号组",
                     changeOnSelect: true
-                }
+                },
+                rules: [{ required: true,type:'array', message: '请选择所属账号组' }]                
             }, {
                 label: "是否可用：",
                 name: "enabled",
@@ -121,9 +122,19 @@ class Edit extends Component {
                 label: "邮箱：",
                 name: "email",
                 hasFeedback: true,
-                rules: [{ required: false, type: "email", message: '请输入正确的邮箱地址' }],
+                rules: [{
+                    validator(rule, value, callback) {
+                        if (value && ! /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(value)) {
+                            callback('请输入正确的邮箱');
+                        } else if(value && value.length>64) {
+                            callback('输入邮箱长度过长');
+                        } else {
+                            callback()
+                        }
+                    }
+                }],
                 input: {
-                    placeholder: "请输入邮箱",
+                    placeholder: "请输入邮箱"
                 }
             }, {
                 label: "手机号码：",
@@ -132,7 +143,7 @@ class Edit extends Component {
                 rules: [{
                     validator(rule, value, callback) {
                         if (value && !/^1[34578][0-9]\d{8}$/g.test(value)) {
-                                callback('请输入正确的手机号码');
+                            callback('请输入正确的手机号码');
                         } else {
                             callback();
                         }
@@ -147,7 +158,7 @@ class Edit extends Component {
             name: "roleIdList",
             labelCol: { span: 2 },
             wrapperCol: { span: 8 },
-            rules: [{required: false, type: 'array'}],
+            rules: [{required: true, type: 'array'}],
             checkboxGroup: {
                 options: roleListNew,
                 value: getChecked(),
