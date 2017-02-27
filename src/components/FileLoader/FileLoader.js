@@ -19,6 +19,11 @@ const getImageUrl = Image.getImageUrl;
 export const DownLoader = (props) => {
   const {url, bType = 'ghost', iType = 'download', title = '', params, onClick, disabled} = props;
   let curUrl = url;
+  if(__PROD__){
+      if(location.pathname){
+          curUrl = location.pathname.replace(/\/$/, '') + curUrl
+      }
+  }
   if (params) {
     let mapParams = [];
     for (let key in params) {
