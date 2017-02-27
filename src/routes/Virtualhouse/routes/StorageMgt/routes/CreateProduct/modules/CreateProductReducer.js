@@ -3,11 +3,6 @@ const OUTCATELIST = 'virtualhouse/OUTCATELIST';
 const OUTCATELIST_SUCCESS = 'virtualhouse/OUTCATELIST_SUCCESS';
 const OUTCATELIST_FAILURE = 'virtualhouse/OUTCATELIST_FAILURE';
 
-//获取商品品牌列表
-const BRANDLIST = 'createProduct/BRANDLIST';
-const BRANDLIST_SUCCESS = 'createProduct/BRANDLIST_SUCCESS';
-const BRANDLIST_FAILURE = 'createProduct/BRANDLIST_FAILURE';
-
 //新增商品提交
 const ADDPRO = 'createProduct/ADDPRO';
 const ADDPRO_SUCCESS = 'createProduct/ADDPRO_SUCCESS';
@@ -71,20 +66,6 @@ export function getSpecBySpu(params) {
 }
 
 /**
- * 获取商品品牌列表
- * 
- * @export
- * @param params (description)
- * @returns (description)
- */
-export function getBrandList(params) {
-  return {
-    types: [BRANDLIST, BRANDLIST_SUCCESS, BRANDLIST_FAILURE],
-    promise: (client) => client.post('api-brandService.listView', params)
-  }
-}
-
-/**
  * 新增商品提交
  * 
  * @export
@@ -118,7 +99,6 @@ export default function reducer(state = {result:{}}, action) {
     case OUTCATELIST:
     case SPECLIST:
     case SPUSPECLIST:
-    case BRANDLIST:
     case ADDPRO:
     case LISTVIEW:
         return {
@@ -148,15 +128,6 @@ export default function reducer(state = {result:{}}, action) {
             specListResult: action.result
         }
     case SPUSPECLIST_FAILURE:
-        return {
-            ...state
-        }
-    case BRANDLIST_SUCCESS:
-        return {
-            ...state,
-            brandResult: action.result
-        }
-    case BRANDLIST_FAILURE:
         return {
             ...state
         }

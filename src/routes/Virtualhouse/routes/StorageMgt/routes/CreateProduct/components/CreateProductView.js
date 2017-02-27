@@ -25,7 +25,8 @@ class CreateProduct extends Component {
             specDataList: [],   //选中的规格及值
             rowList: [],         //sku列表
             totalStock : 0,     //库存
-            salePrice : 0.01,      //
+            salePrice : 0.01,      //SPU中销售价
+            chasePrice:0.01,      //spu中采购价
             submitFlag : '',     //提交数据时,skuList价格或库存是否为空
             market:'',
             chooseSpu:false,
@@ -37,8 +38,8 @@ class CreateProduct extends Component {
 
     _getFormItems() {
         let config = {}, context = this;
-        const {cateList, brandList, getSpecByCateList} = this.props;
-        let { selectItem, specList, specDataList, rowList, totalStock, salePrice, categoryId,flag,hasSpec,chooseMenu,chooseSpu} = this.state;
+        const {cateList, getSpecByCateList,id} = this.props;
+        let { selectItem, specList, specDataList, rowList, totalStock, salePrice,chasePrice, categoryId,flag,hasSpec,chooseMenu,chooseSpu} = this.state;
         let isEdit = chooseMenu == true && hasSpec == false ? false : true
         config.formItems = [{
             label: "SPU：",
@@ -75,39 +76,48 @@ class CreateProduct extends Component {
             },
             fieldOptions: {
                 onChange:function(value) {
-                    let val = value.slice(0)
-                    getSpecByCateList({categoryCode: val.pop()}).then(function(res){
-                        context.setState({chooseMenu:true})
-                        let valueArray = res.data && res.data.filter((item) => {
-                                return item.enterpriseSpecList.length > 0
-                            })
-                        if(valueArray.length >0) {
-                            context.setState({hasSpec:true})
-                        } else {
-                           context.setState({hasSpec:false}) 
-                        }
-
-                    })
+                    let val = value.slice(0).pop();
+                    if(val){
+                        //根据类目获取sku规格值
+                        getSpecByCateList({categoryCode: val}).then(function(res){
+                            context.setState({chooseMenu:true})
+                            let valueArray = res.data && res.data.filter((item) => {
+                                    return item.enterpriseSpecList.length > 0
+                                })
+                            if(valueArray.length >0) {
+                                context.setState({hasSpec:true})
+                            } else {
+                                context.setState({hasSpec:false}) 
+                            }
+                        })
+                    }else{
+                        context.setState({
+                            hasSpec:false,
+                            chooseMenu:false,
+                            specList : []
+                        })
+                    }
+                    
                 }
             }
         }
-        // , {
-        //     label: "商品品牌：",
-        //     name: "brandId",
-        //     required: true,
-        //     select: {
-        //         placeholder: '请选择商品品牌',
-        //         optionValue: brandList,
-        //         disabled: selectItem ? true : false
-        //     }
-        // }
         , {
             label: "市场价(元)：",
             name: "marketPrice",
-            infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
+            required: true,
+            infoLabel: <span className = 'gray'>零售用，价格必须是0.01~9999999之间的数字</span>,
+            rules: [{
+                    validator(rule, value, callback) { 
+                        if (!value && value !== 0) {
+                            callback(new Error('请输入0.01~9999999之间值!'));
+                        } else if (value < 0.01 || value > 9999999) {
+                            callback(new Error('请输入0.01~9999999之间值!'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
             inputNumber: {
-                placeholder: "请输入市场价",
-                disabled: selectItem ? true : false,
                 step:0.01,
                 min:0.01,
                 max:9999999
@@ -115,10 +125,12 @@ class CreateProduct extends Component {
         }, {
             label: "采购价(元)：",
             name: "purchasePrice",
-            infoLabel: <span>价格必须是0.01～9999999之间数字</span>,
+            wrapperCol: {span: 15},
+            required: true,
+            // rules: [{ required: true, message: '采购价不能为空' }],
+            infoLabel: <span className = 'gray'>取sku中采购价最低值，无sku时可手动输入，显示在商城前台</span>,
             inputNumber: {
-                placeholder: "请输入采购价",
-                // disabled: selectItem ? true : false,
+                disabled:  isEdit,
                 step:0.01,
                 min:0.01,
                 max:9999999
@@ -126,12 +138,15 @@ class CreateProduct extends Component {
         }, {
             label: "销售价(元)：",
             name: "advicePrice",
+            wrapperCol: {span: 15},
             required: true,
             //rules: [{ required: true, message: '销售价不能为空' }],
             infoLabel: <span>价格必须是0.01～9999999之间数字，不能大于市场价</span>,
-            input: {
-                placeholder: "请输入销售价",
-                disabled:isEdit
+            inputNumber: {
+                disabled: isEdit,
+                step:0.01,
+                min:0.01,
+                max:9999999
             }
         }, {
             label: "库存数量：",
@@ -146,24 +161,25 @@ class CreateProduct extends Component {
         }, {
             label: "商品规格：",
             required: true,
-            wrapperCol: {span: 15},
+            wrapperCol: {span: 20},
+            infoLabel:<span className = 'gray'>根据所选类目自动带出该类目下所关联的规格</span>,
             // rules: [{ required: true, message: '库存数量或销售价不能为空'}],
             name : 'skuData',
-            custom(fieldProps) {
-                return <Sku specList={specList} specDataList={specDataList} rowList={rowList} setInputValue={context.setInputValue} changeSpecValue={context.changeSpecValue}  specType={SPECTYPE} {...fieldProps('skuData')}></Sku>
+             custom(fieldProps, name) {
+                return <Sku form = {name.props.form} specList={specList} editId={id} specDataList={specDataList} rowList={rowList} setInputValue={context.setInputValue} changeSpecValue={context.changeSpecValue}  specType={SPECTYPE} {...fieldProps('skuData')}></Sku>
             }
         }];
         config.initValue = {
             spuId: null,
             title: null,
             categoryId: null,
-            brandId: null,
-            marketPrice: 0.01,
-            purchasePrice:0.01,
-            advicePrice: null,
-            total: null,
+            marketPrice: '',
+            purchasePrice:'',
+            advicePrice: '',
+            total: '',
             skuData : {}
         }
+        //选择spu或编辑时，有selectItem值
         if( selectItem ){
             //阻止selectItem的状态被串改
             selectItem = {...selectItem}
@@ -173,18 +189,36 @@ class CreateProduct extends Component {
                 categoryCode.push(selectItem.categoryId.substring(0, 2*(i+1)))
             }
             config.initValue.categoryId = categoryCode
-        }else{
-            config.initValue.spuId = "";
+            //编辑或spu选择时，sku累加总库存
+            config.initValue.total = totalStock || selectItem.total || ''
+        }else {
+            config.initValue.spuId = ""
+            //新增时，sku累加总库存
+            config.initValue.total = totalStock || ''
         }
        
         if(salePrice !== 'undefined'){
             config.initValue.advicePrice = salePrice == 0 ? 0.01 :salePrice
+        }
+        //采购价
+        if(chasePrice !== 'undefined'){
+            config.initValue.purchasePrice = chasePrice == 0 ? 0.01 :chasePrice
         }
         if(totalStock!== 'undefined'){
             config.initValue.total = totalStock 
         }
         config.initValue.skuData = this.setSkuConfig(specDataList, rowList, selectItem)
         return config;
+    }
+    /**
+     * 设置form表单中特殊的item数据
+     */
+    setOtherFormItemInfo(datas){
+        const {spuId, categoryId, thumbImage, detail} = datas;
+        const {getSpecBySpu, queryChntBrandNameList, photoImg, params} = this.props;
+        //根据spu获取规格
+        getSpecBySpu({spuId})
+
     }
 
     setSkuConfig(specDataList, rowList, selectItem){
@@ -206,7 +240,10 @@ class CreateProduct extends Component {
             curSku = {
                 ...curSku,
                 price : val.price || 0.01,
-                assignedStock : val.assignedStock || 0
+                stock : val.stock || 0,
+                purchasePrice : val.purchasePrice || 0,
+                // skuId : val.skuId || '',
+                // spuId : val.skuId ? selectItem ? selectItem.spuId : '' : '',
             }
             return curSku
         })
@@ -231,7 +268,7 @@ class CreateProduct extends Component {
         if(searchSpuState.state){
             this.setState({chooseSpu:true})
             selectItem = searchSpuState.state.items
-            if(selectItem.specOneName == null) {
+            if(selectItem && selectItem.specOneName == null) {
                 this.setState({flag:false})
 
             } else {
@@ -241,8 +278,10 @@ class CreateProduct extends Component {
         if(selectItem){
             //选着spu时，先重置表格
             this.refs.form && this.refs.form.resetFields();
-            getSpecBySpu({spuId: selectItem.spuId})
-            //getSpecByCateList({categoryCode: selectItem.categoryId})
+            this.setOtherFormItemInfo({
+                spuId : selectItem.spuId,
+                categoryId : selectItem.categoryId,
+            })
             this.setState({
                 selectItem,
                 visible: false
@@ -252,8 +291,9 @@ class CreateProduct extends Component {
                 specList: [],       
                 specDataList: [],   
                 rowList: [],
-                totalStock : 0,
-                salePrice : 0.01,
+                totalStock : '',
+                salePrice :'',
+                chasePrice : '',
                 selectItem,
                 visible: false
             });
@@ -288,13 +328,10 @@ class CreateProduct extends Component {
                     })
                 }
             })
-            if(selectItem){
-                this.setSkuData(selectItem, eSpecList);
-            }else{
-                this.setState({
-                    specList: eSpecList
-                })
-            }
+            selectItem && this.setSkuData(selectItem);
+            this.setState({
+                specList: eSpecList
+            })
         }
     }
 
@@ -304,7 +341,7 @@ class CreateProduct extends Component {
      * @param {any} specState
      */
     setSkuData(specState, specList){
-        let eSpecList = [], curSpec = [], {totalStock, salePrice} = this.state;
+        let eSpecList = [], curSpec = [], {totalStock, salePrice, chasePrice, ...other} = this.state,context = this;
         let rowList = specState.skuList ? specState.skuList : []
         //获取已选规格列表
         if(specState){
@@ -312,7 +349,6 @@ class CreateProduct extends Component {
                 let specName = specState['spec'+ val +'Name']
                 let specValue = specState['spec'+ val +'Value']
                 let specId = specState['specId'+ val]
-                
                 if(specName && specValue){
                     eSpecList.push({
                         name: specName,
@@ -333,13 +369,12 @@ class CreateProduct extends Component {
                         //计算库存和获取sku最小售价
                         if(index == 0){
                             let curPrice = Number(val.price || 0) || 0
-                            totalStock += Number(val.assignedStock || 0) || 0
-                            if(num > 0){
-                                //上一个price值与当前price对比，小的再赋给saleprice，循环遍历
-                                salePrice = salePrice > curPrice ? curPrice : salePrice
-                            }else{
-                                salePrice = curPrice
-                            }
+
+                            let curBatchPrice = Number(val.purchasePrice || 0) || 0
+                            totalStock += Number(val.stock || 0) || 0
+                            salePrice = context.getPrice(curPrice, num, salePrice)
+                            chasePrice = context.getPrice(curBatchPrice, num, chasePrice)
+
                         }
                         curSpec[index].items.push(val['spec'+ item +'Value']+'_d')
                     })
@@ -347,18 +382,21 @@ class CreateProduct extends Component {
                     curSpec[index].items = uniq(curSpec[index].items)
                 })
             }else{
-                salePrice = 0.01
+                salePrice = '',
+                chasePrice = ''
             }
         }else{
-            totalStock = 0
-            salePrice = 0.01
+            totalStock = '',
+            salePrice = '',
+            chasePrice = ''
         }
         this.setState({
             specList,
             specDataList : curSpec,
             rowList,
             salePrice,
-            totalStock
+            chasePrice,
+            totalStock,
         })
     }
 
@@ -373,7 +411,7 @@ class CreateProduct extends Component {
      * @returns
      */
     changeSpecValue(num, specTitle, specId, specValue, e) {
-        let {specDataList, rowList, totalStock, salePrice, submitFlag,specList} = this.state, curSpec = [];
+        let {specDataList, rowList, totalStock, salePrice, submitFlag,specList,chasePrice} = this.state, curSpec = [],context = this;
         if (e.target.checked == true) {
             if (!specDataList[num]) {
                 specDataList[num] = {
@@ -395,7 +433,7 @@ class CreateProduct extends Component {
         let rowData = (newArray && newArray.length) == (specList && specList.length) ? specDataList : ''
         curSpec = this.normalize(rowData)
         //当修改销售价或库存数量后，再次添加sku时，要将选中的组合与之前修改的rowList里面元素进行合并，用新的curSpec做表格源数据
-        if(curSpec.length > 1){ //新增时，当列表只有一行数据时，选择规格值时不需要合并之前的rowList数据
+        if(curSpec.length >= 1){ //新增时，当列表只有一行数据时，选择规格值时不需要合并之前的rowList数据
             totalStock = 0
             submitFlag = false
             rowList.forEach((val, num) => {
@@ -406,15 +444,12 @@ class CreateProduct extends Component {
                 curSpec.every((item,index) => {
                     if(val.specOneValue == item.specOneValue && val.specTwoValue == item.specTwoValue && val.specThreeValue == item.specThreeValue && val.specFourValue == item.specFourValue){
                         let curPrice = Number(val.price || 0) || 0
-                        totalStock += Number(val.assignedStock || 0) || 0
-                        if(num > 0){
-                            //上一个price值与当前price对比，小的再赋给saleprice，循环遍历
-                            salePrice = salePrice > curPrice ? curPrice : salePrice
-                        }else{
-                            salePrice = curPrice
-                        }
+                        let curBatchPrice = Number(val.purchasePrice || 0) || 0
+                        totalStock += Number(val.stock || 0) || 0
+                        salePrice = context.getPrice(curPrice, num, salePrice)
+                        chasePrice = context.getPrice(curBatchPrice, num, chasePrice)
                         curSpec[index] = {...val, ...item}
-                        if(!curSpec[index].price || !curSpec[index].assignedStock){
+                        if(!curSpec[index].price || !curSpec[index].purchasePrice || !curSpec[index].stock){
                             submitFlag = true
                         }
                         return false 
@@ -428,6 +463,7 @@ class CreateProduct extends Component {
             rowList : curSpec,
             totalStock,
             salePrice,
+            chasePrice,
             submitFlag
         })
     }
@@ -498,7 +534,7 @@ class CreateProduct extends Component {
      * params e
      */
     setInputValue(e, row, cKey){
-        let {rowList, totalStock, salePrice, submitFlag} = this.state, curValue = e|| 0;
+        let {rowList, totalStock, salePrice, submitFlag,chasePrice} = this.state, curValue = e;
         const context = this;
         totalStock = 0
         submitFlag = false
@@ -508,8 +544,9 @@ class CreateProduct extends Component {
                 rowList[index][cKey] = Number(curValue) || 0
             }
             totalStock = context.getStock(rowList[index], totalStock)
-            salePrice = context.getPrice(rowList[index], index, salePrice)
-            if(!rowList[index].assignedStock || !rowList[index].price){
+            salePrice = context.getPrice(val.price, index, salePrice)
+            chasePrice = context.getPrice(val.purchasePrice, index, chasePrice)
+            if(!rowList[index].stock || !rowList[index].price || !rowList[index].purchasePrice){
                 submitFlag = true
             }
         })
@@ -518,18 +555,19 @@ class CreateProduct extends Component {
             rowList,
             totalStock,
             salePrice,
-            submitFlag
+            submitFlag,
+            chasePrice
         })
     }
 
     getStock(val, totalStock){
-        totalStock += Number(val.assignedStock || 0) || 0
+        totalStock += Number(val.stock || 0) || 0
         return totalStock
     }
 
     getPrice(val, index, salePrice){
         //计算库存和获取sku最小售价
-        let curPrice = val.price || 0.01
+        let curPrice = val || 0
         if(index > 0){
             //上一个price值与当前price对比，小的再赋给saleprice，循环遍历
             salePrice = salePrice > curPrice ? curPrice : salePrice
@@ -542,14 +580,22 @@ class CreateProduct extends Component {
      * (筛选表单重置)
      */
     handleReset() {
-        this.setState({specDataList:[],rowList:[],totalStock : 0, salePrice : 0})
+       const {id} = this.props
+        if (id) {
+            this.context.router.replace('/virtualhouse')
+        } else {
+            this.context.router.replace('/virtualhouse/storageMgt')
+        }
     }
     render() {
-        let {formOptions, tableFormOptions, tableOptions} = this.props;
+        let {formOptions, tableFormOptions, tableOptions,buttonOption = {}} = this.props;
         const {selectItem,flag,hasSpec,chooseMenu,chooseSpu} = this.state;
+        let { ok, cal} = buttonOption;
+        let creatBottom = {ok:'提交',cal:'重置'}
+        let editBottom = {ok:'提交',cal:'返回'}
         return (
             <div>
-                <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={this.handleReset} ref='form' />
+                <Form horizontal  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} buttonOption={{ok:'提交',cal:'返回'}} onReset={this.handleReset} ref='form' />
                 <Modal visible={this.state.visible}
                     closable={false}
                     width={1020}

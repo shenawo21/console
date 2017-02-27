@@ -43,29 +43,25 @@ class storageMgt extends Component {
             dataIndex: 'categoryName'
         }, {
             key: '4',
-            title: '品牌',
-            dataIndex: 'brandName'
-        }, {
-            key: '5',
             title: '规格',
             dataIndex: 'specOneValue',
             render(val, row){
                 return getSpecValue(row)
             }
         }, {
-            key: '6',
+            key: '5',
             title: '市场价',
             dataIndex: 'marketPrice'
         },{
-            key: '7',
+            key: '6',
             title: '采购价',
             dataIndex: 'purchasePrice'
         }, {
-            key: '8',
+            key: '7',
             title: '销售价',
             dataIndex: 'price'
         },{
-            key: '9',
+            key: '8',
             title: '入库数量',
             dataIndex: 'incoming'
         }];

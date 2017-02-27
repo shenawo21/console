@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import { Checkbox, Table, Input, Row, Col,InputNumber} from 'hen';
+import { Checkbox, Table, Input, Row, Col,InputNumber,Form,message} from 'hen';
+const FormItem = Form.Item;
 
 class Sku extends Component {
 
@@ -53,14 +54,24 @@ class Sku extends Component {
                 // }} />
             }
         },{
-            title: '库存数量',
-            dataIndex: 'stock',
+            title: '采购价',
+            dataIndex: 'purchasePrice',
             key: specList.length + 1,
             width: 200,
             render(val, row) {
+                return <InputNumber min = {0.01} max = {9999999} step = {0.01} size="large" onChange={(e) => {
+                     setInputValue(e, row, 'purchasePrice')
+                }}  defaultValue = {val == null || undefined ? '' : val}  />
+            }
+        },{
+            title: '库存数量',
+            dataIndex: 'stock',
+            key: specList.length + 2,
+            width: 200,
+            render(val, row) {
                 return <InputNumber  min = {0} max = {9999999} size="large" onChange={(e) => {
-                    setInputValue(e, row, 'assignedStock')
-                }} defaultValue = {val == null || undefined ? 0 : val}   />
+                    setInputValue(e, row, 'stock')
+                }} defaultValue = {val == null || undefined ? '' : val}   />
             }
         }]
         columns = [...columns, ...otherColumns]
@@ -93,17 +104,17 @@ class Sku extends Component {
     
     render(){
         const {specList, rowList, specDataList} = this.state, context = this;
-        const {changeSpecValue} = this.props;
+        const {changeSpecValue, editId,form} = this.props;
         return <div>
             {
                 specList.length ? specList.map((item, index) => {
-                    return <Row><Col span='2' className="textOverflow"><label><span className="labelOverflow" title={item.name}>{item.name + " "}</span>: </label></Col>
+                    return <Row><Col span='2' className="textOverflow"><label><span className="labelOverflow" title={item.name}>{item.name + " "}: </span></label></Col>
                         {
                             item.specValues.length ? item.specValues.map((v, i) => {
                                 let spec = context.getfilterStatus(specDataList[index], v);
                                 return <Col span='4' className="textOverflow"><Checkbox key={`c-${i + item.specValues.length * index}`} onChange={(e)=>{
                                     changeSpecValue(index, item.name, item.specId, v, e)
-                                }} checked={spec.status} disabled={spec.disabledFlag}><span title={v}>{v}</span></Checkbox></Col>
+                                }} checked={spec.status} disabled={editId ? true : spec.disabledFlag}><span title={v}>{v}</span></Checkbox></Col>
                             }) : ''
                         }
                     </Row>
@@ -120,4 +131,5 @@ Sku.propTypes = {
 
 }
 
-export default Sku
+
+export default Form.create()(Sku)
