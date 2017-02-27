@@ -147,8 +147,9 @@ class StorageQuery extends Component {
             title:'商品来源',
             dataIndex:'fromType',
             render(status){
-                return <span>{STATUS[status].title}</span>
-            }
+                let name = status == null ? status : STATUS[status].title
+                return <span>{name}</span>
+            } 
          }, {
             key: '6',
             title: '商品类目',

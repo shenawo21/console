@@ -112,7 +112,6 @@ class virtualView extends Component {
       title:'商品来源',
       dataIndex:'fromType',
       render(status){
-        console.log(status,'------')
         let name = status == null ? status : STATUS[status].title
         return <span>{name}</span>
       }   
