@@ -24,7 +24,10 @@ var logo = require('./logo.png')
 // define it with a plain javascript function...
 const getMenu = (menuLists) => {
     return menuLists && menuLists.map((menu, index) => {
-        return (
+        if(new RegExp('http').test(menu.uri)) {
+          return (<MenuItem key={`sub-${index}`}><a href={menu.uri} target='blank'><Icon type={menu.icon} />{menu.name}</a></MenuItem>)
+        } else {
+          return (
             <SubMenu key={`sub-${index}`} title={<span><Icon type={menu.icon} />{menu.name}</span>}>
             {
                 (menu.children && menu.children[0].showType == 1) && menu.children.map((item,index) => {
@@ -36,7 +39,7 @@ const getMenu = (menuLists) => {
                             let url = menuItem.uri || '#'
                             return (
                               <MenuItem key={`menuItem-${index}`}>
-                                {new RegExp('http').test(menu.uri) ? <a href={menu.uri} target='blank'>{menuItem.name}</a> : <Link to={url}>{menuItem.name}</Link>}
+                                {new RegExp('http').test(menuItem.uri) ? <a href={menuItem.uri} target='blank'>{menuItem.name}</a> : <Link to={url}>{menuItem.name}</Link>}
                               </MenuItem>
                             )
                           })
@@ -54,7 +57,8 @@ const getMenu = (menuLists) => {
                 })
             }
             </SubMenu>
-        )
+          )
+        }
     })
 }
 
