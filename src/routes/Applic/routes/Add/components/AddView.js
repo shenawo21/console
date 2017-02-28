@@ -5,6 +5,9 @@ import DataTable from 'components/DataTable';
 import {Transfer, Button, Tree,Row,Col} from 'hen';
 const TreeNode = Tree.TreeNode;
 
+
+let reverse = false
+
 class Add extends Component {
     constructor(props) {
         super(props)
@@ -20,13 +23,33 @@ class Add extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
-
-        let sourceData = [], targetKeys = [], {distData} = this.state;
+    componentWillReceiveProps(nextProps, preProps){       
+        let sourceData = [], targetKeys = [], {distData,Edit} = this.state;
         if(nextProps.distData){
+            if (this.state.cheackUser.length) {
+                this.state.cheackUser.some((cItem) => {
+                    let exist = false
+
+                    nextProps.distData.map((dItem) => {
+                        if (cItem.adminId == dItem.adminId) {
+                            exist = true
+                            return true
+                        }
+                    })
+
+                    if (!exist) {
+                        nextProps.distData.push({
+                            adminId: cItem.adminId,
+                            deptCode: cItem.deptCode,
+                            name: cItem.title
+                        })
+                    }
+                })
+            }
+
             distData = nextProps.distData.map((val, index) => { 
                 let exist = false
-
+                
                 if(nextProps.sourceData) {
                     nextProps.sourceData.some((s) => {
                         if (s.adminId == val.adminId) {
@@ -53,12 +76,12 @@ class Add extends Component {
 
 
         if(nextProps.sourceData){
-
             sourceData = nextProps.sourceData.map((val, index) => {
                     if(distData){
                         distData.every((item, num)=>{
                             if(item.adminId == val.adminId){
                                 targetKeys.push(index)
+
                                 return false
                             }
                             return true
@@ -93,7 +116,7 @@ class Add extends Component {
         let distDataItem = distData && distData.map(c => {
             return {
                  adminId : c.adminId,
-                 shopId : shopId,
+                //  shopId : shopId,
             }
         })
         let checkList = []
@@ -102,7 +125,7 @@ class Add extends Component {
         } else {
             checkList = cheackUser
         }
-        addLogistic({checkList}).then((res)=>{
+        addLogistic({checkList,shopId : shopId}).then((res)=>{
             if(res.status === 1){
                 setTimeout(() => {
                     history.go(-1)
@@ -119,11 +142,14 @@ class Add extends Component {
              return item.defaults == true            
         })
         let defaultCode = defaultArray.length > 0 ? defaultArray[0].deptCode : ''
+
         targetKeys.forEach((item, num)=>{
             sourceData.map((val, index)=>{
                 if(index === item){
                     checkLists.push({
                          adminId : val.adminId,
+                         deptCode  : val.deptCode,
+                         title : val.title,
                          shopId : shopId,
                     })
                     return false

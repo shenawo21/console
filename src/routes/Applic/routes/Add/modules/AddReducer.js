@@ -76,9 +76,15 @@ export default function reducer(state = { result: {} }, action) {
             return {
                 ...state
             }
+        case LIST:
+            return {
+                ...state,
+                loading: true
+            }    
         case LIST_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 listResult: action.result
             }
         case LIST_FAILURE:

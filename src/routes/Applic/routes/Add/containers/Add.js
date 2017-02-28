@@ -58,6 +58,7 @@ class Add extends Component {
         expandedKeys.push(treeNode.props.eventKey);
       }
     }
+
     this.setState({
       keys: {
         checkedKeys: this.state.keys.checkedKeys,
@@ -86,7 +87,7 @@ class Add extends Component {
   }
 
     render() {
-        const {listResult, queryResult,addLogistic} = this.props;
+        const {listResult, queryResult,addLogistic, loading} = this.props;
         const {item, keys,shopId,selected} = this.state;
         const options = {
             sourceData: listResult,
@@ -94,7 +95,7 @@ class Add extends Component {
             addLogistic
         }
         return <Panel title=""><AddView {...options} keys={keys} onExpand={this.onExpand} onSelect = {this.onSelect}
-                  item={item} shopId = {shopId} selected = {selected} /></Panel>
+                  item={item} shopId = {shopId} selected = {selected} loading={loading}/></Panel>
     }
 }
 
@@ -114,8 +115,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => {
-    const {result,listResult, queryResult} = state.addLogistics;
-    return {'result': result, listResult, queryResult};
+    const {result,listResult, queryResult, loading} = state.addLogistics;
+    return {'result': result, listResult, queryResult, loading};
 }
 
 export default connect(mapStateToProps, mapActionCreators)(Add)
