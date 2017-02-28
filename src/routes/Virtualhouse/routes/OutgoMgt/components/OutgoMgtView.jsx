@@ -26,7 +26,7 @@ class outgoMgt extends Component {
         stockList: [],
         itemsList: [], //初始价格、库存集合
         nextHide:true,
-        btnFlag: false
+        btnFlag: true
     }
   }
 
@@ -237,7 +237,8 @@ class outgoMgt extends Component {
                 }
             })
             this.setState({
-                stockList: curStockList
+                stockList: curStockList,
+                btnFlag: false
             })
         }
     }
@@ -251,9 +252,7 @@ class outgoMgt extends Component {
         const { storeManage, form } = context.props;
         const { stockList, btnFlag } = context.state;
         e.preventDefault();
-        context.setState({
-            btnFlag: true
-        })
+        
         form.validateFieldsAndScroll((errors, values) => {
 
             if (!!errors) {
