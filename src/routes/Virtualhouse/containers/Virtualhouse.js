@@ -127,7 +127,7 @@ class Virtualhouse extends Component {
     render() {
         const {params, stockParams, selectList, visible} = this.state;        
         const {items, stockItems, virhoustQueryList, getShopStocks, cateResult, totalItems, loading} = this.props;
-
+        let downParam = {...params};
         /**
          * 类目列表
          * @param lists
@@ -151,7 +151,6 @@ class Virtualhouse extends Component {
                 }
             })
         }
-
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : virhoustQueryList,                 //表格翻页时触发的action
@@ -173,7 +172,7 @@ class Virtualhouse extends Component {
             ...this.getFormOptions()
         }
         
-        return <Panel title=""><VirtualhouseView ref = 'theTable' tableOptions={tableOptions} stockTableOptions={stockTableOptions} formOptions={formOptions} downParam={params} quickOptions={this.getQuickOptions()} 
+        return <Panel title=""><VirtualhouseView ref = 'theTable' tableOptions={tableOptions} stockTableOptions={stockTableOptions} formOptions={formOptions} downParam={downParam} quickOptions={this.getQuickOptions()} 
                                                  selectList={selectList} visible={visible} cateList={loop(cateResult)} delSubmit = {this.delSubmit}/></Panel>
     }
 }
