@@ -417,7 +417,7 @@ class product extends Component {
                 }, {
                     name: '比对更新',
                     handle : this.updateHandle.bind(this, i),
-                    disabled : selectItem && selectItem.length && this.check('对比更新') ? false : true,
+                    disabled : selectItem && selectItem.length && this.check('比对更新') ? false : true,
                 }],
                 hasArrow: true,
                 initFocus : i === 0 ? true : false

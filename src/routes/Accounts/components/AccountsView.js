@@ -112,7 +112,7 @@ class Accounts extends Component {
     }, {
       key: '8',
       title: '创建人',
-      dataIndex: 'createPersionName'
+      dataIndex: 'createPerson'
     }];
 
    let columOther = {
