@@ -20,7 +20,9 @@ class OddQuery extends Component {
         
         this.state = {
             curKey: 0,
-            params: {}   //表格需要的筛选参数
+            params: {
+                recordType: TYPES[0].recordType
+            }
         }
     }
     
@@ -29,7 +31,9 @@ class OddQuery extends Component {
         const { oddQueryList, getShopList, priceCateList, location} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        oddQueryList(TYPES[0]);	
+        oddQueryList({
+             recordType: TYPES[0].recordType
+        });	
 	    //获取店铺列表
         getShopList();
         
@@ -84,12 +88,18 @@ class OddQuery extends Component {
         } else {
             oddQueryList(TYPES[key-1]);
         }
+        const {location,router} = this.context.props
+
+        router.replace({...location, query : { p: 1 }});
         this.setState({
+            params: {
+                recordType: TYPES[key-1].recordType
+            },
             curKey : key - 1
         })   
     }
     render() {
-        const {params} = this.state;
+        const {params,curKey} = this.state;
         
         const {items, oddQueryList, shopListResult, cateResult, totalItems, loading} = this.props;
         const tableOptions = {
@@ -100,6 +110,7 @@ class OddQuery extends Component {
             },  
             loading,                                    //表格加载数据状态
             params,                                     //表格检索数据参数
+            key: curKey==1 ? 1 : 2
         }
         
         /**
@@ -162,7 +173,10 @@ class OddQuery extends Component {
                 </Panel>
     }
 }
-
+OddQuery.contextTypes = {
+    props: React.PropTypes.object.isRequired,
+    router: React.PropTypes.object.isRequired
+};
 
 OddQuery.propTypes = {
     
