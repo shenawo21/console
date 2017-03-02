@@ -249,12 +249,15 @@ class outgoMgt extends Component {
     //提交数据
     handleSubmit(e) {
         const context = this;
-        const { storeManage, form } = context.props;
+        const { storeManage, form , shopList} = context.props;
         const { stockList, btnFlag } = context.state;
         e.preventDefault();
         
         form.validateFieldsAndScroll((errors, values) => {
-
+            let newShop = shopList && shopList.filter((val) => {
+                return values.relevantStore == val.title
+            })
+            values.shopId = newShop[0].value
             if (!!errors) {
                 if (__DEV__) {
                     console.log('Errors in form!!!', errors, form.getFieldsValue());
