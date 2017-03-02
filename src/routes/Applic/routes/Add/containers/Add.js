@@ -74,7 +74,7 @@ class Add extends Component {
         let deptCode =  selectedKeys.join(',')
         structure({deptCode:deptCode})
         userList({deptCode:deptCode,shopId:shopId})
-        queryList({deptCode:deptCode,shopId:shopId})
+        //queryList({deptCode:deptCode,shopId:shopId})
     }
     componentWillReceiveProps(nextProps, preProps) {
     if(nextProps.result){

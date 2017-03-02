@@ -23,86 +23,134 @@ class Add extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps, preProps){       
-        let sourceData = [], targetKeys = [], {distData,Edit} = this.state;
-        if(nextProps.distData){
-            if (this.state.cheackUser.length) {
-                this.state.cheackUser.some((cItem) => {
-                    let exist = false
-
-                    nextProps.distData.map((dItem) => {
-                        if (cItem.adminId == dItem.adminId) {
-                            exist = true
-                            return true
-                        }
-                    })
-
-                    if (!exist) {
-                        nextProps.distData.push({
-                            adminId: cItem.adminId,
-                            deptCode: cItem.deptCode,
-                            name: cItem.title
-                        })
-                    }
-                })
-            }
-
-            distData = nextProps.distData.map((val, index) => { 
-                let exist = false
-                
-                if(nextProps.sourceData) {
-                    nextProps.sourceData.some((s) => {
-                        if (s.adminId == val.adminId) {
-                            exist = true
-
-                            return
-                        }
-                    })
-
-                    if (!exist) {
-                        nextProps.sourceData.push(val)
-                    }
-                }
-
-                return {
-                    key : index,
-                    deptCode  : val.deptCode,
-                    title : val.name,
-                    adminId:val.adminId
-                }
-            })
-            
+    componentWillReceiveProps(nextProps, preProps){
+        const {cheackUser,Edit} = this.state;
+        const {sourceData,distData} = nextProps
+        let checkedUser = [], source = [] ,targetKeys = []
+        if(Edit == true) {
+            checkedUser = cheackUser
+        } else {
+            checkedUser = distData
         }
 
-
-        if(nextProps.sourceData){
-            sourceData = nextProps.sourceData.map((val, index) => {
-                    if(distData){
-                        distData.every((item, num)=>{
-                            if(item.adminId == val.adminId){
-                                targetKeys.push(index)
-
-                                return false
-                            }
-                            return true
-                        })
-                    }
-                return {
-                    key : index,
-                    deptCode  : val.deptCode,
-                    title : val.name,
-                    adminId:val.adminId
-
+        // 计算新的sourceData
+        source = sourceData
+        source && source.map((user,index) => {
+            checkedUser && checkedUser.map((item) => {
+                if(user.adminId == item.adminId){
+                    source.splice(index,1)
                 }
             })
+        })
 
-        }
+        checkedUser && checkedUser.map((item) => {
+            source.push(item)
+        })
+
+        // 计算新的targetKeys
+        checkedUser && checkedUser.map((user) => {
+            source && source.map((item,index) => {
+                if(user.adminId == item.adminId){
+                    targetKeys.push(item.adminId)
+                }
+                item.key = item.adminId
+                item.title = item.name
+            })
+        })
+
+        // 计算新的cheackUser，作为下一次编辑用
+        checkedUser = []
+        targetKeys && targetKeys.map((user) => {
+            source && source.map((item,index) => {
+                if(user == item.adminId){
+                    checkedUser.push(item)
+                }
+            })
+        })
         
         this.setState({
-            sourceData,
+            sourceData:source,
             targetKeys,
-            distData
+            cheackUser: checkedUser
         })
+        // if(nextProps.distData){
+        //     if (this.state.cheackUser.length) {
+        //         this.state.cheackUser.some((cItem) => {
+        //             let exist = false
+
+        //             nextProps.distData.map((dItem) => {
+        //                 if (cItem.adminId == dItem.adminId) {
+        //                     exist = true
+        //                     return true
+        //                 }
+        //             })
+
+        //             if (!exist) {
+        //                 nextProps.distData.push({
+        //                     adminId: cItem.adminId,
+        //                     deptCode: cItem.deptCode,
+        //                     name: cItem.title
+        //                 })
+        //             }
+        //         })
+        //     }
+
+        //     distData = nextProps.distData.map((val, index) => { 
+        //         let exist = false
+                
+        //         if(nextProps.sourceData) {
+        //             nextProps.sourceData.some((s) => {
+        //                 if (s.adminId == val.adminId) {
+        //                     exist = true
+
+        //                     return
+        //                 }
+        //             })
+
+        //             if (!exist) {
+        //                 nextProps.sourceData.push(val)
+        //             }
+        //         }
+
+        //         return {
+        //             key : index,
+        //             deptCode  : val.deptCode,
+        //             title : val.name,
+        //             adminId:val.adminId
+        //         }
+        //     })
+            
+        // }
+
+
+        // if(nextProps.sourceData){
+        //     sourceData = nextProps.sourceData.map((val, index) => {
+        //             if(distData){
+        //                 distData.every((item, num)=>{
+        //                     if(item.adminId == val.adminId){
+        //                         targetKeys.push(index)
+
+        //                         return false
+        //                     }
+        //                     return true
+        //                 })
+        //             }
+        //         return {
+        //             key : index,
+        //             deptCode  : val.deptCode,
+        //             title : val.name,
+        //             adminId:val.adminId
+
+        //         }
+        //     })
+
+        // }
+        
+        // this.setState({
+        //     sourceData,
+        //     targetKeys,
+        //     distData
+        // })
     }
 
     handleChange(targetKeys) {
@@ -145,16 +193,9 @@ class Add extends Component {
 
         targetKeys.forEach((item, num)=>{
             sourceData.map((val, index)=>{
-                if(index === item){
-                    checkLists.push({
-                         adminId : val.adminId,
-                         deptCode  : val.deptCode,
-                         title : val.title,
-                         shopId : shopId,
-                    })
-                    return false
+                if(val.key === item){
+                    checkLists.push(val)
                 }
-                return true
             })
         })
         this.setState({
@@ -207,10 +248,7 @@ class Add extends Component {
                             dataSource={sourceData}
                             targetKeys={targetKeys}
                             onChange={this.handleChange}
-                            render={item => {
-                                // debugger
-                                return  item.title
-                            }} />   
+                            render={item => item.title} />   
                     </Col>
                 </Row>                    
                 <div style={{marginTop : "10px"}}>
