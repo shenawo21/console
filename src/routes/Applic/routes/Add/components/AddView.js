@@ -32,15 +32,20 @@ class Add extends Component {
         } else {
             checkedUser = distData
         }
-
         // 计算新的sourceData
-        source = sourceData
-        source && source.map((user,index) => {
+        let data = sourceData
+        data && data.map((user) => {
             checkedUser && checkedUser.map((item) => {
                 if(user.adminId == item.adminId){
-                    source.splice(index,1)
+                    user.delete = true
                 }
             })
+        })
+
+        data && data.map((item) => {
+            if(!item.delete){
+                source.push(item)
+            }
         })
 
         checkedUser && checkedUser.map((item) => {
