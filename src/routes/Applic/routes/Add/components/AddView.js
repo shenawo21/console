@@ -176,7 +176,10 @@ class Add extends Component {
         if (Edit == false) {
              checkList = distDataItem
         } else {
-            checkList = cheackUser
+            let adminId = cheackUser && cheackUser.map((val) => {
+                return {adminId : val.adminId }
+            })
+            checkList = adminId
         }
         addLogistic({checkList,shopId : shopId}).then((res)=>{
             if(res.status === 1){
