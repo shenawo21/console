@@ -7,22 +7,31 @@ import Cookie from 'js-cookie';
 import store from 'store2';
 
 class CoreLayout extends Component {
-    
+    constructor(props){
+        super(props)
+        this.state = {
+            isLogout : false  //是否已有超时弹出框
+        }
+    }
     componentWillReceiveProps(nextProps) {
-        
+        const {isLogout} = this.state;
         if (nextProps.logoutResult) {
             const _context = this;
             //正常登出
             if(nextProps.logoutResult === true){
                 this.goToLogin();
             }else{ //登录超时
-                Modal.info({
+               !isLogout &&  Modal.info({
                     title: '警告!!!',
                     content : nextProps.logoutResult.message,
                     onOk(){
                         _context.goToLogin();
                     }
                 });
+                //已有超时弹出框显示时
+                this.setState({
+                    isLogout : true
+                }) 
             }
         }
     }
