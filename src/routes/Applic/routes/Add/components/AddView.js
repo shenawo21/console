@@ -218,6 +218,11 @@ class Add extends Component {
         const title = ['可选用户', '已选用户'];
         const notFoundContent = '暂无数据';    
 
+        sourceData && sourceData.map((item) => {
+            item.title = item.name
+            item.key = item.adminId
+        })
+
         const loop = data => data && data.map((i) => {
         if (i.children) {
             return (
