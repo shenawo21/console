@@ -220,7 +220,7 @@ class ReturnMoney extends Component {
  
                 <Search  items={this._getFormItems()} onSubmit={formOptions.handleSubmit} onReset={formOptions.handleReset} />
 
-               <DataTable _uKey='skuId' bordered={true} columns={this._getColumns()} 
+               <DataTable _uKey='outerSkuId' bordered={true} columns={this._getColumns()} 
                            expandedRowRender={record => <Table size="small" bordered={true}  columns={this._getSubColumns()} dataSource={record.refundApplyList} pagination={false} />} 
                            dataSource={dataSource} {...other} ref = 'theTable'  />
 

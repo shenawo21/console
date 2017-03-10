@@ -148,7 +148,7 @@ class DataTable extends Component {
     render(){
         let tableProps;
         let {selectedRowKeys} = this.state;
-        let {rowSelection, pagination, action, quickButton, ...other} = this.props;
+        let {rowSelection, pagination, action, quickButton,_uKey, ...other} = this.props;
         if (rowSelection) {
             tableProps = {
                 rowSelection: {
@@ -179,10 +179,12 @@ class DataTable extends Component {
         }else{
             pagination = false;
         }
-        
+        if(!_uKey){
+             tableProps.rowKey = this._rowKey
+        }
         return <div>
             {quickButton ? this.getQuickButton(quickButton) : ''}
-            <Table rowKey={this._rowKey}  pagination={pagination} onChange={this._onPaginationChange.bind(this) } {...tableProps} />
+            <Table pagination={pagination} onChange={this._onPaginationChange.bind(this) } {...tableProps} />
         </div>
     }
 }
