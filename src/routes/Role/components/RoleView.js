@@ -80,7 +80,7 @@ class Role extends Component {
       render:(id, row) => {
         return <span>
                   {this.check('编辑') ? <Link to={`/role/edit/${id}`}>编辑</Link> : ''}
-                  {this.check('删除') ? <Popconfirm title="确定要删除这个帐号吗？" onConfirm={context.deletedRole.bind(context,id)}>
+                  {this.check('删除') ? <Popconfirm title="确定要删除这个角色吗？" onConfirm={context.deletedRole.bind(context,id)}>
                       <Button type="link">删除</Button>
                   </Popconfirm> : ''}
                   {this.check('权限管理') ? <Link to={`/role/permis/${id}`}>权限管理</Link> : ''}
