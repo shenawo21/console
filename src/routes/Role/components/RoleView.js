@@ -94,8 +94,7 @@ class Role extends Component {
   //删除
   deletedRole(id) {
     const {del} = this.props
-    del(id)
-    this.refs && this.refs.dt.refresh();
+    del(id,this.refs.dt.refresh)
   }
 
   // 按钮

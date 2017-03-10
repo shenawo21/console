@@ -23,9 +23,13 @@ class Role extends Component {
    * (删除角色)
    * @params id
    */
-  _delRole(id) {
+  _delRole(id,refresh) {
     const {deleteItem} = this.props;
-    deleteItem({roleId: id});
+    deleteItem({roleId: id}).then((res) => {
+      if (res && res.status == 1) {
+        refresh()
+      }
+    });
   }
 
   componentDidMount() {
