@@ -179,9 +179,9 @@ class DataTable extends Component {
         }else{
             pagination = false;
         }
-        if(!_uKey){
-             tableProps.rowKey = this._rowKey
-        }
+        // if(!_uKey){
+        //      tableProps.rowKey = this._rowKey
+        // }
         return <div>
             {quickButton ? this.getQuickButton(quickButton) : ''}
             <Table pagination={pagination} onChange={this._onPaginationChange.bind(this) } {...tableProps} />
