@@ -19,6 +19,14 @@ const REQ_MONEY = 'REQ_MONEY';
 const SUC_MONEY = 'SUC_MONEY';
 const ERR_MONEY = 'ERR_MONEY';
 
+// 发货
+const REQ_RETURN = 'REQ_RETURN';
+const SUC_RETURN = 'SUC_RETURN';
+const ERR_RETURN = 'ERR_RETURN';
+
+
+
+
 export function refundDetail(params) {
     return {
         types: [REQ_REFUNDDETAIL, SUC_REFUNDDETAIL, ERR_REFUNDDETAIL],
@@ -42,6 +50,12 @@ export function getMoney(params) {
     return {
         types: [REQ_MONEY, SUC_ADDRESS, ERR_ADDRESS],
         promise: (client) => client.post('api-offSale.doRefundNotice',params)
+    }
+}
+export function returnBack(params) {
+    return {
+        types: [REQ_RETURN, SUC_RETURN, ERR_RETURN],
+        promise: (client) => client.post('api-offSale.updateRefundTradesInfo',params)
     }
 }
 export default function reducer(state = {result:{}}, action) {
@@ -96,6 +110,18 @@ export default function reducer(state = {result:{}}, action) {
             ...state,
         }
     case ERR_MONEY:
+        return {
+            ...state
+        }
+    case REQ_RETURN:
+        return {
+            ...state
+        }    
+    case SUC_RETURN:
+        return {
+            ...state
+        }
+    case ERR_RETURN:
         return {
             ...state
         }    

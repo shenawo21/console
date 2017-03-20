@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import InfoView from '../components/InfoView'
 import GoodsInfo from '../components/GoodsInfo'
 import Panel from 'components/Panel'
-import {refundDetail,verify,addressList,getMoney} from '../modules/InfoReducer'
+import {refundDetail,verify,addressList,getMoney,returnBack} from '../modules/InfoReducer'
 import { message } from 'hen';
 
 class Info extends Component {
@@ -29,7 +29,7 @@ class Info extends Component {
     componentDidMount() {  
         const {refundDetail,addressList,params,result} = this.props;
         //获取详情信息
-        refundDetail(params).then((res) => {
+        refundDetail({refundId:params.refundId}).then((res) => {
             if (res && res.data) {
                 let shopid = res.data.shop ? res.data.shop.shopId : ''
                 // 获取地址列表
@@ -40,13 +40,14 @@ class Info extends Component {
     // 退款详情处理
     handleSubmit(value, key) {
         const _this = this;
-        const {verify,params} = _this.props;
-        if (_this.state.photoList) {
-             value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
-         }
+        const {verify,params,returnBack} = _this.props;
+        // 拒绝凭证
+        // if (_this.state.photoList) {
+        //      value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+        //  }
         Object.assign(value,params,{afterSaleType:'REFUND_MONEY'})
         if(key === 'review'){
-            delete value.cwRefuseProof
+            delete value.tid
             if(!value.optRemark) {
                 message.error('请填写退款审批说明!')
             } else {
@@ -60,17 +61,12 @@ class Info extends Component {
                     }
                 })
             }
-        } else if(key === 'refuse'){
-            _this.setState({isRequired:true})
-            Object.assign(value,{processStatus:'DENY'})
-            if (!value.cwRefuseProof) {
-                message.error('请上传拒绝凭证!')
-            } else if(!value.cwRefuseReason) {
-                message.error('请选择拒绝退款原因!')
-            } else if (!value.optRemark) {
-                message.error('请输入退款审批说明!')
-            } else  {
-                verify(value).then(function(response) {
+        } else if(key === 'return'){
+            delete value.afterSaleType
+            if(!value.optRemark) {
+                message.error('请填写说明!')
+            } else {
+                returnBack(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
                             let pathname = '/service/aftersale';
@@ -78,7 +74,7 @@ class Info extends Component {
                         }, 1000);
                     }
                 })
-            } 
+            }
         }
     }
     // 退货详情处理
@@ -179,7 +175,8 @@ const mapActionCreators = {
     refundDetail,
     verify,
     addressList,
-    getMoney
+    getMoney,
+    returnBack
 }
 
 InfoView.contextTypes = {

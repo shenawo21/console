@@ -182,7 +182,7 @@ class ReturnMoney extends Component {
             title: '操作  /  备注',
             render(id,row) {
                         if (row.processStatus == 'INIT') {
-                            return <div><Link to={`/service/aftersale/info/${row.refundId}`}>订单退款</Link></div>
+                            return <div><Link to={`/service/aftersale/info/${row.refundId}/${row.tid}`}>订单退款</Link></div>
                         } else if(row.processStatus == 'PROCESS' && row.refundResult == 'ACCEPT') {
                              return <div>
                                         <Popconfirm title="确定要结束退款？" onConfirm={context.endReturn.bind(context,row.refundId)} >

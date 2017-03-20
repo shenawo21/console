@@ -41,23 +41,23 @@ class InfoView extends Component {
         };
         let config = {
             formItems: [{
-                label: "退款审批说明：",
+                label: "说明：",
                 name: "optRemark",
                 required: true,
                 wrapperCol: {span: 10},
                 input: {
                     rows: '5',
                     type: "textarea",
-                    placeholder: "请输入审核描述",
+                    placeholder: "描述",
                 }
             }],
             initValue: {
-                cwRefuseReason : null,
+                // cwRefuseReason : null,
                 optRemark: null,
-                cwRefuseProof : null
+                // cwRefuseProof : null
             }
         }
-        if (isRequired == true) {
+        /*if (isRequired == true) {
             const obj = {
                 label: "拒绝退款原因：",
                 name: "cwRefuseReason",
@@ -80,7 +80,7 @@ class InfoView extends Component {
                 }
             }
              config.formItems.unshift(objfirst,obj)
-        }
+        }*/
 
         return config;
     }
@@ -112,10 +112,10 @@ class InfoView extends Component {
                     name :'审核通过，通知财务退款',
                     type : 'primary',
                 },
-                // {
-                //     key : 'refuse',
-                //     name : '拒绝退款',
-                // },
+                {
+                    key : 'return',
+                    name : '发货',
+                },
                 {
                     key : 'back',
                     name : '返回',
