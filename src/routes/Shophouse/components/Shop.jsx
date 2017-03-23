@@ -94,11 +94,13 @@ class shop extends Component {
       key: '5',
       title: '所属渠道',
       dataIndex: 'channelName'
-    }, {
-      key: '6',
-      title: '品牌',
-      dataIndex: 'brandName'
-    }, {
+    },
+    //  {
+    //   key: '6',
+    //   title: '品牌',
+    //   dataIndex: 'brandName'
+    // }, 
+    {
       key: '7',
       title: '规格',
       dataIndex: 'specOneValue',
