@@ -21,7 +21,7 @@ class Synch extends Component {
 
   _getFormItems() {
     let context = this;
-    const {shopList} = context.props;
+    const {shopList,chList} = context.props;
     let config = {
       formItems: [{
         label: "选择店铺：",
@@ -33,6 +33,7 @@ class Synch extends Component {
           optionValue: shopList
         }
       }, {
+
         label: "按日期查询：",
         span: '11',
         labelCol: {span: 4},
@@ -44,11 +45,21 @@ class Synch extends Component {
             <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('synEndTime') } showTime={true}/>
           </div>
         }
+      },{
+        label: "所属渠道：",
+        name: "channelCode",
+        span: "5",
+        labelCol: {span: 6},
+        select: {
+          placeholder: "请选择渠道编码",
+          optionValue: chList
+        }
       }],
       initValue: {
         shopId: null,
         synStartTime: null,
-        synEndTime: null
+        synEndTime: null,
+        channelCode:null
       }
     }
     return config;
@@ -82,6 +93,10 @@ class Synch extends Component {
       render(value){
         return <span style={{color:value?'#0C3':'#F00'}}>{ISSUCC[value]}</span>
       }
+    },{
+      key: '5',
+      title: '所属渠道',
+      dataIndex: 'channelName'
     }, {
       key: '5',
       title: '操作人',

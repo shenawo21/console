@@ -7,6 +7,10 @@ const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
 const QUERY = 'synch/QUERY';
 const QUERY_SUCCESS = 'synch/QUERY_SUCCESS';
 const QUERY_FAILURE = 'synch/QUERY_FAILURE';
+//所属渠道
+const CHANNEL = 'edit/CHANNEL';
+const CHANNEL_SUCCESS = 'edit/CHANNEL_SUCCESS';
+const CHANNEL_FAILURE = 'edit/CHANNEL_FAILURE';
 
 /**
  * 店铺列表
@@ -35,12 +39,25 @@ export function queryList(params) {
     promise: (client) => client.post('api-tradesInfo.synchronizeOrderInfo', params)
   }
 }
-
+/**
+ * 所属渠道
+ *api-channel.listChannel
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function channelList(params) {
+  return {
+    types: [CHANNEL, CHANNEL_SUCCESS, CHANNEL_FAILURE],
+    promise: (client) => client.post('api-channel.listChannel', params)
+  }
+}
 export default function reducer(state = {result: {}}, action) {
   state = {...state, loading: action.loading};
   switch (action.type) {
     case APPQUERY:
     case QUERY:
+    case CHANNEL:
       return {
         ...state
       }
@@ -62,6 +79,15 @@ export default function reducer(state = {result: {}}, action) {
       return {
         ...state
       }
+    case CHANNEL_SUCCESS:
+      return {
+        ...state,
+        chResult: action.result
+      }
+    case CHANNEL_FAILURE:
+      return {
+        ...state
+      }  
     default:
       return state
   }
