@@ -8,6 +8,11 @@ const QUERY = 'history/QUERY';
 const QUERY_SUCCESS = 'history/QUERY_SUCCESS';
 const QUERY_FAILURE = 'history/QUERY_FAILURE';
 
+//所属渠道
+const CHANNEL = 'edit/CHANNEL';
+const CHANNEL_SUCCESS = 'edit/CHANNEL_SUCCESS';
+const CHANNEL_FAILURE = 'edit/CHANNEL_FAILURE';
+
 /**
  * 店铺列表
  *api-shop.listEnterpriseShop
@@ -36,11 +41,29 @@ export function queryList(params) {
   }
 }
 
+/**
+ * 所属渠道
+ *api-channel.listChannel
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function channelList(params) {
+  return {
+    types: [CHANNEL, CHANNEL_SUCCESS, CHANNEL_FAILURE],
+    promise: (client) => client.post('api-channel.listChannel', params)
+  }
+}
+
 export default function reducer(state = {result: {}}, action) {
   state = {...state, loading: action.loading};
   switch (action.type) {
     case APPQUERY:
     case QUERY:
+    case CHANNEL:
+        return {
+            ...state
+        }
       return {
         ...state
       }
@@ -59,6 +82,15 @@ export default function reducer(state = {result: {}}, action) {
         result: action.result
       }
     case QUERY_FAILURE:
+      return {
+        ...state
+      }
+    case CHANNEL_SUCCESS:
+      return {
+        ...state,
+        chResult: action.result
+      }
+    case CHANNEL_FAILURE:
       return {
         ...state
       }

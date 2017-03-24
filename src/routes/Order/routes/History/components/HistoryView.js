@@ -32,39 +32,18 @@ class History extends Component {
 
   _getFormItems() {
     let context = this, config = {};
-    const {shopList} = context.props;
+    const {shopList,chList} = context.props;
     config = {
       formItems: [{
         label: "选择店铺：",
         name: "shopId",
-        span: "6",
-        labelCol: {span: 5},
         select: {
           placeholder: "请选择所属店铺",
           optionValue: shopList
         }
       }, {
-        label: "订单状态：",
-        name: "tradeType",
-        span: "6",
-        labelCol: {span: 7},
-        select: {
-          placeholder: "请选择订单状态",
-          optionValue: Object.keys(TYPE).map((key) => {
-            return {'value': key, 'title': TYPE[key]}
-          })
-        }
-      }, {
         label: "订单编号：",
         name: "tid",
-        span: "6",
-        labelCol: {span: 7},
-        input: {}
-      }, {
-        label: "买家账号：",
-        name: "buyerNick",
-        span: "6",
-        labelCol: {span: 7},
         input: {}
       }, {
         label: "成交时间：",
@@ -79,6 +58,19 @@ class History extends Component {
           </div>
         }
       }, {
+        label: "买家账号：",
+        name: "buyerNick",
+        input: {}
+      }, {
+        label: "排序方式：",
+        name: "payTimeSort",
+        select: {
+          placeholder: "请选择排序方式",
+          optionValue: Object.keys(SORT).map((key) => {
+            return {'value': key, 'title': SORT[key].title}
+          })
+        }
+      }, {
         label: "发货时间：",
         span: '10',
         labelCol: {span: 3},
@@ -90,15 +82,20 @@ class History extends Component {
               <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('shoppEndTime') } showTime={true}/>
           </div>
         }
-      }, {
-        label: "排序方式：",
-        name: "payTimeSort",
-        span: "6",
-        labelCol: {span: 5},
+      },{
+        label: "所属渠道：",
+        name: "channelCode",
         select: {
-          placeholder: "请选择排序方式",
-          optionValue: Object.keys(SORT).map((key) => {
-            return {'value': key, 'title': SORT[key].title}
+          placeholder: "请选择渠道编码",
+          optionValue: chList
+        }
+      },{
+        label: "订单状态：",
+        name: "tradeType",
+        select: {
+          placeholder: "请选择订单状态",
+          optionValue: Object.keys(TYPE).map((key) => {
+            return {'value': key, 'title': TYPE[key]}
           })
         }
       }],
@@ -111,7 +108,8 @@ class History extends Component {
         payEndTime: null,
         shoppStartTime: null,
         shoppEndTime: null,
-        payTimeSort: '0'
+        payTimeSort: '0',
+        channelCode:null
       }
     }
     return config;
@@ -152,6 +150,10 @@ class History extends Component {
       dataIndex: 'shoppTime'
     }, {
       key: '7',
+      title: '所属渠道',
+      dataIndex: 'channelName'
+    },{
+      key: '8',
       title: '订单状态',
       dataIndex: 'tradesStatus',
       render(key){

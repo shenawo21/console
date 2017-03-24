@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import HistoryView from '../components/HistoryView'
 import Panel from 'components/Panel'
-import {queryList, appList} from '../modules/HistoryReducer'
+import {queryList, appList,channelList} from '../modules/HistoryReducer'
 import {getTimeStamp} from 'common/utils';
 import {message} from 'hen';
 class History extends Component {
@@ -20,7 +20,7 @@ class History extends Component {
   }
 
   componentDidMount() {
-    const {queryList, location, appList} = this.props;
+    const {queryList, location, appList,channelList} = this.props;
     const {params} = this.state;
     const {query} = location;
     let pageNumber = query.p ? Number(query.p) : 1;
@@ -30,6 +30,8 @@ class History extends Component {
      * 获取该企业的所有店铺
      */
     appList()
+    // 所属渠道
+    channelList();
   }
 
   /**
@@ -96,7 +98,7 @@ class History extends Component {
 
   render() {
     const {params} = this.state;
-    const {items, queryList, totalItems, loading, appResult} = this.props;
+    const {items, queryList, totalItems, loading, appResult,chResult} = this.props;
     const tableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
       action: queryList,                         //表格翻页时触发的action
@@ -126,13 +128,30 @@ class History extends Component {
         title: '正在加载中...'
       }]
     }
-
+    /**
+     * 所属渠道
+     * @type {Array}
+     */
+    let chList = [];
+    if (chResult) {
+        chList = chResult.map(c=> {
+            return {
+            value: c.channelCode,
+            title: c.name
+            }
+        });
+    } else {
+        chList = [{
+            value: null,
+            title: '正在加载中...'
+        }]
+    }
     const formOptions = {
       'formOptions': this.getFormOptions()
     }
 
     return <Panel title=""><HistoryView {...tableOptions} downParams={params} {...formOptions} shopList={shopList}
-                                                          quickOptions={this.getQuickOptions()}/></Panel>
+                                                          quickOptions={this.getQuickOptions()} chList={chList} /></Panel>
   }
 }
 
@@ -146,14 +165,15 @@ History.propTypes = {
 
 const mapActionCreators = {
   queryList,
-  appList
+  appList,
+  channelList
 }
 
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult} = state.history;
+  const {result, loading, appResult,chResult} = state.history;
   const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading, appResult};
+  return {items, totalItems, loading, appResult,chResult};
 
 }
 
