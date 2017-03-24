@@ -51,7 +51,8 @@ const config = [
   {label: "交易类型：", name: "type"},
   {label: "交易来源：", name: "tradeFrom"},
   {label: "交易创建时间：", name: "created"},
-  {label: "付款时间：", name: "payTime"}
+  {label: "付款时间：", name: "payTime"},
+  {label: "店铺渠道：", name: "channelName"}
 ]
 class Basic extends Component {
   /**
