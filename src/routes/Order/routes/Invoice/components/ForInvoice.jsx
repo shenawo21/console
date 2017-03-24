@@ -53,15 +53,26 @@ class ForInvoice extends Component {
             <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createEndTime') } showTime={true}/>
           </div>
         }
-      }, {
-        label: "买家账号：",
-        name: "buyerNick",
+      },{
+        label: "所属渠道：",
+        name: "channelCode",
         span: "5",
         labelCol: {span: 6},
-        input: {
-            placeholder: "请输入买家帐号"
+        select: {
+          placeholder: "请选择渠道编码",
+          optionValue: chList
         }
-      },{
+      },
+      // ,{
+      //   label: "买家账号：",
+      //   name: "buyerNick",
+      //   span: "5",
+      //   labelCol: {span: 6},
+      //   input: {
+      //       placeholder: "请输入买家帐号"
+      //   }
+      // },
+      {
         label: "物流公司：",
         name: "companyCode",
         select: {
@@ -79,15 +90,6 @@ class ForInvoice extends Component {
             <p className="ant-form-split">~</p>
             <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('reviewEndTime') } showTime={true}/>
           </div>
-        }
-      },{
-        label: "所属渠道：",
-        name: "channelCode",
-        span: "5",
-        labelCol: {span: 6},
-        select: {
-          placeholder: "请选择渠道编码",
-          optionValue: chList
         }
       }],
       initValue: {
@@ -134,13 +136,17 @@ class ForInvoice extends Component {
       key: '5',
       title: '客服备注',
       dataIndex: 'remark'
-    }, {
+    },{
       key: '6',
+      title: '所属渠道',
+      dataIndex: 'channelName'
+    }, {
+      key: '7',
       title: '物流公司',
       dataIndex: 'companyName',
       width: 80
     }, {
-      key: '7',
+      key: '8',
       title: '运单号',
       dataIndex: 'outSid',
       render(value, row){
@@ -161,10 +167,6 @@ class ForInvoice extends Component {
         }}/>
       },
       width: 200
-    },{
-      key: '8',
-      title: '所属渠道',
-      dataIndex: 'channelName'
     }, {
       title: '操作',
       dataIndex: 'shopId',
