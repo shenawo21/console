@@ -23,6 +23,11 @@ const LOGISTICSlIST = 'service/LOGISTICSlIST';
 const LOGISTICSlIST_SUCCESS = 'service/LOGISTICSlIST_SUCCESS';
 const LOGISTICSlIST_FAILURE = 'service/LOGISTICSlIST_FAILURE';
 
+//所属渠道
+const CHANNEL = 'edit/CHANNEL';
+const CHANNEL_SUCCESS = 'edit/CHANNEL_SUCCESS';
+const CHANNEL_FAILURE = 'edit/CHANNEL_FAILURE';
+
 /**
  * 发货单查询
  *api-tradesInfo.selectWaitSendGoods
@@ -88,6 +93,22 @@ export function getLogisticsList(params) {
     promise: (client) => client.post('api-enterpriseLogistic.listEnterpriseLogistics', params)
   }
 }
+
+
+/**
+ * 所属渠道
+ *api-channel.listChannel
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function channelList(params) {
+  return {
+    types: [CHANNEL, CHANNEL_SUCCESS, CHANNEL_FAILURE],
+    promise: (client) => client.post('api-channel.listChannel', params)
+  }
+}
+
 export default function reducer(state = {result: {}}, action) {
   state = {...state, loading: action.loading,isRefresh: false};
   switch (action.type) {
@@ -96,6 +117,7 @@ export default function reducer(state = {result: {}}, action) {
     case FORQUERY:
     case SHOPLIST:
     case LOGISTICSlIST:
+    case CHANNEL:
       return {
         ...state
       }
@@ -147,6 +169,15 @@ export default function reducer(state = {result: {}}, action) {
       return {
           ...state
       }
+    case CHANNEL_SUCCESS:
+      return {
+        ...state,
+        chResult: action.result
+      }
+    case CHANNEL_FAILURE:
+      return {
+        ...state
+      }  
     default:
       return state
   }

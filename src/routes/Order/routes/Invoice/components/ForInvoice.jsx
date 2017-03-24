@@ -24,7 +24,7 @@ class ForInvoice extends Component {
   }
   _getFormItems() {
     let context = this, config = {};
-    const { shopListItem,ListItem } = context.props;
+    const { shopListItem,ListItem,chList} = context.props;
     config = {
       formItems: [{
         label: "选择店铺：",
@@ -38,8 +38,6 @@ class ForInvoice extends Component {
       }, {
         label: "订单编号：",
         name: "tid",
-        span: "7",
-        labelCol: {span: 8},
         input: {
             placeholder: "请输入订单编号"
         }
@@ -63,10 +61,17 @@ class ForInvoice extends Component {
         input: {
             placeholder: "请输入买家帐号"
         }
-      }, {
+      },{
+        label: "物流公司：",
+        name: "companyCode",
+        select: {
+          placeholder: "请选择物流公司",
+          optionValue: ListItem
+        }
+      },{
         label: "审单时间：",
         span: '11',
-        labelCol: {span: 5},
+        labelCol: {span: 4},
         wrapperCol: {span: 19},
         custom(getCustomFieldProps, FormContext){
           return <div><DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('reviewStartTime') }
@@ -76,13 +81,13 @@ class ForInvoice extends Component {
           </div>
         }
       },{
-        label: "物流公司：",
-        name: "companyCode",
+        label: "所属渠道：",
+        name: "channelCode",
         span: "5",
         labelCol: {span: 6},
         select: {
-          placeholder: "请选择物流公司",
-          optionValue: ListItem
+          placeholder: "请选择渠道编码",
+          optionValue: chList
         }
       }],
       initValue: {
@@ -93,7 +98,8 @@ class ForInvoice extends Component {
         createEndTime: null,
         reviewStartTime: null,
         reviewEndTime: null,
-        companyCode:null
+        companyCode:null,
+        channelCode:null
       }
     }
     return config;
@@ -155,6 +161,10 @@ class ForInvoice extends Component {
         }}/>
       },
       width: 200
+    },{
+      key: '8',
+      title: '所属渠道',
+      dataIndex: 'channelName'
     }, {
       title: '操作',
       dataIndex: 'shopId',
