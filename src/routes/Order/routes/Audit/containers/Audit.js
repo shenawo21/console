@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import {connect} from 'react-redux'
 import AuditView from '../components/AuditView'
 import Panel from 'components/Panel'
-import {giveItem, deleteItem, appList, queryList} from '../modules/AuditReducer'
+import {giveItem, deleteItem, appList, queryList,channelList} from '../modules/AuditReducer'
 import {getTimeStamp} from 'common/utils';
 import { message } from 'hen';
 class Audit extends Component {
@@ -42,7 +42,7 @@ class Audit extends Component {
   }
 
   componentDidMount() {
-    const {queryList, location, appList} = this.props;
+    const {queryList, location, appList,channelList} = this.props;
     const {query} = location;
     let pageNumber = query.p ? Number(query.p) : 1;
     queryList({pageNumber});
@@ -50,6 +50,8 @@ class Audit extends Component {
      * 获取该企业的所有店铺
      */
     appList()
+    // 所属渠道
+    channelList();
   }
 
   /**
@@ -116,7 +118,7 @@ class Audit extends Component {
 
   render() {
     const {params} = this.state;
-    const {items, queryList, totalItems, loading, appResult} = this.props;
+    const {items, queryList, totalItems, loading, appResult,chResult} = this.props;
     const tableOptions = {
       dataSource: items,                         //加载组件时，表格从容器里获取初始值
       action: queryList,                         //表格翻页时触发的action
@@ -147,13 +149,30 @@ class Audit extends Component {
         title: '正在加载中...'
       }]
     }
-
+    /**
+     * 所属渠道
+     * @type {Array}
+     */
+    let chList = [];
+    if (chResult) {
+        chList = chResult.map(c=> {
+            return {
+            value: c.channelCode,
+            title: c.name
+            }
+        });
+    } else {
+        chList = [{
+            value: null,
+            title: '正在加载中...'
+        }]
+    }
     const formOptions = {
       'formOptions': this.getFormOptions()
     }
 
     return <Panel title=""><AuditView {...tableOptions} {...formOptions} quickOptions={this.getQuickOptions()}
-                                                                         shopList={shopList}/></Panel>
+                                                                         shopList={shopList} chList={chList} /></Panel>
   }
 }
 
@@ -169,13 +188,14 @@ const mapActionCreators = {
   queryList,
   appList,
   deleteItem,
-  giveItem
+  giveItem,
+  channelList,
 }
 
 const mapStateToProps = (state) => {
-  const {result, loading, appResult,giveResult,delResult} = state.audit;
+  const {result, loading, appResult,giveResult,delResult,chResult} = state.audit;
   const {items = [], totalItems = 0} = result || {};
-  return {items, totalItems, loading, appResult,giveResult,delResult};
+  return {items, totalItems, loading, appResult,giveResult,delResult,chResult};
 
 }
 

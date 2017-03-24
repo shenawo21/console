@@ -17,6 +17,10 @@ const DELETE_FAILURE = 'audit/DELETE_FAILURE';
 const APPQUERY = 'applic/APPQUERY';
 const APPQUERY_SUCCESS = 'applic/APPQUERY_SUCCESS';
 const APPQUERY_FAILURE = 'applic/APPQUERY_FAILURE';
+//所属渠道
+const CHANNEL = 'edit/CHANNEL';
+const CHANNEL_SUCCESS = 'edit/CHANNEL_SUCCESS';
+const CHANNEL_FAILURE = 'edit/CHANNEL_FAILURE';
 
 /**
  * 审单列表
@@ -71,6 +75,19 @@ export function appList(params) {
     promise: (client) => client.post('api-shop.listEnterpriseShop', params)
   }
 }
+/**
+ * 所属渠道
+ *api-channel.listChannel
+ * @export
+ * @param params (description)
+ * @returns (description)
+ */
+export function channelList(params) {
+  return {
+    types: [CHANNEL, CHANNEL_SUCCESS, CHANNEL_FAILURE],
+    promise: (client) => client.post('api-channel.listChannel', params)
+  }
+}
 
 
 export default function reducer(state = {result: {}}, action) {
@@ -80,6 +97,7 @@ export default function reducer(state = {result: {}}, action) {
     case GIVE:
     case DELETE:
     case APPQUERY:
+    case CHANNEL:
       return {
         ...state
       }
@@ -119,6 +137,15 @@ export default function reducer(state = {result: {}}, action) {
       return {
         ...state
       }
+    case CHANNEL_SUCCESS:
+      return {
+        ...state,
+        chResult: action.result
+      }
+    case CHANNEL_FAILURE:
+      return {
+        ...state
+      }  
     default:
       return state
   }

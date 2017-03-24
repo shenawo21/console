@@ -29,7 +29,7 @@ class Audit extends Component {
 
   _getFormItems() {
     let context = this, config = {};
-    const {shopList} = context.props;
+    const {shopList,chList} = context.props;
     config = {
       formItems: [{
         label: "选择店铺：",
@@ -58,11 +58,20 @@ class Audit extends Component {
             <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createEndTime') } showTime={true}/>
           </div>
         }
+      },{
+        label: "所属渠道：",
+        name: "channelCode",
+        span: "5",
+        labelCol: {span: 6},
+        select: {
+          placeholder: "请选择渠道编码",
+          optionValue: chList
+        }
       }, {
         label: "买家账号：",
         name: "buyerNick",
         span: "5",
-        labelCol: {span: 6},
+        labelCol: {span: 9},
         input: {}
       }, {
         label: "客服备注：",
@@ -78,6 +87,7 @@ class Audit extends Component {
         createStartTime: null,
         createEndTime: null,
         remark: null,
+        channelCode:null
       }
     }
     return config;
@@ -113,24 +123,28 @@ class Audit extends Component {
       key: '2',
       title: '下单时间',
       dataIndex: 'created'
-    }, {
+    },{
       key: '3',
+      title: '所属渠道',
+      dataIndex: 'channelName'
+    }, {
+      key: '4',
       title: '买家账号',
       dataIndex: 'buyerNick'
     }, {
-      key: '4',
+      key: '5',
       title: '买家留言',
       dataIndex: 'buyerMessage'
     }, {
-      key: '5',
+      key: '6',
       title: '到期时间',
       dataIndex: 'timeoutActionTime'
     }, {
-      key: '6',
+      key: '7',
       title: '订单金额',
       dataIndex: 'payment'
     }, {
-      key: '7',
+      key: '8',
       title: '客服备注',
       dataIndex: 'remark'
     }, {
