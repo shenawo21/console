@@ -274,6 +274,9 @@ class outgoMgt extends Component {
                 if (item.incoming == 0) {
                     message.warning('出库库存数为0，无法出库！')
                 } else {
+                    values.relevantStoreId = values.shopId
+                    delete values.relevantStore
+                    console.log(values,'999999')
                     storeManage({
                         ...values,
                         recordType: '出库',
