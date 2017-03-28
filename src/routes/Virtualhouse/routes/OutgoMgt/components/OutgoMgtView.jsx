@@ -276,7 +276,6 @@ class outgoMgt extends Component {
                 } else {
                     values.relevantStoreId = values.shopId
                     delete values.relevantStore
-                    console.log(values,'999999')
                     storeManage({
                         ...values,
                         recordType: '出库',

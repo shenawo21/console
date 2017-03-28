@@ -120,7 +120,7 @@ class OutgoView extends Component {
     }, {
       key: '1',
       title: '出库店铺',
-      dataIndex: 'relevantStore'
+      dataIndex: 'relevantStoreName'
     }, {
       key: '2',
       title: '出库类型',
