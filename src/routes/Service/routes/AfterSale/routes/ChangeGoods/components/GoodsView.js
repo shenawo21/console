@@ -245,11 +245,11 @@ class InfoView extends Component {
                  message.error('换货数量大于退货数量，请重新输入！')
 
              } else {
-                this.setState({numValue:value})
-                // if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
-                //     message.error('换后商品总价值大于原来商品总价值，请重新选择！')
-                // } else {  
-                // } 
+                if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
+                    message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+                } else {
+                   this.setState({numValue:value})  
+                } 
             }
         } else if (!selectItem) {
             if(arrResult[0].num < Number(value)) {
