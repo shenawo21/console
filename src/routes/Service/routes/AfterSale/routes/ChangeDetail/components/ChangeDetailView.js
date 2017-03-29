@@ -7,7 +7,7 @@ import {UploadImage} from 'components/FileLoader'
 import showBigPic from 'components/BigPic'
 import Image from 'components/Image'
 import RefundView from 'routes/Service/routes/RefundView';
-
+const getImageUrl = Image.getImageUrl;
 class GoodsInfo extends Component {
    
     _getFormEnd() {
@@ -30,7 +30,7 @@ class GoodsInfo extends Component {
     }
 
     showBigPhoto (item) {
-        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        let src =  getImageUrl({name : item})
         showBigPic({imgSrc:src})
     }
     showBig (item) {

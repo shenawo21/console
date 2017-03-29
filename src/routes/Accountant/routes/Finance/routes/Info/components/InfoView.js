@@ -7,6 +7,7 @@ import Image from 'components/Image'
 import showBigPic from 'components/BigPic'
 import {UploadImage} from 'components/FileLoader'
 import RefundView from '../../RefundView';
+const getImageUrl = Image.getImageUrl;
 const RESON = [
             {value:'已发货，买家未举证',title:'已发货，买家未举证'},
             {value:'买家恶意申请退款',title:'买家恶意申请退款'}
@@ -31,7 +32,7 @@ class InfoView extends Component {
         }
     }
     showBigPhoto (item) {
-        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        let src =  getImageUrl({name : item})
         showBigPic({imgSrc:src})
     }  
     _getFormItems(){

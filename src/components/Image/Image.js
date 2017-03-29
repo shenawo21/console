@@ -22,6 +22,7 @@ const getImageUrl = (props) => {
     return url;
 }
 
+
 const Image = (props) =>  {
     let {src, absoluteUrl = true, linked, ...other} = props;
 

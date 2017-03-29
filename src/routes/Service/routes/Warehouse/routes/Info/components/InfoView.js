@@ -6,6 +6,7 @@ import Image from 'components/Image'
 import showBigPic from 'components/BigPic'
 import {Input, Select,InputNumber} from 'hen'
 import {UploadImage} from 'components/FileLoader'
+const getImageUrl = Image.getImageUrl;
 
 //验收结果
 const STOCKTYPE = [
@@ -25,7 +26,7 @@ class InfoView extends Component {
         }
     }
     showBigPhoto (item) {
-        let src = 'http://172.19.6.133:8898/file-service/image/product/base/' + item
+        let src =  getImageUrl({name : item})
         showBigPic({imgSrc:src})
     }
 
