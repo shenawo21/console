@@ -85,6 +85,9 @@ class Basic extends Component {
       case "payTime":
         return <span>{basicInfo.payTime}</span>
         break;
+      case "channelName":
+        return <span>{basicInfo.channelName}</span>
+        break;    
     }
   }
 

@@ -13,7 +13,7 @@ const KIND = {
 class Invoice extends Component {
   _getFormItems() {
     let context = this, config = {};
-    const {shopListItem,ListItem} = context.props;
+    const {shopListItem,ListItem,chList} = context.props;
     config = {
       formItems: [{
         label: "选择店铺：",
@@ -44,15 +44,26 @@ class Invoice extends Component {
             <DatePicker format="yyyy-MM-dd HH:mm:ss"  {...getCustomFieldProps('createEndTime') } showTime={true}/>
           </div>
         }
-      }, {
-        label: "买家账号：",
-        name: "buyerNick",
+      },,{
+        label: "所属渠道：",
+        name: "channelCode",
         span: "5",
         labelCol: {span: 6},
-        input: {
-            placeholder: "请输入买家帐号"
+        select: {
+          placeholder: "请选择渠道编码",
+          optionValue: chList
         }
-      }, {
+      },
+      //  {
+      //   label: "买家账号：",
+      //   name: "buyerNick",
+      //   span: "5",
+      //   labelCol: {span: 6},
+      //   input: {
+      //       placeholder: "请输入买家帐号"
+      //   }
+      // },
+       {
         label: "审单时间：",
         span: '11',
         labelCol: {span: 5},
@@ -82,7 +93,8 @@ class Invoice extends Component {
         createEndTime: null,
         reviewStartTime: null,
         reviewEndTime: null,
-        companyCode:null
+        companyCode:null,
+        channelCode:null
       }
     }
     return config;
@@ -115,13 +127,17 @@ class Invoice extends Component {
       key: '5',
       title: '客服备注',
       dataIndex: 'remark'
-    }, {
+    },{
       key: '6',
+      title: '所属渠道',
+      dataIndex: 'channelName'
+    },{
+      key: '7',
       title: '物流公司',
       dataIndex: 'companyName',
       width: 80
     }, {
-      key: '7',
+      key: '8',
       title: '运单号',
       dataIndex: 'outSid'
     }];

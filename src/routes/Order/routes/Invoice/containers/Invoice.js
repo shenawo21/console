@@ -310,7 +310,7 @@ class Invoice extends Component {
                                                                            selectList={selectList}
                                                                            quickOptions={this.getQuickOptions()}
                                                                            downParam={params} chList={chList} ref = 'theTalbe'/></TabPane>
-                        <TabPane tab="已打单发货" key="2"><InvoiceView shopListItem={shopListItem} ListItem = {ListItem} formOptions={formOptions} tableOptions={tableOptions} /></TabPane>
+                        <TabPane tab="已打单发货" key="2"><InvoiceView shopListItem={shopListItem} ListItem = {ListItem} formOptions={formOptions} tableOptions={tableOptions} chList={chList} /></TabPane>
                     </Tabs>
                 </Panel>
     }
