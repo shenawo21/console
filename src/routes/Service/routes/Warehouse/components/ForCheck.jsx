@@ -129,7 +129,7 @@ class ForCheck extends Component {
       render(id, row, record) {
         return (
           <span>
-              <Link to={`/service/warehouse/info/${id}/${row.outerSkuId}`}>验收商品</Link>
+              <Link to={`/service/warehouse/info/${id}/${row.refundId}`}>验收商品</Link>
           </span>
         );
       }

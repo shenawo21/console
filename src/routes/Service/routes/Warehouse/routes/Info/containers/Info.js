@@ -31,7 +31,7 @@ class Info extends Component {
         }else{
             viewForcheck({
                 tid: params.id,
-                outerSkuId: params.skuid
+                refundId: params.skuid
             });
         }
         //获取物流公司列表
