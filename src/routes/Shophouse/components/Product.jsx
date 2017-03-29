@@ -179,7 +179,7 @@ class product extends Component {
             selectedItemsKeys: selectItemKey
         }
     }
-
+    
     /**
      * 
      * 导出
@@ -194,7 +194,7 @@ class product extends Component {
             })
         })
         params = JSON.stringify(params)
-        location.href = '/suneee-cloud-ep/api-shopStock.exportWaitingMatchSkus?params='+ params
+        location.href = '/en/api-shopStock.exportWaitingMatchSkus?params='+ params
     }
 
     /**
