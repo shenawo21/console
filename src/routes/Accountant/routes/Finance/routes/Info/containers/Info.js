@@ -94,25 +94,26 @@ class Info extends Component {
                           message.error('请输入财务退款说明!')
                       }
                       
-                  } else if(key === 'refuse'){
-                      if (_this.state.photoList) {
-                            value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
-                      }
-                      if(!value.cwRefuseReason) {
-                           message.error('请输入拒绝退款原因!')
-                      } else if(!value.cwRefuseRemark) {
-                           message.error('请输入拒绝退款说明!')
-                      } else if(!value.cwRefuseProof) {
-                           message.error('请上传拒绝退款凭证!')
-                      } else {
-                          doRefuseRemit({
-                                refundId: params.id,
-                                cwRefuseReason : value.cwRefuseReason,
-                                cwRefuseRemark : value.cwRefuseRemark,
-                                cwRefuseProof: value.cwRefuseProof
-                            })
-                      }                      
-                  }
+                  } 
+                //   else if(key === 'refuse'){
+                //       if (_this.state.photoList) {
+                //             value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+                //       }
+                //       if(!value.cwRefuseReason) {
+                //            message.error('请输入拒绝退款原因!')
+                //       } else if(!value.cwRefuseRemark) {
+                //            message.error('请输入拒绝退款说明!')
+                //       } else if(!value.cwRefuseProof) {
+                //            message.error('请上传拒绝退款凭证!')
+                //       } else {
+                //           doRefuseRemit({
+                //                 refundId: params.id,
+                //                 cwRefuseReason : value.cwRefuseReason,
+                //                 cwRefuseRemark : value.cwRefuseRemark,
+                //                 cwRefuseProof: value.cwRefuseProof
+                //             })
+                //       }                      
+                //   }
 
               },
 

@@ -43,7 +43,8 @@ class InfoView extends Component {
             onlyFile: true
         };
         let config = {
-            formItems: [{
+            formItems: [
+         /*{
                 label: "拒绝退款原因：",
                 name: "cwRefuseReason",
                 required: true,
@@ -84,7 +85,8 @@ class InfoView extends Component {
                      }
                     
                 }
-            },{
+            },*/
+            {
                 label: "财务退款说明：",
                 name: "cwRemark",
                 required: true,
@@ -98,16 +100,16 @@ class InfoView extends Component {
                 }
             }],
             initValue: {
-                cwRefuseReason : null,
-                cwRefuseRemark: null,
-                cwRefuseProof: null,
+                // cwRefuseReason : null,
+                // cwRefuseRemark: null,
+                // cwRefuseProof: null,
                 cwRemark : null
             }
         }
         if (isRequired) {
-            config.initValue.cwRefuseReason = result.cwRefuseReason || ''
-            config.initValue.cwRefuseRemark = result.cwRefuseRemark || ''
-            config.initValue.cwRefuseProof = result.cwRemark || ''
+            // config.initValue.cwRefuseReason = result.cwRefuseReason || ''
+            // config.initValue.cwRefuseRemark = result.cwRefuseRemark || ''
+            // config.initValue.cwRefuseProof = result.cwRemark || ''
             config.initValue.cwRemark = result.cwRemark || ''
         }
         return config;
@@ -158,10 +160,10 @@ class InfoView extends Component {
                     name :'通过',
                     type : 'primary'
                 },
-                {
-                    key : 'refuse',
-                    name : '拒绝',
-                },
+                // {
+                //     key : 'refuse',
+                //     name : '拒绝',
+                // },
                 {
                     key : 'back',
                     name : '返回',
