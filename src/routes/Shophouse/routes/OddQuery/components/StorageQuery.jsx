@@ -128,7 +128,7 @@ class StorageQuery extends Component {
         },{
             key: '1',
             title: '所属店铺',
-            dataIndex: 'relevantStore'
+            dataIndex: 'relevantStoreName'
         },{
             key: '2',
             title: '入库类型',
