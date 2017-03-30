@@ -105,7 +105,10 @@ class Apart extends Component {
           }
         });
         this.setState({selectList});
-      }
+      },
+      getCheckboxProps: record => ({
+           disabled: record.splitNum,    // Column configuration not to be checked
+      }),
     }
   }
 

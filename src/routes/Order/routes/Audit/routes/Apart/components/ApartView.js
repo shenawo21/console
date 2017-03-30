@@ -69,16 +69,18 @@ class Apart extends Component {
         /**
          * 如果是天猫店的话不可以修改
          */
-        return <InputNumber name='quantity' disabled={item.channelCode == 'TMALL' ? true : false} onChange={(e) => {
-                    item && item.tradesOrderList.forEach((val,index)=>{
-                    if(row.outerSkuId==val.outerSkuId){
-                      item.tradesOrderList[index].quantity = e.target.value
-                    }
-                })
-                context.setState({
-                  item
-                })
-                }}/>
+        return <InputNumber name='quantity' min={1} max={row.num >= 0 ? row.num:0 } disabled={item.channelCode == 'tmall' ? true : false} onChange={(e) => {
+                    if (e) {
+                        item && item.tradesOrderList.forEach((val,index)=>{
+                        if(row.outerSkuId==val.outerSkuId){
+                            item.tradesOrderList[index].quantity = e
+                         }
+                      })
+                      context.setState({
+                        item
+                      })
+                    } 
+                }} defaultValue={row.num} />
       },
       width: 100
     }/*, {
@@ -90,7 +92,6 @@ class Apart extends Component {
      }*/];
     return columns;
   }
-
   render() {
     const context = this;
     const {formOptions, handleRowSelection, item, ...other} = context.props;
