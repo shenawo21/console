@@ -20,7 +20,7 @@ class Checked extends Component {
         label: "买家账号：",
         name: "buyerNick",
         input: {
-          placeholder: "请输入出库单号"
+          placeholder: "请输入买家账号"
         }
       }, {
         label: "所属平台：",
