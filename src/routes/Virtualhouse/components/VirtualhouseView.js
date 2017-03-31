@@ -36,16 +36,12 @@ class virtualView extends Component {
     const {cateList} = context.props;
     let config = {
       formItems: [{
-        label: "商品名称：",
-        name: "title",
-        labelCol: {span: 5},
-        input: {
-          placeholder: "请输入商品名称"
-        }
-      }, {
         label: "SPU：",
         name: "spuId",
         labelCol: {span: 5},
+        wrapperCol: {span:12},
+        style:{marginBottom:6},
+        rules: [{ min: 0, max: 10, message: '请输入10位以内数字！' }],
         input: {
           placeholder: "请输入SPU",
           type: 'number'
@@ -54,14 +50,27 @@ class virtualView extends Component {
         label: "SKU：",
         name: "skuId",
         labelCol: {span: 5},
+        wrapperCol: {span:12},
+        style:{marginBottom:6},
+        rules: [{ min: 0, max: 10, message: '请输入10位以内数字！' }],
         input: {
           placeholder: "请输入SKU",
           type: 'number'
         }
-      }, {
+      },{
+        label: "商品名称：",
+        name: "title",
+        labelCol: {span: 5},
+        wrapperCol: {span:12},
+        style:{marginBottom:6},
+        input: {
+          placeholder: "请输入商品名称"
+        }
+      },  {
         label: "商品类目：",
         name: "categoryCode",
         wrapperCol: {span: 15},
+        style:{marginBottom:6},
         cascader: {
           options: cateList,
           placeholder: "请选择所属类目",
@@ -70,6 +79,7 @@ class virtualView extends Component {
       },{
         label: "商品来源：",
         labelCol: {span: 5},
+        style:{marginBottom:6},
         name: "fromType",
         select: {
           placeholder: "请选择商品来源",
