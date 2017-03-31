@@ -32,12 +32,15 @@ class StorageQuery extends Component {
             formItems: [{
                 label: "入库单号：",
                 name: "recordId",
+                style:{marginBottom:6},
                 input: {
                    placeholder: "请输入入库单号"
                 }
             },{
                 label: "SPU：",
                 name: "spuId",
+                style:{marginBottom:6},
+                rules: [{ min: 0, max: 9, message: '请输入9位以内数字！' }],
                 input: {
                    placeholder: "请输入SPU",
                    type: 'number'
@@ -45,6 +48,8 @@ class StorageQuery extends Component {
             },{
                 label: "SKU：",
                 name: "skuId",
+                style:{marginBottom:6},
+                rules: [{ min: 0, max: 9, message: '请输入9位以内数字！' }],
                 input: {
                    placeholder: "请输入SKU",
                    type: 'number'
@@ -53,6 +58,7 @@ class StorageQuery extends Component {
                 label: "商品类目：",
                 name: "categoryCode",
                 wrapperCol: {span: 15},
+                style:{marginBottom:6},
                 cascader: {
                     options: cateList,
                     placeholder: "请选择所属类目",
@@ -62,12 +68,14 @@ class StorageQuery extends Component {
             },{
                 label: "商品名称：",
                 name: "title",
+                style:{marginBottom:6},
                 input: {
                    placeholder: "请输入商品名称"
                 }
             },{
                 label: "入库类型：",
                 name: "stockType",
+                style:{marginBottom:6},
                 select: {
                     placeholder: "请选择入库类型",
                     optionValue: STOCKTYPE
@@ -75,6 +83,7 @@ class StorageQuery extends Component {
             },{
                 label: "商品来源：",
                 name: "fromType",
+                style:{marginBottom:6},
                 select: {
                 placeholder: "请选择商品来源",
                     optionValue: STATUS
@@ -82,12 +91,14 @@ class StorageQuery extends Component {
             },{
                 label: "操作人：",
                 name: "account",
+                style:{marginBottom:6},
                 input: {
                    placeholder: "请输入操作人"
                 }
             },{
                 label: "入库日期：",
                 span: '11',
+                style:{marginBottom:6},
                 labelCol: { span: 4 },
                 wrapperCol: { span: 19 },
                 custom(getCustomFieldProps, FormContext) {

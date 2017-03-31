@@ -30,6 +30,7 @@ class OutgoView extends Component {
       formItems: [{
         label: "出库店铺：",
         name: "relevantStore",
+        style:{marginBottom:6},
         select: {
           placeholder: "请选择所属店铺",
           optionValue: shopList
@@ -38,12 +39,16 @@ class OutgoView extends Component {
       }, {
         label: "出库单号：",
         name: "recordId",
+        style:{marginBottom:6},
         input: {
           placeholder: "请输入出库单号"
         }
       }, {
         label: "SPU：",
         name: "spuId",
+        wrapperCol: {span:12},
+        style:{marginBottom:6},
+        rules: [{ min: 0, max: 9, message: '请输入9位以内数字！' }],
         input: {
           placeholder: "请输入SPU",
           type: 'number'
@@ -52,6 +57,9 @@ class OutgoView extends Component {
         label: "SKU：",
         name: "skuId",
         span: '5',
+        wrapperCol: {span:12},
+        style:{marginBottom:6},
+        rules: [{ min: 0, max: 9, message: '请输入9位以内数字！' }],
         input: {
           placeholder: "请输入SKU",
           type: 'number'
@@ -59,6 +67,7 @@ class OutgoView extends Component {
       }, {
         label: "出库类型：",
         name: "stockType",
+        style:{marginBottom:6},
         select: {
           placeholder: "请选择出库类型",
           optionValue: STOCKTYPE
@@ -66,6 +75,7 @@ class OutgoView extends Component {
       }, {
         label: "商品来源：",
         name: "fromType",
+        style:{marginBottom:6},
         select: {
           placeholder: "请选择商品来源",
           optionValue: STATUS
@@ -73,6 +83,7 @@ class OutgoView extends Component {
       }, {
         label: "操作人：",
         name: "account",
+        style:{marginBottom:6},
         input: {
           placeholder: "请输入操作人"
         }
@@ -81,6 +92,7 @@ class OutgoView extends Component {
         span: '11',
         labelCol: {span: 4},
         wrapperCol: {span: 19},
+        style:{marginBottom:6},
         custom(getCustomFieldProps, FormContext) {
           return <div>
             <DatePicker format="yyyy-MM-dd HH:mm:ss" {...getCustomFieldProps('createTimeStart') } showTime={true}/>

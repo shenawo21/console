@@ -38,10 +38,10 @@ class virtualView extends Component {
       formItems: [{
         label: "SPU：",
         name: "spuId",
-        labelCol: {span: 5},
+        labelCol: {span: 6},
         wrapperCol: {span:12},
         style:{marginBottom:6},
-        rules: [{ min: 0, max: 10, message: '请输入10位以内数字！' }],
+        rules: [{ min: 0, max: 9, message: '请输入9位以内数字！' }],
         input: {
           placeholder: "请输入SPU",
           type: 'number'
@@ -49,10 +49,10 @@ class virtualView extends Component {
       }, {
         label: "SKU：",
         name: "skuId",
-        labelCol: {span: 5},
+        labelCol: {span: 6},
         wrapperCol: {span:12},
         style:{marginBottom:6},
-        rules: [{ min: 0, max: 10, message: '请输入10位以内数字！' }],
+        rules: [{ min: 0, max: 9, message: '请输入9位以内数字！' }],
         input: {
           placeholder: "请输入SKU",
           type: 'number'
@@ -60,7 +60,7 @@ class virtualView extends Component {
       },{
         label: "商品名称：",
         name: "title",
-        labelCol: {span: 5},
+        labelCol: {span: 6},
         wrapperCol: {span:12},
         style:{marginBottom:6},
         input: {
@@ -78,7 +78,7 @@ class virtualView extends Component {
         }
       },{
         label: "商品来源：",
-        labelCol: {span: 5},
+        labelCol: {span: 6},
         style:{marginBottom:6},
         name: "fromType",
         select: {
