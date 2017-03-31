@@ -150,7 +150,7 @@ class OddQuery extends Component {
         if (shopListResult) {
             shopListItem = shopListResult.map(c=> {
                 return {
-                    value: c.name,
+                    value: c.shopId,
                     title: c.name
             }
             });

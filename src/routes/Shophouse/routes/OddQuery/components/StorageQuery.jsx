@@ -22,7 +22,7 @@ class StorageQuery extends Component {
         let config = {
             formItems: [{
                 label: "所属店铺：",
-                name: "relevantStore",
+                name: "operateStoreId",
                 style:{marginBottom:6},
                 select: {
                     placeholder: "请选择所属店铺",
@@ -107,7 +107,7 @@ class StorageQuery extends Component {
                 }
             }],
             initValue: {
-                operateStore:null,
+                operateStoreId:null,
                 recordId: null,
                 spuId: null,
                 skuId : null,

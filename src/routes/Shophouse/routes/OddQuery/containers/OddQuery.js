@@ -56,10 +56,6 @@ class OddQuery extends Component {
                * @param value (description)
                */
               handleSubmit(value) {
-                let valueArray = shopListResult && shopListResult.filter((item,index) => {
-                    return item.name == value.shopId 
-                })
-                value.shopId = valueArray[0] && valueArray[0].shopId
                 const {params, curKey} = context.state;
                 if(value.categoryId){
                     value.categoryId = value.categoryId[value.categoryId.length - 1] || '';
@@ -147,7 +143,7 @@ class OddQuery extends Component {
         if (shopListResult) {
             shopListItem = shopListResult.map(c=> {
                 return {
-                    value: c.name,
+                    value: c.shopId,
                     title: c.name
             }
             });

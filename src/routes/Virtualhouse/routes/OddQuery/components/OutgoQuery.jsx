@@ -29,7 +29,7 @@ class OutgoView extends Component {
     let config = {
       formItems: [{
         label: "出库店铺：",
-        name: "relevantStore",
+        name: "relevantStoreId",
         style:{marginBottom:6},
         select: {
           placeholder: "请选择所属店铺",
@@ -102,7 +102,7 @@ class OutgoView extends Component {
         }
       }],
       initValue: {
-        operateStore: null,
+        relevantStoreId: null,
         recordId: null,
         spuId: null,
         skuId: null,
