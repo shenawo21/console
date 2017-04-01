@@ -23,7 +23,7 @@ class OutgoView extends Component {
         let config = {
             formItems: [ {
                 label: "出库店铺：",
-                name: "relevantStoreId",
+                name: "operateStoreId",
                 style:{marginBottom:6},
                 select: {
                     placeholder: "请选择所属店铺",
@@ -91,7 +91,7 @@ class OutgoView extends Component {
                 }
             }],
             initValue: {
-                relevantStoreId: null,
+                operateStoreId: null,
                 recordId : null,
                 spuId: null,
                 skuId : null,
@@ -122,7 +122,7 @@ class OutgoView extends Component {
         }, {
             key: '1',
             title: '出库店铺',
-            dataIndex: 'relevantStoreName'
+            dataIndex: 'operateStoreName'
         }, {
             key: '2',
             title: '出库类型',
@@ -149,26 +149,22 @@ class OutgoView extends Component {
             dataIndex: 'price'
         }, {
             key: '8',
-            title: '建议销售价',
-            dataIndex: 'advicePrice'
-        }, {
-            key: '9',
             title: '出库数量',
             dataIndex: 'stock'
         }, {
-            key: '10',
+            key: '9',
             title: '出库时间',
             dataIndex: 'createTime'
         },{
-            key: '11',
+            key: '10',
             title: '所属渠道',
             dataIndex: 'channelName'
        },{
-            key: '12',
+            key: '11',
             title: '操作人',
             dataIndex: 'createUserName'
         }, {
-            key: '13',
+            key: '12',
             title: '备注',
             dataIndex: 'remark'
         }];
