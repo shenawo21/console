@@ -312,7 +312,7 @@ class Usermanage extends Component {
             </Modal>
             <DataTable {...tableOptions} ref='theTable' columns={this._getColumns() } rowSelection={rowSelection} ></DataTable>
             {this.check('批量删除') ?<Popconfirm  title="确定要删除此条地址信息？" onConfirm={this.onDels} >
-                <Button type="primary" disabled = {!hasSelected} loading={loading} style={{ marginTop:-80 }}>删除</Button>
+                <Button type="primary" disabled = {!hasSelected} loading={loading} style={{ marginTop:-80 }}>批量删除</Button>
             </Popconfirm>: <span></span>}
        
         </div>
