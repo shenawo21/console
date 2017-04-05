@@ -20,25 +20,27 @@ class Audit extends Component {
    * 放弃合并
    * @param row
    */
-  notMerge(row) {
+  notMerge(row,refresh) {
     const context = this;
     const {deleteItem} = context.props;
     deleteItem({
       mergeStatus: '放弃合并',
       tid: row.tid
     })
+     refresh()
   }
 
   /**
    * 直接发货
    * @param row
    */
-  isGive(row) {
+  isGive(row,refresh) {
     const context = this;
     const {giveItem} = context.props;
     giveItem({
       tid: row.tid
     })
+    refresh()
   }
 
   componentDidMount() {

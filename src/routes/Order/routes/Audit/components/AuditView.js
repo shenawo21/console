@@ -94,19 +94,19 @@ class Audit extends Component {
   }
 
   //放弃合并
-  noMerger(row) {
+  noMerger(row,refresh) {
     const context = this;
     const {notMerge} = context.props;
-    notMerge(row);
-    context.refs && context.refs.dt.refresh();
+    notMerge(row,context.refs.dt.refresh);
+    // context.refs && context.refs.dt.refresh();
   }
 
   //直接发货
-  send(row) {
+  send(row,refresh) {
     const context = this;
     const {isGive} = context.props;
-    isGive(row);
-    context.refs && context.refs.dt.refresh();
+    isGive(row,context.refs.dt.refresh);
+    // context.refs && context.refs.dt.refresh();
   }
 
   _getColumns() {
