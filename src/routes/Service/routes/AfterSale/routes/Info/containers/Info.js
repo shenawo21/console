@@ -69,7 +69,7 @@ class Info extends Component {
                 returnBack(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {
-                            let pathname = '/service/aftersale';
+                            let pathname = '/order/invoice';
                             _this.context.router.replace(pathname);
                         }, 1000);
                     }
