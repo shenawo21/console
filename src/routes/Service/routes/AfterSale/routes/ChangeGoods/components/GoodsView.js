@@ -73,7 +73,7 @@ class InfoView extends Component {
             dataIndex: 'refundNums',
             render(refundNums){
                 return <div>
-                            <InputNumber min={1} max={10}  onChange = {context.onChange} />
+                            <InputNumber min={1} max={99999}  onChange = {context.onChange} />
                        </div>
             }
         },{
