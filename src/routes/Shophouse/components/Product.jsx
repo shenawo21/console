@@ -41,7 +41,7 @@ class product extends Component {
         }, {
             key: '2',
             title: '所属店铺',
-            dataIndex: 'relevantStoreName'
+            dataIndex: 'shopName'
         }, {
             key: '3',
             title: '商品名称',
