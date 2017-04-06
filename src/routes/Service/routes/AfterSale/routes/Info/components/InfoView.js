@@ -53,12 +53,12 @@ class InfoView extends Component {
                 }
             }],
             initValue: {
-                // cwRefuseReason : null,
+                cwRefuseReason : null,
                 optRemark: null,
-                // cwRefuseProof : null
+                cwRefuseProof : null
             }
         }
-        /*if (isRequired == true) {
+        if (isRequired == true) {
             const obj = {
                 label: "拒绝退款原因：",
                 name: "cwRefuseReason",
@@ -71,7 +71,7 @@ class InfoView extends Component {
             }
             const objfirst = {
                 label: "拒绝凭证：",
-                required: true,
+                // required: true,
                 name: "cwRefuseProof",
                 custom(getCustomFieldProps) {
                     upConfig.fileList = photoList;
@@ -81,7 +81,7 @@ class InfoView extends Component {
                 }
             }
              config.formItems.unshift(objfirst,obj)
-        }*/
+        }
 
         return config;
     }
@@ -116,6 +116,10 @@ class InfoView extends Component {
                 {
                     key : 'return',
                     name : '发货',
+                },
+                {
+                    key : 'refuse',
+                    name : '拒绝退款',
                 },
                 {
                     key : 'back',

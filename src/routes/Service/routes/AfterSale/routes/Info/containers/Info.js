@@ -41,10 +41,11 @@ class Info extends Component {
     handleSubmit(value, key) {
         const _this = this;
         const {verify,params,returnBack} = _this.props;
+        const {isRequired} = _this.props
         // 拒绝凭证
-        // if (_this.state.photoList) {
-        //      value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
-        //  }
+        if (_this.state.photoList) {
+             value.cwRefuseProof = (typeof _this.state.photoList) === 'string' ? _this.state.photoList : _this.state.photoList.length ? _this.state.photoList[0].name : '';
+         }
         Object.assign(value,params,{afterSaleType:'REFUND_MONEY'})
         if(key === 'review'){
             delete value.tid
@@ -75,6 +76,28 @@ class Info extends Component {
                     }
                 })
             }
+        }
+        else if(key === 'refuse') {
+            _this.setState({isRequired:true})
+            // delete value.tid
+            // if(!value.cwRefuseProof) {
+            //     message.error('请上传拒绝退款凭证!')
+            // }else 
+            if (!value.cwRefuseReason) {
+                message.error('请选择拒绝退款原因!')
+            } else if (!value.optRemark) {
+                message.error('请填写说明!')
+            } else {
+                verify(value).then(function(response) {
+                    if (response && response.status == 1) {
+                        setTimeout(() => {
+                            let pathname = '/service/aftersale';
+                            _this.context.router.replace(pathname);
+                        }, 1000);
+                    }
+                })
+            }
+
         }
     }
     // 退货详情处理
