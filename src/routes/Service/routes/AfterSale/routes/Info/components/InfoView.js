@@ -118,6 +118,22 @@ class InfoView extends Component {
                     name : '发货',
                 },
                 {
+                    key : 'back',
+                    name : '返回',
+                    handle(){
+                        history.go(-1);
+                    }
+                }
+            ]
+        }
+        const btOptions = {
+            buttons : [
+                {
+                    key : 'review',
+                    name :'审核通过，通知财务退款',
+                    type : 'primary',
+                },
+                {
                     key : 'refuse',
                     name : '拒绝退款',
                 },
@@ -137,7 +153,7 @@ class InfoView extends Component {
                 { ((result.processStatus == 'PROCESS' || result.processStatus == 'SUCCESS' || result.processStatus == 'DENY') && result.refundResult !== null ) ? 
                 <ul className = 'form-talbe'>
                     {result.cwRefuseReason ? <li><b>拒绝退款原因:</b><span>{result.cwRefuseReason}</span></li> : '' }
-                    {result.optRemark ? <li><b>退款审批说明:</b><span>{result.optRemark}</span></li> : '' }
+                    {result.optRemark ? <li><b>说明:</b><span>{result.optRemark}</span></li> : '' }
                     {returnSrc ? <li><b>发货凭证:</b><span>
                       {
                         returnSrc && returnSrc.map((item, index)=>{
@@ -147,7 +163,7 @@ class InfoView extends Component {
                     </span></li> : '' }
                     <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
                 </ul> :                 
-                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={buttonOption} />}
+                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={result.reason == '多拍/拍错/不想要' ? btOptions : buttonOption } />}
             </div>
         )
     }
