@@ -40,7 +40,7 @@ class Info extends Component {
     // 退款详情处理
     handleSubmit(value, key) {
         const _this = this;
-        const {verify,params,returnBack} = _this.props;
+        const {verify,params,returnBack,result} = _this.props;
         const {isRequired} = _this.props
         // 拒绝凭证
         if (_this.state.photoList) {
@@ -52,7 +52,7 @@ class Info extends Component {
             if(!value.optRemark) {
                 message.error('请填写退款审批说明!')
             } else {
-                Object.assign(value,{processStatus:'PROCESS'})
+                Object.assign(value,{processStatus:'PROCESS',goodsNum:result.goodsNum,outerSkuId:result.tradesOrder.outerSkuId})
                 verify(value).then(function(response) {
                     if (response && response.status == 1) {
                         setTimeout(() => {

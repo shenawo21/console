@@ -42,7 +42,12 @@ class InfoView extends Component {
      _getColumns(){
         const context = this;
         const {selectItem} = this.state
-        
+        let isEdit = true
+        if (selectItem) {
+            isEdit = false
+        } else {
+           isEdit = true
+        }
         let columns = [{
             key: '0',
             title: '商品编码',
@@ -73,7 +78,7 @@ class InfoView extends Component {
             dataIndex: 'refundNums',
             render(refundNums){
                 return <div>
-                            <InputNumber min={1} max={99999}  onChange = {context.onChange} />
+                            <InputNumber min={1} max={99999}  onChange = {context.onChange} disabled = {isEdit} />
                        </div>
             }
         },{
@@ -238,28 +243,36 @@ class InfoView extends Component {
         let {selectItem} = this.state
         const _this = this
         if (selectItem && value) {
-            if (Number(selectItem.stock) < Number(value)) {
-                 message.error('库存不足，请重新输入！')
-            } else if(arrResult[0].num < Number(value)) {
-                //  this.refs.theTable.refresh()
-                 message.error('换货数量大于退货数量，请重新输入！')
-
-             } else {
-                if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
-                    message.error('换后商品总价值大于原来商品总价值，请重新选择！')
-                } else {
-                   this.setState({numValue:value})  
-                } 
-            }
-        } else if (!selectItem) {
-            if(arrResult[0].num < Number(value)) {
-                //  _this.refs.theTable.refresh
-                 message.error('换货数量大于退货数量，请重新输入！')
-             } else {
-                 this.setState({numValue:value})
-             }
+           if (Number(selectItem.stock) < Number(value)) {
+                message.error('库存不足，请重新输入！')
+            } else if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
+                message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+            } else {
+                this.setState({numValue:value})  
+            } 
         }
+        // if (selectItem && value) {
+        //     if (Number(selectItem.stock) < Number(value)) {
+        //          message.error('库存不足，请重新输入！')
+        //     } else if(arrResult[0].num < Number(value)) {
+        //         //  this.refs.theTable.refresh()
+        //          message.error('换货数量大于退货数量，请重新输入！')
 
+        //      } else{
+        //         if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
+        //             message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+        //         } else {
+        //            this.setState({numValue:value})  
+        //         } 
+        //     }
+        // } else if (!selectItem) {
+        //     if(arrResult[0].num < Number(value)) {
+        //         //  _this.refs.theTable.refresh
+        //          message.error('换货数量大于退货数量，请重新输入！')
+        //      } else {
+        //          this.setState({numValue:value})
+        //      }
+        // }
     }
     showModal() {
         const {tableOptions,result} = this.props;
