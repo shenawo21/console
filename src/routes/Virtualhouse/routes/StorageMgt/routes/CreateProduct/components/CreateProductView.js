@@ -122,20 +122,22 @@ class CreateProduct extends Component {
                 min:0.01,
                 max:9999999
             }
-        }, {
-            label: "采购价(元)：",
-            name: "purchasePrice",
-            wrapperCol: {span: 15},
-            required: true,
-            // rules: [{ required: true, message: '采购价不能为空' }],
-            infoLabel: <span className = 'gray'>取sku中采购价最低值，无sku时可手动输入，显示在商城前台</span>,
-            inputNumber: {
-                disabled:  isEdit,
-                step:0.01,
-                min:0.01,
-                max:9999999
-            }
-        }, {
+        }, 
+        // {
+        //     label: "采购价(元)：",
+        //     name: "purchasePrice",
+        //     wrapperCol: {span: 15},
+        //     required: true,
+        //     // rules: [{ required: true, message: '采购价不能为空' }],
+        //     infoLabel: <span className = 'gray'>取sku中采购价最低值，无sku时可手动输入，显示在商城前台</span>,
+        //     inputNumber: {
+        //         disabled:  isEdit,
+        //         step:0.01,
+        //         min:0.01,
+        //         max:9999999
+        //     }
+        // },
+         {
             label: "销售价(元)：",
             name: "advicePrice",
             wrapperCol: {span: 15},

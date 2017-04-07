@@ -254,9 +254,10 @@ class CreateProduct extends Component {
      */
     addProduct(newData){
         const {addPro} = this.props;
-        if (newData.purchasePrice) {//spu的采购价
-            if (newData.purchasePrice > newData.marketPrice) {
-                message.error('采购价不能大于市场价！')
+        console.log(newData,'999999')
+        if (newData.advicePrice) {//spu的采购价
+            if (newData.advicePrice > newData.marketPrice) {
+                message.error('销售价不能大于市场价！')
             } else if(this.checkSkuListVail(newData)){  //添加时，检查SKU表必填字段
                 addPro(newData).then((res)=>{
                     res.status === 1 && setTimeout(() => {
@@ -266,7 +267,7 @@ class CreateProduct extends Component {
                 })
             }
         }else{
-            message.error('采购价不能为空！')
+            message.error('销售价不能为空！')
         }
     }
     /**

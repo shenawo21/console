@@ -52,11 +52,13 @@ class storageMgt extends Component {
             key: '5',
             title: '市场价',
             dataIndex: 'marketPrice'
-        },{
-            key: '6',
-            title: '采购价',
-            dataIndex: 'purchasePrice'
-        }, {
+        },
+        // {
+        //     key: '6',
+        //     title: '采购价',
+        //     dataIndex: 'purchasePrice'
+        // },
+         {
             key: '7',
             title: '销售价',
             dataIndex: 'price'

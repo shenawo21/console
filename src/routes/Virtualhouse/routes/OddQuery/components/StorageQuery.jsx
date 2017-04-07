@@ -180,11 +180,13 @@ class StorageQuery extends Component {
             key: '9',
             title: '销售价',
             dataIndex: 'price'
-        },{
-            key: '10',
-            title: '采购价',
-            dataIndex: 'purchasePrice'
-        }, {
+        },
+        // {
+        //     key: '10',
+        //     title: '采购价',
+        //     dataIndex: 'purchasePrice'
+        // },
+         {
             key: '11',
             title: '入库数量',
             dataIndex: 'incoming'

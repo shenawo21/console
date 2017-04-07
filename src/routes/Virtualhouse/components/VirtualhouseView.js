@@ -136,11 +136,13 @@ class virtualView extends Component {
       key: '6',
       title: '销售价',
       dataIndex: 'price'
-    }, {
-      key: '7',
-      title: '采购价',
-      dataIndex: 'purchasePrice'
-    }, {
+    }, 
+    // {
+    //   key: '7',
+    //   title: '采购价',
+    //   dataIndex: 'purchasePrice'
+    // },
+     {
       key: '8',
       title: '已出库库存',
       dataIndex: 'assignedStock',

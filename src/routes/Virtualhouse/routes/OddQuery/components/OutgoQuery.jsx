@@ -165,11 +165,13 @@ class OutgoView extends Component {
       key: '8',
       title: '销售价',
       dataIndex: 'price'
-    },{
-      key: '9',
-      title: '采购价',
-      dataIndex: 'purchasePrice'
-    }, {
+    },
+    // {
+    //   key: '9',
+    //   title: '采购价',
+    //   dataIndex: 'purchasePrice'
+    // },
+     {
       key: '10',
       title: '建议销售价',
       dataIndex: 'advicePrice'

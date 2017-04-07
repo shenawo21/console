@@ -53,7 +53,8 @@ class Sku extends Component {
                 //     setInputValue(e, row, 'price')
                 // }} />
             }
-        },{
+        }
+        /*,{
             title: '采购价',
             dataIndex: 'purchasePrice',
             key: specList.length + 1,
@@ -63,7 +64,8 @@ class Sku extends Component {
                      setInputValue(e, row, 'purchasePrice')
                 }}  defaultValue = {val == null || undefined ? '' : val}  />
             }
-        },{
+        }*/
+        ,{
             title: '库存数量',
             dataIndex: 'stock',
             key: specList.length + 2,
