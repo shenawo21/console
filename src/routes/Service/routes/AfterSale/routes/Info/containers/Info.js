@@ -79,6 +79,7 @@ class Info extends Component {
         }
         else if(key === 'refuse') {
             _this.setState({isRequired:true})
+            Object.assign(value,{processStatus:'DENY'})
             // delete value.tid
             // if(!value.cwRefuseProof) {
             //     message.error('请上传拒绝退款凭证!')
