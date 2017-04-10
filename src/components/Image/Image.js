@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import store from 'store2';
 
-let imageServiceUrl = __DEV__ ? 'http://172.19.6.133:8898/file-service/image/' : store('USER') ? store('USER').fileUrl + 'image/' : '/file-service/image/';
+let imageServiceUrl = __DEV__ ? 'http://10.0.0.97:8081/file-service/image/' : store('USER') ? store('USER').fileUrl + 'image/' : '/file-service/image/';
 
 // 1x1
 const defaultImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=";
