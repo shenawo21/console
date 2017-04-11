@@ -88,11 +88,12 @@ class Change extends Component {
             key: '5',
             title: '操作',
             render(id,row) {
-                console.log(row,'row====')
                 return  <div>
+                            {row.isAfterSale == true ? <span>已换货</span> :
                             <Popconfirm title="确定要换货登记？" onConfirm={context.check.bind(context,row.oid,row.isAfterSale,row.buyerNick,row.outerSkuId)}>
                                 <a href="javascript:;">换货登记</a>
                             </Popconfirm>
+                             }
                         </div>               
             }
         }];

@@ -73,7 +73,7 @@ export function channelList(params) {
 export function industryList(params) {
   return {
     types: [INDUSTRY, INDUSTRY_SUCCESS, INDUSTRY_FAILURE],
-    promise: (client) => client.post('api-industry.findIndustry', params)
+    promise: (client) => client.post('api-industry.findIndustryList', params)
   }
 }
 /**
