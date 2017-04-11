@@ -95,7 +95,7 @@ class GoodsInfo extends Component {
                     </span></li> : '' }
 
                 </ul>
-                { result.processStatus == 'PROCESS' && result.feedbackStatus == 'ACCEPT' ? 
+                { result.processStatus == 'PROCESS' && result.feedbackStatus !== null ? 
                     <Form horizontal items={this._getFormEnd()} onSubmit={handleSubmit}  buttonOption={EndbuttonOption} /> : 
                         <Button type="ghost" style = {{marginLeft:40}} onClick = {(() => history.go(-1))}>返回</Button>
                 }

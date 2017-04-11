@@ -164,7 +164,6 @@ class CreateProduct extends Component {
             label: "商品规格：",
             required: true,
             wrapperCol: {span: 20},
-            infoLabel:<span className = 'gray'>根据所选类目自动带出该类目下所关联的规格</span>,
             // rules: [{ required: true, message: '库存数量或销售价不能为空'}],
             name : 'skuData',
              custom(fieldProps, name) {

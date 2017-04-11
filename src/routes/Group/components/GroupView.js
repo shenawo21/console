@@ -106,7 +106,7 @@ class Group extends Component {
         return <div>
           { row.level == 6 ? '' : (this.check('增加下级') ? <span><a onClick={handNext}>增加下级</a>&nbsp;&nbsp;|&nbsp;&nbsp;</span> : '') }
           {this.check('编辑') ? <span><a onClick={handEdit}>编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;</span> : ''}
-          {this.check('删除') ? <Popconfirm title="确定要删除此账号吗？" onConfirm={context.del.bind(context,row.deptCode)}>
+          {this.check('删除') ? <Popconfirm title="确定要删除此账号组吗？" onConfirm={context.del.bind(context,row.deptCode)}>
             <a href="#">删除</a>
           </Popconfirm> : ''}
         </div>;

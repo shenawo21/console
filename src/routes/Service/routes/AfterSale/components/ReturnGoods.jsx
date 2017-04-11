@@ -235,17 +235,13 @@ class ReturnGoods extends Component {
                              return <Popconfirm title="确定要换货出库？" onConfirm={changeOut} >
                                 <a href="javascript:;">换货出库</a>
                             </Popconfirm>
-                         } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'ACCEPT' && row.shoppId !== null) {
+                         } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == 'DENY') {
                             return <div><Link to={`/service/aftersale/changedetail/${row.refundId}`}>结束换货</Link></div>
-                         } else if(row.processStatus == 'PROCESS' && row.feedbackStatus == null) {
+                         } else {
                               return <div>
-                                 <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link><em style = {{padding:'0 8px'}}></em> <span>仓库未验收</span>                                 
+                                 <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link>                              
                             </div>
-                         }else {
-                            return <div>
-                                    <Link to={`/service/aftersale/changedetail/${row.refundId}`}>换货详情</Link>
-                                </div>
-                        }
+                         }
                         
                     }
             }

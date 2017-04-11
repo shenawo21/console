@@ -163,7 +163,7 @@ class InfoView extends Component {
                     </span></li> : '' }
                     <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
                 </ul> :                 
-                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={result.reason == '多拍/拍错/不想要' ? btOptions : buttonOption } />}
+                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={result.reason == '多拍/拍错/不想要' ? buttonOption : btOptions } />}
             </div>
         )
     }
