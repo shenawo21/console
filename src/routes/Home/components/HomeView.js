@@ -198,7 +198,7 @@ class Home extends Component {
                 <Col span="4">
                   <Badge count={item.toExchange} overflowCount={99} className={classes.exbadge}
                          style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/warehouse'} className={classes.headExample}
+                    <Link to={'/service/aftersale'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待换货出库
                     </Link>
@@ -216,7 +216,7 @@ class Home extends Component {
                 <Col span="5">
                   <Badge count={item.toFinancialRefund} overflowCount={99} className={classes.exbadge}
                          style={{top:'0px',right: '-10px'}}>
-                    <Link to={'/service/aftersale'} className={classes.headExample}
+                    <Link to={'/accountant/finance'} className={classes.headExample}
                           disabled={servicePermis =='售后服务' ? false : true}>
                       待通知财务退款
                     </Link>
