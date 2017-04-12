@@ -105,7 +105,6 @@ class Change extends Component {
     render() {
         const {formOptions,tabelData,visible,handleOk} = this.props;
          tabelData && tabelData.forEach((val, index)=>{
-             console.log(val,'val====')
             val.key = index
             val.tradesOrderList && val.tradesOrderList.forEach((value, index) => {
                 value.key = index;

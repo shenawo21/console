@@ -133,6 +133,8 @@ export const UpLoader = (props) => {
   } else {          //文件上传
     if (__DEV__) {
       upConfig.action = '/suneee-cloud-ep' + action;
+    } else {
+      upConfig.action = '/en' + action;       //如果为测试环境，路径加上en
     }
   }
 
