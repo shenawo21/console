@@ -91,13 +91,14 @@ class Edit extends Component {
   render() {
     const {item} = this.state;
     const {loading, result, chResult, inResult, params} = this.props;
+    console.log(inResult,'inResult')
     /**
      * 行业列表
      * @type {Array}
      */
     let inList = [];
     if (inResult) {
-      inList = inResult.items.map(c=> {
+      inList = inResult.map(c=> {
         return {
           value: c.industryId,
           title: c.name
@@ -108,8 +109,7 @@ class Edit extends Component {
         value: null,
         title: '正在加载中...'
       }]
-    }
-    ;
+    };
     /**
      * 所属渠道
      * @type {Array}
