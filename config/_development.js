@@ -8,7 +8,7 @@ export default (config) => ({
     options: {
       // koa-proxy options
       host: 'http://Chencj-PC:8088/',
-      //host: 'http://172.19.5.121:8088/',
+      //host: 'http://172.19.5.69:8088/',
       // host: 'http://172.19.6.152:8088/',
       fileServiceUrl: 'http://10.0.0.97:8081/',
       fileProxyFlag: 'file-service',
