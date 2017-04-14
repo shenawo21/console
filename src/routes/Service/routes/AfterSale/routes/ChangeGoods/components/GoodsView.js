@@ -245,8 +245,10 @@ class InfoView extends Component {
         if (selectItem && value) {
            if (Number(selectItem.stock) < Number(value)) {
                 message.error('库存不足，请重新输入！')
+                this.setState({numValue:value})  
             } else if(Number(selectItem.price) * Number(value) > Number(arrResult[0].totalFee)) {
                 message.error('换后商品总价值大于原来商品总价值，请重新选择！')
+                this.setState({numValue:value})  
             } else {
                 this.setState({numValue:value})  
             } 

@@ -35,13 +35,13 @@ export default (props) => {
                         <td>{result.title}</td>
                         <td>{result.price}</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ? 
-                        <td>{result.checkInfo && result.checkInfo.num }</td> :
+                        <td>{result.goodsNum}</td> :
                         <td>{result.goodsNum}</td> 
                         }
                         <td>{result.totalFee}</td>
                         <td>{result.discountFee ? result.discountFee : 0 }</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ?
-                        <td>{result.goodsNum}</td>:
+                        <td>{result.checkInfo && result.checkInfo.realAmount}</td>:
                         result.afterSaleType == 'REFUND_MONEY' ?
                             <td>无退货</td>:
                             <td>{result.goodsNum}</td>

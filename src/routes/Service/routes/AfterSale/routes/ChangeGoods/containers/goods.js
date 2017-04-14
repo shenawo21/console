@@ -28,22 +28,29 @@ class Goods extends Component {
     // 换货处理
     handleSubmit(value, key, form) {
         const _this = this;
-        const {changeVerify,params} = _this.props;
+        const {changeVerify,params,result} = _this.props;
         let newValue = _this.refs.state.state
         let newTable = _this.refs.state.props.arrResult
+        console.log(newValue,'newValue')
+        console.log(newTable,'newTable')
+        console.log(result,'result')
         if(key === 'review'){
             if (!newValue.selectItem) {
                 message.error('请选择换后商品编码')
             } else if (!newValue.numValue) {
                 message.error('请输入换货数量')
-            } else if (newValue.numValue > newTable[0].num) {
-                message.error('换货数量大于退货数量，请重新输入！')
+            } else if (Number(newValue.selectItem.stock) < Number(newValue.numValue)) {
+                message.error('库存不足，请重新输入！')
+            } 
+            else if (Number(newValue.selectItem.price) * Number(newValue.numValue) > Number(newTable[0].totalFee)) {
+                message.error('换后商品总价值大于原来商品总价值，请重新选择！')
             } else {
                 let goodsNum = {goodsNum:newValue.numValue}
                 let changeSkuCode = {changeSkuCode:newValue.selectItem.skuId}
                 let changeSkuName = {changeSkuName:newValue.selectItem.title}
+                let orderId = {orderId:result.orderId}
                 
-                Object.assign(value,params,goodsNum,changeSkuCode,changeSkuName,newTable[0])
+                Object.assign(value,params,goodsNum,changeSkuCode,changeSkuName,newTable[0],orderId)
                 delete value._index
                 delete value.discountFee
                 delete value.outerId
