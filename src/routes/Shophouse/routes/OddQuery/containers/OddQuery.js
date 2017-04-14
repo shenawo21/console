@@ -21,7 +21,9 @@ class OddQuery extends Component {
         
         this.state = {
             curKey: 0,
-            params: {}   //表格需要的筛选参数
+            params: {
+                recordType: TYPES[0].recordType
+            }   //表格需要的筛选参数
         }
     }
     
@@ -30,7 +32,7 @@ class OddQuery extends Component {
         const { shopOddQueryList, getShopList, priceCateList, location,channelList} = this.props;
         const {query} = location;
         let pageNumber = query.p ? Number(query.p) : 1;
-        shopOddQueryList(TYPES[0]);
+        shopOddQueryList({recordType: TYPES[0].recordType});
 	
 	    //获取店铺列表
         getShopList();
@@ -89,9 +91,15 @@ class OddQuery extends Component {
         } else {
             shopOddQueryList(TYPES[key-1]);
         }
+        const {location,router} = this.context.props
+
+        router.replace({...location, query : { p: 1 }});
         this.setState({
+            params: {
+                recordType: TYPES[key-1].recordType
+            },
             curKey : key - 1
-        })   
+        })     
     }
     render() {
         const {params} = this.state;
