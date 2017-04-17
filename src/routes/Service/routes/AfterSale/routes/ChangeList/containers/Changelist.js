@@ -47,15 +47,16 @@ class ChangeView extends Component {
         // let newObj = tradesOrderList && tradesOrderList.filter(item => {
         //    return item.oid == id
         // })
-       if (isAfterSale == false) {
+       if (isAfterSale == 1) {
             setTimeout(() => {
                 let pathname = '/service/aftersale/change/'+ id + '/' + buyerNick + '/' + skuId;
                 context.context.router.push(pathname);
             }, 100);
-        } else {
-            message.error('该订单已在退款或退货或换货中，不能重复申请售后服务！')
+        } 
+        // else {
+        //     message.error('该订单已在退款或退货或换货中，不能重复申请售后服务！')
             
-        }
+        // }
 
 
     }

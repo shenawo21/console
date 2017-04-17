@@ -135,11 +135,13 @@ class Audit extends Component {
       key: '5',
       title: '买家留言',
       dataIndex: 'buyerMessage'
-    }, {
-      key: '6',
-      title: '到期时间',
-      dataIndex: 'timeoutActionTime'
-    }, {
+    }, 
+    // {
+    //   key: '6',
+    //   title: '到期时间',
+    //   dataIndex: 'timeoutActionTime'
+    // },
+     {
       key: '7',
       title: '订单金额',
       dataIndex: 'payment'

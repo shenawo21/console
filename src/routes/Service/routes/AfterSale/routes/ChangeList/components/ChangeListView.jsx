@@ -86,13 +86,27 @@ class Change extends Component {
             }
         },{
             key: '5',
+            title: '换货状态',
+            dataIndex: 'isAfterSale',
+            render(type) {
+               switch(type) {
+                   case 0:
+                     return '售后中'
+                  case 1:
+                     return '可换货'
+                  case 2:
+                     return '已换货'      
+               }
+            }
+        },{
+            key: '6',
             title: '操作',
             render(id,row) {
                 return  <div>
-                            {row.isAfterSale == true ? <span>已换货</span> :
+                            {row.isAfterSale == 1 ?
                             <Popconfirm title="确定要换货登记？" onConfirm={context.check.bind(context,row.oid,row.isAfterSale,row.buyerNick,row.outerSkuId)}>
                                 <a href="javascript:;">换货登记</a>
-                            </Popconfirm>
+                            </Popconfirm> : ''
                              }
                         </div>               
             }
