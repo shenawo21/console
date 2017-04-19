@@ -74,7 +74,7 @@ class OutgoManual extends Component {
     render() {
         const {params, selectedItems, pageSize} = this.state;
         
-        const {items, priceShopHouseList, shopListResult, outManual, cateResult, totalItems, loading} = this.props;
+        const {items, priceShopHouseList, shopListResult, outManual, cateResult, totalItems, loading,location} = this.props;
         const tableOptions = {
             dataSource : items,                         //加载组件时，表格从容器里获取初始值
             action : priceShopHouseList,                         //表格翻页时触发的action
