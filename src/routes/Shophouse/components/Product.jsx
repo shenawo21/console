@@ -60,7 +60,7 @@ class product extends Component {
         }, {
             key: '6',
             title: '市场价',
-            dataIndex: 'marketPrice'
+            dataIndex: 'marketPriceSt'
         }
         // ,{
         //     key: '7',
@@ -70,7 +70,7 @@ class product extends Component {
         ,{
             key: '8',
             title: '建议销售价',
-            dataIndex: 'advicePrice'
+            dataIndex: 'advicePriceSt'
         }, {
             key: '9',
             title: '待同步库存',
