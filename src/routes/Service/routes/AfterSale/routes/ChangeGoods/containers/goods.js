@@ -20,7 +20,7 @@ class Goods extends Component {
     componentDidMount() {  
         const {shopList,chagenDetail,Logistic,params} = this.props;
         //获取详情信息
-        chagenDetail({oid:params.oid,skuId:params.skuId});
+        chagenDetail({oid:params.oid,skuId:params.skuId,orderId:params.orderId});
 
         // 物流列表
         Logistic()

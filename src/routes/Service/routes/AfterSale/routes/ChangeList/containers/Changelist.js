@@ -40,7 +40,7 @@ class ChangeView extends Component {
             }   
           }
       }
-      confirm(id,isAfterSale,buyerNick,skuId){
+      confirm(id,isAfterSale,buyerNick,skuId,orderId){
         const context = this
         // const {tabelData} = this.props
         // let tradesOrderList = tabelData[0].tradesOrderList
@@ -49,7 +49,7 @@ class ChangeView extends Component {
         // })
        if (isAfterSale == 1) {
             setTimeout(() => {
-                let pathname = '/service/aftersale/change/'+ id + '/' + buyerNick + '/' + skuId;
+                let pathname = '/service/aftersale/change/'+ id + '/' + buyerNick + '/' + skuId + '/' + orderId;
                 context.context.router.push(pathname);
             }, 100);
         } 
