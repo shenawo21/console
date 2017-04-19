@@ -56,7 +56,6 @@ class Goods extends Component {
                 delete value.outerId
                 delete value.num
                 delete value.skuId
-                delete value.outerSkuId
                 changeVerify(value).then(function(response) {
                         if (response && response.status == 1) {
                             setTimeout(() => {
