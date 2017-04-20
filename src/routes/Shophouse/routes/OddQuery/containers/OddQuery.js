@@ -191,7 +191,10 @@ class OddQuery extends Component {
                 </Panel>
     }
 }
-
+OddQuery.contextTypes = {
+    props: React.PropTypes.object.isRequired,
+    router: React.PropTypes.object.isRequired
+};
 
 OddQuery.propTypes = {
     
