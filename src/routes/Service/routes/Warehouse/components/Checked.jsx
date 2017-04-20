@@ -116,11 +116,11 @@ class Checked extends Component {
     }, {
       key: '3',
       title: '数量',
-      dataIndex: 'num'
+      dataIndex: 'tGoodsNum'
     }, {
       key: '4',
       title: '退 / 换货数量',
-      dataIndex: 'tGoodsNum'
+      dataIndex: 'refundNums'
     }, {
       key: '5',
       title: '操作',

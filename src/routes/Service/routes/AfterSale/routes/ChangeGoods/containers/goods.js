@@ -45,16 +45,15 @@ class Goods extends Component {
             else if (Number(newValue.selectItem.price) * Number(newValue.numValue) > Number(newTable[0].totalFee)) {
                 message.error('换后商品总价值大于原来商品总价值，请重新选择！')
             } else {
-                let goodsNum = {goodsNum:newValue.numValue}
+                let refundNums = {refundNums:newValue.numValue}
                 let changeSkuCode = {changeSkuCode:newValue.selectItem.skuId}
                 let changeSkuName = {changeSkuName:newValue.selectItem.title}
                 let orderId = {orderId:result.orderId}
                 
-                Object.assign(value,params,goodsNum,changeSkuCode,changeSkuName,newTable[0],orderId)
+                Object.assign(value,params,refundNums,changeSkuCode,changeSkuName,newTable[0],orderId)
                 delete value._index
                 delete value.discountFee
                 delete value.outerId
-                delete value.num
                 delete value.skuId
                 changeVerify(value).then(function(response) {
                         if (response && response.status == 1) {

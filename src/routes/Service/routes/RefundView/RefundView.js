@@ -41,7 +41,7 @@ export default (props) => {
                         <td>{result.totalFee}</td>
                         <td>{result.discountFee ? result.discountFee : 0 }</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ?
-                        <td>{result.checkInfo && result.checkInfo.realAmount}</td>:
+                        <td>{result.refundNums}</td>:
                         result.afterSaleType == 'REFUND_MONEY' ?
                             <td>无退货</td>:
                             <td>{result.goodsNum}</td>
