@@ -38,7 +38,7 @@ export default (props) => {
                         <td>{result.price}</td>
                         <td>{result.goodsNum}</td>
                         <td>{result.totalFee}</td>
-                        <td>{result.discountFee}</td>
+                        <td>{result.discountFee ? result.discountFee : 0}</td>
                         {result.afterSaleType == 'CHANGE_GOODS' ?
                         <td>{result.refundNums}</td>:
                         result.afterSaleType == 'REFUND_MONEY' ?
