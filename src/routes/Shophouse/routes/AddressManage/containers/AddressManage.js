@@ -122,8 +122,11 @@ class Container extends Component {
     // 设为默认地址
     setDefault(id,shopId,refresh) {
         const {setDefault,gitAddressList} = this.props
-        setDefault({id:id,shopId:shopId})
-        refresh()
+        setDefault({id:id,shopId:shopId}).then(function(res) {
+            if (res && res.status == 1) {
+                    gitAddressList()
+                }
+        })
     }
     //改变select选项回调
     onSelectChange(selectedRowKeys, selectedRows) {
