@@ -22,7 +22,7 @@ class DataTable extends Component {
     }
 
     initState(){
-        const {pageSize, selectedItemsKeys = []} = this.props;
+        const {pageSize, selectedItemsKeys} = this.props;
         return {
             current: 1,
             pageSize,
@@ -104,7 +104,7 @@ class DataTable extends Component {
                 selectedRowKeys: nextProps.selectedItemsKeys
             })
         }
-    }
+    } 
 
     /**
      * row key

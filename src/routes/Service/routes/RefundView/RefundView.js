@@ -52,10 +52,17 @@ export default (props) => {
                     </tr>                       
                 </tbody>
             </table>
-            <ul className = 'form-talbe'>
+            <ul className = 'box-talbe'>
                     {
                         ArryStatus && ArryStatus.map((item, index)=>{
-                        return <li><b>{item.name}</b><span>{item.status}</span></li>
+                              return <li><b>{item.name}</b><span>{item.status}</span></li>
+                        })
+                        
+                    }
+                    {<b>{ArryStatus[2].nameInfo}</b>}
+                                    
+                    { ArryStatus[2].statusInfo.split('\\n').map((num)=>{
+                       return <span>{num}</span>
                         })
                     }
                     {result.afterSaleType == 'CHANGE_GOODS' ?

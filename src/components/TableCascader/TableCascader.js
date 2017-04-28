@@ -41,8 +41,9 @@ class TableCascader extends Component {
      */
     getSelectedItems(curItems, selectedRows) {
         const {tableOptions, uKey} = this.props
-        let { dataSource } = tableOptions, items = [], flag = null, unSelectedNum = null
+        let { dataSource } = tableOptions, items = [], flag = null, unSelectedNum = null, box = []
         let {selectedItemsKeys} = this.state;
+
 
         if (curItems.length) {
             if (selectedRows.length) {
@@ -58,14 +59,24 @@ class TableCascader extends Component {
                     curItems = curItems.concat(items);
                 } else {
                     //获取取消元素在dataSource的下标
-                    selectedItemsKeys.forEach((val) => {
-                        selectedRows.some((item, index) => {
-                            if (dataSource[val][uKey] !== item[uKey]) {
-                                unSelectedNum = val
+                    console.log(selectedItemsKeys)
+                    unSelectedNum = selectedItemsKeys
+                    selectedItemsKeys.forEach((val, index) => {
+                    console.log(val)
+                    console.log(dataSource[val][uKey])
+                        selectedRows.some((item) => {
+                        console.log(item[uKey])
+                            if (dataSource[val][uKey] == item[uKey]) {
+                                console.log('time')
+                                
+                                unSelectedNum.splice(index, 1) 
+                                console.log(unSelectedNum)
                                 return false
                             }
                         })
                     })
+                    console.log(selectedItemsKeys)
+                    console.log(unSelectedNum)
                     //删除状态中取消的元素
                     curItems.every((item, index) => {
                         if (dataSource[unSelectedNum][uKey] === item[uKey]) {

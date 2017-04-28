@@ -380,14 +380,14 @@ class outgoMgt extends Component {
                         label="待出库店铺："
                         {...formItemLayout}
                     >
-                    <Select {...multiSelectProps} placeholder="请选择待出库店铺" style={{ width: 200 }} disabled = {this.state.nextHide == false ? false : true}>
-                        {
-                            shopList && shopList.map((val, i) => {
-                                typeof val.value === 'boolean' && (val.value = '' + val.value);
-                                return <Option key={i} value={val.title} disabled={val.disabled}>{val.title}</Option>
-                            })
-                        }
-                    </Select>
+                        <Select {...multiSelectProps} placeholder="请选择待出库店铺" style={{ width: 200 }} disabled = {this.state.nextHide == false ? false : true}>
+                            {
+                                shopList && shopList.map((val, i) => {
+                                    typeof val.value === 'boolean' && (val.value = '' + val.value);
+                                    return <Option key={i} value={val.title} disabled={val.disabled}>{val.title}</Option>
+                                })
+                            }
+                        </Select>
                     </FormItem>
 
                     <FormItem

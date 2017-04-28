@@ -46,7 +46,7 @@ class GoodsInfo extends Component {
                 input: {
                     rows: '5',
                     type: "textarea",
-                    placeholder: "请输入留言内容",
+                    placeholder: "请输入留言内容"
                 }
             }],
             initValue: {
@@ -75,7 +75,7 @@ class GoodsInfo extends Component {
         const ArryStatus = [
             {name:'申请退款金额:',status:result.refundFee},
             {name:'退货原因:',status:result.reason},
-            {name:'退货说明:',status:refundComment.content},
+            {nameInfo:'退货说明:',statusInfo:refundComment.content},
         ]
         const EndbuttonOption = {
             buttons : [
