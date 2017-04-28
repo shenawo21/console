@@ -23,15 +23,17 @@ class Usermanage extends Component {
                 name: "shopId",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请选择店铺'));
-                        } else {
-                            callback();
+                rules: [
+                    {
+                        validator(rule, value, callback) {
+                            if (!value) {
+                                callback(new Error('请选择店铺'));
+                            } else {
+                                callback();
+                            }
                         }
                     }
-                }],
+                ],
                 select: {
                     placeholder: "请选择店铺",
                     optionValue: shopListItem
@@ -41,15 +43,18 @@ class Usermanage extends Component {
                 name: "address",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请选择退货地址'));
-                        } else {
-                            callback();
+                rules: [
+                    //  { required: true, message: '请选择退货地址'},
+                    {
+                        validator(rule, value, callback) {
+                            if (!value) {
+                                callback(new Error('请选择退货地址'));
+                            } else {
+                                callback();
+                            }
                         }
                     }
-                }],
+                ],
                 cascader: {
                     options: addresslist,
                     placeholder: "请输入退货地址",
@@ -60,15 +65,18 @@ class Usermanage extends Component {
                 name: "receiverAddress",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请输入详细地址'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                rules: [
+                    { required: true,min:4,max:64, message: '请输入4-64位字符的详细地址'},
+                    // {
+                    //     validator(rule, value, callback) {
+                    //         if (!value) {
+                    //             callback(new Error('请输入详细地址'));
+                    //         } else {
+                    //             callback();
+                    //         }
+                    //     }
+                    // }
+                ],
                 input: {
                     placeholder: "请输入详细地址",
                 }
@@ -77,15 +85,18 @@ class Usermanage extends Component {
                 name: "name",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请输入联系人'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                rules: [
+                    { required: true, message: '请输入联系人'},
+                    // {
+                    //     validator(rule, value, callback) {
+                    //         if (!value) {
+                    //             callback(new Error('请输入联系人'));
+                    //         } else {
+                    //             callback();
+                    //         }
+                    //     }
+                    // }
+                ],
                 input: {
                     placeholder: "请输入联系人"
                 }
@@ -94,15 +105,18 @@ class Usermanage extends Component {
                 name: "shortName",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('地址简称'));
-                        } else {
-                            callback();
-                        }
-                    }
-                }],
+                rules: [
+                    { required: true, message: '请输入地址简称'},
+                    // {
+                    //     validator(rule, value, callback) {
+                    //         if (!value) {
+                    //             callback(new Error('地址简称'));
+                    //         } else {
+                    //             callback();
+                    //         }
+                    //     }
+                    // }
+                ],
                 input: {
                     placeholder: "地址简称"
                 }
@@ -111,25 +125,50 @@ class Usermanage extends Component {
                 name: "phone",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
-                rules: [{
-                    validator(rule, value, callback) {
-                        if (!value) {
-                            callback(new Error('请输入联系电话'));
-                        } else {
-                            if (!/^1[34578][0-9]\d{8}$/g.test(value)) {
-                                    callback('请输入正确的手机号码');
-                            } else {
+                rules: [
+                    { required: true, message: '请输入联系电话'},
+                    {
+                        validator(rule, value, callback) {
+                            if (!value) {
                                 callback();
+                            } else {
+                                if (!/^1[34578][0-9]\d{8}$/g.test(value)) {
+                                        callback('请输入正确的手机号码');
+                                } else {
+                                    callback();
+                                }
                             }
                         }
                     }
-                }],
+                ],
                 input: {
                     placeholder: "请输入联系电话"
                 }
             },{
                 label: "邮编：",
                 name: "postCode",
+                wrapperCol: { span: 10 },
+                labelCol: { span: 5},
+                rules: [
+                    { required: true, message: '请输入邮编'},
+                    {
+                        validator(rule, value, callback) {
+                            if (!value) {
+                                callback();
+                            } else {
+                                if (!/^[1-9][0-9]{5}$/g.test(value)) {
+                                        callback('请输入6位数字邮编');
+                                } else {
+                                    callback();
+                                }
+                            }
+                        }
+                    }],
+                input: {
+                }
+            },{
+                label: "备注：",
+                name: "addressRemark",
                 wrapperCol: { span: 10 },
                 labelCol: { span: 5},
                 input: {
@@ -149,6 +188,7 @@ class Usermanage extends Component {
                 shortName:null,
                 phone: null,
                 postCode : null,
+                addressRemark:null,
                 defaults: null,
             }
         }
@@ -280,7 +320,7 @@ class Usermanage extends Component {
     }
     
     render() {
-        const {formOptions, tableOptions, onSelectChange, dataSource, loading,handleOk,visible,...other} = this.props;
+        const {formOptions, tableOptions, onSelectChange, dataSource, loading,handleOk,visible,sys,...other} = this.props;
         let {selectedRowKeys} = tableOptions;
         const context = this;
         const rowSelection = {
@@ -291,7 +331,8 @@ class Usermanage extends Component {
         
         return <div>
             <Row>
-                 <Col span='20'><Search onSubmit={formOptions.handleSubmit}  items={this._getFormItems() } /></Col>
+                 <Col span='16'><Search onSubmit={formOptions.handleSubmit}  items={this._getFormItems() } /></Col>
+                 <Col><Button type="primary" onClick = {sys} style = {{ marginBottom: 15, marginRight:10, float:'right' }}>同步退货地址</Button></Col>
                  {this.check('添加地址') ? <Col><Button onClick={(e)=>{
                      formOptions.showModal(this.refs.form)
                  }} type="primary" style = {{ marginBottom: 15, marginRight:10, float:'right' }}><Icon type="plus-circle"/>添加地址</Button></Col> : <span></span>}

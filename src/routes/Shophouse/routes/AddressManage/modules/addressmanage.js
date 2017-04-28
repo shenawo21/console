@@ -31,6 +31,13 @@ const REQ_LIST = 'REQ_LIST';
 const SUC_LIST = 'SUC_LIST';
 const ERR_LIST = 'ERR_LIST';
 
+// 同步退货地址
+const REQ_SYS = 'REQ_SYS';
+const SUC_SYS = 'SUC_SYS';
+const ERR_SYS = 'ERR_SYS';
+
+
+
 export function gitAddressList(params) {
   return {
     types: [REQ_ADDRESS_LIST, SUC_ADDRESS_LIST, ERR_ADDRESS_LIST],
@@ -79,6 +86,14 @@ export function list() {
         promise: (client) => client.post('resources.get?path=static.resource.areas')
     }
 }
+
+export function sysAddress() {
+    return {
+        types: [REQ_SYS, SUC_SYS, ERR_SYS],
+        promise: (client) => client.post('api-refundAddress.syncTmallAddress')
+    }
+}
+
 export default function reducer(state = { result: {} }, action) {
   state = {...state, loading: action.loading };
   switch (action.type) {
@@ -183,7 +198,18 @@ export default function reducer(state = { result: {} }, action) {
         return {
             ...state
     } 
-
+    case REQ_SYS:
+      return {
+        ...state
+      }
+    case SUC_SYS:
+      return {
+        ...state
+      }
+    case ERR_SYS:
+      return {
+        ...state
+    }
     default:
       return state
   }

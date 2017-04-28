@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { message } from 'hen';
 import Usercomponent from '../components/Addressmanage'
 import Panel from 'components/Panel'
-import {gitAddressList, delAddress,addAddress,editAddress,setDefault,getShopList,list,gitAddressItem} from '../modules/addressmanage'
+import {gitAddressList, delAddress,addAddress,editAddress,setDefault,getShopList,list,gitAddressItem,sysAddress} from '../modules/addressmanage'
 
 class Container extends Component {
     constructor(props) {
@@ -21,6 +21,7 @@ class Container extends Component {
         this.handleOk = this.handleOk.bind(this);
         this.Edit = this.Edit.bind(this)
         this.setDefault = this.setDefault.bind(this)
+        this.sys = this.sys.bind(this)
     }
     componentDidMount() {
         const {gitAddressList, getShopList,list, location} = this.props;
@@ -130,7 +131,16 @@ class Container extends Component {
         this.setState({ selectedRowId: selectedRowId})
         this.setState({ selectedRowKeys });
     }
-    
+    // 同步地址
+    sys() {
+        const {sysAddress,gitAddressList} = this.props
+         sysAddress().then(function(res) {
+                if (res && res.status == 1) {
+                    gitAddressList()
+                }
+         })      
+
+    }
     render() {
         const self = this
         const {items,totalItems,shoplist,loading, gitAddressList,addresslist } = this.props;
@@ -175,7 +185,8 @@ class Container extends Component {
                 Edit = {this.Edit}
                 setDefault = {this.setDefault}
                 addressItem = {addressItemState}
-                handleDels={this.handleDels}>
+                handleDels={this.handleDels}
+                sys = {this.sys}>
             </Usercomponent>
         </Panel>
     }
@@ -189,7 +200,8 @@ const mapActionCreators = {
     setDefault,
     getShopList,
     list,
-    gitAddressItem
+    gitAddressItem,
+    sysAddress
 }
 
 const mapStateToProps = (state) => {
