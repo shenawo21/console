@@ -116,6 +116,7 @@ class Info extends Component {
             } else if (! value.shortName) {
                 message.error('请选择退货地址！')
             }else {
+                value.addressId = value.shortName
                 delete value.shortName
                 verify(value).then(function(response) {
                     if (response && response.status == 1) {

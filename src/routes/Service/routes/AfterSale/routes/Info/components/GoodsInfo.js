@@ -155,7 +155,7 @@ class GoodsInfo extends Component {
             initValue: {
                 valueBearType : null,
                 postBearType: null,
-                shortName:null || addressObj && addressObj.shortName,
+                shortName:null || addressObj && addressObj.id,
                 fullAddress :null,
                 sellerName:null,
                 sellerPost:null,
