@@ -156,8 +156,7 @@ class Container extends Component {
             pagination: {                              //表格页码陪着，如果为false，则不展示页码
                 total: totalItems                      //数据总数
             },
-            selectedRowKeys,
-            selectedRowId
+            selectedRowKeys
         }
         /**
          * 店铺列表
@@ -179,6 +178,7 @@ class Container extends Component {
         return <Panel>
             <Usercomponent
                 tableOptions={tableOptions}
+                selectedRowId = {selectedRowId}
                 visible = {visible}
                 addresslist = {addresslist}
                 shopListItem={shopListItem}
