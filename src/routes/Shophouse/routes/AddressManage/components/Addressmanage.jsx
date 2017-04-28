@@ -156,7 +156,7 @@ class Usermanage extends Component {
                             if (!value) {
                                 callback();
                             } else {
-                                if (!/^[1-9][0-9]{5}$/g.test(value)) {
+                                if (!/^[0-9]{6}$/g.test(value)) {
                                         callback('请输入6位数字邮编');
                                 } else {
                                     callback();
