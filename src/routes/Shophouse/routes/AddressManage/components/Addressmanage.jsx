@@ -331,9 +331,9 @@ class Usermanage extends Component {
         
         return <div>
             <Row>
-                 <Col span='16'><Search onSubmit={formOptions.handleSubmit}  items={this._getFormItems() } /></Col>
-                 <Col><Button type="primary" onClick = {sys} style = {{ marginBottom: 15, marginRight:10, float:'right' }}>同步退货地址</Button></Col>
-                 {this.check('添加地址') ? <Col><Button onClick={(e)=>{
+                 <Col span='20'><Search onSubmit={formOptions.handleSubmit}  items={this._getFormItems() } /></Col>
+                 <Col span='2' ><Button type="primary" onClick = {sys} style = {{ marginBottom: 15, marginRight:10, float:'right' }}>同步退货地址</Button></Col>
+                 {this.check('添加地址') ? <Col span='2' ><Button onClick={(e)=>{
                      formOptions.showModal(this.refs.form)
                  }} type="primary" style = {{ marginBottom: 15, marginRight:10, float:'right' }}><Icon type="plus-circle"/>添加地址</Button></Col> : <span></span>}
             </Row>    
