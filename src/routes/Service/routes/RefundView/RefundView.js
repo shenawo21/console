@@ -52,32 +52,51 @@ export default (props) => {
                     </tr>                       
                 </tbody>
             </table>
-            <ul className = 'box-talbe'>
-                    {
-                        ArryStatus && ArryStatus.map((item, index)=>{
-                              return <li><b>{item.name}</b><span>{item.status}</span></li>
-                        })
-                        
-                    }
-                    {<b>{ArryStatus[2].nameInfo}</b>}
-                                    
-                    { ArryStatus[2].statusInfo.split('\\n').map((num)=>{
-                       return <span>{num}</span>
-                        })
-                    }
+
+
+            <table  size="middle" style={{textAlign:'left',width:'50%',marginLeft:'20px'}}>
+                <tr>
+                    <td><b>{ ArryStatus[0].name}</b></td>
+                    <td>{ ArryStatus[0].status}</td>
+                </tr>
+                <tr>
+                    <td><b>{ ArryStatus[1].name}</b></td>
+                    <td>{ ArryStatus[1].status}</td>
+                </tr>
+                <tr>
+                    <td><b>{ ArryStatus[2].name}</b></td>
+                    <td>{ ArryStatus[2].status.split('\\n')[0]}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{ ArryStatus[2].status.split('\\n')[1]}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{ ArryStatus[2].status.split('\\n')[2]}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{ ArryStatus[2].status.split('\\n')[3]}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{ ArryStatus[2].status.split('\\n')[4]}</td>
+                </tr>
+                <tr>
                     {result.afterSaleType == 'CHANGE_GOODS' ?
-                    '' :  <li><b>凭证：</b>
+                        <td>''</td> : <td> <b>凭证：</b>
                                 <span>
                                     {
                                         src && src.map((item, index)=>{
                                         return <img src={item} width= '80' style={{marginRight:10}} onClick={(e) => {showBig(e.target.currentSrc)}} />
                                         })
                                     }
-                          </span></li>
+                          </span></td>
                     }
-                   
+                </tr>
+            </table>
 
-            </ul>
-        </div>
+    </div>
   )
 }

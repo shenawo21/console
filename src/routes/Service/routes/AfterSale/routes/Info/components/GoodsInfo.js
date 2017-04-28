@@ -192,7 +192,7 @@ class GoodsInfo extends Component {
         const ArryStatus = [
             {name:'申请退款金额:',status:result.totalFee || ''},
             {name:'退款原因:',status:result.reason || ''},
-            {nameInfo:'退货说明:',statusInfo:refundComment.content || ''},
+            {name:'退货说明:',status:refundComment.content || ''},
         ]
         const buttonOption = {
             buttons : [
