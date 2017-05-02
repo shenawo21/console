@@ -52,50 +52,26 @@ export default (props) => {
                     </tr>                       
                 </tbody>
             </table>
-
-
-            <table  size="middle" style={{textAlign:'left',width:'50%',marginLeft:'20px'}}>
-                <tr>
-                    <td><b>{ ArryStatus[0].name}</b></td>
-                    <td>{ ArryStatus[0].status}</td>
-                </tr>
-                <tr>
-                    <td><b>{ ArryStatus[1].name}</b></td>
-                    <td>{ ArryStatus[1].status}</td>
-                </tr>
-                <tr>
-                    <td><b>{ ArryStatus[2].name}</b></td>
-                    <td>{ ArryStatus[2].status.split('\\n')[0]}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>{ ArryStatus[2].status.split('\\n')[1]}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>{ ArryStatus[2].status.split('\\n')[2]}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>{ ArryStatus[2].status.split('\\n')[3]}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>{ ArryStatus[2].status.split('\\n')[4]}</td>
-                </tr>
-                <tr>
+            <ul className = 'form-talbe'>
+                    {
+                        ArryStatus && ArryStatus.map((item, index)=>{
+                            return  <li><b>{item.name}</b>{item.name == '退货说明:' ? item.status.split('\\n').map((itemSum, key) => {
+                                                           return <div style={{marginLeft:'9%'}}><span>{itemSum}</span></div>
+                                                       }) : <span>{item.status}</span>}</li>   
+                                        
+                        })
+                    }
                     {result.afterSaleType == 'CHANGE_GOODS' ?
-                        <td>''</td> : <td> <b>凭证：</b>
+                    '' :  <li><b>凭证：</b>
                                 <span>
                                     {
                                         src && src.map((item, index)=>{
                                         return <img src={item} width= '80' style={{marginRight:10}} onClick={(e) => {showBig(e.target.currentSrc)}} />
                                         })
                                     }
-                          </span></td>
+                          </span></li>
                     }
-                </tr>
-            </table>
+            </ul>
 
     </div>
   )
