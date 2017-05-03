@@ -41,7 +41,7 @@ class TableCascader extends Component {
      */
     getSelectedItems(curItems, selectedRows) {
         const {tableOptions, uKey} = this.props
-        let { dataSource } = tableOptions, items = [], flag = null, unSelectedNum = null, box = []
+        let { dataSource } = tableOptions, items = [], flag = null, unSelectedNum = [], box = []
         let {selectedItemsKeys} = this.state;
 
 
@@ -59,24 +59,20 @@ class TableCascader extends Component {
                     curItems = curItems.concat(items);
                 } else {
                     //获取取消元素在dataSource的下标
-                    console.log(selectedItemsKeys)
-                    unSelectedNum = selectedItemsKeys
-                    selectedItemsKeys.forEach((val, index) => {
-                    console.log(val)
-                    console.log(dataSource[val][uKey])
-                        selectedRows.some((item) => {
-                        console.log(item[uKey])
-                            if (dataSource[val][uKey] == item[uKey]) {
-                                console.log('time')
-                                
-                                unSelectedNum.splice(index, 1) 
-                                console.log(unSelectedNum)
-                                return false
-                            }
-                        })
-                    })
-                    console.log(selectedItemsKeys)
-                    console.log(unSelectedNum)
+                    
+                    let a = []
+                    let b = []
+                    let c = []
+                    let d = null
+                    a = new Set([...selectedItemsKeys].map( index => dataSource[index][uKey] ))
+                    b = new Set([...selectedRows].map( item => item[uKey] ))
+                    c = new Set([...a].filter(x => !b.has(x)))
+                    d = Array.from(c)
+                    selectedItemsKeys.forEach(i => {
+                        if(dataSource[i][uKey] == d) {
+                            unSelectedNum = i
+                        }
+                    })                      
                     //删除状态中取消的元素
                     curItems.every((item, index) => {
                         if (dataSource[unSelectedNum][uKey] === item[uKey]) {
