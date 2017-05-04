@@ -38,7 +38,7 @@ const getMenu = (menuLists) => {
                           item.children.map((menuItem,index) => {
                             let url = menuItem.uri || '#'
                             return (
-                              <MenuItem key={`menuItem-${index}`}>
+                              <MenuItem key={`item-${item.code}-${index}`}>
                                 {new RegExp('http').test(menuItem.uri) ? <a href={menuItem.uri} target='blank'>{menuItem.name}</a> : <Link to={url}>{menuItem.name}</Link>}
                               </MenuItem>
                             )
@@ -48,8 +48,9 @@ const getMenu = (menuLists) => {
                     )
                   } else {
                     let url = item.uri || '#'
+                    console.log(item.code)
                     return (
-                      <MenuItem key={`item-${index}`}>
+                      <MenuItem key={`item-${item.code}-${index}`}>
                         {new RegExp('http').test(item.uri) ? <a href={item.uri} target='blank'>{item.name}</a> : <Link to={url}>{item.name}</Link>}
                       </MenuItem>
                     )
