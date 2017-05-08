@@ -132,7 +132,7 @@ class Deal extends Component {
       dataIndex: 'price'
     }, {
       key: '5',
-      title: '数量',
+      title: '购买数量',
       dataIndex: 'num'
     }, {
       key: '6',
@@ -140,7 +140,7 @@ class Deal extends Component {
       dataIndex: 'price'
     }, {
       key: '7',
-      title: '退货数量',
+      title: '退货验收数量',
       dataIndex: 'tGoodsNum'
     }, {
       key: '8',
