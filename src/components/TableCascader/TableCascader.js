@@ -64,8 +64,8 @@ class TableCascader extends Component {
                     let b = []
                     let c = []
                     let d = null
-                    a = new Set([...selectedItemsKeys].map( index => dataSource[index][uKey] ))
-                    b = new Set([...selectedRows].map( item => item[uKey] ))
+                    a = new Set([...selectedItemsKeys].map( (index) => dataSource[index][uKey] ))
+                    b = new Set([...selectedRows].map( (item, i) => item[uKey] ))
                     c = new Set([...a].filter(x => !b.has(x)))
                     d = Array.from(c)
                     selectedItemsKeys.forEach(i => {
