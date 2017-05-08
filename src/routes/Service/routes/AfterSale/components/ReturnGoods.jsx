@@ -156,7 +156,7 @@ class ReturnGoods extends Component {
         }, {
             key: '7',
             title: '退货数量',
-            dataIndex: 'tGoodsNum'
+            dataIndex: 'refundNums'
         }, {
             key: '8',
             title: '退货金额',
