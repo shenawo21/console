@@ -4,7 +4,7 @@ import InfoView from '../components/InfoView'
 import GoodsInfo from '../components/GoodsInfo'
 import Panel from 'components/Panel'
 import {refundDetail,verify,addressList,getMoney,returnBack} from '../modules/InfoReducer'
-import { message } from 'hen';
+import { message,Modal} from 'hen';
 
 class Info extends Component {
   
@@ -53,14 +53,33 @@ class Info extends Component {
                 message.error('请填写退款审批说明!')
             } else {
                 Object.assign(value,{processStatus:'PROCESS',goodsNum:result.goodsNum,outerSkuId:result.tradesOrder.outerSkuId})
-                verify(value).then(function(response) {
-                    if (response && response.status == 1) {
-                        setTimeout(() => {
-                            let pathname = '/service/aftersale';
-                            _this.context.router.replace(pathname);
-                        }, 1000);
-                    }
-                })
+                if (result.ordGoodStatus == '2') {
+                     Modal.confirm({
+                        title:'确定审核通过吗？',
+                        width:'600px',
+                        iconType:'info-circle',
+                        content:'该订单已提交打单发货，请和发货人员确认是否已发货，以免造成损失',
+                        onOk:function(){
+                            verify(value).then(function(response) {
+                                if (response && response.status == 1) {
+                                    setTimeout(() => {
+                                        let pathname = '/service/aftersale';
+                                        _this.context.router.replace(pathname);
+                                    }, 1000);
+                                }
+                            })
+                        }
+                    })
+                } else {
+                    verify(value).then(function(response) {
+                        if (response && response.status == 1) {
+                            setTimeout(() => {
+                                let pathname = '/service/aftersale';
+                                _this.context.router.replace(pathname);
+                            }, 1000);
+                        }
+                    })
+                } 
             }
         } else if(key === 'return'){
             delete value.afterSaleType
@@ -107,6 +126,7 @@ class Info extends Component {
         let addressObj = _this.refs.form.state
         Object.assign(value,params,addressObj,{afterSaleType:'REFUND_GOODS'})
         if(key === 'review'){
+            
             Object.assign(value,{processStatus:'PROCESS'})
             delete value.photoList
             if (!value.valueBearType) {

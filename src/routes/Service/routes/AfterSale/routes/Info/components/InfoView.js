@@ -163,7 +163,8 @@ class InfoView extends Component {
                     </span></li> : '' }
                     <li><b>&nbsp;</b><Button type="ghost" onClick = {(() => history.go(-1))}>返回</Button></li>
                 </ul> :                 
-                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={result.reason == '多拍/拍错/不想要' ? buttonOption : btOptions } />}
+                <Form horizontal items={this._getFormItems()} onSubmit={handleSubmit}  buttonOption={result.ordGoodStatus == '3' ? btOptions : buttonOption } />}
+                {result.ordGoodStatus == '2' ? <p style = {{color:'#f00',paddingLeft:120}}>该订单已提交打单发货，请和发货人员确认是否已发货，以免造成损失。</p>:''}
             </div>
         )
     }
